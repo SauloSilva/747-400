@@ -5,7 +5,8 @@ OBJ
 TEXTURE		../../objects/747_exterior/Exterior_HStab.png
 TEXTURE_NORMAL ../../objects/747_exterior/Exterior_HStab_NML.png
 GLOBAL_specular 1.0
-NORMAL_METALNESS 
+NORMAL_METALNESS
+BLEND_GLASS
 POINT_COUNTS	1084 0 0 3174
 
 VT	  -0.4687   -0.2230    2.5262	-0.264 -0.168  0.950	0.2152 0.749 

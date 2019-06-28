@@ -3,6 +3,9 @@ A
 OBJ
 
 TEXTURE		../../objects/747_exterior/Exterior_Gear.png
+TEXTURE_NORMAL ../../objects/747_exterior/Exterior_Gear_NML.png
+GLOBAL_specular 1.0
+NORMAL_METALNESS
 POINT_COUNTS	10670 0 0 42036
 
 VT	   0.0764   -1.1522   -0.3735	 0.679  0.649  0.342	0.2985 0.0034
