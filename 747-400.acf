@@ -115,10 +115,10 @@ P _gear/0/_latN 0.0
 P _gear/0/_latR 0.0
 P _gear/0/_leg_len 8.399999619
 P _gear/0/_lonE 1.0
-P _gear/0/_lonN 67.982513428
+P _gear/0/_lonN 36.712028503
 P _gear/0/_lonR 117.0
 P _gear/0/_scon 358467.468750000
-P _gear/0/_stat_def 0.165289506
+P _gear/0/_stat_def 0.165289551
 P _gear/0/_steerdeg_hispeed 15.0
 P _gear/0/_steerdeg_lospeed 75.0
 P _gear/0/_strut_comp 0.0
@@ -149,10 +149,10 @@ P _gear/1/_latN 0.0
 P _gear/1/_latR 0.0
 P _gear/1/_leg_len 6.0
 P _gear/1/_lonE 1.0
-P _gear/1/_lonN 81.263534546
+P _gear/1/_lonN 43.792861938
 P _gear/1/_lonR 140.0
 P _gear/1/_scon 358467.468750000
-P _gear/1/_stat_def 0.627037227
+P _gear/1/_stat_def 0.627037287
 P _gear/1/_steerdeg_hispeed 0.0
 P _gear/1/_steerdeg_lospeed 0.0
 P _gear/1/_strut_comp 0.0
@@ -183,10 +183,10 @@ P _gear/2/_latN 0.0
 P _gear/2/_latR 0.0
 P _gear/2/_leg_len 6.0
 P _gear/2/_lonE 1.0
-P _gear/2/_lonN 81.263534546
+P _gear/2/_lonN 43.792861938
 P _gear/2/_lonR 140.0
 P _gear/2/_scon 358467.468750000
-P _gear/2/_stat_def 0.627037227
+P _gear/2/_stat_def 0.627037287
 P _gear/2/_steerdeg_hispeed 0.0
 P _gear/2/_steerdeg_lospeed 0.0
 P _gear/2/_strut_comp 0.0
@@ -197,7 +197,7 @@ P _gear/2/_strut_t2 0.252929688
 P _gear/2/_tire_radius 2.160000086
 P _gear/2/_tire_swidth 0.930000007
 P _gear/3/_axiE 0.0
-P _gear/3/_axiN -6.351790428
+P _gear/3/_axiN -3.386485577
 P _gear/3/_axiR -11.0
 P _gear/3/_cyc_time 7.0
 P _gear/3/_damp 9000.0
@@ -213,14 +213,14 @@ P _gear/3/_gear_x 17.020000458
 P _gear/3/_gear_y -7.820000172
 P _gear/3/_gear_z 103.970001221
 P _gear/3/_latE 0.0
-P _gear/3/_latN -52.546630859
+P _gear/3/_latN -28.015472412
 P _gear/3/_latR -91.0
 P _gear/3/_leg_len 9.100000381
 P _gear/3/_lonE 1.0
-P _gear/3/_lonN 6.196919441
+P _gear/3/_lonN 3.770761013
 P _gear/3/_lonR 10.0
 P _gear/3/_scon 358467.468750000
-P _gear/3/_stat_def 0.559550881
+P _gear/3/_stat_def 0.559550941
 P _gear/3/_steerdeg_hispeed 0.0
 P _gear/3/_steerdeg_lospeed 0.0
 P _gear/3/_strut_comp 0.0
@@ -231,7 +231,7 @@ P _gear/3/_strut_t2 0.252929688
 P _gear/3/_tire_radius 2.160000086
 P _gear/3/_tire_swidth 0.899999976
 P _gear/4/_axiE 0.0
-P _gear/4/_axiN 6.351790428
+P _gear/4/_axiN 3.386485577
 P _gear/4/_axiR 11.0
 P _gear/4/_cyc_time 7.0
 P _gear/4/_damp 9000.0
@@ -247,14 +247,14 @@ P _gear/4/_gear_x -17.020000458
 P _gear/4/_gear_y -7.820000172
 P _gear/4/_gear_z 103.970001221
 P _gear/4/_latE 0.0
-P _gear/4/_latN 52.546630859
+P _gear/4/_latN 28.015472412
 P _gear/4/_latR 91.0
 P _gear/4/_leg_len 9.100000381
 P _gear/4/_lonE 1.0
-P _gear/4/_lonN 6.196919441
+P _gear/4/_lonN 3.770761013
 P _gear/4/_lonR 10.0
 P _gear/4/_scon 358467.468750000
-P _gear/4/_stat_def 0.559550881
+P _gear/4/_stat_def 0.559550941
 P _gear/4/_steerdeg_hispeed 0.0
 P _gear/4/_steerdeg_lospeed 0.0
 P _gear/4/_strut_comp 0.0
@@ -285,7 +285,7 @@ P _gear/5/_latN 0.0
 P _gear/5/_latR 0.0
 P _gear/5/_leg_len 6.400000095
 P _gear/5/_lonE -36.0
-P _gear/5/_lonN -10.592838287
+P _gear/5/_lonN -22.454057693
 P _gear/5/_lonR 8.0
 P _gear/5/_scon 358467.468750000
 P _gear/5/_stat_def 0.0
@@ -315,11 +315,11 @@ P _gear/6/_gear_x -3.299999952
 P _gear/6/_gear_y -12.100000381
 P _gear/6/_gear_z 115.150001526
 P _gear/6/_latE -55.0
-P _gear/6/_latN -73.477935791
+P _gear/6/_latN -64.851593018
 P _gear/6/_latR -87.0
 P _gear/6/_leg_len 3.700000048
 P _gear/6/_lonE 28.0
-P _gear/6/_lonN 69.575355530
+P _gear/6/_lonN 50.166088104
 P _gear/6/_lonR 100.0
 P _gear/6/_scon 358467.468750000
 P _gear/6/_stat_def 0.0
@@ -349,11 +349,11 @@ P _gear/7/_gear_x 3.299999952
 P _gear/7/_gear_y -12.100000381
 P _gear/7/_gear_z 115.150001526
 P _gear/7/_latE 55.0
-P _gear/7/_latN 73.477935791
+P _gear/7/_latN 64.851593018
 P _gear/7/_latR 87.0
 P _gear/7/_leg_len 3.700000048
 P _gear/7/_lonE 28.0
-P _gear/7/_lonN 69.575355530
+P _gear/7/_lonN 50.166088104
 P _gear/7/_lonR 100.0
 P _gear/7/_scon 358467.468750000
 P _gear/7/_stat_def 0.0
@@ -383,7 +383,7 @@ P _gear/8/_gear_x 11.0
 P _gear/8/_gear_y -7.300000191
 P _gear/8/_gear_z 103.900001526
 P _gear/8/_latE 42.0
-P _gear/8/_latN 17.747709274
+P _gear/8/_latN 29.069782257
 P _gear/8/_latR 0.0
 P _gear/8/_leg_len 8.899999619
 P _gear/8/_lonE 0.0
@@ -417,7 +417,7 @@ P _gear/9/_gear_x -11.0
 P _gear/9/_gear_y -7.300000191
 P _gear/9/_gear_z 103.900001526
 P _gear/9/_latE -42.0
-P _gear/9/_latN -17.747709274
+P _gear/9/_latN -29.069782257
 P _gear/9/_latR 0.0
 P _gear/9/_leg_len 8.899999619
 P _gear/9/_lonE 0.0
@@ -96660,7 +96660,7 @@ P acf/_ann_wav_file/count 197
 P acf/_ap_crs_src 0
 P acf/_apt_req_plane 1
 P acf/_asi_is_kts 1
-P acf/_author Mohammad Gazzawi / Sergio Santagada / Javier Rollon / Jim Gregory / YesAviation
+P acf/_author Mohammad Gazzawi / Sergio Santagada / Javier Rollon / Jim Gregory / YesAviation / PresentMonkey / Wolfair / Notchmaster / Reddeviln / Totedemac/ Ghostfire / 
 P acf/_auto_cowl_flaps_EQ 1065353216
 P acf/_auto_engage_BC_deg 0.0
 P acf/_auto_omega_fire 2.0
@@ -97695,7 +97695,7 @@ P acf/_cyclic_up_trim_rat 0.0
 P acf/_deg_psi_per_deg_def 6.0
 P acf/_deg_the_per_deg_def 6.0
 P acf/_delta3 0.0
-P acf/_descrip B747-400ER
+P acf/_descrip B747-400
 P acf/_diff_coll_with_hdng 0.0
 P acf/_diff_coll_with_ptch 0.0
 P acf/_diff_coll_with_roll 0.0
@@ -98104,7 +98104,7 @@ P acf/_feather_prop_with_oilp 0
 P acf/_feathered_pitch 0.0
 P acf/_ff_rat_idle_JET 0.010000000
 P acf/_ff_rat_idle_PRP 0.250000000
-P acf/_file_writer_version 113201
+P acf/_file_writer_version 113400
 P acf/_flap1_cd 0.109999999
 P acf/_flap1_cl 1.200000048
 P acf/_flap1_cm -0.370999992
@@ -98445,7 +98445,7 @@ P acf/_mixt_x_ctr 0.0
 P acf/_n1_power_curve1 2.0
 P acf/_n1_power_curve2 3.0
 P acf/_n2_power_curve 3.500000000
-P acf/_name Boeing 747-400ER General Electric 
+P acf/_name Boeing 747-400 GE
 P acf/_new_plot_XP3D_cock/0 1
 P acf/_new_plot_XP3D_cock/1 1
 P acf/_new_plot_XP3D_cock/2 0
@@ -98500,6 +98500,7 @@ P acf/_ott_roll_response 10.0
 P acf/_ott_the_deg_off_for_full_def 3.0
 P acf/_ott_the_deg_per_kt 0.100000001
 P acf/_ott_the_sec_into_future 1.500000000
+P acf/_ott_the_sec_to_trim 0.0
 P acf/_ott_the_sec_to_tune 2.0
 P acf/_otto_ah_source_type 10
 P acf/_otto_dg_source_type 10
@@ -98546,9 +98547,9 @@ P acf/_part_descrip/92 Nosegear axle truck
 P acf/_part_descrip/93 Nosegear steering link arm2
 P acf/_part_descrip/94 Nosegear axle truck
 P acf/_part_descrip/count 95
-P acf/_pe_xyz/0 -1.740000010
-P acf/_pe_xyz/1 10.199999809
-P acf/_pe_xyz/2 18.899999619
+P acf/_pe_xyz/0 -1.738844991
+P acf/_pe_xyz/1 10.990813255
+P acf/_pe_xyz/2 18.897638321
 P acf/_pe_xyz/count 3
 P acf/_phase_hdng_tvect_in_at_00 0
 P acf/_phase_hdng_tvect_in_at_90 0
@@ -98856,6 +98857,7 @@ P acf/_starter_is_air_driven 1
 P acf/_starter_max_rpm_rat 0.219999999
 P acf/_starter_torque_rat 0.140000001
 P acf/_stickshaker 1
+P acf/_studio Laminar Research, Yes Aviation
 P acf/_sweep_extend_protect 0
 P acf/_sweep_m1 0.0
 P acf/_sweep_m2 0.0
@@ -98968,6 +98970,7 @@ P acf/_vect_power_for 1.0
 P acf/_vect_rate 15.0
 P acf/_vectarmY 0.0
 P acf/_vectarmZ 0.0
+P acf/_version v0
 P acf/_vvi_but_adjusts_pitch 0
 P acf/_warn_airliner 1
 P acf/_warn_alt_app_100 0
