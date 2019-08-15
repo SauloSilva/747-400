@@ -47,7 +47,19 @@ B747DR_engine1psi    = create_dataref("laminar/B747/air/engine1/bleed_air_psi", 
 B747DR_engine4psi    = create_dataref("laminar/B747/air/engine4/bleed_air_psi", "number")
 
 B747DR_hyd_dmd_pmp_sel_pos      = create_dataref("laminar/B747/hydraulics/dmd_pump/sel_dial_pos", "array[4]")
+function B747_animate_value(current_value, target, min, max, speed)
 
+    local fps_factor = math.min(1.0, speed * SIM_PERIOD)
+
+    if target >= (max - 0.001) and current_value >= (max - 0.01) then
+        return max
+    elseif target <= (min + 0.001) and current_value <= (min + 0.01) then
+       return min
+    else
+        return current_value + ((target - current_value) * fps_factor)
+    end
+
+end
 
 function B747_engine_hyd_valves()
 -- ENGINE #1
@@ -170,10 +182,11 @@ function B747_dem_pressures()
   
 end
 function B747_system_pressures()
-  B747DR_hyd_sys_pressure_1=math.max(B747DR_hyd_dem_pressure_1,B747DR_hyd_edp_pressure_1)
-  B747DR_hyd_sys_pressure_2=math.max(B747DR_hyd_dem_pressure_2,B747DR_hyd_edp_pressure_2)
-  B747DR_hyd_sys_pressure_3=math.max(B747DR_hyd_dem_pressure_3,B747DR_hyd_edp_pressure_3)
-  B747DR_hyd_sys_pressure_4=math.max(B747DR_hyd_dem_pressure_4,B747DR_hyd_edp_pressure_4,B747DR_hyd_aux_pressure)
+B747_animate_value(B747DR_hyd_sys_pressure_1,math.max(B747DR_hyd_dem_pressure_1,B747DR_hyd_edp_pressure_1),0,3000,1)
+  B747DR_hyd_sys_pressure_1=B747_animate_value(B747DR_hyd_sys_pressure_1,math.max(B747DR_hyd_dem_pressure_1,B747DR_hyd_edp_pressure_1),0,3000,1)--math.max(B747DR_hyd_dem_pressure_1,B747DR_hyd_edp_pressure_1)
+  B747DR_hyd_sys_pressure_2=B747_animate_value(B747DR_hyd_sys_pressure_2,math.max(B747DR_hyd_dem_pressure_2,B747DR_hyd_edp_pressure_2),0,3000,1)--math.max(B747DR_hyd_dem_pressure_2,B747DR_hyd_edp_pressure_2)
+  B747DR_hyd_sys_pressure_3=B747_animate_value(B747DR_hyd_sys_pressure_3,math.max(B747DR_hyd_dem_pressure_3,B747DR_hyd_edp_pressure_3),0,3000,1)--math.max(B747DR_hyd_dem_pressure_3,B747DR_hyd_edp_pressure_3)
+  B747DR_hyd_sys_pressure_4=B747_animate_value(B747DR_hyd_sys_pressure_4,math.max(B747DR_hyd_dem_pressure_4,B747DR_hyd_edp_pressure_4,B747DR_hyd_aux_pressure),0,3000,1)--math.max(B747DR_hyd_dem_pressure_4,B747DR_hyd_edp_pressure_4,B747DR_hyd_aux_pressure)
 
   B747DR_hyd_sys_res_1=B747DR_hyd_sys_restotal_1-(B747DR_hyd_sys_pressure_1/3000)*0.3
   B747DR_hyd_sys_res_2=B747DR_hyd_sys_restotal_2-(B747DR_hyd_sys_pressure_2/3000)*0.3
