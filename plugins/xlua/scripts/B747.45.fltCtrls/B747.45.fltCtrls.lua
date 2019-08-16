@@ -103,6 +103,7 @@ simDR_wing_flap1_deg            = find_dataref("sim/flightmodel2/wing/flap1_deg"
 simDR_ind_airspeed_kts_pilot    = find_dataref("sim/cockpit2/gauges/indicators/airspeed_kts_pilot")
 simDR_engine_N1_pct             = find_dataref("sim/cockpit2/engine/indicators/N1_percent")
 simDR_radio_alt_height_capt     = find_dataref("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot")
+simDR_hyd_press_1_2               = find_dataref("sim/cockpit2/hydraulics/indicators/hydraulic_pressure_1_2_4")
 simDR_parking_brake_ratio       = find_dataref("sim/cockpit2/controls/parking_brake_ratio")
 simDR_elevator_trim             = find_dataref("sim/flightmodel2/controls/elevator_trim")
 simDR_acf_weight_total_kg       = find_dataref("sim/flightmodel/weight/m_total")
@@ -761,6 +762,10 @@ function B747_fltCtrols_EICAS_msg()
     end
 
     -- >CONFIG PARK BRK
+    if simDR_parking_brake_ratio > (simDR_hyd_press_1_2/3000) then
+      simDR_parking_brake_ratio = (simDR_hyd_press_1_2/3000)
+    end
+    
     B747DR_CAS_warning_status[5] = 0
     if simDR_parking_brake_ratio > 0.99
         and simDR_ind_airspeed_kts_pilot < B747DR_airspeed_V1

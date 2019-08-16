@@ -50,10 +50,10 @@ B747bleedAir.engine4    = {}
 B747bleedAir.apu        = {}
 B747bleedAir.grnd_cart  = {}
 
-B747bleedAir.engine1.psi    = create_dataref("laminar/B747/air/engine1/bleed_air_psi", "number")
+B747bleedAir.engine1.psi    = find_dataref("laminar/B747/air/engine1/bleed_air_psi")--create_dataref("laminar/B747/air/engine1/bleed_air_psi", "number")
 B747bleedAir.engine2.psi    = create_dataref("laminar/B747/air/engine2/bleed_air_psi", "number")
 B747bleedAir.engine3.psi    = create_dataref("laminar/B747/air/engine3/bleed_air_psi", "number")
-B747bleedAir.engine4.psi    = create_dataref("laminar/B747/air/engine4/bleed_air_psi", "number")
+B747bleedAir.engine4.psi    = find_dataref("laminar/B747/air/engine4/bleed_air_psi")--create_dataref("laminar/B747/air/engine4/bleed_air_psi", "number")
 B747bleedAir.apu.psi        = 0
 B747bleedAir.grnd_cart.psi  =   0
 

@@ -23381,10 +23381,12 @@ ANIM_begin
 	ANIM_rotate	   1.0000    0.0000   -0.0000	 20.00 -20.00	0 1	laminar/B747/fuel/fuel_control/toggle_sw_pos[3]
 	TRIS	25524 30
 ANIM_end
-ATTR_manip_drag_rotate	hand	-0.0630	2.4227	5.2344	-1.0	0.0	-0.0	58.50	108.50	0.0	0.0	1.0	0.0	0.0	laminar/B747/engines/thrust_lever_01	none	Thrust Lever - Engine 1
+ATTR_manip_drag_rotate	hand	-0.0630	2.4227	5.2344	-1.0	0.0	-0.0	58.50	108.50	0.0	0.0	1.0	0.0	0.0	sim/cockpit2/engine/actuators/throttle_jet_rev_ratio[0]	none	Thrust Lever - Engine 1
 ANIM_begin
+	ANIM_hide	0.0 0.0	laminar/B747/engine/thrust_mnp_show[0]
+	ANIM_show	1.0 1.0	laminar/B747/engine/thrust_mnp_show[0]
 	ANIM_trans	  -0.0627    2.4227    5.2344	  -0.0627    2.4227    5.2344	0 0	no_ref
-	ANIM_rotate_begin	  -1.0000    0.0000   -0.0000	laminar/B747/engines/thrust/lever_pos[0]
+	ANIM_rotate_begin	  -1.0000    0.0000   -0.0000	sim/cockpit2/engine/actuators/throttle_jet_rev_ratio[0]
 		ANIM_rotate_key	-999.0	 58.50
 		ANIM_rotate_key	0.0	 58.50
 		ANIM_rotate_key	1.0	108.50
@@ -23396,22 +23398,26 @@ ANIM_begin
 		ANIM_trans	  -0.0191   -0.0239    0.2585	  -0.0191   -0.0239    0.2585	0 0	no_ref
 		TRIS	25674 30
 	ANIM_end
-	ATTR_manip_drag_rotate	hand	-0.053	2.622	5.355	-1.0	0.0	-0.0	172.684	83.419	0	0.0	1.0	0	0	laminar/B747/engines/thrust_rev_lever_01	none	Thrust reverse Lever - Engine 1
+	ATTR_manip_drag_rotate	hand	-0.053	2.622	5.355	-1.0	0.0	-0.0	172.684	83.419	0	0.0	-1.0	0	0	sim/cockpit2/engine/actuators/throttle_jet_rev_ratio[0]	none	Thrust reverse Lever - Engine 1
 	ANIM_begin
+		ANIM_hide	0.0 0.0	laminar/B747/engine/rev_mnp_show[0]
+		ANIM_show	1.0 1.0	laminar/B747/engine/rev_mnp_show[0]
 		ANIM_trans	   0.0102    0.0008    0.2331	   0.0102    0.0008    0.2331	0 0	no_ref
-		ANIM_rotate_begin	  -1.0000   -0.0000   -0.0000	laminar/B747/engines/thrust_rev/lever_pos[0]
-			ANIM_rotate_key	-999.0	172.68
+		ANIM_rotate_begin	  -1.0000   -0.0000   -0.0000	sim/cockpit2/engine/actuators/throttle_jet_rev_ratio[0]
+			ANIM_rotate_key	999.0	172.68
 			ANIM_rotate_key	0.0	172.68
-			ANIM_rotate_key	1.0	 83.42
-			ANIM_rotate_key	999.0	 83.42
+			ANIM_rotate_key	-1.0	 83.42
+			ANIM_rotate_key	-999.0	 83.42
 		ANIM_rotate_end
 		TRIS	25704 120
 	ANIM_end
 ANIM_end
-ATTR_manip_drag_rotate	hand	-0.033	2.4227	5.2344	-1.0	0.0	-0.0	58.50	108.50	0.0	0.0	1.0	0.0	0.0	laminar/B747/engines/thrust_lever_02	none	Thrust Lever - Engine #2
+ATTR_manip_drag_rotate	hand	-0.033	2.4227	5.2344	-1.0	0.0	-0.0	58.50	108.50	0.0	0.0	1.0	0.0	0.0	sim/cockpit2/engine/actuators/throttle_jet_rev_ratio[1]	none	Thrust Lever - Engine #2
 ANIM_begin
+	ANIM_hide	0.0 0.0	laminar/B747/engine/thrust_mnp_show[1]
+	ANIM_show	1.0 1.0	laminar/B747/engine/thrust_mnp_show[1]
 	ANIM_trans	  -0.0332    2.4227    5.2344	  -0.0332    2.4227    5.2344	0 0	no_ref
-	ANIM_rotate_begin	  -1.0000    0.0000   -0.0000	laminar/B747/engines/thrust/lever_pos[1]
+	ANIM_rotate_begin	  -1.0000    0.0000   -0.0000	sim/cockpit2/engine/actuators/throttle_jet_rev_ratio[1]
 		ANIM_rotate_key	-999.0	 58.50
 		ANIM_rotate_key	0.0	 58.50
 		ANIM_rotate_key	1.0	108.50
@@ -23423,22 +23429,26 @@ ANIM_begin
 		ANIM_trans	   0.0070    0.0412    0.2522	   0.0070    0.0412    0.2522	0 0	no_ref
 		TRIS	25944 30
 	ANIM_end
-	ATTR_manip_drag_rotate	hand	-0.030	2.622	5.355	-1.0	0.0	-0.0	172.684	83.419	0	0.0	1.0	0	0	laminar/B747/engines/thrust_rev_lever_02	none	Thrust Reverse Lever - Engine 2
+	ATTR_manip_drag_rotate	hand	-0.030	2.622	5.355	-1.0	0.0	-0.0	172.684	83.419	0	0.0	-1.0	0	0	sim/cockpit2/engine/actuators/throttle_jet_rev_ratio[1]	none	Thrust Reverse Lever - Engine 2
 	ANIM_begin
+		ANIM_hide	0.0 0.0	laminar/B747/engine/rev_mnp_show[1]
+		ANIM_show	1.0 1.0	laminar/B747/engine/rev_mnp_show[1]
 		ANIM_trans	   0.0034    0.0008    0.2331	   0.0034    0.0008    0.2331	0 0	no_ref
-		ANIM_rotate_begin	  -1.0000   -0.0000   -0.0000	laminar/B747/engines/thrust_rev/lever_pos[1]
-			ANIM_rotate_key	-999.0	172.68
+		ANIM_rotate_begin	  -1.0000   -0.0000   -0.0000	sim/cockpit2/engine/actuators/throttle_jet_rev_ratio[1]
+			ANIM_rotate_key	999.0	172.68
 			ANIM_rotate_key	0.0	172.68
-			ANIM_rotate_key	1.0	 83.42
-			ANIM_rotate_key	999.0	 83.42
+			ANIM_rotate_key	-1.0	 83.42
+			ANIM_rotate_key	-999.0	 83.42
 		ANIM_rotate_end
 		TRIS	25974 120
 	ANIM_end
 ANIM_end
-ATTR_manip_drag_rotate	hand	0.026	2.4227	5.2344	-1.0	0.0	-0.0	58.5	108.50	0.0	0.0	1.0	0.0	0.0	laminar/B747/engines/thrust_lever_04	none	Thrust Lever - Engine #4
+ATTR_manip_drag_rotate	hand	0.026	2.4227	5.2344	-1.0	0.0	-0.0	58.5	108.50	0.0	0.0	1.0	0.0	0.0	sim/cockpit2/engine/actuators/throttle_jet_rev_ratio[3]	none	Thrust Lever - Engine #4
 ANIM_begin
+	ANIM_hide	0.0 0.0	laminar/B747/engine/thrust_mnp_show[3]
+	ANIM_show	1.0 1.0	laminar/B747/engine/thrust_mnp_show[3]
 	ANIM_trans	   0.0261    2.4227    5.2344	   0.0261    2.4227    5.2344	0 0	no_ref
-	ANIM_rotate_begin	  -1.0000    0.0000   -0.0000	laminar/B747/engines/thrust/lever_pos[3]
+	ANIM_rotate_begin	  -1.0000    0.0000   -0.0000	sim/cockpit2/engine/actuators/throttle_jet_rev_ratio[3]
 		ANIM_rotate_key	-999.0	 58.50
 		ANIM_rotate_key	0.0	 58.50
 		ANIM_rotate_key	1.0	108.50
@@ -23450,22 +23460,26 @@ ANIM_begin
 		ANIM_trans	   0.0190   -0.0239    0.2585	   0.0190   -0.0239    0.2585	0 0	no_ref
 		TRIS	26214 30
 	ANIM_end
-	ATTR_manip_drag_rotate	hand	-0.016	2.622	5.355	-1.0	0.0	-0.0	172.684	83.419	0	0.0	1.0	0	0	laminar/B747/engines/thrust_rev_lever_04	none	Thrust Reverse L:ever - Engine 4
+	ATTR_manip_drag_rotate	hand	-0.016	2.622	5.355	-1.0	0.0	-0.0	172.684	83.419	0	0.0	-1.0	0	0	sim/cockpit2/engine/actuators/throttle_jet_rev_ratio[3]	none	Thrust Reverse L:ever - Engine 4
 	ANIM_begin
+		ANIM_hide	0.0 0.0	laminar/B747/engine/rev_mnp_show[2]
+		ANIM_show	1.0 1.0	laminar/B747/engine/rev_mnp_show[2]
 		ANIM_trans	  -0.0104    0.0008    0.2331	  -0.0104    0.0008    0.2331	0 0	no_ref
-		ANIM_rotate_begin	  -1.0000   -0.0000   -0.0000	laminar/B747/engines/thrust_rev/lever_pos[3]
-			ANIM_rotate_key	-999.0	172.68
+		ANIM_rotate_begin	  -1.0000   -0.0000   -0.0000	sim/cockpit2/engine/actuators/throttle_jet_rev_ratio[3]
+			ANIM_rotate_key	999.0	172.68
 			ANIM_rotate_key	0.0	172.68
-			ANIM_rotate_key	1.0	 83.42
-			ANIM_rotate_key	999.0	 83.42
+			ANIM_rotate_key	-1.0	 83.42
+			ANIM_rotate_key	-999.0	 83.42
 		ANIM_rotate_end
 		TRIS	26244 120
 	ANIM_end
 ANIM_end
-ATTR_manip_drag_rotate	hand	-0.004	2.4227	5.2344	-1.0	0.0	-0.0	58.50	108.50	0.0	0.0	1.0	0.0	0.0	laminar/B747/engines/thrust_lever_03	none	Thrust Lever - Engine #3
+ATTR_manip_drag_rotate	hand	-0.004	2.4227	5.2344	-1.0	0.0	-0.0	58.50	108.50	0.0	0.0	1.0	0.0	0.0	sim/cockpit2/engine/actuators/throttle_jet_rev_ratio[2]	none	Thrust Lever - Engine #3
 ANIM_begin
+	ANIM_hide	0.0 0.0	laminar/B747/engine/thrust_mnp_show[2]
+	ANIM_show	1.0 1.0	laminar/B747/engine/thrust_mnp_show[2]
 	ANIM_trans	  -0.0036    2.4227    5.2344	  -0.0036    2.4227    5.2344	0 0	no_ref
-	ANIM_rotate_begin	  -1.0000    0.0000   -0.0000	laminar/B747/engines/thrust/lever_pos[2]
+	ANIM_rotate_begin	  -1.0000    0.0000   -0.0000	sim/cockpit2/engine/actuators/throttle_jet_rev_ratio[2]
 		ANIM_rotate_key	-999.0	 58.50
 		ANIM_rotate_key	0.0	 58.50
 		ANIM_rotate_key	1.0	108.50
@@ -23477,36 +23491,42 @@ ANIM_begin
 		ANIM_trans	  -0.0071    0.0412    0.2522	  -0.0071    0.0412    0.2522	0 0	no_ref
 		TRIS	26484 30
 	ANIM_end
-	ATTR_manip_drag_rotate	hand	-0.007	2.622	5.355	-1.0	0.0	-0.0	172.684	83.419	0	0.0	1.0	0	0	laminar/B747/engines/thrust_rev_lever_03	none	Thrust Reverse Lever - Engine 3
+	ATTR_manip_drag_rotate	hand	-0.007	2.622	5.355	-1.0	0.0	-0.0	172.684	83.419	0	0.0	-1.0	0	0	sim/cockpit2/engine/actuators/throttle_jet_rev_ratio[2]	none	Thrust Reverse Lever - Engine 3
 	ANIM_begin
+		ANIM_hide	0.0 0.0	laminar/B747/engine/rev_mnp_show[2]
+		ANIM_show	1.0 1.0	laminar/B747/engine/rev_mnp_show[2]
 		ANIM_trans	  -0.0037    0.0008    0.2331	  -0.0037    0.0008    0.2331	0 0	no_ref
-		ANIM_rotate_begin	  -1.0000   -0.0000   -0.0000	laminar/B747/engines/thrust_rev/lever_pos[2]
-			ANIM_rotate_key	-999.0	172.68
+		ANIM_rotate_begin	  -1.0000   -0.0000   -0.0000	sim/cockpit2/engine/actuators/throttle_jet_rev_ratio[2]
+			ANIM_rotate_key	999.0	172.68
 			ANIM_rotate_key	0.0	172.68
-			ANIM_rotate_key	1.0	 83.42
-			ANIM_rotate_key	999.0	 83.42
+			ANIM_rotate_key	-1.0	 83.42
+			ANIM_rotate_key	-999.0	 83.42
 		ANIM_rotate_end
 		TRIS	26514 120
 	ANIM_end
 ANIM_end
-ATTR_manip_drag_rotate	up_down	-0.018	2.4227	5.2344	-1.0	0.0	-0.0	58.50	108.50	0.0	0.0	1.0	0.0	0.0	laminar/B747/engines/thrust_lever_all	none	Thrust Lever - All Engines
+ATTR_manip_drag_rotate	up_down	-0.018	2.4227	5.2344	-1.0	0.0	-0.0	58.50	108.50	0.0	0.0	1.0	0.0	0.0	sim/cockpit2/engine/actuators/throttle_jet_rev_ratio_all	none	Thrust Lever - All Engines
 ANIM_begin
+	ANIM_hide	0.0 0.0	laminar/B747/engine/thrust_mnp_show_all
+	ANIM_show	1.0 1.0	laminar/B747/engine/thrust_mnp_show_all
 	ANIM_trans	  -0.0184    2.4227    5.2344	  -0.0184    2.4227    5.2344	0 0	no_ref
-	ANIM_rotate_begin	  -1.0000    0.0000   -0.0000	laminar/B747/engines/thrust/lever_pos[4]
+	ANIM_rotate_begin	  -1.0000    0.0000   -0.0000	sim/cockpit2/engine/actuators/throttle_jet_rev_ratio_all
 		ANIM_rotate_key	-999.0	 58.50
 		ANIM_rotate_key	0.0	 58.50
 		ANIM_rotate_key	1.0	108.50
 		ANIM_rotate_key	999.0	108.50
 	ANIM_rotate_end
 	TRIS	26634 120
-	ATTR_manip_drag_rotate	up_down	-0.019	2.622	5.355	-1.0	0.0	-0.0	172.684	83.419	0	0.0	1.0	0	0	laminar/B747/engines/thrust_rev_lever_all	none	Thrust Reverse - All Engines
+	ATTR_manip_drag_rotate	up_down	-0.019	2.622	5.355	-1.0	0.0	-0.0	172.684	83.419	0	0.0	-1.0	0	0	sim/cockpit2/engine/actuators/throttle_jet_rev_ratio_all	none	Thrust Reverse - All Engines
 	ANIM_begin
+		ANIM_hide	0.0 0.0	laminar/B747/engine/rev_mnp_show_all
+		ANIM_show	1.0 1.0	laminar/B747/engine/rev_mnp_show_all
 		ANIM_trans	  -0.0001    0.0008    0.2331	  -0.0001    0.0008    0.2331	0 0	no_ref
-		ANIM_rotate_begin	  -1.0000   -0.0000   -0.0000	laminar/B747/engines/thrust_rev/lever_pos[4]
-			ANIM_rotate_key	-999.0	172.68
+		ANIM_rotate_begin	  -1.0000   -0.0000   -0.0000	sim/cockpit2/engine/actuators/throttle_jet_rev_ratio_all
+			ANIM_rotate_key	999.0	172.68
 			ANIM_rotate_key	0.0	172.68
-			ANIM_rotate_key	1.0	 83.42
-			ANIM_rotate_key	999.0	 83.42
+			ANIM_rotate_key	-1.0	 83.42
+			ANIM_rotate_key	-999.0	 83.42
 		ANIM_rotate_end
 		TRIS	26754 120
 	ANIM_end

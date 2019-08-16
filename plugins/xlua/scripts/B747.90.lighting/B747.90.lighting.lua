@@ -93,10 +93,14 @@ simDR_engine_running                = find_dataref("sim/flightmodel/engine/ENGN_
 --simDR_aircraft_groundspeed          = find_dataref("sim/flightmodel/position/groundspeed")
 simDR_generator_on                  = find_dataref("sim/cockpit2/electrical/generator_on")
 
-simDR_hyd_press_01                  = find_dataref("sim/cockpit2/hydraulics/indicators/hydraulic_pressure_1")
-simDR_hyd_press_02                  = find_dataref("sim/cockpit2/hydraulics/indicators/hydraulic_pressure_2")
-simDR_hyd_fluid_level_01            = find_dataref("sim/cockpit2/hydraulics/indicators/hydraulic_fluid_ratio_1")
-simDR_hyd_fluid_level_02            = find_dataref("sim/cockpit2/hydraulics/indicators/hydraulic_fluid_ratio_2")
+simDR_hyd_press_01                  = find_dataref("laminar/B747/hydraulics/pressure_1")
+simDR_hyd_press_02                  = find_dataref("laminar/B747/hydraulics/pressure_2")
+simDR_hyd_press_03                  = find_dataref("laminar/B747/hydraulics/pressure_3")
+simDR_hyd_press_04                  = find_dataref("laminar/B747/hydraulics/pressure_4")
+simDR_hyd_fluid_level_01            = find_dataref("laminar/B747/hydraulics/res_1")
+simDR_hyd_fluid_level_02            = find_dataref("laminar/B747/hydraulics/res_2")
+simDR_hyd_fluid_level_03            = find_dataref("laminar/B747/hydraulics/res_3")
+simDR_hyd_fluid_level_04            = find_dataref("laminar/B747/hydraulics/res_4")
 
 --simDR_annun_master_caution          = find_dataref("sim/cockpit2/annunciators/master_caution")
 --simDR_annun_master_warning          = find_dataref("sim/cockpit2/annunciators/master_warning")
@@ -1117,7 +1121,7 @@ function B747_annunciators()
     ----- MAIN PANEL -----
 
     -- BRAKE SOURCE LOW PRESS           simDR_hyd_press_01
-    annun.a.brake_source = B747_ternary(((simDR_hyd_press_01 < 1000.0) and (simDR_hyd_press_02 < 1000.0)), 1, 0)
+    annun.a.brake_source = B747_ternary(((simDR_hyd_press_01 < 1000.0) and (simDR_hyd_press_02 < 1000.0)and (simDR_hyd_press_04 < 1000.0)), 1, 0)
 
 
     ----- OVERHEAD PANEL -----
@@ -1158,8 +1162,8 @@ function B747_annunciators()
     -- HYDRAULIC SYSTEM FAULT
     annun.a.hyd_sys_fault_01 = B747_ternary((simDR_hyd_press_01 < 1000.0) or (simDR_hyd_fluid_level_01 < 0.1), 1, 0)
     annun.a.hyd_sys_fault_02 = B747_ternary((simDR_hyd_press_02 < 1000.0) or (simDR_hyd_fluid_level_02 < 0.1), 1, 0)
-    annun.a.hyd_sys_fault_03 = B747_ternary((simDR_hyd_press_02 < 1000.0) or (simDR_hyd_fluid_level_02 < 0.1), 1, 0)
-    annun.a.hyd_sys_fault_04 = B747_ternary((simDR_hyd_press_01 < 1000.0) or (simDR_hyd_fluid_level_01 < 0.1), 1, 0)
+    annun.a.hyd_sys_fault_03 = B747_ternary((simDR_hyd_press_03 < 1000.0) or (simDR_hyd_fluid_level_03 < 0.1), 1, 0)
+    annun.a.hyd_sys_fault_04 = B747_ternary((simDR_hyd_press_04 < 1000.0) or (simDR_hyd_fluid_level_04 < 0.1), 1, 0)
 
     -- HYDRAULIC DEMAND PUMP PRESS LOW              -- TODO:  ADD CONDITIONS:  DEMAND PUMP PRESS LOW / DEMAND PUMP FAIL
     annun.a.demand_pump_press_01 = B747_ternary((B747DR_hyd_dmd_pmp_sel_pos[0] == 0), 1, 0)

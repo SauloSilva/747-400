@@ -78,14 +78,28 @@ B747DR_CAS_caution_status       = find_dataref("laminar/B747/CAS/caution_status"
 B747DR_CAS_advisory_status      = find_dataref("laminar/B747/CAS/advisory_status")
 B747DR_CAS_memo_status          = find_dataref("laminar/B747/CAS/memo_status")
 
+B747DR_hyd_sys_restotal_1      = find_dataref("laminar/B747/hydraulics/restotal_1")
+B747DR_hyd_sys_restotal_2      = find_dataref("laminar/B747/hydraulics/restotal_2")
+B747DR_hyd_sys_restotal_3      = find_dataref("laminar/B747/hydraulics/restotal_3")
+B747DR_hyd_sys_restotal_4      = find_dataref("laminar/B747/hydraulics/restotal_4")
+B747DR_hyd_sys_res_1      = find_dataref("laminar/B747/hydraulics/res_1")
+B747DR_hyd_sys_res_2      = find_dataref("laminar/B747/hydraulics/res_2")
+B747DR_hyd_sys_res_3      = find_dataref("laminar/B747/hydraulics/res_3")
+B747DR_hyd_sys_res_4      = find_dataref("laminar/B747/hydraulics/res_4")
 
-
+B747DR_hyd_sys_pressure_1      = find_dataref("laminar/B747/hydraulics/pressure_1")
+B747DR_hyd_sys_pressure_2      = find_dataref("laminar/B747/hydraulics/pressure_2")
+B747DR_hyd_sys_pressure_3      = find_dataref("laminar/B747/hydraulics/pressure_3")
+B747DR_hyd_sys_pressure_4      = find_dataref("laminar/B747/hydraulics/pressure_4")
+local B747DR_hyd_dmd_pmp_sel_pos      = find_dataref("laminar/B747/hydraulics/dmd_pump/sel_dial_pos")
 
 --*************************************************************************************--
 --** 				        CREATE READ-ONLY CUSTOM DATAREFS               	         **--
 --*************************************************************************************--
 
-B747DR_hyd_dmd_pmp_sel_pos      = create_dataref("laminar/B747/hydraulics/dmd_pump/sel_dial_pos", "array[4]")
+
+
+
 
 B747DR_init_hyd_CD              = create_dataref("laminar/B747/hyd/init_CD", "number")
 
@@ -316,25 +330,25 @@ function B747_hyd_EICAS_msg()
         B747DR_CAS_caution_status[9] = 1
     end
 
-    -- HYD PRESS SYS 1 / HYD PRESS SYS 2
+    -- HYD PRESS SYS 1-4
     B747DR_CAS_caution_status[40] = 0
     B747DR_CAS_caution_status[41] = 0
-    if simDR_hyd_press_1 < 1000.0
-
-    then
-        B747DR_CAS_caution_status[40] = 1
-        B747DR_CAS_caution_status[41] = 1
-    end
-
-    -- HYD PRESS SYS 3 / HYD PRESS SYS 4
     B747DR_CAS_caution_status[42] = 0
     B747DR_CAS_caution_status[43] = 0
-    if simDR_hyd_press_2 < 1000.0
-
-    then
+    if B747DR_hyd_sys_pressure_1 < 1000.0 then
+        B747DR_CAS_caution_status[40] = 1
+    end
+    if B747DR_hyd_sys_pressure_2 < 1000.0 then
+        B747DR_CAS_caution_status[41] = 1
+    end
+    if B747DR_hyd_sys_pressure_3 < 1000.0 then
         B747DR_CAS_caution_status[42] = 1
+    end
+    if B747DR_hyd_sys_pressure_4 < 1000.0 then
         B747DR_CAS_caution_status[43] = 1
     end
+    
+    
 
     -- >HYD QTY LOW 1 / >HYD QTY LOW 2
     B747DR_CAS_advisory_status[218] = 0
@@ -383,7 +397,14 @@ end
 function B747_set_hyd_all_modes()
 
 	B747DR_init_hyd_CD = 0	
-
+B747DR_hyd_sys_restotal_1=math.random()*0.4+0.55
+B747DR_hyd_sys_restotal_2=math.random()*0.4+0.55
+B747DR_hyd_sys_restotal_3=math.random()*0.4+0.55
+B747DR_hyd_sys_restotal_4=math.random()*0.4+0.55
+B747DR_hyd_sys_res_1=B747DR_hyd_sys_restotal_1
+B747DR_hyd_sys_res_2=B747DR_hyd_sys_restotal_2
+B747DR_hyd_sys_res_3=B747DR_hyd_sys_restotal_3
+B747DR_hyd_sys_res_4=B747DR_hyd_sys_restotal_4
 end
 
 
