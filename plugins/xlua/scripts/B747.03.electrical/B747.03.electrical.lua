@@ -15,17 +15,54 @@
 *****************************************************************************************
 --]]
 
+--[[
+
+ELECTRICAL SYSTEM LOGIC DESCRIPTION:
+
+In planemaker we set up 5 busses.  The battery is assigned to bus 5 making it essentially
+the "Battery Bus".  The fifth bus will have power when the battery switch is on.
+The 747 has 4 "bus-tie" switches, which can isolate each of the 4 main busses.  This cannot
+be done in X-Plane so we require ALL (747) bus-tie switches to be closed in order to close the
+X-Plane cross-tie (handled in the code below).  So, in X-Plane we assign the battery and
+generators to bus 5.  Therefore, all of these 4 busses will have zero voltage until the
+cross-tie is closed.
+
+Since this logic means that all 4 busses either have power or they don't, the assignment of
+components to busses in Planemaker is made for amp load distribution, not for power
+source.  There should be no assignments made to the fifth bus.
+
+--]]
+
+
+
 --*************************************************************************************--
 --** 					              XLUA GLOBALS              				     **--
 --*************************************************************************************--
+
+--[[
+
+SIM_PERIOD - this contains the duration of the current frame in seconds (so it is alway a
+fraction).  Use this to normalize rates,  e.g. to add 3 units of fuel per second in a
+per-frame callback you’d do fuel = fuel + 3 * SIM_PERIOD.
+
+IN_REPLAY - evaluates to 0 if replay is off, 1 if replay mode is on
+
+--]]
+
 
 --*************************************************************************************--
 --** 					               CONSTANTS                    				 **--
 --*************************************************************************************--
 
+
+
+
 --*************************************************************************************--
 --** 					            GLOBAL VARIABLES                				 **--
 --*************************************************************************************--
+
+
+
 
 --*************************************************************************************--
 --** 					            LOCAL VARIABLES                 				 **--
@@ -35,24 +72,33 @@ local B747_apu_start = 0
 local B747_apu_inlet_door_target_pos = 0
 
 
+
 --*************************************************************************************--
 --** 				                X-PLANE DATAREFS            			    	 **--
 --*************************************************************************************--
 
-simDR_startup_running           	= find_dataref("sim/operation/prefs/startup_running")
-simDR_engine_running            	= find_dataref("sim/flightmodel/engine/ENGN_running")
-simDR_aircraft_on_ground        	= find_dataref("sim/flightmodel/failures/onground_all")
-simDR_aircraft_groundspeed      	= find_dataref("sim/flightmodel/position/groundspeed")
-simDR_battery_on                	= find_dataref("sim/cockpit2/electrical/battery_on")
-simDR_gpu_on                    	= find_dataref("sim/cockpit/electrical/gpu_on")
-simDR_cross_tie                 	= find_dataref("sim/cockpit2/electrical/cross_tie")
-simDR_apu_gen_on                	= find_dataref("sim/cockpit2/electrical/APU_generator_on")
-simDR_apu_gen_amps              	= find_dataref("sim/cockpit2/electrical/APU_generator_amps") -- why was this commented out?
-simDR_apu_start_switch_mode     	= find_dataref("sim/cockpit2/electrical/APU_starter_switch")
-simDR_apu_N1_pct                	= find_dataref("sim/cockpit2/electrical/APU_N1_percent")
-simDR_apu_running               	= find_dataref("sim/cockpit2/electrical/APU_running")
-simDR_generator_on              	= find_dataref("sim/cockpit2/electrical/generator_on")
-simDR_ind_airspeed_kts_pilot        = find_dataref("sim/cockpit2/gauges/indicators/airspeed_kts_pilot")
+simDR_startup_running           = find_dataref("sim/operation/prefs/startup_running")
+
+simDR_engine_running            = find_dataref("sim/flightmodel/engine/ENGN_running")
+
+simDR_aircraft_on_ground        = find_dataref("sim/flightmodel/failures/onground_all")
+simDR_aircraft_groundspeed      = find_dataref("sim/flightmodel/position/groundspeed")
+
+simDR_battery_on                = find_dataref("sim/cockpit2/electrical/battery_on")
+simDR_gpu_on                    = find_dataref("sim/cockpit/electrical/gpu_on")
+simDR_cross_tie                 = find_dataref("sim/cockpit2/electrical/cross_tie")
+
+simDR_apu_gen_on                = find_dataref("sim/cockpit2/electrical/APU_generator_on")
+--simDR_apu_gen_amps              = find_dataref("sim/cockpit2/electrical/APU_generator_amps")
+simDR_apu_start_switch_mode     = find_dataref("sim/cockpit2/electrical/APU_starter_switch")
+simDR_apu_N1_pct                = find_dataref("sim/cockpit2/electrical/APU_N1_percent")
+simDR_apu_running               = find_dataref("sim/cockpit2/electrical/APU_running")
+
+simDR_generator_on              = find_dataref("sim/cockpit2/electrical/generator_on")
+
+
+
+
 
 --*************************************************************************************--
 --** 				              FIND CUSTOM DATAREFS             			    	 **--
@@ -60,9 +106,12 @@ simDR_ind_airspeed_kts_pilot        = find_dataref("sim/cockpit2/gauges/indicato
 
 B747DR_button_switch_position       = find_dataref("laminar/B747/button_switch/position")
 B747DR_elec_ext_pwr_1_switch_mode   = find_dataref("laminar/B747/elec_ext_pwr_1/switch_mode")
-B747DR_elec_ext_pwr_2_switch_mode   = find_dataref("laminar/B747/elec_ext_pwr_2/switch_mode")
 B747DR_elec_apu_pwr_1_switch_mode   = find_dataref("laminar/B747/apu_pwr_1/switch_mode")
 B747DR_gen_drive_disc_status        = find_dataref("laminar/B747/electrical/generator/drive_disc_status")
+
+B747DR_CAS_advisory_status          = find_dataref("laminar/B747/CAS/advisory_status")
+B747DR_CAS_memo_status              = find_dataref("laminar/B747/CAS/memo_status")
+
 
 
 --*************************************************************************************--
@@ -73,46 +122,36 @@ B747DR_elec_standby_power_sel_pos   = create_dataref("laminar/B747/electrical/st
 B747DR_elec_apu_sel_pos             = create_dataref("laminar/B747/electrical/apu/sel_dial_pos", "number")
 B747DR_elec_stby_ignit_sel_pos      = create_dataref("laminar/B747/electrical/stby_ignit/sel_dial_pos", "number")
 B747DR_elec_auto_ignit_sel_pos      = create_dataref("laminar/B747/electrical/auto_ignit/sel_dial_pos", "number")
+
 B747DR_elec_apu_inlet_door_pos      = create_dataref("laminar/B747/electrical/apu_inlet_door", "number")
+
 B747DR_elec_ext_pwr1_available      = create_dataref("laminar/B747/electrical/ext_pwr1_avail", "number")
-B747DR_elec_ext_pwr2_available      = create_dataref("laminar/B747/electrical/ext_pwr2_avail", "number")
-B747DR_elec_ext_pwr1_on				= create_dataref("laminar/B747/electrical/ext_pwr1_on", "number")
-B747DR_elec_ext_pwr2_on				= create_dataref("laminar/B747/electrical/ext_pwr2_on", "number")
+
 B747DR_init_elec_CD                 = create_dataref("laminar/B747/elec/init_CD", "number")
+
 
 
 --*************************************************************************************--
 --** 				       READ-WRITE CUSTOM DATAREF HANDLERS     	         	     **--
 --*************************************************************************************--
 
---function B747_electrical_battery_on_DRhandler() end
---function B747_electrical_battery_off_DRhandler()end
---function B747_electrical_standby_power_off_DRhandler()end
---function B747_electrical_standby_power_auto_DRhandler()end
---function B747_electrical_standby_power_bat_DRhandler()end
---function B747_electrical_extpwr1_on_DRhandler()end
---function B747_electrical_extpwr1_off_DRhandler()end
---function B747_electrical_extpwr2_on_DRhandler()end
---function B747_electrical_extpwr2_off_DRhandler()end
+
+
+
 
 --*************************************************************************************--
 --** 				       CREATE READ-WRITE CUSTOM DATAREFS                         **--
 --*************************************************************************************--
 
---B747_electrical_battery_on					= create_dataref("boeing/747/electrical/battery_on", "number", B747_electrical_battery_on_DRhandler )
---B747_electrical_battery_off					= create_dataref("boeing/747/electrical/battery_off", "number", B747_electrical_battery_off_DRhandler )
---B747_electrical_standby_power_off			= create_dataref("boeing/747/electrical/standby/power/standby_off","number", B747_electrical_standby_power_off_DRhandler )
---B747_electrical_standby_power_auto			= create_dataref("boeing/747/electrical/standby/power/standby_auto","number", B747_electrical_standby_power_auto_DRhandler )
---B747_electrical_standby_power_bat			= create_dataref("boeing/747/electrical/standby/power/standby_bat","number", B747_electrical_standby_power_bat_DRhandler )
---B747_electrical_external_one_power_on		= create_dataref("boeing/747/electrical/external/one/extpwr1_on","number", B747_electrical_extpwr1_on_DRhandler )
---B747_electrical_external_one_power_off		= create_dataref("boeing/747/electrical/external/one/extpwr1_off","number", B747_electrical_extpwr1_off_DRhandler )
---B747_electrical_external_two_power_on		= create_dataref("boeing/747/electrical/external/two/extpwr2_on","number", B747_electrical_extpwr2_on_DRhandler )
---B747_electrical_external_two_power_off		= create_dataref("boeing/747/electrical/external/two/extpwr2_off","number", B747_electrical_extpwr2_off_DRhandler )
+
+
+
 
 --*************************************************************************************--
 --** 				             X-PLANE COMMAND HANDLERS               	    	 **--
 --*************************************************************************************--
 
+-- APU
 function sim_apu_start_CMDhandler(phase, duration)
     if phase == 0 then
 
@@ -143,6 +182,10 @@ function sim_apu_off_CMDhandler(phase, duration)
     end
 end
 
+
+
+
+
 --*************************************************************************************--
 --** 				                 X-PLANE COMMANDS                   	    	 **--
 --*************************************************************************************--
@@ -150,25 +193,36 @@ end
 simCMD_apu_start                = replace_command("sim/electrical/APU_start", sim_apu_start_CMDhandler)
 simCMD_apu_on                   = replace_command("sim/electrical/APU_on", sim_apu_on_CMDhandler)
 simCMD_apu_off                  = replace_command("sim/electrical/APU_off", sim_apu_off_CMDhandler)
+
 --simCMD_apu_gen_on               = find_command("sim/electrical/APU_generator_on")
 --simCMD_apu_gen_off              = find_command("sim/electrical/APU_generator_off")
+
+
+
+
+
+
 
 --*************************************************************************************--
 --** 				              CUSTOM COMMAND HANDLERS            			     **--
 --*************************************************************************************--
 
+-- STANDBY POWER
 function B747_elec_standby_power_sel_up_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_elec_standby_power_sel_pos = math.min(B747DR_elec_standby_power_sel_pos+1, 2)
     end
 end
-
 function B747_elec_standby_power_sel_dn_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_elec_standby_power_sel_pos = math.max(B747DR_elec_standby_power_sel_pos-1, 0)
     end
 end
 
+
+
+
+-- APU SELECTOR
 function B747_elec_apu_sel_up_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_elec_apu_sel_pos = math.min(B747DR_elec_apu_sel_pos+1, 2)
@@ -181,36 +235,45 @@ function B747_elec_apu_sel_up_CMDhandler(phase, duration)
         end
     end
 end
-
 function B747_elec_apu_sel_dn_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_elec_apu_sel_pos = math.max(B747DR_elec_apu_sel_pos-1, 0)
     end
 end
 
+
+
+
+-- STANDBY IGNITION
 function B747_stby_ign_sel_up_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_elec_stby_ignit_sel_pos = math.min(B747DR_elec_stby_ignit_sel_pos+1, 2)
     end
 end
-
 function B747_stby_ign_sel_dn_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_elec_stby_ignit_sel_pos = math.max(B747DR_elec_stby_ignit_sel_pos-1, 0)
     end
 end
 
+
+
+
+-- AUTO IGNITION
 function B747_auto_ign_sel_up_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_elec_auto_ignit_sel_pos = math.min(B747DR_elec_auto_ignit_sel_pos+1, 2)
     end
 end
-
 function B747_auto_ign_sel_dn_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_elec_auto_ignit_sel_pos = math.max(B747DR_elec_auto_ignit_sel_pos-1, 0)
     end
 end
+
+
+
+
 
 function B747_ai_elec_quick_start_CMDhandler(phase, duration)
     if phase == 0 then
@@ -220,19 +283,39 @@ function B747_ai_elec_quick_start_CMDhandler(phase, duration)
 	end 	
 end	
 
+
+
 --*************************************************************************************--
 --** 				                 CUSTOM COMMANDS                			     **--
 --*************************************************************************************--
 
-B747CMD_elec_standby_power_sel_up 		= create_command("laminar/B747/electrical/standby_power/sel_dial_up", "Electrical Standby Power Selector Up", B747_elec_standby_power_sel_up_CMDhandler)
-B747CMD_elec_standby_power_sel_dn 		= create_command("laminar/B747/electrical/standby_power/sel_dial_dn", "Electrical Standby Power Selector Down", B747_elec_standby_power_sel_dn_CMDhandler)
-B747CMD_elec_apu_sel_up 				= create_command("laminar/B747/electrical/apu/sel_dial_up", "Electrical APU Selector Dial Up", B747_elec_apu_sel_up_CMDhandler)
-B747CMD_elec_apu_sel_dn 				= create_command("laminar/B747/electrical/apu/sel_dial_dn", "Electrical APU Selector Dial Down", B747_elec_apu_sel_dn_CMDhandler)
-B747CMD_stby_ign_sel_up 				= create_command("laminar/B747/electrical/stby_ignit/sel_dial_up", "Electrical Standby Ignition Selector Dial Up", B747_stby_ign_sel_up_CMDhandler)
-B747CMD_stby_ign_sel_dn 				= create_command("laminar/B747/electrical/stby_ignit/sel_dial_dn", "Electrical Standby Ignition Selector Dial Down", B747_stby_ign_sel_dn_CMDhandler)
-B747CMD_auto_ign_sel_up 				= create_command("laminar/B747/electrical/auto_ignit/sel_dial_up", "Electrical Auto Ignition Selector Dial Up", B747_auto_ign_sel_up_CMDhandler)
-B747CMD_auto_ign_sel_dn 				= create_command("laminar/B747/electrical/auto_ignit/sel_dial_dn", "Electrical Auto Ignition Selector Dial Down", B747_auto_ign_sel_dn_CMDhandler)
-B747CMD_ai_elec_quick_start				= create_command("laminar/B747/ai/elec_quick_start", "number", B747_ai_elec_quick_start_CMDhandler)
+-- STANDBY POWER
+B747CMD_elec_standby_power_sel_up = create_command("laminar/B747/electrical/standby_power/sel_dial_up", "Electrical Standby Power Selector Up", B747_elec_standby_power_sel_up_CMDhandler)
+B747CMD_elec_standby_power_sel_dn = create_command("laminar/B747/electrical/standby_power/sel_dial_dn", "Electrical Standby Power Selector Down", B747_elec_standby_power_sel_dn_CMDhandler)
+
+
+
+-- APU SELECTOR
+B747CMD_elec_apu_sel_up = create_command("laminar/B747/electrical/apu/sel_dial_up", "Electrical APU Selector Dial Up", B747_elec_apu_sel_up_CMDhandler)
+B747CMD_elec_apu_sel_dn = create_command("laminar/B747/electrical/apu/sel_dial_dn", "Electrical APU Selector Dial Down", B747_elec_apu_sel_dn_CMDhandler)
+
+
+
+-- STANDBY IGNITION
+B747CMD_stby_ign_sel_up = create_command("laminar/B747/electrical/stby_ignit/sel_dial_up", "Electrical Standby Ignition Selector Dial Up", B747_stby_ign_sel_up_CMDhandler)
+B747CMD_stby_ign_sel_dn = create_command("laminar/B747/electrical/stby_ignit/sel_dial_dn", "Electrical Standby Ignition Selector Dial Down", B747_stby_ign_sel_dn_CMDhandler)
+
+
+
+-- AUTO IGNITION
+B747CMD_auto_ign_sel_up = create_command("laminar/B747/electrical/auto_ignit/sel_dial_up", "Electrical Auto Ignition Selector Dial Up", B747_auto_ign_sel_up_CMDhandler)
+B747CMD_auto_ign_sel_dn = create_command("laminar/B747/electrical/auto_ignit/sel_dial_dn", "Electrical Auto Ignition Selector Dial Down", B747_auto_ign_sel_dn_CMDhandler)
+
+
+-- AI
+B747CMD_ai_elec_quick_start			= create_command("laminar/B747/ai/elec_quick_start", "number", B747_ai_elec_quick_start_CMDhandler)
+
+
 
 --*************************************************************************************--
 --** 					            OBJECT CONSTRUCTORS         		    		 **--
@@ -267,31 +350,35 @@ function B747_set_animation_position(current_value, target, min, max, speed)
 
 end
 
-function B747_rescale(in1, out1, in2, out2, x)
 
-    if x < in1 then return out1 end
-    if x > in2 then return out2 end
-    return out1 + (out2 - out1) * (x - in1) / (in2 - in1)
 
-end
 
-function B747_ternary(condition, ifTrue, ifFalse)
-    if condition then return ifTrue else return ifFalse end
-end
 
+----- BATTERY ---------------------------------------------------------------------------
 function B747_battery()
-	if B747DR_button_switch_position[13] < 0.05 then
-		simDR_battery_on[0] = 0
-	end
-	
-	if B747DR_button_switch_position[13] > 0.95 then
-		simDR_battery_on[0] = 1
-	end
+
+    if B747DR_button_switch_position[13] < 0.05
+        and simDR_battery_on[0] == 1
+    then
+        simDR_battery_on[0] = 0
+    end
+
+    if B747DR_button_switch_position[13] > 0.95
+        and simDR_battery_on[0] == 0
+    then
+        simDR_battery_on[0] = 1
+    end
+
 end
 
+
+
+
+
+----- EXTERNAL POWER --------------------------------------------------------------------
 function B747_external_power()
 
-    -- EXT POWER 1,2 AVAILABLE
+    -- EXT POWER 1 AVAILABLE
     if simDR_aircraft_on_ground == 1
         and simDR_aircraft_groundspeed < 0.05
         and simDR_engine_running[0] == 0
@@ -300,39 +387,26 @@ function B747_external_power()
         and simDR_engine_running[3] == 0
     then
         B747DR_elec_ext_pwr1_available = 1
-		B747DR_elec_ext_pwr2_available = 1
-		
     else
         B747DR_elec_ext_pwr1_available = 0
-		B747DR_elec_ext_pwr2_available = 0
     end
 
     -- EXTERNAL POWER ON/OFF
     if B747DR_elec_ext_pwr1_available == 1
         and B747DR_elec_ext_pwr_1_switch_mode == 1
     then
-		B747DR_elec_ext_pwr1_on = 1
+        simDR_gpu_on = 1
     else
-        B747DR_elec_ext_pwr1_on = 0
+        simDR_gpu_on = 0
     end
-	
-	if B747DR_elec_ext_pwr2_available == 1
-        and B747DR_elec_ext_pwr_2_switch_mode == 1
-    then
-		B747DR_elec_ext_pwr2_on = 1
-    else
-        B747DR_elec_ext_pwr2_on = 0
-    end
-	
-	if B747DR_elec_ext_pwr1_on == 1 and B747DR_elec_ext_pwr2_on == 1
-	then
-		simDR_gpu_on = 1
-	else
-		simDR_gpu_on = 0
-	end
 
 end
 
+
+
+
+
+----- BUS TIE ---------------------------------------------------------------------------
 function B747_bus_tie()
 
     if B747DR_button_switch_position[18] > 0.95
@@ -353,6 +427,11 @@ function B747_bus_tie()
 
 end
 
+
+
+
+
+----- APU -------------------------------------------------------------------------------
 function B747_apu_shutdown()
 
     simDR_apu_start_switch_mode = 0
@@ -390,9 +469,11 @@ function B747_apu()
 
     end
 
+
     -- INLET DOOR
     B747DR_elec_apu_inlet_door_pos = B747_set_animation_position(B747DR_elec_apu_inlet_door_pos, B747_apu_inlet_door_target_pos, 0.0, 1.0, 0.7)
-	
+
+
     -- APU GENERATOR
     if simDR_aircraft_on_ground == 1 then
         if B747DR_elec_apu_pwr_1_switch_mode == 1
@@ -408,9 +489,17 @@ function B747_apu()
             simDR_apu_gen_on = 0
         end
     end
+
 end
 
-function B747_generator() -- DONT EDIT THIS
+
+
+
+
+
+----- GENERATORS ------------------------------------------------------------------------
+function B747_generator()
+
     -- ENGINE #1
     if B747DR_gen_drive_disc_status[0] == 1 then
         simDR_generator_on[0] = 0
@@ -425,6 +514,7 @@ function B747_generator() -- DONT EDIT THIS
             simDR_generator_on[0] = 0
         end
     end
+
 
     -- ENGINE #2
     if B747DR_gen_drive_disc_status[1] == 1 then
@@ -441,6 +531,7 @@ function B747_generator() -- DONT EDIT THIS
         end
     end
 
+
     -- ENGINE #3
     if B747DR_gen_drive_disc_status[2] == 1 then
         simDR_generator_on[2] = 0
@@ -456,6 +547,7 @@ function B747_generator() -- DONT EDIT THIS
         end
     end
 
+
     -- ENGINE #4
     if B747DR_gen_drive_disc_status[3] == 1 then
         simDR_generator_on[3] = 0
@@ -470,8 +562,14 @@ function B747_generator() -- DONT EDIT THIS
             simDR_generator_on[3] = 0
         end
     end
+
 end
 
+
+
+
+
+----- ELECTRICAL EICAS MESSAGES ---------------------------------------------------------
 function B747_electrical_EICAS_msg()
 
     -- APU
@@ -532,16 +630,12 @@ function B747_electrical_EICAS_msg()
 
 end
 
---function B747_electrical_EICAS_msg()
-	-- BATTERY
-	-- APU
-	-- APU INLET DOOR
-	-- STANDBY POWER
-	-- GENERATORS
-	-- DRIVE DISCONNECT
-	--
---end
 
+
+
+
+
+----- MONITOR AI FOR AUTO-BOARD CALL ----------------------------------------------------
 function B747_elec_monitor_AI()
 
     if B747DR_init_elec_CD == 1 then
@@ -552,6 +646,11 @@ function B747_elec_monitor_AI()
 
 end
 
+
+
+
+
+----- SET STATE FOR ALL MODES -----------------------------------------------------------
 function B747_set_elec_all_modes()
 	
 	B747DR_init_elec_CD = 0
@@ -560,6 +659,11 @@ function B747_set_elec_all_modes()
 
 end
 
+
+
+
+
+----- SET STATE TO COLD & DARK ----------------------------------------------------------
 function B747_set_elec_CD()
 
     B747DR_elec_standby_power_sel_pos = 0
@@ -568,25 +672,50 @@ function B747_set_elec_CD()
 
 end
 
+
+
+
+
+----- SET STATE TO ENGINES RUNNING ------------------------------------------------------
 function B747_set_elec_ER()
 	
 	
 	
 end	
 
+
+
+
+
+
+----- FLIGHT START ---------------------------------------------------------------------
 function B747_flight_start_electric()
 
+    -- ALL MODES ------------------------------------------------------------------------
     B747_set_elec_all_modes()
+
+
+    -- COLD & DARK ----------------------------------------------------------------------
     if simDR_startup_running == 0 then
 
         B747_set_elec_CD()
 
+
+    -- ENGINES RUNNING ------------------------------------------------------------------
     elseif simDR_startup_running == 1 then
 
 		B747_set_elec_ER()
 
     end
+
 end
+
+
+
+
+
+
+
 
 --*************************************************************************************--
 --** 				                  EVENT CALLBACKS           	    			 **--
@@ -599,7 +728,6 @@ end
 function flight_start() 
 
     B747_flight_start_electric()
-	
 
 end
 
@@ -614,6 +742,7 @@ function after_physics()
     B747_apu()
     B747_bus_tie()
     B747_generator()
+
     B747_elec_monitor_AI()
 
 end
