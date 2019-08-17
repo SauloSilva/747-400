@@ -50,10 +50,10 @@ B747bleedAir.engine4    = {}
 B747bleedAir.apu        = {}
 B747bleedAir.grnd_cart  = {}
 
-B747bleedAir.engine1.psi    = find_dataref("laminar/B747/air/engine1/bleed_air_psi")--create_dataref("laminar/B747/air/engine1/bleed_air_psi", "number")
+B747bleedAir.engine1.psi    = create_dataref("laminar/B747/air/engine1/bleed_air_psi", "number")
 B747bleedAir.engine2.psi    = create_dataref("laminar/B747/air/engine2/bleed_air_psi", "number")
 B747bleedAir.engine3.psi    = create_dataref("laminar/B747/air/engine3/bleed_air_psi", "number")
-B747bleedAir.engine4.psi    = find_dataref("laminar/B747/air/engine4/bleed_air_psi")--create_dataref("laminar/B747/air/engine4/bleed_air_psi", "number")
+B747bleedAir.engine4.psi    = create_dataref("laminar/B747/air/engine4/bleed_air_psi", "number")
 B747bleedAir.apu.psi        = 0
 B747bleedAir.grnd_cart.psi  =   0
 
@@ -168,9 +168,9 @@ B747DR_outflow_valve_pos_R          = create_dataref("laminar/B747/air/outflow_v
 
 B747DR_landing_altitude             = create_dataref("laminar/B747/air/landing_altitude", "number")
 
-B747_duct_pressure_L                = create_dataref("laminar/B747/air/duct_pressure_L", "number")
+B747_duct_pressure_L                = find_dataref("laminar/B747/air/duct_pressure_L")
 B747_duct_pressure_C                = create_dataref("laminar/B747/air/duct_pressure_C", "number")
-B747_duct_pressure_R                = create_dataref("laminar/B747/air/duct_pressure_R", "number")
+B747_duct_pressure_R                = find_dataref("laminar/B747/air/duct_pressure_R")
 
 B747DR_pressure_EICAS1_display_status = create_dataref("laminar/B747/air/pressurization/EICAS1_display_status", "number")
 
