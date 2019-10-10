@@ -47,6 +47,15 @@ IN_REPLAY - evaluates to 0 if replay is off, 1 if replay mode is on
 --** 					            LOCAL VARIABLES                 				 **--
 --*************************************************************************************--
 
+--sim/operation/failures/rel_lbrakes  int y failure_enum  Left Brakes
+--sim/operation/failures/rel_rbrakes  int y failure_enum  Right Brakes
+--sim/operation/failures/rel_lagear1  int y failure_enum  Landing Gear 1 retract
+--sim/operation/failures/rel_lagear2  int y failure_enum  Landing Gear 2 retract
+--sim/operation/failures/rel_lagear3  int y failure_enum  Landing Gear 3 retract
+--sim/operation/failures/rel_lagear4  int y failure_enum  Landing Gear 4 retract
+--sim/operation/failures/rel_lagear5  int y failure_enum  Landing Gear 5 retract
+
+
 local B747_gear_handle_lock_override = 0
 local B747_gear_handle_lock = 0
 
@@ -70,8 +79,8 @@ simDR_parking_brake_ratio   = find_dataref("sim/cockpit2/controls/parking_brake_
 simDR_left_brake_ratio      = find_dataref("sim/cockpit2/controls/left_brake_ratio")
 simDR_right_brake_ratio     = find_dataref("sim/cockpit2/controls/right_brake_ratio")
 
-
-
+simDR_left_brake_fail     = find_dataref("sim/operation/failures/rel_lbrakes")--6 = inoperative
+simDR_right_brake_fail     = find_dataref("sim/operation/failures/rel_rbrakes")--6 = inoperative
 --*************************************************************************************--
 --** 				              FIND CUSTOM DATAREFS             			    	 **--
 --*************************************************************************************--
@@ -92,7 +101,7 @@ B747DR_EICAS1_gear_display_status = create_dataref("laminar/B747/gear/EICAS1_dis
 
 B747DR_tire_pressure            = create_dataref("laminar/B747/gear/tire_pressure", "array[18]")
 B747DR_brake_temp               = create_dataref("laminar/B747/gear/brake_temp", "array[18]")
-
+B747DR_brake_temp_ind               = create_dataref("laminar/B747/gear/brake_temp_ind", "array[18]")
 B747DR_init_gear_CD             = create_dataref("laminar/B747/gear/init_CD", "number")
 
 
@@ -524,13 +533,13 @@ function B747_brake_temp()
     if tireSpeed[1] > 0 then
         if brakingRatio_N > 0 then
             local rate = brakingRatio_N * tireSpeed[1] * SIM_PERIOD * 40.0
-            B747DR_brake_temp[17] = B747DR_brake_temp[17] + rate
-            B747DR_brake_temp[18] = B747DR_brake_temp[17]
+            B747DR_brake_temp[16] = B747DR_brake_temp[16] + rate
+            B747DR_brake_temp[17] = B747DR_brake_temp[16]
         end
     else
         local rate = 1.8 * SIM_PERIOD
-        B747DR_brake_temp[17] = math.max(B747DR_brake_temp[17] - rate, simDR_OAT_degC)
-        B747DR_brake_temp[18] = B747DR_brake_temp[17]
+        B747DR_brake_temp[16] = math.max(B747DR_brake_temp[16] - rate, simDR_OAT_degC)
+        B747DR_brake_temp[17] = B747DR_brake_temp[16]
     end
 
     -- BODY RIGHT GEAR
@@ -600,13 +609,14 @@ function B747_brake_temp()
         B747DR_brake_temp[2] = B747DR_brake_temp[0]
         B747DR_brake_temp[3] = B747DR_brake_temp[0]
     end
-
+    
     --
     -- level 0 = to 100c
     -- level 5 = 482c
     -- level 9 = 864c
-
-
+  for i = 0, 17 do
+    B747DR_brake_temp_ind[i]=math.floor(B747DR_brake_temp[i]/100)
+  end
 
 
 
