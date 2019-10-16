@@ -4,7 +4,7 @@ Disclaimer: As of 10/16/2019 this project has various bugs, most of which are be
 
 The 'memory leak' that many have raised awareness about is being worked on and will be released as soon as we can identify it's origin.
 
-We invite you to join our discord and follow our trello as this project is updated.
+We invite you to join our Discord and follow our Trello as this project is updated.
 
 Discord: https://discord.gg/JNs8YDF 
 
