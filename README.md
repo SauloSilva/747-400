@@ -1,7 +1,12 @@
 # Boeing 747-400
 
-Disclaimer: As of 07/04/2019, this aircraft will not work properly whatsoever! This project has various bugs, some of which make it impossible to fly within the simulator! We have decided to make it public for those who wish to pull and push updates (with approval) and contribute to the project! Every aspect of this aircraft if under construction! 
+Disclaimer: As of 10/16/2019 this project has various bugs, most of which are being worked on. This project is very active, and should recieve a load of systems updates including a custom FMC by the years end.
+
+The 'memory leak' that many have raised awareness about is being worked on and will be released as soon as we can identify it's origin.
+
+We invite you to join our discord and follow our trello as this project is updated.
 
 Discord: https://discord.gg/JNs8YDF 
 
 Trello: https://trello.com/b/X6GzCmGR/boeing-747-400
+
