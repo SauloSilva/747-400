@@ -5,7 +5,6 @@ OBJ
 TEXTURE		../../objects/747_cockpit/Cockpit_Pedestal.png
 TEXTURE_NORMAL ../../objects/747_cockpit/Cockpit_Pedestal_NML.png
 GLOBAL_specular 1.0
-NORMAL_METALNESS
 POINT_COUNTS	11297 0 0 41472
 
 VT	  -0.0109    2.4903    5.0361	 0.000  0.965  0.263	0.0929 0.4304

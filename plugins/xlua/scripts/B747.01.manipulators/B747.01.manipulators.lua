@@ -1395,15 +1395,25 @@ end
 function B747_window_shade_up_down_rear_capt_CMDhandler(phase, duration)
     if phase == 0 then B747_toggle_switch_position_target[34] = 1.0 - B747_toggle_switch_position_target[34] end
 end
+
+
 function B747_window_shade_up_down_front_fo_CMDhandler(phase, duration)
     if phase == 0 then B747_toggle_switch_position_target[35] = 1.0 - B747_toggle_switch_position_target[35] end
 end
+
 function B747_window_shade_up_down_rear_fo_CMDhandler(phase, duration)
     if phase == 0 then B747_toggle_switch_position_target[36] = 1.0 - B747_toggle_switch_position_target[36] end
 end
+
+
+
 function B747_cabin_lights_switch_CMDhandler(phase, duration)
     if phase == 0 then B747_toggle_switch_position_target[37] = 1.0 - B747_toggle_switch_position_target[37] end
 end
+
+
+
+
 function B747_ai_manip_quick_start_CMDhandler(phase, duration)
 	if phase == 0 then 
 		B747_set_manip_CD()

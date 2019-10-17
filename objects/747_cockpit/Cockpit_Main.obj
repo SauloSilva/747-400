@@ -5,7 +5,6 @@ OBJ
 TEXTURE		../../objects/747_cockpit/Cockpit_Main.png
 TEXTURE_NORMAL ../../objects/747_cockpit/Cockpit_Main_NML.png
 GLOBAL_specular 1.0
-NORMAL_METALNESS
 POINT_COUNTS	9460 0 0 25590
 
 VT	  -0.5311    1.9943    6.6482	 0.000  0.000 -1.000	0.1093 0.904 

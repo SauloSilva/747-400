@@ -1746,9 +1746,11 @@ function B747_auto_start()
             if autostart.sequence_timeout == true then                                      -- PHASE FAILED
                 B747_autostart_step_failed(autostart.step, autostart.phase[autostart.step])
             --end
-            elseif simDR_fuel_tank_weight_kg[0] > 7700.0
+            elseif (simDR_fuel_tank_weight_kg[0] > 7700.0
                 and B747DR_button_switch_position[52] > 0.95
-                and B747DR_button_switch_position[53] > 0.95
+                and B747DR_button_switch_position[53] > 0.95)
+                or
+                simDR_fuel_tank_weight_kg[0] < 7700.0
             then                                                                            -- PHASE WAS SUCCESSFUL
                 if is_timer_scheduled(B747_autostart_phase_timeout) == true then
                     stop_timer(B747_autostart_phase_timeout)                                -- KILL THE TIMER

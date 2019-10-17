@@ -5,7 +5,6 @@ OBJ
 TEXTURE		../../objects/747_cockpit/Cockpit_Yoke1.png
 TEXTURE_NORMAL ../../objects/747_cockpit/Cockpit_Yoke1_NML.png
 GLOBAL_specular 1.0
-NORMAL_METALNESS
 POINT_COUNTS	5757 0 0 24573
 
 VT	   0.0009    0.2432   -0.0314	 0.386 -0.921 -0.055	0.8275 0.1401
