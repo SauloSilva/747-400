@@ -2696,6 +2696,15 @@ end
 --** 				                SUB-SCRIPT LOADING                  			 **--
 --*************************************************************************************--
 
+
+print(collectgarbage("count")*1024)
+print("^^^^^^MEMORY USAGE OF B747.95.AI.lua IN BYTES BEFORE GARBAGE COLLECT")
+collectgarbage("collect")
+print(collectgarbage("count")*1024)
+print("^^^^^^MEMORY USAGE OF B747.95.AI.lua IN BYTES AFTER GARBAGE COLLECT")
+
+
+
 -- dofile("")
 
 

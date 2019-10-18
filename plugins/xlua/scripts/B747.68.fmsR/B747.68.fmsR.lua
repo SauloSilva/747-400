@@ -38,7 +38,6 @@ IN_REPLAY - evaluates to 0 if replay is off, 1 if replay mode is on
 --*************************************************************************************--
 
 
-
 --*************************************************************************************--
 --** 					            GLOBAL VARIABLES                				 **--
 --*************************************************************************************--
@@ -955,6 +954,14 @@ end
 
 --function after_replay() end
 
+
+
+
+print(collectgarbage("count")*1024)
+print("^^^^^^MEMORY USAGE OF B747.68.fmsR.lua IN BYTES BEFORE GARBAGE COLLECT")
+collectgarbage("collect")
+print(collectgarbage("count")*1024)
+print("^^^^^^MEMORY USAGE OF B747.68.fmsR.lua IN BYTES AFTER GARBAGE COLLECT")
 
 
 --*************************************************************************************--

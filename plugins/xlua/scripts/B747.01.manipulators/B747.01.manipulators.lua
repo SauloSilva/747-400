@@ -33,6 +33,7 @@ IN_REPLAY - evaluates to 0 if replay is off, 1 if replay mode is on
 --*************************************************************************************--
 --** 					               CONSTANTS                    				 **--
 --*************************************************************************************--
+
 NUM_BTN_SW_COVERS   = 20
 NUM_BTN_SW          = 89
 NUM_TOGGLE_SW       = 38
@@ -947,9 +948,6 @@ end
 
 
 
-
-
-
 ----- TOGGLE SWITCHES -------------------------------------------------------------------
 function B747_storm_light_switch_CMDhandler(phase, duration)
     if phase == 0 then
@@ -1758,9 +1756,6 @@ end
 
 
 
-
-
-
 ----- BUTTON SWITCH COVER POSITION ANIMATION --------------------------------------------
 function B747_button_switch_cover_animation()
 
@@ -2113,4 +2108,8 @@ end
 --function after_replay() end
 
 
-
+print(collectgarbage("count")*1024)
+print("^^^^^^MEMORY USAGE OF B747.01.manipulators.lua IN BYTES BEFORE GARBAGE COLLECT")
+collectgarbage("collect")
+print(collectgarbage("count")*1024)
+print("^^^^^^MEMORY USAGE OF B747.01.manipulators.lua IN BYTES AFTER GARBAGE COLLECT")
