@@ -2,11 +2,10 @@ A
 800
 OBJ
 
-TEXTURE		../../objects/747_cabin/Cabin_Main.png
+TEXTURE		../../objects/747_cabin/Cabin_Main.dds
 TEXTURE_NORMAL ../../objects/747_cabin/Cabin_Main_NML.png
 GLOBAL_specular 1.0
-TEXTURE_LIT ../../objects/747_cabin/Cabin_Main_LIT.png
-NORMAL_METALNESS 
+TEXTURE_LIT ../../objects/747_cabin/Cabin_Main_LIT.dds
 POINT_COUNTS	24417 0 0 72459
 
 VT	  -1.0598    1.6535   10.8637	 0.000  0.000  1.000	0.9796 0.2333
