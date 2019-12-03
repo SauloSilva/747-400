@@ -251,14 +251,14 @@ P _gear/4/_gear_x -17.020000458
 P _gear/4/_gear_y -7.820000172
 P _gear/4/_gear_z 103.970001221
 P _gear/4/_latE 0.0
-P _gear/4/_latN 0.0
+P _gear/4/_latN 28.015472412
 P _gear/4/_latR 91.0
 P _gear/4/_leg_len 9.100000381
 P _gear/4/_lonE 1.0
-P _gear/4/_lonN 1.0
+P _gear/4/_lonN 3.770761013
 P _gear/4/_lonR 10.0
 P _gear/4/_scon 358467.468750000
-P _gear/4/_stat_def 0.559550822
+P _gear/4/_stat_def 0.559550941
 P _gear/4/_steerdeg_hispeed 0.0
 P _gear/4/_steerdeg_lospeed 0.0
 P _gear/4/_strut_comp 0.0
@@ -289,7 +289,7 @@ P _gear/5/_latN 0.0
 P _gear/5/_latR 0.0
 P _gear/5/_leg_len 6.400000095
 P _gear/5/_lonE -36.0
-P _gear/5/_lonN -36.0
+P _gear/5/_lonN -22.454057693
 P _gear/5/_lonR 8.0
 P _gear/5/_scon 358467.468750000
 P _gear/5/_stat_def 0.0
@@ -319,11 +319,11 @@ P _gear/6/_gear_x -3.299999952
 P _gear/6/_gear_y -12.100000381
 P _gear/6/_gear_z 115.150001526
 P _gear/6/_latE -55.0
-P _gear/6/_latN -55.0
+P _gear/6/_latN -64.851593018
 P _gear/6/_latR -87.0
 P _gear/6/_leg_len 3.700000048
 P _gear/6/_lonE 28.0
-P _gear/6/_lonN 28.0
+P _gear/6/_lonN 50.166088104
 P _gear/6/_lonR 100.0
 P _gear/6/_scon 358467.468750000
 P _gear/6/_stat_def 0.0
@@ -353,11 +353,11 @@ P _gear/7/_gear_x 3.299999952
 P _gear/7/_gear_y -12.100000381
 P _gear/7/_gear_z 115.150001526
 P _gear/7/_latE 55.0
-P _gear/7/_latN 55.0
+P _gear/7/_latN 64.851593018
 P _gear/7/_latR 87.0
 P _gear/7/_leg_len 3.700000048
 P _gear/7/_lonE 28.0
-P _gear/7/_lonN 28.0
+P _gear/7/_lonN 50.166088104
 P _gear/7/_lonR 100.0
 P _gear/7/_scon 358467.468750000
 P _gear/7/_stat_def 0.0
@@ -387,7 +387,7 @@ P _gear/8/_gear_x 11.0
 P _gear/8/_gear_y -7.300000191
 P _gear/8/_gear_z 103.900001526
 P _gear/8/_latE 42.0
-P _gear/8/_latN 42.0
+P _gear/8/_latN 29.069782257
 P _gear/8/_latR 0.0
 P _gear/8/_leg_len 8.899999619
 P _gear/8/_lonE 0.0
@@ -421,7 +421,7 @@ P _gear/9/_gear_x -11.0
 P _gear/9/_gear_y -7.300000191
 P _gear/9/_gear_z 103.900001526
 P _gear/9/_latE -42.0
-P _gear/9/_latN -42.0
+P _gear/9/_latN -29.069782257
 P _gear/9/_latR 0.0
 P _gear/9/_leg_len 8.899999619
 P _gear/9/_lonE 0.0
@@ -124102,7 +124102,8 @@ GROUP Lower EICAS
       gen_LED Brake Temp Norm L
         POS 1683.000000 346.000000
         IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-        DATAREF 
+        DATAREF laminar/B747/gear/brake_temp_ind[16]
+        SHOW_LESS 484.000000 laminar/B747/gear/brake_temp[16]
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
@@ -124117,7 +124118,8 @@ GROUP Lower EICAS
       gen_LED Brake Temp Norm R
         POS 1726.000000 346.000000
         IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-        DATAREF 
+        DATAREF laminar/B747/gear/brake_temp_ind[17]
+        SHOW_LESS 484.000000 laminar/B747/gear/brake_temp[17]
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
@@ -124132,7 +124134,8 @@ GROUP Lower EICAS
       gen_LED Brake Temp High L
         POS 1683.000000 346.000000
         IMAGE CRT Displays/LED/LED_3.26B.xx###0.amber
-        DATAREF 
+        DATAREF laminar/B747/gear/brake_temp_ind[16]
+        SHOW_GREATER 484.100006 laminar/B747/gear/brake_temp[16]
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
@@ -124147,7 +124150,8 @@ GROUP Lower EICAS
       gen_LED Brake Temp High R
         POS 1726.000000 346.000000
         IMAGE CRT Displays/LED/LED_3.26B.xx###0.amber
-        DATAREF 
+        DATAREF laminar/B747/gear/brake_temp_ind[17]
+        SHOW_GREATER 484.100006 laminar/B747/gear/brake_temp[17]
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
@@ -124309,7 +124313,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp Norm L
           POS 1498.000000 136.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF [0]
+          DATAREF laminar/B747/gear/brake_temp_ind[0]
+	  SHOW_LESS 484.000000 laminar/B747/gear/brake_temp[0]
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -124324,7 +124329,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp Norm R
           POS 1541.000000 136.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF [1]
+          DATAREF laminar/B747/gear/brake_temp_ind[1]
+	  SHOW_LESS 484.000000 laminar/B747/gear/brake_temp[1]
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -124339,7 +124345,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp High L
           POS 1498.000000 136.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.amber
-          DATAREF [0]
+          DATAREF laminar/B747/gear/brake_temp_ind[0]
+	  SHOW_GREATER 484.100000 laminar/B747/gear/brake_temp[0]
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -124354,7 +124361,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp High R
           POS 1541.000000 136.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.amber
-          DATAREF [1]
+          DATAREF laminar/B747/gear/brake_temp_ind[1]
+	  SHOW_GREATER 484.100000 laminar/B747/gear/brake_temp[1]
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -124372,7 +124380,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp Norm L
           POS 1498.000000 73.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF [2]
+          DATAREF laminar/B747/gear/brake_temp_ind[2]
+	  SHOW_LESS 484.000000 laminar/B747/gear/brake_temp[2]
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -124387,7 +124396,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp Norm R
           POS 1541.000000 73.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF [3]
+          DATAREF laminar/B747/gear/brake_temp_ind[3]
+	  SHOW_LESS 484.000000 laminar/B747/gear/brake_temp[3]
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -124402,7 +124412,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp High L
           POS 1498.000000 73.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.amber
-          DATAREF [2]
+          DATAREF laminar/B747/gear/brake_temp_ind[2]
+	  SHOW_GREATER 484.100000 laminar/B747/gear/brake_temp[2]
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -124417,7 +124428,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp High R
           POS 1541.000000 73.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.amber
-          DATAREF [3]
+          DATAREF laminar/B747/gear/brake_temp_ind[3]
+	  SHOW_GREATER 484.100000 laminar/B747/gear/brake_temp[3]
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -124684,7 +124696,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp Norm L 2
           POS 1553.000000 -68.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF 
+          DATAREF laminar/B747/gear/brake_temp_ind[4]
+	  SHOW_LESS 484.00000 laminar/B747/gear/brake_temp[4]
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -124699,7 +124712,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp Norm R 2
           POS 1596.000000 -68.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF 
+          DATAREF laminar/B747/gear/brake_temp_ind[5]
+	  SHOW_LESS 484.00000 laminar/B747/gear/brake_temp[5]
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -124714,7 +124728,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp High L 2
           POS 1553.000000 -68.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.amber
-          DATAREF 
+          DATAREF laminar/B747/gear/brake_temp_ind[4]
+	  SHOW_GREATER 484.100000 laminar/B747/gear/brake_temp[4] 
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -124729,7 +124744,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp High R 2
           POS 1596.000000 -68.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.amber
-          DATAREF 
+          DATAREF laminar/B747/gear/brake_temp_ind[5]
+	  SHOW_GREATER 484.100000 laminar/B747/gear/brake_temp[5]
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -124747,7 +124763,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp Norm L 2
           POS 1553.000000 -131.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF 
+          DATAREF laminar/B747/gear/brake_temp_ind[6]
+	  SHOW_LESS 484.00000 laminar/B747/gear/brake_temp[6] 
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -124762,7 +124779,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp Norm R 2
           POS 1596.000000 -131.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF 
+          DATAREF laminar/B747/gear/brake_temp_ind[7]
+	  SHOW_LESS 484.00000 laminar/B747/gear/brake_temp[7]
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -124777,7 +124795,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp High L 2
           POS 1553.000000 -131.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.amber
-          DATAREF 
+          DATAREF laminar/B747/gear/brake_temp_ind[6]
+	  SHOW_GREATER 484.100000 laminar/B747/gear/brake_temp[6] 
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -124792,7 +124811,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp High R 2
           POS 1596.000000 -131.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.amber
-          DATAREF 
+          DATAREF laminar/B747/gear/brake_temp_ind[7]
+	  SHOW_GREATER 484.100000 laminar/B747/gear/brake_temp[7] 
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -125057,7 +125077,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp Norm L
           POS 1869.000000 136.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF 
+          DATAREF laminar/B747/gear/brake_temp_ind[12]
+	  SHOW_LESS 484.000000 laminar/B747/gear/brake_temp[12] 
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -125072,7 +125093,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp Norm R
           POS 1912.000000 136.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF 
+          DATAREF laminar/B747/gear/brake_temp_ind[13]
+	  SHOW_LESS 484.000000 laminar/B747/gear/brake_temp[13]
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -125087,7 +125109,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp High L
           POS 1869.000000 136.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.amber
-          DATAREF 
+          DATAREF laminar/B747/gear/brake_temp_ind[12]
+	  SHOW_GREATER 484.100000 laminar/B747/gear/brake_temp[12] 
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -125102,7 +125125,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp High R
           POS 1912.000000 136.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.amber
-          DATAREF 
+          DATAREF laminar/B747/gear/brake_temp_ind[13]
+	  SHOW_GREATER 484.100000 laminar/B747/gear/brake_temp[13]  
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -125120,7 +125144,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp Norm L
           POS 1869.000000 73.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF 
+          DATAREF laminar/B747/gear/brake_temp_ind[14]
+	  SHOW_LESS 484.000000 laminar/B747/gear/brake_temp[14] 
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -125135,7 +125160,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp Norm R
           POS 1912.000000 73.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF 
+          DATAREF laminar/B747/gear/brake_temp_ind[15]
+	  SHOW_LESS 484.000000 laminar/B747/gear/brake_temp[15]
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -125150,7 +125176,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp High L
           POS 1869.000000 73.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.amber
-          DATAREF 
+          DATAREF laminar/B747/gear/brake_temp_ind[14]
+	  SHOW_GREATER 484.100000 laminar/B747/gear/brake_temp[14]
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -125165,7 +125192,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp High R
           POS 1912.000000 73.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.amber
-          DATAREF 
+          DATAREF laminar/B747/gear/brake_temp_ind[15]
+	  SHOW_GREATER 484.100000 laminar/B747/gear/brake_temp[15]
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -125430,7 +125458,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp Norm L
           POS 1814.000000 -68.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF 
+          DATAREF laminar/B747/gear/brake_temp_ind[8]
+	  SHOW_LESS 484.000000 laminar/B747/gear/brake_temp[8] 
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -125445,7 +125474,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp Norm R
           POS 1857.000000 -68.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF 
+          DATAREF laminar/B747/gear/brake_temp_ind[9]
+	  SHOW_LESS 484.000000 laminar/B747/gear/brake_temp[9] 
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -125460,7 +125490,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp High L 2
           POS 1814.000000 -68.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.amber
-          DATAREF 
+          DATAREF laminar/B747/gear/brake_temp_ind[8]
+	  SHOW_GREATER 484.100000 laminar/B747/gear/brake_temp[8]  
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -125475,7 +125506,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp High R 2
           POS 1857.000000 -68.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.amber
-          DATAREF 
+          DATAREF laminar/B747/gear/brake_temp_ind[9]
+	  SHOW_GREATER 484.100000 laminar/B747/gear/brake_temp[9]
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -125493,7 +125525,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp Norm L 2
           POS 1814.000000 -131.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF 
+          DATAREF laminar/B747/gear/brake_temp_ind[10]
+	  SHOW_LESS 484.000000 laminar/B747/gear/brake_temp[10]  
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -125508,7 +125541,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp Norm R 2
           POS 1857.000000 -131.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF 
+          DATAREF laminar/B747/gear/brake_temp_ind[11]
+	  SHOW_LESS 484.000000 laminar/B747/gear/brake_temp[11]  
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -125523,7 +125557,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp High L 2
           POS 1814.000000 -131.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.amber
-          DATAREF 
+          DATAREF laminar/B747/gear/brake_temp_ind[10]
+	  SHOW_GREATER 484.100000 laminar/B747/gear/brake_temp[10] 
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -125538,7 +125573,8 @@ GROUP Lower EICAS
         gen_LED Brake Temp High R 2
           POS 1857.000000 -131.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.amber
-          DATAREF 
+          DATAREF laminar/B747/gear/brake_temp_ind[11]
+	  SHOW_GREATER 484.100000 laminar/B747/gear/brake_temp[11] 
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
