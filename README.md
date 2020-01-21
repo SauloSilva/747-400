@@ -13,6 +13,8 @@ Changelog:
 
 10/18/2019
 Memory Leak- Fixed
+1/20/2020
+Parking Brake Animation - Fixed
 
 
 
