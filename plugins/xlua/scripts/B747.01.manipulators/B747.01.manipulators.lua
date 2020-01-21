@@ -91,7 +91,7 @@ simDR_autopilot_TOGA_vert_status    	= find_dataref("sim/cockpit2/autopilot/TOGA
 simDR_autopilot_TOGA_lat_status     	= find_dataref("sim/cockpit2/autopilot/TOGA_lateral_status")
 --simDR_autopilot_alt_hold_status     	= find_dataref("sim/cockpit2/autopilot/altitude_hold_status")
 simDR_autopilot_autothrottle_enabled	= find_dataref("sim/cockpit2/autopilot/autothrottle_enabled")
-
+simDR_parking_brake                     = find_dataref("sim/flightmodel/controls/parkbrake")
 
 --*************************************************************************************--
 --** 				              FIND CUSTOM DATAREFS             			    	 **--
@@ -129,6 +129,8 @@ B747DR_elec_apu_pwr_1_switch_mode   = create_dataref("laminar/B747/apu_pwr_1/swi
 B747DR_gen_drive_disc_status        = create_dataref("laminar/B747/electrical/generator/drive_disc_status", "array[4]")
 
 
+----- PARKING BRAKE ---------------------------------------------------------------
+B747DR_parking_brake_anim           = create_dataref("laminar/B747/toggle_switch/parking_brake_anim", "number")
 
 
 --*************************************************************************************--
@@ -173,13 +175,14 @@ B747DR_ovhd_map_light_x_fo          = create_dataref("laminar/B747/misc/ovhd_map
 B747DR_ovhd_map_light_y_fo          = create_dataref("laminar/B747/misc/ovhd_map_light/y_axis/fo", "number", B747_ovhd_map_light_y_fo_DRhandler)
 
 
-
 --*************************************************************************************--
 --** 				              FIND CUSTOM COMMANDS                   	    	 **--
 --*************************************************************************************--
 
 B747CMD_ap_reset 					= find_command("laminar/B747/autopilot/mode_reset")
 B747CMD_ap_att_mode					= find_command("laminar/B747/autopilot/att_mode")
+
+simCMD_park_brake_toggle            = find_command("sim/flight_controls/brakes_toggle_max")
 
 
 
@@ -1409,6 +1412,20 @@ function B747_cabin_lights_switch_CMDhandler(phase, duration)
     if phase == 0 then B747_toggle_switch_position_target[37] = 1.0 - B747_toggle_switch_position_target[37] end
 end
 
+function B747_parking_brake_CMDhandler(phase, duration)
+    if phase == 0 then
+        if B747DR_parking_brake_anim == 0 then
+            B747DR_parking_brake_anim = 1.0
+            simDR_parking_brake = 1
+            
+        elseif B747DR_parking_brake_anim == 1.0 then
+            B747DR_parking_brake_anim = 0.0
+            simDR_parking_brake = 0
+            
+        end
+    end
+end
+
 
 
 
@@ -1640,6 +1657,8 @@ B747CMD_ind_light_switch_down 			= create_command("laminar/B747/toggle_switch/in
 -- CABIN LIGHTS
 B747CMD_cabin_lights_switch 			= create_command("laminar/B747/toggle_switch/cabin_lights", "Cabin Lights Switch", B747_cabin_lights_switch_CMDhandler) -- NOTE: NO PHYSICAL SWITCH
 
+--PARKING BRAKE
+B747CMD_parking_brake_position          = create_command("laminar/B747/toggle_switch/parking_brake", "Parking Brake Switch", B747_parking_brake_CMDhandler)
 
 
 
@@ -1730,6 +1749,20 @@ B747CMD_ai_manip_quick_start			= create_command("laminar/B747/ai/manip_quick_sta
 --*************************************************************************************--
 --** 				                  SYSTEM FUNCTIONS           	    			 **--
 --*************************************************************************************--
+
+
+
+
+
+function parkMessage()
+end
+
+
+
+
+
+
+
 
 ----- ANIMATION UTILITY -----------------------------------------------------------------
 function B747_set_animation_position(current_value, target, min, max, speed)
