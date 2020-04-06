@@ -853,12 +853,20 @@ end
 function B747_ap_altitude_up_CMDhandler(phase, duration)
 	if phase == 0 then
 		simDR_autopilot_altitude_ft = math.min(50000.0, simDR_autopilot_altitude_ft + 100)
+	elseif phase == 1 then
+		if duration > 0.5 then
+			simDR_autopilot_altitude_ft = math.min(50000.0, simDR_autopilot_altitude_ft + 100)
+		end
 	end
 end	
 
 function B747_ap_altitude_down_CMDhandler(phase, duration)
 	if phase == 0 then
-		simDR_autopilot_altitude_ft = math.max(0.0, simDR_autopilot_altitude_ft - 100)		
+		simDR_autopilot_altitude_ft = math.max(0.0, simDR_autopilot_altitude_ft - 100)
+	elseif phase == 1 then
+		if	duration > 0.5 then
+			simDR_autopilot_altitude_ft = math.max(0.0, simDR_autopilot_altitude_ft - 100)
+		end
 	end
 end	
 
