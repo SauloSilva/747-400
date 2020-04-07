@@ -278,6 +278,28 @@ function run_after_time(func,delay)
 end
 
 --------------------------------------------------------------------------------
+-- CUSTOM UTILITIES
+--------------------------------------------------------------------------------
+
+function log(contents)
+	c = XLuaDebugString(contents.."\n")
+end
+
+function path()
+
+	lastSlashPos = string.find(XLuaReturnPath(), "/[^/]*$")			-- find the position of last slash
+	lastCharPos = lastSlashPos - string.len(XLuaReturnPath()) - 1   	-- Calculate the number from the end for the string.sub
+
+	acfFolder	= string.sub( XLuaReturnPath(), 0, lastCharPos )
+
+
+	return acfFolder
+	
+end
+
+
+
+--------------------------------------------------------------------------------
 -- NAMESPACE UTILITIES
 --------------------------------------------------------------------------------
 -- These put all script actions in a private namespace with meta-table 
