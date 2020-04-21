@@ -25,9 +25,11 @@ end
 
 
 
-
+local avitabInstalled=1
 function after_physics()
-
-avitabShow()
-
+if avitabInstalled==1 then
+  if pcall(avitabShow()) ==false then
+    avitabInstalled=0
+  endif
+endif
 end
