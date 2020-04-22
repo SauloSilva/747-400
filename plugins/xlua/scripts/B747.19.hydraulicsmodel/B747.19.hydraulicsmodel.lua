@@ -42,10 +42,10 @@ B747DR_hyd_edp_pressure_3      = create_dataref("laminar/B747/hydraulics/edp_pre
 B747DR_hyd_edp_pressure_4      = create_dataref("laminar/B747/hydraulics/edp_pressure_4", "number")
 B747DR_hyd_aux_pressure      = create_dataref("laminar/B747/hydraulics/aux_pressure", "number")
 
-B747DR_hyd_dem_mode_1      = create_dataref("laminar/B747/hydraulics/dem_mode_1", "number")
+B747DR_hyd_dem_mode_1      = create_dataref("laminar/B747/hydraulics/dem_mode_1", "number")--off auto on
 B747DR_hyd_dem_mode_2      = create_dataref("laminar/B747/hydraulics/dem_mode_2", "number")
 B747DR_hyd_dem_mode_3      = create_dataref("laminar/B747/hydraulics/dem_mode_3", "number")
-B747DR_hyd_dem_mode_4      = create_dataref("laminar/B747/hydraulics/dem_mode_4", "number")
+B747DR_hyd_dem_mode_4      = create_dataref("laminar/B747/hydraulics/dem_mode_4", "number")-- -1 aux off auto on
 -- CRT Displays/EICAS Lower/HYD/valve_on
 B747DR_hyd_valve_1      = create_dataref("laminar/B747/hydraulics/valve_1", "number")
 B747DR_hyd_valve_2      = create_dataref("laminar/B747/hydraulics/valve_2", "number")
@@ -138,9 +138,9 @@ end
 function B747_dem_pressures()
   if B747DR_hyd_dem_mode_1>0 then 
     if B747DR_hyd_dem_mode_1==2 then
-      B747DR_hyd_dem_pressure_1=B747_duct_pressure_L*75
+      B747DR_hyd_dem_pressure_1=B747_duct_pressure_L*175
     elseif B747DR_hyd_edp_pressure_1<2000 then
-      B747DR_hyd_dem_pressure_1=B747_duct_pressure_L*75
+      B747DR_hyd_dem_pressure_1=B747_duct_pressure_L*175
     else
       B747DR_hyd_dem_pressure_1=0
     end
@@ -175,9 +175,9 @@ function B747_dem_pressures()
   
   if B747DR_hyd_dem_mode_4>0 then
     if B747DR_hyd_dem_mode_4==2 then
-      B747DR_hyd_dem_pressure_4=B747_duct_pressure_R*75
+      B747DR_hyd_dem_pressure_4=B747_duct_pressure_R*175
     elseif B747DR_hyd_edp_pressure_4<2000 then
-      B747DR_hyd_dem_pressure_4=B747_duct_pressure_R*75
+      B747DR_hyd_dem_pressure_4=B747_duct_pressure_R*175
     else
       B747DR_hyd_dem_pressure_4=0
     end

@@ -582,7 +582,7 @@ end
 --** 				        CREATE READ-ONLY CUSTOM DATAREFS               	         **--
 --*************************************************************************************--
 
-B747DR_fms1_display_mode            = create_dataref("laminar/B747/fms1/display_mode", "number")
+B747DR_fms1_display_mode            = find_dataref("laminar/B747/fms1/display_mode")
 --[[
     0 = NORMAL
     1 = NAV RAD
@@ -619,7 +619,7 @@ B747DR_fms1_Line12_S                = create_dataref("laminar/B747/fms1/Line12_S
 B747DR_fms1_Line13_S                = create_dataref("laminar/B747/fms1/Line13_S", "string")
 B747DR_fms1_Line14_S                = create_dataref("laminar/B747/fms1/Line14_S", "string")
 
-B747DR_init_fmsL_CD                 = create_dataref("laminar/B747/fmsL/init_CD", "number")
+B747DR_init_fmsL_CD                 = find_dataref("laminar/B747/fmsL/init_CD")
 
 
 --*************************************************************************************--
@@ -797,9 +797,22 @@ function B747_set_FMS1_display_mode_norm()
     B747DR_fms1_display_mode = 0
 end
 
-
-
-
+fms1_line0=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line0")
+fms1_line1=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line1")
+fms1_line2=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line2")
+fms1_line3=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line3")
+fms1_line4=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line4")
+fms1_line5=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line5")
+fms1_line6=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line6")
+fms1_line7=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line7")
+fms1_line8=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line8")
+fms1_line9=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line9")
+fms1_line10=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line10")
+fms1_line11=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line11")
+fms1_line12=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line12")
+fms1_line13=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line13")
+fms1_line14=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line14")
+fms1_line15=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line15")
 function B747_fms1_display_navrad()
 
         B747DR_fms1_Line01_L = string.format("        %9s      ", "NAV RADIO")
@@ -833,7 +846,38 @@ function B747_fms1_display_navrad()
         B747DR_fms1_Line14_S = string.format("                        ", "")
 
 end
+function cleanFMSLine(line)
+    local retval=line:gsub("☐","*")
+    retval=retval:gsub("°","`")
+    return retval
+end 
+function B747_fms1_display_fms()
+      local page1=false
+      if fms1_line0:find("INDEX") ~= nil then
+	page1=true
+      end
+        B747DR_fms1_Line01_L = cleanFMSLine(fms1_line0) 
+        B747DR_fms1_Line02_L = cleanFMSLine(fms1_line1)
+        B747DR_fms1_Line03_L = cleanFMSLine(fms1_line2) 
+        B747DR_fms1_Line04_L = cleanFMSLine(fms1_line3) 
+        B747DR_fms1_Line05_L = cleanFMSLine(fms1_line4)
+	B747DR_fms1_Line06_L = cleanFMSLine(fms1_line5)
+	if page1 then
+	  B747DR_fms1_Line07_L = "<ACARS"
+	else
+	  B747DR_fms1_Line07_L = cleanFMSLine(fms1_line6)
+	end
+        
+        B747DR_fms1_Line08_L = cleanFMSLine(fms1_line7) 
+        B747DR_fms1_Line09_L = cleanFMSLine(fms1_line8)
+        B747DR_fms1_Line10_L = cleanFMSLine(fms1_line9)
+        B747DR_fms1_Line11_L = cleanFMSLine(fms1_line10)
+        B747DR_fms1_Line12_L = cleanFMSLine(fms1_line11)
+        B747DR_fms1_Line13_L = cleanFMSLine(fms1_line12)
+        B747DR_fms1_Line14_L = cleanFMSLine(fms1_line13)
 
+
+end
 
 
 
@@ -937,9 +981,11 @@ end
 --function before_physics() end
 
 function after_physics()
-
-    B747_fms1_display_navrad()
-
+    if B747DR_fms1_display_mode ==1 then
+      B747_fms1_display_navrad()
+    else
+      B747_fms1_display_fms()
+    end
     B747_fmsL_monitor_AI()
 
 end

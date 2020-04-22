@@ -38,6 +38,7 @@ IN_REPLAY - evaluates to 0 if replay is off, 1 if replay mode is on
 --*************************************************************************************--
 
 
+
 --*************************************************************************************--
 --** 					            GLOBAL VARIABLES                				 **--
 --*************************************************************************************--
@@ -802,7 +803,22 @@ function B747_set_FMS2_display_mode_norm()
     B747DR_fms2_display_mode = 0
 end
 
-
+fms1_line0=find_dataref("sim/cockpit2/radios/indicators/fms_cdu2_text_line0")
+fms1_line1=find_dataref("sim/cockpit2/radios/indicators/fms_cdu2_text_line1")
+fms1_line2=find_dataref("sim/cockpit2/radios/indicators/fms_cdu2_text_line2")
+fms1_line3=find_dataref("sim/cockpit2/radios/indicators/fms_cdu2_text_line3")
+fms1_line4=find_dataref("sim/cockpit2/radios/indicators/fms_cdu2_text_line4")
+fms1_line5=find_dataref("sim/cockpit2/radios/indicators/fms_cdu2_text_line5")
+fms1_line6=find_dataref("sim/cockpit2/radios/indicators/fms_cdu2_text_line6")
+fms1_line7=find_dataref("sim/cockpit2/radios/indicators/fms_cdu2_text_line7")
+fms1_line8=find_dataref("sim/cockpit2/radios/indicators/fms_cdu2_text_line8")
+fms1_line9=find_dataref("sim/cockpit2/radios/indicators/fms_cdu2_text_line9")
+fms1_line10=find_dataref("sim/cockpit2/radios/indicators/fms_cdu2_text_line10")
+fms1_line11=find_dataref("sim/cockpit2/radios/indicators/fms_cdu2_text_line11")
+fms1_line12=find_dataref("sim/cockpit2/radios/indicators/fms_cdu2_text_line12")
+fms1_line13=find_dataref("sim/cockpit2/radios/indicators/fms_cdu2_text_line13")
+fms1_line14=find_dataref("sim/cockpit2/radios/indicators/fms_cdu2_text_line14")
+fms1_line15=find_dataref("sim/cockpit2/radios/indicators/fms_cdu2_text_line15")
 
 
 function B747_fms2_display_navrad()
@@ -838,7 +854,30 @@ function B747_fms2_display_navrad()
         B747DR_fms2_Line14_S = string.format("                        ", "")
 
 end
+function cleanFMSLine(line)
+    local retval=line:gsub("☐","*")
+    retval=retval:gsub("°","`")
+    return retval
+end 
+function B747_fms2_display_fms()
 
+        B747DR_fms1_Line01_L = cleanFMSLine(fms1_line0) 
+        B747DR_fms1_Line02_L = cleanFMSLine(fms1_line1)
+        B747DR_fms1_Line03_L = cleanFMSLine(fms1_line2) 
+        B747DR_fms1_Line04_L = cleanFMSLine(fms1_line3) 
+        B747DR_fms1_Line05_L = cleanFMSLine(fms1_line4) 
+        B747DR_fms1_Line06_L = cleanFMSLine(fms1_line5)
+        B747DR_fms1_Line07_L = cleanFMSLine(fms1_line6)
+        B747DR_fms1_Line08_L = cleanFMSLine(fms1_line7) 
+        B747DR_fms1_Line09_L = cleanFMSLine(fms1_line8)
+        B747DR_fms1_Line10_L = cleanFMSLine(fms1_line9)
+        B747DR_fms1_Line11_L = cleanFMSLine(fms1_line10)
+        B747DR_fms1_Line12_L = cleanFMSLine(fms1_line11)
+        B747DR_fms1_Line13_L = cleanFMSLine(fms1_line12)
+        B747DR_fms1_Line14_L = cleanFMSLine(fms1_line13)
+
+
+end
 
 
 
@@ -945,8 +984,11 @@ end
 --function before_physics() end
 
 function after_physics()
-
-    B747_fms2_display_navrad()
+    if B747DR_fms2_display_mode ==1 then
+      B747_fms2_display_navrad()
+    else
+      B747_fms2_display_fms()
+    end
 
     B747_fmsR_monitor_AI()
 
@@ -954,14 +996,6 @@ end
 
 --function after_replay() end
 
-
-
-
-print(collectgarbage("count")*1024)
-print("^^^^^^MEMORY USAGE OF B747.68.fmsR.lua IN BYTES BEFORE GARBAGE COLLECT")
-collectgarbage("collect")
-print(collectgarbage("count")*1024)
-print("^^^^^^MEMORY USAGE OF B747.68.fmsR.lua IN BYTES AFTER GARBAGE COLLECT")
 
 
 --*************************************************************************************--

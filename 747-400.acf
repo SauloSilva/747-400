@@ -125871,7 +125871,6 @@ GROUP FMS L
     KEY_FRAME 1.000000 1.000000
 
   GROUP NAV RAD
-    SHOW_EQUAL 1.000000 laminar/B747/fms1/display_mode
     LOCKED
     CHAINED
     gen_rotary CDU739 Mask
@@ -126303,7 +126302,6 @@ GROUP FMS R
     KEY_FRAME 1.000000 1.000000
 
   GROUP NAV RAD
-    SHOW_EQUAL 1.000000 laminar/B747/fms2/display_mode
     LOCKED
     CHAINED
     gen_rotary CDU739 Mask
