@@ -875,7 +875,20 @@ function B747_fms2_display_fms()
         B747DR_fms1_Line12_L = cleanFMSLine(fms1_line11)
         B747DR_fms1_Line13_L = cleanFMSLine(fms1_line12)
         B747DR_fms1_Line14_L = cleanFMSLine(fms1_line13)
-
+	B747DR_fms1_Line01_S = ""
+        B747DR_fms1_Line02_S = ""
+        B747DR_fms1_Line03_S = ""
+        B747DR_fms1_Line04_S = ""
+        B747DR_fms1_Line05_S = ""
+        B747DR_fms1_Line06_S = ""
+        B747DR_fms1_Line07_S = ""
+        B747DR_fms1_Line08_S = ""
+        B747DR_fms1_Line09_S = ""
+        B747DR_fms1_Line10_S = ""
+        B747DR_fms1_Line11_S = ""
+        B747DR_fms1_Line12_S = ""
+        B747DR_fms1_Line13_S = ""
+        B747DR_fms1_Line14_S = ""
 
 end
 
