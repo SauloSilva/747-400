@@ -1,0 +1,1 @@
+/media/storage2/X-Plane 11/XP11.50/X-Plane 11/Aircraft/wip/Robinson R44 Raven II 11.34/plugins/xtlua/64/lin.xpl
