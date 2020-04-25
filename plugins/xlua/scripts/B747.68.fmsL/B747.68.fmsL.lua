@@ -1,5 +1,302 @@
 --[[
 *****************************************************************************************
+*        COPYRIGHT � 2020 Mark Parker/mSparks CC-BY-NC4
+*****************************************************************************************
+]]
+hh=find_dataref("sim/cockpit2/clock_timer/zulu_time_hours")
+mm=find_dataref("sim/cockpit2/clock_timer/zulu_time_minutes")
+ss=find_dataref("sim/cockpit2/clock_timer/zulu_time_seconds")
+local acars={}
+local currentPage="INDEX"
+local inCustomFMC=false
+acars["ACARS"]={
+"    ACARS-MAIN MENU     ",
+"                        ",
+"<PREFLIGHT         MSGS>",
+"                        ",
+"<INFLIGHT     VHF CNTRL>",
+"                        ",
+"<POSTFLIGHT     WXR REQ>",
+"                        ",
+"                        ",
+"                        ",
+"<MAINT EVENT      TIMES>",
+"                        ",
+"                        "
+}
+acars["PREFLIGHT"]={
+
+"  ACARS-PREFLIGHT MENU  ",
+"                        ",
+"                        ",
+"                        ",
+"<INITIALIZE        MSGS>",
+"                        ",
+"              VHF CNTRL>",
+"                        ",
+"<UTC UPDATE     WXR REQ>",
+"                        ",
+"   EVENT TIMES>", 
+"                        ",
+"<RETURN                 "
+}-- line 11 LHS = getUTC 
+
+local fmsFunctionsDefs={}
+fmsFunctionsDefs["INDEX"]={}
+fmsFunctionsDefs["INDEX"]["L3"]={"setpage","ACARS"}
+fmsFunctionsDefs["ACARS"]={}
+fmsFunctionsDefs["ACARS"]["L1"]={"setpage","PREFLIGHT"}
+fmsFunctionsDefs["PREFLIGHT"]={}
+fmsFunctionsDefs["PREFLIGHT"]["L6"]={"setpage","ACARS"}
+local fmslineDefs={}
+fmslineDefs["PREFLIGHT"]={}
+fmslineDefs["PREFLIGHT"][11]={"getUTC",nil}
+
+function dd(digits)
+  if string.len(digits) == 1 then return "0" .. digits else return digits end
+end
+
+local fmsFunctions={}
+function fmsFunctions.setpage(value) 
+  inCustomFMC=true
+  currentPage=value 
+  print("setpage" .. value)
+end
+function fmsFunctions.getUTC() return " " .. dd(hh) .. ":".. dd(mm) .. ":".. dd(ss) end  
+local inAcars=true
+B747DR_fms1_Line01_L                = create_dataref("laminar/B747/fms1/Line01_L", "string")
+B747DR_fms1_Line02_L                = create_dataref("laminar/B747/fms1/Line02_L", "string")
+B747DR_fms1_Line03_L                = create_dataref("laminar/B747/fms1/Line03_L", "string")
+B747DR_fms1_Line04_L                = create_dataref("laminar/B747/fms1/Line04_L", "string")
+B747DR_fms1_Line05_L                = create_dataref("laminar/B747/fms1/Line05_L", "string")
+B747DR_fms1_Line06_L                = create_dataref("laminar/B747/fms1/Line06_L", "string")
+B747DR_fms1_Line07_L                = create_dataref("laminar/B747/fms1/Line07_L", "string")
+B747DR_fms1_Line08_L                = create_dataref("laminar/B747/fms1/Line08_L", "string")
+B747DR_fms1_Line09_L                = create_dataref("laminar/B747/fms1/Line09_L", "string")
+B747DR_fms1_Line10_L                = create_dataref("laminar/B747/fms1/Line10_L", "string")
+B747DR_fms1_Line11_L                = create_dataref("laminar/B747/fms1/Line11_L", "string")
+B747DR_fms1_Line12_L                = create_dataref("laminar/B747/fms1/Line12_L", "string")
+B747DR_fms1_Line13_L                = create_dataref("laminar/B747/fms1/Line13_L", "string")
+B747DR_fms1_Line14_L                = create_dataref("laminar/B747/fms1/Line14_L", "string")
+B747DR_fms1_Line01_S                = create_dataref("laminar/B747/fms1/Line01_S", "string")
+B747DR_fms1_Line02_S                = create_dataref("laminar/B747/fms1/Line02_S", "string")
+B747DR_fms1_Line03_S                = create_dataref("laminar/B747/fms1/Line03_S", "string")
+B747DR_fms1_Line04_S                = create_dataref("laminar/B747/fms1/Line04_S", "string")
+B747DR_fms1_Line05_S                = create_dataref("laminar/B747/fms1/Line05_S", "string")
+B747DR_fms1_Line06_S                = create_dataref("laminar/B747/fms1/Line06_S", "string")
+B747DR_fms1_Line07_S                = create_dataref("laminar/B747/fms1/Line07_S", "string")
+B747DR_fms1_Line08_S                = create_dataref("laminar/B747/fms1/Line08_S", "string")
+B747DR_fms1_Line09_S                = create_dataref("laminar/B747/fms1/Line09_S", "string")
+B747DR_fms1_Line10_S                = create_dataref("laminar/B747/fms1/Line10_S", "string")
+B747DR_fms1_Line11_S                = create_dataref("laminar/B747/fms1/Line11_S", "string")
+B747DR_fms1_Line12_S                = create_dataref("laminar/B747/fms1/Line12_S", "string")
+B747DR_fms1_Line13_S                = create_dataref("laminar/B747/fms1/Line13_S", "string")
+B747DR_fms1_Line14_S                = create_dataref("laminar/B747/fms1/Line14_S", "string")
+
+local fms={}
+function fms.setfms1(value) B747DR_fms1_Line01_L=value end
+function fms.setfms2(value) B747DR_fms1_Line02_L=value end
+function fms.setfms3(value) B747DR_fms1_Line03_L=value end
+function fms.setfms4(value) B747DR_fms1_Line04_L=value end
+function fms.setfms5(value) B747DR_fms1_Line05_L=value end
+function fms.setfms6(value) B747DR_fms1_Line06_L=value end
+function fms.setfms7(value) B747DR_fms1_Line07_L=value end
+function fms.setfms8(value) B747DR_fms1_Line08_L=value end 
+function fms.setfms9(value) B747DR_fms1_Line09_L=value end  
+function fms.setfms10(value) B747DR_fms1_Line10_L=value end  
+function fms.setfms11(value) B747DR_fms1_Line11_L=value end  
+function fms.setfms12(value) B747DR_fms1_Line12_L=value end  
+function fms.setfms13(value) B747DR_fms1_Line13_L=value end  
+function fms.setfms14(value) B747DR_fms1_Line14_L=value end 
+
+fms1_line0=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line0")
+fms1_line1=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line1")
+fms1_line2=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line2")
+fms1_line3=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line3")
+fms1_line4=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line4")
+fms1_line5=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line5")
+fms1_line6=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line6")
+fms1_line7=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line7")
+fms1_line8=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line8")
+fms1_line9=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line9")
+fms1_line10=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line10")
+fms1_line11=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line11")
+fms1_line12=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line12")
+fms1_line13=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line13")
+fms1_line14=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line14")
+fms1_line15=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line15")
+
+function cleanFMSLine(line)
+    local retval=line:gsub("☐","*")
+    retval=retval:gsub("°","`")
+    return retval
+end 
+
+function B747_fms1_display_customFMC()
+  local line
+  for i=1,13,1 do
+    local line=""
+    if fmslineDefs[currentPage] ~= nil and fmslineDefs[currentPage][i] ~= nil and fmslineDefs[currentPage][i][1] ~= nil then 
+      line=fmsFunctions[fmslineDefs[currentPage][i][1]]() 
+    end
+    line=line .. acars[currentPage][i]
+    if fmslineDefs[currentPage] ~= nil and fmslineDefs[currentPage][i] ~= nil and fmslineDefs[currentPage][i][2] ~= nil then 
+      line=line .. fmsFunctions[fmslineDefs[currentPage][i][2]]() 
+    end
+    fms["setfms" .. i](line)
+  end
+  B747DR_fms1_Line14_L = cleanFMSLine(fms1_line13)--scratchpad TODO
+  B747DR_fms1_Line01_S = "                        "
+  B747DR_fms1_Line02_S = "                        "
+  B747DR_fms1_Line03_S = "                        "
+  B747DR_fms1_Line04_S = "                        "
+  B747DR_fms1_Line05_S = "                        "
+  B747DR_fms1_Line06_S = "                        "
+  B747DR_fms1_Line07_S = "                        "
+  B747DR_fms1_Line08_S = "                        "
+  B747DR_fms1_Line09_S = "                        "
+  B747DR_fms1_Line10_S = "                        "
+  B747DR_fms1_Line11_S = "                        "
+  B747DR_fms1_Line12_S = "                        "
+  B747DR_fms1_Line13_S = "                        "
+  B747DR_fms1_Line14_S = "                        "
+end
+
+
+local page1=false
+function B747_fms1_display_defaultfms()
+      
+      if fms1_line0:find("INDEX") ~= nil then
+	page1=true
+      else
+	page1=false
+      end
+        B747DR_fms1_Line01_L = cleanFMSLine(fms1_line0) 
+        B747DR_fms1_Line02_L = cleanFMSLine(fms1_line1)
+        B747DR_fms1_Line03_L = cleanFMSLine(fms1_line2) 
+        B747DR_fms1_Line04_L = cleanFMSLine(fms1_line3) 
+        B747DR_fms1_Line05_L = cleanFMSLine(fms1_line4)
+	B747DR_fms1_Line06_L = cleanFMSLine(fms1_line5)
+	if currentPage=="INDEX" and page1 then
+	  B747DR_fms1_Line07_L = "<ACARS"
+	else
+	  B747DR_fms1_Line07_L = cleanFMSLine(fms1_line6)
+	end
+        
+        B747DR_fms1_Line08_L = cleanFMSLine(fms1_line7) 
+        B747DR_fms1_Line09_L = cleanFMSLine(fms1_line8)
+        B747DR_fms1_Line10_L = cleanFMSLine(fms1_line9)
+        B747DR_fms1_Line11_L = cleanFMSLine(fms1_line10)
+        B747DR_fms1_Line12_L = cleanFMSLine(fms1_line11)
+        B747DR_fms1_Line13_L = cleanFMSLine(fms1_line12)
+        B747DR_fms1_Line14_L = cleanFMSLine(fms1_line13)
+	B747DR_fms1_Line01_S = "                        "
+        B747DR_fms1_Line02_S = "                        "
+        B747DR_fms1_Line03_S = "                        "
+        B747DR_fms1_Line04_S = "                        "
+        B747DR_fms1_Line05_S = "                        "
+        B747DR_fms1_Line06_S = "                        "
+        B747DR_fms1_Line07_S = "                        "
+        B747DR_fms1_Line08_S = "                        "
+        B747DR_fms1_Line09_S = "                        "
+        B747DR_fms1_Line10_S = "                        "
+        B747DR_fms1_Line11_S = "                        "
+        B747DR_fms1_Line12_S = "                        "
+        B747DR_fms1_Line13_S = "                        "
+        B747DR_fms1_Line14_S = "                        "
+
+end
+
+function B747_fms1_ls_key_L1_CMDhandler(phase, duration)
+  if inCustomFMC==false then
+    if phase == 0 then simCMD_FMS_ls_1L:once() end
+  elseif fmsFunctionsDefs[currentPage] ~= nil and fmsFunctionsDefs[currentPage]["L1"] ~= nil then
+    fmsFunctions[fmsFunctionsDefs[currentPage]["L1"][1]](fmsFunctionsDefs[currentPage]["L1"][2])
+  end
+end
+function B747_fms1_ls_key_L2_CMDhandler(phase, duration)
+  if inCustomFMC==false then
+    if phase == 0 then simCMD_FMS_ls_2L:once() end
+  elseif phase == 0 and fmsFunctionsDefs[currentPage] ~= nil and fmsFunctionsDefs[currentPage]["L2"] ~= nil then
+    fmsFunctions[fmsFunctionsDefs[currentPage]["L2"][1]](fmsFunctionsDefs[currentPage]["L2"][2])
+  end 
+end
+function B747_fms1_ls_key_L3_CMDhandler(phase, duration)
+  if inCustomFMC==false and not page1 then
+    if phase == 0 then simCMD_FMS_ls_3L:once() end
+    elseif phase == 0 and fmsFunctionsDefs[currentPage] ~= nil and fmsFunctionsDefs[currentPage]["L3"] ~= nil then
+    fmsFunctions[fmsFunctionsDefs[currentPage]["L3"][1]](fmsFunctionsDefs[currentPage]["L3"][2])
+  end 
+end
+function B747_fms1_ls_key_L4_CMDhandler(phase, duration)
+  if inCustomFMC==false then
+    if phase == 0 then simCMD_FMS_ls_4L:once() end
+    elseif phase == 0 and fmsFunctionsDefs[currentPage] ~= nil and fmsFunctionsDefs[currentPage]["L4"] ~= nil then
+    fmsFunctions[fmsFunctionsDefs[currentPage]["L4"][1]](fmsFunctionsDefs[currentPage]["L4"][2])
+  end 
+end
+function B747_fms1_ls_key_L5_CMDhandler(phase, duration)
+  if inCustomFMC==false then
+    if phase == 0 then simCMD_FMS_ls_5L:once() end
+    elseif phase == 0 and fmsFunctionsDefs[currentPage] ~= nil and fmsFunctionsDefs[currentPage]["L5"] ~= nil then
+    fmsFunctions[fmsFunctionsDefs[currentPage]["L5"][1]](fmsFunctionsDefs[currentPage]["L5"][2])
+  end 
+end
+function B747_fms1_ls_key_L6_CMDhandler(phase, duration)
+  if inCustomFMC==false then
+    if phase == 0 then simCMD_FMS_ls_6L:once() end
+    elseif phase == 0 and fmsFunctionsDefs[currentPage] ~= nil and fmsFunctionsDefs[currentPage]["L6"] ~= nil then
+    fmsFunctions[fmsFunctionsDefs[currentPage]["L6"][1]](fmsFunctionsDefs[currentPage]["L6"][2])
+  end 
+end
+function B747_fms1_ls_key_R1_CMDhandler(phase, duration)
+  if inCustomFMC==false then
+    if phase == 0 then simCMD_FMS_ls_1R:once() end
+    elseif phase == 0 and fmsFunctionsDefs[currentPage] ~= nil and fmsFunctionsDefs[currentPage]["R1"] ~= nil then
+    fmsFunctions[fmsFunctionsDefs[currentPage]["L6"][1]](fmsFunctionsDefs[currentPage]["R1"][2])
+  end 
+end
+function B747_fms1_ls_key_R2_CMDhandler(phase, duration)
+  if inCustomFMC==false then
+    if phase == 0 then simCMD_FMS_ls_2R:once() end
+    elseif phase == 0 and fmsFunctionsDefs[currentPage] ~= nil and fmsFunctionsDefs[currentPage]["R2"] ~= nil then
+    fmsFunctions[fmsFunctionsDefs[currentPage]["R2"][1]](fmsFunctionsDefs[currentPage]["R2"][2])
+  end
+end
+function B747_fms1_ls_key_R3_CMDhandler(phase, duration)
+  if inCustomFMC==false then
+    if phase == 0 then simCMD_FMS_ls_3R:once() end
+    elseif phase == 0 and fmsFunctionsDefs[currentPage] ~= nil and fmsFunctionsDefs[currentPage]["R3"] ~= nil then
+    fmsFunctions[fmsFunctionsDefs[currentPage]["R3"][1]](fmsFunctionsDefs[currentPage]["R3"][2])
+  end
+end
+function B747_fms1_ls_key_R4_CMDhandler(phase, duration)
+  if inCustomFMC==false then
+    if phase == 0 then simCMD_FMS_ls_4R:once() end
+    elseif phase == 0 and fmsFunctionsDefs[currentPage] ~= nil and fmsFunctionsDefs[currentPage]["R4"] ~= nil then
+    fmsFunctions[fmsFunctionsDefs[currentPage]["R4"][1]](fmsFunctionsDefs[currentPage]["R4"][2])
+  end
+end
+function B747_fms1_ls_key_R5_CMDhandler(phase, duration)
+  if inCustomFMC==false then
+    if phase == 0 then simCMD_FMS_ls_5R:once() end
+    elseif phase == 0 and fmsFunctionsDefs[currentPage] ~= nil and fmsFunctionsDefs[currentPage]["R5"] ~= nil then
+    fmsFunctions[fmsFunctionsDefs[currentPage]["R5"][1]](fmsFunctionsDefs[currentPage]["R5"][2])
+  end
+end
+function B747_fms1_ls_key_R6_CMDhandler(phase, duration)
+  if inCustomFMC==false then
+    if phase == 0 then simCMD_FMS_ls_6R:once() end
+    elseif phase == 0 and fmsFunctionsDefs[currentPage] ~= nil and fmsFunctionsDefs[currentPage]["R6"] ~= nil then
+    fmsFunctions[fmsFunctionsDefs[currentPage]["R6"][1]](fmsFunctionsDefs[currentPage]["R6"][2])
+  end
+end
+
+
+
+
+--[[
+*****************************************************************************************
 * Program Script Name	:	B747.68.fmsL
 
 * Author Name			:	Jim Gregory
@@ -70,8 +367,6 @@ simDR_radio_nav04_ID                = find_dataref("sim/cockpit2/radios/indicato
 
 simDR_radio_adf1_freq_hz            = find_dataref("sim/cockpit2/radios/actuators/adf1_frequency_hz")
 simDR_radio_adf2_freq_hz            = find_dataref("sim/cockpit2/radios/actuators/adf2_frequency_hz")
-
-
 
 
 
@@ -187,7 +482,11 @@ end
 --*************************************************************************************--
 
 function sim_fms1_func_key_beforeCMDhandler(phase, duration)
-    if phase == 0 then B747_set_FMS1_display_mode_norm() end
+    if phase == 0 then 
+      B747_set_FMS1_display_mode_norm()
+      
+    
+    end
 end
 function sim_fms1_func_key_afterCMDhandler(phase, duration) end
 
@@ -199,83 +498,109 @@ function sim_fms1_func_key_afterCMDhandler(phase, duration) end
 --*************************************************************************************--
 
 -- LINE SELECT KEYS ---------------------------------------------------------------------
-function B747_fms1_ls_key_L1_CMDhandler(phase, duration)
-    if phase == 0 then simCMD_FMS_ls_1L:once() end
-end
-function B747_fms1_ls_key_L2_CMDhandler(phase, duration)
-    if phase == 0 then simCMD_FMS_ls_2L:once() end
-end
-function B747_fms1_ls_key_L3_CMDhandler(phase, duration)
-    if phase == 0 then simCMD_FMS_ls_3L:once() end
-end
-function B747_fms1_ls_key_L4_CMDhandler(phase, duration)
-    if phase == 0 then simCMD_FMS_ls_4L:once() end
-end
-function B747_fms1_ls_key_L5_CMDhandler(phase, duration)
-    if phase == 0 then simCMD_FMS_ls_5L:once() end
-end
-function B747_fms1_ls_key_L6_CMDhandler(phase, duration)
-    if phase == 0 then simCMD_FMS_ls_6L:once() end
-end
-function B747_fms1_ls_key_R1_CMDhandler(phase, duration)
-    if phase == 0 then simCMD_FMS_ls_1R:once() end
-end
-function B747_fms1_ls_key_R2_CMDhandler(phase, duration)
-    if phase == 0 then simCMD_FMS_ls_2R:once() end
-end
-function B747_fms1_ls_key_R3_CMDhandler(phase, duration)
-    if phase == 0 then simCMD_FMS_ls_3R:once() end
-end
-function B747_fms1_ls_key_R4_CMDhandler(phase, duration)
-    if phase == 0 then simCMD_FMS_ls_4R:once() end
-end
-function B747_fms1_ls_key_R5_CMDhandler(phase, duration)
-    if phase == 0 then simCMD_FMS_ls_5R:once() end
-end
-function B747_fms1_ls_key_R6_CMDhandler(phase, duration)
-    if phase == 0 then simCMD_FMS_ls_6R:once() end
-end
+
 
 
 -- FUNCTION KEYS ------------------------------------------------------------------------
 function B747_fms1_func_key_index_CMDhandler(phase, duration)
-    if phase == 0 then simCMD_FMS_key_index:once() end
+    if phase == 0 then 
+      simCMD_FMS_key_index:once() 
+      B747DR_fms1_display_mode = 0.0
+      inCustomFMC=false
+      currentPage="INDEX"
+    end
 end
 function B747_fms1_func_key_fpln_CMDhandler(phase, duration)
-    if phase == 0 then simCMD_FMS_key_fpln:once() end
+    if phase == 0 then 
+      simCMD_FMS_key_fpln:once() 
+      B747DR_fms1_display_mode = 0.0
+      inCustomFMC=false
+      currentPage="FLPN"
+    end
 end
 function B747_fms1_func_key_clb_CMDhandler(phase, duration)
-    if phase == 0 then simCMD_FMS_key_clb:once() end
+    if phase == 0 then 
+      simCMD_FMS_key_clb:once() 
+      B747DR_fms1_display_mode = 0.0
+      inCustomFMC=false
+      currentPage="CLB"
+    
+    end
 end
 function B747_fms1_func_key_crz_CMDhandler(phase, duration)
-    if phase == 0 then simCMD_FMS_key_crz:once() end
+    if phase == 0 then 
+      simCMD_FMS_key_crz:once()
+      B747DR_fms1_display_mode = 0.0
+      inCustomFMC=false
+      currentPage="CRZ"
+    end
 end
 function B747_fms1_func_key_des_CMDhandler(phase, duration)
-    if phase == 0 then simCMD_FMS_key_des:once() end
+    if phase == 0 then 
+      simCMD_FMS_key_des:once() 
+      B747DR_fms1_display_mode = 0.0
+      inCustomFMC=false
+      currentPage="DES"
+    end
 end
 function B747_fms1_func_key_dir_intc_CMDhandler(phase, duration)
-    if phase == 0 then simCMD_FMS_key_dir_intc:once() end
+    if phase == 0 then 
+      simCMD_FMS_key_dir_intc:once() 
+      B747DR_fms1_display_mode = 0.0
+      inCustomFMC=false
+      currentPage="DIR"
+    end
 end
 function B747_fms1_func_key_legs_CMDhandler(phase, duration)
-    if phase == 0 then simCMD_FMS_key_legs:once() end
+    if phase == 0 then 
+      simCMD_FMS_key_legs:once()
+      B747DR_fms1_display_mode = 0.0
+      inCustomFMC=false
+      currentPage="LEGS"
+    end
 end
 function B747_fms1_func_key_dep_arr_CMDhandler(phase, duration)
-    if phase == 0 then simCMD_FMS_key_dep_arr:once() end
+    if phase == 0 then 
+      simCMD_FMS_key_dep_arr:once() 
+      B747DR_fms1_display_mode = 0.0
+      inCustomFMC=false
+      currentPage="DEPARR"
+    end
 end
 function B747_fms1_func_key_hold_CMDhandler(phase, duration)
-    if phase == 0 then simCMD_FMS_key_hold:once() end
+    if phase == 0 then 
+      simCMD_FMS_key_hold:once()
+      B747DR_fms1_display_mode = 0.0
+      inCustomFMC=false
+      currentPage="HOLD"
+    end
 end
 function B747_fms1_func_key_prog_CMDhandler(phase, duration)
-    if phase == 0 then simCMD_FMS_key_prog:once() end
+    if phase == 0 then 
+      simCMD_FMS_key_prog:once() 
+      B747DR_fms1_display_mode = 0.0
+      inCustomFMC=false
+      currentPage="PROG"
+    end
 end
 function B747_fms1_key_execute_CMDhandler(phase, duration)
+  --TODO
     if phase == 0 then simCMD_FMS_key_exec:once() end
 end
 function B747_fms1_func_key_fix_CMDhandler(phase, duration)
-    if phase == 0 then simCMD_FMS_key_fix:once() end
+    if phase == 0 then 
+      simCMD_FMS_key_fix:once() 
+      B747DR_fms1_display_mode = 0.0
+      inCustomFMC=false
+      currentPage="FIX"
+  end
 end
 function B747_fms1_func_key_nav_rad_CMDhandler(phase, duration)
-    if phase == 0 then B747DR_fms1_display_mode = 1.0 end
+    if phase == 0 then 
+      B747DR_fms1_display_mode = 1.0
+      inCustomFMC=false
+      currentPage="NAVRAD"
+    end
 end
 function B747_fms1_func_key_prev_pg_CMDhandler(phase, duration)
     if phase == 0 then simCMD_FMS_prev:once() end
@@ -589,35 +914,8 @@ B747DR_fms1_display_mode            = find_dataref("laminar/B747/fms1/display_mo
 --]]
 
 
-B747DR_fms1_Line01_L                = create_dataref("laminar/B747/fms1/Line01_L", "string")
-B747DR_fms1_Line02_L                = create_dataref("laminar/B747/fms1/Line02_L", "string")
-B747DR_fms1_Line03_L                = create_dataref("laminar/B747/fms1/Line03_L", "string")
-B747DR_fms1_Line04_L                = create_dataref("laminar/B747/fms1/Line04_L", "string")
-B747DR_fms1_Line05_L                = create_dataref("laminar/B747/fms1/Line05_L", "string")
-B747DR_fms1_Line06_L                = create_dataref("laminar/B747/fms1/Line06_L", "string")
-B747DR_fms1_Line07_L                = create_dataref("laminar/B747/fms1/Line07_L", "string")
-B747DR_fms1_Line08_L                = create_dataref("laminar/B747/fms1/Line08_L", "string")
-B747DR_fms1_Line09_L                = create_dataref("laminar/B747/fms1/Line09_L", "string")
-B747DR_fms1_Line10_L                = create_dataref("laminar/B747/fms1/Line10_L", "string")
-B747DR_fms1_Line11_L                = create_dataref("laminar/B747/fms1/Line11_L", "string")
-B747DR_fms1_Line12_L                = create_dataref("laminar/B747/fms1/Line12_L", "string")
-B747DR_fms1_Line13_L                = create_dataref("laminar/B747/fms1/Line13_L", "string")
-B747DR_fms1_Line14_L                = create_dataref("laminar/B747/fms1/Line14_L", "string")
+   
 
-B747DR_fms1_Line01_S                = create_dataref("laminar/B747/fms1/Line01_S", "string")
-B747DR_fms1_Line02_S                = create_dataref("laminar/B747/fms1/Line02_S", "string")
-B747DR_fms1_Line03_S                = create_dataref("laminar/B747/fms1/Line03_S", "string")
-B747DR_fms1_Line04_S                = create_dataref("laminar/B747/fms1/Line04_S", "string")
-B747DR_fms1_Line05_S                = create_dataref("laminar/B747/fms1/Line05_S", "string")
-B747DR_fms1_Line06_S                = create_dataref("laminar/B747/fms1/Line06_S", "string")
-B747DR_fms1_Line07_S                = create_dataref("laminar/B747/fms1/Line07_S", "string")
-B747DR_fms1_Line08_S                = create_dataref("laminar/B747/fms1/Line08_S", "string")
-B747DR_fms1_Line09_S                = create_dataref("laminar/B747/fms1/Line09_S", "string")
-B747DR_fms1_Line10_S                = create_dataref("laminar/B747/fms1/Line10_S", "string")
-B747DR_fms1_Line11_S                = create_dataref("laminar/B747/fms1/Line11_S", "string")
-B747DR_fms1_Line12_S                = create_dataref("laminar/B747/fms1/Line12_S", "string")
-B747DR_fms1_Line13_S                = create_dataref("laminar/B747/fms1/Line13_S", "string")
-B747DR_fms1_Line14_S                = create_dataref("laminar/B747/fms1/Line14_S", "string")
 
 B747DR_init_fmsL_CD                 = find_dataref("laminar/B747/fmsL/init_CD")
 
@@ -795,24 +1093,12 @@ simCMDwrap_fms1_func_key_next_pg        = wrap_command("sim/FMS/next", sim_fms1_
 
 function B747_set_FMS1_display_mode_norm()
     B747DR_fms1_display_mode = 0
+    inCustomFMC=false
+    currentPage="INDEX"
 end
 
-fms1_line0=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line0")
-fms1_line1=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line1")
-fms1_line2=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line2")
-fms1_line3=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line3")
-fms1_line4=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line4")
-fms1_line5=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line5")
-fms1_line6=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line6")
-fms1_line7=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line7")
-fms1_line8=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line8")
-fms1_line9=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line9")
-fms1_line10=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line10")
-fms1_line11=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line11")
-fms1_line12=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line12")
-fms1_line13=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line13")
-fms1_line14=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line14")
-fms1_line15=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line15")
+
+
 function B747_fms1_display_navrad()
 
         B747DR_fms1_Line01_L = string.format("        %9s      ", "NAV RADIO")
@@ -846,51 +1132,7 @@ function B747_fms1_display_navrad()
         B747DR_fms1_Line14_S = string.format("                        ", "")
 
 end
-function cleanFMSLine(line)
-    local retval=line:gsub("☐","*")
-    retval=retval:gsub("°","`")
-    return retval
-end 
-function B747_fms1_display_fms()
-      local page1=false
-      if fms1_line0:find("INDEX") ~= nil then
-	page1=true
-      end
-        B747DR_fms1_Line01_L = cleanFMSLine(fms1_line0) 
-        B747DR_fms1_Line02_L = cleanFMSLine(fms1_line1)
-        B747DR_fms1_Line03_L = cleanFMSLine(fms1_line2) 
-        B747DR_fms1_Line04_L = cleanFMSLine(fms1_line3) 
-        B747DR_fms1_Line05_L = cleanFMSLine(fms1_line4)
-	B747DR_fms1_Line06_L = cleanFMSLine(fms1_line5)
-	if page1 then
-	  B747DR_fms1_Line07_L = "<ACARS"
-	else
-	  B747DR_fms1_Line07_L = cleanFMSLine(fms1_line6)
-	end
-        
-        B747DR_fms1_Line08_L = cleanFMSLine(fms1_line7) 
-        B747DR_fms1_Line09_L = cleanFMSLine(fms1_line8)
-        B747DR_fms1_Line10_L = cleanFMSLine(fms1_line9)
-        B747DR_fms1_Line11_L = cleanFMSLine(fms1_line10)
-        B747DR_fms1_Line12_L = cleanFMSLine(fms1_line11)
-        B747DR_fms1_Line13_L = cleanFMSLine(fms1_line12)
-        B747DR_fms1_Line14_L = cleanFMSLine(fms1_line13)
-	B747DR_fms1_Line01_S = ""
-        B747DR_fms1_Line02_S = ""
-        B747DR_fms1_Line03_S = ""
-        B747DR_fms1_Line04_S = ""
-        B747DR_fms1_Line05_S = ""
-        B747DR_fms1_Line06_S = ""
-        B747DR_fms1_Line07_S = ""
-        B747DR_fms1_Line08_S = ""
-        B747DR_fms1_Line09_S = ""
-        B747DR_fms1_Line10_S = ""
-        B747DR_fms1_Line11_S = ""
-        B747DR_fms1_Line12_S = ""
-        B747DR_fms1_Line13_S = ""
-        B747DR_fms1_Line14_S = ""
 
-end
 
 
 
@@ -994,10 +1236,15 @@ end
 --function before_physics() end
 
 function after_physics()
-    if B747DR_fms1_display_mode ==1 then
+    if inCustomFMC then
+      B747_fms1_display_customFMC()
+      --print("customFMC " .. currentPage)
+    elseif B747DR_fms1_display_mode ==1 then
       B747_fms1_display_navrad()
+      --print("B747_fms1_display_navrad " .. currentPage)
     else
-      B747_fms1_display_fms()
+      B747_fms1_display_defaultfms()
+      --print("B747_fms1_display_defaultfms " .. currentPage)
     end
     B747_fmsL_monitor_AI()
 
