@@ -1826,7 +1826,13 @@ end
 
 local engineHasFuelProcessing = 0
 function startFuelProcessing()
+  print("startFuelProcessing ")
+print("1" .. #engine1fuelSrc  .. B747.fuel.spar_vlv1.pos .. B747DR_engine_fuel_valve_pos[0]) 
+     print("2" .. #engine2fuelSrc  .. B747.fuel.spar_vlv2.pos  .. B747DR_engine_fuel_valve_pos[1])
+    print("3" .. #engine3fuelSrc  .. B747.fuel.spar_vlv3.pos  .. B747DR_engine_fuel_valve_pos[2])
+    print("4" .. #engine4fuelSrc  .. B747.fuel.spar_vlv4.pos  .. B747DR_engine_fuel_valve_pos[3])
     engineHasFuelProcessing = 1
+    
 end
 ----- ENGINE(S) HAVE FUEL SUPPLY ----------------------------------------------------
 function B747_engine_has_fuel()
@@ -1837,7 +1843,14 @@ function B747_engine_has_fuel()
         simDR_engine_has_fuel[2] = B747_ternary((#engine3fuelSrc > 0 and B747.fuel.spar_vlv3.pos > 0 and B747DR_engine_fuel_valve_pos[2] > 0), 1, 0)
         simDR_engine_has_fuel[3] = B747_ternary((#engine4fuelSrc > 0 and B747.fuel.spar_vlv4.pos > 0 and B747DR_engine_fuel_valve_pos[3] > 0), 1, 0)
     end
-
+    if engineHasFuelProcessing == 0 then
+     local update=B747DR_engine_fuel_valve_pos[0]
+     update=B747DR_engine_fuel_valve_pos[1]
+     update=B747DR_engine_fuel_valve_pos[2]
+     update=B747DR_engine_fuel_valve_pos[3]
+      
+    end
+      
 end
 
 
@@ -2733,7 +2746,7 @@ end
 ----- SET STATE TO COLD & DARK ----------------------------------------------------------
 function B747_set_fuel_CD()
 
-    engineHasFuelProcessing = 1
+    engineHasFuelProcessing = 2
 
     -- TURN OFF THE FUEL CONTROL VALVES
     if B747DR_fuel_control_toggle_switch_pos[0] > 0.5 then B747CMD_fuel_control_switch1:once() end
@@ -2753,9 +2766,10 @@ function B747_set_fuel_ER()
     -- MANUALLY SET FUEL PROCESSING TO ALLOW FOR UI "ENGINES RUNNING" OPTION
     engineHasFuelProcessing = 0                                                     -- DO NOT ALLOW FUEL PROCESSING
     for i = 0, 3 do
+	print("engine has fuel "..i)
         simDR_engine_has_fuel[i] = 1                                                -- FORCE "HAS FUEL" TO "ON"
     end
-    run_after_time(startFuelProcessing, 2.0)                                        -- DELAYED FUEL PROCESSING
+    run_after_time(startFuelProcessing, 10.0)                                        -- DELAYED FUEL PROCESSING
 
     B747_fuel_control_toggle_sw_pos_target[0] = 1.0
     B747DR_fuel_control_toggle_switch_pos[0] = 1.0
@@ -2780,7 +2794,7 @@ end
 
 ----- FLIGHT START ----------------------------------------------------------------------
 function B747_flight_start_fuel()
-
+    print("B747_flight_start_fuel")
     -- ALL MODES ------------------------------------------------------------------------
     run_at_interval(B747_fuel_tank_levels, fuel_calc_rate)
 

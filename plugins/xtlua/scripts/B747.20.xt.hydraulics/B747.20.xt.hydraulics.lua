@@ -423,7 +423,7 @@ end
 
 ----- SET STATE TO COLD & DARK ----------------------------------------------------------
 function B747_set_hyd_CD()
-
+print("start hydraulic engines cd")
     B747DR_hyd_dmd_pmp_sel_pos[0] = 0
     B747DR_hyd_dmd_pmp_sel_pos[1] = 0
     B747DR_hyd_dmd_pmp_sel_pos[2] = 0
@@ -437,7 +437,7 @@ end
 
 ----- SET STATE TO ENGINES RUNNING ------------------------------------------------------
 function B747_set_hyd_ER()
-	
+	print("start hydraulic engines running")
     B747DR_hyd_dmd_pmp_sel_pos[0] = 1
     B747DR_hyd_dmd_pmp_sel_pos[1] = 1
     B747DR_hyd_dmd_pmp_sel_pos[2] = 1

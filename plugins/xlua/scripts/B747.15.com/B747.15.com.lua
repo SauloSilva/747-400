@@ -282,15 +282,15 @@ B747DR_init_com_CD               = deferred_dataref("laminar/B747/com/init_CD", 
 --*************************************************************************************--
 
 -- RADIO TUNING PANEL LEFT
-B747DR_rtp_L_hf_sens_ctrl_rheo      = deferred_dataref("laminar/B747/comm/rtp_L/hf_sens_ctrl/rheostat", "number", B747_rtp_L_hf_sens_ctrl_rheo_DRhandler)
+B747DR_rtp_L_hf_sens_ctrl_rheo      = deferred_dataref("laminar/B747/comm/rtp_L/hf_sens_ctrl/rheostat", "number")
 
 
 -- RADIO TUNING PANEL CENTER
-B747DR_rtp_C_hf_sens_ctrl_rheo      = deferred_dataref("laminar/B747/comm/rtp_C/hf_sens_ctrl/rheostat", "number", B747_rtp_C_hf_sens_ctrl_rheo_DRhandler)
+B747DR_rtp_C_hf_sens_ctrl_rheo      = deferred_dataref("laminar/B747/comm/rtp_C/hf_sens_ctrl/rheostat", "number")
 
 
 -- RADIO TUNING PANEL RIGHT
-B747DR_rtp_R_hf_sens_ctrl_rheo      = deferred_dataref("laminar/B747/comm/rtp_R/hf_sens_ctrl/rheostat", "number", B747_rtp_R_hf_sens_ctrl_rheo_DRhandler)
+B747DR_rtp_R_hf_sens_ctrl_rheo      = deferred_dataref("laminar/B747/comm/rtp_R/hf_sens_ctrl/rheostat", "number")
 
 
 

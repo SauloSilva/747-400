@@ -120,7 +120,7 @@ function B747_engine_hyd_valves()
     end
 end
 function B747_engine_dem_modes()
-  print("FMS physics 2 "..B747DR_hyd_dmd_pmp_sel_pos[1])
+  
   B747DR_hyd_dem_mode_1=B747DR_hyd_dmd_pmp_sel_pos[0]
   B747DR_hyd_dem_mode_2=B747DR_hyd_dmd_pmp_sel_pos[1]
   B747DR_hyd_dem_mode_3=B747DR_hyd_dmd_pmp_sel_pos[2]
@@ -249,10 +249,10 @@ B747DR_hyd_sys_res_1=B747DR_hyd_sys_restotal_1
 B747DR_hyd_sys_res_2=B747DR_hyd_sys_restotal_2
 B747DR_hyd_sys_res_3=B747DR_hyd_sys_restotal_3
 B747DR_hyd_sys_res_4=B747DR_hyd_sys_restotal_4
-    B747DR_hyd_dmd_pmp_sel_pos[0] = 0
+   --[[ B747DR_hyd_dmd_pmp_sel_pos[0] = 0
     B747DR_hyd_dmd_pmp_sel_pos[1] = 0
     B747DR_hyd_dmd_pmp_sel_pos[2] = 0
-    B747DR_hyd_dmd_pmp_sel_pos[3] = 0
+    B747DR_hyd_dmd_pmp_sel_pos[3] = 0]]
     B747DR_hyd_sys_temp_1=B747DR_hyd_temp
     B747DR_hyd_sys_temp_2=B747DR_hyd_temp
     B747DR_hyd_sys_temp_3=B747DR_hyd_temp

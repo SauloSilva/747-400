@@ -334,7 +334,7 @@ B747DR_init_fuel_CD                     = deferred_dataref("laminar/B747/fuel/in
 
 
 -- FUEL TO REMAIN
-B747DR_fuel_to_remain_rheo      = deferred_dataref("laminar/B747/fuel/fuel_to_remain/rheostat", "number", B747DR_fuel_to_remain_rheo_DRhandler)
+B747DR_fuel_to_remain_rheo      = deferred_dataref("laminar/B747/fuel/fuel_to_remain/rheostat", "number")
 
 
 
@@ -357,8 +357,18 @@ B747CMD_fuel_control_switch4 	= deferred_command("laminar/B747/fuel/fuel_control
 
 -- AI
 B747CMD_ai_fuel_quick_start		= deferred_command("laminar/B747/ai/fuel_quick_start", "number", B747_ai_fuek_quick_start_CMDhandler)
+simDR_override_fuel_system          = find_dataref("sim/operation/override/override_fuel_system")
+function aircraft_load()
 
+    simDR_override_fuel_system = 1
 
+end
+
+function aircraft_unload()
+
+    simDR_override_fuel_system = 0
+
+end
 
 
 
