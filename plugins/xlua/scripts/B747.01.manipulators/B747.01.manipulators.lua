@@ -49,7 +49,8 @@ end
 --replace create_dataref
 function deferred_dataref(name,type,notifier)
 	print("Deffereed dataref: "..name)
-	 return XLuaCreateDataRef(name, type,"yes",notifier)
+	dref=XLuaCreateDataRef(name, type,"yes",notifier)
+	return wrap_dref_any(dref,type) 
 end
 
 B747DR_init_manip_CD                = deferred_dataref("laminar/B747/manip/init_CD", "number")
@@ -87,6 +88,8 @@ end
 ----- GLARESHIELD BUTTON SWITCHES -------------------------------------------------------
 
 -- WARNING/CAUTION
+B747DR_master_warning               = deferred_dataref("laminar/B747/warning/master_warning", "number")
+B747DR_master_caution               = deferred_dataref("laminar/B747/warning/master_caution", "number")
 B747CMD_warning_caution_captain 		= deferred_command("laminar/B747/button_switch/warn_caut_capt", "Warning/Caution Reset (Captain)", B747_warning_caution_captain_CMDhandler)
 B747CMD_warning_caution_fo 			= deferred_command("laminar/B747/button_switch/warn_caut_fo", "Warning/Caution Reset (First Officer)", B747_warning_caution_fo_CMDhandler)
 

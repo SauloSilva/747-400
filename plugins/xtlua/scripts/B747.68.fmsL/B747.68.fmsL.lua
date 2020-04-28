@@ -995,7 +995,7 @@ end]]
 --function before_physics() end
 
 function after_physics()
-  --print("FMS physics 2")
+  
   if B747DR_fms1_display_mode ==1 then
       B747_fms1_display_navrad()
     else

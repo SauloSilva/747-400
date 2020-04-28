@@ -137,8 +137,8 @@ B747DR_CAS_num_msg_pages        = create_dataref("laminar/B747/CAS/num_msg_pages
 B747DR_CAS_caut_adv_display     = create_dataref("laminar/B747/CAS/caut_adv_display", "number")
 
 
-B747DR_master_warning           = create_dataref("laminar/B747/warning/master_warning", "number")
-B747DR_master_caution           = create_dataref("laminar/B747/warning/master_caution", "number")
+B747DR_master_warning           = find_dataref("laminar/B747/warning/master_warning")
+B747DR_master_caution           = find_dataref("laminar/B747/warning/master_caution")
 
 B747DR_init_warning_CD          = create_dataref("laminar/B747/warning/init_CD", "number")
 

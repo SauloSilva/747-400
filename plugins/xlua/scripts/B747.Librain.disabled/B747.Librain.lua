@@ -269,26 +269,7 @@ end
 
 --------------------------------- REGULAR RUNTIME ---------------------------------
 
-wiper1_angle		= find_dataref("sim/flightmodel2/misc/wiper_angle_deg[0]")
-wiper2_angle		= find_dataref("sim/flightmodel2/misc/wiper_angle_deg[1]")
-function after_physics()
 
-if wiper1_angle > 0 then
-	frontGlass_wiper1_moving = 1
-else
-	frontGlass_wiper1_moving = 0
-end
-
--- if wiper2_angle > 0 then
-	-- frontGlass_wiper2_moving = 1
--- else
-	-- frontGlass_wiper2_moving = 0
--- end
-
-
-frontGlass_wiper1_angle = (math.rad(wiper1_angle) - math.rad(110)) + 0.1 frontGlass_wiper2_angle = -math.rad(wiper2_angle)
-
-end
 
 
 function flight_crash()
