@@ -1826,11 +1826,7 @@ end
 
 local engineHasFuelProcessing = 0
 function startFuelProcessing()
-  print("startFuelProcessing ")
-print("1" .. #engine1fuelSrc  .. B747.fuel.spar_vlv1.pos .. B747DR_engine_fuel_valve_pos[0]) 
-     print("2" .. #engine2fuelSrc  .. B747.fuel.spar_vlv2.pos  .. B747DR_engine_fuel_valve_pos[1])
-    print("3" .. #engine3fuelSrc  .. B747.fuel.spar_vlv3.pos  .. B747DR_engine_fuel_valve_pos[2])
-    print("4" .. #engine4fuelSrc  .. B747.fuel.spar_vlv4.pos  .. B747DR_engine_fuel_valve_pos[3])
+
     engineHasFuelProcessing = 1
     
 end
@@ -2746,7 +2742,7 @@ end
 ----- SET STATE TO COLD & DARK ----------------------------------------------------------
 function B747_set_fuel_CD()
 
-    engineHasFuelProcessing = 2
+    engineHasFuelProcessing = 1
 
     -- TURN OFF THE FUEL CONTROL VALVES
     if B747DR_fuel_control_toggle_switch_pos[0] > 0.5 then B747CMD_fuel_control_switch1:once() end
@@ -2847,7 +2843,7 @@ end
 function before_physics()
 
     B747_engine_fuel_source()
-    B747_engine_has_fuel()
+    --B747_engine_has_fuel()
 
 end
 

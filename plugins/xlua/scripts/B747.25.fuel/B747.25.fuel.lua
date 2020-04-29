@@ -49,7 +49,8 @@ end
 --replace create_dataref
 function deferred_dataref(name,type,notifier)
 	print("Deffereed dataref: "..name)
-	 return XLuaCreateDataRef(name, type,"yes",notifier)
+	dref=XLuaCreateDataRef(name, type,"yes",notifier)
+	return wrap_dref_any(dref,type) 
 end
 
 --*************************************************************************************--
@@ -353,11 +354,12 @@ B747CMD_fuel_control_switch1 	= deferred_command("laminar/B747/fuel/fuel_control
 B747CMD_fuel_control_switch2 	= deferred_command("laminar/B747/fuel/fuel_control_2/toggle_switch", "Fuel Control Switch 2", B747_fuel_control_switch2_CMDhandler)
 B747CMD_fuel_control_switch3 	= deferred_command("laminar/B747/fuel/fuel_control_3/toggle_switch", "Fuel Control Switch 3", B747_fuel_control_switch3_CMDhandler)
 B747CMD_fuel_control_switch4 	= deferred_command("laminar/B747/fuel/fuel_control_4/toggle_switch", "Fuel Control Switch 4", B747_fuel_control_switch4_CMDhandler)
-
+B747DR_engine_fuel_valve_pos        = find_dataref("laminar/B747/engines/fuel_valve_pos")
 
 -- AI
 B747CMD_ai_fuel_quick_start		= deferred_command("laminar/B747/ai/fuel_quick_start", "number", B747_ai_fuek_quick_start_CMDhandler)
 simDR_override_fuel_system          = find_dataref("sim/operation/override/override_fuel_system")
+simDR_engine_has_fuel               = find_dataref("sim/flightmodel2/engines/has_fuel_flow_before_mixture")
 function aircraft_load()
 
     simDR_override_fuel_system = 1
@@ -370,5 +372,27 @@ function aircraft_unload()
 
 end
 
+engineHasFuelProcessing = 0
+function startFuelProcessing()
+    engineHasFuelProcessing = 1
+end
+function B747_ternary(condition, ifTrue, ifFalse)
+    if condition then return ifTrue else return ifFalse end
+end
+function B747_engine_has_fuel()
+    if engineHasFuelProcessing == 1 then
+        simDR_engine_has_fuel[0] = B747_ternary((B747DR_gen_fuel_engine1_status > 0 and B747.fuel.spar_vlv1.pos > 0 and B747DR_engine_fuel_valve_pos[0] > 0), 1, 0)
+        simDR_engine_has_fuel[1] = B747_ternary((B747DR_gen_fuel_engine2_status > 0 and B747.fuel.spar_vlv2.pos > 0 and B747DR_engine_fuel_valve_pos[1] > 0), 1, 0)
+        simDR_engine_has_fuel[2] = B747_ternary((B747DR_gen_fuel_engine3_status > 0 and B747.fuel.spar_vlv3.pos > 0 and B747DR_engine_fuel_valve_pos[2] > 0), 1, 0)
+        simDR_engine_has_fuel[3] = B747_ternary((B747DR_gen_fuel_engine4_status > 0 and B747.fuel.spar_vlv4.pos > 0 and B747DR_engine_fuel_valve_pos[3] > 0), 1, 0)
+    end
 
+end
+function before_physics()
+    B747_engine_has_fuel()
+end
+function flight_start() 
+    engineHasFuelProcessing = 0
+    run_after_time(startFuelProcessing, 10.0)                                        -- DELAYED FUEL PROCESSING
 
+end
