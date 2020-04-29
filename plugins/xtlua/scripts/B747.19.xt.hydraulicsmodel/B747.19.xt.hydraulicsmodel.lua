@@ -241,14 +241,14 @@ end
 --function aircraft_unload() end
 
 function flight_start() 
-B747DR_hyd_sys_restotal_1=math.random()*0.2+0.8
-B747DR_hyd_sys_restotal_2=math.random()*0.2+0.8
-B747DR_hyd_sys_restotal_3=math.random()*0.2+0.8
-B747DR_hyd_sys_restotal_4=math.random()*0.2+0.8
-B747DR_hyd_sys_res_1=B747DR_hyd_sys_restotal_1
-B747DR_hyd_sys_res_2=B747DR_hyd_sys_restotal_2
-B747DR_hyd_sys_res_3=B747DR_hyd_sys_restotal_3
-B747DR_hyd_sys_res_4=B747DR_hyd_sys_restotal_4
+  B747DR_hyd_sys_restotal_1=math.random()*0.2+0.8
+  B747DR_hyd_sys_restotal_2=math.random()*0.2+0.8
+  B747DR_hyd_sys_restotal_3=math.random()*0.2+0.8
+  B747DR_hyd_sys_restotal_4=math.random()*0.2+0.8
+  B747DR_hyd_sys_res_1=B747DR_hyd_sys_restotal_1
+  B747DR_hyd_sys_res_2=B747DR_hyd_sys_restotal_2
+  B747DR_hyd_sys_res_3=B747DR_hyd_sys_restotal_3
+  B747DR_hyd_sys_res_4=B747DR_hyd_sys_restotal_4
    --[[ B747DR_hyd_dmd_pmp_sel_pos[0] = 0
     B747DR_hyd_dmd_pmp_sel_pos[1] = 0
     B747DR_hyd_dmd_pmp_sel_pos[2] = 0
