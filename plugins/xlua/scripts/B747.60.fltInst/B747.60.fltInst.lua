@@ -14,294 +14,400 @@
 *        COPYRIGHT � 2016 JIM GREGORY / LAMINAR RESEARCH - ALL RIGHTS RESERVED	        *
 *****************************************************************************************
 --]]
+function null_command(phase, duration)
+end
+--replace create command
+function deferred_command(name,desc,nilFunc)
+	c = XLuaCreateCommand(name,desc)
+	print("Deffereed command: "..name)
+	XLuaReplaceCommand(c,null_command)
+	return make_command_obj(c)
+end
+--replace create dataref
+function deferred_dataref(name,type,notifier)
+	print("Deffered dataref: "..name)
+	dref=XLuaCreateDataRef(name, type,"yes",notifier)
+	return wrap_dref_any(dref,type) 
+end
+B747DR_flt_inst_fd_src_capt_dial_pos            = deferred_dataref("laminar/B747/flt_inst/flt_dir_src/capt/sel_dial_pos", "number")
+B747DR_flt_inst_nav_src_capt_dial_pos           = deferred_dataref("laminar/B747/flt_inst/nav_src/capt/sel_dial_pos", "number")
+B747DR_flt_inst_eiu_src_capt_dial_pos           = deferred_dataref("laminar/B747/flt_inst/eiu_src/capt/sel_dial_pos", "number")
+B747DR_flt_inst_irs_src_capt_dial_pos           = deferred_dataref("laminar/B747/flt_inst/irs_src/capt/sel_dial_pos", "number")
+B747DR_flt_inst_air_data_src_capt_dial_pos      = deferred_dataref("laminar/B747/flt_inst/air_data_src/capt/sel_dial_pos", "number")
+
+B747DR_flt_inst_fd_src_fo_dial_pos              = deferred_dataref("laminar/B747/flt_inst/flt_dir_src/fo/sel_dial_pos", "number")
+B747DR_flt_inst_nav_src_fo_dial_pos             = deferred_dataref("laminar/B747/flt_inst/nav_src/fo/sel_dial_pos", "number")
+B747DR_flt_inst_eiu_src_fo_dial_pos             = deferred_dataref("laminar/B747/flt_inst/eiu_src/fo/sel_dial_pos", "number")
+B747DR_flt_inst_irs_src_fo_dial_pos             = deferred_dataref("laminar/B747/flt_inst/irs_src/fo/sel_dial_pos", "number")
+B747DR_flt_inst_air_data_src_fo_dial_pos        = deferred_dataref("laminar/B747/flt_inst/air_data_src/fo/sel_dial_pos", "number")
+
+B747DR_flt_inst_eiu_src_ctr_pnl_dial_pos        = deferred_dataref("laminar/B747/flt_inst/eiu_src/ctr_pnl/sel_dial_pos", "number")
+B747DR_flt_inst_fmc_master_src_ctr_pnl_sel_pos  = deferred_dataref("laminar/B747/flt_inst/fmc_master_src/ctr_pnl/sel_dial_pos", "number")
+
+B747DR_flt_inst_inbd_disp_capt_sel_dial_pos     = deferred_dataref("laminar/B747/flt_inst/capt_inbd_display/sel_dial_pos", "number")
+B747DR_flt_inst_lwr_disp_capt_sel_dial_pos      = deferred_dataref("laminar/B747/flt_inst/capt_lwr_display/sel_dial_pos", "number")
+
+B747DR_flt_inst_inbd_disp_fo_sel_dial_pos       = deferred_dataref("laminar/B747/flt_inst/fo_inbd_display/sel_dial_pos", "number")
+B747DR_flt_inst_lwr_disp_fo_sel_dial_pos        = deferred_dataref("laminar/B747/flt_inst/fo_lwr_display/sel_dial_pos", "number")
+
+B747DR_efis_min_ref_alt_capt_sel_dial_pos       = deferred_dataref("laminar/B747/efis/min_ref_alt/capt/sel_dial_pos", "number")
+B747DR_efis_ref_alt_capt_set_dial_pos           = deferred_dataref("laminar/B747/efis/ref_alt/capt/set_dial_pos", "number")
+B747DR_efis_dh_reset_capt_switch_pos            = deferred_dataref("laminar/B747/efis/dh_reset/capt/switch_pos", "number")
+B747DR_efis_baro_ref_capt_sel_dial_pos          = deferred_dataref("laminar/B747/efis/baro_ref/capt/sel_dial_pos", "number")
+B747DR_efis_baro_std_capt_switch_pos            = deferred_dataref("laminar/B747/efis/baro_std/capt/switch_pos", "number")
+B747DR_efis_baro_capt_set_dial_pos              = deferred_dataref("laminar/B747/efis/baro/capt/set_dial_pos", "number")
+B747DR_efis_baro_capt_preselect                 = deferred_dataref("laminar/B747/efis/baro/capt/preselect", "number")
+B747DR_efis_baro_alt_ref_capt                   = deferred_dataref("laminar/B747/efis/baro_ref/capt", "number")
+
+B747DR_efis_min_ref_alt_fo_sel_dial_pos         = deferred_dataref("laminar/B747/efis/min_ref_alt/fo/sel_dial_pos", "number")
+B747DR_efis_ref_alt_fo_set_dial_pos             = deferred_dataref("laminar/B747/efis/ref_alt/fo/set_dial_pos", "number")
+B747DR_efis_dh_reset_fo_switch_pos              = deferred_dataref("laminar/B747/efis/dh_reset/fo/switch_pos", "number")
+B747DR_efis_baro_ref_fo_sel_dial_pos            = deferred_dataref("laminar/B747/efis/baro_ref/fo/sel_dial_pos", "number")
+B747DR_efis_baro_std_fo_switch_pos              = deferred_dataref("laminar/B747/efis/baro_std/fo/switch_pos", "number")
+B747DR_efis_baro_fo_set_dial_pos                = deferred_dataref("laminar/B747/efis/baro/fo/set_dial_pos", "number")
+B747DR_efis_baro_fo_preselect                   = deferred_dataref("laminar/B747/efis/baro/fo/preselect", "number")
+B747DR_efis_baro_alt_ref_fo                     = deferred_dataref("laminar/B747/efis/baro_ref/fo", "number")
+
+B747DR_efis_fpv_capt_switch_pos                 = deferred_dataref("laminar/B747/efis/fpv/capt/switch_pos", "number")
+B747DR_efis_meters_capt_switch_pos              = deferred_dataref("laminar/B747/efis/meters/capt/switch_pos", "number")
+B747DR_efis_meters_capt_selected                = deferred_dataref("laminar/B747/efis/meters/capt/selected", "number")
+
+B747DR_efis_fpv_fo_switch_pos                   = deferred_dataref("laminar/B747/efis/fpv/fo/switch_pos", "number")
+B747DR_efis_meters_fo_switch_pos                = deferred_dataref("laminar/B747/efis/meters/fo/switch_pos", "number")
+B747DR_efis_meters_fo_selected                  = deferred_dataref("laminar/B747/efis/meters/fo/selected", "number")
+
+B747DR_nd_mode_capt_sel_dial_pos                = deferred_dataref("laminar/B747/nd/mode/capt/sel_dial_pos", "number")
+B747DR_nd_range_capt_sel_dial_pos               = deferred_dataref("laminar/B747/nd/range/capt/sel_dial_pos", "number")
+
+B747DR_nd_center_capt_switch_pos                = deferred_dataref("laminar/B747/nd/center/capt/switch_pos", "number")
+B747DR_nd_traffic_capt_switch_pos               = deferred_dataref("laminar/B747/nd/traffic/capt/switch_pos", "number")
+
+B747_nd_map_center_capt                         = deferred_dataref("laminar/B747/nd/map_center/capt", "number")
+
+B747DR_nd_mode_fo_sel_dial_pos                  = deferred_dataref("laminar/B747/nd/mode/fo/sel_dial_pos", "number")
+B747DR_nd_range_fo_sel_dial_pos                 = deferred_dataref("laminar/B747/nd/range/fo/sel_dial_pos", "number")
+
+B747DR_nd_center_fo_switch_pos                  = deferred_dataref("laminar/B747/nd/center/fo/switch_pos", "number")
+B747DR_nd_traffic_fo_switch_pos                 = deferred_dataref("laminar/B747/nd/traffic/fo/switch_pos", "number")
+
+B747_nd_map_center_fo                           = deferred_dataref("laminar/B747/nd/map_center/fo", "number")
+
+B747DR_nd_wxr_capt_switch_pos                   = deferred_dataref("laminar/B747/nd/wxr/capt/switch_pos", "number")
+B747DR_nd_sta_capt_switch_pos                   = deferred_dataref("laminar/B747/nd/sta/capt/switch_pos", "number")
+B747DR_nd_wpt_capt_switch_pos                   = deferred_dataref("laminar/B747/nd/wpt/capt/switch_pos", "number")
+B747DR_nd_arpt_capt_switch_pos                  = deferred_dataref("laminar/B747/nd/arpt/capt/switch_pos", "number")
+B747DR_nd_data_capt_switch_pos                  = deferred_dataref("laminar/B747/nd/data/capt/switch_pos", "number")
+B747DR_nd_pos_capt_switch_pos                   = deferred_dataref("laminar/B747/nd/pos/capt/switch_pos", "number")
+B747DR_nd_terr_capt_switch_pos                  = deferred_dataref("laminar/B747/nd/terr/capt/switch_pos", "number")
+
+B747DR_nd_data_vor_ndb                          = deferred_dataref("laminar/B747/nd/data/capt/vor_ndb", "number")
+
+B747_nd_vorL_ID_flag_capt                       = deferred_dataref("laminar/B747/nd/vorL_id_flag/capt", "number")
+B747_nd_vorR_ID_flag_capt                       = deferred_dataref("laminar/B747/nd/vorR_id_flag/capt", "number")
+
+B747_nd_adfL_ID_flag_capt                       = deferred_dataref("laminar/B747/nd/adfL_id_flag/capt", "number")
+B747_nd_adfR_ID_flag_capt                       = deferred_dataref("laminar/B747/nd/adfR_id_flag/capt", "number")
+
+B747_exp_nd_track_line_on                       = deferred_dataref("laminar/B747/nd/track_line_on", "number")
+
+B747DR_nd_wxr_fo_switch_pos                     = deferred_dataref("laminar/B747/nd/wxr/fo/switch_pos", "number")
+B747DR_nd_sta_fo_switch_pos                     = deferred_dataref("laminar/B747/nd/sta/fo/switch_pos", "number")
+B747DR_nd_wpt_fo_switch_pos                     = deferred_dataref("laminar/B747/nd/wpt/fo/switch_pos", "number")
+B747DR_nd_arpt_fo_switch_pos                    = deferred_dataref("laminar/B747/nd/arpt/fo/switch_pos", "number")
+B747DR_nd_data_fo_switch_pos                    = deferred_dataref("laminar/B747/nd/data/fo/switch_pos", "number")
+B747DR_nd_pos_fo_switch_pos                     = deferred_dataref("laminar/B747/nd/pos/fo/switch_pos", "number")
+B747DR_nd_terr_fo_switch_pos                    = deferred_dataref("laminar/B747/nd/terr/fo/switch_pos", "number")
+
+B747_nd_vorL_ID_flag_fo                         = deferred_dataref("laminar/B747/nd/vorL_id_flag/fo", "number")
+B747_nd_vorR_ID_flag_fo                         = deferred_dataref("laminar/B747/nd/vorR_id_flag/fo", "number")
+
+B747_nd_adfL_ID_flag_fo                         = deferred_dataref("laminar/B747/nd/adfL_id_flag/fo", "number")
+B747_nd_adfR_ID_flag_fo                         = deferred_dataref("laminar/B747/nd/adfR_id_flag/fo", "number")
+
+B747DR_dsp_eng_switch_pos                       = deferred_dataref("laminar/B747/dsp/eng/switch_pos", "number")
+B747DR_dsp_stat_switch_pos                      = deferred_dataref("laminar/B747/dsp/stat/switch_pos", "number")
+B747DR_dsp_elec_switch_pos                      = deferred_dataref("laminar/B747/dsp/elec/switch_pos", "number")
+B747DR_dsp_fuel_switch_pos                      = deferred_dataref("laminar/B747/dsp/fuel/switch_pos", "number")
+B747DR_dsp_ecs_switch_pos                       = deferred_dataref("laminar/B747/dsp/ecs/switch_pos", "number")
+B747DR_dsp_hyd_switch_pos                       = deferred_dataref("laminar/B747/dsp/hyd/switch_pos", "number")
+B747DR_dsp_drs_switch_pos                       = deferred_dataref("laminar/B747/dsp/drs/switch_pos", "number")
+B747DR_dsp_gear_switch_pos                      = deferred_dataref("laminar/B747/dsp/gear/switch_pos", "number")
+
+B747DR_dsp_canc_switch_pos                      = deferred_dataref("laminar/B747/dsp/canc/switch_pos", "number")
+B747DR_dsp_rcl_switch_pos                       = deferred_dataref("laminar/B747/dsp/rcl/switch_pos", "number")
+
+B747DR_dsp_synoptic_display                     = deferred_dataref("laminar/B747/dsp/synoptic_display", "number")
+
+B747DR_STAT_msg_page                            = deferred_dataref("laminar/B747/STAT/msg_page", "number")
+B747DR_STAT_num_msg_pages                       = deferred_dataref("laminar/B747/STAT/num_msg_pages", "number")
 
 
------ V-SPEEDS (DATA TABLES) ------------------------------------------------------------
+B747DR_RMI_left_bearing                         = deferred_dataref("laminar/B747/rmi_left/captain/bearing", "number")
+B747DR_RMI_right_bearing                        = deferred_dataref("laminar/B747/rmi_right/captain/bearing", "number")
 
--- TEMPERATURE / ALTITUDE REGIONS
-VtempAltRegionData = {
-    {{temp=-60.00, alt=607.23}, {temp=-40.00, alt=747.78}, {temp=-20.00, alt=916.48}, {temp=0.0, alt=1050.89}, {temp=22.74, alt=1181.28}, {temp=30.39, alt=1089.34}, {temp=34.98, alt=622.42}, {temp=43.71, alt=-1229.37}, {temp=46.29, alt=-2000.00}},
-    {{temp=-60.00, alt=2422.14}, {temp=-40.00, alt=2570.61}, {temp=-20.00, alt=2750.69}, {temp=0.0, alt=2915.57}, {temp=20.94, alt=3047.64}, {temp=26.84, alt=2876.05}, {temp=32.11, alt=2275.44}, {temp=36.84, alt=2876.05}, {temp=45.95, alt=-633.42}, {temp=50.16, alt=-2000.00}},
-    {{temp=-60.00, alt=4308.97}, {temp=-40.00, alt=4435.40}, {temp=-20.00, alt=4553.35}, {temp=0.0, alt=4706.86}, {temp=21.58, alt=4846.29}, {temp=28.27, alt=4583.68}, {temp=33.87, alt=3860.08}, {temp=38.24, alt=3004.26}, {temp=48.44, alt=501.83}, {temp=55.53, alt=-2000.00}},
-    {{temp=-60.00, alt=6015.93}, {temp=-40.00, alt=6090.55}, {temp=-20.00, alt=6248.58}, {temp=0.0, alt=6397.62}, {temp=19.48, alt=6508.86}, {temp=26.04, alt=6436.63}, {temp=32.46, alt=5757.63}, {temp=36.84, alt=4992.28}, {temp=45.70, alt=3019.45}, {temp=49.48, alt=2049.65}, {temp=52.74, alt=936.44}, {temp=60.31, alt=-2000.00}},
-    {{temp=-60.00, alt=7543.84}, {temp=-40.00, alt=7670.00}, {temp=-20.00, alt=7821.49}, {temp=0.0, alt=7977.39}, {temp=22.24, alt=8142.12}, {temp=29.92, alt=7695.57}, {temp=35.53, alt=6832.54}, {temp=39.62, alt=6047.88}, {temp=48.26, alt=3980.77}, {temp=51.53, alt=3005.33}, {temp=54.48, alt=2035.02}, {temp=64.80, alt=-2000.00}}
-}
+B747DR_alt_hectopascal                          = deferred_dataref("laminar/B747/altimeter/baro_hectopascal", "number")
+B747DR_altimter_ft_adjusted                     = deferred_dataref("laminar/B747/altimeter/ft_adjusted", "number")
 
+B747DR_dec_ht_display_status                    = deferred_dataref("laminar/B747/dec_height/display_status", "number")
+B747DR_radio_alt_display_status                 = deferred_dataref("laminar/B747/radio_alt/display_status", "number")
 
+B747DR_radio_altitude                           = deferred_dataref("laminar/B747/efis/radio_altitude", "number")
 
+B747DR_vertical_speed_fpm                       = deferred_dataref("laminar/B747/vsi/fpm", "number")
 
--- V1 WIND ADJUSTMENT
-V1windAdj = {
-    [-15] = {[200000] = -5, [220000] = -4, [240000] = -4, [260000] = -4, [280000] = -4, [300000] = -4, [320000] = -4, [340000] = -4, [360000] = -5, [380000] = -4, [400000] = -6, [420000] = -6},
-    [-10] = {[200000] = -3, [220000] = -3, [240000] = -3, [260000] = -3, [280000] = -2, [300000] = -2, [320000] = -3, [340000] = -3, [360000] = -3, [380000] = -3, [400000] = -4, [420000] = -4},
-    [-5]  = {[200000] = -2, [220000] = -1, [240000] = -1, [260000] = -1, [280000] = -1, [300000] = -1, [320000] = -1, [340000] = -1, [360000] = -1, [380000] = -2, [400000] = -2, [420000] = -2},
-    [0]   = {[200000] = 0,  [220000] = 0,  [240000] = 0,  [260000] = 0,  [280000] = 0,  [300000] = 0,  [320000] = 0,  [340000] = 0,  [360000] = 0,  [380000] = 0,  [400000] = 0,  [420000] = 0},
-    [10]  = {[200000] = 1,  [220000] = 1,  [240000] = 1,  [260000] = 1,  [280000] = 1,  [300000] = 0,  [320000] = 1,  [340000] = 0,  [360000] = 1,  [380000] = 1,  [400000] = 0,  [420000] = 1},
-    [20]  = {[200000] = 2,  [220000] = 2,  [240000] = 2,  [260000] = 2,  [280000] = 2,  [300000] = 2,  [320000] = 2,  [340000] = 2,  [360000] = 2,  [380000] = 2,  [400000] = 2,  [420000] = 2},
-    [30]  = {[200000] = 3,  [220000] = 3,  [240000] = 3,  [260000] = 3,  [280000] = 3,  [300000] = 3,  [320000] = 3,  [340000] = 3,  [360000] = 3,  [380000] = 3,  [400000] = 3,  [420000] = 3},
-    [40]  = {[200000] = 4,  [220000] = 4,  [240000] = 4,  [260000] = 4,  [280000] = 4,  [300000] = 4,  [320000] = 4,  [340000] = 4,  [360000] = 4,  [380000] = 4,  [400000] = 4,  [420000] = 4}
-}
+B747DR_airspeed_V1                              = deferred_dataref("laminar/B747/airspeed/V1", "number")
+B747DR_airspeed_Vr                              = deferred_dataref("laminar/B747/airspeed/Vr", "number")
+B747DR_airspeed_V2                              = deferred_dataref("laminar/B747/airspeed/V2", "number")
+B747DR_airspeed_Va                              = deferred_dataref("laminar/B747/airspeed/Va", "number")
+B747DR_airspeed_Vf0                             = deferred_dataref("laminar/B747/airspeed/Vf0", "number")
+B747DR_airspeed_Vf1                             = deferred_dataref("laminar/B747/airspeed/Vf1", "number")
+B747DR_airspeed_Vf5                             = deferred_dataref("laminar/B747/airspeed/Vf5", "number")
+B747DR_airspeed_Vf10                            = deferred_dataref("laminar/B747/airspeed/Vf10", "number")
+B747DR_airspeed_Vf20                            = deferred_dataref("laminar/B747/airspeed/Vf20", "number")
+B747DR_airspeed_Vf25                            = deferred_dataref("laminar/B747/airspeed/Vf25", "number")
+B747DR_airspeed_Vf30                            = deferred_dataref("laminar/B747/airspeed/Vf30", "number")
+B747DR_airspeed_Vfe0                            = deferred_dataref("laminar/B747/airspeed/Vfe0", "number")
+B747DR_airspeed_Vfe1                            = deferred_dataref("laminar/B747/airspeed/Vfe1", "number")
+B747DR_airspeed_Vfe5                            = deferred_dataref("laminar/B747/airspeed/Vfe2", "number")
+B747DR_airspeed_Vfe10                           = deferred_dataref("laminar/B747/airspeed/Vfe10", "number")
+B747DR_airspeed_Vfe20                           = deferred_dataref("laminar/B747/airspeed/Vfe20", "number")
+B747DR_airspeed_Vfe25                           = deferred_dataref("laminar/B747/airspeed/Vfe25", "number")
+B747DR_airspeed_Vfe30                           = deferred_dataref("laminar/B747/airspeed/Vfe30", "number")
+B747DR_airspeed_Vlo                             = deferred_dataref("laminar/B747/airspeed/Vlo", "number")
+B747DR_airspeed_Mlo                             = deferred_dataref("laminar/B747/airspeed/Mlo", "number")
+B747DR_airspeed_Vle                             = deferred_dataref("laminar/B747/airspeed/Vle", "number")
+B747DR_airspeed_Mle                             = deferred_dataref("laminar/B747/airspeed/Mle", "number")
+B747DR_airspeed_Vmo                             = deferred_dataref("laminar/B747/airspeed/Vmo", "number")
+B747DR_airspeed_Mmo                             = deferred_dataref("laminar/B747/airspeed/Mmo", "number")
+B747DR_airspeed_Vmc                             = deferred_dataref("laminar/B747/airspeed/Vmc", "number")
+B747DR_airspeed_Vne                             = deferred_dataref("laminar/B747/airspeed/Vne", "number")
+B747DR_airspeed_Mne                             = deferred_dataref("laminar/B747/airspeed/Mne", "number")
+B747DR_airspeed_Vref30                          = deferred_dataref("laminar/B747/airspeed/Vref30", "number")
+B747DR_airspeed_Vmax                            = deferred_dataref("laminar/B747/airspeed/Vmax", "number")
+B747DR_airspeed_Vmaxm                           = deferred_dataref("laminar/B747/airspeed/Vmaxm", "number")
+B747DR_airspeed_Vs                              = deferred_dataref("laminar/B747/airspeed/Vs", "number")
 
+B747DR_airspeed_window_min                      = deferred_dataref("laminar/B747/airspeed_window/min", "number")
 
+B747DR_init_inst_CD                             = deferred_dataref("laminar/B747/inst/init_CD", "number")
 
-
--- V1 SPEEDS
-B747_V1 = {
-    [10] = {
-        { -- A
-            [200000] = 93.0,  [220000] = 101.0, [240000] = 109.0, [260000] = 117.0, [280000] = 123.0, [300000] = 128.0,
-            [320000] = 134.0, [340000] = 140.0, [360000] = 145.0, [380000] = 151.0, [400000] = 155.0, [420000] = 160.0
-        },
-        { -- B
-            [200000] = 94.0,  [220000] = 103.0, [240000] = 111.0, [260000] = 118.0, [280000] = 124.0, [300000] = 130.0,
-            [320000] = 136.0, [340000] = 142.0, [360000] = 148.0, [380000] = 153.0, [400000] = 157.0, [420000] = 162.0
-        },
-        { -- C
-            [200000] = 97.0,  [220000] = 105.0, [240000] = 113.0, [260000] = 121.0, [280000] = 127.0, [300000] = 133.0,
-            [320000] = 140.0, [340000] = 146.0, [360000] = 151.0, [380000] = 156.0, [400000] = 160.0, [420000] = 165.0,
-        },
-        { -- D
-            [200000] = 99.0,  [220000] = 108.0, [240000] = 116.0, [260000] = 124.0, [280000] = 131.0, [300000] = 137.0,
-            [320000] = 143.0, [340000] = 149.0, [360000] = 154.0, [380000] = 160.0, [400000] = 164.0, [420000] = 168.0,
-        },
-        { -- E
-            [200000] = 102.0, [220000] = 110.0, [240000] = 118.0, [260000] = 126.0, [280000] = 133.0, [300000] = 140.0,
-            [320000] = 146.0, [340000] = 152.0, [360000] = 157.0, [380000] = 162.0, [400000] = 165.0, [420000] = 165.0
-        }
-    },
-    [20] = {
-        { -- A
-            [200000] = 88.0,  [220000] = 96.0, [240000] = 104.0, [260000] = 111.0, [280000] = 118.0, [300000] = 123.0,
-            [320000] = 129.0, [340000] = 134.0,[360000] = 140.0, [380000] = 145.0, [400000] = 149.0, [420000] = 154.0
-        },
-        { -- B
-            [200000] = 90.0,  [220000] = 97.0,  [240000] = 105.0, [260000] = 113.0, [280000] = 119.0, [300000] = 125.0,
-            [320000] = 131.0, [340000] = 137.0, [360000] = 143.0, [380000] = 148.0, [400000] = 151.0, [420000] = 156.0
-        },
-        { -- C
-            [200000] = 92.0,  [220000] = 100.0, [240000] = 107.0, [260000] = 115.0, [280000] = 122.0, [300000] = 128.0,
-            [320000] = 134.0, [340000] = 140.0, [360000] = 146.0, [380000] = 151.0, [400000] = 155.0, [420000] = 160.0,
-        },
-        { -- D
-            [200000] = 95.0,  [220000] = 102.0, [240000] = 110.0, [260000] = 118.0, [280000] = 126.0, [300000] = 132.0,
-            [320000] = 138.0, [340000] = 144.0, [360000] = 149.0, [380000] = 154.0, [400000] = 158.0, [420000] = 163.0,
-        },
-        { -- E
-            [200000] = 97.0,  [220000] = 105.0, [240000] = 113.0, [260000] = 121.0, [280000] = 128.0, [300000] = 135.0,
-            [320000] = 141.0, [340000] = 146.0, [360000] = 152.0, [380000] = 156.0, [400000] = 159.0, [420000] = 159.0
-        }
-    }
-}
+B747DR_loc_ptr_vis_capt                         = deferred_dataref("laminar/B747/localizer_ptr/visibility_flag_capt", "number")
+B747DR_loc_scale_vis_capt                       = deferred_dataref("laminar/B747/localizer_scale/visibility_flag_capt", "number")
+B747DR_glideslope_ptr_vis_capt                  = deferred_dataref("laminar/B747/glideslope_ptr/visibility_flag_capt", "number")
+B747DR_loc_ptr_vis_fo                           = deferred_dataref("laminar/B747/localizer_ptr/visibility_flag_fo", "number")
+B747DR_loc_scale_vis_fo                         = deferred_dataref("laminar/B747/localizer_scale/visibility_flag_fo", "number")
+B747DR_glideslope_ptr_vis_fo                    = deferred_dataref("laminar/B747/glideslope_ptr/visibility_flag_fo", "number")
 
 
+-- INSTRUMENT SOURCE SELECTORS (CAPTAIN)
+B747CMD_flt_inst_fd_src_capt_dial_up        = deferred_command("laminar/B747/flt_inst/flt_dir_src/capt/sel_dial_up", "Flight Inst Flight Director Source Captain Up", B747_flt_inst_fd_src_capt_dial_up_CMDhandler)
+B747CMD_flt_inst_fd_src_capt_dial_dn        = deferred_command("laminar/B747/flt_inst/flt_dir_src/capt/sel_dial_dn", "Flight Inst Flight Director Source Captain Down", B747_flt_inst_fd_src_capt_dial_dn_CMDhandler)
 
+B747CMD_flt_inst_nav_src_capt_dial_up       = deferred_command("laminar/B747/flt_inst/nav_src/capt/sel_dial_up", "Flight Inst NAV Source Captain Up", B747_inst_src_capt_nav_up_CMDhandler)
+B747CMD_flt_inst_nav_src_capt_dial_dn       = deferred_command("laminar/B747/flt_inst/nav_src/capt/sel_dial_dn", "Flight Inst NAV Source Captain Down", B747_inst_src_capt_nav_dn_CMDhandler)
 
--- Vr SPEEDS
-B747_Vr = {
-    [10] = {
-        { -- A
-            [200000] = 107.0, [220000] = 115.0, [240000] = 122.0, [260000] = 130.0, [280000] = 137.0, [300000] = 143.0,
-            [320000] = 150.0, [340000] = 157.0, [360000] = 163.0, [380000] = 170.0, [400000] = 175.0, [420000] = 181.0
-        },
-        { -- B
-            [200000] = 108.0, [220000] = 116.0, [240000] = 123.0, [260000] = 131.0, [280000] = 138.0, [300000] = 145.0,
-            [320000] = 152.0, [340000] = 159.0, [360000] = 166.0, [380000] = 172.0, [400000] = 177.0, [420000] = 183.0
-        },
-        { -- C
-            [200000] = 110.0, [220000] = 118.0, [240000] = 125.0, [260000] = 133.0, [280000] = 140.0, [300000] = 147.0,
-            [320000] = 154.0, [340000] = 161.0, [360000] = 168.0, [380000] = 174.0, [400000] = 179.0, [420000] = 185.0,
-        },
-        { -- D
-            [200000] = 111.0, [220000] = 119.0, [240000] = 127.0, [260000] = 134.0, [280000] = 142.0, [300000] = 149.0,
-            [320000] = 93.0,  [340000] = 97.0,  [360000] = 101.0, [380000] = 104.0, [400000] = 108.0, [420000] = 111.0,
-        },
-        { -- E
-            [200000] = 113.0, [220000] = 121.0, [240000] = 129.0, [260000] = 137.0, [280000] = 144.0, [300000] = 151.0,
-            [320000] = 158.0, [340000] = 165.0, [360000] = 172.0, [380000] = 178.0, [400000] = 182.0, [420000] = 182.0
-        }
-    },
-    [20] = {
-        { -- A
-            [200000] = 102.0,  [220000] = 109.0, [240000] = 117.0, [260000] = 124.0, [280000] = 131.0, [300000] = 138.0,
-            [320000] = 145.0,  [340000] = 151.0, [360000] = 158.0, [380000] = 164.0, [400000] = 169.0, [420000] = 174.0
-        },
-        { -- B
-            [200000] = 103.0,  [220000] = 111.0, [240000] = 118.0, [260000] = 125.0, [280000] = 132.0, [300000] = 140.0,
-            [320000] = 147.0,  [340000] = 153.0, [360000] = 160.0, [380000] = 166.0, [400000] = 171.0, [420000] = 176.0
-        },
-        { -- C
-            [200000] = 105.0,  [220000] = 112.0, [240000] = 120.0, [260000] = 127.0, [280000] = 135.0, [300000] = 142.0,
-            [320000] = 149.0,  [340000] = 155.0, [360000] = 162.0, [380000] = 168.0, [400000] = 172.0, [420000] = 178.0,
-        },
-        { -- D
-            [200000] = 106.0,  [220000] = 97.0,  [240000] = 121.0, [260000] = 130.0, [280000] = 137.0, [300000] = 144.0,
-            [320000] = 151.0,  [340000] = 157.0, [360000] = 164.0, [380000] = 170.0, [400000] = 174.0, [420000] = 180.0,
-        },
-        { -- E
-            [200000] = 108.0,  [220000] = 116.0, [240000] = 124.0, [260000] = 132.0, [280000] = 139.0, [300000] = 146.0,
-            [320000] = 153.0,  [340000] = 159.0, [360000] = 166.0, [380000] = 172.0, [400000] = 175.0, [420000] = 175.0
-        }
-    }
-}
+B747CMD_flt_inst_eiu_src_capt_dial_up       = deferred_command("laminar/B747/flt_inst/eiu_src/capt/sel_dial_up", "Flight Inst EIU Source Captain Up", B747_inst_src_capt_eiu_up_CMDhandler)
+B747CMD_flt_inst_eiu_src_capt_dial_dn       = deferred_command("laminar/B747/flt_inst/eiu_src/capt/sel_dial_dn", "Flight Inst EIU Source Captain Down", B747_inst_src_capt_eiu_dn_CMDhandler)
 
+B747CMD_flt_inst_irs_src_capt_dial_up       = deferred_command("laminar/B747/flt_inst/irs_src/capt/sel_dial_up", "Flight Inst IRS Source Captain Up", B747_inst_src_capt_irs_up_CMDhandler)
+B747CMD_flt_inst_irs_src_capt_dial_dn       = deferred_command("laminar/B747/flt_inst/irs_src/capt/sel_dial_dn", "Flight Inst IRS Source Captain Down", B747_inst_src_capt_irs_dn_CMDhandler)
 
-
-
--- V2 SPEEDS
-B747_V2 = {
-    [10] = {
-        { -- A
-            [200000] = 136.0, [220000] = 142.0, [240000] = 147.0, [260000] = 153.0, [280000] = 158.0, [300000] = 163.0,
-            [320000] = 168.0, [340000] = 174.0, [360000] = 179.0, [380000] = 184.0, [400000] = 188.0, [420000] = 193.0
-        },
-        { -- B
-            [200000] = 136.0, [220000] = 141.0, [240000] = 147.0, [260000] = 152.0, [280000] = 158.0, [300000] = 163.0,
-            [320000] = 169.0, [340000] = 174.0, [360000] = 179.0, [380000] = 184.0, [400000] = 188.0, [420000] = 193.0
-        },
-        { -- C
-            [200000] = 135.0, [220000] = 141.0, [240000] = 146.0, [260000] = 152.0, [280000] = 158.0, [300000] = 163.0,
-            [320000] = 169.0, [340000] = 174.0, [360000] = 180.0, [380000] = 185.0, [400000] = 188.0, [420000] = 193.0,
-        },
-        { -- D
-            [200000] = 135.0, [220000] = 140.0, [240000] = 146.0, [260000] = 152.0, [280000] = 158.0, [300000] = 163.0,
-            [320000] = 169.0, [340000] = 175.0, [360000] = 180.0, [380000] = 185.0, [400000] = 189.0, [420000] = 194.0,
-        },
-        { -- E
-            [200000] = 134.0, [220000] = 140.0, [240000] = 146.0, [260000] = 152.0, [280000] = 158.0, [300000] = 164.0,
-            [320000] = 170.0, [340000] = 175.0, [360000] = 180.0, [380000] = 185.0, [400000] = 189.0, [420000] = 189.0
-        }
-    },
-    [20] = {
-        { -- A
-            [200000] = 130.0, [220000] = 136.0, [240000] = 141.0, [260000] = 146.0, [280000] = 151.0, [300000] = 157.0,
-            [320000] = 162.0, [340000] = 168.0, [360000] = 173.0, [380000] = 178.0, [400000] = 181.0, [420000] = 186.0
-        },
-        { -- B
-            [200000] = 130.0, [220000] = 135.0, [240000] = 141.0, [260000] = 146.0, [280000] = 152.0, [300000] = 157.0,
-            [320000] = 163.0, [340000] = 168.0, [360000] = 173.0, [380000] = 178.0, [400000] = 181.0, [420000] = 186.0
-        },
-        { -- C
-            [200000] = 129.0, [220000] = 135.0, [240000] = 140.0, [260000] = 146.0, [280000] = 152.0, [300000] = 157.0,
-            [320000] = 163.0, [340000] = 168.0, [360000] = 173.0, [380000] = 178.0, [400000] = 182.0, [420000] = 186.0,
-        },
-        { -- D
-            [200000] = 129.0, [220000] = 134.0, [240000] = 140.0, [260000] = 146.0, [280000] = 152.0, [300000] = 157.0,
-            [320000] = 163.0, [340000] = 168.0, [360000] = 173.0, [380000] = 178.0, [400000] = 182.0, [420000] = 187.0,
-        },
-        { -- E
-            [200000] = 128.0, [220000] = 134.0, [240000] = 140.0, [260000] = 146.0, [280000] = 152.0, [300000] = 158.0,
-            [320000] = 163.0, [340000] = 169.0, [360000] = 174.0, [380000] = 149.0, [400000] = 182.0, [420000] = 182.0
-        }
-    }
-}
-
-
-
-
-
-
-
--- Vref30 SPEEDS
-Vref30data = {
-
-    speedMinus2k = {
-        [200000] = 126.87, [220000] = 133.43, [240000] = 139.66, [260000] = 145.75, [280000] = 151.62,
-        [300000] = 157.34, [320000] = 162.89, [340000] = 168.34, [360000] = 173.54, [380000] = 178.67,
-        [400000] = 183.66
-    },
-
-    speed0k = {
-        [200000] = 127.23, [220000] = 133.80, [240000] = 140.12, [260000] = 146.29, [280000] = 152.10,
-        [300000] = 157.82, [320000] = 163.40, [340000] = 168.80, [360000] = 174.05, [380000] = 179.26,
-        [400000] = 184.35
-    },
-
-    speed2k = {
-        [200000] = 127.53, [220000] = 134.15, [240000] = 140.55, [260000] = 146.70, [280000] = 152.62,
-        [300000] = 158.31, [320000] = 163.96, [340000] = 169.35, [360000] = 174.66, [380000] = 179.95,
-        [400000] = 185.17
-    },
-
-    speed6k = {
-        [200000] = 128.16, [220000] = 134.92, [240000] = 141.42, [260000] = 147.65, [280000] = 153.58,
-        [300000] = 159.38, [320000] = 165.14, [340000] = 170.68, [360000] = 176.14, [380000] = 181.42,
-        [400000] = 186.58
-    },
-
-    speed10k = {
-        [200000] = 129.02, [220000] = 135.89, [240000] = 142.40, [260000] = 148.73, [280000] = 154.73,
-        [300000] = 160.62, [320000] = 166.44, [340000] = 172.14, [360000] = 177.71, [380000] = 183.15,
-        [400000] = 188.42
-    }
-
-}
+B747CMD_flt_inst_air_data_src_capt_dial_up  = deferred_command("laminar/B747/flt_inst/air_data_src/capt/sel_dial_up", "Flight Inst Air Data Source Captain Up", B747_inst_src_capt_air_data_up_CMDhandler)
+B747CMD_flt_inst_air_data_src_capt_dial_dn  = deferred_command("laminar/B747/flt_inst/air_data_src/capt/sel_dial_dn", "Flight Inst Air Data Source Captain Down", B747_inst_src_capt_air_data_dn_CMDhandler)
 
 
 
 
--- Vs SPEEDS
-VsData = {
-    [0] = {
-        [-2000] = {[200]=142.72, [220]=150.21, [240]=157.53, [260]=164.69, [280]=172.27, [300]=178.95, [320]=185.50, [340]=191.76, [360]=197.77, [380]=203.51, [400]=205.91},
-        [0]     = {[200]=143.22, [220]=150.74, [240]=157.96, [260]=165.25, [280]=172.90, [300]=179.72, [320]=186.41, [340]=192.67, [360]=198.93, [380]=204.74, [400]=207.07},
-        [2000]  = {[200]=143.65, [220]=151.26, [240]=158.63, [260]=165.95, [280]=173.66, [300]=180.59, [320]=187.20, [340]=193.70, [360]=199.99, [380]=205.90, [400]=208.57},
-        [6000]  = {[200]=144.75, [220]=152.56, [240]=160.12, [260]=167.54, [280]=175.33, [300]=182.36, [320]=189.29, [340]=195.88, [360]=202.40, [380]=208.49, [400]=211.18},
-        [10000] = {[200]=146.01, [220]=153.96, [240]=161.66, [260]=169.37, [280]=177.43, [300]=184.66, [320]=191.89, [340]=198.64, [360]=205.25, [380]=211.59, [400]=214.51},
-    },
-    [1] = {
-        [-2000] = {[200]=126.78, [220]=133.28, [240]=139.61, [260]=145.79, [280]=152.24, [300]=158.03, [320]=163.53, [340]=168.77, [360]=173.92, [380]=178.71, [400]=180.66},
-        [0]     = {[200]=127.11, [220]=133.62, [240]=139.86, [260]=146.08, [280]=152.57, [300]=158.34, [320]=163.96, [340]=169.32, [360]=174.49, [380]=179.30, [400]=181.32},
-        [2000]  = {[200]=127.44, [220]=133.88, [240]=140.32, [260]=146.44, [280]=153.03, [300]=158.77, [320]=164.43, [340]=169.78, [360]=175.05, [380]=179.93, [400]=182.08},
-        [6000]  = {[200]=127.94, [220]=134.58, [240]=141.08, [260]=147.16, [280]=153.94, [300]=159.73, [320]=165.48, [340]=171.02, [360]=176.26, [380]=181.23, [400]=183.29},
-        [10000] = {[200]=128.62, [220]=135.24, [240]=141.81, [260]=148.16, [280]=154.89, [300]=160.90, [320]=166.82, [340]=172.34, [360]=177.76, [380]=182.76, [400]=185.03},
-    },
-    [5] = {
-        [-2000] = {[200]=119.47, [220]=125.52, [240]=131.52, [260]=137.40, [280]=143.58, [300]=148.87, [320]=154.07, [340]=159.13, [360]=163.95, [380]=168.48, [400]=170.51},
-        [0]     = {[200]=119.66, [220]=125.82, [240]=131.88, [260]=137.77, [280]=144.02, [300]=149.37, [320]=154.47, [340]=159.67, [360]=164.54, [380]=169.10, [400]=171.11},
-        [2000]  = {[200]=119.92, [220]=126.15, [240]=132.21, [260]=138.17, [280]=144.35, [300]=149.73, [320]=155.00, [340]=160.10, [360]=164.94, [380]=169.60, [400]=171.68},
-        [6000]  = {[200]=120.52, [220]=126.78, [240]=132.84, [260]=138.86, [280]=145.15, [300]=150.73, [320]=155.93, [340]=161.16, [360]=166.11, [380]=170.83, [400]=172.88},
-        [10000] = {[200]=121.25, [220]=127.51, [240]=133.68, [260]=139.73, [280]=146.15, [300]=151.79, [320]=157.17, [340]=162.46, [360]=167.58, [380]=172.39, [400]=174.48},
-    },
-    [10] = {
-        [-2000] = {[200]=116.26, [220]=122.15, [240]=127.92, [260]=133.45, [280]=139.38, [300]=144.45, [320]=149.43, [340]=154.28, [360]=158.94, [380]=163.24, [400]=165.01},
-        [0]     = {[200]=116.47, [220]=122.38, [240]=128.18, [260]=133.76, [280]=139.77, [300]=144.83, [320]=149.83, [340]=154.70, [360]=159.46, [380]=163.63, [400]=165.51},
-        [2000]  = {[200]=116.78, [220]=122.72, [240]=128.49, [260]=134.09, [280]=140.08, [300]=145.18, [320]=150.24, [340]=155.14, [360]=159.87, [380]=164.07, [400]=166.06},
-        [6000]  = {[200]=117.19, [220]=123.18, [240]=129.02, [260]=134.73, [280]=140.76, [300]=145.98, [320]=151.10, [340]=156.02, [360]=160.94, [380]=165.19, [400]=167.21},
-        [10000] = {[200]=117.78, [220]=123.84, [240]=129.67, [260]=135.49, [280]=141.59, [300]=146.90, [320]=152.12, [340]=157.06, [360]=162.02, [380]=166.43, [400]=168.46},
-    },
-    [20] = {
-        [-2000] = {[200]=112.07, [220]=117.73, [240]=123.29, [260]=128.73, [280]=134.36, [300]=139.26, [320]=143.99, [340]=148.68, [360]=153.32, [380]=157.28, [400]=159.08},
-        [0]     = {[200]=112.35, [220]=117.98, [240]=123.29, [260]=128.86, [280]=134.36, [300]=139.54, [320]=144.33, [340]=149.07, [360]=156.66, [380]=157.72, [400]=159.58},
-        [2000]  = {[200]=112.56, [220]=118.30, [240]=123.84, [260]=129.25, [280]=134.94, [300]=139.98, [320]=144.72, [340]=149.51, [360]=154.09, [380]=158.19, [400]=159.99},
-        [6000]  = {[200]=113.03, [220]=118.76, [240]=124.36, [260]=129.96, [280]=135.61, [300]=140.68, [320]=145.56, [340]=150.41, [360]=155.03, [380]=159.07, [400]=160.95},
-        [10000] = {[200]=133.60, [220]=119.47, [240]=125.57, [260]=130.84, [280]=136.42, [300]=141.55, [320]=146.49, [340]=151.36, [360]=156.02, [380]=160.33, [400]=162.28},
-    },
-    [25] = {
-        [-2000] = {[200]=107.43, [220]=112.90, [240]=118.27, [260]=123.45, [280]=128.38, [300]=133.11, [320]=137.78, [340]=142.34, [360]=146.83, [380]=151.13, [400]=155.33},
-        [0]     = {[200]=107.66, [220]=113.23, [240]=118.61, [260]=123.84, [280]=128.77, [300]=133.51, [320]=138.32, [340]=142.89, [360]=147.35, [380]=151.65, [400]=155.89},
-        [2000]  = {[200]=107.92, [220]=113.54, [240]=118.99, [260]=124.18, [280]=129.11, [300]=133.98, [320]=138.69, [340]=143.36, [360]=147.84, [380]=152.21, [400]=156.56},
-        [6000]  = {[200]=108.52, [220]=114.08, [240]=119.59, [260]=124.91, [280]=129.95, [300]=134.99, [320]=139.69, [340]=144.43, [360]=149.01, [380]=153.39, [400]=157.93},
-        [10000] = {[200]=109.22, [220]=114.99, [240]=120.56, [260]=125.90, [280]=130.98, [300]=135.99, [320]=140.86, [340]=145.60, [360]=150.47, [380]=155.06, [400]=159.57},
-    },
-    [30] = {
-        [-2000] = {[200]=103.22, [220]=108.46, [240]=113.64, [260]=118.54, [280]=123.30, [300]=127.81, [320]=132.30, [340]=136.64, [360]=140.91, [380]=145.07, [400]=149.11},
-        [0]     = {[200]=103.45, [220]=108.78, [240]=113.95, [260]=118.93, [280]=123.61, [300]=128.23, [320]=132.74, [340]=137.08, [360]=141.36, [380]=145.57, [400]=149.58},
-        [2000]  = {[200]=103.74, [220]=109.11, [240]=114.29, [260]=119.24, [280]=123.99, [300]=128.64, [320]=133.15, [340]=137.55, [360]=141.82, [380]=146.01, [400]=150.15},
-        [6000]  = {[200]=104.26, [220]=109.58, [240]=114.92, [260]=119.97, [280]=124.69, [300]=129.39, [320]=133.98, [340]=138.52, [360]=142.91, [380]=147.18, [400]=151.36},
-        [10000] = {[200]=104.86, [220]=110.26, [240]=115.70, [260]=120.78, [280]=125.67, [300]=130.34, [320]=135.02, [340]=139.62, [360]=144.07, [380]=148.39, [400]=152.72}
-    }
-}
+-- INSTRUMENT SOURCE SELECTORS (FIRST OFFICER)
+B747CMD_flt_inst_fd_src_fo_dial_up          = deferred_command("laminar/B747/flt_inst/flt_dir_src/fo/sel_dial_up", "Flight Inst Flight Director Source First Officer Up", B747_flt_inst_fd_src_fo_dial_up_CMDhandler)
+B747CMD_flt_inst_fd_src_fo_dial_dn          = deferred_command("laminar/B747/flt_inst/flt_dir_src/fo/sel_dial_dn", "Flight Inst Flight Director Source First Officer Down", B747_flt_inst_fd_src_fo_dial_dn_CMDhandler)
+
+B747CMD_flt_inst_nav_src_fo_dial_up         = deferred_command("laminar/B747/flt_inst/nav_src/fo/sel_dial_up", "Flight Inst NAV Source First Officer Up", B747_inst_src_fo_nav_up_CMDhandler)
+B747CMD_flt_inst_nav_src_fo_dial_dn         = deferred_command("laminar/B747/flt_inst/nav_src/fo/sel_dial_dn", "Flight Inst NAV Source First Officer Down", B747_inst_src_fo_nav_dn_CMDhandler)
+
+B747CMD_flt_inst_eiu_src_fo_dial_up         = deferred_command("laminar/B747/flt_inst/eiu_src/fo/sel_dial_up", "Flight Inst EIU Source First Officer Up", B747_inst_src_fo_eiu_up_CMDhandler)
+B747CMD_flt_inst_eiu_src_fo_dial_dn         = deferred_command("laminar/B747/flt_inst/eiu_src/fo/sel_dial_dn", "Flight Inst EIU Source First Officer Down", B747_inst_src_fo_eiu_dn_CMDhandler)
+
+B747CMD_flt_inst_irs_src_fo_dial_up         = deferred_command("laminar/B747/flt_inst/irs_src/fo/sel_dial_up", "Flight Inst IRS Source First Officer Up", B747_inst_src_fo_irs_up_CMDhandler)
+B747CMD_flt_inst_irs_src_fo_dial_dn         = deferred_command("laminar/B747/flt_inst/irs_src/fo/sel_dial_dn", "Flight Inst IRS Source First Officer Down", B747_inst_src_fo_irs_dn_CMDhandler)
+
+B747CMD_flt_inst_air_data_src_fo_dial_up    = deferred_command("laminar/B747/flt_inst/air_data_src/fo/sel_dial_up", "Flight Inst Air Data Source First Officer Up", B747_inst_src_fo_air_data_up_CMDhandler)
+B747CMD_flt_inst_air_data_src_fo_dial_dn    = deferred_command("laminar/B747/flt_inst/air_data_src/fo/sel_dial_dn", "Flight Inst Air Data Source First Officer Down", B747_inst_src_fo_air_data_dn_CMDhandler)
+
+
+
+
+
+-- INSTRUMENT SOURCE SELECTORS (CENTER PANEL)
+B747CMD_flt_inst_eiu_src_ctr_pnl_dial_up    = deferred_command("laminar/B747/flt_inst/eiu_src/ctr_pnl/sel_dial_up", "Flight Inst Center Panel EIU Up", B747_flt_inst_eiu_src_ctr_pnl_dial_up_CMDhandler)
+B747CMD_flt_inst_eiu_src_ctr_pnl_dial_dn    = deferred_command("laminar/B747/flt_inst/eiu_src/ctr_pnl/sel_dial_dn", "Flight Inst Center Panel EIU Down", B747_flt_inst_eiu_src_ctr_pnl_dial_dn_CMDhandler)
+
+B747CMD_flt_inst_fmc_master_src_ctr_pnl_sel = deferred_command("laminar/B747/flt_inst/fmc_master_src/ctr_pnl/sel_dial", "Flight Instr Center Panel FMC Master Selector", B747_flt_inst_fmc_master_src_ctr_pnl_sel_CMDhandler)
 
 
 
 
 
 
+-- DISPLAY SELECTORS (CAPTAIN)
+B747CMD_flt_inst_inbd_disp_capt_sel_dial_up = deferred_command("laminar/B747/flt_inst/capt_inbd_display/sel_dial_up", "Flight Inst Captain Inboard Display Selector Up", B747_flt_inst_inbd_disp_capt_sel_dial_up_CMDhandler)
+B747CMD_flt_inst_inbd_disp_capt_sel_dial_dn = deferred_command("laminar/B747/flt_inst/capt_inbd_display/sel_dial_dn", "Flight Inst Captain Inboard Display Selector Down", B747_flt_inst_inbd_disp_capt_sel_dial_dn_CMDhandler)
+
+B747CMD_flt_inst_lwr_disp_capt_sel_dial_up  = deferred_command("laminar/B747/flt_inst/capt_lwr_display/sel_dial_up", "Flight Inst Captain Lower Display Selector Up", B747_flt_inst_lwr_disp_capt_sel_dial_up_CMDhandler)
+B747CMD_flt_inst_lwr_disp_capt_sel_dial_dn  = deferred_command("laminar/B747/flt_inst/capt_lwr_display/sel_dial_dn", "Flight Inst Captain Lower Display Selector Down", B747_flt_inst_lwr_disp_capt_sel_dial_dn_CMDhandler)
+
+
+
+-- DISPLAY SELECTORS (FIRST OFFICER)
+B747CMD_flt_inst_inbd_disp_fo_sel_dial_up   = deferred_command("laminar/B747/flt_inst/fo_inbd_display/sel_dial_up", "Flight Inst First Officer Inboard Display Selector Up", B747_flt_inst_inbd_disp_fo_sel_dial_up_CMDhandler)
+B747CMD_flt_inst_inbd_disp_fo_sel_dial_dn   = deferred_command("laminar/B747/flt_inst/fo_inbd_display/sel_dial_dn", "Flight Inst First Officer Inboard Display Selector Down", B747_flt_inst_inbd_disp_fo_sel_dial_dn_CMDhandler)
+
+B747CMD_flt_inst_lwr_disp_fo_sel_dial_up    = deferred_command("laminar/B747/flt_inst/fo_lwr_display/sel_dial_up", "Flight Inst First Officer Lower Display Selector Up", B747_flt_inst_lwr_disp_fo_sel_dial_up_CMDhandler)
+B747CMD_flt_inst_lwr_disp_fo_sel_dial_dn    = deferred_command("laminar/B747/flt_inst/fo_lwr_display/sel_dial_dn", "Flight Inst First Officer Lower Display Selector Down", B747_flt_inst_lwr_disp_fo_sel_dial_dn_CMDhandler)
 
 
 
 
+-- EFIS CONTROLS (CAPTAIN)
+B747CMD_efis_min_ref_alt_capt_sel_dial_up   = deferred_command("laminar/B747/efis/min_ref_alt/capt/sel_dial_up", "EFIS Altitude Minimums Ref Selector Up", B747_efis_min_ref_alt_capt_sel_dial_up_CMDhandler)
+B747CMD_efis_min_ref_alt_capt_sel_dial_dn   = deferred_command("laminar/B747/efis/min_ref_alt/capt/sel_dial_dn", "EFIS Altitude Minimums Ref Selector Down", B747_efis_min_ref_alt_capt_sel_dial_dn_CMDhandler)
 
-dofile("B747.60.fltInst02.lua")
-dofile("B747.60.fltInst03.lua")
-dofile("B747.60.fltInst04.lua")
+B747CMD_efis_ref_alt_capt_set_dial_up       = deferred_command("laminar/B747/efis/ref_alt/capt/set_dial_up", "EFIS Altitude Ref Set Dial Up", B747_efis_ref_alt_capt_set_dial_up_CMDhandler)
+B747CMD_efis_ref_alt_capt_set_dial_dn       = deferred_command("laminar/B747/efis/ref_alt/capt/set_dial_dn", "EFIS Altitude Ref Set Dial Down", B747_efis_ref_alt_capt_set_dial_dn_CMDhandler)
+
+B747DR_efis_min_alt_ctrl_fo_rheo            = deferred_dataref("laminar/B747/efis/min_alt_ctrl/fo/rheostat", "number", B747_efis_min_alt_ctrl_fo_rheo)
+
+B747CMD_efis_dh_capt_reset_switch           = deferred_command("laminar/B747/efis/dh/capt/reset_switch", "EFIS Decision Height Reset Switch", B747_efis_dh_capt_reset_switch_CMDhandler)
+
+B747CMD_efis_baro_ref_capt_sel_dial_up      = deferred_command("laminar/B747/efis/baro_ref/capt/sel_dial_up", "EFIS BARO Ref Selector Up", B747_efis_baro_ref_capt_sel_dial_up_CMDhandler)
+B747CMD_efis_baro_ref_capt_sel_dial_dn      = deferred_command("laminar/B747/efis/baro_ref/capt/sel_dial_dn", "EFIS BARO Ref Selector Down", B747_efis_baro_ref_capt_sel_dial_dn_CMDhandler)
+B747CMD_efis_baro_set_capt_sel_dial_up      = deferred_command("laminar/B747/efis/baro_set/capt/sel_dial_up", "EFIS BARO Set Selector Up", B747_efis_baro_set_capt_sel_dial_up_CMDhandler)
+B747CMD_efis_baro_set_capt_sel_dial_dn      = deferred_command("laminar/B747/efis/baro_set/capt/sel_dial_dn", "EFIS BARO Set Selector Down", B747_efis_baro_set_capt_sel_dial_dn_CMDhandler)
+B747CMD_efis_baro_std_capt_switch           = deferred_command("laminar/B747/efis/baro_std/capt/switch", "EFIS BARO STD Switch", B747_efis_baro_std_capt_switch_CMDhandler)
+
+B747CMD_efis_fpv_capt_switch                = deferred_command("laminar/B747/efis/fpv/capt/switch", "EFIS FPV Switch", B747_efis_fpv_capt_switch_CMDhandler)
+B747CMD_efis_meters_capt_switch             = deferred_command("laminar/B747/efis/meters/capt/switch", "EFIS Meters Switch", B747_efis_meters_capt_switch_CMDhandler)
+
+
+
+
+-- EFIS CONTROLS (FIRST OFFICER)
+B747CMD_efis_min_ref_alt_fo_sel_dial_up     = deferred_command("laminar/B747/efis/min_ref_alt/fo/sel_dial_up", "EFIS Altitude Minimums Ref Selector Up", B747_efis_min_ref_alt_fo_sel_dial_up_CMDhandler)
+B747CMD_efis_min_ref_alt_fo_sel_dial_dn     = deferred_command("laminar/B747/efis/min_ref_alt/fo/sel_dial_dn", "EFIS Altitude Minimums Ref Selector Down", B747_efis_min_ref_alt_fo_sel_dial_dn_CMDhandler)
+
+B747CMD_efis_ref_alt_fo_set_dial_up         = deferred_command("laminar/B747/efis/ref_alt/fo/set_dial_up", "EFIS Altitude Ref Set Dial Up", B747_efis_ref_alt_fo_set_dial_up_CMDhandler)
+B747CMD_efis_ref_alt_fo_set_dial_dn         = deferred_command("laminar/B747/efis/ref_alt/fo/set_dial_dn", "EFIS Altitude Ref Set Dial Down", B747_efis_ref_alt_fo_set_dial_dn_CMDhandler)
+
+B747CMD_efis_dh_fo_reset_switch             = deferred_command("laminar/B747/efis/dh/fo/reset_switch", "EFIS Decision Height Reset Switch", B747_efis_dh_fo_reset_switch_CMDhandler)
+
+B747CMD_efis_baro_ref_fo_sel_dial_up        = deferred_command("laminar/B747/efis/baro_ref/fo/sel_dial_up", "EFIS BARO Ref Selector Up", B747_efis_baro_ref_fo_sel_dial_up_CMDhandler)
+B747CMD_efis_baro_ref_fo_sel_dial_dn        = deferred_command("laminar/B747/efis/baro_ref/fo/sel_dial_dn", "EFIS BARO Ref Selector Down", B747_efis_baro_ref_fo_sel_dial_dn_CMDhandler)
+B747CMD_efis_baro_set_fo_sel_dial_up        = deferred_command("laminar/B747/efis/baro_set/fo/sel_dial_up", "EFIS BARO Set Selector Up", B747_efis_baro_set_fo_sel_dial_up_CMDhandler)
+B747CMD_efis_baro_set_fo_sel_dial_dn        = deferred_command("laminar/B747/efis/baro_set/fo/sel_dial_dn", "EFIS BARO Set Selector Down", B747_efis_baro_set_fo_sel_dial_dn_CMDhandler)
+B747CMD_efis_baro_std_fo_switch             = deferred_command("laminar/B747/efis/baro_std/fo/switch", "EFIS BARO STD Switch", B747_efis_baro_std_fo_switch_CMDhandler)
+
+B747CMD_efis_fpv_fo_switch                  = deferred_command("laminar/B747/efis/fpv/fo/switch", "EFIS FPV Switch", B747_efis_fpv_fo_switch_CMDhandler)
+B747CMD_efis_meters_fo_switch               = deferred_command("laminar/B747/efis/meters/fo/switch", "EFIS Meters Switch", B747_efis_meters_fo_switch_CMDhandler)
+
+
+
+
+-- ND CONTROLS (CAPTAIN)
+B747CMD_nd_mode_capt_sel_dial_up            = deferred_command("laminar/B747/nd/mode/capt/sel_dial_up", "ND Mode Selector Up", B747_nd_mode_capt_sel_dial_up_CMDhandler)
+B747CMD_nd_mode_capt_sel_dial_dn            = deferred_command("laminar/B747/nd/mode/capt/sel_dial_dn", "ND Mode Selector Down", B747_nd_mode_capt_sel_dial_dn_CMDhandler)
+
+B747CMD_nd_range_capt_sel_dial_up           = deferred_command("laminar/B747/nd/range/capt/sel_dial_up", "ND Range Selector Up", B747_nd_range_capt_sel_dial_up_CMDhandler)
+B747CMD_nd_range_capt_sel_dial_dn           = deferred_command("laminar/B747/nd/range/capt/sel_dial_dn", "ND Range Selector Down", B747_nd_range_capt_sel_dial_dn_CMDhandler)
+
+B747CMD_nd_center_capt_switch               = deferred_command("laminar/B747/nd/center/capt/switch", "ND Center Switch", B747_nd_center_capt_switch_CMDhandler)
+B747CMD_nd_traffic_capt_switch              = deferred_command("laminar/B747/nd/traffic/capt/switch", "ND Traffic Switch", B747_nd_traffic_capt_switch_CMDhandler)
+
+B747CMD_nd_wxr_capt_switch                  = deferred_command("laminar/B747/nd/wxr/capt/switch", "ND WXR Switch", B747_nd_wxr_capt_switch_CMDhandler)
+B747CMD_nd_sta_capt_switch                  = deferred_command("laminar/B747/nd/sta/capt/switch", "ND STA Switch", B747_nd_sta_capt_switch_CMDhandler)
+B747CMD_nd_wpt_capt_switch                  = deferred_command("laminar/B747/nd/wpt/capt/switch", "ND WPT Switch", B747_nd_wpt_capt_switch_CMDhandler)
+B747CMD_nd_arpt_capt_switch                 = deferred_command("laminar/B747/nd/arpt/capt/switch", "ND ARPT Switch", B747_nd_arpt_capt_switch_CMDhandler)
+B747CMD_nd_data_capt_switch                 = deferred_command("laminar/B747/nd/data/capt/switch", "ND DATA Switch", B747_nd_data_capt_switch_CMDhandler)
+B747CMD_nd_pos_capt_switch                  = deferred_command("laminar/B747/nd/pos/capt/switch", "ND POS Switch", B747_nd_pos_capt_switch_CMDhandler)
+B747CMD_nd_terr_capt_switch                 = deferred_command("laminar/B747/nd/terr/capt/switch", "ND TERR Switch", B747_nd_terr_capt_switch_CMDhandler)
+
+
+
+-- ND CONTROLS (FIRST OFFICER)
+B747CMD_nd_mode_fo_sel_dial_up              = deferred_command("laminar/B747/nd/mode/fo/sel_dial_up", "ND Mode Selector Up", B747_nd_mode_fo_sel_dial_up_CMDhandler)
+B747CMD_nd_mode_fo_sel_dial_dn              = deferred_command("laminar/B747/nd/mode/fo/sel_dial_dn", "ND Mode Selector Down", B747_nd_mode_fo_sel_dial_dn_CMDhandler)
+
+B747CMD_nd_range_fo_sel_dial_up             = deferred_command("laminar/B747/nd/range/fo/sel_dial_up", "ND Range Selector Up", B747_nd_range_fo_sel_dial_up_CMDhandler)
+B747CMD_nd_range_fo_sel_dial_dn             = deferred_command("laminar/B747/nd/range/fo/sel_dial_dn", "ND Range Selector Down", B747_nd_range_fo_sel_dial_dn_CMDhandler)
+
+B747CMD_nd_center_fo_switch                 = deferred_command("laminar/B747/nd/center/fo/switch", "ND Center Switch", B747_nd_center_fo_switch_CMDhandler)
+B747CMD_nd_traffic_fo_switch                = deferred_command("laminar/B747/nd/traffic/fo/switch", "ND Traffic Switch", B747_nd_traffic_fo_switch_CMDhandler)
+
+B747CMD_nd_wxr_fo_switch                    = deferred_command("laminar/B747/nd/wxr/fo/switch", "ND WXR Switch", B747_nd_wxr_fo_switch_CMDhandler)
+B747CMD_nd_sta_fo_switch                    = deferred_command("laminar/B747/nd/sta/fo/switch", "ND STA Switch", B747_nd_sta_fo_switch_CMDhandler)
+B747CMD_nd_wpt_fo_switch                    = deferred_command("laminar/B747/nd/wpt/fo/switch", "ND WPT Switch", B747_nd_wpt_fo_switch_CMDhandler)
+B747CMD_nd_arpt_fo_switch                   = deferred_command("laminar/B747/nd/arpt/fo/switch", "ND ARPT Switch", B747_nd_arpt_fo_switch_CMDhandler)
+B747CMD_nd_data_fo_switch                   = deferred_command("laminar/B747/nd/data/fo/switch", "ND DATA Switch", B747_nd_data_fo_switch_CMDhandler)
+B747CMD_nd_pos_fo_switch                    = deferred_command("laminar/B747/nd/pos/fo/switch", "ND POS Switch", B747_nd_pos_fo_switch_CMDhandler)
+B747CMD_nd_terr_fo_switch                   = deferred_command("laminar/B747/nd/terr/fo/switch", "ND TERR Switch", B747_nd_terr_fo_switch_CMDhandler)
+
+
+
+
+-- DISPLAY SELECT PANEL
+B747CMD_dsp_eng_switch                      = deferred_command("laminar/B747/dsp/eng_switch", "Display Select Panel ENG Switch", B747_dsp_eng_switch_CMDhandler)
+B747CMD_dsp_stat_switch                     = deferred_command("laminar/B747/dsp/stat_switch", "Display Select Panel STAT Switch", B747_dsp_stat_switch_CMDhandler)
+B747CMD_dsp_elec_switch                     = deferred_command("laminar/B747/dsp/elec_switch", "Display Select Panel ELEC Switch", B747_dsp_elec_switch_CMDhandler)
+B747CMD_dsp_fuel_switch                     = deferred_command("laminar/B747/dsp/fuel_switch", "Display Select Panel FUEL Switch", B747_dsp_fuel_switch_CMDhandler)
+B747CMD_dsp_ecs_switch                      = deferred_command("laminar/B747/dsp/ecs_switch", "Display Select Panel ECS Switch", B747_dsp_ecs_switch_CMDhandler)
+B747CMD_dsp_hyd_switch                      = deferred_command("laminar/B747/dsp/hyd_switch", "Display Select Panel HYD Switch", B747_dsp_hyd_switch_CMDhandler)
+B747CMD_dsp_drs_switch                      = deferred_command("laminar/B747/dsp/drs_switch", "Display Select Panel DRS Switch", B747_dsp_drs_switch_CMDhandler)
+B747CMD_dsp_gear_switch                     = deferred_command("laminar/B747/dsp/gear_switch", "Display Select Panel GEAR Switch", B747_dsp_gear_switch_CMDhandler)
+
+B747CMD_dsp_canc_switch                     = deferred_command("laminar/B747/dsp/canc_switch", "Display Select Panel CANC Switch", B747_dsp_canc_switch_CMDhandler)
+B747CMD_dsp_rcl_switch                      = deferred_command("laminar/B747/dsp/rcl_switch", "Display Select Panel Recall Switch", B747_dsp_rcl_switch_CMDhandler)
+B747CMD_ai_fltinst_quick_start			= deferred_command("laminar/B747/ai/fltinst_quick_start", "number", B747_ai_fltinst_quick_start_CMDhandler)
+
+
+B747DR_fltInst_capt_clock_CHR_switch_pos	= deferred_dataref("laminar/B747/fltInst/capt/clock_chr_sw_pos", "number")
+B747DR_fltInst_capt_clock_DATE_switch_pos	= deferred_dataref("laminar/B747/fltInst/capt/clock_date_sw_pos", "number")
+B747DR_fltInst_capt_clock_ET_sel_pos		= deferred_dataref("laminar/B747/fltInst/capt/clock_et_sel_pos", "number")				-- 0=HLD, 1=RUN, 2=RESET 
+B747DR_fltInst_capt_clock_SET_sel_pos		= deferred_dataref("laminar/B747/fltInst/capt/clock_set_sel_pos", "number")		
+B747DR_fltInst_capt_clock_UTC_display		= deferred_dataref("laminar/B747/fltInst/capt/clock_utc_display", "number")				-- 0=TIME, 1=DATE
+B747DR_fltInst_capt_clock_DATE_display_mode	= deferred_dataref("laminar/B747/fltInst/capt/clock_date_display_mode", "number")			-- 0=DAY/MONTH, 1=YEAR	
+B747DR_fltInst_capt_clock_ET_CHR_display	= deferred_dataref("laminar/B747/fltInst/capt/clock_et_chr_display", "number")			-- 0=ET, 1=CHR	
+B747DR_fltInst_capt_clock_ET_minutes		= deferred_dataref("laminar/B747/fltInst/capt/clock_et_minutes", "number")
+B747DR_fltInst_capt_clock_ET_hours			= deferred_dataref("laminar/B747/fltInst/capt/clock_et_hours", "number")
+B747DR_fltInst_capt_clock_CHR_seconds		= deferred_dataref("laminar/B747/fltInst/capt/clock_chr_seconds", "number")
+B747DR_fltInst_capt_clock_CHR_minutes		= deferred_dataref("laminar/B747/fltInst/capt/clock_chr_minutes", "number")
+B747DR_fltInst_capt_clock_year				= deferred_dataref("laminar/B747/fltInst/capt/clock_year", "number")
+
+
+B747CMD_fltInst_capt_clock_chrono_switch	= deferred_command("laminar/B747/fltInst/capt/clock_chrono_switch", "Captain Clock Chronograph Switch", B747_capt_clock_chrono_switch_CMDhandler)
+B747CMD_fltInst_capt_clock_date_switch		= deferred_command("laminar/B747/fltInst/capt/clock_date_switch", "Captain Clock Date Switch", B747_capt_clock_date_switch_CMDhandler)
+B747CMD_fltInst_capt_clock_ET_sel_up		= deferred_command("laminar/B747/fltInst/capt/clock_et_sel_up", "Captain Clock ET Selector Up", B747_capt_clock_ET_sel_up_CMDhandler)
+B747CMD_fltInst_capt_clock_ET_sel_dn		= deferred_command("laminar/B747/fltInst/capt/clock_et_sel_down", "Captain Clock ET Selector Down", B747_capt_clock_ET_sel_dn_CMDhandler)
+B747CMD_fltInst_capt_clock_SET_sel_up		= deferred_command("laminar/B747/fltInst/capt/clock_set_sel_up", "Captain Clock SET Selector Up", B747_capt_clock_SET_sel_up_CMDhandler)
+B747CMD_fltInst_capt_clock_SET_sel_dn		= deferred_command("laminar/B747/fltInst/capt/clock_set_sel_down", "Captain Clock SET Selector Down", B747_capt_clock_SET_sel_dn_CMDhandler)
+
+
+B747DR_fltInst_fo_clock_CHR_switch_pos		= deferred_dataref("laminar/B747/fltInst/fo/clock_chr_sw_pos", "number")
+B747DR_fltInst_fo_clock_DATE_switch_pos		= deferred_dataref("laminar/B747/fltInst/fo/clock_date_sw_pos", "number")
+B747DR_fltInst_fo_clock_ET_sel_pos			= deferred_dataref("laminar/B747/fltInst/fo/clock_et_sel_pos", "number")				-- 0=HLD, 1=RUN, 2=RESET 
+B747DR_fltInst_fo_clock_SET_sel_pos			= deferred_dataref("laminar/B747/fltInst/fo/clock_set_sel_pos", "number")		
+B747DR_fltInst_fo_clock_UTC_display			= deferred_dataref("laminar/B747/fltInst/fo/clock_utc_display", "number")				-- 0=TIME, 1=DATE
+B747DR_fltInst_fo_clock_DATE_display_mode	= deferred_dataref("laminar/B747/fltInst/fo/clock_date_display_mode", "number")		-- 0=DAY/MONTH, 1=YEAR	
+B747DR_fltInst_fo_clock_ET_CHR_display		= deferred_dataref("laminar/B747/fltInst/fo/clock_et_chr_display", "number")			-- 0=ET, 1=CHR	
+B747DR_fltInst_fo_clock_ET_minutes			= deferred_dataref("laminar/B747/fltInst/fo/clock_et_minutes", "number")
+B747DR_fltInst_fo_clock_ET_hours			= deferred_dataref("laminar/B747/fltInst/fo/clock_et_hours", "number")
+B747DR_fltInst_fo_clock_CHR_seconds			= deferred_dataref("laminar/B747/fltInst/fo/clock_chr_seconds", "number")
+B747DR_fltInst_fo_clock_CHR_minutes			= deferred_dataref("laminar/B747/fltInst/fo/clock_chr_minutes", "number")
+B747DR_fltInst_fo_clock_year				= deferred_dataref("laminar/B747/fltInst/fo/clock_year", "number")
+
+
+B747CMD_fltInst_fo_clock_chrono_switch	= deferred_command("laminar/B747/fltInst/fo/clock_chrono_switch", "First Officer Clock Chronograph Switch", B747_fo_clock_chrono_switch_CMDhandler)
+B747CMD_fltInst_fo_clock_date_switch	= deferred_command("laminar/B747/fltInst/fo/clock_date_switch", "First Officer Clock Date Switch", B747_fo_clock_date_switch_CMDhandler)
+B747CMD_fltInst_fo_clock_ET_sel_up		= deferred_command("laminar/B747/fltInst/fo/clock_et_sel_up", "First Officer Clock ET Selector Up", B747_fo_clock_ET_sel_up_CMDhandler)
+B747CMD_fltInst_fo_clock_ET_sel_dn		= deferred_command("laminar/B747/fltInst/fo/clock_et_sel_down", "First Officer Clock ET Selector Down", B747_fo_clock_ET_sel_dn_CMDhandler)
+B747CMD_fltInst_fo_clock_SET_sel_up		= deferred_command("laminar/B747/fltInst/fo/clock_set_sel_up", "First Officer Clock SET Selector Up", B747_fo_clock_SET_sel_up_CMDhandler)
+B747CMD_fltInst_fo_clock_SET_sel_dn		= deferred_command("laminar/B747/fltInst/fo/clock_set_sel_down", "First Officer Clock SET Selector Down", B747_fo_clock_SET_sel_dn_CMDhandler)
+

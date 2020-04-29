@@ -788,7 +788,7 @@ function B747_fltCtrols_EICAS_msg()
     -- >CONFIG PARK BRK
     if simDR_hyd_press_1_2 < 1000 and simDR_parking_brake_ratio > 0 then
       simDR_parking_brake_ratio = B747_animate_value(simDR_parking_brake_ratio,0,0,1,1)
-      B747DR_CAS_warning_status[9] = 1
+      --B747DR_CAS_warning_status[9] = 1
     end
     
     B747DR_CAS_warning_status[5] = 0

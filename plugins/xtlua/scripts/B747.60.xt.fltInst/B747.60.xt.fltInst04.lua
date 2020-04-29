@@ -77,18 +77,18 @@ local sim_et_new_time_fo 		= 0
 --** 				        CREATE READ-ONLY CUSTOM DATAREFS               	         **--
 --*************************************************************************************--
 
-B747DR_fltInst_fo_clock_CHR_switch_pos		= create_dataref("laminar/B747/fltInst/fo/clock_chr_sw_pos", "number")
-B747DR_fltInst_fo_clock_DATE_switch_pos		= create_dataref("laminar/B747/fltInst/fo/clock_date_sw_pos", "number")
-B747DR_fltInst_fo_clock_ET_sel_pos			= create_dataref("laminar/B747/fltInst/fo/clock_et_sel_pos", "number")				-- 0=HLD, 1=RUN, 2=RESET 
-B747DR_fltInst_fo_clock_SET_sel_pos			= create_dataref("laminar/B747/fltInst/fo/clock_set_sel_pos", "number")		
-B747DR_fltInst_fo_clock_UTC_display			= create_dataref("laminar/B747/fltInst/fo/clock_utc_display", "number")				-- 0=TIME, 1=DATE
-B747DR_fltInst_fo_clock_DATE_display_mode	= create_dataref("laminar/B747/fltInst/fo/clock_date_display_mode", "number")		-- 0=DAY/MONTH, 1=YEAR	
-B747DR_fltInst_fo_clock_ET_CHR_display		= create_dataref("laminar/B747/fltInst/fo/clock_et_chr_display", "number")			-- 0=ET, 1=CHR	
-B747DR_fltInst_fo_clock_ET_minutes			= create_dataref("laminar/B747/fltInst/fo/clock_et_minutes", "number")
-B747DR_fltInst_fo_clock_ET_hours			= create_dataref("laminar/B747/fltInst/fo/clock_et_hours", "number")
-B747DR_fltInst_fo_clock_CHR_seconds			= create_dataref("laminar/B747/fltInst/fo/clock_chr_seconds", "number")
-B747DR_fltInst_fo_clock_CHR_minutes			= create_dataref("laminar/B747/fltInst/fo/clock_chr_minutes", "number")
-B747DR_fltInst_fo_clock_year				= create_dataref("laminar/B747/fltInst/fo/clock_year", "number")
+B747DR_fltInst_fo_clock_CHR_switch_pos		= deferred_dataref("laminar/B747/fltInst/fo/clock_chr_sw_pos", "number")
+B747DR_fltInst_fo_clock_DATE_switch_pos		= deferred_dataref("laminar/B747/fltInst/fo/clock_date_sw_pos", "number")
+B747DR_fltInst_fo_clock_ET_sel_pos			= deferred_dataref("laminar/B747/fltInst/fo/clock_et_sel_pos", "number")				-- 0=HLD, 1=RUN, 2=RESET 
+B747DR_fltInst_fo_clock_SET_sel_pos			= deferred_dataref("laminar/B747/fltInst/fo/clock_set_sel_pos", "number")		
+B747DR_fltInst_fo_clock_UTC_display			= deferred_dataref("laminar/B747/fltInst/fo/clock_utc_display", "number")				-- 0=TIME, 1=DATE
+B747DR_fltInst_fo_clock_DATE_display_mode	= deferred_dataref("laminar/B747/fltInst/fo/clock_date_display_mode", "number")		-- 0=DAY/MONTH, 1=YEAR	
+B747DR_fltInst_fo_clock_ET_CHR_display		= deferred_dataref("laminar/B747/fltInst/fo/clock_et_chr_display", "number")			-- 0=ET, 1=CHR	
+B747DR_fltInst_fo_clock_ET_minutes			= deferred_dataref("laminar/B747/fltInst/fo/clock_et_minutes", "number")
+B747DR_fltInst_fo_clock_ET_hours			= deferred_dataref("laminar/B747/fltInst/fo/clock_et_hours", "number")
+B747DR_fltInst_fo_clock_CHR_seconds			= deferred_dataref("laminar/B747/fltInst/fo/clock_chr_seconds", "number")
+B747DR_fltInst_fo_clock_CHR_minutes			= deferred_dataref("laminar/B747/fltInst/fo/clock_chr_minutes", "number")
+B747DR_fltInst_fo_clock_year				= deferred_dataref("laminar/B747/fltInst/fo/clock_year", "number")
 
 
 
@@ -234,12 +234,12 @@ end
 --** 				              CREATE CUSTOM COMMANDS              			     **--
 --*************************************************************************************--
 
-B747CMD_fltInst_fo_clock_chrono_switch	= create_command("laminar/B747/fltInst/fo/clock_chrono_switch", "First Officer Clock Chronograph Switch", B747_fo_clock_chrono_switch_CMDhandler)
-B747CMD_fltInst_fo_clock_date_switch	= create_command("laminar/B747/fltInst/fo/clock_date_switch", "First Officer Clock Date Switch", B747_fo_clock_date_switch_CMDhandler)
-B747CMD_fltInst_fo_clock_ET_sel_up		= create_command("laminar/B747/fltInst/fo/clock_et_sel_up", "First Officer Clock ET Selector Up", B747_fo_clock_ET_sel_up_CMDhandler)
-B747CMD_fltInst_fo_clock_ET_sel_dn		= create_command("laminar/B747/fltInst/fo/clock_et_sel_down", "First Officer Clock ET Selector Down", B747_fo_clock_ET_sel_dn_CMDhandler)
-B747CMD_fltInst_fo_clock_SET_sel_up		= create_command("laminar/B747/fltInst/fo/clock_set_sel_up", "First Officer Clock SET Selector Up", B747_fo_clock_SET_sel_up_CMDhandler)
-B747CMD_fltInst_fo_clock_SET_sel_dn		= create_command("laminar/B747/fltInst/fo/clock_set_sel_down", "First Officer Clock SET Selector Down", B747_fo_clock_SET_sel_dn_CMDhandler)
+B747CMD_fltInst_fo_clock_chrono_switch	= deferred_command("laminar/B747/fltInst/fo/clock_chrono_switch", "First Officer Clock Chronograph Switch", B747_fo_clock_chrono_switch_CMDhandler)
+B747CMD_fltInst_fo_clock_date_switch	= deferred_command("laminar/B747/fltInst/fo/clock_date_switch", "First Officer Clock Date Switch", B747_fo_clock_date_switch_CMDhandler)
+B747CMD_fltInst_fo_clock_ET_sel_up		= deferred_command("laminar/B747/fltInst/fo/clock_et_sel_up", "First Officer Clock ET Selector Up", B747_fo_clock_ET_sel_up_CMDhandler)
+B747CMD_fltInst_fo_clock_ET_sel_dn		= deferred_command("laminar/B747/fltInst/fo/clock_et_sel_down", "First Officer Clock ET Selector Down", B747_fo_clock_ET_sel_dn_CMDhandler)
+B747CMD_fltInst_fo_clock_SET_sel_up		= deferred_command("laminar/B747/fltInst/fo/clock_set_sel_up", "First Officer Clock SET Selector Up", B747_fo_clock_SET_sel_up_CMDhandler)
+B747CMD_fltInst_fo_clock_SET_sel_dn		= deferred_command("laminar/B747/fltInst/fo/clock_set_sel_down", "First Officer Clock SET Selector Down", B747_fo_clock_SET_sel_dn_CMDhandler)
 
 
 
