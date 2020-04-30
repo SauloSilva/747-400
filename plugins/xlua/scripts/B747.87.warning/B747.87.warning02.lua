@@ -162,7 +162,10 @@ B747DR_init_warning_CD          = deferred_dataref("laminar/B747/warning/init_CD
 B747CMD_ai_warning_quick_start			= deferred_command("laminar/B747/ai/warning_quick_start", "number", B747_ai_warning_quick_start_CMDhandler)
 
 
-
+--[[
+function after_physics()
+  B747DR_CAS_gen_warning_msg[0] = "help"
+end]]
 
 
 
