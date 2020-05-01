@@ -860,35 +860,34 @@ function cleanFMSLine(line)
     return retval
 end 
 function B747_fms2_display_fms()
-
-        B747DR_fms1_Line01_L = cleanFMSLine(fms1_line0) 
-        B747DR_fms1_Line02_L = cleanFMSLine(fms1_line1)
-        B747DR_fms1_Line03_L = cleanFMSLine(fms1_line2) 
-        B747DR_fms1_Line04_L = cleanFMSLine(fms1_line3) 
-        B747DR_fms1_Line05_L = cleanFMSLine(fms1_line4) 
-        B747DR_fms1_Line06_L = cleanFMSLine(fms1_line5)
-        B747DR_fms1_Line07_L = cleanFMSLine(fms1_line6)
-        B747DR_fms1_Line08_L = cleanFMSLine(fms1_line7) 
-        B747DR_fms1_Line09_L = cleanFMSLine(fms1_line8)
-        B747DR_fms1_Line10_L = cleanFMSLine(fms1_line9)
-        B747DR_fms1_Line11_L = cleanFMSLine(fms1_line10)
-        B747DR_fms1_Line12_L = cleanFMSLine(fms1_line11)
-        B747DR_fms1_Line13_L = cleanFMSLine(fms1_line12)
-        B747DR_fms1_Line14_L = cleanFMSLine(fms1_line13)
-	B747DR_fms1_Line01_S = ""
-        B747DR_fms1_Line02_S = ""
-        B747DR_fms1_Line03_S = ""
-        B747DR_fms1_Line04_S = ""
-        B747DR_fms1_Line05_S = ""
-        B747DR_fms1_Line06_S = ""
-        B747DR_fms1_Line07_S = ""
-        B747DR_fms1_Line08_S = ""
-        B747DR_fms1_Line09_S = ""
-        B747DR_fms1_Line10_S = ""
-        B747DR_fms1_Line11_S = ""
-        B747DR_fms1_Line12_S = ""
-        B747DR_fms1_Line13_S = ""
-        B747DR_fms1_Line14_S = ""
+        B747DR_fms2_Line01_L = cleanFMSLine(fms1_line0) 
+        B747DR_fms2_Line02_L = cleanFMSLine(fms1_line1)
+        B747DR_fms2_Line03_L = cleanFMSLine(fms1_line2) 
+        B747DR_fms2_Line04_L = cleanFMSLine(fms1_line3) 
+        B747DR_fms2_Line05_L = cleanFMSLine(fms1_line4) 
+        B747DR_fms2_Line06_L = cleanFMSLine(fms1_line5)
+        B747DR_fms2_Line07_L = cleanFMSLine(fms1_line6)
+        B747DR_fms2_Line08_L = cleanFMSLine(fms1_line7) 
+        B747DR_fms2_Line09_L = cleanFMSLine(fms1_line8)
+        B747DR_fms2_Line10_L = cleanFMSLine(fms1_line9)
+        B747DR_fms2_Line11_L = cleanFMSLine(fms1_line10)
+        B747DR_fms2_Line12_L = cleanFMSLine(fms1_line11)
+        B747DR_fms2_Line13_L = cleanFMSLine(fms1_line12)
+        B747DR_fms2_Line14_L = cleanFMSLine(fms1_line13)
+	B747DR_fms2_Line01_S = " "
+        B747DR_fms2_Line02_S = " "
+        B747DR_fms2_Line03_S = " "
+        B747DR_fms2_Line04_S = " "
+        B747DR_fms2_Line05_S = " "
+        B747DR_fms2_Line06_S = " "
+        B747DR_fms2_Line07_S = " "
+        B747DR_fms2_Line08_S = " "
+        B747DR_fms2_Line09_S = " "
+        B747DR_fms2_Line10_S = " "
+        B747DR_fms2_Line11_S = " "
+        B747DR_fms2_Line12_S = " "
+        B747DR_fms2_Line13_S = " "
+        B747DR_fms2_Line14_S = " "
 
 end
 

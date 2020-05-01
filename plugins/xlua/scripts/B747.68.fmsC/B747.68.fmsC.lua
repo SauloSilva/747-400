@@ -517,7 +517,7 @@ end
 --*************************************************************************************--
 --** 				        CREATE READ-ONLY CUSTOM DATAREFS               	         **--
 --*************************************************************************************--
-B747DR_fms1_display_mode            = create_dataref("laminar/B747/fms1/display_mode", "number")
+B747DR_fms1_display_mode            = create_dataref("laminar/B747/fms3/display_mode", "number")
 
 --[[
     0 = NORMAL
@@ -535,7 +535,7 @@ B747DR_init_fmsL_CD                 = create_dataref("laminar/B747/fmsL/init_CD"
 --*************************************************************************************--
 
 -- CRT BRIGHTNESS DIAL ------------------------------------------------------------------
-B747DR_fms1_display_brightness      = find_dataref("laminar/B747/fms1/display_brightness")
+B747DR_fms1_display_brightness      = find_dataref("laminar/B747/fms3/display_brightness")
 
 
 
@@ -662,4 +662,258 @@ simCMDwrap_fms1_func_key_next_pg        = wrap_command("sim/FMS/next", sim_fms3_
 function B747_set_FMS1_display_mode_norm()
     B747DR_fms1_display_mode = 0
 end
+B747DR_fms3_Line01_L                = create_dataref("laminar/B747/fms3/Line01_L", "string")
+B747DR_fms3_Line02_L                = create_dataref("laminar/B747/fms3/Line02_L", "string")
+B747DR_fms3_Line03_L                = create_dataref("laminar/B747/fms3/Line03_L", "string")
+B747DR_fms3_Line04_L                = create_dataref("laminar/B747/fms3/Line04_L", "string")
+B747DR_fms3_Line05_L                = create_dataref("laminar/B747/fms3/Line05_L", "string")
+B747DR_fms3_Line06_L                = create_dataref("laminar/B747/fms3/Line06_L", "string")
+B747DR_fms3_Line07_L                = create_dataref("laminar/B747/fms3/Line07_L", "string")
+B747DR_fms3_Line08_L                = create_dataref("laminar/B747/fms3/Line08_L", "string")
+B747DR_fms3_Line09_L                = create_dataref("laminar/B747/fms3/Line09_L", "string")
+B747DR_fms3_Line10_L                = create_dataref("laminar/B747/fms3/Line10_L", "string")
+B747DR_fms3_Line11_L                = create_dataref("laminar/B747/fms3/Line11_L", "string")
+B747DR_fms3_Line12_L                = create_dataref("laminar/B747/fms3/Line12_L", "string")
+B747DR_fms3_Line13_L                = create_dataref("laminar/B747/fms3/Line13_L", "string")
+B747DR_fms3_Line14_L                = create_dataref("laminar/B747/fms3/Line14_L", "string")
 
+B747DR_fms3_Line01_S                = create_dataref("laminar/B747/fms3/Line01_S", "string")
+B747DR_fms3_Line02_S                = create_dataref("laminar/B747/fms3/Line02_S", "string")
+B747DR_fms3_Line03_S                = create_dataref("laminar/B747/fms3/Line03_S", "string")
+B747DR_fms3_Line04_S                = create_dataref("laminar/B747/fms3/Line04_S", "string")
+B747DR_fms3_Line05_S                = create_dataref("laminar/B747/fms3/Line05_S", "string")
+B747DR_fms3_Line06_S                = create_dataref("laminar/B747/fms3/Line06_S", "string")
+B747DR_fms3_Line07_S                = create_dataref("laminar/B747/fms3/Line07_S", "string")
+B747DR_fms3_Line08_S                = create_dataref("laminar/B747/fms3/Line08_S", "string")
+B747DR_fms3_Line09_S                = create_dataref("laminar/B747/fms3/Line09_S", "string")
+B747DR_fms3_Line10_S                = create_dataref("laminar/B747/fms3/Line10_S", "string")
+B747DR_fms3_Line11_S                = create_dataref("laminar/B747/fms3/Line11_S", "string")
+B747DR_fms3_Line12_S                = create_dataref("laminar/B747/fms3/Line12_S", "string")
+B747DR_fms3_Line13_S                = create_dataref("laminar/B747/fms3/Line13_S", "string")
+B747DR_fms3_Line14_S                = create_dataref("laminar/B747/fms3/Line14_S", "string")
+function B747_set_FMS1_display_mode_norm()
+    B747DR_fms1_display_mode = 0
+end
+
+fms1_line0=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line0")
+fms1_line1=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line1")
+fms1_line2=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line2")
+fms1_line3=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line3")
+fms1_line4=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line4")
+fms1_line5=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line5")
+fms1_line6=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line6")
+fms1_line7=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line7")
+fms1_line8=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line8")
+fms1_line9=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line9")
+fms1_line10=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line10")
+fms1_line11=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line11")
+fms1_line12=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line12")
+fms1_line13=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line13")
+fms1_line14=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line14")
+fms1_line15=find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_text_line15")
+
+simDR_startup_running               = find_dataref("sim/operation/prefs/startup_running")
+
+simDR_instrument_brightness_switch  = find_dataref("sim/cockpit2/switches/instrument_brightness_ratio")
+simDR_instrument_brightness_ratio   = find_dataref("sim/cockpit2/electrical/instrument_brightness_ratio_manual")
+
+simDR_radio_nav_freq_Mhz            = find_dataref("sim/cockpit2/radios/actuators/nav_frequency_Mhz")
+simDR_radio_nav_freq_khz            = find_dataref("sim/cockpit2/radios/actuators/nav_frequency_khz")
+simDR_radio_nav_freq_hz             = find_dataref("sim/cockpit2/radios/actuators/nav_frequency_hz")
+simDR_radio_nav_course_deg          = find_dataref("sim/cockpit2/radios/actuators/nav_course_deg_mag_pilot")
+simDR_radio_nav_obs_deg             = find_dataref("sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot")
+simDR_radio_nav03_ID                = find_dataref("sim/cockpit2/radios/indicators/nav3_nav_id")
+simDR_radio_nav04_ID                = find_dataref("sim/cockpit2/radios/indicators/nav4_nav_id")
+
+simDR_radio_adf1_freq_hz            = find_dataref("sim/cockpit2/radios/actuators/adf1_frequency_hz")
+simDR_radio_adf2_freq_hz            = find_dataref("sim/cockpit2/radios/actuators/adf2_frequency_hz")
+
+function B747_fms1_display_navrad()
+
+        B747DR_fms3_Line01_L = string.format("        %9s      ", "NAV RADIO")
+        B747DR_fms3_Line02_L = string.format("                        ", "")
+        B747DR_fms3_Line03_L = string.format("%6.2f %4s  %4s %6.2f", simDR_radio_nav_freq_hz[2]*0.01, simDR_radio_nav03_ID, simDR_radio_nav04_ID, simDR_radio_nav_freq_hz[3]*0.01)
+        B747DR_fms3_Line04_L = string.format("                        ", "")
+        B747DR_fms3_Line05_L = string.format(" %03d     %3s  %3s    %03d", simDR_radio_nav_obs_deg[2], "---", "---", simDR_radio_nav_obs_deg[3])
+        B747DR_fms3_Line06_L = string.format("                        ", "")
+        B747DR_fms3_Line07_L = string.format("%06.1f         %06.1f   ", simDR_radio_adf1_freq_hz, simDR_radio_adf2_freq_hz)
+        B747DR_fms3_Line08_L = string.format("                        ", "")
+        B747DR_fms3_Line09_L = string.format("%6.2f/%03d%s             ", simDR_radio_nav_freq_hz[0]*0.01, simDR_radio_nav_obs_deg[0], "˚")
+        B747DR_fms3_Line10_L = string.format("                        ", "")
+        B747DR_fms3_Line11_L = string.format("                        ", "")
+        B747DR_fms3_Line12_L = string.format("                        ", "")
+        B747DR_fms3_Line13_L = string.format("                        ", "")
+        B747DR_fms3_Line14_L = string.format("%s            %s", "------", "------")
+
+        B747DR_fms3_Line01_S = string.format("                        ", "")
+        B747DR_fms3_Line02_S = string.format(" %5s             %5s", "VOR L", "VOR R")
+        B747DR_fms3_Line03_S = string.format("      %1s          %1s      ", "M", "M")
+        B747DR_fms3_Line04_S = string.format(" %3s      %6s     %3s", "CRS", "RADIAL", "CRS")
+        B747DR_fms3_Line05_S = string.format("                        ", "")
+        B747DR_fms3_Line06_S = string.format(" %5s             %5s", "ADF L", "ADF R")
+        B747DR_fms3_Line07_S = string.format("      %3s            %3s", "ANT", "ANT")
+        B747DR_fms3_Line08_S = string.format(" %3s                    ", "ILS")
+        B747DR_fms3_Line09_S = string.format("           %1s            ", "M")
+        B747DR_fms3_Line10_S = string.format("                        ", "")
+        B747DR_fms3_Line11_S = string.format("                        ", "")
+        B747DR_fms3_Line12_S = string.format("                        ", "")
+        B747DR_fms3_Line13_S = string.format("        %9s       ", "PRESELECT")
+        B747DR_fms3_Line14_S = string.format("                        ", "")
+
+end
+function cleanFMSLine(line)
+    local retval=line:gsub("☐","*")
+    retval=retval:gsub("°","`")
+    return retval
+end 
+function B747_fms1_display_fms()
+      local page1=false
+      if fms1_line0:find("INDEX") ~= nil then
+	page1=true
+      end
+        B747DR_fms3_Line01_L = cleanFMSLine(fms1_line0) 
+        B747DR_fms3_Line02_L = cleanFMSLine(fms1_line1)
+        B747DR_fms3_Line03_L = cleanFMSLine(fms1_line2) 
+        B747DR_fms3_Line04_L = cleanFMSLine(fms1_line3) 
+        B747DR_fms3_Line05_L = cleanFMSLine(fms1_line4)
+	B747DR_fms3_Line06_L = cleanFMSLine(fms1_line5)
+	if page1 then
+	  B747DR_fms3_Line07_L = "<ACARS"
+	else
+	  B747DR_fms3_Line07_L = cleanFMSLine(fms1_line6)
+	end
+        
+        B747DR_fms3_Line08_L = cleanFMSLine(fms1_line7) 
+        B747DR_fms3_Line09_L = cleanFMSLine(fms1_line8)
+        B747DR_fms3_Line10_L = cleanFMSLine(fms1_line9)
+        B747DR_fms3_Line11_L = cleanFMSLine(fms1_line10)
+        B747DR_fms3_Line12_L = cleanFMSLine(fms1_line11)
+        B747DR_fms3_Line13_L = cleanFMSLine(fms1_line12)
+        B747DR_fms3_Line14_L = cleanFMSLine(fms1_line13)
+	B747DR_fms3_Line01_S = "                        "
+        B747DR_fms3_Line02_S = "                        "
+        B747DR_fms3_Line03_S = "                        "
+        B747DR_fms3_Line04_S = "                        "
+        B747DR_fms3_Line05_S = "                        "
+        B747DR_fms3_Line06_S = "                        "
+        B747DR_fms3_Line07_S = "                        "
+        B747DR_fms3_Line08_S = "                        "
+        B747DR_fms3_Line09_S = "                        "
+        B747DR_fms3_Line10_S = "                        "
+        B747DR_fms3_Line11_S = "                        "
+        B747DR_fms3_Line12_S = "                        "
+        B747DR_fms3_Line13_S = "                        "
+        B747DR_fms3_Line14_S = "                        "
+
+end
+
+
+
+
+
+
+
+----- MONITOR AI FOR AUTO-BOARD CALL ----------------------------------------------------
+function B747_fmsL_monitor_AI()
+
+    if B747DR_init_fmsL_CD == 1 then
+        B747_set_fmsL_all_modes()
+        B747_set_fmsL_CD()
+        B747DR_init_fmsL_CD = 2
+    end
+
+end
+
+
+
+
+
+----- SET STATE FOR ALL MODES -----------------------------------------------------------
+function B747_set_fmsL_all_modes()
+
+    B747DR_fms1_display_brightness = simDR_instrument_brightness_ratio[12]
+
+end
+
+
+
+
+
+----- SET STATE TO COLD & DARK ----------------------------------------------------------
+function B747_set_fmsL_CD()
+
+	B747DR_init_fmsL_CD = 0
+
+end
+
+
+
+
+
+----- SET STATE TO ENGINES RUNNING ------------------------------------------------------
+function B747_set_fmsL_ER()
+	
+
+	
+end
+
+
+
+
+
+
+
+
+
+----- FLIGHT START ---------------------------------------------------------------------
+function B747_flight_start_fms1()
+
+    -- ALL MODES ------------------------------------------------------------------------
+    B747_set_fmsL_all_modes()
+
+
+    -- COLD & DARK ----------------------------------------------------------------------
+    if simDR_startup_running == 0 then
+
+        B747_set_fmsL_CD()
+
+
+    -- ENGINES RUNNING ------------------------------------------------------------------
+    elseif simDR_startup_running == 1 then
+
+		B747_set_fmsL_ER()
+		
+    end
+
+end
+
+
+
+
+--*************************************************************************************--
+--** 				                 EVENT CALLBACKS           	        			 **--
+--*************************************************************************************--
+
+--function aircraft_load() end
+
+--function aircraft_unload() end
+
+--[[function flight_start() 
+
+    B747_flight_start_fms1()
+
+end]]
+
+--function flight_crash() end
+
+--function before_physics() end
+
+function after_physics()
+  
+  if B747DR_fms1_display_mode ==1 then
+      B747_fms1_display_navrad()
+    else
+      B747_fms1_display_fms()
+    end
+    B747_fmsL_monitor_AI()
+end

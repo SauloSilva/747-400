@@ -1061,7 +1061,7 @@ end
 function after_physics()
     local diff=simDRTime-lastUpdate
 
-    if diff>2 then
+    if diff>0.5 then
       B747_CAS_queue()
       B747_CAS_display()
 
