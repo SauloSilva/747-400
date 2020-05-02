@@ -125899,7 +125899,7 @@ GROUP FMS L
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 370.500000 1735.500000
         IMAGE FMS Displays/TEXT/TXT.fms.38_2.green
-        DATAREF laminar/B747/fms3/Line01_L
+        DATAREF laminar/B747/fms1/Line01_L
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -125912,7 +125912,7 @@ GROUP FMS L
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 370.500000 1702.500000
         IMAGE FMS Displays/TEXT/TXT.fms.38_2.green
-        DATAREF laminar/B747/fms3/Line02_L
+        DATAREF laminar/B747/fms1/Line02_L
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -125925,7 +125925,7 @@ GROUP FMS L
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 370.500000 1669.500000
         IMAGE FMS Displays/TEXT/TXT.fms.38_2.green
-        DATAREF laminar/B747/fms3/Line03_L
+        DATAREF laminar/B747/fms1/Line03_L
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -125938,7 +125938,7 @@ GROUP FMS L
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 370.500000 1636.500000
         IMAGE FMS Displays/TEXT/TXT.fms.38_2.green
-        DATAREF laminar/B747/fms3/Line04_L
+        DATAREF laminar/B747/fms1/Line04_L
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -125951,7 +125951,7 @@ GROUP FMS L
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 370.500000 1603.500000
         IMAGE FMS Displays/TEXT/TXT.fms.38_2.green
-        DATAREF laminar/B747/fms3/Line05_L
+        DATAREF laminar/B747/fms1/Line05_L
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -125964,7 +125964,7 @@ GROUP FMS L
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 370.500000 1570.500000
         IMAGE FMS Displays/TEXT/TXT.fms.38_2.green
-        DATAREF laminar/B747/fms3/Line06_L
+        DATAREF laminar/B747/fms1/Line06_L
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -125977,7 +125977,7 @@ GROUP FMS L
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 370.500000 1537.500000
         IMAGE FMS Displays/TEXT/TXT.fms.38_2.green
-        DATAREF laminar/B747/fms3/Line07_L
+        DATAREF laminar/B747/fms1/Line07_L
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -125990,7 +125990,7 @@ GROUP FMS L
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 370.500000 1503.500000
         IMAGE FMS Displays/TEXT/TXT.fms.38_2.green
-        DATAREF laminar/B747/fms3/Line08_L
+        DATAREF laminar/B747/fms1/Line08_L
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126003,7 +126003,7 @@ GROUP FMS L
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 370.500000 1469.500000
         IMAGE FMS Displays/TEXT/TXT.fms.38_2.green
-        DATAREF laminar/B747/fms3/Line09_L
+        DATAREF laminar/B747/fms1/Line09_L
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126016,7 +126016,7 @@ GROUP FMS L
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 370.500000 1435.500000
         IMAGE FMS Displays/TEXT/TXT.fms.38_2.green
-        DATAREF laminar/B747/fms3/Line10_L
+        DATAREF laminar/B747/fms1/Line10_L
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126029,7 +126029,7 @@ GROUP FMS L
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 370.500000 1401.500000
         IMAGE FMS Displays/TEXT/TXT.fms.38_2.green
-        DATAREF laminar/B747/fms3/Line11_L
+        DATAREF laminar/B747/fms1/Line11_L
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126042,7 +126042,7 @@ GROUP FMS L
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 370.500000 1367.500000
         IMAGE FMS Displays/TEXT/TXT.fms.38_2.green
-        DATAREF laminar/B747/fms3/Line12_L
+        DATAREF laminar/B747/fms1/Line12_L
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126055,7 +126055,7 @@ GROUP FMS L
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 370.500000 1333.500000
         IMAGE FMS Displays/TEXT/TXT.fms.38_2.green
-        DATAREF laminar/B747/fms3/Line13_L
+        DATAREF laminar/B747/fms1/Line13_L
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126068,7 +126068,7 @@ GROUP FMS L
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 370.500000 1299.500000
         IMAGE FMS Displays/TEXT/TXT.fms.38_2.green
-        DATAREF laminar/B747/fms3/Line14_L
+        DATAREF laminar/B747/fms1/Line14_L
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126084,7 +126084,7 @@ GROUP FMS L
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 370.500000 1738.000000
         IMAGE FMS Displays/TEXT/TXT.fms.34_2.green
-        DATAREF laminar/B747/fms3/Line01_S
+        DATAREF laminar/B747/fms1/Line01_S
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126097,7 +126097,7 @@ GROUP FMS L
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 370.500000 1705.000000
         IMAGE FMS Displays/TEXT/TXT.fms.34_2.green
-        DATAREF laminar/B747/fms3/Line02_S
+        DATAREF laminar/B747/fms1/Line02_S
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126110,7 +126110,7 @@ GROUP FMS L
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 370.500000 1672.000000
         IMAGE FMS Displays/TEXT/TXT.fms.34_2.green
-        DATAREF laminar/B747/fms3/Line03_S
+        DATAREF laminar/B747/fms1/Line03_S
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126123,7 +126123,7 @@ GROUP FMS L
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 370.500000 1639.000000
         IMAGE FMS Displays/TEXT/TXT.fms.34_2.green
-        DATAREF laminar/B747/fms3/Line04_S
+        DATAREF laminar/B747/fms1/Line04_S
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126136,7 +126136,7 @@ GROUP FMS L
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 370.500000 1606.000000
         IMAGE FMS Displays/TEXT/TXT.fms.34_2.green
-        DATAREF laminar/B747/fms3/Line05_S
+        DATAREF laminar/B747/fms1/Line05_S
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126149,7 +126149,7 @@ GROUP FMS L
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 370.500000 1573.000000
         IMAGE FMS Displays/TEXT/TXT.fms.34_2.green
-        DATAREF laminar/B747/fms3/Line06_S
+        DATAREF laminar/B747/fms1/Line06_S
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126162,7 +126162,7 @@ GROUP FMS L
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 370.500000 1540.000000
         IMAGE FMS Displays/TEXT/TXT.fms.34_2.green
-        DATAREF laminar/B747/fms3/Line07_S
+        DATAREF laminar/B747/fms1/Line07_S
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126175,7 +126175,7 @@ GROUP FMS L
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 370.500000 1506.000000
         IMAGE FMS Displays/TEXT/TXT.fms.34_2.green
-        DATAREF laminar/B747/fms3/Line08_S
+        DATAREF laminar/B747/fms1/Line08_S
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126188,7 +126188,7 @@ GROUP FMS L
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 370.500000 1472.000000
         IMAGE FMS Displays/TEXT/TXT.fms.34_2.green
-        DATAREF laminar/B747/fms3/Line09_S
+        DATAREF laminar/B747/fms1/Line09_S
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126201,7 +126201,7 @@ GROUP FMS L
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 370.500000 1438.000000
         IMAGE FMS Displays/TEXT/TXT.fms.34_2.green
-        DATAREF laminar/B747/fms3/Line10_S
+        DATAREF laminar/B747/fms1/Line10_S
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126214,7 +126214,7 @@ GROUP FMS L
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 370.500000 1404.000000
         IMAGE FMS Displays/TEXT/TXT.fms.34_2.green
-        DATAREF laminar/B747/fms3/Line11_S
+        DATAREF laminar/B747/fms1/Line11_S
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126227,7 +126227,7 @@ GROUP FMS L
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 370.500000 1370.000000
         IMAGE FMS Displays/TEXT/TXT.fms.34_2.green
-        DATAREF laminar/B747/fms3/Line12_S
+        DATAREF laminar/B747/fms1/Line12_S
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126240,7 +126240,7 @@ GROUP FMS L
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 370.500000 1336.000000
         IMAGE FMS Displays/TEXT/TXT.fms.34_2.green
-        DATAREF laminar/B747/fms3/Line13_S
+        DATAREF laminar/B747/fms1/Line13_S
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126253,7 +126253,7 @@ GROUP FMS L
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 370.500000 1302.000000
         IMAGE FMS Displays/TEXT/TXT.fms.34_2.green
-        DATAREF laminar/B747/fms3/Line14_S
+        DATAREF laminar/B747/fms1/Line14_S
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126730,7 +126730,7 @@ GROUP NAV RAD
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 1700.000000 1735.500000
         IMAGE FMS Displays/TEXT/TXT.fms.38_2.green
-        DATAREF laminar/B747/fms1/Line01_L
+        DATAREF laminar/B747/fms3/Line01_L
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126743,7 +126743,7 @@ GROUP NAV RAD
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 1700.000000 1702.500000
         IMAGE FMS Displays/TEXT/TXT.fms.38_2.green
-        DATAREF laminar/B747/fms1/Line02_L
+        DATAREF laminar/B747/fms3/Line02_L
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126756,7 +126756,7 @@ GROUP NAV RAD
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 1700.000000 1669.500000
         IMAGE FMS Displays/TEXT/TXT.fms.38_2.green
-        DATAREF laminar/B747/fms1/Line03_L
+        DATAREF laminar/B747/fms3/Line03_L
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126769,7 +126769,7 @@ GROUP NAV RAD
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 1700.000000 1636.500000
         IMAGE FMS Displays/TEXT/TXT.fms.38_2.green
-        DATAREF laminar/B747/fms1/Line04_L
+        DATAREF laminar/B747/fms3/Line04_L
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126782,7 +126782,7 @@ GROUP NAV RAD
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 1700.000000 1603.500000
         IMAGE FMS Displays/TEXT/TXT.fms.38_2.green
-        DATAREF laminar/B747/fms1/Line05_L
+        DATAREF laminar/B747/fms3/Line05_L
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126795,7 +126795,7 @@ GROUP NAV RAD
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 1700.000000 1570.500000
         IMAGE FMS Displays/TEXT/TXT.fms.38_2.green
-        DATAREF laminar/B747/fms1/Line06_L
+        DATAREF laminar/B747/fms3/Line06_L
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126808,7 +126808,7 @@ GROUP NAV RAD
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 1700.000000 1537.500000
         IMAGE FMS Displays/TEXT/TXT.fms.38_2.green
-        DATAREF laminar/B747/fms1/Line07_L
+        DATAREF laminar/B747/fms3/Line07_L
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126821,7 +126821,7 @@ GROUP NAV RAD
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 1700.000000 1503.500000
         IMAGE FMS Displays/TEXT/TXT.fms.38_2.green
-        DATAREF laminar/B747/fms1/Line08_L
+        DATAREF laminar/B747/fms3/Line08_L
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126834,7 +126834,7 @@ GROUP NAV RAD
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 1700.000000 1469.500000
         IMAGE FMS Displays/TEXT/TXT.fms.38_2.green
-        DATAREF laminar/B747/fms1/Line09_L
+        DATAREF laminar/B747/fms3/Line09_L
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126847,7 +126847,7 @@ GROUP NAV RAD
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 1700.000000 1435.500000
         IMAGE FMS Displays/TEXT/TXT.fms.38_2.green
-        DATAREF laminar/B747/fms1/Line10_L
+        DATAREF laminar/B747/fms3/Line10_L
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126860,7 +126860,7 @@ GROUP NAV RAD
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 1700.000000 1401.500000
         IMAGE FMS Displays/TEXT/TXT.fms.38_2.green
-        DATAREF laminar/B747/fms1/Line11_L
+        DATAREF laminar/B747/fms3/Line11_L
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126873,7 +126873,7 @@ GROUP NAV RAD
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 1700.000000 1367.500000
         IMAGE FMS Displays/TEXT/TXT.fms.38_2.green
-        DATAREF laminar/B747/fms1/Line12_L
+        DATAREF laminar/B747/fms3/Line12_L
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126886,7 +126886,7 @@ GROUP NAV RAD
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 1700.000000 1333.500000
         IMAGE FMS Displays/TEXT/TXT.fms.38_2.green
-        DATAREF laminar/B747/fms1/Line13_L
+        DATAREF laminar/B747/fms3/Line13_L
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126899,7 +126899,7 @@ GROUP NAV RAD
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 1700.000000 1299.500000
         IMAGE FMS Displays/TEXT/TXT.fms.38_2.green
-        DATAREF laminar/B747/fms1/Line14_L
+        DATAREF laminar/B747/fms3/Line14_L
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126915,7 +126915,7 @@ GROUP NAV RAD
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 1700.000000 1738.000000
         IMAGE FMS Displays/TEXT/TXT.fms.34_2.green
-        DATAREF laminar/B747/fms1/Line01_S
+        DATAREF laminar/B747/fms3/Line01_S
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126928,7 +126928,7 @@ GROUP NAV RAD
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 1700.000000 1705.000000
         IMAGE FMS Displays/TEXT/TXT.fms.34_2.green
-        DATAREF laminar/B747/fms1/Line02_S
+        DATAREF laminar/B747/fms3/Line02_S
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126941,7 +126941,7 @@ GROUP NAV RAD
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 1700.000000 1672.000000
         IMAGE FMS Displays/TEXT/TXT.fms.34_2.green
-        DATAREF laminar/B747/fms1/Line03_S
+        DATAREF laminar/B747/fms3/Line03_S
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126954,7 +126954,7 @@ GROUP NAV RAD
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 1700.000000 1639.000000
         IMAGE FMS Displays/TEXT/TXT.fms.34_2.green
-        DATAREF laminar/B747/fms1/Line04_S
+        DATAREF laminar/B747/fms3/Line04_S
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126967,7 +126967,7 @@ GROUP NAV RAD
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 1700.000000 1606.000000
         IMAGE FMS Displays/TEXT/TXT.fms.34_2.green
-        DATAREF laminar/B747/fms1/Line05_S
+        DATAREF laminar/B747/fms3/Line05_S
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126980,7 +126980,7 @@ GROUP NAV RAD
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 1700.000000 1573.000000
         IMAGE FMS Displays/TEXT/TXT.fms.34_2.green
-        DATAREF laminar/B747/fms1/Line06_S
+        DATAREF laminar/B747/fms3/Line06_S
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -126993,7 +126993,7 @@ GROUP NAV RAD
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 1700.000000 1540.000000
         IMAGE FMS Displays/TEXT/TXT.fms.34_2.green
-        DATAREF laminar/B747/fms1/Line07_S
+        DATAREF laminar/B747/fms3/Line07_S
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -127006,7 +127006,7 @@ GROUP NAV RAD
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 1700.000000 1506.000000
         IMAGE FMS Displays/TEXT/TXT.fms.34_2.green
-        DATAREF laminar/B747/fms1/Line08_S
+        DATAREF laminar/B747/fms3/Line08_S
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -127019,7 +127019,7 @@ GROUP NAV RAD
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 1700.000000 1472.000000
         IMAGE FMS Displays/TEXT/TXT.fms.34_2.green
-        DATAREF laminar/B747/fms1/Line09_S
+        DATAREF laminar/B747/fms3/Line09_S
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -127032,7 +127032,7 @@ GROUP NAV RAD
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 1700.000000 1438.000000
         IMAGE FMS Displays/TEXT/TXT.fms.34_2.green
-        DATAREF laminar/B747/fms1/Line10_S
+        DATAREF laminar/B747/fms3/Line10_S
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -127045,7 +127045,7 @@ GROUP NAV RAD
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 1700.000000 1404.000000
         IMAGE FMS Displays/TEXT/TXT.fms.34_2.green
-        DATAREF laminar/B747/fms1/Line11_S
+        DATAREF laminar/B747/fms3/Line11_S
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -127058,7 +127058,7 @@ GROUP NAV RAD
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 1700.000000 1370.000000
         IMAGE FMS Displays/TEXT/TXT.fms.34_2.green
-        DATAREF laminar/B747/fms1/Line12_S
+        DATAREF laminar/B747/fms3/Line12_S
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -127071,7 +127071,7 @@ GROUP NAV RAD
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 1700.000000 1336.000000
         IMAGE FMS Displays/TEXT/TXT.fms.34_2.green
-        DATAREF laminar/B747/fms1/Line13_S
+        DATAREF laminar/B747/fms3/Line13_S
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12
@@ -127084,7 +127084,7 @@ GROUP NAV RAD
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 1700.000000 1302.000000
         IMAGE FMS Displays/TEXT/TXT.fms.34_2.green
-        DATAREF laminar/B747/fms1/Line14_S
+        DATAREF laminar/B747/fms3/Line14_S
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 12

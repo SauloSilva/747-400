@@ -457,6 +457,7 @@ function B747_ap_switch_cmd_L_CMDhandler(phase, duration)
 						end
 					end
 				simCMD_autopilot_servos_on:once()										-- TURN THE AP SERVOS "ON"	
+				simDR_autopilot_servos_on=1
 				end
 			B747DR_ap_cmd_L_mode = 1													-- SET AP CMD L MODE TO "ON"	
 			end
@@ -486,6 +487,7 @@ function B747_ap_switch_cmd_C_CMDhandler(phase, duration)
 						end
 					end
 				simCMD_autopilot_servos_on:once()										-- TURN THE AP SERVOS "ON"	
+				simDR_autopilot_servos_on=1
 				end
 			B747DR_ap_cmd_C_mode = 1													-- SET AP CMD C MODE TO "ON"	
 			end
@@ -515,6 +517,7 @@ function B747_ap_switch_cmd_R_CMDhandler(phase, duration)
 						end
 					end
 				simCMD_autopilot_servos_on:once()										-- TURN THE AP SERVOS "ON"	
+				simDR_autopilot_servos_on=1
 				end
 			B747DR_ap_cmd_R_mode = 1													-- SET AP CMD R MODE TO "ON"	
 			end

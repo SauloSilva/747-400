@@ -1,0 +1,1 @@
+[{"recognise":"gear up","command":"laminar/B747/gear/overrideUp"},{"recognise":"emergency frequency","command":"sim/cockpit/radios/com1_freq_hz=12150"},{"recognise":"gear down","command":"laminar/B747/gear/overrideDown"}]

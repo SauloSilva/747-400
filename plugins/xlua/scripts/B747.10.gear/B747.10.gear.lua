@@ -131,8 +131,8 @@ B747DR_gear_handle_detent 	= deferred_dataref("laminar/B747/actuator/gear_handle
 -- GEAR LOCK OVERRIDE
 B747CMD_gear_lock_override      = deferred_command("laminar/B747/gear_lock/override", "Gear Lock Override", B747_gear_lock_override_CMDhandler)
 
-
-
+B747CMD_gear_up_full      = deferred_command("laminar/B747/gear/overrideUp", "Gear Full Up", B747_gear_lock_override_CMDhandler)
+B747CMD_gear_down_full      = deferred_command("laminar/B747/gear/overrideDown", "Gear Full Down", B747_gear_lock_override_CMDhandler)
 -- AUTOBRAKES SELECTOR DIAL
 B747CMD_autobrakes_sel_dial_up  = deferred_command("laminar/B747/gear/autobrakes/sel_dial_up", "Autobrakes Sel Dial Up", B747_autobrakes_sel_dial_up_CMDhandler)
 B747CMD_autobrakes_sel_dial_dn  = deferred_command("laminar/B747/gear/autobrakes/sel_dial_dn", "Autobrakes Sel Dial Down", B747_autobrakes_sel_dial_dn_CMDhandler)

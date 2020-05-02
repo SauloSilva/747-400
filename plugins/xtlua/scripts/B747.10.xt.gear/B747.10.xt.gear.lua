@@ -168,13 +168,46 @@ B747DR_gear_handle 			= deferred_dataref("laminar/B747/actuator/gear_handle", "n
 B747DR_gear_handle_detent 	= deferred_dataref("laminar/B747/actuator/gear_handle_detent", "number", B747DR_gear_handle_detent_DRhandler)
 
 
+local runningGear=0
+function B747CMD_gear_up_full_CMDhandler(phase, duration)
+  runningGear=1
+end  
+function B747CMD_gear_down_full_CMDhandler(phase, duration)
+  runningGear=-1
+end  
 
+function B747_animate_value(current_value, target, min, max, speed)
 
+    local fps_factor = math.min(0.1, speed * SIM_PERIOD)
 
+    if target >= (max - 0.001) and current_value >= (max - 0.01) then
+        return max
+    elseif target <= (min + 0.001) and current_value <= (min + 0.01) then
+       return min
+    else
+        return current_value + ((target - current_value) * fps_factor)
+    end
 
+end
+function runGear()
+  if runningGear ==0 then return end
+  if B747DR_gear_handle_detent < 0.037 then B747DR_gear_handle_detent=B747_animate_value(B747DR_gear_handle_detent,0.037,0,0.037,10) return end
+  if runningGear ==1 and B747DR_gear_handle<2 then B747DR_gear_handle=B747_animate_value(B747DR_gear_handle,2,0,2,10) return end  
+  if runningGear ==-1 and B747DR_gear_handle>0 then B747DR_gear_handle=B747_animate_value(B747DR_gear_handle,0,0,2,10) return end
+  
+  B747DR_gear_handle_detent=0
+  runningGear=0
+  
+  
+end  
 --*************************************************************************************--
 --** 				             X-PLANE COMMAND HANDLERS               	    	 **--
 --*************************************************************************************--
+B747CMD_gear_up_full      = deferred_command("laminar/B747/gear/overrideUp", "Gear Full Up", B747CMD_gear_up_full_CMDhandler)
+B747CMD_gear_down_full    = deferred_command("laminar/B747/gear/overrideDown", "Gear Full Down", B747CMD_gear_down_full_CMDhandler)
+
+
+
 
 function sim_landing_gear_up_CMDhandler(phase, duration)
     if phase == 0 then
@@ -779,7 +812,7 @@ function after_physics()
     B747_gear_EICAS_msg()
 
     B747_brake_temp()
-
+    runGear()
     B747_gear_monitor_AI()
     
 end
