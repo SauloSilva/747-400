@@ -34,8 +34,10 @@ IN_REPLAY - evaluates to 0 if replay is off, 1 if replay mode is on
 --*************************************************************************************--
 --** 					               CONSTANTS                    				 **--
 --*************************************************************************************--
+function null_command(phase, duration)
+end
 function deferred_command(name,desc,realFunc)
-	return replace_command(name,realFunc)
+	return wrap_command(name,realFunc,null_command)
 end
 
 function deferred_dataref(name,nilType,callFunction)
