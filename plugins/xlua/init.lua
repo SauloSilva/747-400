@@ -436,9 +436,11 @@ function namespace_read(table,key)
 	if var ~= nil then
 		return var
 	end
+	
 	if table.parent ~= nil then
 		return table.parent[key]
 	end
+	
 	return nil
 end
 

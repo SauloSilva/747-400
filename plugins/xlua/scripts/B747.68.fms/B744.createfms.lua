@@ -1,13 +1,14 @@
-print("Loading FMS module")
-
-
-
+--[[
+*****************************************************************************************
+*        COPYRIGHT � 2020 Mark Parker/mSparks CC-BY-NC4
+*****************************************************************************************
+]]
 
 fms={
   id,
   page1=false,
   currentPage="INDEX",
-  inCustomFMC=false,
+  inCustomFMC=false,scratchpad="",notify=""
 } 
 
 fmsModules={} --set later
@@ -22,11 +23,41 @@ function keyDown(fmsModule,key)
     end
   else
     page=fmsModules[fmsModule].currentPage
-    print(fmsModule.. " do " .. key .. " for " .. page)
-    if fmsFunctionsDefs[page] ~=nil and fmsFunctionsDefs[page][key] ~=nil then
-	fmsFunctions[ fmsFunctionsDefs[page][key][1] ](fmsModules[fmsModule],fmsFunctionsDefs[page][key][2])
-	 print(fmsModule.. " did " .. key .. " for " .. page)
-    end
+
+    --[[local keyFuncs=rawget(fmsFunctionsDefs[page],'values')
+    if keyFuncs==nil then print("skip") return end
+    local keyFunc=rawget(keyFuncs,key)
+    if keyFunc==nil then print("skip2") return end]]
+    if hasChild(fmsFunctionsDefs[page],key) then
+      print(fmsModule.. " found " .. fmsFunctionsDefs[page][key][1] .. " for " .. key)
+      fmsFunctions[ fmsFunctionsDefs[page][key][1] ](fmsModules[fmsModule],fmsFunctionsDefs[page][key][2])
+      print(fmsModule.. " did " .. key .. " for " .. page)
+      return
+     end
+     
+     if key=="clear" then
+       fmsModules[fmsModule].scratchpad=""
+       return
+     end
+     
+     if string.len(key)==1 then
+       fmsModules[fmsModule].scratchpad=fmsModules[fmsModule].scratchpad .. key
+     end
+     
+     if key=="slash" then
+       fmsModules[fmsModule].scratchpad=fmsModules[fmsModule].scratchpad.."/"
+       return
+     end
+     
+     if key=="space" then
+       fmsModules[fmsModule].scratchpad=fmsModules[fmsModule].scratchpad.." "
+       return
+     end
+     
+     if key=="del" then
+       fmsModules[fmsModule].scratchpad=string.sub(fmsModules[fmsModule].scratchpad,1,-2)
+       return
+     end
   end
 end
 
@@ -417,16 +448,18 @@ function fms:B747_fms_display()
     local page=self.currentPage
     if not inCustomFMC then
       for i=1,14,1 do
-	B747DR_fms[thisID][i]=B747DR_srcfms[thisID][i]
+	B747DR_fms[thisID][i]=cleanFMSLine(B747DR_srcfms[thisID][i])
       end
     else
-      
+      local fmsPage = fmsPages[page]:getPage();
+      local fmsPagesmall = fmsPages[page]:getSmallPage();
       for i=1,13,1 do
-	B747DR_fms[thisID][i]=fmsPage[page][i]
+	B747DR_fms[thisID][i]=fmsPage[i]
       end
       for i=1,13,1 do
-	B747DR_fms_s[thisID][i]=fmsPagesmall[page][i]
+	B747DR_fms_s[thisID][i]=fmsPagesmall[i]
       end
+      B747DR_fms[thisID][14]=self.scratchpad;
     end
-   -- B747DR_fms[thisID][14]=B747DR_srcfms[13][i];
+    
 end

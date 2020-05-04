@@ -262,8 +262,8 @@ VT	  -0.2480    2.5411    4.8624	 0.000  0.965  0.263	0.7032 0.9993
 VT	  -0.1620    2.5411    4.8624	 0.000  0.965  0.263	0.9452 0.9993
 VT	  -0.1470    2.5372    4.8769	 0.000  0.965  0.263	0.9874 0.9571
 VT	  -0.1470    2.5198    4.9407	 0.000  0.965  0.263	0.9874 0.771
-VT	  -0.2480    2.5158    4.9552	 0.000  0.965  0.263	0.0482 0.7287
-VT	  -0.1620    2.5158    4.9552	 0.000  0.965  0.263	0.2902 0.7287
+VT	  -0.2480    2.5158    4.9552	 0.000  0.965  0.263	0.7032 0.7287
+VT	  -0.1620    2.5158    4.9552	 0.000  0.965  0.263	0.9452 0.7287
 VT	  -0.2630    2.5372    4.8769	 0.000  0.965  0.263	0.6610 0.9571
 VT	  -0.2630    2.5198    4.9407	 0.000  0.965  0.263	0.6610 0.771
 VT	  -0.1476    2.5382    4.8732	 0.000  0.965  0.263	0.9860 0.968
@@ -21981,7 +21981,7 @@ ATTR_manip_command	button	laminar/B747/fms2/alphanum_key/Y	Y
 TRIS	11412 30
 ATTR_manip_command	button	laminar/B747/fms2/alphanum_key/Z	Z
 TRIS	11442 30
-ATTR_manip_command	button	laminar/B747/fms2/func_key/clb	C:IMB
+ATTR_manip_command	button	laminar/B747/fms2/func_key/clb	CLIMB
 TRIS	11472 30
 ATTR_manip_command	button	laminar/B747/fms2/func_key/crz	CRUISE
 TRIS	11502 30
@@ -22117,43 +22117,43 @@ ATTR_manip_command	button	laminar/B747/fms3/alphanum_key/Y	Y
 TRIS	13452 30
 ATTR_manip_command	button	laminar/B747/fms3/alphanum_key/Z	Z
 TRIS	13482 30
-ATTR_manip_command	button	laminar/B747/fms3/alphanum_key/period	Period
+ATTR_manip_command	button	laminar/B747/fms3/key/period	Period
 TRIS	13512 30
-ATTR_manip_command	button	laminar/B747/fms3/alphanum_key/sign	Sign
+ATTR_manip_command	button	laminar/B747/fms3/key/minus	Sign
 TRIS	13542 30
-ATTR_manip_command	button	laminar/B747/fms3/alphanum_key/slash	Slash
+ATTR_manip_command	button	laminar/B747/fms3/key/slash	Slash
 TRIS	13572 30
-ATTR_manip_command	button	laminar/B747/fms3/func_key/crz	Cruise
+ATTR_manip_command	button	laminar/B747/fms1/func_key/crz	Cruise
 TRIS	13602 30
-ATTR_manip_command	button	laminar/B747/fms3/func_key/clb	Climb
+ATTR_manip_command	button	laminar/B747/fms1/func_key/clb	Climb
 TRIS	13632 30
-ATTR_manip_command	button	laminar/B747/fms3/func_key/dir_intc	DIR INTC
+ATTR_manip_command	button	laminar/B747/fms1/func_key/dir_intc	DIR INTC
 TRIS	13662 30
-ATTR_manip_command	button	laminar/B747/fms3/func_key/hold	HOLD
+ATTR_manip_command	button	laminar/B747/fms1/func_key/hold	HOLD
 TRIS	13692 30
-ATTR_manip_command	button	laminar/B747/fms3/func_key/dep_arr	DEP/ARR
+ATTR_manip_command	button	laminar/B747/fms1/func_key/dep_arr	DEP/ARR
 TRIS	13722 30
-ATTR_manip_command	button	laminar/B747/fms3/func_key/index	INDEX
+ATTR_manip_command	button	laminar/B747/fms1/func_key/index	INDEX
 TRIS	13752 30
-ATTR_manip_command	button	laminar/B747/fms3/func_key/legsLEGS
+ATTR_manip_command	button	laminar/B747/fms1/func_key/legs LEGS
 TRIS	13782 30
-ATTR_manip_command	button	laminar/B747/fms3/func_key/fix	FIX
+ATTR_manip_command	button	laminar/B747/fms1/func_key/fix	FIX
 TRIS	13812 30
-ATTR_manip_command	button	laminar/B747/fms3/func_key/next	NEXT PAGE
+ATTR_manip_command	button	laminar/B747/fms1/func_key/next	NEXT PAGE
 TRIS	13842 30
-ATTR_manip_command	button	laminar/B747/fms3/func_key/prev	PREV PAGE
+ATTR_manip_command	button	laminar/B747/fms1/func_key/prev	PREV PAGE
 TRIS	13872 30
-ATTR_manip_command	button	laminar/B747/fms3/func_key/prog	PROG
+ATTR_manip_command	button	laminar/B747/fms1/func_key/prog	PROG
 TRIS	13902 30
-ATTR_manip_command	button	laminar/B747/fms3/func_key/fpln	Flight Plan
+ATTR_manip_command	button	laminar/B747/fms1/func_key/fpln	Flight Plan
 TRIS	13932 30
-ATTR_manip_command	button	laminar/B747/fms3/func_key/des	DES
+ATTR_manip_command	button	laminar/B747/fms1/func_key/des	DES
 TRIS	13962 30
 ATTR_manip_command	button	laminar/B747/fms3/key/clear	Clear
 TRIS	13992 30
 ATTR_manip_command	button	laminar/B747/fms3/key/del	DEL
 TRIS	14022 30
-ATTR_manip_command	button	laminar/B747/fms3/func_key/exec	Execute
+ATTR_manip_command	button	laminar/B747/fms3/key/execute	Execute
 TRIS	14052 30
 ATTR_manip_command	button	laminar/B747/fms3/key/space	Space
 TRIS	14082 30

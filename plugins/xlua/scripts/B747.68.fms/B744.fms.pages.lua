@@ -1,38 +1,13 @@
-createPage("ACARS")
-fmsPage["ACARS"]={
-"    ACARS-MAIN MENU     ",
-"                        ",
-"<PREFLIGHT         MSGS>",
-"                        ",
-"<INFLIGHT     VHF CNTRL>",
-"                        ",
-"<POSTFLIGHT     WXR REQ>",
-"                        ",
-"                        ",
-"                        ",
-"<MAINT EVENT      TIMES>",
-"                        ",
-"                        "
-}
-createPage("PREFLIGHT")
-fmsPage["PREFLIGHT"]={
+--[[
+*****************************************************************************************
+*        COPYRIGHT � 2020 Mark Parker/mSparks CC-BY-NC4
+*****************************************************************************************
+]]
+fmsFunctions={}
+dofile("acars/acars.lua")
 
-"  ACARS-PREFLIGHT MENU  ",
-"                        ",
-"                        ",
-"                        ",
-"<INITIALIZE        MSGS>",
-"                        ",
-"              VHF CNTRL>",
-"                        ",
-"<UTC UPDATE     WXR REQ>",
-string.format(" %02d:%02d:%02d               ",hh,mm,ss),
-"            EVENT TIMES>", 
-"                        ",
-"<RETURN                 "
-}-- line 11 LHS = getUTC 
-createPage("NAVRAD")
-fmsPage["NAVRAD"]={
+fmsPages["NAVRAD"]=createPage("NAVRAD")
+fmsPages["NAVRAD"]["template"]={
 
 "        NAV RADIO       ",
 "                        ",
@@ -48,7 +23,7 @@ string.format("%6.2f/%03d%s             ", simDR_radio_nav_freq_hz[0]*0.01, simD
 "                        ",
 "<ACARS                  "
 }
-fmsPagesmall["NAVRAD"]={
+fmsPages["NAVRAD"]["templateSmall"]={
 "                        ",
 " VOR L             VOR R",
 "      M         M       ",
@@ -66,15 +41,11 @@ fmsPagesmall["NAVRAD"]={
 
 fmsFunctionsDefs["INDEX"]={}
 fmsFunctionsDefs["INDEX"]["L3"]={"setpage","ACARS"}
---fmsFunctionsDefs["ACARS"]={}
-fmsFunctionsDefs["ACARS"]["L1"]={"setpage","PREFLIGHT"}
---fmsFunctionsDefs["PREFLIGHT"]={}
-fmsFunctionsDefs["PREFLIGHT"]["L6"]={"setpage","ACARS"}
---fmsFunctionsDefs["NAVRAD"]={}
+
 fmsFunctionsDefs["NAVRAD"]["L6"]={"setpage","ACARS"}
-fmsFunctions={}
+
 function fmsFunctions.setpage(fmsO,value) 
   fmsO["inCustomFMC"]=true
   fmsO["currentPage"]=value 
-  print("setpage" .. value)
+  --print("setpage" .. value)
 end

@@ -3,6 +3,19 @@
 *        COPYRIGHT � 2020 Mark Parker/mSparks CC-BY-NC4
 *****************************************************************************************
 ]]
+
+--Workaround for stack overflow in init.lua namespace_read
+function hasChild(parent,childKey)
+  if(parent==nil) then
+    return false
+  end
+  local keyFuncs=rawget(parent,'values')
+  if keyFuncs==nil then return false end
+  local keyFunc=rawget(keyFuncs,childKey)
+  if keyFunc==nil then return false end
+ 
+  return true
+end
 hh=find_dataref("sim/cockpit2/clock_timer/zulu_time_hours")
 mm=find_dataref("sim/cockpit2/clock_timer/zulu_time_minutes")
 ss=find_dataref("sim/cockpit2/clock_timer/zulu_time_seconds")
@@ -66,11 +79,13 @@ createFMSDatarefs("fms3")
 
 -- CRT BRIGHTNESS DIAL ------------------------------------------------------------------
 B747DR_fms1_display_brightness      = create_dataref("laminar/B747/fms1/display_brightness", "number", B747_fms1_display_brightness_DRhandler)
-fmsPage={}
-fmsPagesmall={}
+fmsPages={}
+--fmsPagesmall={}
 fmsFunctionsDefs={}
 function createPage(page)
-  fmsPage[page]={
+  retVal={}
+  retVal.name=page
+  retVal.template={
   "    " .. page,
   "                        ",
   "                        ",
@@ -85,7 +100,7 @@ function createPage(page)
   "                        ",
   "                        "
   }  
-  fmsPagesmall[page]={
+  retVal.templateSmall={
   "                        ",
   "                        ",
   "                        ",
@@ -100,7 +115,10 @@ function createPage(page)
   "                        ",
   "                        "
   }
+  retVal.getPage=function(self) return self.template end
+  retVal.getSmallPage=function(self) return self.templateSmall end
   fmsFunctionsDefs[page]={}
+  return retVal
 end
 dofile("B744.fms.pages.lua")
 
@@ -126,11 +144,14 @@ setDREFs(fmsR,"cdu2","fms2","sim/FMS2/","fms2")
 fmsModules.fmsL=fmsL;
 fmsModules.fmsC=fmsC;
 fmsModules.fmsR=fmsR;
-
+--dofile("json/json.lua")
+--line=json.encode({ 1, 2, 3, { x = 10 } })
+--print(line)
 function after_physics()
     --print("Draw me an FMS!! "..fmsFunctionsDefs["INDEX"]["L3"][1])
     --B747DR_fms[fms1.id][1]="    ACARS-MAIN MENU     "
     fmsL:B747_fms_display()
     fmsC:B747_fms_display()
     fmsR:B747_fms_display()
+    
 end
