@@ -16,6 +16,7 @@ function hasChild(parent,childKey)
  
   return true
 end
+dofile("json/json.lua")
 hh=find_dataref("sim/cockpit2/clock_timer/zulu_time_hours")
 mm=find_dataref("sim/cockpit2/clock_timer/zulu_time_minutes")
 ss=find_dataref("sim/cockpit2/clock_timer/zulu_time_seconds")
@@ -147,11 +148,17 @@ fmsModules.fmsR=fmsR;
 --dofile("json/json.lua")
 --line=json.encode({ 1, 2, 3, { x = 10 } })
 --print(line)
+B747DR_CAS_memo_status          = find_dataref("laminar/B747/CAS/memo_status")
 function after_physics()
     --print("Draw me an FMS!! "..fmsFunctionsDefs["INDEX"]["L3"][1])
     --B747DR_fms[fms1.id][1]="    ACARS-MAIN MENU     "
     fmsL:B747_fms_display()
     fmsC:B747_fms_display()
     fmsR:B747_fms_display()
-    
+    acarsSystem.provider.receive()
+    for i = #acarsSystem.messages, 1, -1 do
+      if not acarsSystem.messages[i]["read"] then 
+	B747DR_CAS_memo_status[0]=1
+      end 
+    end 
 end

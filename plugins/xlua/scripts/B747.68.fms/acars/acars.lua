@@ -71,59 +71,94 @@ fmsFunctionsDefs["ACARSMSGS"]["L6"]={"setpage","ACARS"}
 fmsPages["VIEWACARS"]=createPage("VIEWACARS")
 
 acarsSystem={}
-
+acarsSystem.messages={{type="msg",msg="Test Message",title="Test Message",time="12:00 UTC",read=true},{type="msg",msg="2nd Test Message",title="Test Message",time="12:05 UTC",read=true}}
+acarsReceiveDataref=find_dataref("autoatc/acars/in")
+sendDataref=find_dataref("autoatc/acars/out")
+sendCommand=find_command("AutoATC/ACARS")
 acarsSystem.provider={
-send=function(value) print("send ACARS message") end,
-receive=function(value) print("receive ACARS message") end
+send=function(value)
+  print("send ACARS message")
+  sendDataref="ASL1012 good day"
+  sendCommand:once()
+end,
+receive=function() 
+  
+  if string.len(acarsReceiveDataref)>1 then
+    print("ACARS receive message:".. acarsReceiveDataref)
+    local newMessage=json.decode(acarsReceiveDataref)
+    newMessage["read"]=false
+    newMessage["time"]=string.format("%02d:%02d",hh,mm)
+    acarsReceiveDataref=" "
+    acarsSystem.messages[#acarsSystem.messages+1]=newMessage
+    print("ACARS did receive message:"..acarsReceiveDataref)
+  end  
+end
 }
+
+
 
 function fmsFunctions.acarsSystemSend(fmsO,value) 
   acarsSystem.provider.send(value)
   fmsO["inCustomFMC"]=true
   fmsO["currentPage"]="ACARS" 
+  local tMSG=json.encode({type="msg",msg="Test Message",time="12:00 UTC"})
+  print(tMSG)
+  local rMSG=json.decode(tMSG)
+  print(rMSG["msg"])
   --print("setpage" .. value)
 end
 
-acarsSystem.messages={{type="msg",msg="Test Message",time="12:00 UTC"},{type="msg",msg="2nd Test Message",time="12:05 UTC"}}
+
 
 acarsSystem.getMessages=function()
-retVal={}
-retVal.template={
-  "          MSGS          ",
-  "                        ",
-  "<Test Message           ",
-  "                        ",
-  "<2nd Test Message       ",
-  "                        ",
-  "                        ",
-  "                        ",
-  "                        ",
-  "                        ",
-  "                        ",
-  "                        ",
-  "<RETURN                 "
-  } 
-retVal.templateSmall={
-  "                   1/1  ",
-  "                        ",
-  "                        ",
-  "            12:00 UTC   ",
-  "                        ",
-  "            12:05 UTC   ",
-  "                        ",
-  "                        ",
-  "                        ",
-  "                        ",
-  "                        ",
-  "                        ",
-  "                        "
-  }
+    
 
-return retVal
+     
+    retVal={}
+    retVal.template={
+      "          MSGS          ",
+      "                        ",
+      "                        ", -- --"<Test Message           ",
+      "                        ",
+      "                        ", -- --"<2nd Test Message       ",
+      "                        ",
+      "                        ",
+      "                        ",
+      "                        ",
+      "                        ",
+      "                        ",
+      "                        ",
+      "<RETURN                 "
+      } 
+    retVal.templateSmall={
+      "                   1/1  ",
+      "                        ",
+      "                        ",
+      "            12:00 UTC   ",
+      "                        ",
+      "            12:05 UTC   ",
+      "                        ",
+      "                        ",
+      "                        ",
+      "                        ",
+      "                        ",
+      "                        ",
+      "                        "
+      }
+    line = 3  
+    for i = #acarsSystem.messages,1 , -1 do
+      retVal.template[line]="<"..acarsSystem.messages[i]["msg"]
+      retVal.templateSmall[line+1]="            "..acarsSystem.messages[i]["time"]
+      line = line+2
+    end  
+    return retVal
 end
 
-fmsPages["VIEWACARS"].getPage=function(self) 
+fmsPages["VIEWACARS"].getPage=function(self)
+  
+  
   local page=acarsSystem.getMessages()
+  
   return page.template 
 end
 

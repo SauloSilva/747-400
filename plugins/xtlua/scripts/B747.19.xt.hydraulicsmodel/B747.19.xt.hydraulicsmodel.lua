@@ -21,7 +21,7 @@ B747_duct_pressure_L                = deferred_dataref("laminar/B747/air/duct_pr
 B747_duct_pressure_R                = deferred_dataref("laminar/B747/air/duct_pressure_R", "number")
 --B747DR_engine1psi    = deferred_dataref("laminar/B747/air/engine1/bleed_air_psi", "number")
 --B747DR_engine4psi    = deferred_dataref("laminar/B747/air/engine4/bleed_air_psi", "number")
-
+simDR_startup_running           = find_dataref("sim/operation/prefs/startup_running")
 B747DR_hyd_temp = find_dataref("sim/physics/earth_temp_c")
 B747DR_hyd_sys_pressure_1      = deferred_dataref("laminar/B747/hydraulics/pressure_1", "number")
 B747DR_hyd_sys_pressure_2      = deferred_dataref("laminar/B747/hydraulics/pressure_2", "number")
@@ -239,24 +239,35 @@ end
 --function aircraft_load() end
 
 --function aircraft_unload() end
-
+function B747_set_hyd_model_ER()
+  B747DR_hyd_sys_pressure_use_1=1700
+  B747DR_hyd_sys_pressure_use_2=1700
+  B747DR_hyd_sys_pressure_use_3=1700
+  B747DR_hyd_sys_pressure_use_4=1700
+  B747DR_hyd_sys_pressure_1=1700
+  B747DR_hyd_sys_pressure_2=1700
+  B747DR_hyd_sys_pressure_3=1700
+  B747DR_hyd_sys_pressure_4=1700
+end  
 function flight_start() 
-  B747DR_hyd_sys_restotal_1=math.random()*0.2+0.8
-  B747DR_hyd_sys_restotal_2=math.random()*0.2+0.8
-  B747DR_hyd_sys_restotal_3=math.random()*0.2+0.8
-  B747DR_hyd_sys_restotal_4=math.random()*0.2+0.8
-  B747DR_hyd_sys_res_1=B747DR_hyd_sys_restotal_1
-  B747DR_hyd_sys_res_2=B747DR_hyd_sys_restotal_2
-  B747DR_hyd_sys_res_3=B747DR_hyd_sys_restotal_3
-  B747DR_hyd_sys_res_4=B747DR_hyd_sys_restotal_4
-   --[[ B747DR_hyd_dmd_pmp_sel_pos[0] = 0
-    B747DR_hyd_dmd_pmp_sel_pos[1] = 0
-    B747DR_hyd_dmd_pmp_sel_pos[2] = 0
-    B747DR_hyd_dmd_pmp_sel_pos[3] = 0]]
+    B747DR_hyd_sys_restotal_1=math.random()*0.2+0.8
+    B747DR_hyd_sys_restotal_2=math.random()*0.2+0.8
+    B747DR_hyd_sys_restotal_3=math.random()*0.2+0.8
+    B747DR_hyd_sys_restotal_4=math.random()*0.2+0.8
+    B747DR_hyd_sys_res_1=B747DR_hyd_sys_restotal_1
+    B747DR_hyd_sys_res_2=B747DR_hyd_sys_restotal_2
+    B747DR_hyd_sys_res_3=B747DR_hyd_sys_restotal_3
+    B747DR_hyd_sys_res_4=B747DR_hyd_sys_restotal_4
+
     B747DR_hyd_sys_temp_1=B747DR_hyd_temp
     B747DR_hyd_sys_temp_2=B747DR_hyd_temp
     B747DR_hyd_sys_temp_3=B747DR_hyd_temp
     B747DR_hyd_sys_temp_4=B747DR_hyd_temp
+    if simDR_startup_running == 1 then
+
+		B747_set_hyd_model_ER() -- pressurise the system if engines start running
+
+    end
 end
 
 --function flight_crash() end
