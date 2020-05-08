@@ -116,10 +116,10 @@ B747DR_airspeed_Vmc                 = find_dataref("laminar/B747/airspeed/Vmc")
 --** 				        CREATE READ-ONLY CUSTOM DATAREFS               	         **--
 --*************************************************************************************--
 
-B747DR_CAS_warning_status       = deferred_dataref("laminar/B747/CAS/warning_status", string.format("array[%s]", #B747_CASwarningMsg))
-B747DR_CAS_caution_status       = deferred_dataref("laminar/B747/CAS/caution_status", string.format("array[%s]", #B747_CAScautionMsg))
-B747DR_CAS_advisory_status      = deferred_dataref("laminar/B747/CAS/advisory_status", string.format("array[%s]", #B747_CASadvisoryMsg))
-B747DR_CAS_memo_status          = deferred_dataref("laminar/B747/CAS/memo_status", string.format("array[%s]", #B747_CASmemoMsg))
+B747DR_CAS_warning_status       = deferred_dataref("laminar/B747/CAS/warning_status", string.format("array[%s]", table.getn(B747_CASwarningMsg.values)))
+B747DR_CAS_caution_status       = deferred_dataref("laminar/B747/CAS/caution_status", string.format("array[%s]", table.getn(B747_CAScautionMsg.values)))
+B747DR_CAS_advisory_status      = deferred_dataref("laminar/B747/CAS/advisory_status", string.format("array[%s]", table.getn(B747_CASadvisoryMsg.values)))
+B747DR_CAS_memo_status          = deferred_dataref("laminar/B747/CAS/memo_status", string.format("array[%s]", table.getn(B747_CASmemoMsg.values)))
 
 
 B747DR_CAS_gen_warning_msg = {}
