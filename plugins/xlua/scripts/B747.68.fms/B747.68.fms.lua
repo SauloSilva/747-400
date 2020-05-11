@@ -83,6 +83,29 @@ B747DR_fms1_display_brightness      = create_dataref("laminar/B747/fms1/display_
 fmsPages={}
 --fmsPagesmall={}
 fmsFunctionsDefs={}
+fmsModules={} --set later
+fmsModules["data"]={
+  fltno="*******",
+  fltdate="********",
+  fltdep="****",
+  fltdst="****",
+  flttimehh="**",
+  flttimemm="**",
+  rpttimehh="**",
+  rpttimemm="**",
+  acarsAddress="*******",
+setData=function(self,id,value)
+  --always retain the same length
+  len=string.len(self[id])
+  newVal=string.sub(value,1,len)
+  self[id]=string.format("%s%"..(len-string.len(value)).."s",value,"")
+end
+}
+function setFMSData(id,value)
+    print("setting " .. id .. " to "..value.." curently "..fmsModules["data"][id])
+   fmsModules["data"]:setData(id,value)
+end  
+
 function createPage(page)
   retVal={}
   retVal.name=page
@@ -116,8 +139,9 @@ function createPage(page)
   "                        ",
   "                        "
   }
-  retVal.getPage=function(self) return self.template end
-  retVal.getSmallPage=function(self) return self.templateSmall end
+  retVal.getPage=function(self,pgNo) return self.template end
+  retVal.getSmallPage=function(self,pgNo) return self.templateSmall end
+  retVal.getNumPages=function(self) return 1 end
   fmsFunctionsDefs[page]={}
   return retVal
 end
@@ -130,7 +154,7 @@ setmetatable(fmsC, {__index = fms})
 fmsC.id="fmsC"
 setDREFs(fmsC,"cdu1","fms1",nil,"fms3")
 fmsC.inCustomFMC=true
-fmsC.currentPage="NAVRAD"
+fmsC.currentPage="ACARS"
 
 fmsL = {}
 setmetatable(fmsL, {__index = fms})
@@ -155,10 +179,17 @@ function after_physics()
     fmsL:B747_fms_display()
     fmsC:B747_fms_display()
     fmsR:B747_fms_display()
-    acarsSystem.provider.receive()
-    for i = #acarsSystem.messages, 1, -1 do
-      if not acarsSystem.messages[i]["read"] then 
-	B747DR_CAS_memo_status[0]=1
+    if acarsSystem.provider.online() then
+      B747DR_CAS_memo_status[40]=0
+      acarsSystem.provider.receive()
+      local hasNew=0
+      for i = #acarsSystem.messages, 1, -1 do
+	if not acarsSystem.messages[i]["read"] then 
+	  hasNew=1
+	end 
       end 
-    end 
+      B747DR_CAS_memo_status[0]=hasNew
+    else
+      B747DR_CAS_memo_status[40]=1
+    end
 end

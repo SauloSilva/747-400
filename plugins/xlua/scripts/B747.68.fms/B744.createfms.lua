@@ -8,10 +8,10 @@ fms={
   id,
   page1=false,
   currentPage="INDEX",
-  inCustomFMC=false,scratchpad="",notify=""
+  inCustomFMC=false,scratchpad="",notify="",pgNo=1
 } 
 
-fmsModules={} --set later
+
 simCMD_FMS_key={}
 
 function keyDown(fmsModule,key)
@@ -28,35 +28,45 @@ function keyDown(fmsModule,key)
     if keyFuncs==nil then print("skip") return end
     local keyFunc=rawget(keyFuncs,key)
     if keyFunc==nil then print("skip2") return end]]
-    if hasChild(fmsFunctionsDefs[page],key) then
+    
+     
+     if key=="clear" then
+       if string.len(fmsModules[fmsModule].notify)>0 then 
+	 fmsModules[fmsModule].notify=""
+	else 
+	  fmsModules[fmsModule].scratchpad="" 
+	end
+       return
+     end
+     
+     if string.len(fmsModules[fmsModule].notify)>0 then return end -- require notification clear
+     
+     if hasChild(fmsFunctionsDefs[page],key) then
       print(fmsModule.. " found " .. fmsFunctionsDefs[page][key][1] .. " for " .. key)
       fmsFunctions[ fmsFunctionsDefs[page][key][1] ](fmsModules[fmsModule],fmsFunctionsDefs[page][key][2])
       print(fmsModule.. " did " .. key .. " for " .. page)
       return
-     end
-     
-     if key=="clear" then
-       fmsModules[fmsModule].scratchpad=""
-       return
-     end
-     
-     if string.len(key)==1 then
+     elseif string.len(key)==1 then
        fmsModules[fmsModule].scratchpad=fmsModules[fmsModule].scratchpad .. key
-     end
-     
-     if key=="slash" then
+     elseif key=="slash" then
        fmsModules[fmsModule].scratchpad=fmsModules[fmsModule].scratchpad.."/"
        return
-     end
-     
-     if key=="space" then
+     elseif key=="space" then
        fmsModules[fmsModule].scratchpad=fmsModules[fmsModule].scratchpad.." "
        return
-     end
-     
-     if key=="del" then
+     elseif key=="del" then
        fmsModules[fmsModule].scratchpad=string.sub(fmsModules[fmsModule].scratchpad,1,-2)
        return
+     elseif key=="next" then
+       fmsModules[fmsModule].pgNo=fmsModules[fmsModule].pgNo+1
+       print(fmsModule.. " did " .. key .. " for " .. page)
+       return 
+     elseif key=="prev" then
+       fmsModules[fmsModule].pgNo=fmsModules[fmsModule].pgNo-1
+       print(fmsModule.. " did " .. key .. " for " .. page)
+       return  
+     else
+       fmsModules[fmsModule].notify="KEY NOT ACTIVE"
      end
   end
 end
@@ -451,15 +461,20 @@ function fms:B747_fms_display()
 	B747DR_fms[thisID][i]=cleanFMSLine(B747DR_srcfms[thisID][i])
       end
     else
-      local fmsPage = fmsPages[page]:getPage();
-      local fmsPagesmall = fmsPages[page]:getSmallPage();
+      if self.pgNo>fmsPages[page]:getNumPages() then self.pgNo=fmsPages[page]:getNumPages() end
+      local fmsPage = fmsPages[page]:getPage(self.pgNo);
+      local fmsPagesmall = fmsPages[page]:getSmallPage(self.pgNo);
       for i=1,13,1 do
 	B747DR_fms[thisID][i]=fmsPage[i]
       end
       for i=1,13,1 do
 	B747DR_fms_s[thisID][i]=fmsPagesmall[i]
       end
-      B747DR_fms[thisID][14]=self.scratchpad;
+      if string.len(self.notify)>0 then 
+	B747DR_fms[thisID][14]=self.notify
+      else
+	B747DR_fms[thisID][14]=self.scratchpad;
+      end
     end
     
 end

@@ -22123,31 +22123,31 @@ ATTR_manip_command	button	laminar/B747/fms3/key/minus	Sign
 TRIS	13542 30
 ATTR_manip_command	button	laminar/B747/fms3/key/slash	Slash
 TRIS	13572 30
-ATTR_manip_command	button	laminar/B747/fms1/func_key/crz	Cruise
+ATTR_manip_command	button	laminar/B747/fms3/func_key/crz	Cruise
 TRIS	13602 30
-ATTR_manip_command	button	laminar/B747/fms1/func_key/clb	Climb
+ATTR_manip_command	button	laminar/B747/fms3/func_key/clb	Climb
 TRIS	13632 30
-ATTR_manip_command	button	laminar/B747/fms1/func_key/dir_intc	DIR INTC
+ATTR_manip_command	button	laminar/B747/fms3/func_key/dir_intc	DIR INTC
 TRIS	13662 30
-ATTR_manip_command	button	laminar/B747/fms1/func_key/hold	HOLD
+ATTR_manip_command	button	laminar/B747/fms3/func_key/hold	HOLD
 TRIS	13692 30
-ATTR_manip_command	button	laminar/B747/fms1/func_key/dep_arr	DEP/ARR
+ATTR_manip_command	button	laminar/B747/fms3/func_key/dep_arr	DEP/ARR
 TRIS	13722 30
-ATTR_manip_command	button	laminar/B747/fms1/func_key/index	INDEX
+ATTR_manip_command	button	laminar/B747/fms3/func_key/index	INDEX
 TRIS	13752 30
-ATTR_manip_command	button	laminar/B747/fms1/func_key/legs LEGS
+ATTR_manip_command	button	laminar/B747/fms3/func_key/legs LEGS
 TRIS	13782 30
-ATTR_manip_command	button	laminar/B747/fms1/func_key/fix	FIX
+ATTR_manip_command	button	laminar/B747/fms3/func_key/fix	FIX
 TRIS	13812 30
-ATTR_manip_command	button	laminar/B747/fms1/func_key/next	NEXT PAGE
+ATTR_manip_command	button	laminar/B747/fms3/func_key/next_pg	NEXT PAGE
 TRIS	13842 30
-ATTR_manip_command	button	laminar/B747/fms1/func_key/prev	PREV PAGE
+ATTR_manip_command	button	laminar/B747/fms3/func_key/prev_pg	PREV PAGE
 TRIS	13872 30
-ATTR_manip_command	button	laminar/B747/fms1/func_key/prog	PROG
+ATTR_manip_command	button	laminar/B747/fms3/func_key/prog	PROG
 TRIS	13902 30
-ATTR_manip_command	button	laminar/B747/fms1/func_key/fpln	Flight Plan
+ATTR_manip_command	button	laminar/B747/fms3/func_key/fpln	Flight Plan
 TRIS	13932 30
-ATTR_manip_command	button	laminar/B747/fms1/func_key/des	DES
+ATTR_manip_command	button	laminar/B747/fms3/func_key/des	DES
 TRIS	13962 30
 ATTR_manip_command	button	laminar/B747/fms3/key/clear	Clear
 TRIS	13992 30

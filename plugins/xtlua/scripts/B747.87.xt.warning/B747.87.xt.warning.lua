@@ -518,6 +518,12 @@ B747_CASmemoMsg   = {
     {DRindex = 37, name = "VHF DATA OFF", status = 0},
     {DRindex = 38, name = "VMO GEAR DOWN", status = 0},
     {DRindex = 39, name = "VMO SPARE ENGINE", status = 0},
+    {DRindex = 40, name = "ACARS NO COMM", status = 0},
+    {DRindex = 41, name = "ACARS CALL", status = 0},
+    {DRindex = 41, name = "ACARS VOICE", status = 0},
+    {DRindex = 42, name = "PRINTER MESSAGE", status = 0},
+    {DRindex = 43, name = "ACARS ALERT", status = 0},
+    {DRindex = 44, name = "ACARS VOICE BUSY", status = 0},
 }
 
 
