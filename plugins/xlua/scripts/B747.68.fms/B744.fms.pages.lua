@@ -48,7 +48,7 @@ function fmsFunctions.setpage(fmsO,value)
   fmsO["pgNo"]=1
   fmsO["inCustomFMC"]=true
   fmsO["currentPage"]=value 
-  --print("setpage" .. value)
+ print("setpage " .. value)
 end
 
 function fmsFunctions.setdata(fmsO,value) 

@@ -10,6 +10,7 @@ sendCommand=find_command("AutoATC/ACARS")
 acarsSystem.provider={
 send=function(value)
   print("send ACARS message:"..value)
+  local newMessage=json.decode(value)--check json value or fail
   sendDataref=value
   sendCommand:once()
 end,
@@ -21,7 +22,7 @@ receive=function()
     newMessage["read"]=false
     newMessage["time"]=string.format("%02d:%02d",hh,mm)
     acarsReceiveDataref=" "
-    acarsSystem.messages[#acarsSystem.messages+1]=newMessage
+    acarsSystem.messages[table.getn(acarsSystem.messages.values)+1]=newMessage
     print("ACARS did receive message:"..acarsReceiveDataref)
   end  
 end,

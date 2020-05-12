@@ -61,7 +61,7 @@ function keyDown(fmsModule,key)
        fmsModules[fmsModule].pgNo=fmsModules[fmsModule].pgNo+1
        print(fmsModule.. " did " .. key .. " for " .. page)
        return 
-     elseif key=="prev" then
+     elseif key=="prev" and fmsModules[fmsModule].pgNo > 1 then
        fmsModules[fmsModule].pgNo=fmsModules[fmsModule].pgNo-1
        print(fmsModule.. " did " .. key .. " for " .. page)
        return  

@@ -41,6 +41,9 @@ simDR_radio_adf2_freq_hz            = find_dataref("sim/cockpit2/radios/actuator
 B747DR_fms1_display_mode            = find_dataref("laminar/B747/fms1/display_mode")
 
 B747DR_init_fmsL_CD                 = find_dataref("laminar/B747/fmsL/init_CD")
+
+acars=create_dataref("laminar/B747/comm/acars","number")  
+
 function createFMSDatarefs(fmsid)
 create_dataref("laminar/B747/"..fmsid.."/Line01_L", "string")
 create_dataref("laminar/B747/"..fmsid.."/Line02_L", "string")
@@ -102,10 +105,15 @@ setData=function(self,id,value)
 end
 }
 function setFMSData(id,value)
-    print("setting " .. id .. " to "..value.." curently "..fmsModules["data"][id])
+    --print("setting " .. id .. " to "..value.." curently "..fmsModules["data"][id])
    fmsModules["data"]:setData(id,value)
 end  
-
+function getFMSData(id)
+  if hasChild(fmsModules["data"],id) then
+    return fmsModules["data"][id]
+  end
+  return fmsModules["data"][id]
+end 
 function createPage(page)
   retVal={}
   retVal.name=page
@@ -180,16 +188,18 @@ function after_physics()
     fmsC:B747_fms_display()
     fmsR:B747_fms_display()
     if acarsSystem.provider.online() then
-      B747DR_CAS_memo_status[40]=0
+      B747DR_CAS_memo_status[40]=0 --for CAS
+      acars=1 --for radio
       acarsSystem.provider.receive()
       local hasNew=0
-      for i = #acarsSystem.messages, 1, -1 do
+      for i = table.getn(acarsSystem.messages.values), 1, -1 do
 	if not acarsSystem.messages[i]["read"] then 
 	  hasNew=1
 	end 
       end 
       B747DR_CAS_memo_status[0]=hasNew
     else
-      B747DR_CAS_memo_status[40]=1
+      B747DR_CAS_memo_status[40]=1 --for CAS
+      acars=0 --for radio
     end
 end

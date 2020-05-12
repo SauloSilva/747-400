@@ -417,7 +417,7 @@ function B747_rtp_L_off_switch_CMDhandler(phase, duration)
             B747DR_rtp_L_lcd_to_display = 90
         elseif B747DR_rtp_L_off_status == 1 then
             B747DR_rtp_L_off_status = 0
-            B747_lcd_display_status()
+            --B747_lcd_display_status()
         end
     end
 end
@@ -579,7 +579,7 @@ function B747_rtp_C_off_switch_CMDhandler(phase, duration)
             B747DR_rtp_C_lcd_to_display = 90
         elseif B747DR_rtp_C_off_status == 1 then
             B747DR_rtp_C_off_status = 0
-            B747_lcd_display_status()
+            --B747_lcd_display_status()
         end
     end
 end
@@ -737,7 +737,7 @@ function B747_rtp_R_off_switch_CMDhandler(phase, duration)
             B747DR_rtp_R_lcd_to_display = 90
         elseif B747DR_rtp_R_off_status == 1 then
             B747DR_rtp_R_off_status = 0
-            B747_lcd_display_status()
+            --B747_lcd_display_status()
         end
     end
 end
@@ -3325,7 +3325,7 @@ end
 
 
 
-
+acars=find_dataref("laminar/B747/comm/acars")
 ----- LCD DISPLAY STATUS ----------------------------------------------------------------
 function B747_lcd_display_status()
 
@@ -3336,7 +3336,11 @@ function B747_lcd_display_status()
         elseif B747DR_rtp_L_vhf_R_status == 1 then
             B747DR_rtp_L_lcd_to_display = 1
         else
+	  if acars==0 then
             B747DR_rtp_L_lcd_to_display = 99
+	  else
+	    B747DR_rtp_L_lcd_to_display = 98
+	  end
         end
     end
 
@@ -3347,7 +3351,11 @@ function B747_lcd_display_status()
         elseif B747DR_rtp_C_vhf_R_status == 1 then
             B747DR_rtp_C_lcd_to_display = 1
         else
+	  if acars==0 then
             B747DR_rtp_C_lcd_to_display = 99
+	  else
+	    B747DR_rtp_C_lcd_to_display = 98
+	  end
         end
     end
 
@@ -3358,7 +3366,11 @@ function B747_lcd_display_status()
         elseif B747DR_rtp_R_vhf_R_status == 1 then
             B747DR_rtp_R_lcd_to_display = 1
         else
+	  if acars==0 then
             B747DR_rtp_R_lcd_to_display = 99
+	  else
+	    B747DR_rtp_R_lcd_to_display = 98
+	  end
         end
     end
 
@@ -3432,7 +3444,7 @@ function B747_radio_sel_swap(radio, vhf_L, vhf_C, vhf_R, hf_L, am, hf_R)
     end
 
     -- UPDATE LCD DISPLAY STATUS
-    B747_lcd_display_status()
+    --B747_lcd_display_status()
 
 end
 
@@ -3766,6 +3778,7 @@ function after_physics()
     B747_radio_audio_status()
 
     B747_elec_monitor_AI()
+    B747_lcd_display_status() -- change for XT Lua, because the FMS can enable ACARS
 
 end
 
