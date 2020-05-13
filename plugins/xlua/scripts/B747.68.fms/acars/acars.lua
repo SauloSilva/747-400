@@ -100,6 +100,7 @@ function fmsFunctions.initAcars(fmsO,value)
   if currentInit~= newInit then
     fmsModules["data"]["acarsInitString"]=newInit
     initData["type"]="initData"
+    initData["af"]="B744"
     local newInitSend=json.encode(initData)
     print(newInitSend)
     fmsFunctions.acarsSystemSend(fmsO,newInitSend)
@@ -160,9 +161,12 @@ function fmsFunctions.acarsSystemSend(fmsO,value)
     local msgToSend=value
     local tMSG={}
     if string.len(msgToSend) <5 then 
+      tMSG["adr"]=getFMSData("acarsAddress")
+       if tMSG["adr"]=="*******" then fmsO["notify"]="EMPTY ADDRESS" return end
       msgToSend=fmsO["scratchpad"] 
       tMSG["type"]="msg"
       tMSG["msg"]=msgToSend
+      
       fmsO["scratchpad"]=""
     else
       tMSG=json.decode(value)

@@ -2066,7 +2066,7 @@ function B747_fuel_tank_levels()
     -- ENGINE #4
     local eng4fuelShareRatio = 0
     if #engine4fuelSrc > 0 then eng4fuelShareRatio = 1.0 / #engine4fuelSrc end
-    local engine4_source_fuel_flow_KgSec = simDR_eng_fuel_flow_kg_sec[2] * eng4fuelShareRatio
+    local engine4_source_fuel_flow_KgSec = simDR_eng_fuel_flow_kg_sec[3] * eng4fuelShareRatio
 
     for _, tankID in ipairs(engine4fuelSrc) do
         simDR_fuel_tank_weight_kg[tankID] = simDR_fuel_tank_weight_kg[tankID] - (engine4_source_fuel_flow_KgSec * fuel_calc_rate)
