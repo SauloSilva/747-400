@@ -101,7 +101,7 @@ function create_keypad(fms)
     key_dep_arr_CMDhandler	=function (phase, duration) if phase ==0 then keyDown(fmsKeyFunc[fms]["funcs"]["parent"], "dep_arr") end end,
     key_hold_CMDhandler		=function (phase, duration) if phase ==0 then keyDown(fmsKeyFunc[fms]["funcs"]["parent"], "hold") end end,
     key_prog_CMDhandler		=function (phase, duration) if phase ==0 then keyDown(fmsKeyFunc[fms]["funcs"]["parent"], "prog") end end,
-    key_execute_CMDhandler	=function (phase, duration) if phase ==0 then keyDown(fmsKeyFunc[fms]["funcs"]["parent"], "execute") end end,
+    key_execute_CMDhandler	=function (phase, duration) if phase ==0 then keyDown(fmsKeyFunc[fms]["funcs"]["parent"], "exec") end end,
     key_fix_CMDhandler		=function (phase, duration) if phase ==0 then keyDown(fmsKeyFunc[fms]["funcs"]["parent"], "fix") end end,
     key_prev_pg_CMDhandler	=function (phase, duration) if phase ==0 then keyDown(fmsKeyFunc[fms]["funcs"]["parent"], "prev") end end,
     key_next_pg_CMDhandler	=function (phase, duration) if phase ==0 then keyDown(fmsKeyFunc[fms]["funcs"]["parent"], "next") end end,   
