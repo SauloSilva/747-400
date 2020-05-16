@@ -5,6 +5,42 @@
 ]]
 fmsFunctions={}
 dofile("acars/acars.lua")
+fmsPages["INDEX"]=createPage("INDEX")
+fmsPages["INDEX"]["template"]={
+
+"          MENU          ",
+"                        ",
+"<FMC             SELECT>",
+"                        ",
+"<ACARS           SELECT>",
+"                        ",
+"<SAT                    ",
+"                        ",
+"                        ",
+"                        ",
+"<ACMS                   ", 
+"                        ",
+"<CMC                    "
+}
+fmsPages["INDEX"]["templateSmall"]={
+"                        ",
+"                 EFIS CP",
+"                        ",
+"                EICAS CP",
+"                        ",
+"                 CTL PNL",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+}
+
+fmsFunctionsDefs["INDEX"]={}
+fmsFunctionsDefs["INDEX"]["L1"]={"setpage","FMC"}
+fmsFunctionsDefs["INDEX"]["L2"]={"setpage","ACARS"}
 
 fmsPages["NAVRAD"]=createPage("NAVRAD")
 fmsPages["NAVRAD"]["template"]={
@@ -21,7 +57,7 @@ string.format("%6.2f/%03d%s             ", simDR_radio_nav_freq_hz[0]*0.01, simD
 "                        ",
 "                        ", 
 "                        ",
-"<ACARS                  "
+"                        "
 }
 fmsPages["NAVRAD"]["templateSmall"]={
 "                        ",
@@ -39,16 +75,26 @@ fmsPages["NAVRAD"]["templateSmall"]={
 "                        ",
 }
 
-fmsFunctionsDefs["INDEX"]={}
-fmsFunctionsDefs["INDEX"]["L3"]={"setpage","ACARS"}
-
-fmsFunctionsDefs["NAVRAD"]["L6"]={"setpage","ACARS"}
+--fmsFunctionsDefs["NAVRAD"]["L6"]={"setpage","ACARS"}
 
 function fmsFunctions.setpage(fmsO,value)
   fmsO["pgNo"]=1
-  fmsO["inCustomFMC"]=true
-  fmsO["currentPage"]=value 
- print("setpage " .. value)
+  
+  --sim/FMS/navrad
+  --sim/FMS2/navrad
+  if value=="FMC" then
+    fmsO["inCustomFMC"]=false
+    simCMD_FMS_key[fmsO.id]["fpln"]:once()
+    simCMD_FMS_key[fmsO.id]["L6"]:once()
+  elseif value=="VHFCONTROL" then
+    fmsO["inCustomFMC"]=false
+    simCMD_FMS_key[fmsO.id]["navrad"]:once()
+  else
+    fmsO["inCustomFMC"]=true
+    fmsO["currentPage"]=value 
+ 
+  end
+  print("setpage " .. value)
 end
 
 function fmsFunctions.setdata(fmsO,value) 

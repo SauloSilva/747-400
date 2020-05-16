@@ -16,6 +16,23 @@ simCMD_FMS_key={}
 
 function keyDown(fmsModule,key)
   print(fmsModule.. " do " .. key)
+  
+  if key=="index" then
+      fmsModules[fmsModule].inCustomFMC=true
+      fmsModules[fmsModule].currentPage="INDEX"
+      return
+  end
+  if key=="navrad" then
+      fmsModules[fmsModule].inCustomFMC=true
+      fmsModules[fmsModule].currentPage="NAVRAD"
+      return
+  end
+  if key=="fpln" or key=="clb" or key=="crz" or key=="des" or key=="dir_intc" or key=="legs" or key=="dep_arr" or key=="hold" or key=="prog" or key=="fix" then
+      fmsModules[fmsModule].inCustomFMC=false
+      simCMD_FMS_key[fmsModule][key]:once()
+      return
+  end
+
   if not fmsModules[fmsModule].inCustomFMC then
     if simCMD_FMS_key[fmsModule][key]~=nil then
       simCMD_FMS_key[fmsModule][key]:once()
@@ -24,10 +41,6 @@ function keyDown(fmsModule,key)
   else
     page=fmsModules[fmsModule].currentPage
 
-    --[[local keyFuncs=rawget(fmsFunctionsDefs[page],'values')
-    if keyFuncs==nil then print("skip") return end
-    local keyFunc=rawget(keyFuncs,key)
-    if keyFunc==nil then print("skip2") return end]]
     
      
      if key=="clear" then
@@ -93,6 +106,7 @@ function create_keypad(fms)
       
     key_index_CMDhandler	=function (phase, duration) if phase ==0 then keyDown(fmsKeyFunc[fms]["funcs"]["parent"], "index") end end,
     key_fpln_CMDhandler		=function (phase, duration) if phase ==0 then keyDown(fmsKeyFunc[fms]["funcs"]["parent"], "fpln") end end,
+    key_navrad_CMDhandler	=function (phase, duration) if phase ==0 then keyDown(fmsKeyFunc[fms]["funcs"]["parent"], "navrad") end end,
     key_clb_CMDhandler		=function (phase, duration) if phase ==0 then keyDown(fmsKeyFunc[fms]["funcs"]["parent"], "clb") end end,
     key_crz_CMDhandler		=function (phase, duration) if phase ==0 then keyDown(fmsKeyFunc[fms]["funcs"]["parent"], "crz") end end,
     key_des_CMDhandler		=function (phase, duration) if phase ==0 then keyDown(fmsKeyFunc[fms]["funcs"]["parent"], "des") end end,
@@ -238,7 +252,7 @@ function setDREFs(fmsO,cduid,fmsid,keyid,fmskeyid)
   simCMD_FMS_key[fmsO.id]["hold"]         = find_command(keyid.."hold")
   simCMD_FMS_key[fmsO.id]["prog"]         = find_command(keyid.."prog")
   simCMD_FMS_key[fmsO.id]["exec"]         = find_command(keyid.."exec")
-
+ 
   simCMD_FMS_key[fmsO.id]["fix"]          = find_command(keyid.."fix")
 
   simCMD_FMS_key[fmsO.id]["prev"]             = find_command(keyid.."prev")
@@ -283,9 +297,13 @@ function setDREFs(fmsO,cduid,fmsid,keyid,fmskeyid)
   simCMD_FMS_key[fmsO.id]["X"]            = find_command(keyid.."key_X")
   simCMD_FMS_key[fmsO.id]["Y"]            = find_command(keyid.."key_Y")
   simCMD_FMS_key[fmsO.id]["Z"]            = find_command(keyid.."key_Z")
-
   simCMD_FMS_key[fmsO.id]["space"]        = find_command(keyid.."key_space")
-  simCMD_FMS_key[fmsO.id]["delete"]       = find_command(keyid.."key_delete")
+  if fmsO.id=="fmsR" then  
+    simCMD_FMS_key[fmsO.id]["navrad"]        = find_command("sim/FMS2/navrad")
+  else
+    simCMD_FMS_key[fmsO.id]["navrad"]        = find_command("sim/FMS/navrad")
+  end
+  simCMD_FMS_key[fmsO.id]["del"]       = find_command(keyid.."key_delete")
   simCMD_FMS_key[fmsO.id]["slash"]        = find_command(keyid.."key_slash")
   simCMD_FMS_key[fmsO.id]["clear"]        = find_command(keyid.."key_clear")
   end
@@ -308,6 +326,7 @@ B747CMD_fms1_ls_key_R6              = create_command("laminar/B747/".. fmskeyid 
 -- FUNCTION KEYS ------------------------------------------------------------------------
 B747CMD_fms1_func_key_index         = create_command("laminar/B747/".. fmskeyid .. "/func_key/index", "FMS1 Function Key INDEX",fmsKeyFunc[fmsO.id]["funcs"]["key_index_CMDhandler"])
 B747CMD_fms1_func_key_fpln          = create_command("laminar/B747/".. fmskeyid .. "/func_key/fpln", "FMS1 Function Key FPLN", fmsKeyFunc[fmsO.id]["funcs"]["key_fpln_CMDhandler"])
+B747CMD_fms1_func_key_navrad        = create_command("laminar/B747/".. fmskeyid .. "/func_key/navrad", "FMS1 Function Key FPLN", fmsKeyFunc[fmsO.id]["funcs"]["key_navrad_CMDhandler"])
 B747CMD_fms1_func_key_clb           = create_command("laminar/B747/".. fmskeyid .. "/func_key/clb", "FMS1 Function Key CLB", fmsKeyFunc[fmsO.id]["funcs"]["key_clb_CMDhandler"])
 B747CMD_fms1_func_key_crz           = create_command("laminar/B747/".. fmskeyid .. "/func_key/crz", "FMS1 Function Key CRZ", fmsKeyFunc[fmsO.id]["funcs"]["key_crz_CMDhandler"])
 B747CMD_fms1_func_key_des           = create_command("laminar/B747/".. fmskeyid .. "/func_key/des", "FMS1 Function Key DES", fmsKeyFunc[fmsO.id]["funcs"]["key_des_CMDhandler"])
@@ -459,6 +478,7 @@ function fms:B747_fms_display()
     if not inCustomFMC then
       for i=1,14,1 do
 	B747DR_fms[thisID][i]=cleanFMSLine(B747DR_srcfms[thisID][i])
+	B747DR_fms_s[thisID][i]="                        "
       end
     else
       if self.pgNo>fmsPages[page]:getNumPages() then self.pgNo=fmsPages[page]:getNumPages() end

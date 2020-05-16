@@ -160,7 +160,7 @@ dofile("B744.createfms.lua")
 fmsC = {}
 setmetatable(fmsC, {__index = fms})
 fmsC.id="fmsC"
-setDREFs(fmsC,"cdu1","fms1",nil,"fms3")
+setDREFs(fmsC,"cdu1","fms1","sim/FMS/","fms3")
 fmsC.inCustomFMC=true
 fmsC.currentPage="ACARS"
 
@@ -168,11 +168,15 @@ fmsL = {}
 setmetatable(fmsL, {__index = fms})
 fmsL.id="fmsL"
 setDREFs(fmsL,"cdu1","fms3","sim/FMS/","fms1")
+fmsL.inCustomFMC=true
+fmsL.currentPage="INDEX"
 
 fmsR = {}
 setmetatable(fmsR, {__index = fms})
 fmsR.id="fmsR"
 setDREFs(fmsR,"cdu2","fms2","sim/FMS2/","fms2")
+fmsR.inCustomFMC=true
+fmsR.currentPage="INDEX"
 
 fmsModules.fmsL=fmsL;
 fmsModules.fmsC=fmsC;

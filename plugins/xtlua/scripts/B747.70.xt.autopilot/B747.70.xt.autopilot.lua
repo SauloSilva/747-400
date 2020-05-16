@@ -114,6 +114,12 @@ simDR_AHARS_roll_deg_pilot          	= find_dataref("sim/cockpit2/gauges/indicat
 simDR_AHARS_heading_deg_pilot       	= find_dataref("sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_pilot")
 simDR_nav1_radio_course_deg         	= find_dataref("sim/cockpit2/radios/actuators/nav1_course_deg_mag_pilot")
 
+simDR_radarAlt1           	= find_dataref("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot")
+simDR_radarAlt2           	= find_dataref("sim/cockpit2/guages/indicators/radio_altimeter_height_ft_copilot")
+simDR_allThrottle           	= find_dataref("sim/cockpit2/engine/actuators/throttle_ratio_all")
+simDR_descent           	= find_dataref("sim/cockpit2/autopilot/des_adjust")
+simDR_pitch           	= find_dataref("sim/cockpit2/autopilot/sync_hold_pitch_deg")
+
 simDR_nav1_radio_nav_type           	= find_dataref("sim/cockpit2/radios/indicators/nav1_type")
 --[[
     0 = UNKNONW
@@ -711,7 +717,7 @@ B747CMD_ap_switch_autothrottle_disco_R	= deferred_command("laminar/B747/autopilo
 B747CMD_ap_att_mode						= deferred_command("laminar/B747/autopilot/att_mode", "Set Autopilot ATT Mode", B747_ap_att_mode_CMDhandler)
 B747CMD_ap_reset 						= deferred_command("laminar/B747/autopilot/mode_reset", "Autopilot Mode Reset", B747_ap_reset_CMDhandler)
 
-
+--B747CMD_reverseThrust 						= find_command("sim/engines/thrust_reverse_toggle")
 
 -- AI
 B747CMD_ai_ap_quick_start				= deferred_command("laminar/B747/ai/autopilot_quick_start", "Autopilot Quick Start", B747_ai_ap_quick_start_CMDhandler)
@@ -1154,7 +1160,7 @@ end
 ----- APPROACH MODE ---------------------------------------------------------------------
 function B747_ap_appr_mode()
 	
-	if simDR_autopilot_approach_status > 0 then
+	--[[if simDR_autopilot_approach_status > 0 then
 		
         -- TURN ON ALL AUTOPILOTS
         if B747DR_ap_cmd_L_mode == 0 then
@@ -1169,7 +1175,7 @@ function B747_ap_appr_mode()
             B747CMD_ap_switch_cmd_R:once()
         end	
 	     
-    end    		
+    end   ]] 		
 	
 end	
 
@@ -1203,9 +1209,53 @@ end
 
 
 ----- FLIGHT MODE ANNUNCIATORS ----------------------------------------------------------
+local active_autoland=false
+local active_land=false
+local zerodThrottle=false
 function B747_ap_fma()
+    local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
+    if numAPengaged<2 and zerodThrottle then 
+      active_autoland=false 
+      --B747CMD_reverseThrust:once()
+    end
+    if numAPengaged<2 then 
+      active_autoland=false 
+    end
+    
+    if active_autoland then
+      if active_land and simDR_allThrottle>0 and not zerodThrottle then 
+	simDR_allThrottle=B747_set_ap_animation_position(simDR_allThrottle,0,0,1,5)
+      elseif active_land and not zerodThrottle then 
+	zerodThrottle=true--allow thrust reversors
+	--B747CMD_reverseThrust:once()
+	
+	--active_autoland=false 
+	--active_land=false
+	--print("autoland finished".. simDR_radarAlt1 .. " "..B747DR_ap_FMA_autothrottle_mode .." "..B747DR_ap_FMA_active_pitch_mode)
+	return
+      end
+      if simDR_radarAlt1 < 3 and not active_land then -- watch the bounce! 
+	print("autoland stop".. simDR_radarAlt1 .. " "..B747DR_ap_FMA_autothrottle_mode .." "..B747DR_ap_FMA_active_pitch_mode)
+	simCMD_autopilot_autothrottle_off:once()	
+	B747DR_ap_FMA_active_pitch_mode = 0 --no pitch
 
-
+	simDR_pitch  =-1
+	active_land=true
+      end
+      return 
+    end
+   -- print("prep autoland ".. simDR_radarAlt1 .. " "..B747DR_ap_FMA_active_roll_mode.. " "..B747DR_ap_FMA_active_pitch_mode.. " "..numAPengaged)
+    if simDR_radarAlt1>0 and simDR_radarAlt1 < 65 and B747DR_ap_FMA_active_roll_mode==3 and B747DR_ap_FMA_active_pitch_mode == 2 and numAPengaged>2 then
+	print("autoland ".. simDR_radarAlt1 .. " "..B747DR_ap_FMA_active_roll_mode.. " "..B747DR_ap_FMA_active_pitch_mode.. " "..numAPengaged)
+	B747DR_ap_FMA_active_roll_mode = 4 --ROLLOUT
+	B747DR_ap_FMA_active_pitch_mode = 4 --FLARE
+	simDR_descent=3
+	simDR_pitch  =12
+	--B747DR_ap_FMA_autothrottle_mode = 2
+	active_autoland=true
+	active_land=false
+	return
+    end
     -- AUTOTHROTTLE
     -------------------------------------------------------------------------------------
     if simDR_autopilot_autothrottle_on == 0 then                                        
@@ -1239,16 +1289,18 @@ function B747_ap_fma()
 
 
     end
-    
+     
     
     
     -- ROLL MODES: ACTIVE
     -- ----------------------------------------------------------------------------------
 
 	-- (NONE) --
-	B747DR_ap_FMA_active_roll_mode = 0
-
+	--B747DR_ap_FMA_active_roll_mode = 0
+    
     -- (TOGA) --
+    
+	
     if simDR_autopilot_TOGA_lat_status == 2 then
         B747DR_ap_FMA_active_roll_mode = 1
 
@@ -1260,11 +1312,11 @@ function B747_ap_fma()
     elseif simDR_autopilot_nav_status == 2 then
         B747DR_ap_FMA_active_roll_mode = 3
         B747DR_ap_heading_deg = roundToIncrement(simDR_nav1_radio_course_deg, 1)            -- SET THE SELECTED HEADING VALUE TO THE LOC COURSE
-
-
-    -- (ROLLOUT) --
-    -- TODO: AUTOLAND LOGIC
     
+
+      -- (ROLLOUT) --
+      -- TODO: AUTOLAND LOGIC
+     
 
     -- (HDG SEL) --
     elseif simDR_autopilot_heading_status == 2 then
@@ -1280,7 +1332,8 @@ function B747_ap_fma()
     	and math.abs(simDR_AHARS_roll_deg_pilot) > 5.0
     then
         B747DR_ap_FMA_active_roll_mode = 5       
-
+    else
+      B747DR_ap_FMA_active_roll_mode = 0
 	end
 
 
@@ -1386,22 +1439,24 @@ function B747_ap_afds()
     
     B747DR_ap_AFDS_status_annun = 0
     
-    if numAPengaged >= 1 then                                                           	-- TODO:  CHANGE TO "==" WHEN AUTOLAND LOGIC (BELOW) IS IMPLEMENTED
-        B747DR_ap_AFDS_status_annun = 2                                                    	-- AFDS MODE = "CMD"
+    if numAPengaged == 1 then                                                           	-- TODO:  CHANGE TO "==" WHEN AUTOLAND LOGIC (BELOW) IS IMPLEMENTED
+                                                            	
 
         
-        --if B747_AFDS_land2_EICAS_status == 1 or B747_AFDS_land3_EICAS_status == 1 then
-        --    B747DR_ap_AFDS_status_annun = 5                                              	-- AFDS MODE = "NO AUTOLAND" (NOT MODELED)
-        --end
+        if  simDR_autopilot_approach_status > 0 then
+            B747DR_ap_AFDS_status_annun = 5                                              	-- AFDS MODE = "NO AUTOLAND" (NOT MODELED)
+	else
+	    B747DR_ap_AFDS_status_annun = 2   -- AFDS MODE = "CMD"
+        end
 
     -- TODO: IF LOC OR APP CAPTURED ? THEN...
-    --elseif numAPengaged == 2 then
-        --B747DR_ap_AFDS_status_annun = 3                                                  	-- AFDS MODE = "LAND 2"
-        --B747_AFDS_land2_EICAS_status = 1
+    elseif numAPengaged == 2  and simDR_autopilot_approach_status > 0  then
+        B747DR_ap_AFDS_status_annun = 3                                                  	-- AFDS MODE = "LAND 2"
+        B747_AFDS_land2_EICAS_status = 1
 
-    --elseif numAPengaged == 3 then
-        --B747DR_ap_AFDS_status_annun = 4                                                  	-- AFDS MODE = "LAND 3"
-        --B747_AFDS_land3_EICAS_status = 1
+    elseif numAPengaged == 3  and simDR_autopilot_approach_status > 0  then
+        B747DR_ap_AFDS_status_annun = 4                                                  	-- AFDS MODE = "LAND 3"
+        B747_AFDS_land3_EICAS_status = 1
 
 
 

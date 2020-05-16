@@ -22,7 +22,7 @@ fmsPages["ACARS"]["template"]={
 }
 fmsFunctionsDefs["ACARS"]["L1"]={"setpage","PREFLIGHT"}
 fmsFunctionsDefs["ACARS"]["R1"]={"setpage","ACARSMSGS"}
-
+fmsFunctionsDefs["ACARS"]["R2"]={"setpage","VHFCONTROL"}
 fmsPages["PREFLIGHT"]=createPage("PREFLIGHT")
 fmsPages["PREFLIGHT"]["template"]={
 

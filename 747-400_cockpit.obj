@@ -22269,9 +22269,11 @@ ATTR_manip_command	button	laminar/B747/rtp_R/vhf_L/sel_switch	VHF L Selector
 TRIS	15900 30
 ATTR_manip_command	button	laminar/B747/rtp_R/vhf_R/sel_switch	VHF R Seelctor
 TRIS	15930 30
-ATTR_manip_command	button	sim/FMS/navrad	NAV RAD
-TRIS	15960 60
-ATTR_manip_command	button	sim/FMS2/navrad	NAV RAD
+ATTR_manip_command	button	laminar/B747/fms3/func_key/navrad	NAV RAD 1
+TRIS	15960 30
+ATTR_manip_command	button	laminar/B747/fms1/func_key/navrad	NAV RAD 2
+TRIS	15990 30
+ATTR_manip_command	button	laminar/B747/fms2/func_key/navrad	NAV RAD 3
 TRIS	16020 30
 ATTR_manip_command	button	sim/autopilot/FMS	Autopiot VNAV Mode
 TRIS	16050 30

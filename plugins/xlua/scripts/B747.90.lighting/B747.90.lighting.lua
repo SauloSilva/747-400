@@ -450,8 +450,36 @@ B747DR_flood_light_rheo_mcp             = create_dataref("laminar/B747/light/flo
 B747DR_flood_light_rheo_aisle_stand     = create_dataref("laminar/B747/light/flood/rheostat/aisle_stand", "number", B747DR_flood_light_rheo_aisle_stand_DRhandler)
 B747DR_flood_light_rheo_overhead        = create_dataref("laminar/B747/light/flood/rheostat/overhead", "number", B747DR_flood_light_rheo_overhead_DRhandler)
 
+function B747CMD_cockpitLightsOn_CMDhandler()
+  --TODO Animate
+  B747DR_flood_light_rheo_capt_panel=1
+  B747DR_map_light_rheo_capt=1
+  B747DR_chart_light_rheo_capt=1
+  B747DR_flood_light_rheo_fo_panel=1
+  B747DR_map_light_rheo_fo=1
+  B747DR_chart_light_rheo_fo=1
+  B747DR_map_light_rheo_observer=1
+  B747DR_flood_light_rheo_mcp=1
+  B747DR_flood_light_rheo_aisle_stand=1
+  B747DR_flood_light_rheo_overhead=1
+end
 
+function B747CMD_cockpitLightsOff_CMDhandler()
+  --TODO Animate
+  B747DR_flood_light_rheo_capt_panel=0
+  B747DR_map_light_rheo_capt=0
+  B747DR_chart_light_rheo_capt=0
+  B747DR_flood_light_rheo_fo_panel=0
+  B747DR_map_light_rheo_fo=0
+  B747DR_chart_light_rheo_fo=0
+  B747DR_map_light_rheo_observer=0
+  B747DR_flood_light_rheo_mcp=0
+  B747DR_flood_light_rheo_aisle_stand=0
+  B747DR_flood_light_rheo_overhead=0
+end
 
+B747CMD_cockpitLightsOn		= create_command("laminar/B747/light/cabin_lightsOn", "cabin lights On", B747CMD_cockpitLightsOn_CMDhandler)
+B747CMD_cockpitLightsOff		= create_command("laminar/B747/light/cabin_lightsOff", "cabin lights Off", B747CMD_cockpitLightsOff_CMDhandler)
 
 --*************************************************************************************--
 --** 				             X-PLANE COMMAND HANDLERS               	    	 **--
