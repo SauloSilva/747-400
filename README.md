@@ -4,10 +4,8 @@ Thank you all for your support! We are just beginning to form a team that can he
 
 
 Join our Discord:
-Discord: https://discord.gg/JNs8YDF 
+Discord: https://discord.gg/UbZVAuX
 
-Want to know what we are working on? Check out our Trello!
-Trello: https://trello.com/b/X6GzCmGR/boeing-747-400
 
 Changelog:
 
