@@ -391,10 +391,12 @@ end
 
 --function before_physics() end
 
+
 function after_physics()
-
+    --print("navaids="..navAids)
+    --print("fms="..fms)
     B747_fltmgmt_monitor_AI()
-
+    --B747_fltmgmt_setILS() 
 end
 
 --function after_replay() end

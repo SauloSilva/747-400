@@ -142,7 +142,10 @@ B747CMD_autobrakes_sel_dial_dn  = deferred_command("laminar/B747/gear/autobrakes
 B747CMD_ai_gear_quick_start			= deferred_command("laminar/B747/ai/gear_quick_start", "number", B747_ai_gear_quick_start_CMDhandler)
 
 
+simDR_aircraft_on_ground    = find_dataref("sim/flightmodel/failures/onground_all")
 
-
-
+function flight_start()
+  if simDR_aircraft_on_ground==0 then B747DR_gear_handle=2 end
+  
+end
 

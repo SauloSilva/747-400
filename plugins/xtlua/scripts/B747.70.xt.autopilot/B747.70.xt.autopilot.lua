@@ -111,6 +111,7 @@ simDR_vvi_fpm_pilot                 	= find_dataref("sim/cockpit2/gauges/indicat
 simDR_ind_airspeed_kts_pilot        	= find_dataref("sim/cockpit2/gauges/indicators/airspeed_kts_pilot")
 simDR_autopilot_nav_source          	= find_dataref("sim/cockpit2/radios/actuators/HSI_source_select_pilot")
 simDR_AHARS_roll_deg_pilot          	= find_dataref("sim/cockpit2/gauges/indicators/roll_AHARS_deg_pilot")
+--simDR_AHARS_heading_deg_pilot       	= find_dataref("sim/cockpit2/gauges/indicators/ground_track_mag_pilot")--find_dataref("sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_pilot")
 simDR_AHARS_heading_deg_pilot       	= find_dataref("sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_pilot")
 simDR_nav1_radio_course_deg         	= find_dataref("sim/cockpit2/radios/actuators/nav1_course_deg_mag_pilot")
 
@@ -119,7 +120,23 @@ simDR_radarAlt2           	= find_dataref("sim/cockpit2/guages/indicators/radio_
 simDR_allThrottle           	= find_dataref("sim/cockpit2/engine/actuators/throttle_ratio_all")
 simDR_descent           	= find_dataref("sim/cockpit2/autopilot/des_adjust")
 simDR_pitch           	= find_dataref("sim/cockpit2/autopilot/sync_hold_pitch_deg")
+simDR_touchGround=find_dataref("sim/flightmodel/failures/onground_any")
+simDR_onGround=find_dataref("sim/flightmodel/failures/onground_all")
+--simDR_pitch2           	= find_dataref("sim/cockpit2/autopilot/fpa")
+B744_fpm=find_dataref("laminar/B747/vsi/fpm")
+simDR_AHARS_pitch_heading_deg_pilot=find_dataref("sim/cockpit2/gauges/indicators/pitch_AHARS_deg_pilot")
+--simDR_AHARS_pitch_heading_deg_pilot=find_dataref("sim/cockpit2/gauges/indicators/ground_track_mag_pilot")
+simDR_elevator =find_dataref("sim/flightmodel2/controls/elevator_trim")
+simDR_rudder=find_dataref("sim/flightmodel2/controls/rudder_trim")
+--simDR_roll=find_dataref("sim/cockpit2/controls/total_roll_ratio")
 
+--simDR_elevator =find_dataref("sim/joystick/artstab_pitch_ratio")--	float	y	[-1..1]	The artificial stability input modifications for pitch. Use override_artstab
+simDR_roll=find_dataref("sim/joystick/artstab_roll_ratio")--	float	y	[-1..1]	The artificial stability input modifications for roll. Use override_artstab
+--simDR_rudder=find_dataref("sim/joystick/artstab_heading_ratio")
+
+simDR_reqHeading=find_dataref("sim/cockpit2/radios/actuators/hsi_obs_deg_mag_pilot")
+
+simDR_overRideStab=find_dataref("sim/operation/override/override_artstab")
 simDR_nav1_radio_nav_type           	= find_dataref("sim/cockpit2/radios/indicators/nav1_type")
 --[[
     0 = UNKNONW
@@ -156,6 +173,10 @@ simCMD_autopilot_autothrottle_off		= find_command("sim/autopilot/autothrottle_of
 simCMD_autopilot_roll_right_sync_mode	= find_command("sim/autopilot/override_right")
 simCMD_autopilot_servos_on              = find_command("sim/autopilot/servos_on")
 simCMD_autopilot_servos_fdir_off        = find_command("sim/autopilot/servos_fdir_off")
+simCMD_autopilot_servos2_on              = find_command("sim/autopilot/servos2_on")
+simCMD_autopilot_servos2_fdir_off        = find_command("sim/autopilot/servos_fdir2_off")
+simCMD_autopilot_servos3_on              = find_command("sim/autopilot/servos3_on")
+simCMD_autopilot_servos3_fdir_off        = find_command("sim/autopilot/servos_fdir3_off")
 simCMD_autopilot_fdir_off        		= find_command("sim/autopilot/servos_fdir_off")
 simCMD_autopilot_fdir_servos_down_one   = find_command("sim/autopilot/fdir_servos_down_one")
 simCMD_autopilot_pitch_sync             = find_command("sim/autopilot/pitch_sync")
@@ -494,6 +515,7 @@ function B747_ap_switch_cmd_C_CMDhandler(phase, duration)
 						end
 					end
 				simCMD_autopilot_servos_on:once()										-- TURN THE AP SERVOS "ON"	
+				simCMD_autopilot_servos2_on:once()	
 				simDR_autopilot_servos_on=1
 				end
 			B747DR_ap_cmd_C_mode = 1													-- SET AP CMD C MODE TO "ON"	
@@ -524,6 +546,7 @@ function B747_ap_switch_cmd_R_CMDhandler(phase, duration)
 						end
 					end
 				simCMD_autopilot_servos_on:once()										-- TURN THE AP SERVOS "ON"	
+				simCMD_autopilot_servos3_on:once()
 				simDR_autopilot_servos_on=1
 				end
 			B747DR_ap_cmd_R_mode = 1													-- SET AP CMD R MODE TO "ON"	
@@ -585,7 +608,10 @@ function B747_ap_switch_yoke_disengage_capt_CMDhandler(phase, duration)
 				simCMD_autopilot_fdir_servos_down_one:once()							-- TURN ONLY THE SERVOS OFF, LEAVE FLIGHT DIRECTOR ON	
 				B747_ap_all_cmd_modes_off()			
 			end								
-		end	
+		end
+		B747CMD_ap_reset:once()
+		simCMD_autopilot_fdir_servos_down_one:once()							-- TURN ONLY THE SERVOS OFF, LEAVE FLIGHT DIRECTOR ON	
+		B747_ap_all_cmd_modes_off()
 	end
 end	
 
@@ -665,6 +691,8 @@ function B747_ap_reset_CMDhandler(phase, duration)
 	if phase == 0 then
 		simCMD_autopilot_pitch_sync:once()
 		simCMD_autopilot_servos_fdir_off:once()	
+		simCMD_autopilot_servos2_fdir_off:once()
+		simCMD_autopilot_servos3_fdir_off:once()
 		simDR_autopilot_fms_vnav = 0
 		B747_ap_all_cmd_modes_off()
 		B747DR_ap_ias_mach_window_open = 0
@@ -952,10 +980,101 @@ function B747_ap_heading_hold_mode_afterCMDhandler(phase, duration)
 end
 
 
-
+dofile("json/json.lua")
+simDR_variation=find_dataref("sim/flightmodel/position/magnetic_variation")
+simDR_nav1Freq=find_dataref("sim/cockpit/radios/nav1_freq_hz")
+simDR_nav2Freq=find_dataref("sim/cockpit/radios/nav2_freq_hz")
+--simDR_nav1crs=find_dataref("sim/cockpit/radios/nav1_course_degm")
+--simDR_nav2crs=find_dataref("sim/cockpit/radios/nav2_course_degm")
+simDR_radio_nav_obs_deg             = find_dataref("sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot")
+navAidsJSON   = find_dataref("xtlua/navaids")
+fmsJSON   = find_dataref("xtlua/fms")
+nSize=0
+local navAids={}
+targetILS=find_dataref("laminar/B747/radio/ilsData")
+local targetILSS=""
+targetFix=0
+bestDiff=180
+function getHeading(lat1,lon1,lat2,lon2)
+  b10=math.rad(lat1)
+  b11=math.rad(lon1)
+  b12=math.rad(lat2)
+  b13=math.rad(lon2)
+  retVal=math.atan2(math.sin(b13-b11)*math.cos(b12),math.cos(b10)*math.sin(b12)-math.sin(b10)*math.cos(b12)*math.cos(b13-b11))
+  return math.deg(retVal)
+end
+function getHeadingDifference(desireddirection,current_heading)
+	error = current_heading - desireddirection
+	if (error >  180) then error =error- 360 end
+	if (error < -180) then error =error+ 360 end
+	return error
+end
+function B747_fltmgmt_setILS() 
+  if string.len(navAidsJSON) ~= nSize then
+    navAids=json.decode(navAidsJSON)
+    nSize=string.len(navAidsJSON)
+  end
+  local fms=json.decode(fmsJSON)
+  local newTargetFix=0
+  if table.getn(fms)>4 then
+    if fms[table.getn(fms)][2] == 1 then
+      --we have an airport as our dst
+      found =false
+     for i=table.getn(fms)-3,table.getn(fms)-4,-1 do --last is the airport, before that go-around [may] be dup
+	--we have a fix coming in to the airport
+       if fms[i][2] == 512 then
+	  for n=table.getn(navAids),1,-1 do
+	    if navAids[n][2] == 8 then
+	      local diff=getHeadingDifference(navAids[n][4],getHeading(fms[i][5],fms[i][6],navAids[n][5],navAids[n][6]))
+	      if diff<0 then diff=diff*-1 end
+	      
+	      if diff<1 and diff<=bestDiff then
+	      --print("navaid "..n.."->"..fms[i][8].."="..diff.." ".. navAids[n][1].." ".. navAids[n][2].." ".. navAids[n][3].." ".. navAids[n][4].." ".. navAids[n][5].." ".. navAids[n][6].." ".. navAids[n][7].." ".. navAids[n][8])
+	      bestDiff=diff
+	      --if targetFix == newTargetFix then found=true end
+	      newTargetFix=n
+	      end
+	    end
+	  end
+       end
+      end
+      targetFix=newTargetFix
+     -- if found==false then 
+	bestDiff=180 
+	
+      --else
+	if targetFix~=0 then
+	targetILSS=json.encode(navAids[targetFix])
+	targetILS=targetILSS
+	--print("set targetILS")
+	else
+	  targetILS=""
+	  targetILSS=""
+	  --print("cleared targetILS")
+	end
+    end
+  end
+  
+  --[[print("target="..targetILS.."= "..targetILSS.."= "..targetFix.. " "..nSize.. " "..table.getn(navAids))
+  for i=table.getn(fms)-1,1,-1 do
+    print("fms"..i.."=".. fms[i][1].." "..fms[i][2].." "..fms[i][3].." "..fms[i][4].." "..fms[i][5].." "..fms[i][6].." "..fms[i][7].." "..fms[i][8])
+  end]]
+end
 
 function B747_ap_appr_mode_beforeCMDhandler(phase, duration) 
 	if phase == 0 then
+	  print("Tune ILS".. targetILSS)
+	  
+	  if string.len(targetILSS)>0 then
+	    print("Tuning ILS".. targetILSS)
+	    local ilsNav=json.decode(targetILSS)
+	    simDR_nav1Freq=ilsNav[3]
+	    simDR_nav2Freq=ilsNav[3]
+	    local course=(ilsNav[4]+simDR_variation)
+	    simDR_radio_nav_obs_deg[0]=course
+	    simDR_radio_nav_obs_deg[1]=course
+	    print("Tuned ILS "..course)
+	  end
 		if simDR_autopilot_nav_status == 1 
 			and simDR_autopilot_gs_status == 1	
 		then
@@ -1158,6 +1277,8 @@ end
 
 
 ----- APPROACH MODE ---------------------------------------------------------------------
+
+
 function B747_ap_appr_mode()
 	
 	--[[if simDR_autopilot_approach_status > 0 then
@@ -1209,53 +1330,10 @@ end
 
 
 ----- FLIGHT MODE ANNUNCIATORS ----------------------------------------------------------
-local active_autoland=false
-local active_land=false
-local zerodThrottle=false
+active_autoland=false
+dofile("B747.autoland.lua")
 function B747_ap_fma()
-    local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
-    if numAPengaged<2 and zerodThrottle then 
-      active_autoland=false 
-      --B747CMD_reverseThrust:once()
-    end
-    if numAPengaged<2 then 
-      active_autoland=false 
-    end
-    
-    if active_autoland then
-      if active_land and simDR_allThrottle>0 and not zerodThrottle then 
-	simDR_allThrottle=B747_set_ap_animation_position(simDR_allThrottle,0,0,1,5)
-      elseif active_land and not zerodThrottle then 
-	zerodThrottle=true--allow thrust reversors
-	--B747CMD_reverseThrust:once()
-	
-	--active_autoland=false 
-	--active_land=false
-	--print("autoland finished".. simDR_radarAlt1 .. " "..B747DR_ap_FMA_autothrottle_mode .." "..B747DR_ap_FMA_active_pitch_mode)
-	return
-      end
-      if simDR_radarAlt1 < 3 and not active_land then -- watch the bounce! 
-	print("autoland stop".. simDR_radarAlt1 .. " "..B747DR_ap_FMA_autothrottle_mode .." "..B747DR_ap_FMA_active_pitch_mode)
-	simCMD_autopilot_autothrottle_off:once()	
-	B747DR_ap_FMA_active_pitch_mode = 0 --no pitch
-
-	simDR_pitch  =-1
-	active_land=true
-      end
-      return 
-    end
-   -- print("prep autoland ".. simDR_radarAlt1 .. " "..B747DR_ap_FMA_active_roll_mode.. " "..B747DR_ap_FMA_active_pitch_mode.. " "..numAPengaged)
-    if simDR_radarAlt1>0 and simDR_radarAlt1 < 65 and B747DR_ap_FMA_active_roll_mode==3 and B747DR_ap_FMA_active_pitch_mode == 2 and numAPengaged>2 then
-	print("autoland ".. simDR_radarAlt1 .. " "..B747DR_ap_FMA_active_roll_mode.. " "..B747DR_ap_FMA_active_pitch_mode.. " "..numAPengaged)
-	B747DR_ap_FMA_active_roll_mode = 4 --ROLLOUT
-	B747DR_ap_FMA_active_pitch_mode = 4 --FLARE
-	simDR_descent=3
-	simDR_pitch  =12
-	--B747DR_ap_FMA_autothrottle_mode = 2
-	active_autoland=true
-	active_land=false
-	return
-    end
+    if runAutoland() then return end
     -- AUTOTHROTTLE
     -------------------------------------------------------------------------------------
     if simDR_autopilot_autothrottle_on == 0 then                                        
@@ -1295,12 +1373,12 @@ function B747_ap_fma()
     -- ROLL MODES: ACTIVE
     -- ----------------------------------------------------------------------------------
 
-	-- (NONE) --
-	--B747DR_ap_FMA_active_roll_mode = 0
+  -- (NONE) --
+  --B747DR_ap_FMA_active_roll_mode = 0
     
     -- (TOGA) --
     
-	
+  
     if simDR_autopilot_TOGA_lat_status == 2 then
         B747DR_ap_FMA_active_roll_mode = 1
 
@@ -1328,13 +1406,13 @@ function B747_ap_fma()
         
      -- (ATT) --
     elseif simDR_autopilot_roll_status == 2 
-    	and simDR_autopilot_flight_dir_mode > 0
-    	and math.abs(simDR_AHARS_roll_deg_pilot) > 5.0
+      and simDR_autopilot_flight_dir_mode > 0
+      and math.abs(simDR_AHARS_roll_deg_pilot) > 5.0
     then
         B747DR_ap_FMA_active_roll_mode = 5       
     else
       B747DR_ap_FMA_active_roll_mode = 0
-	end
+  end
 
 
 
@@ -1355,14 +1433,14 @@ function B747_ap_fma()
     -- (FLARE) --
     -- TODO: AUTOLAND LOGIC
     
-	end
+  end
 
     -- PITCH MODES: ACTIVE
     -- ----------------------------------------------------------------------------------
 
-	-- (NONE) --
-	B747DR_ap_FMA_active_pitch_mode = 0
-	
+  -- (NONE) --
+  B747DR_ap_FMA_active_pitch_mode = 0
+  
     -- (TOGA) --
     if simDR_autopilot_TOGA_vert_status == 2 then
         B747DR_ap_FMA_active_pitch_mode = 1
@@ -1376,37 +1454,37 @@ function B747_ap_fma()
 
     -- (VNAV SPD) --
     elseif simDR_autopilot_fms_vnav == 1 
-    	and simDR_autopilot_flch_status == 2
+      and simDR_autopilot_flch_status == 2
     then
         B747DR_ap_FMA_active_pitch_mode = 4
 
     -- (VNAV ALT) --
     elseif simDR_autopilot_fms_vnav == 1 
-    	and simDR_autopilot_alt_hold_status == 2
+      and simDR_autopilot_alt_hold_status == 2
     then
         B747DR_ap_FMA_active_pitch_mode = 5
             
     -- (VNAV PATH) --
-   	elseif simDR_autopilot_fms_vnav == 1
-   		and simDR_autopilot_vs_status == 2
-   	then
-	   	B747DR_ap_FMA_active_pitch_mode = 6	 
+    elseif simDR_autopilot_fms_vnav == 1
+      and simDR_autopilot_vs_status == 2
+    then
+      B747DR_ap_FMA_active_pitch_mode = 6  
 
     -- (V/S) --
     elseif simDR_autopilot_vs_status == 2 
-    	and simDR_autopilot_fms_vnav == 0
+      and simDR_autopilot_fms_vnav == 0
     then
         B747DR_ap_FMA_active_pitch_mode = 7
 
     -- (FLCH SPD) --
     elseif simDR_autopilot_flch_status == 2 
-    	and simDR_autopilot_fms_vnav == 0
+      and simDR_autopilot_fms_vnav == 0
     then
         B747DR_ap_FMA_active_pitch_mode = 8
 
     -- (ALT) --
     elseif simDR_autopilot_alt_hold_status == 2 
-    	and simDR_autopilot_fms_vnav == 0
+      and simDR_autopilot_fms_vnav == 0
     then
         B747DR_ap_FMA_active_pitch_mode = 9
 
@@ -1414,8 +1492,8 @@ function B747_ap_fma()
     elseif simDR_autopilot_pitch > 1 then
         B747DR_ap_FMA_active_pitch_mode = 0
     end
-	
-end	
+  
+end 	
 
 
 
@@ -1438,23 +1516,24 @@ function B747_ap_afds()
 	end		
     
     B747DR_ap_AFDS_status_annun = 0
-    
+    local landAssist=false
+    if simDR_autopilot_approach_status > 1 or active_autoland then landAssist=true end
     if numAPengaged == 1 then                                                           	-- TODO:  CHANGE TO "==" WHEN AUTOLAND LOGIC (BELOW) IS IMPLEMENTED
                                                             	
 
         
-        if  simDR_autopilot_approach_status > 0 then
+        if  landAssist==true then
             B747DR_ap_AFDS_status_annun = 5                                              	-- AFDS MODE = "NO AUTOLAND" (NOT MODELED)
 	else
 	    B747DR_ap_AFDS_status_annun = 2   -- AFDS MODE = "CMD"
         end
 
     -- TODO: IF LOC OR APP CAPTURED ? THEN...
-    elseif numAPengaged == 2  and simDR_autopilot_approach_status > 0  then
+    elseif numAPengaged == 2  and landAssist==true  then
         B747DR_ap_AFDS_status_annun = 3                                                  	-- AFDS MODE = "LAND 2"
         B747_AFDS_land2_EICAS_status = 1
 
-    elseif numAPengaged == 3  and simDR_autopilot_approach_status > 0  then
+    elseif numAPengaged == 3  and landAssist==true  then
         B747DR_ap_AFDS_status_annun = 4                                                  	-- AFDS MODE = "LAND 3"
         B747_AFDS_land3_EICAS_status = 1
 
@@ -1734,7 +1813,9 @@ end
 function flight_start()
 
     B747_flight_start_autopilot()
-
+    simDR_elevator=0
+    simDR_rudder=0
+    simDR_pitch=0
 end
 
 --function flight_crash() end
@@ -1744,7 +1825,8 @@ end
 function after_physics()
 
     B747_ap_button_switch_animation()
-    
+    B747_fltmgmt_setILS() 
+    --print("ils=".. targetILSS)--make sure we have it!
     B747_ap_vs_mode()
 	B747_ap_ias_mach_mode()
 	B747_ap_altitude()

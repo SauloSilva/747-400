@@ -16,6 +16,11 @@ function hasChild(parent,childKey)
  
   return true
 end
+function deferred_dataref(name,type,notifier)
+	print("Deffered dataref: "..name)
+	dref=XLuaCreateDataRef(name, type,"yes",notifier)
+	return wrap_dref_any(dref,type) 
+end
 dofile("json/json.lua")
 hh=find_dataref("sim/cockpit2/clock_timer/zulu_time_hours")
 mm=find_dataref("sim/cockpit2/clock_timer/zulu_time_minutes")
@@ -30,6 +35,8 @@ simDR_radio_nav_freq_khz            = find_dataref("sim/cockpit2/radios/actuator
 simDR_radio_nav_freq_hz             = find_dataref("sim/cockpit2/radios/actuators/nav_frequency_hz")
 simDR_radio_nav_course_deg          = find_dataref("sim/cockpit2/radios/actuators/nav_course_deg_mag_pilot")
 simDR_radio_nav_obs_deg             = find_dataref("sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot")
+simDR_radio_nav01_ID                = find_dataref("sim/cockpit2/radios/indicators/nav1_nav_id")
+simDR_radio_nav02_ID                = find_dataref("sim/cockpit2/radios/indicators/nav2_nav_id")
 simDR_radio_nav03_ID                = find_dataref("sim/cockpit2/radios/indicators/nav3_nav_id")
 simDR_radio_nav04_ID                = find_dataref("sim/cockpit2/radios/indicators/nav4_nav_id")
 
@@ -41,7 +48,7 @@ simDR_radio_adf2_freq_hz            = find_dataref("sim/cockpit2/radios/actuator
 B747DR_fms1_display_mode            = find_dataref("laminar/B747/fms1/display_mode")
 
 B747DR_init_fmsL_CD                 = find_dataref("laminar/B747/fmsL/init_CD")
-
+ilsData=deferred_dataref("laminar/B747/radio/ilsData", "string")
 acars=create_dataref("laminar/B747/comm/acars","number")  
 
 function createFMSDatarefs(fmsid)
@@ -185,9 +192,10 @@ fmsModules.fmsR=fmsR;
 --line=json.encode({ 1, 2, 3, { x = 10 } })
 --print(line)
 B747DR_CAS_memo_status          = find_dataref("laminar/B747/CAS/memo_status")
+function flight_start()
+  
+end
 function after_physics()
-    --print("Draw me an FMS!! "..fmsFunctionsDefs["INDEX"]["L3"][1])
-    --B747DR_fms[fms1.id][1]="    ACARS-MAIN MENU     "
     fmsL:B747_fms_display()
     fmsC:B747_fms_display()
     fmsR:B747_fms_display()

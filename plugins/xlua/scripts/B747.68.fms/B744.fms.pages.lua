@@ -42,34 +42,45 @@ fmsFunctionsDefs["INDEX"]={}
 fmsFunctionsDefs["INDEX"]["L1"]={"setpage","FMC"}
 fmsFunctionsDefs["INDEX"]["L2"]={"setpage","ACARS"}
 
+simDR_variation=find_dataref("sim/flightmodel/position/magnetic_variation")
 fmsPages["NAVRAD"]=createPage("NAVRAD")
-fmsPages["NAVRAD"]["template"]={
-
-"        NAV RADIO       ",
-"                        ",
-string.format("%6.2f %4s  %4s %6.2f", simDR_radio_nav_freq_hz[2]*0.01, simDR_radio_nav03_ID, simDR_radio_nav04_ID, simDR_radio_nav_freq_hz[3]*0.01),
-string.format("                        ", ""),
-string.format(" %03d     %3s  %3s    %03d", simDR_radio_nav_obs_deg[2], "---", "---", simDR_radio_nav_obs_deg[3]),
-"                        ",
-string.format("%06.1f         %06.1f   ", simDR_radio_adf1_freq_hz, simDR_radio_adf2_freq_hz),
-"                        ",
-string.format("%6.2f/%03d%s             ", simDR_radio_nav_freq_hz[0]*0.01, simDR_radio_nav_obs_deg[0], "˚"),
-"                        ",
-"                        ", 
-"                        ",
-"                        "
-}
+fmsPages["NAVRAD"].getPage=function(self,pgNo)
+  local ils1="                        "
+  local ils2="                        "
+  if string.len(ilsData)>0 then
+    local ilsNav=json.decode(ilsData)
+    ils1= ilsNav[7]
+    ils2= string.format("%6.2f/%03d%s             ", ilsNav[3]*0.01,(ilsNav[4]+simDR_variation), "˚")
+  end
+  local page={
+    "        NAV RADIO       ",
+    "                        ",
+    string.format("%6.2f %4s  %4s %6.2f", simDR_radio_nav_freq_hz[0]*0.01, simDR_radio_nav01_ID, simDR_radio_nav02_ID, simDR_radio_nav_freq_hz[1]*0.01),
+    string.format("                        ", ""),
+    string.format(" %03d     %3s  %3s    %03d", simDR_radio_nav_obs_deg[0], "---", "---", simDR_radio_nav_obs_deg[1]),
+    "                        ",
+    string.format("%06.1f         %06.1f   ", simDR_radio_adf1_freq_hz, simDR_radio_adf2_freq_hz),
+    "                        ",
+    ils1,
+    ils2,
+    "                        ", 
+    "                        ",
+    "                        "
+    }
+  return page
+end
+--fmsPages["NAVRAD"]["template"]=
 fmsPages["NAVRAD"]["templateSmall"]={
 "                        ",
 " VOR L             VOR R",
-"      M         M       ",
+"                        ",
 " CRS      RADIAL     CRS",
 "                        ",
 " ADF L             ADF R",
 "      ANT            ANT",
 " ILS                    ",
-"           M            ",
 "                        ",
+"           M            ",
 "                        ",
 "                        ",
 "                        ",

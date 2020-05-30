@@ -75,7 +75,7 @@ B747.fuel.main1_tank.capacity 			= 13622.0   -- XP Tank DR Index: 1
 B747.fuel.main2_tank.capacity 			= 38132.0   -- XP Tank DR Index: 2
 B747.fuel.main3_tank.capacity 			= 38132.0   -- XP Tank DR Index: 3
 B747.fuel.main4_tank.capacity 			= 13622.0   -- XP Tank DR Index: 4
-B747.fuel.res2_tank.capacity 	        =  4018.0   -- XP Tank DR Index: 5
+B747.fuel.res2_tank.capacity 	        	=  4018.0   -- XP Tank DR Index: 5
 B747.fuel.res3_tank.capacity 			=  4018.0   -- XP Tank DR Index: 6
 B747.fuel.stab_tank.capacity 			= 10030.0   -- XP Tank DR Index: 7
 
@@ -372,6 +372,15 @@ simDR_TAT                           = find_dataref("sim/cockpit2/temperature/out
 simDR_engine_fire                   = find_dataref("sim/cockpit2/annunciators/engine_fires")
 simDR_eng_fuel_flow_kg_sec          = find_dataref("sim/cockpit2/engine/indicators/fuel_flow_kg_sec")
 simDR_fuel_tank_weight_kg           = find_dataref("sim/flightmodel/weight/m_fuel")  -- kgs
+-- 0 = center_tank
+-- 1 = main1_tank
+-- 2 = main2_tank
+-- 3 = main3_tank
+-- 4 = main4_tank
+-- 5 = res2_tank
+-- 6 = res3_tank
+-- 7 = stab_tank
+
 simDR_fueL_tank_weight_total_kg     = find_dataref("sim/flightmodel/weight/m_fuel_total")  -- kgs
 simDR_engine_has_fuel               = find_dataref("sim/flightmodel2/engines/has_fuel_flow_before_mixture")
 
@@ -1956,15 +1965,15 @@ function B747_fuel_tank_levels()
     -- FROM RESERVE TANK 2 TO MAIN TANK 2
     if simDR_fuel_tank_weight_kg[5] > 0 and simDR_fuel_tank_weight_kg[2] < B747.fuel.main2_tank.capacity then
         simDR_fuel_tank_weight_kg[5] = math.max(B747.fuel.res2_tank.min, simDR_fuel_tank_weight_kg[5] - (resTank2_to_mainTank2_xfr_KgSec_A * fuel_calc_rate))
-        simDR_fuel_tank_weight_kg[2] = math.min(B747.fuel.main2_tank.capacity, simDR_fuel_tank_weight_kg[2] + (resTank2_to_mainTank2_xfr_KgSec_A * fuel_calc_rate))
+        simDR_fuel_tank_weight_kg[2] = math.min(B747.fuel.main2_tank.capacity,( simDR_fuel_tank_weight_kg[2] + (resTank2_to_mainTank2_xfr_KgSec_A * fuel_calc_rate)))
 
         simDR_fuel_tank_weight_kg[5] = math.max(B747.fuel.res2_tank.min, simDR_fuel_tank_weight_kg[5] - (resTank2_to_mainTank2_xfr_KgSec_B * fuel_calc_rate))
-        simDR_fuel_tank_weight_kg[2] = math.min(B747.fuel.main2_tank.capacity, simDR_fuel_tank_weight_kg[2] + (resTank2_to_mainTank2_xfr_KgSec_B * fuel_calc_rate))
+        simDR_fuel_tank_weight_kg[2] = math.min(B747.fuel.main2_tank.capacity, (simDR_fuel_tank_weight_kg[2] + (resTank2_to_mainTank2_xfr_KgSec_B * fuel_calc_rate)))
     end
 
 
     -- FROM RESERVE TANK 3 TO MAIN TANK 3
-    if simDR_fuel_tank_weight_kg[6] > 0 and simDR_fuel_tank_weight_kg[4] < B747.fuel.main3_tank.capacity then
+    if simDR_fuel_tank_weight_kg[6] > 0 and simDR_fuel_tank_weight_kg[3] < B747.fuel.main3_tank.capacity then
         simDR_fuel_tank_weight_kg[6] = math.max(B747.fuel.res3_tank.min, simDR_fuel_tank_weight_kg[6] - (resTank3_to_mainTank3_xfr_KgSec_A * fuel_calc_rate))
         simDR_fuel_tank_weight_kg[3] = math.min(B747.fuel.main3_tank.capacity, simDR_fuel_tank_weight_kg[3] + (resTank3_to_mainTank3_xfr_KgSec_A * fuel_calc_rate))
 
@@ -1990,7 +1999,7 @@ function B747_fuel_tank_levels()
     -- FROM CENTER TANK TO MAIN TANK 2 (SCAVENGE)
     if simDR_fuel_tank_weight_kg[0] > 0 and simDR_fuel_tank_weight_kg[2] < B747.fuel.main2_tank.capacity then
         simDR_fuel_tank_weight_kg[0] = math.max(B747.fuel.center_tank.min, simDR_fuel_tank_weight_kg[0] - (centerTank_to_mainTank2_xfr_KgSec_L1 * fuel_calc_rate))
-        simDR_fuel_tank_weight_kg[2] = math.min(B747.fuel.main2_tank.capacity, simDR_fuel_tank_weight_kg[2] + (centerTank_to_mainTank2_xfr_KgSec_L1 * fuel_calc_rate))
+        --simDR_fuel_tank_weight_kg[2] = math.min(B747.fuel.main2_tank.capacity, simDR_fuel_tank_weight_kg[2] + (centerTank_to_mainTank2_xfr_KgSec_L1 * fuel_calc_rate))
 
         simDR_fuel_tank_weight_kg[0] = math.max(B747.fuel.center_tank.min, simDR_fuel_tank_weight_kg[0] - (centerTank_to_mainTank2_xfr_KgSec_L2 * fuel_calc_rate))
         simDR_fuel_tank_weight_kg[2] = math.min(B747.fuel.main2_tank.capacity, simDR_fuel_tank_weight_kg[2] + (centerTank_to_mainTank2_xfr_KgSec_L2 * fuel_calc_rate))
@@ -2023,14 +2032,29 @@ function B747_fuel_tank_levels()
     -- FROM MAIN TANK #3
     simDR_fuel_tank_weight_kg[3] = math.max(B747.fuel.main3_tank.min, simDR_fuel_tank_weight_kg[3] - ((mainTank3_jettison_KgSec_A * fuel_jett_valve_flow_factor) * fuel_calc_rate))
     simDR_fuel_tank_weight_kg[3] = math.max(B747.fuel.main3_tank.min, simDR_fuel_tank_weight_kg[3] - ((mainTank3_jettison_KgSec_B * fuel_jett_valve_flow_factor) * fuel_calc_rate))
-
+  -- 0 = center_tank
+-- 1 = main1_tank
+-- 2 = main2_tank
+-- 3 = main3_tank
+-- 4 = main4_tank
+-- 5 = res2_tank
+-- 6 = res3_tank
+-- 7 = stab_tank
+    simDR_fuel_tank_weight_kg[0] = math.min(B747.fuel.center_tank.capacity, simDR_fuel_tank_weight_kg[0])
+    simDR_fuel_tank_weight_kg[1] = math.min(B747.fuel.main1_tank.capacity, simDR_fuel_tank_weight_kg[1])
+    simDR_fuel_tank_weight_kg[2] = math.min(B747.fuel.main2_tank.capacity, simDR_fuel_tank_weight_kg[2])
+    simDR_fuel_tank_weight_kg[3] = math.min(B747.fuel.main3_tank.capacity, simDR_fuel_tank_weight_kg[3])
+    simDR_fuel_tank_weight_kg[4] = math.min(B747.fuel.main4_tank.capacity, simDR_fuel_tank_weight_kg[4])
+    simDR_fuel_tank_weight_kg[5] = math.min(B747.fuel.res2_tank.capacity, simDR_fuel_tank_weight_kg[5])
+    simDR_fuel_tank_weight_kg[6] = math.min(B747.fuel.res3_tank.capacity, simDR_fuel_tank_weight_kg[6])
+    simDR_fuel_tank_weight_kg[7] = math.min(B747.fuel.stab_tank.capacity, simDR_fuel_tank_weight_kg[7])
 
 
 
     ----- ENGINE FUEL BURN ------------------------------------------------------
 
     -- APU
-    simDR_fuel_tank_weight_kg[2] = math.max(B747.fuel.main2_tank.min, simDR_fuel_tank_weight_kg[2] - (apuFuelBurn_KgSec * fuel_calc_rate))
+   -- simDR_fuel_tank_weight_kg[2] = math.max(B747.fuel.main2_tank.min, simDR_fuel_tank_weight_kg[2] - (apuFuelBurn_KgSec * fuel_calc_rate))
 
 
     -- ENGINE #1

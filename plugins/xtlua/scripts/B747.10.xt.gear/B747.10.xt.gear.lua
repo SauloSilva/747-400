@@ -746,7 +746,8 @@ end
 
 ----- SET STATE TO ENGINES RUNNING ------------------------------------------------------
 function B747_set_gear_ER()
-	
+  
+	--simDR_gear_handle_down=1
 	
 	
 end
