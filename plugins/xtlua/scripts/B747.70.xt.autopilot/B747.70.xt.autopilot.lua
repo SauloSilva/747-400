@@ -1009,7 +1009,11 @@ function getHeadingDifference(desireddirection,current_heading)
 	if (error < -180) then error =error+ 360 end
 	return error
 end
-function B747_fltmgmt_setILS() 
+function B747_fltmgmt_setILS()
+  local n1=simDR_nav1Freq
+  local n2=simDR_nav2Freq
+  local d1=simDR_radio_nav_obs_deg[0]
+  local d2=simDR_radio_nav_obs_deg[1]--continually get latest
   if string.len(navAidsJSON) ~= nSize then
     navAids=json.decode(navAidsJSON)
     nSize=string.len(navAidsJSON)
@@ -1022,7 +1026,7 @@ function B747_fltmgmt_setILS()
       found =false
      for i=table.getn(fms)-3,table.getn(fms)-4,-1 do --last is the airport, before that go-around [may] be dup
 	--we have a fix coming in to the airport
-       if fms[i][2] == 512 then
+       --if fms[i][2] == 512 then
 	  for n=table.getn(navAids),1,-1 do
 	    if navAids[n][2] == 8 then
 	      local diff=getHeadingDifference(navAids[n][4],getHeading(fms[i][5],fms[i][6],navAids[n][5],navAids[n][6]))
@@ -1035,7 +1039,7 @@ function B747_fltmgmt_setILS()
 	      newTargetFix=n
 	      end
 	    end
-	  end
+	  --end
        end
       end
       targetFix=newTargetFix

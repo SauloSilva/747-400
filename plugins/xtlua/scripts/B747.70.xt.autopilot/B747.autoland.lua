@@ -49,14 +49,15 @@ function doPitch()
   --elseif simDR_radarAlt1 >50 and lastRod>1.5 then targetPitch=10  --flare harder!
   --elseif simDR_radarAlt1 >50 and lastRod>=0.8 then targetPitch=simDR_AHARS_pitch_heading_deg_pilot 
   --local doRollout=maxPitch+4.5
-  local doRollout=((4.8+lastRod*8)*(maxPitch/6))
+  local doRollout=((4.8+lastRod*8)*(maxPitch/8))
   if simDR_radarAlt1 >50 then targetPitch=-0.5
   elseif simDR_radarAlt1 >40 then
     local thisPitch=9*lastRod
-    if thisPitch<6 then thisPitch=6 end
+    if thisPitch<8 then thisPitch=8 end
     if simDR_radarAlt1 > doRollout then targetPitch=thisPitch end
   end 
   if simDR_radarAlt1 < doRollout then targetPitch=2 maxPitch=2 inrollout=true B747DR_ap_FMA_active_roll_mode=4 B747DR_ap_FMA_active_pitch_mode=0 end
+  if simDR_radarAlt1 < 5.5 then targetPitch=1 maxPitch=1 inrollout=true B747DR_ap_FMA_active_roll_mode=4 B747DR_ap_FMA_active_pitch_mode=0 end
   if targetPitch>0 and targetPitch>maxPitch then maxPitch=targetPitch 
 end
   if targetPitch>0 and targetPitch<maxPitch and simDR_radarAlt1 > doRollout then targetPitch=maxPitch 
@@ -114,13 +115,13 @@ function controlYaw()
 end
 local targetAirspeed
 function doThrottle()
-  targetAirspeed=160
+  targetAirspeed=169
   lastAlt=simDR_radarAlt1
   if touchedGround==true then pinThrottle=0 return end
   if simDR_touchGround>0 then touchedGround=true pinThrottle=0 return end
 
   if simDR_radarAlt1 < 50 then
-    targetAirspeed=169-(50+simDR_radarAlt1)/2
+    targetAirspeed=169-(50+simDR_radarAlt1)/10
   end
   
   local diff=targetAirspeed-simDR_ind_airspeed_kts_pilot
@@ -159,7 +160,9 @@ function end_Flare()
         zerodThrottle=false
 end
 function touchdown_elevator()
-      targetPitch=-3
+      if simDR_AHARS_pitch_heading_deg_pilot>2 then targetPitch=1
+      elseif simDR_AHARS_pitch_heading_deg_pilot>1 then targetPitch=0
+      else targetPitch=-2 end
       if simDR_AHARS_pitch_heading_deg_pilot>targetPitch+0.1 then
 	initElevator=-0.2*(simDR_AHARS_pitch_heading_deg_pilot-targetPitch)
       elseif simDR_AHARS_pitch_heading_deg_pilot<targetPitch-0.1 then
