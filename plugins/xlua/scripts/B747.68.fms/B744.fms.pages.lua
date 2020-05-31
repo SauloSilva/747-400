@@ -55,9 +55,9 @@ fmsPages["NAVRAD"].getPage=function(self,pgNo)
   local page={
     "        NAV RADIO       ",
     "                        ",
-    string.format("%6.2f %4s  %4s %6.2f", simDR_radio_nav_freq_hz[0]*0.01, simDR_radio_nav01_ID, simDR_radio_nav02_ID, simDR_radio_nav_freq_hz[1]*0.01),
+    string.format("%6.2f %4s  %4s %6.2f", simDR_radio_nav_freq_hz[2]*0.01, simDR_radio_nav03_ID, simDR_radio_nav04_ID, simDR_radio_nav_freq_hz[3]*0.01),
     string.format("                        ", ""),
-    string.format(" %03d     %3s  %3s    %03d", simDR_radio_nav_obs_deg[0], "---", "---", simDR_radio_nav_obs_deg[1]),
+    string.format(" %03d     %3s  %3s    %03d", simDR_radio_nav_obs_deg[2], "---", "---", simDR_radio_nav_obs_deg[3]),
     "                        ",
     string.format("%06.1f         %06.1f   ", simDR_radio_adf1_freq_hz, simDR_radio_adf2_freq_hz),
     "                        ",
@@ -85,7 +85,12 @@ fmsPages["NAVRAD"]["templateSmall"]={
 "                        ",
 "                        ",
 }
-
+fmsFunctionsDefs["NAVRAD"]["L1"]={"setDref","VORL"}
+fmsFunctionsDefs["NAVRAD"]["L2"]={"setDref","CRSL"}
+fmsFunctionsDefs["NAVRAD"]["L3"]={"setDref","ADFL"}
+fmsFunctionsDefs["NAVRAD"]["R1"]={"setDref","VORR"}
+fmsFunctionsDefs["NAVRAD"]["R2"]={"setDref","CRSR"}
+fmsFunctionsDefs["NAVRAD"]["R3"]={"setDref","ADFR"}
 --fmsFunctionsDefs["NAVRAD"]["L6"]={"setpage","ACARS"}
 
 function fmsFunctions.setpage(fmsO,value)
@@ -134,6 +139,17 @@ function fmsFunctions.setdata(fmsO,value)
   fmsO["scratchpad"]=""
 end
 
+function fmsFunctions.setDref(fmsO,value)
+   local val=tonumber(fmsO["scratchpad"])
+  print(val)
+  if value=="VORL" then simDR_radio_nav_freq_hz[2]=val*100 end
+  if value=="VORR" then simDR_radio_nav_freq_hz[3]=val*100 end
+  if value=="CRSL" then simDR_radio_nav_obs_deg[2]=val end
+  if value=="CRSR" then simDR_radio_nav_obs_deg[3]=val end
+  if value=="ADFL" then simDR_radio_adf1_freq_hz=val end
+  if value=="ADFR" then simDR_radio_adf2_freq_hz=val end
+  fmsO["scratchpad"]=""
+end
 function fmsFunctions.showmessage(fmsO,value)
   acarsSystem.currentMessage=value
   fmsO["inCustomFMC"]=true

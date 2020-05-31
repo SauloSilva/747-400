@@ -971,7 +971,7 @@ function B747_nd_center_capt_switch_CMDhandler(phase, duration)
         B747DR_nd_center_capt_switch_pos = 1
         if B747DR_nd_mode_capt_sel_dial_pos < 3 then
             B747_nd_map_center_capt = 1.0 - B747_nd_map_center_capt
-            B747_nd_map_center_fo = B747_nd_map_center_capt
+            --B747_nd_map_center_fo = B747_nd_map_center_capt
         end
     elseif phase == 2 then
         B747DR_nd_center_capt_switch_pos = 0
@@ -1060,17 +1060,18 @@ end
 
 function B747_nd_mode_fo_sel_dial_up_CMDhandler(phase, duration)
     if phase == 0 then
-        B747_center_status_old = B747_nd_map_center_capt
+        --B747_center_status_old = B747_nd_map_center_capt
+	B747_center_status_old = B747_nd_map_center_fo
         B747DR_nd_mode_fo_sel_dial_pos = math.min(B747DR_nd_mode_fo_sel_dial_pos+1, 3)
-        B747DR_nd_mode_capt_sel_dial_pos = B747DR_nd_mode_fo_sel_dial_pos
+        --B747DR_nd_mode_capt_sel_dial_pos = B747DR_nd_mode_fo_sel_dial_pos
         simDR_EFIS_map_mode = B747DR_nd_mode_fo_sel_dial_pos
         if B747DR_nd_mode_fo_sel_dial_pos == 3 then
             simDR_EFIS_map_mode = 4
             B747_nd_map_center_fo = 1
-            B747_nd_map_center_capt = B747_nd_map_center_fo
+            --B747_nd_map_center_capt = B747_nd_map_center_fo
         else
             B747_nd_map_center_fo = B747_center_status_old
-            B747_nd_map_center_capt = B747_nd_map_center_fo
+            --B747_nd_map_center_capt = B747_nd_map_center_fo
         end
         -- TODO:  ADD ELEMENTS STATUS BASED ON MODE
     end
@@ -1078,16 +1079,17 @@ end
 
 function B747_nd_mode_fo_sel_dial_dn_CMDhandler(phase, duration)
     if phase == 0 then
+	B747_center_status_old = B747_nd_map_center_fo
         B747DR_nd_mode_fo_sel_dial_pos = math.max(B747DR_nd_mode_fo_sel_dial_pos-1, 0)
-        B747DR_nd_mode_capt_sel_dial_pos = B747DR_nd_mode_fo_sel_dial_pos
+       -- B747DR_nd_mode_capt_sel_dial_pos = B747DR_nd_mode_fo_sel_dial_pos
         simDR_EFIS_map_mode = B747DR_nd_mode_fo_sel_dial_pos
         if B747DR_nd_mode_fo_sel_dial_pos == 3 then
             simDR_EFIS_map_mode = 4
             B747_nd_map_center_fo = 1
-            B747_nd_map_center_capt = B747_nd_map_center_fo
+           -- B747_nd_map_center_capt = B747_nd_map_center_fo
         else
             B747_nd_map_center_fo = B747_center_status_old
-            B747_nd_map_center_capt = B747_nd_map_center_capt
+           -- B747_nd_map_center_capt = B747_nd_map_center_capt
         end
     end
 end
@@ -1116,7 +1118,7 @@ function B747_nd_center_fo_switch_CMDhandler(phase, duration)
         B747DR_nd_center_fo_switch_pos = 1
         if B747DR_nd_mode_fo_sel_dial_pos < 3 then
             B747_nd_map_center_fo = 1.0 - B747_nd_map_center_fo
-            B747_nd_map_center_capt = B747_nd_map_center_fo
+            --B747_nd_map_center_capt = B747_nd_map_center_fo
         end
     elseif phase == 2 then
         B747DR_nd_center_fo_switch_pos = 0

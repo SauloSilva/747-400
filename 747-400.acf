@@ -108373,7 +108373,7 @@ GROUP First Officer ND
     CLICK_DY 0
 
   GROUP Map:Centered
-    SHOW_EQUAL 1.000000 laminar/B747/nd/map_center/capt
+    SHOW_EQUAL 1.000000 laminar/B747/nd/map_center/fo
     LOCKED
     GROUP Map/Rose
       LOCKED
@@ -109238,7 +109238,7 @@ GROUP First Officer ND
     END_GROUP
   END_GROUP
   GROUP Map:Expanded
-    SHOW_EQUAL 0.000000 laminar/B747/nd/map_center/capt
+    SHOW_EQUAL 0.000000 laminar/B747/nd/map_center/fo
     LOCKED
     GROUP Map/Rose
       LOCKED
