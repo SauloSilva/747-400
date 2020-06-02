@@ -68,6 +68,7 @@ simDR_ai_flies_aircraft				= find_dataref("sim/operation/prefs/ai_flies_aircraft
 simDR_electrical_bus_volts          = find_dataref("sim/cockpit2/electrical/bus_volts")
 
 simDR_aircraft_on_ground            = find_dataref("sim/flightmodel/failures/onground_all")
+simDR_all_wheels_on_ground          = find_dataref("sim/flightmodel/failures/onground_any")
 
 simDR_generic_brightness_switch     = find_dataref("sim/cockpit2/switches/generic_lights_switch")
 simDR_generic_brightness_ratio      = find_dataref("sim/flightmodel2/lights/generic_lights_brightness_ratio")
@@ -674,20 +675,20 @@ end
 function B747_turnoff_lights()
 
     -- LEFT TURNOFF LIGHT
-    if simDR_aircraft_on_ground == 0
+    if simDR_all_wheels_on_ground == 0
         and B747DR_toggle_switch_position[5] > 0.95
     then
-        B747CMD_runway_turnoff_light_switch_L:once()
+        simDR_generic_brightness_switch[0] = 0
     else
         simDR_generic_brightness_switch[0] = B747DR_toggle_switch_position[5]
     end
 
 
     -- RIGHT TURNOFF LIGHT
-    if simDR_aircraft_on_ground == 0
+    if simDR_all_wheels_on_ground == 0
         and B747DR_toggle_switch_position[6] > 0.95
     then
-        B747CMD_runway_turnoff_light_switch_R:once()
+        simDR_generic_brightness_switch[1] = 0
     else
         simDR_generic_brightness_switch[1] = B747DR_toggle_switch_position[6]
     end
@@ -701,10 +702,10 @@ end
 ----- TAXI LIGHTS -----------------------------------------------------------------------
 function B747_taxi_lights()
 
-    if simDR_aircraft_on_ground == 0
+    if simDR_all_wheels_on_ground == 0
         and B747DR_toggle_switch_position[7] > 0.95
     then
-        B747CMD_taxi_light_switch:once()
+        simDR_taxi_light_switch_on = 0
     else
         simDR_taxi_light_switch_on = B747DR_toggle_switch_position[7]
     end

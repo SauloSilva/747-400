@@ -757,7 +757,7 @@ function B747_fltCtrols_EICAS_msg()
     end
 
     -- >CONFIG FLAPS
-    B747DR_CAS_warning_status[2] = 0
+    
     if (simDR_wing_flap1_deg[0] < 9.95 or simDR_wing_flap1_deg[0] > 20.05)
         and simDR_all_wheels_on_ground == 1
         and simDR_ind_airspeed_kts_pilot < B747DR_airspeed_V1
@@ -765,10 +765,12 @@ function B747_fltCtrols_EICAS_msg()
         and simDR_engine_N1_pct[1] > 90.0 and simDR_engine_N1_pct[2] > 90.0
     then
         B747DR_CAS_warning_status[2] = 1
+    else
+	B747DR_CAS_warning_status[2] = 0
     end
 
     -- >CONFIG GEAR
-    B747DR_CAS_warning_status[3] = 0
+    
     if ((simDR_gear_deploy_ratio[0] < 0.99
         or simDR_gear_deploy_ratio[1] < 0.99
         or simDR_gear_deploy_ratio[2] < 0.99
@@ -783,6 +785,8 @@ function B747_fltCtrols_EICAS_msg()
 
     then
         B747DR_CAS_warning_status[3] = 1
+    else
+	B747DR_CAS_warning_status[3] = 0
     end
 
     -- >CONFIG PARK BRK
@@ -791,7 +795,7 @@ function B747_fltCtrols_EICAS_msg()
       --B747DR_CAS_warning_status[9] = 1
     end
     
-    B747DR_CAS_warning_status[5] = 0
+    
     if simDR_parking_brake_ratio > 0.99
         and simDR_ind_airspeed_kts_pilot < B747DR_airspeed_V1
         and num_fuel_ctrl_sw_on >= 3
@@ -799,11 +803,13 @@ function B747_fltCtrols_EICAS_msg()
         and simDR_engine_N1_pct[2] > 90.0
     then
         B747DR_CAS_warning_status[5] = 1
+    else
+	B747DR_CAS_warning_status[5] = 0
     end
 
     -- >CONFIG SPOILERS
-    B747DR_CAS_warning_status[6] = 0
-    if B747DR_speedbrake_lever < 0.99
+    
+    if B747DR_speedbrake_lever >0.125 --< 0.99
         and simDR_all_wheels_on_ground == 1
         and simDR_ind_airspeed_kts_pilot < B747DR_airspeed_V1
         and num_fuel_ctrl_sw_on >= 3
@@ -811,10 +817,12 @@ function B747_fltCtrols_EICAS_msg()
         and simDR_engine_N1_pct[2] > 90.0
     then
         B747DR_CAS_warning_status[6] = 1
+    else
+        B747DR_CAS_warning_status[6] = 0
     end
 
     -- >CONFIG STAB
-    B747DR_CAS_warning_status[7] = 0
+   
     local midIndTop = B747_rescale(0.0, 1.5, 1.0, 6.0, B747DR_elevator_trim_mid_ind)
     local midIndBtm = midIndTop + 4.5
     local curTrim   = B747_rescale(-1.0, 15, 1.0, 0.0, simDR_elevator_trim)
@@ -826,18 +834,22 @@ function B747_fltCtrols_EICAS_msg()
         and simDR_engine_N1_pct[2] > 90.0
     then
         B747DR_CAS_warning_status[7] = 1
+    else
+       B747DR_CAS_warning_status[7] = 0
     end
 
     -- FLAPS CONTROL
-    B747DR_CAS_caution_status[28] = 0
+    
     if simDR_flap_control_fail == 6
         or B747DR_button_switch_position[0] > 0.95
     then
         B747DR_CAS_caution_status[28] = 1
+    else
+       B747DR_CAS_caution_status[28] = 0
     end
 
     -- >SPEEDBRAKES EXT
-    B747DR_CAS_caution_status[59] = 0
+    
     if simDR_speedbrake_ratio_control > 0.15
         and
         ((simDR_radio_alt_height_capt > 15.0 and simDR_radio_alt_height_capt < 800.0)
@@ -847,15 +859,25 @@ function B747_fltCtrols_EICAS_msg()
         num_thrust_levers_open >= 2)
     then
         B747DR_CAS_caution_status[59] = 1
+    else
+      B747DR_CAS_caution_status[59] = 0
     end
 
     -- >YAW DAMPER LWR
-    B747DR_CAS_advisory_status[300] = 0
-    if B747DR_button_switch_position[82] < 0.05 then B747DR_CAS_advisory_status[300] = 1 end
+    
+    if B747DR_button_switch_position[82] < 0.05 then 
+      B747DR_CAS_advisory_status[300] = 1
+    else
+      B747DR_CAS_advisory_status[300] = 0
+    end
 
     -- >YAW DAMPER UPR
-    B747DR_CAS_advisory_status[301] = 0
-    if B747DR_button_switch_position[83] < 0.05 then B747DR_CAS_advisory_status[301] = 1 end
+    
+    if B747DR_button_switch_position[83] < 0.05 then 
+      B747DR_CAS_advisory_status[301] = 1 
+    else
+      B747DR_CAS_advisory_status[301] = 0
+    end
 
 end
 
