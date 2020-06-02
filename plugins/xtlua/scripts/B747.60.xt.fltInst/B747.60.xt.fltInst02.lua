@@ -2286,8 +2286,8 @@ function B747_baro_init()
     then
         if B747DR_efis_baro_std_capt_switch_pos == 0 then B747CMD_efis_baro_std_capt_switch:once() end
     end
-    B747DR_efis_baro_capt_preselect = simDR_altimeter_baro_inHg
-
+    B747DR_efis_baro_capt_preselect = 29.92
+    simDR_altimeter_baro_inHg =29.92
 
     -- F/O BARO
     if simDR_altimeter_baro_inHg_fo > 29.91
@@ -2295,7 +2295,8 @@ function B747_baro_init()
     then
         if B747DR_efis_baro_std_fo_switch_pos == 0 then B747CMD_efis_baro_std_fo_switch:once() end
     end
-    B747DR_efis_baro_fo_preselect = simDR_altimeter_baro_inHg_fo
+    B747DR_efis_baro_fo_preselect = 29.92
+    simDR_altimeter_baro_inHg_fo = 29.92
 
 end
 
@@ -2741,7 +2742,8 @@ end
 
 ----- FLIGHT INSTRUMENTS EICAS MESSAGES -------------------------------------------------
 function B747_baro_disagree()
-    if math.abs(B747DR_efis_baro_capt_set_dial_pos - B747DR_efis_baro_fo_set_dial_pos) > 0.01 then
+    --if math.abs(B747DR_efis_baro_capt_set_dial_pos - B747DR_efis_baro_fo_set_dial_pos) > 0.01 then
+    if math.abs(simDR_altimeter_baro_inHg - simDR_altimeter_baro_inHg_fo) > 0.01 then  
         B747DR_CAS_advisory_status[18] = 1
     end
 end
@@ -2770,7 +2772,8 @@ function B747_fltInst_EICAS_msg()
     if simDR_AOA_fail == 6 then B747DR_CAS_advisory_status[12] = 1 end
 
     -- >BARO DISAGREE
-    if math.abs(B747DR_efis_baro_capt_set_dial_pos - B747DR_efis_baro_fo_set_dial_pos) > 0.01 then
+    --if math.abs(B747DR_efis_baro_capt_set_dial_pos - B747DR_efis_baro_fo_set_dial_pos) > 0.01 then
+    if math.abs(simDR_altimeter_baro_inHg - simDR_altimeter_baro_inHg_fo) > 0.01 then  
         if is_timer_scheduled(B747_baro_disagree) == false then
             run_after_time(B747_baro_disagree, 60.0)
         end
