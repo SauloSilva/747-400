@@ -85,8 +85,11 @@ B747DR_init_fltctrls_CD         = deferred_dataref("laminar/B747/fltctrls/init_C
 --** 				       READ-WRITE CUSTOM DATAREF HANDLERS     	        	     **--
 --*************************************************************************************--
 ----- SPEEDBRAKE LEVER ------------------------------------------------------------------
-local B747_sb_manip_changed = 0
-local B747_speedbrake_stop = 0
+--local B747_sb_manip_changed = 0
+B747_sb_manip_changed = deferred_dataref("laminar/B747/flt_ctrls/speedbrake_lever_changed", "number")
+
+--local B747_speedbrake_stop = 0
+B747_speedbrake_stop = deferred_dataref("laminar/B747/flt_ctrls/speedbrake_stop", "number")
 simDR_speedbrake_ratio_control  = find_dataref("sim/cockpit2/controls/speedbrake_ratio")
 
 function B747_speedbrake_manip_timeout()

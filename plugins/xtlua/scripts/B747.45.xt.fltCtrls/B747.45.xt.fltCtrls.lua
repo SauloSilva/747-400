@@ -60,11 +60,11 @@ function deferred_dataref(name,nilType,callFunction)
 end
 local B747_rudder_trim_sel_dial_position_target = 0
 local B747_aileron_trim_sel_dial_position_target = 0
-local B747_speedbrake_stop = 0
+B747_speedbrake_stop = deferred_dataref("laminar/B747/flt_ctrls/speedbrake_stop", "number") --0
 local B747_speedbrake_lever_pos_target = 0
 local B747_wheels_on_ground = 1
 local B747_last_sim_sb_handle_pos = 0
-local B747_sb_manip_changed = 0
+B747_sb_manip_changed = deferred_dataref("laminar/B747/flt_ctrls/speedbrake_lever_changed", "number")
 
 
 
@@ -731,6 +731,16 @@ function B747_animate_value(current_value, target, min, max, speed)
     end
 
 end
+function B747_speedbrake_warn()
+    --if math.abs(B747DR_efis_baro_capt_set_dial_pos - B747DR_efis_baro_fo_set_dial_pos) > 0.01 then
+  if B747DR_speedbrake_lever >0.125 
+  and simDR_all_wheels_on_ground == 0 
+  and num_fuel_ctrl_sw_on >= 3
+        and simDR_engine_N1_pct[1] > 90.0
+        and simDR_engine_N1_pct[2] > 90.0 then  
+        B747DR_CAS_warning_status[6] = 1
+    end
+end
 
 function B747_fltCtrols_EICAS_msg()
 
@@ -809,7 +819,7 @@ function B747_fltCtrols_EICAS_msg()
 
     -- >CONFIG SPOILERS
     
-    if B747DR_speedbrake_lever >0.125 --< 0.99
+    if B747DR_speedbrake_lever >0.01 --< 0.99
         and simDR_all_wheels_on_ground == 1
         and simDR_ind_airspeed_kts_pilot < B747DR_airspeed_V1
         and num_fuel_ctrl_sw_on >= 3
@@ -817,7 +827,14 @@ function B747_fltCtrols_EICAS_msg()
         and simDR_engine_N1_pct[2] > 90.0
     then
         B747DR_CAS_warning_status[6] = 1
-    else
+    elseif B747DR_speedbrake_lever >0.125 
+        and simDR_all_wheels_on_ground == 0  
+        and num_fuel_ctrl_sw_on >= 3
+        and simDR_engine_N1_pct[1] > 90.0
+        and simDR_engine_N1_pct[2] > 90.0 
+	and is_timer_scheduled(B747_speedbrake_warn) == false then  
+        run_after_time(B747_speedbrake_warn, 3.0)
+    elseif is_timer_scheduled(B747_speedbrake_warn) == false then 
         B747DR_CAS_warning_status[6] = 0
     end
 
