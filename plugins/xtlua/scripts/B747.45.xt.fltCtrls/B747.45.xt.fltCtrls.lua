@@ -733,11 +733,15 @@ function B747_animate_value(current_value, target, min, max, speed)
 end
 function B747_speedbrake_warn()
     --if math.abs(B747DR_efis_baro_capt_set_dial_pos - B747DR_efis_baro_fo_set_dial_pos) > 0.01 then
+  --print("do warning speedbrake"..simDR_engine_N1_pct[1].." "..simDR_engine_N1_pct[2]) 
+  local numClimb=0;
+    if simDR_engine_N1_pct[0]>90.0 then numClimb=numClimb+1 end
+    if simDR_engine_N1_pct[1]>90.0 then numClimb=numClimb+1 end
+    if simDR_engine_N1_pct[2]>90.0 then numClimb=numClimb+1 end
+    if simDR_engine_N1_pct[3]>90.0 then numClimb=numClimb+1 end
   if B747DR_speedbrake_lever >0.125 
   and simDR_all_wheels_on_ground == 0 
-  and num_fuel_ctrl_sw_on >= 3
-        and simDR_engine_N1_pct[1] > 90.0
-        and simDR_engine_N1_pct[2] > 90.0 then  
+        and numClimb>=2 then  
         B747DR_CAS_warning_status[6] = 1
     end
 end
@@ -804,7 +808,11 @@ function B747_fltCtrols_EICAS_msg()
       simDR_parking_brake_ratio = B747_animate_value(simDR_parking_brake_ratio,0,0,1,1)
       --B747DR_CAS_warning_status[9] = 1
     end
-    
+    local numClimb=0;
+    if simDR_engine_N1_pct[0]>90.0 then numClimb=numClimb+1 end
+    if simDR_engine_N1_pct[1]>90.0 then numClimb=numClimb+1 end
+    if simDR_engine_N1_pct[2]>90.0 then numClimb=numClimb+1 end
+    if simDR_engine_N1_pct[3]>90.0 then numClimb=numClimb+1 end
     
     if simDR_parking_brake_ratio > 0.99
         and simDR_ind_airspeed_kts_pilot < B747DR_airspeed_V1
@@ -830,11 +838,11 @@ function B747_fltCtrols_EICAS_msg()
     elseif B747DR_speedbrake_lever >0.125 
         and simDR_all_wheels_on_ground == 0  
         and num_fuel_ctrl_sw_on >= 3
-        and simDR_engine_N1_pct[1] > 90.0
-        and simDR_engine_N1_pct[2] > 90.0 
-	and is_timer_scheduled(B747_speedbrake_warn) == false then  
+        and numClimb>=2 
+	and is_timer_scheduled(B747_speedbrake_warn) == false then
+	--print("warning speedbrake")  
         run_after_time(B747_speedbrake_warn, 3.0)
-    elseif is_timer_scheduled(B747_speedbrake_warn) == false then 
+    elseif is_timer_scheduled(B747_speedbrake_warn) == false or numClimb<=1 then 
         B747DR_CAS_warning_status[6] = 0
     end
 
