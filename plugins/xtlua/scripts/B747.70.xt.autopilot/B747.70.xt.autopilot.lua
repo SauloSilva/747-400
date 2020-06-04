@@ -1009,6 +1009,17 @@ function getHeadingDifference(desireddirection,current_heading)
 	if (error < -180) then error =error+ 360 end
 	return error
 end
+
+function getDistance(lat1,lon1,lat2,lon2)
+  alat=math.rad(lat1)
+  alon=math.rad(lon1)
+  blat=math.rad(lat2)
+  blon=math.rad(lon2)
+  av=math.sin(alat)*math.sin(blat) + math.cos(alat)*math.cos(blat)*math.cos(blon-alon)
+  if av > 1 then av=1 end
+  retVal=math.acos(av) * 3440
+  return retVal
+end
 function B747_fltmgmt_setILS()
   local n1=simDR_nav1Freq
   local n2=simDR_nav2Freq
@@ -1024,22 +1035,28 @@ function B747_fltmgmt_setILS()
     if fms[table.getn(fms)][2] == 1 then
       --we have an airport as our dst
       found =false
-     for i=table.getn(fms)-3,table.getn(fms)-4,-1 do --last is the airport, before that go-around [may] be dup
+     for i=table.getn(fms)-1,2,-1 do --last is the airport, before that go-around [may] be dup
 	--we have a fix coming in to the airport
        --if fms[i][2] == 512 then
+          local ap1Heading=getHeading(fms[i][5],fms[i][6],fms[table.getn(fms)][5],fms[table.getn(fms)][6])
+	  local ap2Heading=getHeading(fms[i-1][5],fms[i-1][6],fms[table.getn(fms)][5],fms[table.getn(fms)][6])
+	  local diffap=getHeadingDifference(ap1Heading,ap2Heading)
+	  local distance = getDistance(fms[i][5],fms[i][6],fms[table.getn(fms)][5],fms[table.getn(fms)][6])
+	  --print("FMS i=" .. i.. ":" .. ap1Heading .. ":" .. ap2Heading .. ":" .. diffap .. ":" .. distance)
+	  if diffap<90 and diffap>-90 and fms[i][8]~=fms[i-1][8] and distance< 11 then
 	  for n=table.getn(navAids),1,-1 do
 	    if navAids[n][2] == 8 then
 	      local diff=getHeadingDifference(navAids[n][4],getHeading(fms[i][5],fms[i][6],navAids[n][5],navAids[n][6]))
 	      if diff<0 then diff=diff*-1 end
-	      
-	      if diff<1 and diff<=bestDiff then
+	      local distance2 = getDistance(fms[table.getn(fms)][5],fms[table.getn(fms)][6],navAids[n][5],navAids[n][6])
+	      if diff<1 and diff<=bestDiff and distance2<10 then
 	      --print("navaid "..n.."->"..fms[i][8].."="..diff.." ".. navAids[n][1].." ".. navAids[n][2].." ".. navAids[n][3].." ".. navAids[n][4].." ".. navAids[n][5].." ".. navAids[n][6].." ".. navAids[n][7].." ".. navAids[n][8])
 	      bestDiff=diff
 	      --if targetFix == newTargetFix then found=true end
 	      newTargetFix=n
 	      end
 	    end
-	  --end
+	  end
        end
       end
       targetFix=newTargetFix
