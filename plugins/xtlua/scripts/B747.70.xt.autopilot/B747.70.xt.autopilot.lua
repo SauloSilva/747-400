@@ -993,6 +993,8 @@ nSize=0
 local navAids={}
 targetILS=find_dataref("laminar/B747/radio/ilsData")
 local targetILSS=""
+local targetFMS=""
+local targetFMSnum=-1
 targetFix=0
 bestDiff=180
 function getHeading(lat1,lon1,lat2,lon2)
@@ -1031,7 +1033,8 @@ function B747_fltmgmt_setILS()
   end
   local fms=json.decode(fmsJSON)
   local newTargetFix=0
-  if table.getn(fms)>4 then
+  local hitI=-1
+  if table.getn(fms)>4 and (fms[targetFMSnum]==nil or targetFMS~=fms[targetFMSnum][8]) then
     if fms[table.getn(fms)][2] == 1 then
       --we have an airport as our dst
       found =false
@@ -1054,6 +1057,7 @@ function B747_fltmgmt_setILS()
 	      bestDiff=diff
 	      --if targetFix == newTargetFix then found=true end
 	      newTargetFix=n
+	      hitI=i
 	      end
 	    end
 	  end
@@ -1066,11 +1070,14 @@ function B747_fltmgmt_setILS()
       --else
 	if targetFix~=0 then
 	targetILSS=json.encode(navAids[targetFix])
+	targetFMS=fms[hitI][8]
+	targetFMSnum=hitI
 	targetILS=targetILSS
 	--print("set targetILS")
 	else
-	  targetILS=""
-	  targetILSS=""
+	  targetILS=" "
+	  targetILSS=" "
+	  
 	  --print("cleared targetILS")
 	end
     end

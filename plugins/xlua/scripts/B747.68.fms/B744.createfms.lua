@@ -13,25 +13,80 @@ fms={
 
 
 simCMD_FMS_key={}
-
+--[[
+local keyRemap={}
+keyRemap["index"]={"initref"}
+keyRemap["fpln"]={"rte"}
+keyRemap["clb"]={"dep_arr"}
+keyRemap["des"]={"vnav"}
+keyRemap["dir_intc"]={"fix"}
+keyRemap["legs"]={"legs"}
+keyRemap["dep_arr"]={"hold"}
+keyRemap["prog"]={"prog"}
+keyRemap["fix"]={"index"} --MENU
+keyRemap["navrad"]={"navrad"}
+]]
 function keyDown(fmsModule,key)
-  print(fmsModule.. " do " .. key)
   
+  print(fmsModule.. " do " .. key)
   if key=="index" then
+      fmsModules[fmsModule].inCustomFMC=true
+      fmsModules[fmsModule].currentPage="INITREF"
+      return
+  elseif key=="fpln" then --RTE
+      fmsModules[fmsModule].inCustomFMC=true
+      simCMD_FMS_key[fmsModule]["fpln"]:once()
+      fmsModules[fmsModule].currentPage="RTE1"
+      --[[fmsModules[fmsModule].inCustomFMC=false
+      simCMD_FMS_key[fmsModule]["fpln"]:once()]]
+      return
+  elseif key=="clb" then
+      fmsModules[fmsModule].inCustomFMC=false
+      simCMD_FMS_key[fmsModule]["dep_arr"]:once()
+      return
+  elseif key=="crz" then
+      fmsModules[fmsModule].inCustomFMC=true
+      fmsModules[fmsModule].currentPage="ACARSMSGS"
+      return
+  elseif key=="des" then
+      fmsModules[fmsModule].inCustomFMC=false
+      simCMD_FMS_key[fmsModule]["clb"]:once()
+      --fmsModules[fmsModule].currentPage="VNAV"
+      return
+  elseif key=="dir_intc" then
+      fmsModules[fmsModule].inCustomFMC=false
+      simCMD_FMS_key[fmsModule]["fix"]:once()
+      return
+  elseif key=="legs" then
+      fmsModules[fmsModule].inCustomFMC=false
+      simCMD_FMS_key[fmsModule]["legs"]:once()
+      return
+  elseif key=="dep_arr" then
+      fmsModules[fmsModule].inCustomFMC=false
+      simCMD_FMS_key[fmsModule]["hold"]:once()
+      return
+  elseif key=="hold" then --FMC COMM
+      fmsModules[fmsModule].inCustomFMC=false
+      simCMD_FMS_key[fmsModule]["navrad"]:once()
+      return
+  elseif key=="fix" then --menu
       fmsModules[fmsModule].inCustomFMC=true
       fmsModules[fmsModule].currentPage="INDEX"
       return
-  end
-  if key=="navrad" then
+  elseif key=="navrad" then
       fmsModules[fmsModule].inCustomFMC=true
       fmsModules[fmsModule].currentPage="NAVRAD"
       return
-  end
-  if key=="fpln" or key=="clb" or key=="crz" or key=="des" or key=="dir_intc" or key=="legs" or key=="dep_arr" or key=="hold" or key=="prog" or key=="fix" then
+  elseif key=="prog" then
       fmsModules[fmsModule].inCustomFMC=false
       simCMD_FMS_key[fmsModule][key]:once()
       return
   end
+  --[[if key=="fpln" or key=="clb" or key=="crz" or key=="des" or key=="dir_intc" or key=="legs" or key=="dep_arr" or key=="hold" or key=="prog" or key=="fix" then
+      fmsModules[fmsModule].inCustomFMC=false
+      simCMD_FMS_key[fmsModule][key]:once()
+      return
+  end]]
 
   if not fmsModules[fmsModule].inCustomFMC then
     if simCMD_FMS_key[fmsModule][key]~=nil then
@@ -77,6 +132,9 @@ function keyDown(fmsModule,key)
      elseif key=="prev" and fmsModules[fmsModule].pgNo > 1 then
        fmsModules[fmsModule].pgNo=fmsModules[fmsModule].pgNo-1
        print(fmsModule.. " did " .. key .. " for " .. page)
+       return  
+     elseif key=="exec" then
+       simCMD_FMS_key[fmsModule][key]:once()
        return  
      else
        fmsModules[fmsModule].notify="KEY NOT ACTIVE"
@@ -392,11 +450,7 @@ end
 
     
     
-function cleanFMSLine(line)
-    local retval=line:gsub("☐","*")
-    retval=retval:gsub("°","`")
-    return retval
-end  
+
 
 
 function fms:B747_fms_display_customFMC()
@@ -483,8 +537,8 @@ function fms:B747_fms_display()
       end
     else
       if self.pgNo>fmsPages[page]:getNumPages() then self.pgNo=fmsPages[page]:getNumPages() end
-      local fmsPage = fmsPages[page]:getPage(self.pgNo);
-      local fmsPagesmall = fmsPages[page]:getSmallPage(self.pgNo);
+      local fmsPage = fmsPages[page]:getPage(self.pgNo,thisID);
+      local fmsPagesmall = fmsPages[page]:getSmallPage(self.pgNo,thisID);
       for i=1,13,1 do
 	B747DR_fms[thisID][i]=fmsPage[i]
       end

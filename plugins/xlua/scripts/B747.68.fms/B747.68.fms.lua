@@ -16,6 +16,11 @@ function hasChild(parent,childKey)
  
   return true
 end
+function cleanFMSLine(line)
+    local retval=line:gsub("☐","*")
+    retval=retval:gsub("°","`")
+    return retval
+end  
 function deferred_dataref(name,type,notifier)
 	print("Deffered dataref: "..name)
 	dref=XLuaCreateDataRef(name, type,"yes",notifier)

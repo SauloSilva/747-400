@@ -2320,15 +2320,19 @@ function B747_fuel_std_synoptic()
 
 
     -- OJ PUMP(S) 2
-    B747DR_gen_fuel_OJpump2_status = 0
+    
     if B747.fuel.main2_tank.ovrd_jett_pump_fwd.on == 1 or B747.fuel.main2_tank.ovrd_jett_pump_aft.on == 1 then
         B747DR_gen_fuel_OJpump2_status = 1
+    else
+      B747DR_gen_fuel_OJpump2_status = 0
     end
 
     -- OJ PUMP(S) 3
-    B747DR_gen_fuel_OJpump3_status = 0
+    
     if B747.fuel.main3_tank.ovrd_jett_pump_fwd.on == 1 or B747.fuel.main3_tank.ovrd_jett_pump_aft.on == 1 then
         B747DR_gen_fuel_OJpump3_status = 1
+    else
+      B747DR_gen_fuel_OJpump3_status = 0
     end
 
 
@@ -2464,47 +2468,69 @@ function B747_fuel_EICAS_msg()
     end
 
     -- FUEL JETT SYS
-    B747DR_CAS_caution_status[31] = 0
+    
     if (simDR_fueL_tank_weight_total_kg < (B747DR_fuel_to_remain_rheo * 1000.0))
         and (B747.fuel.jett_nozzle_vlv_L.pos > 0.95 or B747.fuel.jett_nozzle_vlv_R.pos > 0.95)
     then
         B747DR_CAS_caution_status[31] = 1
+    else
+      B747DR_CAS_caution_status[31] = 0
     end
 
     -- FUEL QTY LOW
-    B747DR_CAS_caution_status[36] = 0
+    
     if simDR_fuel_tank_weight_kg[1] < 900.0
         or simDR_fuel_tank_weight_kg[2] < 900.0
         or simDR_fuel_tank_weight_kg[3] < 900.0
         or simDR_fuel_tank_weight_kg[4] < 900.0
     then
         B747DR_CAS_caution_status[36] = 1
+    else
+	B747DR_CAS_caution_status[36] = 0
     end
 
     -- APU FUEL
-    B747DR_CAS_advisory_status[15] = 0
+    
     if (B747.fuel.main2_tank.apu_vlv.pos > 0.95 and B747DR_elec_apu_sel_pos < 0.95)
         or
         (B747.fuel.main2_tank.apu_vlv.pos < 0.05 and B747DR_elec_apu_sel_pos > 0.95)
     then
         B747DR_CAS_advisory_status[15] = 1
+    else
+      B747DR_CAS_advisory_status[15] = 0
     end
 
     -- ENG 1 FUEL FILT
-    B747DR_CAS_advisory_status[114] = 0
-    if simDR_fuel_filter_block_01== 6 then B747DR_CAS_advisory_status[114] = 1 end
+    
+    if simDR_fuel_filter_block_01== 6 then 
+      B747DR_CAS_advisory_status[114] = 1 
+    else
+      B747DR_CAS_advisory_status[114] = 0
+    end
 
     -- ENG 2 FUEL FILT
-    B747DR_CAS_advisory_status[115] = 0
-    if simDR_fuel_filter_block_02== 6 then B747DR_CAS_advisory_status[115] = 1 end
+    
+    if simDR_fuel_filter_block_02== 6 then 
+      B747DR_CAS_advisory_status[115] = 1 
+    else
+      B747DR_CAS_advisory_status[115] = 0
+    end
 
     -- ENG 3 FUEL FILT
-    B747DR_CAS_advisory_status[116] = 0
-    if simDR_fuel_filter_block_03== 6 then B747DR_CAS_advisory_status[116] = 1 end
+    
+    if simDR_fuel_filter_block_03== 6 then 
+      B747DR_CAS_advisory_status[116] = 1 
+    else
+      B747DR_CAS_advisory_status[116] = 0
+    end
 
     -- ENG 4 FUEL FILT
-    B747DR_CAS_advisory_status[117] = 0
-    if simDR_fuel_filter_block_04== 6 then B747DR_CAS_advisory_status[117] = 1 end
+    
+    if simDR_fuel_filter_block_04== 6 then 
+      B747DR_CAS_advisory_status[117] = 1 
+    else
+      B747DR_CAS_advisory_status[117] = 0
+    end
 
     -- FUEL IMBALANCE
     if fuel_tankToEngine == 1 then
@@ -2568,107 +2594,185 @@ function B747_fuel_EICAS_msg()
     end
 
     -- FUEL OVRD 2 AFT
-    B747DR_CAS_advisory_status[155] = 0
-    if fuel_tankToEngine == 0 and B747DR_button_switch_position[66] < 0.05 then B747DR_CAS_advisory_status[155] = 1 end
+    
+    if fuel_tankToEngine == 0 and B747DR_button_switch_position[66] < 0.05 then 
+      B747DR_CAS_advisory_status[155] = 1
+    else
+      B747DR_CAS_advisory_status[155] = 0
+    end
 
     -- FUEL OVRD 3 AFT
-    B747DR_CAS_advisory_status[156] = 0
-    if fuel_tankToEngine == 0 and B747DR_button_switch_position[67] < 0.05 then B747DR_CAS_advisory_status[156] = 1 end
+    
+    if fuel_tankToEngine == 0 and B747DR_button_switch_position[67] < 0.05 then 
+      B747DR_CAS_advisory_status[156] = 1
+    else
+      B747DR_CAS_advisory_status[156] = 0
+    end
 
     -- FUEL OVRD 2 FWD
-    B747DR_CAS_advisory_status[157] = 0
-    if fuel_tankToEngine == 0 and B747DR_button_switch_position[64] < 0.05 then B747DR_CAS_advisory_status[157] = 1 end
+    
+    if fuel_tankToEngine == 0 and B747DR_button_switch_position[64] < 0.05 then 
+      B747DR_CAS_advisory_status[157] = 1
+    else
+      B747DR_CAS_advisory_status[157] = 0
+    end
 
     -- FUEL OVRD 3 FWD
-    B747DR_CAS_advisory_status[158] = 0
-    if fuel_tankToEngine == 0 and B747DR_button_switch_position[65] < 0.05 then B747DR_CAS_advisory_status[158] = 1 end
+    
+    if fuel_tankToEngine == 0 and B747DR_button_switch_position[65] < 0.05 then 
+      B747DR_CAS_advisory_status[158] = 1 
+    else
+      B747DR_CAS_advisory_status[158] = 0
+    end
 
     -- FUEL PMP STAB L
-    B747DR_CAS_advisory_status[159] = 0
+    
     if B747DR_CAS_caution_status[37] == 0 then
         if (B747DR_button_switch_position[54] > 0.95 and simDR_all_wheels_on_ground == 1)
             or (B747DR_button_switch_position[54] < 0.05 and simDR_fuel_tank_weight_kg[7] > 500.0 and simDR_all_wheels_on_ground == 0)
         then
             B747DR_CAS_advisory_status[159] = 1
+	else
+	  B747DR_CAS_advisory_status[159] = 0
         end
+    else
+      B747DR_CAS_advisory_status[159] = 0
     end
 
     -- FUEL PMP STAB R
-    B747DR_CAS_advisory_status[160] = 0
+    
     if B747DR_CAS_caution_status[37] == 0 then
         if (B747DR_button_switch_position[55] > 0.95 and simDR_all_wheels_on_ground == 1)
             or (B747DR_button_switch_position[55] < 0.05 and simDR_fuel_tank_weight_kg[7] > 500.0 and simDR_all_wheels_on_ground == 0)
         then
             B747DR_CAS_advisory_status[160] = 1
+	else
+	  B747DR_CAS_advisory_status[160] = 0
         end
+    else
+      B747DR_CAS_advisory_status[160] = 0
     end
 
     -- FUEL PUMP 1 AFT
-    B747DR_CAS_advisory_status[161] = 0
+   
     if B747DR_CAS_caution_status[32] == 0 then
-        if B747.fuel.main1_tank.main_pump_aft.on > 0 and simDR_fuel_tank_weight_kg[1] <= 10.0 then B747DR_CAS_advisory_status[161] = 1 end
+        if B747.fuel.main1_tank.main_pump_aft.on > 0 and simDR_fuel_tank_weight_kg[1] <= 10.0 then 
+	  B747DR_CAS_advisory_status[161] = 1 
+	else
+	   B747DR_CAS_advisory_status[161] = 0
+	end
+    else
+       B747DR_CAS_advisory_status[161] = 0
     end
 
     -- FUEL PUMP 2 AFT
-    B747DR_CAS_advisory_status[162] = 0
+    
     if B747DR_CAS_caution_status[33] == 0 then
-        if B747.fuel.main1_tank.main_pump_aft.on > 0 and simDR_fuel_tank_weight_kg[2] <= 10.0 then B747DR_CAS_advisory_status[162] = 1 end
+        if B747.fuel.main1_tank.main_pump_aft.on > 0 and simDR_fuel_tank_weight_kg[2] <= 10.0 then 
+	  B747DR_CAS_advisory_status[162] = 1 
+	else
+	  B747DR_CAS_advisory_status[162] = 0
+	end
+    else
+      B747DR_CAS_advisory_status[162] = 0
     end
 
     -- FUEL PUMP 3 AFT
-    B747DR_CAS_advisory_status[163] = 0
+    
     if B747DR_CAS_caution_status[34] == 0 then
-        if B747.fuel.main1_tank.main_pump_aft.on > 0 and simDR_fuel_tank_weight_kg[3] <= 10.0 then B747DR_CAS_advisory_status[163] = 1 end
+        if B747.fuel.main1_tank.main_pump_aft.on > 0 and simDR_fuel_tank_weight_kg[3] <= 10.0 then 
+	  B747DR_CAS_advisory_status[163] = 1
+	else
+	  B747DR_CAS_advisory_status[163] = 0
+	end
+    else
+      B747DR_CAS_advisory_status[163] = 0
     end
 
     -- FUEL PUMP 4 AFT
-    B747DR_CAS_advisory_status[164] = 0
+    
     if B747DR_CAS_caution_status[35] == 0 then
-        if B747.fuel.main1_tank.main_pump_aft.on > 0 and simDR_fuel_tank_weight_kg[4] <= 10.0 then B747DR_CAS_advisory_status[164] = 1 end
+        if B747.fuel.main1_tank.main_pump_aft.on > 0 and simDR_fuel_tank_weight_kg[4] <= 10.0 then 
+	  B747DR_CAS_advisory_status[164] = 1 
+	else
+	  B747DR_CAS_advisory_status[164] = 0
+	end
+    else
+      B747DR_CAS_advisory_status[164] = 0
     end
 
     -- FUEL PUMP 1 FWD
-    B747DR_CAS_advisory_status[165] = 0
+    
     if B747DR_CAS_caution_status[32] == 0 then
-        if B747.fuel.main1_tank.main_pump_fwd.on > 0 and simDR_fuel_tank_weight_kg[1] <= 10.0 then B747DR_CAS_advisory_status[165] = 1 end
+        if B747.fuel.main1_tank.main_pump_fwd.on > 0 and simDR_fuel_tank_weight_kg[1] <= 10.0 then 
+	  B747DR_CAS_advisory_status[165] = 1 
+	else
+	  B747DR_CAS_advisory_status[165] = 0
+	end
+    else
+      B747DR_CAS_advisory_status[165] = 0
     end
 
     -- FUEL PUMP 2 FWD
-    B747DR_CAS_advisory_status[166] = 0
+    
     if B747DR_CAS_caution_status[33] == 0 then
-        if B747.fuel.main1_tank.main_pump_fwd.on > 0 and simDR_fuel_tank_weight_kg[2] <= 10.0 then B747DR_CAS_advisory_status[166] = 1 end
+        if B747.fuel.main1_tank.main_pump_fwd.on > 0 and simDR_fuel_tank_weight_kg[2] <= 10.0 then 
+	  B747DR_CAS_advisory_status[166] = 1
+	else
+	  B747DR_CAS_advisory_status[166] = 0
+	end
+    else
+      B747DR_CAS_advisory_status[166] = 0
     end
 
     -- FUEL PUMP 3 FWD
-    B747DR_CAS_advisory_status[167] = 0
+    
     if B747DR_CAS_caution_status[34] == 0 then
-        if B747.fuel.main1_tank.main_pump_fwd.on > 0 and simDR_fuel_tank_weight_kg[3] <= 10.0 then B747DR_CAS_advisory_status[167] = 1 end
+        if B747.fuel.main1_tank.main_pump_fwd.on > 0 and simDR_fuel_tank_weight_kg[3] <= 10.0 then 
+	  B747DR_CAS_advisory_status[167] = 1 
+	else
+	  B747DR_CAS_advisory_status[167] = 0
+	end
+    else
+      B747DR_CAS_advisory_status[167] = 0
     end
 
     -- FUEL PUMP 4 FWD
-    B747DR_CAS_advisory_status[168] = 0
+    
     if B747DR_CAS_caution_status[35] == 0 then
-        if B747.fuel.main1_tank.main_pump_fwd.on > 0 and simDR_fuel_tank_weight_kg[4] <= 10.0 then B747DR_CAS_advisory_status[168] = 1 end
+        if B747.fuel.main1_tank.main_pump_fwd.on > 0 and simDR_fuel_tank_weight_kg[4] <= 10.0 then 
+	  B747DR_CAS_advisory_status[168] = 1
+	else
+	  B747DR_CAS_advisory_status[168] = 0
+	end
+    else
+      B747DR_CAS_advisory_status[168] = 0
     end
 
     -- >FUEL TANK/ENG
     if ((B747DR_button_switch_position[46] > 0.95 or B747DR_button_switch_position[47] > 0.95) and B747DR_fuel_jettison_sel_dial_pos > 0) then
         B747DR_CAS_advisory_status[171] = 0
     else
-        B747DR_CAS_advisory_status[171] = 0
+        
         if ((simDR_fuel_tank_weight_kg[2] <= simDR_fuel_tank_weight_kg[1]) or (simDR_fuel_tank_weight_kg[3] <= simDR_fuel_tank_weight_kg[4]))
             and (B747.fuel.engine1.xfeed_vlv.pos > 0.95 or B747.fuel.engine4.xfeed_vlv.pos > 0.95)
         then
             B747DR_CAS_advisory_status[171] = 1
+	else
+	    B747DR_CAS_advisory_status[171] = 0
         end
     end
 
     -- >FUEL TEMP LOW
-    B747DR_CAS_advisory_status[172] = 0
-    if B747DR_fuel_temperature < -37.0 then B747DR_CAS_advisory_status[172] = 1 end
+    
+    if B747DR_fuel_temperature < -37.0 then 
+      B747DR_CAS_advisory_status[172] = 1 
+    else
+      B747DR_CAS_advisory_status[172] = 0
+    end
 
     -- >FUEL XFER 1+4
-    B747DR_CAS_advisory_status[172] = 0
+    
     if B747DR_button_switch_position[43] > 0.95 then
         if simDR_all_wheels_on_ground == 1
             or
@@ -2677,29 +2781,47 @@ function B747_fuel_EICAS_msg()
             ((simDR_fuel_tank_weight_kg[2] + simDR_fuel_tank_weight_kg[3]) > (simDR_fuel_tank_weight_kg[1] + simDR_fuel_tank_weight_kg[4])))
         then
             B747DR_CAS_advisory_status[172] = 1
+	else
+	  B747DR_CAS_advisory_status[172] = 0
         end
+    else
+      B747DR_CAS_advisory_status[172] = 0
     end
 
     -- >JETT NOZ ON
-    B747DR_CAS_advisory_status[235] = 0
+   
     if B747.fuel.jett_nozzle_vlv_L.pos > 0.0 and B747.fuel.jett_nozzle_vlv_R.pos > 0.0 then
         B747DR_CAS_advisory_status[235] = 1
+    else
+       B747DR_CAS_advisory_status[235] = 0
     end
 
     -- >JETT NOZ ON L
-    B747DR_CAS_advisory_status[236] = 0
+    
     if B747DR_CAS_advisory_status[235] == 0 then
-        if B747.fuel.jett_nozzle_vlv_L.pos > 0.0 then B747DR_CAS_advisory_status[236] = 1 end
+        if B747.fuel.jett_nozzle_vlv_L.pos > 0.0 then 
+	  B747DR_CAS_advisory_status[236] = 1 
+	else
+	  B747DR_CAS_advisory_status[236] = 0
+	end
+    else
+      B747DR_CAS_advisory_status[236] = 0
     end
 
     -- >JETT NOZ ON R
-    B747DR_CAS_advisory_status[237] = 0
+    
     if B747DR_CAS_advisory_status[235] == 0 then
-        if B747.fuel.jett_nozzle_vlv_R.pos > 0.0 then B747DR_CAS_advisory_status[237] = 1 end
+        if B747.fuel.jett_nozzle_vlv_R.pos > 0.0 then 
+	  B747DR_CAS_advisory_status[237] = 1
+	else
+	  B747DR_CAS_advisory_status[237] = 0
+	end
+    else
+      B747DR_CAS_advisory_status[237] = 0
     end
 
     -- >SCAV PUMP ON
-    B747DR_CAS_advisory_status[263] = 0
+    
     if simDR_all_wheels_on_ground == 1 then
         if B747.fuel.center_tank.scvg_pump_L1.on > 0.0
             or B747.fuel.center_tank.scvg_pump_L2.on > 0.0
@@ -2707,11 +2829,15 @@ function B747_fuel_EICAS_msg()
             or B747.fuel.center_tank.scvg_pump_R2.on > 0.0
         then
             B747DR_CAS_advisory_status[263] = 1
+	else
+	  B747DR_CAS_advisory_status[263] = 0
         end
+    else
+      B747DR_CAS_advisory_status[263] = 0
     end
 
     -- >X FEED CONFIG
-    B747DR_CAS_advisory_status[299] = 0
+    
     if ((B747.fuel.engine1.xfeed_vlv.pos < 0.05 or B747.fuel.engine4.xfeed_vlv.pos < 0.05)
         and
         (math.abs(simDR_fuel_tank_weight_kg[1] - simDR_fuel_tank_weight_kg[1]) > 100.0
@@ -2725,6 +2851,8 @@ function B747_fuel_EICAS_msg()
         (simDR_wing_flap1_deg[0] < 9.9 or simDR_wing_flap1_deg[0] > 21.0))
     then
         B747DR_CAS_advisory_status[299] = 1
+    else
+      B747DR_CAS_advisory_status[299] = 0
     end
 
 end
