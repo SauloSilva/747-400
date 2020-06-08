@@ -1,6 +1,6 @@
 # Boeing 747-400
 
-Thank you all for your support! We are just beginning to form a team that can help speed up the development of this aircraft. Please be aware that if you choose to download this aircraft, you may run into bugs or other problems. These things will be fixed, however, there are other things that take priority. 
+Thank you all for your support! Please be aware that if you choose to download this aircraft, you may run into bugs or other problems. These things will be fixed, however, there are other things that take priority. You are free to make any contributions, open up issues, etc. on this plane.
 
 N.B. Windows users:
 You need to manually install C++ support

@@ -108,7 +108,7 @@ deltaAlt = altitude_indicated_plt - autopilot_alt_dial
 
 time_to_tgt = (deltaAlt / vert_speed_indicated_plt) / 60			-- hours
 
-distance_to_tgt = (acf_groundSpeed * 1.944012‬‬) * time_to_tgt
+distance_to_tgt = (acf_groundSpeed * 1.944012) * time_to_tgt
 
 B747DR_arc_movement = distance_to_tgt * MFD_PIXELS
 

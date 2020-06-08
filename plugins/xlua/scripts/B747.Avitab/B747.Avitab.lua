@@ -14,22 +14,19 @@ function avitabShow()
 
 	if lowEICASpage == 5 then
 		avitabEnable = 1
-	else
+		avitabBrit = lowEICASbrit[10]
+	elseif avitabEnable == 1 then
 		avitabEnable = 0
 	end
 
-	avitabBrit = lowEICASbrit[10]
+	
 
 end
 
 
 
 
-local avitabInstalled=1
+
 function after_physics()
-if avitabInstalled==1 then
-  if pcall(avitabShow()) ==false then
-    avitabInstalled=0
-  endif
-endif
+  avitabShow()
 end
