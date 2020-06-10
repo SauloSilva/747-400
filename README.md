@@ -11,7 +11,7 @@ And multithreading support
 
 https://aka.ms/vs/16/release/vc_redist.x64.exe (aka.ms is a microsoft domain - linked from https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
 
-In order to use this branch
+In order to use this version.
 
 MacOS libraries are not tested much yet, if a Mac developer wishes to help out, the source code for xlua with some fixes is here:
 https://github.com/mSparks43/XLua/tree/master
