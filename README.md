@@ -28,6 +28,7 @@ Join our Discord:
 Discord: https://discord.gg/UbZVAuX
 
 Changelog:
+
 06/10/2020
 merge navigationsystems branch
 
