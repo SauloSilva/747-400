@@ -13,14 +13,14 @@ https://aka.ms/vs/16/release/vc_redist.x64.exe (aka.ms is a microsoft domain - l
 
 In order to use this branch
 
-MacOS libraries are not built yet, if a Mac developer wishes to help out, the source code for xlua with some fixes is here:
+MacOS libraries are not tested much yet, if a Mac developer wishes to help out, the source code for xlua with some fixes is here:
 https://github.com/mSparks43/XLua/tree/master
 
-And xtlua
+XTlua is described here
 
 https://forums.x-plane.org/index.php?/forums/topic/209883-xtlua-parallel-lua-for-complex-aircraft-systems/
 
-is here:
+source is here:
 
 https://github.com/mSparks43/XLua/tree/xTLua
 
@@ -28,6 +28,8 @@ Join our Discord:
 Discord: https://discord.gg/UbZVAuX
 
 Changelog:
+06/10/2020
+merge navigationsystems branch
 
 10/18/2019
 Memory Leak- Fixed
