@@ -282,7 +282,8 @@ end
 --------------------------------------------------------------------------------
 
 function log(contents)
-	c = XLuaDebugString(contents.."\n")
+	--c = XLuaDebugString(contents.."\n")
+    --print(contents)
 end
 
 function path()

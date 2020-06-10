@@ -11,7 +11,7 @@ lowEICASpage				= find_dataref("laminar/B747/dsp/synoptic_display")
 lowEICASbrit				= find_dataref("sim/cockpit2/electrical/instrument_brightness_ratio")
 
 function avitabShow()
-
+ 	
 	if lowEICASpage == 5 then
 		avitabEnable = 1
 		avitabBrit = lowEICASbrit[10]
