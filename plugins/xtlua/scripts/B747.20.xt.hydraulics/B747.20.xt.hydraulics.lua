@@ -332,12 +332,15 @@ end
 function B747_hyd_EICAS_msg()
 
     -- >BRAKE SOURCE
-    B747DR_CAS_caution_status[9] = 0
-    if simDR_engine01_hyd_pump_fail == 6
-        or simDR_engine02_hyd_pump_fail == 6
-        or simDR_engine04_hyd_pump_fail == 6
+    
+    --[[if simDR_engine01_hyd_pump_fail == 6
+        and simDR_engine02_hyd_pump_fail == 6
+        and simDR_engine04_hyd_pump_fail == 6]]
+    if B747DR_hyd_sys_pressure_1 < 1000 and B747DR_hyd_sys_pressure_2 < 1000 and B747DR_hyd_sys_pressure_4 < 1000
     then
         B747DR_CAS_caution_status[9] = 1
+    else
+      B747DR_CAS_caution_status[9] = 0
     end
 
     -- HYD PRESS SYS 1-4
@@ -377,8 +380,12 @@ function B747_hyd_EICAS_msg()
     end
 
     -- PARK BRAKE SET
-    B747DR_CAS_memo_status[26] = 0
-    if simDR_parking_brake_ratio > 0.1 then B747DR_CAS_memo_status[26] = 1 end
+    
+    if simDR_parking_brake_ratio > 0.9 then 
+      B747DR_CAS_memo_status[26] = 1 
+    else
+      B747DR_CAS_memo_status[26] = 0
+    end
 
 end
 
