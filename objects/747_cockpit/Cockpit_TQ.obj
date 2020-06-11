@@ -31449,7 +31449,7 @@ ANIM_begin
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.2198    2.4300    5.3463	  -0.2198    2.4300    5.3463	0 0	no_ref
-	ANIM_rotate	   1.0000   -0.0000    0.0000	  0.00  50.79	0 1	sim/cockpit2/controls/parking_brake_ratio
+	ANIM_rotate	   1.0000   -0.0000    0.0000	  0.00  50.79	0 1	laminar/B747/flt_ctrls/parking_brake_ratio
 	TRIS	78663 399
 ANIM_end
 ANIM_begin

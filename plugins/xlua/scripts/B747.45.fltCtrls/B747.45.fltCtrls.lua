@@ -78,7 +78,7 @@ B747DR_EICAS1_flap_display_status = deferred_dataref("laminar/B747/flt_ctrls/fla
 B747DR_elevator_trim_mid_ind    = deferred_dataref("laminar/B747/flt_ctrls/elevator_trim/mid/indicator", "number")
 
 B747DR_init_fltctrls_CD         = deferred_dataref("laminar/B747/fltctrls/init_CD", "number")
-
+B747DR_parking_brake_ratio = deferred_dataref("laminar/B747/flt_ctrls/parking_brake_ratio", "number")
 
 
 --*************************************************************************************--

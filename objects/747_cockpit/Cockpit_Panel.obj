@@ -32065,8 +32065,9 @@ ANIM_begin
 	ANIM_end
 ANIM_end
 TRIS	70254 6
-ATTR_light_level 0 1 B747DR_annun_brightness_ratio[79]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[79]
 TRIS	70260 6
+
 ANIM_begin
 	ANIM_trans	   0.3059    2.5542    4.8542	   0.3059    2.5523    4.8495	0 1	laminar/B747/button_switch/position[3]
 	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[2]
