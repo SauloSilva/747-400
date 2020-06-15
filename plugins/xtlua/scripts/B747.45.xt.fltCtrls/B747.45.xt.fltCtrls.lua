@@ -1045,7 +1045,7 @@ function after_physics()
     B747_fltCtrols_EICAS_msg()
 
     B747_fltctrls_monitor_AI()
-
+    --print(collectgarbage("count")*1024)
 end
 
 --function after_replay() end
