@@ -86,7 +86,8 @@ simDR_autopilot_airspeed_is_mach		= find_dataref("sim/cockpit2/autopilot/airspee
 simDR_autopilot_altitude_ft    			= find_dataref("sim/cockpit2/autopilot/altitude_dial_ft")
 simDR_autopilot_airspeed_kts   			= find_dataref("sim/cockpit2/autopilot/airspeed_dial_kts")
 simDR_autopilot_airspeed_kts_mach   	= find_dataref("sim/cockpit2/autopilot/airspeed_dial_kts_mach")
-simDR_autopilot_heading_deg         	= find_dataref("sim/cockpit2/autopilot/heading_dial_deg_mag_pilot")
+--simDR_autopilot_heading_deg         	= find_dataref("sim/cockpit2/autopilot/heading_dial_deg_mag_pilot")
+simDR_autopilot_heading_deg         	= find_dataref("sim/cockpit/autopilot/heading_mag")
 simDR_autopilot_vs_fpm         			= find_dataref("sim/cockpit2/autopilot/vvi_dial_fpm")
 simDR_autopilot_vs_status          		= find_dataref("sim/cockpit2/autopilot/vvi_status")
 simDR_autopilot_flch_status         	= find_dataref("sim/cockpit2/autopilot/speed_status")
@@ -968,12 +969,31 @@ function B747_ap_FMS_mode_afterCMDhandler(phase, duration)
 end
 
 
+----- ROUND TO INCREMENT ----------------------------------------------------------------
+function roundToIncrement(numberToRound, increment)
 
+    local y = numberToRound / increment
+    local q = math.floor(y + 0.5)
+    local z = q * increment
 
-function B747_ap_heading_hold_mode_beforeCMDhandler(phase, duration) end
+    return z
+
+end
+
+function B747_ap_heading_hold_mode_beforeCMDhandler(phase, duration)
+  --[[print("heading hold "..simDR_AHARS_heading_deg_pilot)
+  
+  --B747DR_ap_heading_deg=roundToIncrement(simDR_AHARS_heading_deg_pilot, 1) unused?
+  if simDR_autopilot_heading_hold_status ==0 then
+    simDR_autopilot_heading_deg=roundToIncrement(simDR_AHARS_heading_deg_pilot, 1)
+  end]]
+end
 function B747_ap_heading_hold_mode_afterCMDhandler(phase, duration) 
+      
+      --print("heading hold2"..simDR_AHARS_heading_deg_pilot)
 	if phase == 0 then
 		B747_ap_button_switch_position_target[5] = 1
+		
 	elseif phase == 2 then
 		B747_ap_button_switch_position_target[5] = 0	
 	end			
@@ -1162,16 +1182,7 @@ end
 
 
 
------ ROUND TO INCREMENT ----------------------------------------------------------------
-function roundToIncrement(numberToRound, increment)
 
-    local y = numberToRound / increment
-    local q = math.floor(y + 0.5)
-    local z = q * increment
-
-    return z
-
-end
 
 
 
@@ -1851,7 +1862,9 @@ end
 --function before_physics() end
 
 function after_physics()
-
+    local cHeading=simDR_AHARS_heading_deg_pilot --constant refresh of data
+    local tHeading=simDR_autopilot_heading_deg --constant refresh of data
+    local headingStatus=simDR_autopilot_heading_hold_status --constant refresh of data
     B747_ap_button_switch_animation()
     B747_fltmgmt_setILS() 
     --print("ils=".. targetILSS)--make sure we have it!

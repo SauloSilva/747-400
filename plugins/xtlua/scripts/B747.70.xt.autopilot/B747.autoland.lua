@@ -49,26 +49,32 @@ function doPitch()
   --elseif simDR_radarAlt1 >50 and lastRod>1.5 then targetPitch=10  --flare harder!
   --elseif simDR_radarAlt1 >50 and lastRod>=0.8 then targetPitch=simDR_AHARS_pitch_heading_deg_pilot 
   --local doRollout=maxPitch+4.5
-  local doRollout=((4.8+lastRod*8)*(maxPitch/8))
-  if simDR_radarAlt1 >50 then targetPitch=-0.5
-  elseif simDR_radarAlt1 >40 then
-    local thisPitch=9*lastRod
-    if thisPitch<8 then thisPitch=8 end
-    if simDR_radarAlt1 > doRollout then targetPitch=thisPitch end
-  end 
-  if simDR_radarAlt1 < doRollout then targetPitch=2 maxPitch=2 inrollout=true B747DR_ap_FMA_active_roll_mode=4 B747DR_ap_FMA_active_pitch_mode=0 end
-  if simDR_radarAlt1 < 5.5 then targetPitch=1 maxPitch=1 inrollout=true B747DR_ap_FMA_active_roll_mode=4 B747DR_ap_FMA_active_pitch_mode=0 end
-  if targetPitch>0 and targetPitch>maxPitch then maxPitch=targetPitch 
-end
-  if targetPitch>0 and targetPitch<maxPitch and simDR_radarAlt1 > doRollout then targetPitch=maxPitch 
+  local doRollout=((4.8+lastRod*8))
+  
+  if simDR_radarAlt1 >50 then 
+    targetPitch=-0.5
   end
-  if inrollout==true then targetPitch=2 end
+  
+  if simDR_radarAlt1 < doRollout then targetPitch=1 maxPitch=1 inrollout=true B747DR_ap_FMA_active_roll_mode=4 B747DR_ap_FMA_active_pitch_mode=0 end
+  
+  if simDR_radarAlt1 < 5.5 then targetPitch=1 maxPitch=1 inrollout=true B747DR_ap_FMA_active_roll_mode=4 B747DR_ap_FMA_active_pitch_mode=0 end
+  
+
+  if simDR_radarAlt1 < 50 and simDR_radarAlt1 > doRollout then
+    targetPitch=((55.5-(simDR_radarAlt1)))/6
+  end
+  
+ -- if inrollout==true then targetPitch=1 end
+  if inrollout==true then targetPitch=((simDR_radarAlt1-5)/2) end
+  if simDR_onGround==1 then targetPitch=-0.1 end
+  
   if simDR_AHARS_pitch_heading_deg_pilot>targetPitch+0.1 then
     initElevator=-0.1*(simDR_AHARS_pitch_heading_deg_pilot-targetPitch)
   elseif simDR_AHARS_pitch_heading_deg_pilot<targetPitch-0.1 then
     initElevator=0.1*(targetPitch-simDR_AHARS_pitch_heading_deg_pilot)
   end
 end
+
 
 
 function doYaw()
@@ -121,18 +127,18 @@ function doThrottle()
   if simDR_touchGround>0 then touchedGround=true pinThrottle=0 return end
 
   if simDR_radarAlt1 < 50 then
-    targetAirspeed=169-(50+simDR_radarAlt1)/10
+    targetAirspeed=169 --((50-simDR_radarAlt1)/10)
   end
   
   local diff=targetAirspeed-simDR_ind_airspeed_kts_pilot
   
   if diff>0 then
-      pinThrottle=1
+      pinThrottle=diff/10
   elseif diff<0 then
       pinThrottle=0
   end
   if pinThrottle>1 then pinThrottle=1 end
-  if pinThrottle<-1 then pinThrottle=-1 end
+  if pinThrottle<0 then pinThrottle=0 end
   
 end
 function during_Flare()
@@ -144,7 +150,7 @@ function during_Flare()
   doPitch()
   controlYaw()
   simDR_allThrottle=B747_set_ap_animation_position(simDR_allThrottle,pinThrottle,0,1,10)
-  simDR_elevator=B747_set_ap_animation_position(simDR_elevator,initElevator,-1,1,1)
+  simDR_elevator=initElevator --B747_set_ap_animation_position(simDR_elevator,initElevator,-1,1,1)
   --simDR_rudder=B747_set_ap_animation_position(simDR_rudder,pinrudder,-1,1,2)
   print("autoland flare ".. simDR_radarAlt1 .. " "..altdiff.. " ".. B744_fpm .." : "..targetAirspeed.." ".. simDR_ind_airspeed_kts_pilot .." ".. simDR_allThrottle .." : ".. simDR_AHARS_heading_deg_pilot.." ".. simDR_AHARS_pitch_heading_deg_pilot .." " ..targetPitch)
 end
@@ -318,4 +324,32 @@ end
     pinThrottle=simDR_allThrottle --just hold it
   end
   
-end]]
+end
+    function doPitch()
+  targetPitch=maxPitch
+  --if simDR_radarAlt1 >50 and lastRod<0.3 then targetPitch=-2 -- if we are here > 50 feet, we are stopping a nose dive
+  --elseif simDR_radarAlt1 >50 and lastRod>1.5 then targetPitch=10  --flare harder!
+  --elseif simDR_radarAlt1 >50 and lastRod>=0.8 then targetPitch=simDR_AHARS_pitch_heading_deg_pilot 
+  --local doRollout=maxPitch+4.5
+  local doRollout=((4.8+lastRod*8)*(maxPitch/8))
+  if simDR_radarAlt1 >50 then targetPitch=-0.5
+  elseif simDR_radarAlt1 >40 then
+    local thisPitch=9*lastRod
+    if thisPitch<8 then thisPitch=8 end
+    if simDR_radarAlt1 > doRollout then targetPitch=thisPitch end
+  end 
+  if simDR_radarAlt1 < doRollout then targetPitch=2 maxPitch=2 inrollout=true B747DR_ap_FMA_active_roll_mode=4 B747DR_ap_FMA_active_pitch_mode=0 end
+  if simDR_radarAlt1 < 5.5 then targetPitch=1 maxPitch=1 inrollout=true B747DR_ap_FMA_active_roll_mode=4 B747DR_ap_FMA_active_pitch_mode=0 end
+  if targetPitch>0 and targetPitch>maxPitch then maxPitch=targetPitch 
+end
+  if targetPitch>0 and targetPitch<maxPitch and simDR_radarAlt1 > doRollout then targetPitch=maxPitch 
+  end
+  if inrollout==true then targetPitch=2 end
+  if simDR_AHARS_pitch_heading_deg_pilot>targetPitch+0.1 then
+    initElevator=-0.1*(simDR_AHARS_pitch_heading_deg_pilot-targetPitch)
+  elseif simDR_AHARS_pitch_heading_deg_pilot<targetPitch-0.1 then
+    initElevator=0.1*(targetPitch-simDR_AHARS_pitch_heading_deg_pilot)
+  end
+end  
+      
+      ]]
