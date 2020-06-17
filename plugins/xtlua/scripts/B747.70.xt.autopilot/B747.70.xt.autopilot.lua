@@ -84,6 +84,7 @@ simDR_autopilot_autothrottle_on      	= find_dataref("sim/cockpit2/autopilot/aut
 simDR_autopilot_bank_limit          	= find_dataref("sim/cockpit2/autopilot/bank_angle_mode")
 simDR_autopilot_airspeed_is_mach		= find_dataref("sim/cockpit2/autopilot/airspeed_is_mach")
 simDR_autopilot_altitude_ft    			= find_dataref("sim/cockpit2/autopilot/altitude_dial_ft")
+
 simDR_autopilot_airspeed_kts   			= find_dataref("sim/cockpit2/autopilot/airspeed_dial_kts")
 simDR_autopilot_airspeed_kts_mach   	= find_dataref("sim/cockpit2/autopilot/airspeed_dial_kts_mach")
 --simDR_autopilot_heading_deg         	= find_dataref("sim/cockpit2/autopilot/heading_dial_deg_mag_pilot")
@@ -212,6 +213,7 @@ B747DR_ap_vs_window_open            	= deferred_dataref("laminar/B747/autopilot/
 B747DR_ap_vs_show_thousands         	= deferred_dataref("laminar/B747/autopilot/vert_speed/show_thousands", "number")
 --B747DR_ap_hdg_hold_mode             	= deferred_dataref("laminar/B747/autopilot/heading_hold_mode", "number")
 --B747DR_ap_hdg_sel_mode              	= deferred_dataref("laminar/B747/autopilot/heading_sel_mode", "number")
+B747DR_autopilot_altitude_ft    			= find_dataref("laminar/B747/autopilot/heading/altitude_dial_ft")
 B747DR_ap_heading_deg               	= deferred_dataref("laminar/B747/autopilot/heading/degrees", "number")
 B747DR_ap_ias_dial_value            	= deferred_dataref("laminar/B747/autopilot/ias_dial_value", "number")
 B747DR_ap_vvi_fpm						= deferred_dataref("laminar/B747/autopilot/vvi_fpm", "number")
@@ -379,11 +381,31 @@ end
 
 function B747_ap_switch_vs_mode_CMDhandler(phase, duration)
 	if phase == 0 then 
+	       local cAlt=simDR_radarAlt1
 		B747_ap_button_switch_position_target[6] = 1
+		--for animation
+		if B747DR_autopilot_altitude_ft > simDR_radarAlt1+500 then
+		  B747DR_ap_vvi_fpm=500
+		elseif B747DR_autopilot_altitude_ft < simDR_radarAlt1-500 then
+		  B747DR_ap_vvi_fpm=-500
+		else
+		  B747DR_ap_vvi_fpm=0
+		end
+		simDR_autopilot_altitude_ft=B747DR_autopilot_altitude_ft
+		
 		simCMD_autopilot_vert_speed_mode:once()
 		--if simDR_autopilot_vs_status < 1 then
 		--	B747DR_ap_ias_mach_window_open = 1											-- OPEN THE IAS/MACH WINDOW
-		--end					
+		--end
+	elseif phase ==2 then
+	  --for autpilot
+	  if B747DR_autopilot_altitude_ft > simDR_radarAlt1+500 then
+		  simDR_autopilot_vs_fpm=500
+		elseif B747DR_autopilot_altitude_ft < simDR_radarAlt1-500 then
+		  simDR_autopilot_vs_fpm=-500
+		else
+		  simDR_autopilot_vs_fpm=0
+		end
 	end
 end
 
@@ -900,20 +922,24 @@ end
 
 function B747_ap_altitude_up_CMDhandler(phase, duration)
 	if phase == 0 then
-		simDR_autopilot_altitude_ft = math.min(50000.0, simDR_autopilot_altitude_ft + 100)
+		simDR_autopilot_altitude_ft = math.min(50000.0, B747DR_autopilot_altitude_ft + 100)
+		B747DR_autopilot_altitude_ft=simDR_autopilot_altitude_ft
 	elseif phase == 1 then
 		if duration > 0.5 then
-			simDR_autopilot_altitude_ft = math.min(50000.0, simDR_autopilot_altitude_ft + 100)
+			simDR_autopilot_altitude_ft = math.min(50000.0, B747DR_autopilot_altitude_ft + 100)
+			B747DR_autopilot_altitude_ft=simDR_autopilot_altitude_ft
 		end
 	end
 end	
 
 function B747_ap_altitude_down_CMDhandler(phase, duration)
 	if phase == 0 then
-		simDR_autopilot_altitude_ft = math.max(0.0, simDR_autopilot_altitude_ft - 100)
+		simDR_autopilot_altitude_ft = math.max(0.0, B747DR_autopilot_altitude_ft - 100)
+		B747DR_autopilot_altitude_ft=simDR_autopilot_altitude_ft
 	elseif phase == 1 then
 		if	duration > 0.5 then
-			simDR_autopilot_altitude_ft = math.max(0.0, simDR_autopilot_altitude_ft - 100)
+			simDR_autopilot_altitude_ft = math.max(0.0, B747DR_autopilot_altitude_ft - 100)
+			B747DR_autopilot_altitude_ft=simDR_autopilot_altitude_ft
 		end
 	end
 end	
@@ -1305,9 +1331,9 @@ end
 
 ----- ALTITUDE SELECTED -----------------------------------------------------------------
 function B747_ap_altitude()
-
-	B747DR_ap_alt_show_thousands = B747_ternary(simDR_autopilot_altitude_ft > 999.9, 1.0, 0.0)
-	B747DR_ap_alt_show_tenThousands = B747_ternary(simDR_autopilot_altitude_ft > 9999.99, 1.0, 0.0)
+	local currentapAlt=simDR_autopilot_altitude_ft
+	B747DR_ap_alt_show_thousands = B747_ternary(B747DR_autopilot_altitude_ft > 999.9, 1.0, 0.0)
+	B747DR_ap_alt_show_tenThousands = B747_ternary(B747DR_autopilot_altitude_ft > 9999.99, 1.0, 0.0)
 	
 end	
 
@@ -1779,7 +1805,7 @@ function B747_set_ap_all_modes()
 	simDR_autopilot_heading_deg			= 0.0
 	simDR_autopilot_vs_fpm 				= 0.0
 	simDR_autopilot_altitude_ft			= 10000.0
-	
+	B747DR_autopilot_altitude_ft=10000.0
 	simDR_autopilot_TOGA_pitch_deg      = 8.0
 	
 end
