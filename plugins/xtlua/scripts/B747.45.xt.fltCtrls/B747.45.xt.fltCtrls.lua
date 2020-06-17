@@ -83,7 +83,7 @@ B747DR_CAS_advisory_status      = find_dataref("laminar/B747/CAS/advisory_status
 
 B747DR_airspeed_V1              = find_dataref("laminar/B747/airspeed/V1")
 B747DR_parking_brake_ratio = find_dataref("laminar/B747/flt_ctrls/parking_brake_ratio")
-
+B747DR_autobrakes_sel_dial_pos  = deferred_dataref("laminar/B747/gear/autobrakes/sel_dial_pos", "number")
 --*************************************************************************************--
 --** 				               FIND CUSTOM COMMANDS              			     **--
 --*************************************************************************************--
@@ -745,6 +745,8 @@ function B747_speedbrake_warn()
         B747DR_CAS_warning_status[6] = 1
     end
 end
+local last_simDR_Brake=simDR_parking_brake_ratio
+local last_B747DR_Brake=B747DR_parking_brake_ratio
 
 function B747_fltCtrols_EICAS_msg()
 
@@ -807,8 +809,13 @@ function B747_fltCtrols_EICAS_msg()
     if simDR_hyd_press_1_2 < 1000 and simDR_parking_brake_ratio > 0 then
       simDR_parking_brake_ratio = B747_animate_value(simDR_parking_brake_ratio,0,0,1,1)
     else
-      simDR_parking_brake_ratio = B747_animate_value(simDR_parking_brake_ratio,B747DR_parking_brake_ratio,0,1,1)
-      --B747DR_CAS_warning_status[9] = 1
+      if B747DR_parking_brake_ratio~=last_B747DR_Brake then --manually changed
+	simDR_parking_brake_ratio = B747DR_parking_brake_ratio
+      elseif simDR_parking_brake_ratio~=last_simDR_Brake then --sim changed
+	  B747DR_parking_brake_ratio = simDR_parking_brake_ratio
+      end
+      last_simDR_Brake=simDR_parking_brake_ratio
+      last_B747DR_Brake=B747DR_parking_brake_ratio
     end
     local numClimb=0;
     if simDR_engine_N1_pct[0]>90.0 then numClimb=numClimb+1 end
