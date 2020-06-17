@@ -49,7 +49,7 @@ function doPitch()
   --elseif simDR_radarAlt1 >50 and lastRod>1.5 then targetPitch=10  --flare harder!
   --elseif simDR_radarAlt1 >50 and lastRod>=0.8 then targetPitch=simDR_AHARS_pitch_heading_deg_pilot 
   --local doRollout=maxPitch+4.5
-  local doRollout=((4.8+lastRod*8))
+  local doRollout=((4.8+lastRod*7))
   
   if simDR_radarAlt1 >50 then 
     targetPitch=-0.5
@@ -61,11 +61,12 @@ function doPitch()
   
 
   if simDR_radarAlt1 < 50 and simDR_radarAlt1 > doRollout then
-    targetPitch=((55.5-(simDR_radarAlt1)))/6
+    local progressPitch=((55-(simDR_radarAlt1)))/6
+    if progressPitch>8 then targetPitch=8 else targetPitch=progressPitch end
   end
   
  -- if inrollout==true then targetPitch=1 end
-  if inrollout==true then targetPitch=((simDR_radarAlt1-5)/2) end
+  if inrollout==true then targetPitch=((simDR_radarAlt1-4)/2) end
   if simDR_onGround==1 then targetPitch=-0.1 end
   
   if simDR_AHARS_pitch_heading_deg_pilot>targetPitch+0.1 then
@@ -127,7 +128,7 @@ function doThrottle()
   if simDR_touchGround>0 then touchedGround=true pinThrottle=0 return end
 
   if simDR_radarAlt1 < 50 then
-    targetAirspeed=169 --((50-simDR_radarAlt1)/10)
+    targetAirspeed=169 -((50-simDR_radarAlt1)/10)
   end
   
   local diff=targetAirspeed-simDR_ind_airspeed_kts_pilot
