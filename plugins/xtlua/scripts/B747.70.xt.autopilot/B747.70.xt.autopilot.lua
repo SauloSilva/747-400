@@ -111,6 +111,9 @@ simDR_autopilot_pitch					= find_dataref("sim/cockpit2/autopilot/pitch_status")
 simDR_airspeed_mach                 	= find_dataref("sim/flightmodel/misc/machno")
 simDR_vvi_fpm_pilot                 	= find_dataref("sim/cockpit2/gauges/indicators/vvi_fpm_pilot")
 simDR_ind_airspeed_kts_pilot        	= find_dataref("sim/cockpit2/gauges/indicators/airspeed_kts_pilot")
+B747DR_airspeed_Vmc                             = find_dataref("laminar/B747/airspeed/Vmc")
+B747DR_airspeed_Vmo                             = find_dataref("laminar/B747/airspeed/Vmo")
+simDR_flap_ratio_control        = find_dataref("sim/cockpit2/controls/flap_ratio")                      -- FLAP HANDLE
 simDR_autopilot_nav_source          	= find_dataref("sim/cockpit2/radios/actuators/HSI_source_select_pilot")
 simDR_AHARS_roll_deg_pilot          	= find_dataref("sim/cockpit2/gauges/indicators/roll_AHARS_deg_pilot")
 --simDR_AHARS_heading_deg_pilot       	= find_dataref("sim/cockpit2/gauges/indicators/ground_track_mag_pilot")--find_dataref("sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_pilot")
@@ -216,6 +219,7 @@ B747DR_ap_vs_show_thousands         	= deferred_dataref("laminar/B747/autopilot/
 B747DR_autopilot_altitude_ft    			= find_dataref("laminar/B747/autopilot/heading/altitude_dial_ft")
 B747DR_ap_heading_deg               	= deferred_dataref("laminar/B747/autopilot/heading/degrees", "number")
 B747DR_ap_ias_dial_value            	= deferred_dataref("laminar/B747/autopilot/ias_dial_value", "number")
+B747DR_airspeed_Mmo                     = deferred_dataref("laminar/B747/airspeed/Mmo", "number")
 B747DR_ap_vvi_fpm						= deferred_dataref("laminar/B747/autopilot/vvi_fpm", "number")
 B747DR_ap_alt_show_thousands      		= deferred_dataref("laminar/B747/autopilot/altitude/show_thousands", "number")
 B747DR_ap_alt_show_tenThousands			= deferred_dataref("laminar/B747/autopilot/altitude/show_tenThousands", "number")
@@ -351,13 +355,25 @@ function B747_ap_switch_speed_mode_CMDhandler(phase, duration)
 		end		
 	elseif phase == 2 then
 		B747_ap_button_switch_position_target[1] = 0									-- SET THE SPEED SWITCH ANIMATION TO "OUT"				
+	  if simDR_autopilot_airspeed_is_mach == 0 then
+	    B747DR_ap_ias_dial_value=simDR_ind_airspeed_kts_pilot
+	  else
+	    B747DR_ap_ias_dial_value=simDR_airspeed_mach*100
+	  end
+
 	end
 end	
 
 
 
 function B747_ap_ias_mach_sel_button_CMDhandler(phase, duration) 						-- INOP, NO CORRESPONDING FUNCTIONALITY IN X-PLANE
-	if phase == 0 then 
+	if phase == 0 then
+	  if simDR_autopilot_airspeed_is_mach == 0 then
+	    B747DR_ap_ias_dial_value=simDR_ind_airspeed_kts_pilot
+	  else
+	    B747DR_ap_ias_dial_value=simDR_airspeed_mach*100
+	  end
+	 
 	    -- TODO: IN VNAV THIS ALTERNATELY OPENS AND CLOSES IAS/MACH WINDOW AND CONTROLS VNAV INTERACTION (FCOM Pg 643)
 	    -- TODO: CURRENTLY INOP - THE CURRENT XP FMS DOES NOT ALLOW THIS OPTION				
 	end
@@ -368,6 +384,7 @@ end
 function B747_ap_switch_flch_mode_CMDhandler(phase, duration)
 	if phase == 0 then 
 		B747_ap_button_switch_position_target[4] = 1
+		simDR_autopilot_altitude_ft=B747DR_autopilot_altitude_ft
 		simCMD_autopilot_flch_mode:once()
 		--if simDR_autopilot_flch_status == 0 then
 		--	B747DR_ap_ias_mach_window_open = 1	
@@ -778,19 +795,20 @@ B747CMD_ai_ap_quick_start				= deferred_command("laminar/B747/ai/autopilot_quick
 --*************************************************************************************--
 --** 				          REPLACE X-PLANE COMMAND HANDLERS             	    	 **--
 --*************************************************************************************--
-
+local lastap_dial_airspeed = simDR_autopilot_airspeed_kts
 function B747_ap_knots_mach_toggle_CMDhandler(phase, duration)
 	if phase == 0 then
 		B747_ap_button_switch_position_target[13] = 1
 		if B747DR_ap_ias_mach_window_open == 1 then
 			if simDR_airspeed_mach > 0.4 then
-				local ap_dial_airspeed = simDR_autopilot_airspeed_kts							-- READ THE CURRENT AIRSPEED SETTING					
+				lastap_dial_airspeed = simDR_autopilot_airspeed_kts							-- READ THE CURRENT AIRSPEED SETTING					
 				simDR_autopilot_airspeed_is_mach = 1 - simDR_autopilot_airspeed_is_mach			-- SWAP THE MACH/KNOTS STATE
-				simDR_autopilot_airspeed_kts = ap_dial_airspeed									-- WRITE THE NEW VALUE TO FORCE CONVERSION TO CORRECT UNITS
+												-- WRITE THE NEW VALUE TO FORCE CONVERSION TO CORRECT UNITS
 			end
 		end
 	elseif phase == 2 then
-		B747_ap_button_switch_position_target[13] = 0				
+		B747_ap_button_switch_position_target[13] = 0	
+		simDR_autopilot_airspeed_kts = lastap_dial_airspeed	
 	end
 end
 
@@ -800,19 +818,25 @@ end
 function B747_ap_airspeed_up_CMDhandler(phase, duration)
 	if phase == 0 then
 		if B747DR_ap_ias_mach_window_open == 1 then
+		  
 			if simDR_autopilot_airspeed_is_mach == 0 then  
-				simDR_autopilot_airspeed_kts_mach = math.min(399.0, simDR_autopilot_airspeed_kts_mach + 1)
+				--simDR_autopilot_airspeed_kts = math.min(399.0, simDR_autopilot_airspeed_kts + 1)
+				B747DR_ap_ias_dial_value = math.min(399.0, B747DR_ap_ias_dial_value + 1)
 			elseif simDR_autopilot_airspeed_is_mach == 1 then
-				simDR_autopilot_airspeed_kts_mach = math.min(0.950, simDR_autopilot_airspeed_kts_mach + 0.01)		
+				--simDR_autopilot_airspeed_kts_mach = math.min(0.950, simDR_autopilot_airspeed_kts_mach + 0.01)	
+			      B747DR_ap_ias_dial_value = math.min(95.0, B747DR_ap_ias_dial_value + 1)
 			end	
 		end	
 	elseif phase == 1 then
 		if duration > 0.5 then
 			if B747DR_ap_ias_mach_window_open == 1 then
+			 
 				if simDR_autopilot_airspeed_is_mach == 0 then  
-					simDR_autopilot_airspeed_kts_mach = math.min(399.0, simDR_autopilot_airspeed_kts_mach + 1)
+				   B747DR_ap_ias_dial_value = math.min(399.0, B747DR_ap_ias_dial_value + 1)
+					--simDR_autopilot_airspeed_kts = math.min(399.0, simDR_autopilot_airspeed_kts + 1)
 				elseif simDR_autopilot_airspeed_is_mach == 1 then
-					simDR_autopilot_airspeed_kts_mach = math.min(0.950, simDR_autopilot_airspeed_kts_mach + 0.01)		
+				   B747DR_ap_ias_dial_value = math.min(95.0, B747DR_ap_ias_dial_value + 1)
+					--simDR_autopilot_airspeed_kts_mach = math.min(0.950, simDR_autopilot_airspeed_kts_mach + 0.01)		
 				end	
 			end				
 		end				
@@ -822,19 +846,25 @@ end
 function B747_ap_airspeed_down_CMDhandler(phase, duration)
 	if phase == 0 then	
 		if B747DR_ap_ias_mach_window_open == 1 then
+		  
 			if simDR_autopilot_airspeed_is_mach == 0 then  
-				simDR_autopilot_airspeed_kts_mach = math.max(100.0, simDR_autopilot_airspeed_kts_mach - 1)
+				--simDR_autopilot_airspeed_kts = math.max(100.0, simDR_autopilot_airspeed_kts - 1)
+				B747DR_ap_ias_dial_value = math.max(100.0, B747DR_ap_ias_dial_value - 1)
 			elseif simDR_autopilot_airspeed_is_mach == 1 then
-				simDR_autopilot_airspeed_kts_mach = math.max(0.400, simDR_autopilot_airspeed_kts_mach - 0.01)		
+				--simDR_autopilot_airspeed_kts_mach = math.max(0.400, simDR_autopilot_airspeed_kts_mach - 0.01)
+				B747DR_ap_ias_dial_value = math.max(40.0, B747DR_ap_ias_dial_value - 1)
 			end	
 		end
 	elseif phase == 1 then		
 		if duration > 0.5 then
 			if B747DR_ap_ias_mach_window_open == 1 then
+			  
 				if simDR_autopilot_airspeed_is_mach == 0 then  
-					simDR_autopilot_airspeed_kts_mach = math.max(100.0, simDR_autopilot_airspeed_kts_mach - 1)
+				  B747DR_ap_ias_dial_value = math.max(100.0, B747DR_ap_ias_dial_value - 1)
+					--simDR_autopilot_airspeed_kts = math.max(100.0, simDR_autopilot_airspeed_kts - 1)
 				elseif simDR_autopilot_airspeed_is_mach == 1 then
-					simDR_autopilot_airspeed_kts_mach = math.max(0.400, simDR_autopilot_airspeed_kts_mach - 0.01)		
+				  B747DR_ap_ias_dial_value = math.max(40.0, B747DR_ap_ias_dial_value - 1)
+					--simDR_autopilot_airspeed_kts_mach = math.max(0.400, simDR_autopilot_airspeed_kts_mach - 0.01)		
 				end	
 			end			
 		end						
@@ -1256,6 +1286,11 @@ function B747_ap_vs_mode()
     
     
     ----- VVI FOR ANIMATION 
+    if B747DR_autopilot_altitude_ft > simDR_radarAlt1+500 and simDR_autopilot_vs_fpm<0 then
+		  simDR_autopilot_vs_fpm=0
+    elseif B747DR_autopilot_altitude_ft < simDR_radarAlt1-500 and simDR_autopilot_vs_fpm>0 then
+		  simDR_autopilot_vs_fpm=0
+    end
     B747DR_ap_vvi_fpm = math.abs(simDR_autopilot_vs_fpm)
     
     
@@ -1283,14 +1318,13 @@ function B747_ap_ias_mach_mode()
 	else
 		B747DR_ap_ias_mach_window_open = 0
 	end		
-
+      local ap_dial_airspeed = simDR_autopilot_airspeed_kts -- READ THE CURRENT AIRSPEED SETTING
 
 
 	----- AUTO-SWITCH AUTOPILOT IAS/MACH WINDOW AIRSPEED MODE
     if simDR_ind_airspeed_kts_pilot < 310.0 then
     	if simDR_vvi_fpm_pilot < -250.0 then
 	    	if simDR_autopilot_airspeed_is_mach == 1 then
-		    	local ap_dial_airspeed = simDR_autopilot_airspeed_kts						-- READ THE CURRENT AIRSPEED SETTING
 				simDR_autopilot_airspeed_is_mach = 0										-- CHANGE TO KNOTS
 				simDR_autopilot_airspeed_kts = ap_dial_airspeed								-- WRITE THE NEW VALUE TO FORCE CONVERSION TO CORRECT UNITS
 		    end
@@ -1300,7 +1334,7 @@ function B747_ap_ias_mach_mode()
 	if simDR_airspeed_mach > 0.84 then
 		if simDR_vvi_fpm_pilot > 250.0 then
 			if simDR_autopilot_airspeed_is_mach == 0 then
-		    	local ap_dial_airspeed = simDR_autopilot_airspeed_kts						-- READ THE CURRENT AIRSPEED SETTING
+
 				simDR_autopilot_airspeed_is_mach = 1										-- CHANGE TO KNOTS
 				simDR_autopilot_airspeed_kts = ap_dial_airspeed								-- WRITE THE NEW VALUE TO FORCE CONVERSION TO CORRECT UNITS
 			end
@@ -1318,12 +1352,39 @@ function B747_ap_ias_mach_mode()
 		B747DR_ap_mach_decimal_visibiilty = 0		
 	end
 		
-    if simDR_autopilot_airspeed_is_mach == 0 then
-        B747DR_ap_ias_dial_value = roundToIncrement(simDR_autopilot_airspeed_kts_mach, 1)
+    --[[if simDR_autopilot_airspeed_is_mach == 0 then
+        B747DR_ap_ias_dial_value = roundToIncrement(simDR_autopilot_airspeed_kts, 1)
     elseif simDR_autopilot_airspeed_is_mach == 1 then
         B747DR_ap_ias_dial_value = roundToIncrement(simDR_autopilot_airspeed_kts_mach, 0.01) * 100.0
-    end
-	
+    end]]
+	local minSafeSpeed=B747DR_airspeed_Vmc+10
+	local maxSafeSpeed=B747DR_airspeed_Vmo
+	if simDR_flap_ratio_control>0 then
+	  if simDR_flap_ratio_control<=0.168 then --flaps 1
+	    maxSafeSpeed=275
+	  elseif simDR_flap_ratio_control<=0.34 then --flaps 5
+	    maxSafeSpeed=255
+	  elseif simDR_flap_ratio_control<=0.5 then --flaps 10
+	    maxSafeSpeed=235
+	  elseif simDR_flap_ratio_control<=0.668 then --flaps 20
+	    maxSafeSpeed=225
+	  elseif simDR_flap_ratio_control<=0.668 then --flaps 25
+	    maxSafeSpeed=200
+	  elseif simDR_flap_ratio_control<=1.0 then --flaps 30
+	    maxSafeSpeed=175
+	  end
+	end
+	if B747DR_ap_ias_mach_window_open == 1 then
+	if simDR_autopilot_airspeed_is_mach == 0 then
+	    if B747DR_ap_ias_dial_value< minSafeSpeed then
+	      simDR_autopilot_airspeed_kts = minSafeSpeed
+	    else
+	      simDR_autopilot_airspeed_kts = math.min(B747DR_ap_ias_dial_value,maxSafeSpeed)
+	    end
+	elseif simDR_autopilot_airspeed_is_mach == 1 then
+	    simDR_autopilot_airspeed_kts_mach = math.min(B747DR_ap_ias_dial_value* 0.01,B747DR_airspeed_Mmo-0.1) ---roundToIncrement(B747DR_ap_ias_dial_value, 1) * 0.01
+	end
+	end
 end	
 
 
@@ -1801,7 +1862,8 @@ function B747_set_ap_all_modes()
 	simDR_autopilot_airspeed_is_mach	= 0
 	B747DR_ap_alt_show_thousands		= 1
 	
-	simDR_autopilot_airspeed_kts_mach	= 200.0
+	simDR_autopilot_airspeed_kts_mach	= 0.76 --200.0
+	B747DR_ap_ias_dial_value =100
 	simDR_autopilot_heading_deg			= 0.0
 	simDR_autopilot_vs_fpm 				= 0.0
 	simDR_autopilot_altitude_ft			= 10000.0
