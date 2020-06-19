@@ -121,14 +121,22 @@ function controlYaw()
   end
 end
 local targetAirspeed
+B747DR_airspeed_Vf25                            = find_dataref("laminar/B747/airspeed/Vf25")
+B747DR_airspeed_Vf30                            = find_dataref("laminar/B747/airspeed/Vf30")
 function doThrottle()
-  targetAirspeed=169
+  local refSpeed
+  if simDR_flap_ratio_control<=0.668 then --flaps 25
+	    refSpeed=B747DR_airspeed_Vf25
+	  elseif simDR_flap_ratio_control<=1.0 then --flaps 30
+	    refSpeed=B747DR_airspeed_Vf30
+	  end
+  targetAirspeed= refSpeed 
   lastAlt=simDR_radarAlt1
   if touchedGround==true then pinThrottle=0 return end
   if simDR_touchGround>0 then touchedGround=true pinThrottle=0 return end
 
   if simDR_radarAlt1 < 50 then
-    targetAirspeed=169 -((50-simDR_radarAlt1)/5)
+    targetAirspeed=refSpeed -((50-simDR_radarAlt1)/9)
   end
   
   local diff=targetAirspeed-simDR_ind_airspeed_kts_pilot
@@ -154,9 +162,9 @@ function during_Flare()
   simDR_elevator=initElevator --B747_set_ap_animation_position(simDR_elevator,initElevator,-1,1,1)
   --simDR_rudder=B747_set_ap_animation_position(simDR_rudder,pinrudder,-1,1,2)
   if inrollout==false then
-    print("autoland flare alt=".. simDR_radarAlt1 .. " rollout=false" .. " fpm=".. B744_fpm  .." : ".." actualPitch=".. simDR_AHARS_pitch_heading_deg_pilot .." targetPitch=" ..targetPitch .." onGround="..simDR_onGround)
+    print("autoland flare alt=".. simDR_radarAlt1 .. " rollout=false" .. " targetspeed=".. targetAirspeed  .." fpm=".. B744_fpm  .." : ".." actualPitch=".. simDR_AHARS_pitch_heading_deg_pilot .." targetPitch=" ..targetPitch .." onGround="..simDR_onGround)
   else
-    print("autoland flare alt=".. simDR_radarAlt1 .. " rollout=true" .. " fpm=".. B744_fpm  .." : ".." actualPitch=".. simDR_AHARS_pitch_heading_deg_pilot .." targetPitch=" ..targetPitch .." onGround="..simDR_onGround)
+    print("autoland flare alt=".. simDR_radarAlt1 .. " rollout=true" .. " targetspeed=".. targetAirspeed  .." fpm=".. B744_fpm  .." : ".." actualPitch=".. simDR_AHARS_pitch_heading_deg_pilot .." targetPitch=" ..targetPitch .." onGround="..simDR_onGround)
   end
 end
 function end_Flare()
