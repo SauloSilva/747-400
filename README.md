@@ -27,7 +27,7 @@ https://github.com/mSparks43/XLua/tree/xTLua
 You can follow progress, make requests and generally chat about the 747 on the acars-747 channel on the AutoATC discord server
 Discord: https://discord.gg/cStTXy5
 
-Yes Aviation have now officially abandoned this github, and begun work on a payware Airbus A350 Series project, you can reach their discord here:
+Yes Aviation have now officially abandoned their github, and begun work on a payware Airbus A350 Series project, you can reach their discord here:
 Discord: https://discord.gg/UbZVAuX
 
 Changelog:
