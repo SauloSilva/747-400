@@ -1111,6 +1111,7 @@ function B747_fltmgmt_setILS()
   local newTargetFix=0
   local hitI=-1
   if table.getn(fms)>4 and (fms[targetFMSnum]==nil or targetFMS~=fms[targetFMSnum][8]) then
+    
     if fms[table.getn(fms)][2] == 1 then
       --we have an airport as our dst
       found =false
@@ -1159,9 +1160,13 @@ function B747_fltmgmt_setILS()
     end
   end
   
-  --[[print("target="..targetILS.."= "..targetILSS.."= "..targetFix.. " "..nSize.. " "..table.getn(navAids))
-  for i=table.getn(fms)-1,1,-1 do
-    print("fms"..i.."=".. fms[i][1].." "..fms[i][2].." "..fms[i][3].." "..fms[i][4].." "..fms[i][5].." "..fms[i][6].." "..fms[i][7].." "..fms[i][8])
+  --print("target="..targetILS.."= "..targetILSS.."= "..targetFix.. " "..nSize.. " "..table.getn(navAids))
+  --[[for i=table.getn(fms)-1,1,-1 do
+    if fms[i][10]==true then
+      print("fms"..i.."=".. fms[i][1].." "..fms[i][2].." "..fms[i][3].." "..fms[i][4].." "..fms[i][5].." "..fms[i][6].." "..fms[i][7].." "..fms[i][8].." "..fms[i][9].." active")
+    else
+      print("fms"..i.."=".. fms[i][1].." "..fms[i][2].." "..fms[i][3].." "..fms[i][4].." "..fms[i][5].." "..fms[i][6].." "..fms[i][7].." "..fms[i][8].." "..fms[i][9].." inactive")
+    end
   end]]
 end
 
