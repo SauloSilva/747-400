@@ -75,6 +75,7 @@ fmsFunctionsDefs["RTE1"]["R6"]={"custom2fmc","R6"}
 
 fmsFunctionsDefs["RTE1"]["next"]={"custom2fmc","next"}
 fmsFunctionsDefs["RTE1"]["prev"]={"custom2fmc","prev"}
+dofile("B744.fms.pages.posinit.lua")
 fmsPages["INITREF"]=createPage("INITREF")
 fmsPages["INITREF"]["template"]={
 
@@ -96,6 +97,7 @@ fmsPages["INITREF"]["template"]={
 
 fmsFunctionsDefs["INITREF"]={}
 fmsFunctionsDefs["INITREF"]["L1"]={"setpage","IDENT"}
+fmsFunctionsDefs["INITREF"]["L2"]={"setpage","POSINIT"}
 fmsFunctionsDefs["INITREF"]["R1"]={"setpage","DATABASE"}
 
 
