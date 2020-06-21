@@ -29,7 +29,7 @@ fmsPages["POSINIT"].getPage=function(self,pgNo,fmsID)
     "---------------- GPS NAV",
     "<PURGE          INHIBIT>", 
     "                        ",
-    "<INDEX          BRG/DIST"
+    "<INDEX         BRG/DIST>"
     } 
   end
   if pgNo==3 then return {
