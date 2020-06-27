@@ -777,6 +777,9 @@ function B747_flight_start_gear()
 
     end
 
+  if simDR_aircraft_on_ground==0 then B747DR_gear_handle=2 else B747DR_gear_handle=0 end
+  
+
 end
 
 

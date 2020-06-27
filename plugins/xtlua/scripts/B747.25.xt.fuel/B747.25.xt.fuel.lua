@@ -2991,11 +2991,22 @@ function flight_start()
 end
 
 --function flight_crash() end
+function B747_ternary(condition, ifTrue, ifFalse)
+    if condition then return ifTrue else return ifFalse end
+end
+--[[function B747_engine_has_fuel()
+    if engineHasFuelProcessing == 1 then
+        simDR_engine_has_fuel[0] = B747_ternary((B747DR_gen_fuel_engine1_status > 0 and B747.fuel.spar_vlv1.pos > 0 and B747DR_engine_fuel_valve_pos[0] > 0), 1, 0)
+        simDR_engine_has_fuel[1] = B747_ternary((B747DR_gen_fuel_engine2_status > 0 and B747.fuel.spar_vlv2.pos > 0 and B747DR_engine_fuel_valve_pos[1] > 0), 1, 0)
+        simDR_engine_has_fuel[2] = B747_ternary((B747DR_gen_fuel_engine3_status > 0 and B747.fuel.spar_vlv3.pos > 0 and B747DR_engine_fuel_valve_pos[2] > 0), 1, 0)
+        simDR_engine_has_fuel[3] = B747_ternary((B747DR_gen_fuel_engine4_status > 0 and B747.fuel.spar_vlv4.pos > 0 and B747DR_engine_fuel_valve_pos[3] > 0), 1, 0)
+    end
 
+end]]
 function before_physics()
 
     B747_engine_fuel_source()
-    --B747_engine_has_fuel()
+    B747_engine_has_fuel()
 
 end
 

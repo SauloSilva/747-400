@@ -1,18 +1,3 @@
--- Wanna use STP with XLua?  Copy StackTracePlus.lua to be next to init.lua in the same folder
--- https://github.com/ignacio/StackTracePlus
-
--- Grab STP conditionally, do not squawk if it is missing.
---if pcall(
---	function()
---		local STP_chunk = XLuaGetCode("../../StackTracePlus.lua")
---		local STP = STP_chunk()
---		debug.traceback = STP.stacktrace
---	end)
---then
---	print("Using STP as debugger.")
---end
-
-
 
 function dump(o)
    if type(o) == 'table' then
@@ -39,7 +24,7 @@ function dref_array_read(table,key)
 	if idx == nil then
 		return nil
 	end
-	return XTLuaGetArray(table.dref,idx)
+	return XLuaGetArray(table.dref,idx)
 end
 
 function dref_array_write(table,key,value)
@@ -47,7 +32,7 @@ function dref_array_write(table,key,value)
 	if idx == nil then
 		return
 	end
-	XTLuaSetArray(table.dref,idx,value)
+	XLuaSetArray(table.dref,idx,value)
 end
 
 function wrap_dref_array(in_dref, dim)
@@ -65,10 +50,10 @@ end
 function wrap_dref_number(in_dref)
 	return {
 		__get = function(self)
-			return XTLuaGetNumber(self.dref)
+			return XLuaGetNumber(self.dref)
 		end,
 		__set = function(self,v)
-			XTLuaSetNumber(self.dref,v)
+			XLuaSetNumber(self.dref,v)
 		end,
 		dref = in_dref
 	}
@@ -77,10 +62,10 @@ end
 function wrap_dref_string(in_dref)
 	return {
 		__get = function(self)
-			return XTLuaGetString(self.dref)
+			return XLuaGetString(self.dref)
 		end,
 		__set = function(self,v)
-			XTLuaSetString(self.dref,v)
+			XLuaSetString(self.dref,v)
 		end,
 		dref = in_dref
 	}
@@ -111,7 +96,7 @@ function wrap_dref_any_deferred(in_dref)
 			if self.arr ~= nil then
 				return self.arr
 			end
-			t = XTLuaGetDataRefType(self.dref)
+			t = XLuaGetDataRefType(self.dref)
 			b = string.find(t,"%[")
 			if b ~= nil then
 				dim = tonumber(string.sub(t,b+1,-2))
@@ -122,9 +107,9 @@ function wrap_dref_any_deferred(in_dref)
 				return self.arr
 			end
 			if t == "string" then
-				return XTLuaGetString(self.dref)
+				return XLuaGetString(self.dref)
 			elseif t == "number" then
-				return XTLuaGetNumber(self.dref)
+				return XLuaGetNumber(self.dref)
 			else
 				return 0.0
 			end			
@@ -133,11 +118,11 @@ function wrap_dref_any_deferred(in_dref)
 			if self.arr ~= nil then
 				return self.arr
 			end
-			t = XTLuaGetDataRefType(self.dref)
+			t = XLuaGetDataRefType(self.dref)
 			if t == "string" then
-				return XTLuaSetString(self.dref,v)
+				return XLuaSetString(self.dref,v)
 			elseif t == "number" then
-				return XTLuaSetNumber(self.dref,v)
+				return XLuaSetNumber(self.dref,v)
 			else
 				return 0.0
 				--error("Previously unresolved dataref is being written to but is an array or is still undefined.")
@@ -167,20 +152,19 @@ function wrap_dref_any(dref,t)
 end
 
 function find_dataref(name)	
-	dref = XTLuaFindDataRef(name)
-	t = XTLuaGetDataRefType(dref)
+	dref = XLuaFindDataRef(name)
+	t = XLuaGetDataRefType(dref)
 	return wrap_dref_any(dref,t)
 end
 
 function create_dataref(name,type,notifier)
-  error("create_dataref unsupported - use init script")
-	--[[if notifier == nil then
+	if notifier == nil then
 		dref = XLuaCreateDataRef(name,type,"no",nil)
 	else
 		dref = XLuaCreateDataRef(name,type,"yes",notifier)
 	end
 	return wrap_dref_any(dref,type)
-  ]]
+  
 end
 
 --------------------------------------------------------------------------------
@@ -191,30 +175,30 @@ function make_command_obj(in_cmd, in_name)
 	return { 
 		start = function(self)
 			if self.cmd == nil then
-				self.cmd = XTLuaFindCommand(self.name)
+				self.cmd = XLuaFindCommand(self.name)
 				if self.cmd == nil then
 					error("Unable to find command:"..name)
 				end
 			end
-			XTLuaCommandStart(self.cmd)
+			XLuaCommandStart(self.cmd)
 		end,
 		stop = function(self)
 			if self.cmd == nil then
-				self.cmd = XTLuaFindCommand(self.name)
+				self.cmd = XLuaFindCommand(self.name)
 				if self.cmd == nil then
 					error("Unable to find command:"..name)
 				end
 			end
-			XTLuaCommandStop(self.cmd)
+			XLuaCommandStop(self.cmd)
 		end,
 		once = function(self)
 			if self.cmd == nil then
-				self.cmd = XTLuaFindCommand(self.name)
+				self.cmd = XLuaFindCommand(self.name)
 				if self.cmd == nil then
 					error("Unable to find command:"..name)
 				end
 			end
-			XTLuaCommandOnce(self.cmd)
+			XLuaCommandOnce(self.cmd)
 		end,
 		cmd = in_cmd,
 		name = in_name
@@ -222,19 +206,25 @@ function make_command_obj(in_cmd, in_name)
 end
 
 function find_command(name)
-	c = XTLuaFindCommand(name)
+	c = XLuaFindCommand(name)
 	return make_command_obj(c,name)
 end
 
+function create_command(name,desc,handler)
+	c = XLuaCreateCommand(name,desc)
+	XLuaReplaceCommand(c,handler)
+	return make_command_obj(c)
+end
+
 function replace_command(name, func)
-	c = XTLuaFindCommand(name)
-	XTLuaReplaceCommand(c,func)
+	c = XLuaFindCommand(name)
+	XLuaReplaceCommand(c,func)
 	return make_command_obj(c)
 end	
 
 function wrap_command(name, before, after)
-	c = XTLuaFindCommand(name)
-	XTLuaWrapCommand(c,before,after)
+	c = XLuaFindCommand(name)
+	XLuaWrapCommand(c,before,after)
 	return make_command_obj(c)
 end
 
@@ -245,16 +235,16 @@ end
 function run_timer(func,delay,rep)
 	tobj = all_timers[func]
 	if tobj == nil then
-		tobj = XTLuaCreateTimer(func)
+		tobj = XLuaCreateTimer(func)
 		all_timers[func] = tobj
 	end
-	XTLuaRunTimer(tobj,delay,rep)
+	XLuaRunTimer(tobj,delay,rep)
 end
 
 function stop_timer(func)
 	tobj = all_timers[func]
 	if tobj ~= nil then
-		XTLuaRunTimer(tobj, -1.0, -1.0)
+		XLuaRunTimer(tobj, -1.0, -1.0)
 	end
 end
 
@@ -263,7 +253,7 @@ function is_timer_scheduled(func)
 	if tobj == nil then
 		return false
 	end
-	return XTLuaIsTimerScheduled(tobj)
+	return XLuaIsTimerScheduled(tobj)
 end
 
 function run_at_interval(func, interval)

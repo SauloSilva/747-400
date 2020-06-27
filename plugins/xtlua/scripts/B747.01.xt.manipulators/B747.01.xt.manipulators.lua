@@ -493,7 +493,7 @@ for i = 0, NUM_BTN_SW_COVERS-1 do
 
     -- CREATE THE COVER HANDLER FUNCTIONS
     B747_button_switch_cover_CMDhandler[i] = function(phase, duration)
-
+	print("cover com hander")
         if phase == 0 then
             if B747_button_switch_cover_position_target[i] == 0.0 then
                 B747_button_switch_cover_position_target[i] = 1.0

@@ -119,7 +119,7 @@ simDR_AHARS_roll_deg_pilot          	= find_dataref("sim/cockpit2/gauges/indicat
 --simDR_AHARS_heading_deg_pilot       	= find_dataref("sim/cockpit2/gauges/indicators/ground_track_mag_pilot")--find_dataref("sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_pilot")
 simDR_AHARS_heading_deg_pilot       	= find_dataref("sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_pilot")
 simDR_nav1_radio_course_deg         	= find_dataref("sim/cockpit2/radios/actuators/nav1_course_deg_mag_pilot")
-
+simDR_pressureAlt1           	= find_dataref("sim/cockpit2/gauges/indicators/altitude_ft_pilot")
 simDR_radarAlt1           	= find_dataref("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot")
 simDR_radarAlt2           	= find_dataref("sim/cockpit2/guages/indicators/radio_altimeter_height_ft_copilot")
 simDR_allThrottle           	= find_dataref("sim/cockpit2/engine/actuators/throttle_ratio_all")
@@ -401,13 +401,8 @@ function B747_ap_switch_vs_mode_CMDhandler(phase, duration)
 	       local cAlt=simDR_radarAlt1
 		B747_ap_button_switch_position_target[6] = 1
 		--for animation
-		if B747DR_autopilot_altitude_ft > simDR_radarAlt1+500 then
-		  B747DR_ap_vvi_fpm=500
-		elseif B747DR_autopilot_altitude_ft < simDR_radarAlt1-500 then
-		  B747DR_ap_vvi_fpm=-500
-		else
-		  B747DR_ap_vvi_fpm=0
-		end
+		B747DR_ap_vvi_fpm=0
+		
 		simDR_autopilot_altitude_ft=B747DR_autopilot_altitude_ft
 		
 		simCMD_autopilot_vert_speed_mode:once()
@@ -416,13 +411,8 @@ function B747_ap_switch_vs_mode_CMDhandler(phase, duration)
 		--end
 	elseif phase ==2 then
 	  --for autpilot
-	  if B747DR_autopilot_altitude_ft > simDR_radarAlt1+500 then
-		  simDR_autopilot_vs_fpm=500
-		elseif B747DR_autopilot_altitude_ft < simDR_radarAlt1-500 then
-		  simDR_autopilot_vs_fpm=-500
-		else
 		  simDR_autopilot_vs_fpm=0
-		end
+		
 	end
 end
 
@@ -1212,7 +1202,7 @@ end
 --*************************************************************************************--
 
 simCMD_autopilot_gpss_mode					= wrap_command("sim/autopilot/gpss", B747_ap_gpss_mode_beforeCMDhandler, B747_ap_gpss_mode_afterCMDhandler)
-simCMD_autopilot_FMS_mode					= wrap_command("sim/autopilot/FMS", B747_ap_FMS_mode_beforeCMDhandler, B747_ap_FMS_mode_afterCMDhandler)	
+simCMD_autopilot_FMS_mode					= replace_command("sim/autopilot/FMS", B747_ap_FMS_mode_beforeCMDhandler, B747_ap_FMS_mode_afterCMDhandler)	
 simCMD_autopilot_heading_hold_mode			= wrap_command("sim/autopilot/heading_hold", B747_ap_heading_hold_mode_beforeCMDhandler, B747_ap_heading_hold_mode_afterCMDhandler)	
 simCMD_autopilot_appr_mode					= wrap_command("sim/autopilot/approach", B747_ap_appr_mode_beforeCMDhandler, B747_ap_appr_mode_afterCMDhandler)
 
@@ -1291,11 +1281,11 @@ function B747_ap_vs_mode()
     
     
     ----- VVI FOR ANIMATION 
-    if B747DR_autopilot_altitude_ft > simDR_radarAlt1+500 and simDR_autopilot_vs_fpm<0 then
+    --[[if B747DR_autopilot_altitude_ft > simDR_pressureAlt1+500 and simDR_autopilot_vs_fpm<0 then
 		  simDR_autopilot_vs_fpm=0
-    elseif B747DR_autopilot_altitude_ft < simDR_radarAlt1-500 and simDR_autopilot_vs_fpm>0 then
+    elseif B747DR_autopilot_altitude_ft < simDR_pressureAlt1-500 and simDR_autopilot_vs_fpm>0 then
 		  simDR_autopilot_vs_fpm=0
-    end
+    end]]
     B747DR_ap_vvi_fpm = math.abs(simDR_autopilot_vs_fpm)
     
     
