@@ -142,14 +142,11 @@ fmsPages["INITREF"]["template"]={
 fmsFunctionsDefs["INITREF"]={}
 fmsFunctionsDefs["INITREF"]["L1"]={"setpage","IDENT"}
 fmsFunctionsDefs["INITREF"]["L2"]={"setpage","POSINIT"}
-<<<<<<< HEAD:plugins/xtlua/scripts/B747.68.xt.fms/B744.fms.pages.lua
-=======
 fmsFunctionsDefs["INITREF"]["L3"]={"setpage","PERFINIT"}
 fmsFunctionsDefs["INITREF"]["L4"]={"setpage","THRUSTLIM"}
 fmsFunctionsDefs["INITREF"]["L5"]={"setpage","TAKEOFF"}
 fmsFunctionsDefs["INITREF"]["L6"]={"setpage","APPROACH"}
 fmsFunctionsDefs["INITREF"]["R6"]={"setpage","MAINT"}
->>>>>>> 321a6195feca8ae87a0079c170666753d256f879:plugins/xlua/scripts/B747.68.fms/B744.fms.pages.lua
 fmsFunctionsDefs["INITREF"]["R1"]={"setpage","DATABASE"}
 
 
