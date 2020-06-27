@@ -40883,7 +40883,7 @@ ANIM_begin
 	TRIS	101823 180
 ANIM_end
 ANIM_begin
-	ANIM_trans	  -0.2288    2.4623    5.1314	  -0.2288    2.4495    5.1787	1.0 -1.0	sim/flightmodel2/controls/elevator_trim
+	ANIM_trans	  -0.2288    2.4623    5.1314	  -0.2288    2.4495    5.1787	-1.0 1.0	sim/flightmodel2/controls/elevator_trim
 	TRIS	102003 6
 ANIM_end
 ANIM_begin
@@ -40895,7 +40895,7 @@ ANIM_begin
 	TRIS	102015 6
 ANIM_end
 ANIM_begin
-	ANIM_trans	   0.2048    2.4623    5.1316	   0.2048    2.4494    5.1789	1.0 -1.0	sim/flightmodel2/controls/elevator_trim
+	ANIM_trans	   0.2048    2.4623    5.1316	   0.2048    2.4494    5.1789	-1.0 1.0	sim/flightmodel2/controls/elevator_trim
 	TRIS	102021 6
 ANIM_end
 ANIM_begin

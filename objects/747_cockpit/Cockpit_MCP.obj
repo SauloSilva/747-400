@@ -24608,7 +24608,7 @@ ANIM_begin
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.0131    2.9887    5.0429	   0.0131    2.9887    5.0429	0 0	no_ref
-	ANIM_rotate	   0.0000   -0.3746   -0.9272	  0.00   1.00	0 1	sim/cockpit2/autopilot/altitude_dial_ft
+	ANIM_rotate	   0.0000   -0.3746   -0.9272	  0.00   1.00	0 1	laminar/B747/autopilot/heading/altitude_dial_ft
 	TRIS	29367 504
 ANIM_end
 ANIM_begin
@@ -25074,7 +25074,7 @@ ANIM_end
 ANIM_begin
 	ANIM_hide	0.0 0.0	laminar/B747/autopilot/altitude/show_tenThousands
 	ANIM_trans	  -0.0054    2.9998    5.0242	  -0.0054    2.9998    5.0242	0 0	no_ref
-	ANIM_rotate_begin	   1.0000   -0.0000    0.0000	sim/cockpit2/autopilot/altitude_dial_ft
+	ANIM_rotate_begin	   1.0000   -0.0000    0.0000	laminar/B747/autopilot/heading/altitude_dial_ft
 		ANIM_rotate_key	0	  0.00
 		ANIM_rotate_key	9999.0	  0.00
 		ANIM_rotate_key	10000.0	 35.31
@@ -25102,7 +25102,7 @@ ANIM_end
 ANIM_begin
 	ANIM_hide	0.0 0.0	laminar/B747/autopilot/altitude/show_thousands
 	ANIM_trans	   0.0039    2.9998    5.0242	   0.0039    2.9998    5.0242	0 0	no_ref
-	ANIM_rotate_begin	   1.0000    0.0000   -0.0000	sim/cockpit2/autopilot/altitude_dial_ft
+	ANIM_rotate_begin	   1.0000    0.0000   -0.0000	laminar/B747/autopilot/heading/altitude_dial_ft
 		ANIM_rotate_key	0	  0.00
 		ANIM_rotate_key	999.0	  0.00
 		ANIM_rotate_key	1000.0	 35.89
@@ -25129,7 +25129,7 @@ ANIM_begin
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.0132    2.9998    5.0242	   0.0132    2.9998    5.0242	0 0	no_ref
-	ANIM_rotate_begin	   1.0000   -0.0000    0.0000	sim/cockpit2/autopilot/altitude_dial_ft
+	ANIM_rotate_begin	   1.0000   -0.0000    0.0000	laminar/B747/autopilot/heading/altitude_dial_ft
 		ANIM_rotate_key	0	  0.00
 		ANIM_rotate_key	99.0	  0.00
 		ANIM_rotate_key	100.0	 35.39
