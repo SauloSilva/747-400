@@ -401,8 +401,10 @@ function B747_ap_switch_vs_mode_CMDhandler(phase, duration)
 	       local cAlt=simDR_radarAlt1
 		B747_ap_button_switch_position_target[6] = 1
 		--for animation
+
 		B747DR_ap_vvi_fpm=0
 		
+
 		simDR_autopilot_altitude_ft=B747DR_autopilot_altitude_ft
 		
 		simCMD_autopilot_vert_speed_mode:once()
@@ -411,8 +413,9 @@ function B747_ap_switch_vs_mode_CMDhandler(phase, duration)
 		--end
 	elseif phase ==2 then
 	  --for autpilot
+
 		  simDR_autopilot_vs_fpm=0
-		
+
 	end
 end
 
@@ -1024,6 +1027,7 @@ function roundToIncrement(numberToRound, increment)
 
     return z
 
+
 end
 
 function B747_ap_heading_hold_mode_beforeCMDhandler(phase, duration)
@@ -1281,11 +1285,13 @@ function B747_ap_vs_mode()
     
     
     ----- VVI FOR ANIMATION 
+
     --[[if B747DR_autopilot_altitude_ft > simDR_pressureAlt1+500 and simDR_autopilot_vs_fpm<0 then
 		  simDR_autopilot_vs_fpm=0
     elseif B747DR_autopilot_altitude_ft < simDR_pressureAlt1-500 and simDR_autopilot_vs_fpm>0 then
 		  simDR_autopilot_vs_fpm=0
     end]]
+
     B747DR_ap_vvi_fpm = math.abs(simDR_autopilot_vs_fpm)
     
     
