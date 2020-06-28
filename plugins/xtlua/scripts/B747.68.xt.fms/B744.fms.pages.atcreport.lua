@@ -40,6 +40,7 @@ end
 
   
 fmsFunctionsDefs["ATCREPORT"]={}
+fmsFunctionsDefs["ATCREPORT"]["L6"]={"setpage","ATCINDEX"}
 --[[
 fmsFunctionsDefs["ATCREPORT"]["L1"]={"setpage",""}
 fmsFunctionsDefs["ATCREPORT"]["L2"]={"setpage",""}

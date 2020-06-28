@@ -46,7 +46,7 @@ function keyDown(fmsModule,key)
       return
   elseif key=="crz" then
       fmsModules[fmsModule].inCustomFMC=true
-      fmsModules[fmsModule].currentPage="ACARSMSGS"
+      fmsModules[fmsModule].currentPage="ATCINDEX"
       return
   elseif key=="des" then
       fmsModules[fmsModule].inCustomFMC=false
@@ -66,8 +66,8 @@ function keyDown(fmsModule,key)
       simCMD_FMS_key[fmsModule]["hold"]:once()
       return
   elseif key=="hold" then --FMC COMM
-      fmsModules[fmsModule].inCustomFMC=false
-      simCMD_FMS_key[fmsModule]["navrad"]:once()
+      fmsModules[fmsModule].inCustomFMC=true 
+      fmsModules[fmsModule].currentPage="FMCCOMM"
       return
   elseif key=="fix" then --menu
       fmsModules[fmsModule].inCustomFMC=true

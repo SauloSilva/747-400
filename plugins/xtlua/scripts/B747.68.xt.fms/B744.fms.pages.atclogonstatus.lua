@@ -1,12 +1,25 @@
 fmsPages["ATCLOGONSTATUS"]=createPage("ATCLOGONSTATUS")
 fmsPages["ATCLOGONSTATUS"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be this way
+    local logon="   N/A  "	
+    local data= "OFFLINE"
+    if acarsSystem.provider.online() then 
+      if fmsModules["data"]["atc"]~="****" then 
+	logon="ACCEPTED"
+      else
+	logon="   READY"
+      end
+      
+      data="  READY" 
+    else
+      fmsModules["data"]["atc"]="****"
+    end
     return{
 
 "    ATC LOGON/STATUS    ",
 "                        ",	               
-"****            ACCEPTED",
+fmsModules["data"]["atc"].."            "..logon,
 "                        ",
-"*******                 ",
+fmsModules["data"]["fltno"].."                 ",
 "                        ",
 "<SELECT OFF         ****",
 "                        ",
@@ -14,14 +27,14 @@ fmsPages["ATCLOGONSTATUS"].getPage=function(self,pgNo,fmsID)--dynamic pages need
 "                        ",
 "<SELECT OFF   SELECT ON>",
 "                        ",
-"<INDEX             READY"
+"<INDEX           "..data
     }
 end
 
 fmsPages["ATCLOGONSTATUS"].getSmallPage=function(self,pgNo,fmsID)--dynamic pages need to be this way
     return{
   
-"    ATC LOGON/STATUS    ",
+"                        ",
 " LOGON TO          LOGON",	               
 "                        ",
 " FLT NO                 ",
@@ -39,6 +52,8 @@ end
 
 
 fmsFunctionsDefs["ATCLOGONSTATUS"]={}
+fmsFunctionsDefs["ATCLOGONSTATUS"]["L6"]={"setpage","ATCINDEX"}
+fmsFunctionsDefs["ATCLOGONSTATUS"]["L1"]={"setdata","atc"}
 --[[
 fmsFunctionsDefs["ATCLOGONSTATUS"]["L1"]={"setpage",""}
 fmsFunctionsDefs["ATCLOGONSTATUS"]["L2"]={"setpage",""}

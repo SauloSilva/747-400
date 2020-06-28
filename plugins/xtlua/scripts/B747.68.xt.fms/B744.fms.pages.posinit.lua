@@ -1,6 +1,8 @@
 fmsPages["POSINIT"]=createPage("POSINIT")
 fmsPages["POSINIT"].getPage=function(self,pgNo,fmsID)
-  if pgNo==1 then return {
+  if pgNo==1 then
+    fmsFunctionsDefs["POSINIT"]["R6"]={"setpage","RTE1"}
+    return {
     "       POS INIT    1/3  ",
     "	             LAST POS",
     "      ***`**.* ****`**.*",
@@ -16,7 +18,9 @@ fmsPages["POSINIT"].getPage=function(self,pgNo,fmsID)
     "<INDEX            ROUTE>"
     } 
   end
-  if pgNo==2 then return {
+  if pgNo==2 then 
+    fmsFunctionsDefs["POSINIT"]["R6"]=nil
+    return {
     "       POS REF     2/3  ",
     " FMS POS (GPS L)      GS",
     "***`**.* ****`**.* ***KT",
@@ -32,7 +36,9 @@ fmsPages["POSINIT"].getPage=function(self,pgNo,fmsID)
     "<INDEX         BRG/DIST>"
     } 
   end
-  if pgNo==3 then return {
+  if pgNo==3 then 
+    fmsFunctionsDefs["POSINIT"]["R6"]=nil
+    return {
     "       POS REF     3/3  ",
     " IRS L                GS",
     "***`**.* ****`**.* ***KT",
@@ -55,4 +61,4 @@ fmsPages["POSINIT"].getNumPages=function(self)
 end
 fmsFunctionsDefs["POSINIT"]={}
 fmsFunctionsDefs["POSINIT"]["L6"]={"setpage","INITREF"}
-fmsFunctionsDefs["POSINIT"]["R6"]={"setpage","ACTRTE1"}
+

@@ -86,7 +86,10 @@ dofile("B744.fms.pages.maintcrossload.lua")
 dofile("B744.fms.pages.maintirsmonitor.lua")
 dofile("B744.fms.pages.maintperffactor.lua")
 dofile("B744.fms.pages.actrte1.lua")
-
+dofile("B744.fms.pages.atcindex.lua")
+dofile("B744.fms.pages.atclogonstatus.lua")
+dofile("B744.fms.pages.atcreport.lua")
+dofile("B744.fms.pages.fmccomm.lua")
 --[[
 dofile("B744.fms.pages.actclb.lua")
 dofile("B744.fms.pages.actcrz.lua")
@@ -98,17 +101,17 @@ dofile("B744.fms.pages.actrte1legs.lua")
 dofile("B744.fms.pages.altnnavradio.lua")
 dofile("B744.fms.pages.approach.lua")
 dofile("B744.fms.pages.arrivals.lua")
-dofile("B744.fms.pages.atcindex.lua")
-dofile("B744.fms.pages.atclogonstatus.lua")
+
+
 dofile("B744.fms.pages.atcrejectdueto.lua")
-dofile("B744.fms.pages.atcreport.lua")
+
 dofile("B744.fms.pages.atcreport2.lua")
 dofile("B744.fms.pages.atcuplink.lua")
 dofile("B744.fms.pages.atcverifyresponse.lua")
 dofile("B744.fms.pages.deparrindex.lua")
 dofile("B744.fms.pages.departures.lua")
 dofile("B744.fms.pages.fixinfo.lua")
-dofile("B744.fms.pages.fmccomm.lua")
+
 dofile("B744.fms.pages.identpage.lua")
 dofile("B744.fms.pages.irsprogress.lua")
 dofile("B744.fms.pages.navradpage.lua")
@@ -229,6 +232,10 @@ function fmsFunctions.setpage(fmsO,value)
     fmsO["currentPage"]="DATABASE"
     simCMD_FMS_key[fmsO.id]["index"]:once()
     simCMD_FMS_key[fmsO.id]["R2"]:once()
+  elseif value=="RTE1" then
+    simCMD_FMS_key[fmsO.id]["fpln"]:once()
+    fmsO["inCustomFMC"]=true
+    fmsO["currentPage"]="RTE1"
   elseif value=="RTE2" then
     fmsO["inCustomFMC"]=false
     fmsO["currentPage"]="RTE2"

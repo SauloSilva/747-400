@@ -19,12 +19,14 @@ fmsPages["ATCINDEX"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be
 end
 
 
-  
+ 
 fmsFunctionsDefs["ATCINDEX"]={}
+fmsFunctionsDefs["ATCINDEX"]["L3"]={"setpage","ATCREPORT"}
+fmsFunctionsDefs["ATCINDEX"]["L5"]={"setpage","ATCLOGONSTATUS"}
 --[[
 fmsFunctionsDefs["ATCINDEX"]["L1"]={"setpage",""}
 fmsFunctionsDefs["ATCINDEX"]["L2"]={"setpage",""}
-fmsFunctionsDefs["ATCINDEX"]["L3"]={"setpage",""}
+
 fmsFunctionsDefs["ATCINDEX"]["R4"]={"setpage",""}
 fmsFunctionsDefs["ATCINDEX"]["L5"]={"setpage",""}
 fmsFunctionsDefs["ATCINDEX"]["L6"]={"setpage",""}

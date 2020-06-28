@@ -17,7 +17,7 @@ fmsPages["FMCCOMM"].getPage=function(self,pgNo,fmsID)
     }
   elseif pgNo==2 then return {
 "        FMC COMM        ",
-" RTE REQUEST    CO ROUTE",	               
+"                        ",	               
 "<SEND         ----------",
 "                        ",
 "<SEND                   ",
@@ -66,9 +66,12 @@ elseif pgNo==2 then return {
     } 
 end
 end
-
+fmsPages["FMCCOMM"].getNumPages=function(self)
+  return 2 
+end
   
 fmsFunctionsDefs["FMCCOMM"]={}
+fmsFunctionsDefs["FMCCOMM"]["L1"]={"setpage","RTE1"}
 --[[
 fmsFunctionsDefs["FMCCOMM"]["L1"]={"setpage",""}
 fmsFunctionsDefs["FMCCOMM"]["L2"]={"setpage",""}

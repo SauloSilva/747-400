@@ -1,21 +1,61 @@
+B747DR_airspeed_V1                              = deferred_dataref("laminar/B747/airspeed/V1", "number")
+B747DR_airspeed_Vr                              = deferred_dataref("laminar/B747/airspeed/Vr", "number")
+B747DR_airspeed_V2                              = deferred_dataref("laminar/B747/airspeed/V2", "number")
+function roundToIncrement(number, increment)
+
+    local y = number / increment
+    local q = math.floor(y + 0.5)
+    local z = q * increment
+
+    return z
+
+end
+simDR_wing_flap1_deg                = find_dataref("sim/flightmodel2/wing/flap1_deg")
 fmsPages["TAKEOFF"]=createPage("TAKEOFF")
 fmsPages["TAKEOFF"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be this way
+  local flaps = roundToIncrement(simDR_wing_flap1_deg[0], 5)
+  local v1="***"
+  local vr="***"
+  local v2="***"
+  if B747DR_airspeed_V1<999 then
+    v1=B747DR_airspeed_V1
+    vr=B747DR_airspeed_Vr
+    v2=B747DR_airspeed_V2
+  
+      return{
+
+  "      TAKEOFF REF       ",
+  "                        ",
+  string.format("%02d                %3d",flaps, v1),
+  "                        ",
+  string.format("                  %3d", vr),
+  "                        ",
+  string.format("FLAPS *  CLB *    %3d", v2),
+  "                        ",
+  "               **.*  **%",
+  "                        ",
+  "            RW***       ", 
+  "-----------------       ",
+  "<INDEX         POS INIT>"
+      }
+  else
     return{
 
-"      TAKEOFF REF       ",
-"                        ",
-"                        ",
-"                        ",
-"                        ",
-"                        ",
-"FLAPS *  CLB *          ",
-"                        ",
-"               **.*  **%",
-"                        ",
-"            RW***       ", 
-"-----------------       ",
-"<INDEX         POS INIT>"
-    }
+  "      TAKEOFF REF       ",
+  "                        ",
+  string.format("%02d                ***",flaps),
+  "                        ",
+  string.format("                  ***"),
+  "                        ",
+  string.format("FLAPS *  CLB *    ***"),
+  "                        ",
+  "               **.*  **%",
+  "                        ",
+  "            RW***       ", 
+  "-----------------       ",
+  "<INDEX         POS INIT>"}
+    end
+  
 end
 
 fmsPages["TAKEOFF"].getSmallPage=function(self,pgNo,fmsID)
@@ -23,11 +63,11 @@ fmsPages["TAKEOFF"].getSmallPage=function(self,pgNo,fmsID)
 
 "                        ",
 " FLAP/ACCEL HT    REF V1",
-""..fmsModules["data"]["toflap"] .."/1500FT         "..fmsModules["data"]["v1"] .."KT>",
+"  /1500FT            KT>",
 " E/O ACCEL HT     REF VR",
-"1500FT            "..fmsModules["data"]["vr"] .."KT>",
+"1500FT               KT>",
 " THR REDUCTION    REF V2",
-"                  "..fmsModules["data"]["v2"] .."KT>",
+"                     KT>",
 "               TRIM   CG",
 "                        ",
 "               POS SHIFT",

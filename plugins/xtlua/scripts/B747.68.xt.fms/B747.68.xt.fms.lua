@@ -117,6 +117,7 @@ fmsModules["data"]={
   rpttimehh="**",
   rpttimemm="**",
   acarsAddress="*******",
+  atc="****",
   grwt="***.*",
   crzalt="*****",
   fuel="***.*",
@@ -130,10 +131,7 @@ fmsModules["data"]={
   v1="***",
   vr="***",
   v2="***",
-  origin="****",
   runway="*****",
-  destination="****",
-  flightnumber="******",
   coroute="*****",
   grosswt="***.*",
   vref1="***",
@@ -141,8 +139,12 @@ fmsModules["data"]={
   flapspeed="**/***",
 setData=function(self,id,value)
   --always retain the same length
+  if value=="" then value="***********" end
   len=string.len(self[id])
-  newVal=string.sub(value,1,len)
+  if len < string.len(value) then 
+    value=string.sub(value,1,len)
+  end
+  --newVal=string.sub(value,1,len)
   self[id]=string.format("%s%"..(len-string.len(value)).."s",value,"")
 end
 }
@@ -233,6 +235,7 @@ B747DR_CAS_memo_status          = find_dataref("laminar/B747/CAS/memo_status")
 function flight_start()
   
 end
+
 function after_physics()
     fmsL:B747_fms_display()
     fmsC:B747_fms_display()
