@@ -355,11 +355,11 @@ function B747_ap_switch_speed_mode_CMDhandler(phase, duration)
 		end		
 	elseif phase == 2 then
 		B747_ap_button_switch_position_target[1] = 0									-- SET THE SPEED SWITCH ANIMATION TO "OUT"				
-	  if simDR_autopilot_airspeed_is_mach == 0 then
+	 --[[ if simDR_autopilot_airspeed_is_mach == 0 and simDR_ind_airspeed_kts_pilot> B747DR_ap_ias_dial_value then
 	    B747DR_ap_ias_dial_value=simDR_ind_airspeed_kts_pilot
-	  else
+	  elseif simDR_ind_airspeed_kts_pilot> B747DR_ap_ias_dial_value then 
 	    B747DR_ap_ias_dial_value=simDR_airspeed_mach*100
-	  end
+	  end]]
 
 	end
 end	

@@ -1,5 +1,7 @@
 fmsPages["FMCCOMM"]=createPage("FMCCOMM")
 fmsPages["FMCCOMM"].getPage=function(self,pgNo,fmsID)
+  local data= "OFFLINE"
+  if acarsSystem.provider.online() then data="  READY" end
   if pgNo==1 then return {
 "        FMC COMM        ",
 "                        ",		               
@@ -13,7 +15,7 @@ fmsPages["FMCCOMM"].getPage=function(self,pgNo,fmsID)
 "                        ",
 "                        ",
 "                        ",
-"                   READY" 
+"                 "..data
     }
   elseif pgNo==2 then return {
 "        FMC COMM        ",
@@ -28,7 +30,7 @@ fmsPages["FMCCOMM"].getPage=function(self,pgNo,fmsID)
 "                        ",
 "                        ",
 "                        ",
-"                   READY"
+"                 "..data
     }
 end
 end
