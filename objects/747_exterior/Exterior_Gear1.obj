@@ -14948,6 +14948,12 @@ ANIM_begin
 			ANIM_begin
 				ANIM_trans	   0.0005   -1.3667    0.0031	   0.0005   -1.3667    0.0031	0 0	no_ref
 				ANIM_rotate	  -1.0000   -0.0000   -0.0000	  0.00   8.00	8.0 0.0	sim/flightmodel2/gear/eagle_claw_angle_deg[2]
+				ANIM_rotate_begin	  -1.0000   -0.0000    0.0000	sim/flightmodel2/gear/deploy_ratio[1]
+				    ANIM_rotate_key	0	58.00
+				    ANIM_rotate_key	0.1	0.00
+				    ANIM_rotate_key	0.9	  0.00
+				    ANIM_rotate_key	1	  0.00
+				ANIM_rotate_end
 				TRIS	7410 5976
 				ANIM_begin
 					ANIM_trans	   0.0008   -0.3330    0.7845	   0.0008   -0.3330    0.7845	0 0	no_ref
@@ -15021,6 +15027,12 @@ ANIM_begin
 			ANIM_begin
 				ANIM_trans	  -0.0005   -1.3667    0.0031	  -0.0005   -1.3667    0.0031	0 0	no_ref
 				ANIM_rotate	  -1.0000    0.0000    0.0000	  0.00   8.00	8.0 0.0	sim/flightmodel2/gear/eagle_claw_angle_deg[1]
+				ANIM_rotate_begin	  -1.0000   -0.0000    0.0000	sim/flightmodel2/gear/deploy_ratio[1]
+				    ANIM_rotate_key	0	58.00
+				    ANIM_rotate_key	0.1	0.00
+				    ANIM_rotate_key	0.9	  0.00
+				    ANIM_rotate_key	1	  0.00
+				ANIM_rotate_end
 				TRIS	28428 5976
 				ANIM_begin
 					ANIM_trans	  -0.0002   -0.3330    0.7845	  -0.0002   -0.3330    0.7845	0 0	no_ref

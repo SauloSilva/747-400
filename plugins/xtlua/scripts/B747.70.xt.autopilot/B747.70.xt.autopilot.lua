@@ -1097,15 +1097,15 @@ function B747_fltmgmt_setILS()
   local n2=simDR_nav2Freq
   local d1=simDR_radio_nav_obs_deg[0]
   local d2=simDR_radio_nav_obs_deg[1]--continually get latest
-  if string.len(navAidsJSON) ~= nSize then
-    navAids=json.decode(navAidsJSON)
-    nSize=string.len(navAidsJSON)
-  end
+  
   local fms=json.decode(fmsJSON)
   local newTargetFix=0
   local hitI=-1
   if table.getn(fms)>4 and (fms[targetFMSnum]==nil or targetFMS~=fms[targetFMSnum][8]) then
-    
+    if string.len(navAidsJSON) ~= nSize then
+      navAids=json.decode(navAidsJSON)
+      nSize=string.len(navAidsJSON)
+    end
     if fms[table.getn(fms)][2] == 1 then
       --we have an airport as our dst
       found =false

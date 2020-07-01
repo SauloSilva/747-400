@@ -1,6 +1,6 @@
 I
 10 Version
-_hobs_time 45881.547517
+_hobs_time 59962.197039
 _iql_view_type_1 v_3dc
 _iql_pe_x_1 -0.518112
 _iql_pe_y_1 5.167047
@@ -61,6 +61,18 @@ _iql_circ_the_5 8.573315
 _iql_circ_dis_5 97.287918
 _iql_pscroll_x_pix_5 0.000000
 _iql_pscroll_y_pix_5 429.000000
+_iql_view_type_7 v_3dc
+_iql_pe_x_7 -2.621412
+_iql_pe_y_7 2.460502
+_iql_pe_z_7 3.205766
+_iql_look_os_psi_7 -85.218750
+_iql_look_os_the_7 -7.250001
+_iql_zoom_rat_7 1.000000
+_iql_circ_psi_7 245.474457
+_iql_circ_the_7 80.000000
+_iql_circ_dis_7 53.508354
+_iql_pscroll_x_pix_7 0.000000
+_iql_pscroll_y_pix_7 418.000000
 _iql_view_type_8 v_3dc
 _iql_pe_x_8 -0.035617
 _iql_pe_y_8 4.922960
