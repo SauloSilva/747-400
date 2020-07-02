@@ -3,7 +3,10 @@
 *        COPYRIGHT � 2020 Mark Parker/mSparks CC-BY-NC4
 *****************************************************************************************
 ]]
+B747DR_CAS_advisory_status       = find_dataref("laminar/B747/CAS/advisory_status")
 
+B747DR_iru_status         	= find_dataref("laminar/B747/flt_mgmt/iru/status")
+B747DR_iru_mode_sel_pos         = find_dataref("laminar/B747/flt_mgmt/iru/mode_sel_dial_pos")
 --Workaround for stack overflow in init.lua namespace_read
 function hasChild(parent,childKey)
   if(parent==nil) then
@@ -20,7 +23,25 @@ function cleanFMSLine(line)
     local retval=line:gsub("☐","*")
     retval=retval:gsub("°","`")
     return retval
-end  
+end 
+function toDMS(value,isLat)
+  degrees=value
+  if value<0 then
+    degrees=degrees*-1
+   end
+  minutes=(value-math.floor(value))*60
+  seconds=minutes-math.floor(minutes)
+  local p="N"
+  if isLat==true and value<0 then 
+    p="W"
+  elseif isLat==true then  
+    p="E"
+  elseif value<0 then
+    p="S"
+  end
+  retVal=string.format(p .. "%03d`%02d.%1d",degrees,minutes,seconds*10)
+  return retVal
+end
 function deferred_command(name,desc,realFunc)
 	return replace_command(name,realFunc)
 end
@@ -103,6 +124,7 @@ createFMSDatarefs("fms3")
 
 -- CRT BRIGHTNESS DIAL ------------------------------------------------------------------
 B747DR_fms1_display_brightness      = deferred_dataref("laminar/B747/fms1/display_brightness", "number", B747_fms1_display_brightness_DRhandler)
+dofile("irs/irs_system.lua")
 fmsPages={}
 --fmsPagesmall={}
 fmsFunctionsDefs={}
@@ -233,13 +255,30 @@ fmsModules.fmsR=fmsR;
 --print(line)
 B747DR_CAS_memo_status          = find_dataref("laminar/B747/CAS/memo_status")
 function flight_start()
+  if simDR_startup_running == 0 then
+    irsSystem["irsL"]["aligned"]=false
+    irsSystem["irsC"]["aligned"]=false
+    irsSystem["irsR"]["aligned"]=false
+    -- ENGINES RUNNING ------------------------------------------------------------------
+    elseif simDR_startup_running == 1 then
+
+      irsSystem.align("irsL",true)
   
+      irsSystem.align("irsC",true)
+  
+      irsSystem.align("irsR",true)
+
+    end
+ 
 end
 
 function after_physics()
     fmsL:B747_fms_display()
     fmsC:B747_fms_display()
     fmsR:B747_fms_display()
+    
+    irsSystem.update()
+    
     if acarsSystem.provider.online() then
       B747DR_CAS_memo_status[40]=0 --for CAS
       acars=1 --for radio

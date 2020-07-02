@@ -96668,7 +96668,7 @@ P acf/_ann_wav_file/count 197
 P acf/_ap_crs_src 0
 P acf/_apt_req_plane 1
 P acf/_asi_is_kts 1
-P acf/_author Mohammad Gazzawi / Sergio Santagada / Javier Rollon / Jim Gregory / Michael M. / YesAviation / PresentMonkey / Wolfair / Notchmaster / Reddeviln / Totedemac/ Ghostfire / Mark Parker / Others (see github)
+P acf/_author Mohammad Gazzawi / Sergio Santagada / Javier Rollon / Jim Gregory / YesAviation / PresentMonkey / Wolfair / Notchmaster / Reddeviln / Totedemac/ Ghostfire / Mark Parker / Others (see github)
 P acf/_auto_cowl_flaps_EQ 1065353216
 P acf/_auto_engage_BC_deg 0.0
 P acf/_auto_omega_fire 2.0

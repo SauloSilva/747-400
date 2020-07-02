@@ -79,6 +79,7 @@ simDR_xpdr_mode         = find_dataref("sim/cockpit2/radios/actuators/transponde
 --*************************************************************************************--
 
 B747DR_iru_mode_sel_pos         = deferred_dataref("laminar/B747/flt_mgmt/iru/mode_sel_dial_pos", "array[4]")
+B747DR_iru_status         	= deferred_dataref("laminar/B747/flt_mgmt/iru/status", "array[4]")
 B747DR_xpdrMode_sel_pos         = deferred_dataref("laminar/B747/flt_mgmt/txpdr/mode_sel_pos", "number")
 B747DR_xpdr_sel_pos             = deferred_dataref("laminar/B747/flt_mgmt/transponder/sel_dial_pos", "number")
 B747DR_ident_button_pos         = deferred_dataref("laminar/B747/flt_mgmt/transponder/ident_btn_pos", "number")
@@ -160,33 +161,39 @@ simCMD_xpdr_digits_34_dn    = wrap_command("sim/transponder/transponder_34_down"
 function B747_flt_mgmgt_iru_mode_sel_L_up_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_iru_mode_sel_pos[0] = math.min(B747DR_iru_mode_sel_pos[0]+1, 3)
+	if B747DR_iru_mode_sel_pos[0]==1 then B747DR_iru_status[0]=1 end
     end
 end
 function B747_flt_mgmgt_iru_mode_sel_L_dn_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_iru_mode_sel_pos[0] = math.max(B747DR_iru_mode_sel_pos[0]-1, 0)
+	if B747DR_iru_mode_sel_pos[0]==1 then B747DR_iru_status[0]=1 end
     end
 end
 
 function B747_flt_mgmgt_iru_mode_sel_C_up_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_iru_mode_sel_pos[1] = math.min(B747DR_iru_mode_sel_pos[1]+1, 3)
+	if B747DR_iru_mode_sel_pos[1]==1 then B747DR_iru_status[1]=1 end
     end
 end
 function B747_flt_mgmgt_iru_mode_sel_C_dn_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_iru_mode_sel_pos[1] = math.max(B747DR_iru_mode_sel_pos[1]-1, 0)
+	if B747DR_iru_mode_sel_pos[1]==1 then B747DR_iru_status[1]=1 end
     end
 end
 
 function B747_flt_mgmgt_iru_mode_sel_R_up_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_iru_mode_sel_pos[2] = math.min(B747DR_iru_mode_sel_pos[2]+1, 3)
+	if B747DR_iru_mode_sel_pos[2]==1 then B747DR_iru_status[2]=1 end
     end
 end
 function B747_flt_mgmgt_iru_mode_sel_R_dn_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_iru_mode_sel_pos[2] = math.max(B747DR_iru_mode_sel_pos[2]-1, 0)
+	if B747DR_iru_mode_sel_pos[2]==1 then B747DR_iru_status[2]=1 end
     end
 end
 
@@ -325,6 +332,9 @@ function B747_set_fltmgmt_CD()
     B747DR_iru_mode_sel_pos[0] = 0
     B747DR_iru_mode_sel_pos[1] = 0
     B747DR_iru_mode_sel_pos[2] = 0
+    B747DR_iru_status[0] = 0
+    B747DR_iru_status[1] = 0
+    B747DR_iru_status[2] = 0
 
 end
 
@@ -338,7 +348,9 @@ function B747_set_fltmgmt_ER()
     B747DR_iru_mode_sel_pos[0] = 2
     B747DR_iru_mode_sel_pos[1] = 2
     B747DR_iru_mode_sel_pos[2] = 2
-	
+    B747DR_iru_status[0] = 2
+    B747DR_iru_status[1] = 2
+    B747DR_iru_status[2] = 2
 end
 
 
