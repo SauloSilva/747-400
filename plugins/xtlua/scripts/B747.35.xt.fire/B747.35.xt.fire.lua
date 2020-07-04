@@ -595,9 +595,9 @@ end
 --function flight_crash() end
 
 --function before_physics() end
-
+debug_fire     = deferred_dataref("laminar/B747/debug/fire", "number")
 function after_physics()
-
+    if debug_fire>0 then return end
     B747_fire_extingiuisher_locks()
     B747_fire_ext_switch_animation()
     B747_fire_extinguishers()

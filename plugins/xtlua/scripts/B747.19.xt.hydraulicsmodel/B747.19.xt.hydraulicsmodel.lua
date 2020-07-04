@@ -273,8 +273,9 @@ end
 --function flight_crash() end
 
 --function before_physics() end
-
+debug_hydro     = deferred_dataref("laminar/B747/debug/hydro", "number")
 function after_physics()
+  if debug_hydro>0 then return end
    B747_engine_hyd_valves()
    B747_engine_dem_modes()
    B747_edp_pressures()

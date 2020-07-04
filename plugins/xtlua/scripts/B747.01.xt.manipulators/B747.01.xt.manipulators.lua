@@ -2141,9 +2141,9 @@ end
 --function flight_crash() end
 
 --function before_physics() end
-
+debug_manipulators     = deferred_dataref("laminar/B747/debug/manipulators", "number")
 function after_physics()
-
+    if debug_manipulators>0 then return end
     B747_button_switch_cover_animation()
     B747_button_switch_animation()
     B747_toggle_switch_animation()

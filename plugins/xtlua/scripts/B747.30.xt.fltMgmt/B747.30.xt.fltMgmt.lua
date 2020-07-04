@@ -403,8 +403,9 @@ end
 
 --function before_physics() end
 
-
+debug_fltmgmt     = deferred_dataref("laminar/B747/debug/fltmgmt", "number")
 function after_physics()
+  if debug_fltmgmt>0 then return end
     --print("navaids="..navAids)
     --print("fms="..fms)
     B747_fltmgmt_monitor_AI()

@@ -2963,8 +2963,9 @@ end
 
 --function before_physics() end
 
-
+debug_fltinst     = deferred_dataref("laminar/B747/debug/fltinst", "number")
 function after_physics()
+  if debug_fltinst>0 then return end
 
     --B747_captain_clock()
     --B747_fo_clock()

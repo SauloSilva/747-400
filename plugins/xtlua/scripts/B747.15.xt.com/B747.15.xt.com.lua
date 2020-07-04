@@ -3769,9 +3769,9 @@ end
 --function flight_crash() end
 
 --function before_physics() end
-
+debug_com     = deferred_dataref("laminar/B747/debug/com", "number")
 function after_physics()
-
+    if debug_com>0 then return end
     B747_ap_button_switch_animation()
     B747_ap_toggle_switch_animation()
 

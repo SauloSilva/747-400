@@ -669,6 +669,14 @@ end
 
 
 ----- FUEL PUMP CONTROL -------------------------------------------------------------
+--- AUTO SHUTOFF FLAG ---
+function B747_stab_pump_shutoff_delay_L()
+    B747_stab_pump_low_press_shutoff_L = 1                                          -- SET THE SHUTOFF FLAG
+end
+--- AUTO SHUTOFF FLAG ---
+function B747_stab_pump_shutoff_delay_R()
+    B747_stab_pump_low_press_shutoff_R = 1                                          -- SET THE SHUTOFF FLAG
+end
 function B747_fuel_pump_control()
 
     -- POWER REQUIRED - PUMPS ARE OFF WHEN THERE IS NO POWER
@@ -679,45 +687,57 @@ function B747_fuel_pump_control()
     ---------------------------------------------------------------------------------
 
     -- OVERRIDE/JETTISON PUMP (LEFT) ------------------------------------------------
-    B747.fuel.center_tank.ovrd_jett_pump_L.on = 0                                       -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+                                          -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
     --- JETTISON MODE ---
     if ((B747DR_button_switch_position[46] > 0.95 or B747DR_button_switch_position[47] > 0.95) and B747DR_fuel_jettison_sel_dial_pos > 0) then
         if B747DR_button_switch_position[52] > 0.95 then                                -- PUMP SWITCH DEPRESSED
-            B747.fuel.center_tank.ovrd_jett_pump_L.on = 1 * power                       -- TURN THE PUMP ON
+           
             if simDR_fueL_tank_weight_total_kg <= (B747DR_fuel_to_remain_rheo * 1000) then       -- JETTISON GOAL HAS BEEN MET
                 B747.fuel.center_tank.ovrd_jett_pump_L.on = 0                           -- TURN PUMP OFF
+	    else
+	      B747.fuel.center_tank.ovrd_jett_pump_L.on = 1 * power                       -- TURN THE PUMP ON
             end
+	else
+	  B747.fuel.center_tank.ovrd_jett_pump_L.on = 0 
         end
 
     --- STANDARD MODE ---
     else
         if B747DR_button_switch_position[52] > 0.95 then                                -- PUMP SWITCH DEPRESSED
             B747.fuel.center_tank.ovrd_jett_pump_L.on = 1 * power                       -- TURN THE PUMP ON
+	else
+	    B747.fuel.center_tank.ovrd_jett_pump_L.on = 0 
         end
     end
 
 
     -- OVERRIDE/JETTISON PUMP (RIGHT) -----------------------------------------------
-    B747.fuel.center_tank.ovrd_jett_pump_R.on = 0                                       -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+    
     --- JETTISON MODE ---
     if ((B747DR_button_switch_position[46] > 0.95 or B747DR_button_switch_position[47] > 0.95) and B747DR_fuel_jettison_sel_dial_pos > 0) then
         if B747DR_button_switch_position[53] > 0.95 then                                -- PUMP SWITCH DEPRESSED
-            B747.fuel.center_tank.ovrd_jett_pump_R.on = 1 * power                       -- TURN THE PUMP ON
+            
             if simDR_fueL_tank_weight_total_kg <= (B747DR_fuel_to_remain_rheo * 1000) then       -- JETTISON GOAL HAS BEEN MET - TURN PUMP OFF
                 B747.fuel.center_tank.ovrd_jett_pump_R.on = 0
+	    else
+		B747.fuel.center_tank.ovrd_jett_pump_R.on = 1 * power                       -- TURN THE PUMP ON
             end
+	else
+	    B747.fuel.center_tank.ovrd_jett_pump_R.on = 0                                       -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
         end
 
     --- STANDARD MODE ---
     else
         if B747DR_button_switch_position[53] > 0.95 then                                -- PUMP SWITCH DEPRESSED
             B747.fuel.center_tank.ovrd_jett_pump_R.on = 1 * power                       -- TURN THE PUMP ON
+	 else
+	    B747.fuel.center_tank.ovrd_jett_pump_R.on = 0                                       -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
         end
     end
 
 
     -- SACAVENGE PUMP #1 (LEFT) -----------------------------------------------------
-    B747.fuel.center_tank.scvg_pump_L1.on = 0                                           -- DEFAULT TO PUMP OFF
+    
     if simDR_fuel_tank_weight_kg[2] < 27200.0                                           -- MAIN TANK #2 IS AT TRANSFER THERESHOLD
         and simDR_fuel_tank_weight_kg[0] < 1820.0                                       -- CENER TANK IS AT TRANSFER THRESHOLD
         and simDR_fuel_tank_weight_kg[0] > B747.fuel.center_tank.min                    -- CENTER TANK IS NOT EMPTY
@@ -727,12 +747,14 @@ function B747_fuel_pump_control()
             or B747.fuel.main3_tank.main_pump_aft.on == 1)                              --          "
     then
         B747.fuel.center_tank.scvg_pump_L1.on = 1                                       -- TURN THE SCAVENGE PUMP ON
+    else
+      B747.fuel.center_tank.scvg_pump_L1.on = 0                                           -- DEFAULT TO PUMP OFF
     end
 
 
 
     -- SACAVENGE PUMP #2 (LEFT) -----------------------------------------------------
-    B747.fuel.center_tank.scvg_pump_L2.on = 0                                           -- DEFAULT TO PUMP OFF
+    
     if simDR_fuel_tank_weight_kg[2] < 27200.0                                           -- MAIN TANK #2 IS AT TRANSFER THERESHOLD
         and simDR_fuel_tank_weight_kg[0] < 1820.0                                       -- CENER TANK IS AT TRANSFER THRESHOLD
         and simDR_fuel_tank_weight_kg[0] > B747.fuel.center_tank.min                    -- CENTER TANK IS NOT EMPTY
@@ -742,11 +764,13 @@ function B747_fuel_pump_control()
             or B747.fuel.main3_tank.main_pump_aft.on == 1)                              --          "
     then
         B747.fuel.center_tank.scvg_pump_L2.on = 1                                       -- TURN THE SCAVENGE PUMP ON
+    else
+	B747.fuel.center_tank.scvg_pump_L2.on = 0                                           -- DEFAULT TO PUMP OFF
     end
 
 
     -- SACAVENGE PUMP #1 (RIGHT) ----------------------------------------------------
-    B747.fuel.center_tank.scvg_pump_R1.on = 0                                           -- DEFAULT TO PUMP OFF
+   
     if simDR_fuel_tank_weight_kg[3] < 27200.0                                           -- MAIN TANK #3 IS AT TRANSFER THERESHOLD
         and simDR_fuel_tank_weight_kg[0] < 1820.0                                       -- CENER TANK IS AT TRANSFER THRESHOLD
         and simDR_fuel_tank_weight_kg[0] > B747.fuel.center_tank.min                    -- CENTER TANK IS NOT EMPTY
@@ -756,12 +780,14 @@ function B747_fuel_pump_control()
             or B747.fuel.main3_tank.main_pump_aft.on == 1)                              --          "
     then
         B747.fuel.center_tank.scvg_pump_R1.on = 1                                       -- TURN THE SCAVENGE PUMP ON
+    else
+	B747.fuel.center_tank.scvg_pump_R1.on = 0                                           -- DEFAULT TO PUMP OFF
     end
 
 
 
     -- SACAVENGE PUMP #2 (RIGHT) ----------------------------------------------------
-    B747.fuel.center_tank.scvg_pump_R2.on = 0                                           -- DEFAULT TO PUMP OFF
+    
     if simDR_fuel_tank_weight_kg[3] < 27200.0                                           -- MAIN TANK #3 IS AT TRANSFER THERESHOLD
         and simDR_fuel_tank_weight_kg[0] < 1820.0                                       -- CENER TANK IS AT TRANSFER THRESHOLD
         and simDR_fuel_tank_weight_kg[0] > B747.fuel.center_tank.min                    -- CENTER TANK IS NOT EMPTY
@@ -771,6 +797,8 @@ function B747_fuel_pump_control()
             or B747.fuel.main3_tank.main_pump_aft.on == 1)                              --          "
     then
         B747.fuel.center_tank.scvg_pump_R2.on = 1                                       -- TURN THE SCAVENGE PUMP ON
+    else
+	B747.fuel.center_tank.scvg_pump_R2.on = 0                                           -- DEFAULT TO PUMP OFF
     end
 
 
@@ -781,16 +809,20 @@ function B747_fuel_pump_control()
     ---------------------------------------------------------------------------------
 
     -- MAIN PUMP FORWARD ------------------------------------------------------------
-    B747.fuel.main1_tank.main_pump_fwd.on = 0                                           -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+   
     if B747DR_button_switch_position[56] > 0.95 then                                    -- PUMP SWITCH DEPRESSED
         B747.fuel.main1_tank.main_pump_fwd.on = 1 * power                               -- TURN THE PUMP ON
+    else
+	B747.fuel.main1_tank.main_pump_fwd.on = 0                                           -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
     end
 
 
     -- MAIN PUMP AFT ----------------------------------------------------------------
-    B747.fuel.main1_tank.main_pump_aft.on = 0                                           -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+    
     if B747DR_button_switch_position[60] > 0.95 then                                    -- PUMP SWITCH DEPRESSED
         B747.fuel.main1_tank.main_pump_aft.on = 1 * power                               -- TURN THE PUMP ON
+    else
+	B747.fuel.main1_tank.main_pump_aft.on = 0                                           -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
     end
 
 
@@ -800,30 +832,38 @@ function B747_fuel_pump_control()
     ---------------------------------------------------------------------------------
 
     -- MAIN PUMP FORWARD ------------------------------------------------------------
-    B747.fuel.main2_tank.main_pump_fwd.on = 0                                           -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+    
     if B747DR_button_switch_position[57] > 0.95 then                                    -- PUMP SWITCH DEPRESSED
         B747.fuel.main2_tank.main_pump_fwd.on = 1 * power                               -- TURN THE PUMP ON
+    else
+	B747.fuel.main2_tank.main_pump_fwd.on = 0                                           -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
     end
 
 
     -- MAIN PUMP AFT ----------------------------------------------------------------
-    B747.fuel.main2_tank.main_pump_aft.on = 0                                           -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+    
     if B747DR_button_switch_position[61] > 0.95                                         -- PUMP SWITCH DEPRESSED
         or B747DR_elec_apu_sel_pos >= 1                                                 -- APU IS "ON"
     then
         B747.fuel.main2_tank.main_pump_aft.on = 1 * power                               -- TURN THE PUMP ON
+    else
+	B747.fuel.main2_tank.main_pump_aft.on = 0                                           -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
     end
 
 
     -- OVERRIDE/JETTISON PUMP FORWARD -----------------------------------------------
-    B747.fuel.main2_tank.ovrd_jett_pump_fwd.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+    
     --- JETTISON MODE ---
     if ((B747DR_button_switch_position[46] > 0.95 or B747DR_button_switch_position[47] > 0.95) and B747DR_fuel_jettison_sel_dial_pos > 0) then
         if B747DR_button_switch_position[64] > 0.95 then                                -- PUMP SWITCH DEPRESSED
-            B747.fuel.main2_tank.ovrd_jett_pump_fwd.on = 1 * power                      -- TURN THE PUMP ON
+            
             if simDR_fueL_tank_weight_total_kg <= (B747DR_fuel_to_remain_rheo * 1000) then       -- JETTISON GOAL HAS BEEN MET
                 B747.fuel.main2_tank.ovrd_jett_pump_fwd.on = 0                          -- TURN PUMP OFF
+	    else
+		B747.fuel.main2_tank.ovrd_jett_pump_fwd.on = 1 * power                      -- TURN THE PUMP ON
             end
+	else
+	  B747.fuel.main2_tank.ovrd_jett_pump_fwd.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
         end
 
     --- STANDARD MODE ---
@@ -837,20 +877,28 @@ function B747_fuel_pump_control()
                 and B747.fuel.center_tank.ovrd_jett_pump_R.on == 0))                    -- CENTER TANK O/J PUMP RIGHT IS OFF
             then
                 B747.fuel.main2_tank.ovrd_jett_pump_fwd.on = 1                          -- TURN THE PUMP ON
+	    else
+	        B747.fuel.main2_tank.ovrd_jett_pump_fwd.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
             end
+	else
+	  B747.fuel.main2_tank.ovrd_jett_pump_fwd.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
         end
     end
 
 
     -- OVERRIDE/JETTISON PUMP AFT ---------------------------------------------------
-    B747.fuel.main2_tank.ovrd_jett_pump_aft.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+    
     --- JETTISON MODE ---
     if ((B747DR_button_switch_position[46] > 0.95 or B747DR_button_switch_position[47] > 0.95) and B747DR_fuel_jettison_sel_dial_pos > 0) then
         if B747DR_button_switch_position[66] > 0.95 then                                -- PUMP SWITCH DEPRESSED
-            B747.fuel.main2_tank.ovrd_jett_pump_aft.on = 1 * power                      -- TURN THE PUMP ON
+           
             if simDR_fueL_tank_weight_total_kg <= (B747DR_fuel_to_remain_rheo * 1000) then       -- JETTISON GOAL HAS BEEN MET
                 B747.fuel.main2_tank.ovrd_jett_pump_aft.on = 0                          -- TURN PUMP OFF
+	    else
+		B747.fuel.main2_tank.ovrd_jett_pump_aft.on = 1 * power                      -- TURN THE PUMP ON
             end
+	else
+	    B747.fuel.main2_tank.ovrd_jett_pump_aft.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
         end
 
     --- STANDARD MODE ---
@@ -864,17 +912,23 @@ function B747_fuel_pump_control()
                 and B747.fuel.center_tank.ovrd_jett_pump_R.on == 0))                    -- CENTER TANK O/J PUMP RIGHT IS OFF
             then
                 B747.fuel.main2_tank.ovrd_jett_pump_aft.on = 1                          -- TURN THE PUMP ON
+	    else
+	       B747.fuel.main2_tank.ovrd_jett_pump_aft.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
             end
+	else
+	  B747.fuel.main2_tank.ovrd_jett_pump_aft.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
         end
     end
 
 
     -- APU DC PUMP  -----------------------------------------------------------------   TODO:  ADD FEATURE - AUTO-SHUTOFF AFTER 15-20 MINUTES (OVERHEAT)
-    B747.fuel.main2_tank.apu_dc_pump.on = 0                                             -- DEFAULT TO PUMP OFF
+    
     if B747DR_elec_apu_sel_pos == 1                                                     -- APU IS "ON"
         and B747.fuel.main2_tank.main_pump_aft.on == 0                                  -- AC POWERED FUEL PUMP IS OFF
     then
         B747.fuel.main2_tank.apu_dc_pump.on = 1                                         -- TURN THE DC PUMP ON (APU BATTERY POWER ALWAYS AVAILABLE)
+    else
+	B747.fuel.main2_tank.apu_dc_pump.on = 0                                             -- DEFAULT TO PUMP OFF
     end
 
 
@@ -884,30 +938,38 @@ function B747_fuel_pump_control()
     ---------------------------------------------------------------------------------
 
     -- MAIN PUMP FORWARD ------------------------------------------------------------
-    B747.fuel.main3_tank.main_pump_fwd.on = 0                                           -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+   
     if B747DR_button_switch_position[58] > 0.95 then                                    -- PUMP SWITCH DEPRESSED
         B747.fuel.main3_tank.main_pump_fwd.on = 1 * power                               -- TURN THE PUMP ON
+    else
+	B747.fuel.main3_tank.main_pump_fwd.on = 0                                           -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
     end
 
 
     -- MAIN PUMP AFT ----------------------------------------------------------------
-    B747.fuel.main3_tank.main_pump_aft.on = 0                                           -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+    
     if B747DR_button_switch_position[62] > 0.95                                         -- PUMP SWITCH DEPRESSED
         or B747DR_elec_apu_sel_pos >= 1                                                 -- APU IS "ON"
     then
         B747.fuel.main3_tank.main_pump_aft.on = 1 * power                               -- TURN THE PUMP ON
+    else
+        B747.fuel.main3_tank.main_pump_aft.on = 0                                           -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
     end
 
 
     -- OVERRIDE/JETTISON PUMP FORWARD -----------------------------------------------
-    B747.fuel.main3_tank.ovrd_jett_pump_fwd.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+    
     --- JETTISON MODE ---
     if ((B747DR_button_switch_position[46] > 0.95 or B747DR_button_switch_position[47] > 0.95) and B747DR_fuel_jettison_sel_dial_pos > 0) then
         if B747DR_button_switch_position[65] > 0.95 then                                -- PUMP SWITCH DEPRESSED
-            B747.fuel.main3_tank.ovrd_jett_pump_fwd.on = 1 * power                      -- TURN THE PUMP ON
+            
             if simDR_fueL_tank_weight_total_kg <= (B747DR_fuel_to_remain_rheo * 1000) then       -- JETTISON GOAL HAS BEEN MET
                 B747.fuel.main3_tank.ovrd_jett_pump_fwd.on = 0                          -- TURN PUMP OFF
+	    else
+		B747.fuel.main3_tank.ovrd_jett_pump_fwd.on = 1 * power                      -- TURN THE PUMP ON
             end
+	else
+	      B747.fuel.main3_tank.ovrd_jett_pump_fwd.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
         end
 
     --- STANDARD MODE ---
@@ -921,20 +983,28 @@ function B747_fuel_pump_control()
                 and B747.fuel.center_tank.ovrd_jett_pump_R.on == 0))                    -- CENTER TANK O/J PUMP RIGHT IS OFF
             then
                 B747.fuel.main3_tank.ovrd_jett_pump_fwd.on = 1                          -- TURN THE PUMP ON
+	    else
+		B747.fuel.main3_tank.ovrd_jett_pump_fwd.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
             end
+	else
+	  B747.fuel.main3_tank.ovrd_jett_pump_fwd.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
         end
     end
 
 
     -- OVERRIDE/JETTISON PUMP AFT ---------------------------------------------------
-    B747.fuel.main3_tank.ovrd_jett_pump_aft.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+    
     --- JETTISON MODE ---
     if ((B747DR_button_switch_position[46] > 0.95 or B747DR_button_switch_position[47] > 0.95) and B747DR_fuel_jettison_sel_dial_pos > 0) then
         if B747DR_button_switch_position[67] > 0.95 then                                -- PUMP SWITCH DEPRESSED
-            B747.fuel.main3_tank.ovrd_jett_pump_aft.on = 1 * power                      -- TURN THE PUMP ON
+           
             if simDR_fueL_tank_weight_total_kg <= (B747DR_fuel_to_remain_rheo * 1000) then       -- JETTISON GOAL HAS BEEN MET
                 B747.fuel.main3_tank.ovrd_jett_pump_aft.on = 0                          -- TURN PUMP OFF
+	    else
+		B747.fuel.main3_tank.ovrd_jett_pump_aft.on = 1 * power                      -- TURN THE PUMP ON
             end
+	else
+	    B747.fuel.main3_tank.ovrd_jett_pump_aft.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
         end
 
     --- STANDARD MODE ---
@@ -948,7 +1018,11 @@ function B747_fuel_pump_control()
                 and B747.fuel.center_tank.ovrd_jett_pump_R.on == 0))                    -- CENTER TANK O/J PUMP RIGHT IS OFF
             then
                 B747.fuel.main3_tank.ovrd_jett_pump_aft.on = 1                          -- TURN THE PUMP ON
+	    else
+	      B747.fuel.main3_tank.ovrd_jett_pump_aft.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
             end
+	else
+	  B747.fuel.main3_tank.ovrd_jett_pump_aft.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
         end
     end
 
@@ -959,16 +1033,20 @@ function B747_fuel_pump_control()
     ---------------------------------------------------------------------------------
 
     -- MAIN PUMP FORWARD ------------------------------------------------------------
-    B747.fuel.main4_tank.main_pump_fwd.on = 0                                           -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+    
     if B747DR_button_switch_position[59] > 0.95 then                                    -- PUMP SWITCH DEPRESSED
         B747.fuel.main4_tank.main_pump_fwd.on = 1 * power                               -- TURN THE PUMP ON
+    else
+	B747.fuel.main4_tank.main_pump_fwd.on = 0                                           -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
     end
 
 
     -- MAIN PUMP AFT ----------------------------------------------------------------
-    B747.fuel.main4_tank.main_pump_aft.on = 0                                           -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+    
     if B747DR_button_switch_position[63] > 0.95 then                                    -- PUMP SWITCH DEPRESSED
         B747.fuel.main4_tank.main_pump_aft.on = 1 * power                               -- TURN THE PUMP ON
+    else
+	B747.fuel.main4_tank.main_pump_aft.on = 0                                           -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
     end
 
 
@@ -979,10 +1057,7 @@ function B747_fuel_pump_control()
 
     -- TRANSFER/JETTISON PUMP (LEFT) ------------------------------------------------
 
-    --- AUTO SHUTOFF FLAG ---
-    local function B747_stab_pump_shutoff_delay_L()
-        B747_stab_pump_low_press_shutoff_L = 1                                          -- SET THE SHUTOFF FLAG
-    end
+    
 
     --- AUTO SHUTOFF RESET ---
     if simDR_fuel_tank_weight_kg[7] > 0.0 then                                          -- STABILZER TANK HAS FUEL
@@ -1047,10 +1122,7 @@ function B747_fuel_pump_control()
 
     -- TRANSFER/JETTISON PUMP (RIGHT) ------------------------------------------------
 
-    --- AUTO SHUTOFF FLAG ---
-    local function B747_stab_pump_shutoff_delay_R()
-        B747_stab_pump_low_press_shutoff_R = 1                                          -- SET THE SHUTOFF FLAG
-    end
+    
 
     --- AUTO SHUTOFF RESET ---
     if simDR_fuel_tank_weight_kg[7] > 0.0 then                                          -- STABILZER TANK HAS FUEL
@@ -3003,32 +3075,38 @@ end
     end
 
 end]]
+debug_fuel     = deferred_dataref("laminar/B747/debug/fuel", "number")
 function before_physics()
-
+    if debug_fuel>0 then return end
     B747_engine_fuel_source()
     B747_engine_has_fuel()
 
 end
 
 function after_physics()
-
+    if debug_fuel>11 then return end
     B747_fuel_pump_control()
+    if debug_fuel>10 then return end
     B747_fuel_valve_control()
+    if debug_fuel>9 then return end
     B747_fuel_valve_animation()
-
+    if debug_fuel>8 then return end
     B747_fuel_flow_rate()
+    if debug_fuel>7 then return end
     B747_fuel_temp()
-
+    if debug_fuel>6 then return end
     B747_fuel_jettison_time()
-
+    if debug_fuel>5 then return end
     B747_fuel_std_synoptic()
+    if debug_fuel>4 then return end
     B747_fuel_xfr_synoptic()
+    if debug_fuel>3 then return end
     B747_fuel_jett_synoptic()
-
+    if debug_fuel>2 then return end
     B747_fuel_toggle_switch_animation()
-
+    if debug_fuel>1 then return end
     B747_fuel_EICAS_msg()
-
+    if debug_fuel>0 then return end
     B747_fuel_monitor_AI()
 
 end

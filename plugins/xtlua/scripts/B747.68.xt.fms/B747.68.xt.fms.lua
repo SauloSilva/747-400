@@ -271,8 +271,9 @@ function flight_start()
     end
  
 end
-
+debug_fms     = deferred_dataref("laminar/B747/debug/fms", "number")
 function after_physics()
+  if debug_fms>0 then return end
     fmsL:B747_fms_display()
     fmsC:B747_fms_display()
     fmsR:B747_fms_display()

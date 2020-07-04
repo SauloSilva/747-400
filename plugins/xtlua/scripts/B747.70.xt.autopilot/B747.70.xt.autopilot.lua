@@ -1949,8 +1949,9 @@ end
 --function flight_crash() end
 
 --function before_physics() end
-
+debug_autopilot     = deferred_dataref("laminar/B747/debug/autopilot", "number")
 function after_physics()
+    if debug_autopilot>0 then return end
     local cHeading=simDR_AHARS_heading_deg_pilot --constant refresh of data
     local tHeading=simDR_autopilot_heading_deg --constant refresh of data
     local headingStatus=simDR_autopilot_heading_hold_status --constant refresh of data

@@ -2035,9 +2035,10 @@ end
 --function flight_crash() end
 
 --function before_physics() end
-
+debug_lighting     = deferred_dataref("laminar/B747/debug/lighting", "number")
 function after_physics()
 
+  if debug_lighting>0 then return end
     B747_landing_light_brightness()
     B747_turnoff_lights()
     B747_taxi_lights()

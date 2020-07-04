@@ -809,9 +809,9 @@ end
 --function flight_crash() end
 
 --function before_physics() end
-
+debug_gear     = deferred_dataref("laminar/B747/debug/gear", "number")
 function after_physics()
-
+     if debug_gear>0 then return end
     B747_set_gear_handle_lock()
 
     B747_primary_EICAS_gear_status()
