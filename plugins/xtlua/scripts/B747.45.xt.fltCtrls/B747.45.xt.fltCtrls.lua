@@ -1033,9 +1033,9 @@ end
 --function flight_crash() end
 
 --function before_physics() end
-
+debug_fltctrls     = deferred_dataref("laminar/B747/debug/fltctrls", "number")
 function after_physics()
-
+if debug_fltctrls>0 then return end
     B747_rudder_trim_dial_animation()
     B747_aileron_trim_switch_animation()
 

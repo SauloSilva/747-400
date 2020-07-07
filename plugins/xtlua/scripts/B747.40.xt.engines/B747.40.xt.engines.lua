@@ -1907,15 +1907,15 @@ function flight_start()
 end
 
 --function flight_crash() end
-
+debug_engines     = deferred_dataref("laminar/B747/debug/engines", "number")
 function before_physics()
-
+    if debug_engines>0 then return end
     B747_electronic_engine_control()
 
 end
 
 function after_physics()
-
+if debug_engines>0 then return end
     B747_startup_ignition()
 
     B747_prop_mode()

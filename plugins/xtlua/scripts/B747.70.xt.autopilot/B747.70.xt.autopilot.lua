@@ -355,11 +355,11 @@ function B747_ap_switch_speed_mode_CMDhandler(phase, duration)
 		end		
 	elseif phase == 2 then
 		B747_ap_button_switch_position_target[1] = 0									-- SET THE SPEED SWITCH ANIMATION TO "OUT"				
-	  if simDR_autopilot_airspeed_is_mach == 0 then
+	 --[[ if simDR_autopilot_airspeed_is_mach == 0 and simDR_ind_airspeed_kts_pilot> B747DR_ap_ias_dial_value then
 	    B747DR_ap_ias_dial_value=simDR_ind_airspeed_kts_pilot
-	  else
+	  elseif simDR_ind_airspeed_kts_pilot> B747DR_ap_ias_dial_value then 
 	    B747DR_ap_ias_dial_value=simDR_airspeed_mach*100
-	  end
+	  end]]
 
 	end
 end	
@@ -401,8 +401,10 @@ function B747_ap_switch_vs_mode_CMDhandler(phase, duration)
 	       local cAlt=simDR_radarAlt1
 		B747_ap_button_switch_position_target[6] = 1
 		--for animation
+
 		B747DR_ap_vvi_fpm=0
 		
+
 		simDR_autopilot_altitude_ft=B747DR_autopilot_altitude_ft
 		
 		simCMD_autopilot_vert_speed_mode:once()
@@ -411,8 +413,9 @@ function B747_ap_switch_vs_mode_CMDhandler(phase, duration)
 		--end
 	elseif phase ==2 then
 	  --for autpilot
+
 		  simDR_autopilot_vs_fpm=0
-		
+
 	end
 end
 
@@ -1024,6 +1027,7 @@ function roundToIncrement(numberToRound, increment)
 
     return z
 
+
 end
 
 function B747_ap_heading_hold_mode_beforeCMDhandler(phase, duration)
@@ -1093,15 +1097,15 @@ function B747_fltmgmt_setILS()
   local n2=simDR_nav2Freq
   local d1=simDR_radio_nav_obs_deg[0]
   local d2=simDR_radio_nav_obs_deg[1]--continually get latest
-  if string.len(navAidsJSON) ~= nSize then
-    navAids=json.decode(navAidsJSON)
-    nSize=string.len(navAidsJSON)
-  end
+  
   local fms=json.decode(fmsJSON)
   local newTargetFix=0
   local hitI=-1
   if table.getn(fms)>4 and (fms[targetFMSnum]==nil or targetFMS~=fms[targetFMSnum][8]) then
-    
+    if string.len(navAidsJSON) ~= nSize then
+      navAids=json.decode(navAidsJSON)
+      nSize=string.len(navAidsJSON)
+    end
     if fms[table.getn(fms)][2] == 1 then
       --we have an airport as our dst
       found =false
@@ -1281,11 +1285,13 @@ function B747_ap_vs_mode()
     
     
     ----- VVI FOR ANIMATION 
+
     --[[if B747DR_autopilot_altitude_ft > simDR_pressureAlt1+500 and simDR_autopilot_vs_fpm<0 then
 		  simDR_autopilot_vs_fpm=0
     elseif B747DR_autopilot_altitude_ft < simDR_pressureAlt1-500 and simDR_autopilot_vs_fpm>0 then
 		  simDR_autopilot_vs_fpm=0
     end]]
+
     B747DR_ap_vvi_fpm = math.abs(simDR_autopilot_vs_fpm)
     
     
@@ -1943,8 +1949,9 @@ end
 --function flight_crash() end
 
 --function before_physics() end
-
+debug_autopilot     = deferred_dataref("laminar/B747/debug/autopilot", "number")
 function after_physics()
+    if debug_autopilot>0 then return end
     local cHeading=simDR_AHARS_heading_deg_pilot --constant refresh of data
     local tHeading=simDR_autopilot_heading_deg --constant refresh of data
     local headingStatus=simDR_autopilot_heading_hold_status --constant refresh of data

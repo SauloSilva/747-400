@@ -1084,8 +1084,9 @@ end
 --function flight_crash() end
 
 --function before_physics() end
-
+debug_air     = deferred_dataref("laminar/B747/debug/air", "number")
 function after_physics()
+  if debug_air>0 then return end
 
     B747_bleed_air_supply()
     B747_bleed_air_valves()

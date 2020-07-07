@@ -593,9 +593,9 @@ end
 --function flight_crash() end
 
 --function before_physics() end
-
+debug_antiice     = deferred_dataref("laminar/B747/debug/antiice", "number")
 function after_physics()
-
+if debug_antiice>0 then return end
     B747_nacelle_antiice()
     B747_wing_antiice()
     B747_window_antiice()

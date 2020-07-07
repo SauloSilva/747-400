@@ -52,7 +52,8 @@ function deferred_dataref(name,type,notifier)
 	dref=XLuaCreateDataRef(name, type,"yes",notifier)
 	return wrap_dref_any(dref,type) 
 end
-
+B747CMD_openAllDoors 				= deferred_command("laminar/B747/button_switch/open_all_doors", "Open All doors", B747_open_door_CMDhandler)
+B747CMD_closeAllDoors 				= deferred_command("laminar/B747/button_switch/close_all_doors", "Open All doors", B747_close_door_CMDhandler)
 B747DR_init_manip_CD                = deferred_dataref("laminar/B747/manip/init_CD", "number")
 B747DR_button_switch_cover_position = deferred_dataref("laminar/B747/button_switch_cover/position", "array[" .. tostring(NUM_BTN_SW_COVERS) .. "]")
 B747DR_button_switch_position       = deferred_dataref("laminar/B747/button_switch/position", "array[" .. tostring(NUM_BTN_SW) .. "]")

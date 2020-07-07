@@ -54,6 +54,7 @@ IN_REPLAY - evaluates to 0 if replay is off, 1 if replay mode is on
 --sim/operation/failures/rel_lagear3  int y failure_enum  Landing Gear 3 retract
 --sim/operation/failures/rel_lagear4  int y failure_enum  Landing Gear 4 retract
 --sim/operation/failures/rel_lagear5  int y failure_enum  Landing Gear 5 retract
+
 function deferred_command(name,desc,realFunc)
 	return replace_command(name,realFunc)
 end
@@ -64,6 +65,7 @@ function deferred_dataref(name,nilType,callFunction)
     end
     return find_dataref(name)
 end
+
 
 local B747_gear_handle_lock_override = 0
 local B747_gear_handle_lock = 0
@@ -108,10 +110,12 @@ B747DR_autobrakes_sel_dial_pos  = deferred_dataref("laminar/B747/gear/autobrakes
 B747DR_gear_annun_status        = deferred_dataref("laminar/B747/gear/gear_position/annun_status", "number")
 B747DR_EICAS1_gear_display_status = deferred_dataref("laminar/B747/gear/EICAS1_display_status", "number")
 
+
 B747DR_tire_pressure            = deferred_dataref("laminar/B747/gear/tire_pressure", "array[18]")
 B747DR_brake_temp               = deferred_dataref("laminar/B747/gear/brake_temp", "array[18]")
 B747DR_brake_temp_ind               = deferred_dataref("laminar/B747/gear/brake_temp_ind", "array[18]")
 B747DR_init_gear_CD             = deferred_dataref("laminar/B747/gear/init_CD", "number")
+
 
 
 
@@ -805,9 +809,9 @@ end
 --function flight_crash() end
 
 --function before_physics() end
-
+debug_gear     = deferred_dataref("laminar/B747/debug/gear", "number")
 function after_physics()
-
+     if debug_gear>0 then return end
     B747_set_gear_handle_lock()
 
     B747_primary_EICAS_gear_status()

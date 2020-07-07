@@ -1648,10 +1648,49 @@ B747CMD_ind_light_switch_down 			= deferred_command("laminar/B747/toggle_switch/
 -- CABIN LIGHTS
 B747CMD_cabin_lights_switch 			= deferred_command("laminar/B747/toggle_switch/cabin_lights", "Cabin Lights Switch", B747_cabin_lights_switch_CMDhandler) -- NOTE: NO PHYSICAL SWITCH
 
+-- DOORS
+simCMDDOpen={}
+simCMDDOpen[0]=find_command("sim/flight_controls/door_open_1")
+simCMDDOpen[1]=find_command("sim/flight_controls/door_open_2")
+simCMDDOpen[2]=find_command("sim/flight_controls/door_open_3")
+simCMDDOpen[3]=find_command("sim/flight_controls/door_open_4")
+simCMDDOpen[4]=find_command("sim/flight_controls/door_open_5")
+simCMDDOpen[5]=find_command("sim/flight_controls/door_open_6")
+simCMDDOpen[6]=find_command("sim/flight_controls/door_open_7")
+simCMDDOpen[7]=find_command("sim/flight_controls/door_open_8")
+simCMDDOpen[8]=find_command("sim/flight_controls/door_open_9")
+simCMDDOpen[9]=find_command("sim/flight_controls/door_open_10")
+
+simCMDDClose={}
+simCMDDClose[0]=find_command("sim/flight_controls/door_close_1")
+simCMDDClose[1]=find_command("sim/flight_controls/door_close_2")
+simCMDDClose[2]=find_command("sim/flight_controls/door_close_3")
+simCMDDClose[3]=find_command("sim/flight_controls/door_close_4")
+simCMDDClose[4]=find_command("sim/flight_controls/door_close_5")
+simCMDDClose[5]=find_command("sim/flight_controls/door_close_6")
+simCMDDClose[6]=find_command("sim/flight_controls/door_close_7")
+simCMDDClose[7]=find_command("sim/flight_controls/door_close_8")
+simCMDDClose[8]=find_command("sim/flight_controls/door_close_9")
+simCMDDClose[9]=find_command("sim/flight_controls/door_close_10")
 
 
+function B747_open_door_CMDhandler(phase, duration) 
+  if phase==0 then
+    for i = 0, 9 do
+      simCMDDOpen[i]:once()
+    end
+  end
+end
 
-
+function B747_close_door_CMDhandler (phase, duration)
+  if phase==0 then
+    for i = 0, 9 do
+      simCMDDClose[i]:once()
+    end
+  end
+end
+B747CMD_openAllDoors 				= deferred_command("laminar/B747/button_switch/open_all_doors", "Open All doors", B747_open_door_CMDhandler)
+B747CMD_closeAllDoors 				= deferred_command("laminar/B747/button_switch/close_all_doors", "Close All doors", B747_close_door_CMDhandler)
 
 ----- GLARESHIELD PANEL TOGGLE SWITCHES -------------------------------------------------
 
@@ -2102,9 +2141,9 @@ end
 --function flight_crash() end
 
 --function before_physics() end
-
+debug_manipulators     = deferred_dataref("laminar/B747/debug/manipulators", "number")
 function after_physics()
-
+    if debug_manipulators>0 then return end
     B747_button_switch_cover_animation()
     B747_button_switch_animation()
     B747_toggle_switch_animation()

@@ -49,10 +49,12 @@ function doPitch()
   --elseif simDR_radarAlt1 >50 and lastRod>1.5 then targetPitch=10  --flare harder!
   --elseif simDR_radarAlt1 >50 and lastRod>=0.8 then targetPitch=simDR_AHARS_pitch_heading_deg_pilot 
   --local doRollout=maxPitch+4.5
+
   local doRollout=((4.5+simDR_AHARS_pitch_heading_deg_pilot))
   
   if simDR_radarAlt1 >50 then 
     targetPitch=3
+
   end
   
   if simDR_radarAlt1 < doRollout then targetPitch=1 maxPitch=1 inrollout=true B747DR_ap_FMA_active_roll_mode=4 B747DR_ap_FMA_active_pitch_mode=0 end
@@ -61,6 +63,7 @@ function doPitch()
   
 
   if simDR_radarAlt1 < 50 and simDR_radarAlt1 > doRollout then
+
     local progressPitch=((55-(simDR_radarAlt1)))/6
     if progressPitch>6.5 then 
       targetPitch=6.5
@@ -71,6 +74,7 @@ function doPitch()
      else
       targetPitch=progressPitch
     end
+
   end
   
  -- if inrollout==true then targetPitch=1 end
@@ -144,7 +148,9 @@ function doThrottle()
   if simDR_touchGround>0 then touchedGround=true pinThrottle=0 return end
 
   if simDR_radarAlt1 < 50 then
+
     targetAirspeed=refSpeed -1 -- -((50-simDR_radarAlt1)/20)
+
   end
   
   local diff=targetAirspeed-simDR_ind_airspeed_kts_pilot
@@ -170,9 +176,11 @@ function during_Flare()
   simDR_elevator=initElevator --B747_set_ap_animation_position(simDR_elevator,initElevator,-1,1,1)
   --simDR_rudder=B747_set_ap_animation_position(simDR_rudder,pinrudder,-1,1,2)
   if inrollout==false then
+
     print("autoland flare alt=".. simDR_radarAlt1 .. " rollout=false" .. " targetspeed=".. targetAirspeed  .." fpm=".. B744_fpm .."/".. lastRod.." : ".." actualPitch=".. simDR_AHARS_pitch_heading_deg_pilot .." targetPitch=" ..targetPitch .." onGround="..simDR_onGround)
   else
     print("autoland flare alt=".. simDR_radarAlt1 .. " rollout=true" .. " targetspeed=".. targetAirspeed  .." fpm=".. B744_fpm  .."/".. lastRod.." : ".." actualPitch=".. simDR_AHARS_pitch_heading_deg_pilot .." targetPitch=" ..targetPitch .." onGround="..simDR_onGround)
+
   end
 end
 function end_Flare()

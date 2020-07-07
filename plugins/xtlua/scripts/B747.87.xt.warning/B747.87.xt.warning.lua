@@ -1063,8 +1063,9 @@ end
 --function flight_crash() end
 
 --function before_physics() end
-
+debug_warning     = deferred_dataref("laminar/B747/debug/warning", "number")
 function after_physics()
+  if debug_warning>0 then return end
     local diff=simDRTime-lastUpdate
 
     if diff>0.5 then

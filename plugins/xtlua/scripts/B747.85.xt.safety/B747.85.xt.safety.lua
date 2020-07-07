@@ -351,9 +351,9 @@ end
 --function flight_crash() end
 
 --function before_physics() end
-
+debug_safety     = deferred_dataref("laminar/B747/debug/safety", "number")
 function after_physics()
-
+    if debug_safety>0 then return end
     B747_safety_EICAS_msg()
 
     B747_safety_monitor_AI()

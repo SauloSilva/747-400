@@ -743,9 +743,9 @@ end
 --function flight_crash() end
 
 --function before_physics() end
-
+debug_electrical     = deferred_dataref("laminar/B747/debug/electrical", "number")
 function after_physics()
-
+    if debug_electrical>0 then return end
     B747_battery()
     B747_external_power()
     B747_apu()
