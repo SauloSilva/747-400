@@ -12,7 +12,8 @@ end
 
 ilsData=deferred_dataref("laminar/B747/radio/ilsData", "string")
 acars=create_dataref("laminar/B747/comm/acars","number")  
-
+toderate=deferred_dataref("laminar/B747/engine/derate/TO","number") 
+clbderate=deferred_dataref("laminar/B747/engine/derate/CLB","number")
 function createFMSDatarefs(fmsid)
 create_dataref("laminar/B747/"..fmsid.."/Line01_L", "string")
 create_dataref("laminar/B747/"..fmsid.."/Line02_L", "string")

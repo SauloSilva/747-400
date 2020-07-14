@@ -7,12 +7,15 @@ acarsOnlineDataref=find_dataref("autoatc/acars/online")
 acarsReceiveDataref=find_dataref("autoatc/acars/in")
 sendDataref=find_dataref("autoatc/acars/out")
 sendCommand=find_command("AutoATC/ACARS")
+function doSendAfterTime()
+  sendCommand:once()--need to give sendDataref time to write
+end
 acarsSystem.provider={
 send=function(value)
   print("send ACARS message:"..value)
   local newMessage=json.decode(value)--check json value or fail
   sendDataref=value
-  sendCommand:once()
+  run_after_time(doSendAfterTime, 2.0)
 end,
 
 receive=function() 

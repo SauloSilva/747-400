@@ -101,8 +101,9 @@ local B747_ref_thr_limit = {
     ["CON"]     = 1.00,
     ["GA"]      = 1.00
 }
+toderate=deferred_dataref("laminar/B747/engine/derate/TO","number") 
 
-
+throttlederate=find_dataref("sim/aircraft/engine/acf_throtmax_FWD")
 --*************************************************************************************--
 --** 				              FIND X-PLANE DATAREFS              		    	 **--
 --*************************************************************************************--
@@ -118,7 +119,7 @@ simDR_prop_mode                 = find_dataref("sim/cockpit2/engine/actuators/pr
 
 simDR_engine_throttle_jet       = find_dataref("sim/cockpit2/engine/actuators/throttle_jet_rev_ratio")
 simDR_engine_throttle_jet_all   = find_dataref("sim/cockpit2/engine/actuators/throttle_jet_rev_ratio_all")
-
+simCMD_autopilot_autothrottle_on		= find_command("sim/autopilot/autothrottle_on")
 simDR_hydraulic_sys_press_01    = find_dataref("sim/operation/failures/hydraulic_pressure_ratio")
 simDR_hydraulic_sys_press_02    = find_dataref("sim/operation/failures/hydraulic_pressure_ratio2")
 
@@ -136,7 +137,7 @@ simDR_engine_oil_temp           = find_dataref("sim/cockpit2/engine/indicators/o
 simDR_engine_oil_qty_ratio      = find_dataref("sim/cockpit2/engine/indicators/oil_quantity_ratio")
 
 simDR_flap_deploy_ratio         = find_dataref("sim/flightmodel2/controls/flap_handle_deploy_ratio")
-
+simDR_allThrottle           	= find_dataref("sim/cockpit2/engine/actuators/throttle_ratio_all")
 simDR_engine_running            = find_dataref("sim/flightmodel/engine/ENGN_running")
 
 simDR_thrust_rev_fail_01        = find_dataref("sim/operation/failures/rel_revers0")
@@ -559,15 +560,15 @@ end
 function B747_engine_TOGA_power_CMDhandler(phase, duration) 				
 	if phase == 0 then
         if B747DR_toggle_switch_position[29] == 1 then
-            if simDR_autopilot_TOGA_vert_status == 2 then
+            --if simDR_allThrottle>0.25 then
 	            if B747DR_engine_TOGA_mode == 0 then
-                	simDR_engine_throttle_input[0] = 0.95
+                	--[[simDR_engine_throttle_input[0] = 0.95
                 	simDR_engine_throttle_input[1] = 0.95
                 	simDR_engine_throttle_input[2] = 0.95
-                	simDR_engine_throttle_input[3] = 0.95
-					B747DR_engine_TOGA_mode = 1
-				end	
-            end
+                	simDR_engine_throttle_input[3] = 0.95]]
+				B747DR_engine_TOGA_mode = 0.9
+			end	
+           -- end
         end		
 	end	
 end
@@ -712,7 +713,19 @@ end
 
 
 
+function B747_set_animation_position(current_value, target, min, max, speed)
 
+    local fps_factor = math.min(1.0, speed * SIM_PERIOD)
+
+    if target >= (max - 0.001) and current_value >= (max - 0.01) then
+        return max
+    elseif target <= (min + 0.001) and current_value <= (min + 0.01) then
+       return min
+    else
+        return current_value + ((target - current_value) * fps_factor)
+    end
+
+end
 ----- PROP MODE -------------------------------------------------------------------------
 function B747_prop_mode()
 
@@ -722,8 +735,15 @@ function B747_prop_mode()
     --simDR_prop_mode[1] = B747_ternary(((B747DR_thrust_rev_lever_pos[1] > 0.45) and (simDR_hydraulic_sys_press_02 > 1000.0)), 3, 1)
     --simDR_prop_mode[2] = B747_ternary(((B747DR_thrust_rev_lever_pos[2] > 0.45) and (simDR_hydraulic_sys_press_02 > 1000.0)), 3, 1)
     --simDR_prop_mode[3] = B747_ternary(((B747DR_thrust_rev_lever_pos[3] > 0.45) and (simDR_hydraulic_sys_press_01 > 1000.0)), 3, 1)
+    if B747DR_engine_TOGA_mode >0 and B747DR_engine_TOGA_mode < 1 and simDR_allThrottle<0.94 then
+	    simDR_allThrottle = B747_set_animation_position(simDR_allThrottle,0.95,0,1,1)
+    elseif B747DR_engine_TOGA_mode >0 and B747DR_engine_TOGA_mode < 1 then
+      B747DR_engine_TOGA_mode = 1
+      if toderate==0 then throttlederate=1.0
+      elseif toderate==1 then throttlederate=0.9
+      elseif toderate==2 then throttlederate=0.8 end
+    end
     
-
     
     -- AIRCRAFT IS "ON THE GROUND" 
 	if simDR_all_wheels_on_ground == 0 then		

@@ -143,6 +143,8 @@ simDR_reqHeading=find_dataref("sim/cockpit2/radios/actuators/hsi_obs_deg_mag_pil
 
 simDR_overRideStab=find_dataref("sim/operation/override/override_artstab")
 simDR_nav1_radio_nav_type           	= find_dataref("sim/cockpit2/radios/indicators/nav1_type")
+clbderate=deferred_dataref("laminar/B747/engine/derate/CLB","number")
+throttlederate=find_dataref("sim/aircraft/engine/acf_throtmax_FWD")
 --[[
     0 = UNKNONW
     4 = VOR
@@ -350,7 +352,7 @@ function B747_ap_switch_speed_mode_CMDhandler(phase, duration)
 			--B747DR_ap_ias_mach_window_open = 1											-- OPEN THE IAS/MACH WINDOW
 			if simDR_autopilot_autothrottle_enabled == 0 then							-- AUTOTHROTTLE IS "OFF"
 				simCMD_autopilot_autothrottle_on:once()									-- ACTIVATE THE AUTOTHROTTLE
-				if B747DR_engine_TOGA_mode == 1 then B747DR_engine_TOGA_mode = 0 end	-- CANX ENGINE TOGA IF ACTIVE
+				if B747DR_engine_TOGA_mode >0 then B747DR_engine_TOGA_mode = 0 end	-- CANX ENGINE TOGA IF ACTIVE
 			end	
 		end		
 	elseif phase == 2 then
@@ -413,7 +415,7 @@ function B747_ap_switch_vs_mode_CMDhandler(phase, duration)
 		--end
 	elseif phase ==2 then
 	  --for autpilot
-
+		  
 		  simDR_autopilot_vs_fpm=0
 
 	end
@@ -722,10 +724,11 @@ end
 
 function B747_ap_reset_CMDhandler(phase, duration)
 	if phase == 0 then
-		simCMD_autopilot_pitch_sync:once()
+		--simCMD_autopilot_pitch_sync:once()
 		simCMD_autopilot_servos_fdir_off:once()	
 		simCMD_autopilot_servos2_fdir_off:once()
 		simCMD_autopilot_servos3_fdir_off:once()
+		B747DR_engine_TOGA_mode=0
 		simDR_autopilot_fms_vnav = 0
 		B747_ap_all_cmd_modes_off()
 		B747DR_ap_ias_mach_window_open = 0
@@ -1306,11 +1309,17 @@ end
 
 ----- IAS/MACH MODE ---------------------------------------------------------------------
 function B747_ap_ias_mach_mode()
-	
+	if simDR_autopilot_autothrottle_enabled == 0 and B747DR_engine_TOGA_mode == 1 and simDR_radarAlt1>400 then							-- AUTOTHROTTLE IS "OFF"
+	  simCMD_autopilot_autothrottle_on:once()									-- ACTIVATE THE AUTOTHROTTLE
+	  B747CMD_ap_switch_flch_mode:once()
+	  B747DR_engine_TOGA_mode = 0 
+	  
+	end	
 	----- SET THE IAS/MACH WINDOW STATUS
 	if simDR_autopilot_autothrottle_enabled > 0
 		or simDR_autopilot_flch_status > 1
 		or simDR_autopilot_vs_status > 1
+		or B747DR_engine_TOGA_mode > 0
 		or simDR_autopilot_TOGA_vert_status > 0
 		or simDR_autopilot_alt_hold_status > 1
 		or simDR_autopilot_gs_status > 0
@@ -1475,7 +1484,7 @@ function B747_ap_fma()
     -- ----------------------------------------------------------------------------------
 
     -- (NONE) --
-    B747DR_ap_FMA_armed_roll_mode = 0
+    
 
     -- (TOGA) --
     if simDR_autopilot_TOGA_lat_status == 1 then
@@ -1491,7 +1500,8 @@ function B747_ap_fma()
 
     -- (ROLLOUT) --
     -- TODO: AUTOLAND LOGIC
-
+    else
+      B747DR_ap_FMA_armed_roll_mode = 0
 
     end
      
@@ -1550,7 +1560,7 @@ function B747_ap_fma()
     B747DR_ap_FMA_armed_pitch_mode = 0
 
     -- (TOGA) --
-    if simDR_autopilot_TOGA_vert_status == 1 then
+    if B747DR_engine_TOGA_mode == 1 then
         B747DR_ap_FMA_armed_pitch_mode = 1
 
     -- (G/S) --
@@ -1566,10 +1576,11 @@ function B747_ap_fma()
     -- ----------------------------------------------------------------------------------
 
   -- (NONE) --
-  B747DR_ap_FMA_active_pitch_mode = 0
+  --B747DR_ap_FMA_active_pitch_mode = 0
   
     -- (TOGA) --
-    if simDR_autopilot_TOGA_vert_status == 2 then
+    --if simDR_autopilot_TOGA_vert_status == 2 then
+    if B747DR_engine_TOGA_mode == 1 then  
         B747DR_ap_FMA_active_pitch_mode = 1
 
     -- (G/S) --
@@ -1584,13 +1595,17 @@ function B747_ap_fma()
       and simDR_autopilot_flch_status == 2
     then
         B747DR_ap_FMA_active_pitch_mode = 4
-
+	if clbderate==0 then throttlederate=1.0
+	elseif clbderate==1 then throttlederate=0.9
+	elseif clbderate==2 then throttlederate=0.8 end
     -- (VNAV ALT) --
     elseif simDR_autopilot_fms_vnav == 1 
       and simDR_autopilot_alt_hold_status == 2
     then
         B747DR_ap_FMA_active_pitch_mode = 5
-            
+        if clbderate==0 then throttlederate=1.0
+	elseif clbderate==1 then throttlederate=0.9
+	elseif clbderate==2 then throttlederate=0.8  end   
     -- (VNAV PATH) --
     elseif simDR_autopilot_fms_vnav == 1
       and simDR_autopilot_vs_status == 2
@@ -1602,22 +1617,28 @@ function B747_ap_fma()
       and simDR_autopilot_fms_vnav == 0
     then
         B747DR_ap_FMA_active_pitch_mode = 7
-
+	if clbderate==0 then throttlederate=1.0
+	  elseif clbderate==1 then throttlederate=0.9
+	  elseif clbderate==2 then throttlederate=0.8 end 
     -- (FLCH SPD) --
     elseif simDR_autopilot_flch_status == 2 
       and simDR_autopilot_fms_vnav == 0
     then
         B747DR_ap_FMA_active_pitch_mode = 8
-
+	if clbderate==0 then throttlederate=1.0
+	elseif clbderate==1 then throttlederate=0.9
+	elseif clbderate==2 then throttlederate=0.8  end
     -- (ALT) --
     elseif simDR_autopilot_alt_hold_status == 2 
       and simDR_autopilot_fms_vnav == 0
     then
         B747DR_ap_FMA_active_pitch_mode = 9
+	throttlederate=1.0
 
     -- (NONE) --
-    elseif simDR_autopilot_pitch > 1 then
+    else
         B747DR_ap_FMA_active_pitch_mode = 0
+	throttlederate=1.0
     end
   
 end 	

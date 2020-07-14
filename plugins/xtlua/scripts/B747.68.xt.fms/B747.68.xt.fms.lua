@@ -84,40 +84,9 @@ B747DR_fms1_display_mode            = find_dataref("laminar/B747/fms1/display_mo
 B747DR_init_fmsL_CD                 = find_dataref("laminar/B747/fmsL/init_CD")
 ilsData=deferred_dataref("laminar/B747/radio/ilsData", "string")
 acars=deferred_dataref("laminar/B747/comm/acars","number")  
+toderate=deferred_dataref("laminar/B747/engine/derate/TO","number") 
+clbderate=deferred_dataref("laminar/B747/engine/derate/CLB","number")
 
-function createFMSDatarefs(fmsid)
-deferred_dataref("laminar/B747/"..fmsid.."/Line01_L", "string")
-deferred_dataref("laminar/B747/"..fmsid.."/Line02_L", "string")
-deferred_dataref("laminar/B747/"..fmsid.."/Line03_L", "string")
-deferred_dataref("laminar/B747/"..fmsid.."/Line04_L", "string")
-deferred_dataref("laminar/B747/"..fmsid.."/Line05_L", "string")
-deferred_dataref("laminar/B747/"..fmsid.."/Line06_L", "string")
-deferred_dataref("laminar/B747/"..fmsid.."/Line07_L", "string")
-deferred_dataref("laminar/B747/"..fmsid.."/Line08_L", "string")
-deferred_dataref("laminar/B747/"..fmsid.."/Line09_L", "string")
-deferred_dataref("laminar/B747/"..fmsid.."/Line10_L", "string")
-deferred_dataref("laminar/B747/"..fmsid.."/Line11_L", "string")
-deferred_dataref("laminar/B747/"..fmsid.."/Line12_L", "string")
-deferred_dataref("laminar/B747/"..fmsid.."/Line13_L", "string")
-deferred_dataref("laminar/B747/"..fmsid.."/Line14_L", "string")
-deferred_dataref("laminar/B747/"..fmsid.."/Line01_S", "string")
-deferred_dataref("laminar/B747/"..fmsid.."/Line02_S", "string")
-deferred_dataref("laminar/B747/"..fmsid.."/Line03_S", "string")
-deferred_dataref("laminar/B747/"..fmsid.."/Line04_S", "string")
-deferred_dataref("laminar/B747/"..fmsid.."/Line05_S", "string")
-deferred_dataref("laminar/B747/"..fmsid.."/Line06_S", "string")
-deferred_dataref("laminar/B747/"..fmsid.."/Line07_S", "string")
-deferred_dataref("laminar/B747/"..fmsid.."/Line08_S", "string")
-deferred_dataref("laminar/B747/"..fmsid.."/Line09_S", "string")
-deferred_dataref("laminar/B747/"..fmsid.."/Line10_S", "string")
-deferred_dataref("laminar/B747/"..fmsid.."/Line11_S", "string")
-deferred_dataref("laminar/B747/"..fmsid.."/Line12_S", "string")
-deferred_dataref("laminar/B747/"..fmsid.."/Line13_S", "string")
-deferred_dataref("laminar/B747/"..fmsid.."/Line14_S", "string")
-end
-createFMSDatarefs("fms1")
-createFMSDatarefs("fms2")
-createFMSDatarefs("fms3")
 --*************************************************************************************--
 --** 				        CREATE READ-WRITE CUSTOM DATAREFS                        **--
 --*************************************************************************************--
@@ -147,7 +116,7 @@ fmsModules["data"]={
   reserves="***.*",
   costindex="****",
   crzcg="**.*",
-  thrustsel="**",
+  thrustsel="26",
   thrustn1="**.*",
   toflap="**",
   v1="***",
