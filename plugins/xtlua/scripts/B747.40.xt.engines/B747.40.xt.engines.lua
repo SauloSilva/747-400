@@ -170,6 +170,8 @@ B747DR_engine02_fire_ext_switch_pos_disch   = find_dataref("laminar/B747/fire/en
 B747DR_engine03_fire_ext_switch_pos_disch   = find_dataref("laminar/B747/fire/engine03/ext_switch/pos_disch")
 B747DR_engine04_fire_ext_switch_pos_disch   = find_dataref("laminar/B747/fire/engine04/ext_switch/pos_disch")
 
+
+
 B747DR_CAS_caution_status                   = find_dataref("laminar/B747/CAS/caution_status")
 B747DR_CAS_advisory_status                  = find_dataref("laminar/B747/CAS/advisory_status")
 B747DR_CAS_memo_status                      = find_dataref("laminar/B747/CAS/memo_status")
