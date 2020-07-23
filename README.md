@@ -34,7 +34,7 @@ Custom sounds from [FTSim+](https://k-akai.blogspot.com/) (with permission)
 
 Changelog:
 22/07/2020
-Initial [LCF model varient](https://forums.x-plane.org/index.php?/files/file/59248-xplane-boeing-747lcf-dream-lifter/) by Lee_Hyeon_Seo (Lee7) (with permission)
+* Initial [LCF model varient](https://forums.x-plane.org/index.php?/files/file/59248-xplane-boeing-747lcf-dream-lifter/) by Lee_Hyeon_Seo (Lee7) (with permission)
 
 06/10/2020
 * merge navigationsystems branch
