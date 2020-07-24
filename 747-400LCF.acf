@@ -95541,6 +95541,7 @@ GROUP Captain PFD
       POS 315.000000 767.000000
       IMAGE CRT Displays/PFD/Artificial Horizon/HrznBackgroiund
       DATAREF sim/cockpit2/gauges/indicators/roll_AHARS_deg_pilot
+      SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
       LOCKED
       CLIP
       LIGHT_MODE GLASS_AUTO
@@ -95592,6 +95593,7 @@ GROUP Captain PFD
       POS 315.000000 767.000000
       IMAGE CRT Displays/PFD/Artificial Horizon/HrznPitchScale
       DATAREF sim/cockpit2/gauges/indicators/roll_AHARS_deg_pilot
+      SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
       LOCKED
       CLIP
       LIGHT_MODE GLASS_AUTO
@@ -95608,6 +95610,7 @@ GROUP Captain PFD
       POS 315.500000 907.500000
       IMAGE CRT Displays/PFD/Artificial Horizon/HrznBankScale
       DATAREF 
+      SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
       LOCKED
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 2
@@ -95629,6 +95632,7 @@ GROUP Captain PFD
       POS 315.500000 767.500000
       IMAGE CRT Displays/PFD/Artificial Horizon/HrznBankPtr
       DATAREF sim/cockpit2/gauges/indicators/roll_AHARS_deg_pilot
+      SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
       LOCKED
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 2
@@ -95792,6 +95796,7 @@ GROUP Captain PFD
       END_GROUP
     END_GROUP
     GROUP Glideslope
+      SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
       LOCKED
       GROUP Pointer
         SHOW_GREATER 1.000000 sim/cockpit2/radios/indicators/hsi_display_vertical_pilot
@@ -95844,7 +95849,8 @@ GROUP Captain PFD
       gen_rotary Scale
         POS 465.500000 767.500000
         IMAGE CRT Displays/PFD/Artificial Horizon/HrznGSscale
-        DATAREF 
+        DATAREF
+        SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 2
@@ -95864,8 +95870,10 @@ GROUP Captain PFD
 
     END_GROUP
     GROUP Localizer
+       SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
       LOCKED
       GROUP Localizer Mask
+     
         LOCKED
         gen_rotary Mask
           POS 315.000000 614.000000
@@ -101503,6 +101511,7 @@ GROUP First Officer PFD
       POS 994.000000 767.000000
       IMAGE CRT Displays/PFD/Artificial Horizon/HrznBackgroiund
       DATAREF sim/cockpit2/gauges/indicators/roll_AHARS_deg_copilot
+      SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
       LOCKED
       CLIP
       LIGHT_MODE GLASS_AUTO
@@ -101554,6 +101563,7 @@ GROUP First Officer PFD
       POS 994.000000 767.000000
       IMAGE CRT Displays/PFD/Artificial Horizon/HrznPitchScale
       DATAREF sim/cockpit2/gauges/indicators/roll_AHARS_deg_copilot
+      SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
       LOCKED
       CLIP
       LIGHT_MODE GLASS_AUTO
@@ -101570,6 +101580,7 @@ GROUP First Officer PFD
       POS 994.500000 907.500000
       IMAGE CRT Displays/PFD/Artificial Horizon/HrznBankScale
       DATAREF 
+      SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
       LOCKED
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
@@ -101591,6 +101602,7 @@ GROUP First Officer PFD
       POS 994.500000 767.500000
       IMAGE CRT Displays/PFD/Artificial Horizon/HrznBankPtr
       DATAREF sim/cockpit2/gauges/indicators/roll_AHARS_deg_copilot
+      SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
       LOCKED
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
@@ -101754,6 +101766,7 @@ GROUP First Officer PFD
       END_GROUP
     END_GROUP
     GROUP Glideslope 2
+      SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
       LOCKED
       GROUP Pointer 2
         SHOW_GREATER 1.000000 sim/cockpit2/radios/indicators/hsi_display_vertical_copilot
@@ -101806,7 +101819,8 @@ GROUP First Officer PFD
       gen_rotary Scale 2
         POS 1144.500000 767.500000
         IMAGE CRT Displays/PFD/Artificial Horizon/HrznGSscale
-        DATAREF 
+        DATAREF
+        SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
@@ -101826,7 +101840,9 @@ GROUP First Officer PFD
 
     END_GROUP
     GROUP Localizer 2
+      SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
       LOCKED
+      
       GROUP Localizer Mask 2
         LOCKED
         gen_rotary Mask 2
