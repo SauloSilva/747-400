@@ -8,6 +8,7 @@ B747DR_CAS_advisory_status       = find_dataref("laminar/B747/CAS/advisory_statu
 B747DR_iru_status         	= find_dataref("laminar/B747/flt_mgmt/iru/status")
 B747DR_iru_mode_sel_pos         = find_dataref("laminar/B747/flt_mgmt/iru/mode_sel_dial_pos")
 
+B747DR_rtp_C_off 		= find_dataref("laminar/B747/comm/rtp_C/off_status")
 B747DR_pfd_mode_capt		                = find_dataref("laminar/B747/pfd/capt/irs")
 B747DR_pfd_mode_fo		                = find_dataref("laminar/B747/pfd/fo/irs")
 B747DR_irs_src_fo		                = find_dataref("laminar/B747/flt_inst/irs_src/fo/sel_dial_pos")
@@ -61,6 +62,7 @@ dofile("json/json.lua")
 hh=find_dataref("sim/cockpit2/clock_timer/zulu_time_hours")
 mm=find_dataref("sim/cockpit2/clock_timer/zulu_time_minutes")
 ss=find_dataref("sim/cockpit2/clock_timer/zulu_time_seconds")
+simDR_bus_volts               = find_dataref("sim/cockpit2/electrical/bus_volts")
 simDR_startup_running               = find_dataref("sim/operation/prefs/startup_running")
 
 simDR_instrument_brightness_switch  = find_dataref("sim/cockpit2/switches/instrument_brightness_ratio")
@@ -257,9 +259,9 @@ function after_physics()
     fmsL:B747_fms_display()
     fmsC:B747_fms_display()
     fmsR:B747_fms_display()
-    
-    irsSystem.update()
-    
+    if simDR_bus_volts[0]>24 then
+      irsSystem.update()
+    end
     if acarsSystem.provider.online() then
       B747DR_CAS_memo_status[40]=0 --for CAS
       acars=1 --for radio
@@ -272,7 +274,12 @@ function after_physics()
       end 
       B747DR_CAS_memo_status[0]=hasNew
     else
-      B747DR_CAS_memo_status[40]=1 --for CAS
+      
+      if B747DR_rtp_C_off==0 then
+	B747DR_CAS_memo_status[40]=1 --for CAS
+      else
+	B747DR_CAS_memo_status[40]=0
+      end
       acars=0 --for radio
     end
 end

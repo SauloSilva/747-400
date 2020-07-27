@@ -70,7 +70,6 @@ gpsR["aligned"]=true
 
 irsSystem={}
 irsSystem["aligned"]=false
-irsSystem["aligning"]=false
 irsSystem["motion"]={irsL=false,irsC=false,irsR=false}
 irsSystem["irsL"]=irsL
 irsSystem["irsC"]=irsC
@@ -109,6 +108,11 @@ irsSystem.update=function()
   else
     B747DR_CAS_advisory_status[233] = 0
   end
+  
+  if  B747DR_iru_status[0]==4 then B747DR_CAS_memo_status[14]=1 else B747DR_CAS_memo_status[14]=0 end
+  if  B747DR_iru_status[1]==4 then B747DR_CAS_memo_status[15]=1 else B747DR_CAS_memo_status[15]=0 end
+  if  B747DR_iru_status[2]==4 then B747DR_CAS_memo_status[16]=1 else B747DR_CAS_memo_status[16]=0 end
+  
   difLat=simDR_latitude-startLat
   difLon=simDR_longitude-startLon
   if irsSystem["irsL"]["aligned"]==false and B747DR_iru_mode_sel_pos[0]==2 and (difLat>0.0001 or difLat<-0.0001 or difLon>0.0001 or difLon<-0.0001) then

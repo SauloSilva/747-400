@@ -6,13 +6,16 @@
 fmsFunctions={}
 dofile("acars/acars.lua")
 fmsPages["INDEX"]=createPage("INDEX")
-fmsPages["INDEX"]["template"]={
+fmsPages["INDEX"].getPage=function(self,pgNo,fmsID)
+  local acarsS="      "
+  if acars==1 and B747DR_rtp_C_off==0 then acarsS="<ACARS" end
+return {
 
 "          MENU          ",
 "                        ",
 "<FMC             SELECT>",
 "                        ",
-"<ACARS           SELECT>",
+acarsS.."           SELECT>",
 "                        ",
 "<SAT                    ",
 "                        ",
@@ -22,6 +25,7 @@ fmsPages["INDEX"]["template"]={
 "                        ",
 "<CMC                    "
 }
+end
 fmsPages["INDEX"]["templateSmall"]={
 "                        ",
 "                 EFIS CP",
