@@ -100,7 +100,9 @@ irsSystem.update=function()
     elseif B747DR_iru_status[2]==1 then
       irsSystem["irsR"]["aligned"]=false
     end
-    
+  if  B747DR_iru_status[0]==4 then B747DR_CAS_memo_status[14]=1 else B747DR_CAS_memo_status[14]=0 end
+  if  B747DR_iru_status[1]==4 then B747DR_CAS_memo_status[15]=1 else B747DR_CAS_memo_status[15]=0 end
+  if  B747DR_iru_status[2]==4 then B747DR_CAS_memo_status[16]=1 else B747DR_CAS_memo_status[16]=0 end 
   if irsSystem["irsL"]["aligned"]==true and irsSystem["irsC"]["aligned"]==true and irsSystem["irsR"]["aligned"]==true then return end
   
   if irsSystem["motion"]["irsL"]==true or irsSystem["motion"]["irsC"]==true or irsSystem["motion"]["irsR"]==true then 
@@ -109,9 +111,7 @@ irsSystem.update=function()
     B747DR_CAS_advisory_status[233] = 0
   end
   
-  if  B747DR_iru_status[0]==4 then B747DR_CAS_memo_status[14]=1 else B747DR_CAS_memo_status[14]=0 end
-  if  B747DR_iru_status[1]==4 then B747DR_CAS_memo_status[15]=1 else B747DR_CAS_memo_status[15]=0 end
-  if  B747DR_iru_status[2]==4 then B747DR_CAS_memo_status[16]=1 else B747DR_CAS_memo_status[16]=0 end
+  
   
   difLat=simDR_latitude-startLat
   difLon=simDR_longitude-startLon
