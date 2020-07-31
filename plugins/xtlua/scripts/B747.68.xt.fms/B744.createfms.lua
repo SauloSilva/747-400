@@ -7,7 +7,10 @@
 fms={
   id,
   page1=false,
+  swipeOut=1,
   currentPage="INDEX",
+  targetPage="INDEX",
+  targetCustomFMC=false,
   inCustomFMC=false,scratchpad="",notify="",pgNo=1
 } 
 
@@ -27,74 +30,77 @@ keyRemap["fix"]={"index"} --MENU
 keyRemap["navrad"]={"navrad"}
 ]]
 function keyDown(fmsModule,key)
-  
+  run_after_time(switchCustomMode, 0.15)
   print(fmsModule.. " do " .. key)
   if key=="index" then
-      fmsModules[fmsModule].inCustomFMC=true
-      fmsModules[fmsModule].currentPage="INITREF"
+      fmsModules[fmsModule].targetCustomFMC=true
+      fmsModules[fmsModule].targetPage="INITREF"
       return
   elseif key=="fpln" then --RTE
-      fmsModules[fmsModule].inCustomFMC=true
+      fmsModules[fmsModule].targetCustomFMC=true
       simCMD_FMS_key[fmsModule]["fpln"]:once()
-      fmsModules[fmsModule].currentPage="RTE1"
+      fmsModules[fmsModule].targetPage="RTE1"
       --[[fmsModules[fmsModule].inCustomFMC=false
       simCMD_FMS_key[fmsModule]["fpln"]:once()]]
       return
   elseif key=="clb" then
-      fmsModules[fmsModule].inCustomFMC=false
+      fmsModules[fmsModule].targetCustomFMC=false
       simCMD_FMS_key[fmsModule]["dep_arr"]:once()
       return
   elseif key=="crz" then
-      fmsModules[fmsModule].inCustomFMC=true
-      fmsModules[fmsModule].currentPage="ATCINDEX"
+      fmsModules[fmsModule].targetCustomFMC=true
+      fmsModules[fmsModule].targetPage="ATCINDEX"
       return
   elseif key=="des" then
-      fmsModules[fmsModule].inCustomFMC=false
+      fmsModules[fmsModule].targetCustomFMC=false
       simCMD_FMS_key[fmsModule]["clb"]:once()
-      --fmsModules[fmsModule].currentPage="VNAV"
+      fmsModules[fmsModule].targetPage="VNAV"
       return
   elseif key=="dir_intc" then
-      fmsModules[fmsModule].inCustomFMC=false
+      fmsModules[fmsModule].targetCustomFMC=false
       simCMD_FMS_key[fmsModule]["fix"]:once()
       return
   elseif key=="legs" then
-      fmsModules[fmsModule].inCustomFMC=false
+      fmsModules[fmsModule].targetCustomFMC=false
       simCMD_FMS_key[fmsModule]["legs"]:once()
       return
   elseif key=="dep_arr" then
-      fmsModules[fmsModule].inCustomFMC=false
+      fmsModules[fmsModule].targetCustomFMC=false
       simCMD_FMS_key[fmsModule]["hold"]:once()
       return
   elseif key=="hold" then --FMC COMM
-      fmsModules[fmsModule].inCustomFMC=true 
-      fmsModules[fmsModule].currentPage="FMCCOMM"
+      fmsModules[fmsModule].targetCustomFMC=true 
+      fmsModules[fmsModule].targetPage="FMCCOMM"
       return
   elseif key=="fix" then --menu
-      fmsModules[fmsModule].inCustomFMC=true
-      fmsModules[fmsModule].currentPage="INDEX"
+      fmsModules[fmsModule].targetCustomFMC=true
+      fmsModules[fmsModule].targetPage="INDEX"
       return
   elseif key=="navrad" then
-      fmsModules[fmsModule].inCustomFMC=true
-      fmsModules[fmsModule].currentPage="NAVRAD"
+      fmsModules[fmsModule].targetCustomFMC=true
+      fmsModules[fmsModule].targetPage="NAVRAD"
       return
   elseif key=="prog" then
-      fmsModules[fmsModule].inCustomFMC=false
+      fmsModules[fmsModule].targetCustomFMC=false
       simCMD_FMS_key[fmsModule][key]:once()
       return
   end
-  --[[if key=="fpln" or key=="clb" or key=="crz" or key=="des" or key=="dir_intc" or key=="legs" or key=="dep_arr" or key=="hold" or key=="prog" or key=="fix" then
-      fmsModules[fmsModule].inCustomFMC=false
-      simCMD_FMS_key[fmsModule][key]:once()
-      return
-  end]]
 
-  if not fmsModules[fmsModule].inCustomFMC then
+  if not fmsModules[fmsModule].targetCustomFMC then
     if simCMD_FMS_key[fmsModule][key]~=nil then
       simCMD_FMS_key[fmsModule][key]:once()
       print(fmsModule.. " did " .. key)
     end
+     if key=="clear" then
+       if string.len(fmsModules[fmsModule].notify)>0 then 
+	 fmsModules[fmsModule].notify=""
+	 
+	else 
+	  fmsModules[fmsModule].scratchpad="" 
+	end
+     end
   else
-    page=fmsModules[fmsModule].currentPage
+    page=fmsModules[fmsModule].targetPage
 
     
      
@@ -486,6 +492,15 @@ end
 
 function fms:B747_fms_display()
     local thisID=self.id
+    if self.targetPage~=self.targetPage or self.inCustomFMC~=self.targetCustomFMC then 
+      B747DR_fms[thisID][self.swipeOut]="                        "
+      B747DR_fms_s[thisID][self.swipeOut]="                        "
+      if self.swipeOut<14 then self.swipeOut=self.swipeOut+1 end
+      return 
+    end
+    
+    self.swipeOut=1
+    
     local inCustomFMC=self.inCustomFMC
     local page=self.currentPage
     if B747DR_srcfms[thisID][14]=="[NAV DATA OUT OF DATE  ]" then simCMD_FMS_key[thisID]["clear"]:once() return end
@@ -498,7 +513,9 @@ function fms:B747_fms_display()
       if self.pgNo>fmsPages[page]:getNumPages() then self.pgNo=fmsPages[page]:getNumPages() end
       local fmsPage = fmsPages[page]:getPage(self.pgNo,thisID);
       local fmsPagesmall = fmsPages[page]:getSmallPage(self.pgNo,thisID);
+      local tmpSRC
       for i=1,13,1 do
+	tmpSRC=B747DR_srcfms[thisID][i] -- make sure src is always fresh
 	B747DR_fms[thisID][i]=fmsPage[i]
       end
       for i=1,13,1 do

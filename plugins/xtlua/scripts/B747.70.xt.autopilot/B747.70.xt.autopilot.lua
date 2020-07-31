@@ -369,7 +369,8 @@ end
 
 
 function B747_ap_ias_mach_sel_button_CMDhandler(phase, duration) 						-- INOP, NO CORRESPONDING FUNCTIONALITY IN X-PLANE
-	if phase == 0 then
+    print("B747_ap_ias_mach_sel_button_CMDhandler")
+    if phase == 0 then
 	  if simDR_autopilot_airspeed_is_mach == 0 then
 	    B747DR_ap_ias_dial_value=simDR_ind_airspeed_kts_pilot
 	  else
@@ -377,7 +378,8 @@ function B747_ap_ias_mach_sel_button_CMDhandler(phase, duration) 						-- INOP, 
 	  end
 	 
 	    -- TODO: IN VNAV THIS ALTERNATELY OPENS AND CLOSES IAS/MACH WINDOW AND CONTROLS VNAV INTERACTION (FCOM Pg 643)
-	    -- TODO: CURRENTLY INOP - THE CURRENT XP FMS DOES NOT ALLOW THIS OPTION				
+	    -- TODO: CURRENTLY INOP - THE CURRENT XP FMS DOES NOT ALLOW THIS OPTION
+	  
 	end
 end
 
@@ -792,6 +794,18 @@ B747CMD_ai_ap_quick_start				= deferred_command("laminar/B747/ai/autopilot_quick
 --** 				          REPLACE X-PLANE COMMAND HANDLERS             	    	 **--
 --*************************************************************************************--
 local lastap_dial_airspeed = simDR_autopilot_airspeed_kts
+local switchingIASMode=0
+function B747_updateIASWindow()
+  
+   if simDR_autopilot_airspeed_is_mach == 0 then
+      B747DR_ap_ias_dial_value=simDR_ind_airspeed_kts_pilot
+   else
+      B747DR_ap_ias_dial_value=simDR_airspeed_mach*100
+   end
+  B747DR_ap_ias_mach_window_open = 1
+  switchingIASMode=0
+  simDR_autopilot_airspeed_kts = lastap_dial_airspeed
+end
 function B747_ap_knots_mach_toggle_CMDhandler(phase, duration)
 	if phase == 0 then
 		B747_ap_button_switch_position_target[13] = 1
@@ -799,12 +813,14 @@ function B747_ap_knots_mach_toggle_CMDhandler(phase, duration)
 			if simDR_airspeed_mach > 0.4 then
 				lastap_dial_airspeed = simDR_autopilot_airspeed_kts							-- READ THE CURRENT AIRSPEED SETTING					
 				simDR_autopilot_airspeed_is_mach = 1 - simDR_autopilot_airspeed_is_mach			-- SWAP THE MACH/KNOTS STATE
-												-- WRITE THE NEW VALUE TO FORCE CONVERSION TO CORRECT UNITS
+				B747DR_ap_ias_mach_window_open = 0								-- WRITE THE NEW VALUE TO FORCE CONVERSION TO CORRECT UNITS
+				switchingIASMode=1
+				      run_after_time(B747_updateIASWindow, 0.25) --update target
 			end
 		end
 	elseif phase == 2 then
 		B747_ap_button_switch_position_target[13] = 0	
-		simDR_autopilot_airspeed_kts = lastap_dial_airspeed	
+			
 	end
 end
 
@@ -1316,40 +1332,46 @@ function B747_ap_ias_mach_mode()
 	  
 	end	
 	----- SET THE IAS/MACH WINDOW STATUS
-	if simDR_autopilot_autothrottle_enabled > 0
+	if (simDR_autopilot_autothrottle_enabled > 0
 		or simDR_autopilot_flch_status > 1
 		or simDR_autopilot_vs_status > 1
 		or B747DR_engine_TOGA_mode > 0
 		or simDR_autopilot_TOGA_vert_status > 0
 		or simDR_autopilot_alt_hold_status > 1
-		or simDR_autopilot_gs_status > 0
+		or simDR_autopilot_gs_status > 0) and switchingIASMode==0
 	then	
 		B747DR_ap_ias_mach_window_open = 1
 	else
 		B747DR_ap_ias_mach_window_open = 0
 	end		
       local ap_dial_airspeed = simDR_autopilot_airspeed_kts -- READ THE CURRENT AIRSPEED SETTING
-
+      local ap_simDR_autopilot_airspeed_is_mach = simDR_autopilot_airspeed_is_mach -- READ THE CURRENT mach SETTING
 
 	----- AUTO-SWITCH AUTOPILOT IAS/MACH WINDOW AIRSPEED MODE
-    if simDR_ind_airspeed_kts_pilot < 310.0 then
+    if simDR_ind_airspeed_kts_pilot > 310.0 then
     	if simDR_vvi_fpm_pilot < -250.0 then
-	    	if simDR_autopilot_airspeed_is_mach == 1 then
+	    	if ap_simDR_autopilot_airspeed_is_mach == 1 then
 				simDR_autopilot_airspeed_is_mach = 0										-- CHANGE TO KNOTS
 				simDR_autopilot_airspeed_kts = ap_dial_airspeed								-- WRITE THE NEW VALUE TO FORCE CONVERSION TO CORRECT UNITS
-		    end
+				B747DR_ap_ias_mach_window_open = 0								-- WRITE THE NEW VALUE TO FORCE CONVERSION TO CORRECT UNITS
+				switchingIASMode=1
+				run_after_time(B747_updateIASWindow, 0.25) --update target
+		  end
 		end
 	end
 	
-	if simDR_airspeed_mach > 0.84 then
+    if simDR_airspeed_mach > 0.70 then
 		if simDR_vvi_fpm_pilot > 250.0 then
-			if simDR_autopilot_airspeed_is_mach == 0 then
+			if ap_simDR_autopilot_airspeed_is_mach == 0 then
 
 				simDR_autopilot_airspeed_is_mach = 1										-- CHANGE TO KNOTS
 				simDR_autopilot_airspeed_kts = ap_dial_airspeed								-- WRITE THE NEW VALUE TO FORCE CONVERSION TO CORRECT UNITS
+				B747DR_ap_ias_mach_window_open = 0								-- WRITE THE NEW VALUE TO FORCE CONVERSION TO CORRECT UNITS
+				switchingIASMode=1
+				run_after_time(B747_updateIASWindow, 0.25) --update target
 			end
 		end
-	end					 	    
+    end					 	    
 		    		  
     
     

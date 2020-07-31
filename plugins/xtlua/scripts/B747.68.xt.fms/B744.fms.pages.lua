@@ -215,42 +215,43 @@ function fmsFunctions.setpage(fmsO,value)
   --sim/FMS/navrad
   --sim/FMS2/navrad
   if value=="FMC" then
-    fmsO["inCustomFMC"]=false
-    fmsO["currentPage"]="FMC"
+    fmsO["targetCustomFMC"]=false
+    fmsO["targetPage"]="FMC"
     simCMD_FMS_key[fmsO.id]["fpln"]:once()
     simCMD_FMS_key[fmsO.id]["L6"]:once()
      
   elseif value=="VHFCONTROL" then
-    fmsO["inCustomFMC"]=false
-    fmsO["currentPage"]="VHFCONTROL"
+    fmsO["targetCustomFMC"]=false
+    fmsO["targetPage"]="VHFCONTROL"
     simCMD_FMS_key[fmsO.id]["navrad"]:once()
     
   elseif value=="IDENT" then
-    fmsO["inCustomFMC"]=false
-    fmsO["currentPage"]="IDENT"
+    fmsO["targetCustomFMC"]=false
+    fmsO["targetPage"]="IDENT"
     simCMD_FMS_key[fmsO.id]["index"]:once()
     simCMD_FMS_key[fmsO.id]["L1"]:once()
     
   elseif value=="DATABASE" then
-    fmsO["inCustomFMC"]=false
-    fmsO["currentPage"]="DATABASE"
+    fmsO["targetCustomFMC"]=false
+    fmsO["targetPage"]="DATABASE"
     simCMD_FMS_key[fmsO.id]["index"]:once()
     simCMD_FMS_key[fmsO.id]["R2"]:once()
   elseif value=="RTE1" then
     simCMD_FMS_key[fmsO.id]["fpln"]:once()
-    fmsO["inCustomFMC"]=true
-    fmsO["currentPage"]="RTE1"
+    fmsO["targetCustomFMC"]=true
+    fmsO["targetPage"]="RTE1"
   elseif value=="RTE2" then
-    fmsO["inCustomFMC"]=false
-    fmsO["currentPage"]="RTE2"
+    fmsO["targetCustomFMC"]=false
+    fmsO["targetPage"]="RTE2"
     simCMD_FMS_key[fmsO.id]["dir_intc"]:once()
-    simCMD_FMS_key[fmsO.id]["R2"]:once()
+   
   else
-    fmsO["inCustomFMC"]=true
-    fmsO["currentPage"]=value 
+    fmsO["targetCustomFMC"]=true
+    fmsO["targetPage"]=value 
  
   end
   print("setpage " .. value)
+  run_after_time(switchCustomMode, 0.25)
 end
 function fmsFunctions.custom2fmc(fmsO,value)
   simCMD_FMS_key[fmsO["id"]]["del"]:once()

@@ -30,6 +30,8 @@ function cleanFMSLine(line)
     retval=retval:gsub("°","`")
     return retval
 end 
+
+
 function toDMS(value,isLat)
   degrees=value
   if value<0 then
@@ -160,6 +162,15 @@ function getFMSData(id)
   end
   return fmsModules["data"][id]
 end 
+function switchCustomMode()
+  
+  fmsModules["fmsL"]["inCustomFMC"]=fmsModules["fmsL"]["targetCustomFMC"]
+  fmsModules["fmsC"]["inCustomFMC"]=fmsModules["fmsC"]["targetCustomFMC"]
+  fmsModules["fmsR"]["inCustomFMC"]=fmsModules["fmsR"]["targetCustomFMC"]
+  fmsModules["fmsL"]["currentPage"]=fmsModules["fmsL"]["targetPage"]
+  fmsModules["fmsC"]["currentPage"]=fmsModules["fmsC"]["targetPage"]
+  fmsModules["fmsR"]["currentPage"]=fmsModules["fmsR"]["targetPage"]
+end
 function createPage(page)
   retVal={}
   retVal.name=page
@@ -210,6 +221,7 @@ setmetatable(fmsC, {__index = fms})
 fmsC.id="fmsC"
 setDREFs(fmsC,"cdu1","fms1","sim/FMS/","fms3")
 fmsC.inCustomFMC=true
+fmsC.targetCustomFMC=true
 fmsC.currentPage="INDEX"
 
 
@@ -218,6 +230,7 @@ setmetatable(fmsL, {__index = fms})
 fmsL.id="fmsL"
 setDREFs(fmsL,"cdu1","fms3","sim/FMS/","fms1")
 fmsL.inCustomFMC=true
+fmsL.targetCustomFMC=true
 fmsL.currentPage="INDEX"
 
 
@@ -226,15 +239,15 @@ setmetatable(fmsR, {__index = fms})
 fmsR.id="fmsR"
 setDREFs(fmsR,"cdu2","fms2","sim/FMS2/","fms2")
 fmsR.inCustomFMC=true
+fmsL.targetCustomFMC=true
 fmsR.currentPage="INDEX"
 
 
 fmsModules.fmsL=fmsL;
 fmsModules.fmsC=fmsC;
 fmsModules.fmsR=fmsR;
---dofile("json/json.lua")
---line=json.encode({ 1, 2, 3, { x = 10 } })
---print(line)
+
+
 B747DR_CAS_memo_status          = find_dataref("laminar/B747/CAS/memo_status")
 function flight_start()
   if simDR_startup_running == 0 then
