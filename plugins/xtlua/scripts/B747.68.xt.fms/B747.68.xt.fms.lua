@@ -223,7 +223,7 @@ setDREFs(fmsC,"cdu1","fms1","sim/FMS/","fms3")
 fmsC.inCustomFMC=true
 fmsC.targetCustomFMC=true
 fmsC.currentPage="INDEX"
-
+fmsC.targetPage="INDEX"
 
 fmsL = {}
 setmetatable(fmsL, {__index = fms})
@@ -232,16 +232,16 @@ setDREFs(fmsL,"cdu1","fms3","sim/FMS/","fms1")
 fmsL.inCustomFMC=true
 fmsL.targetCustomFMC=true
 fmsL.currentPage="INDEX"
-
+fmsL.targetPage="INDEX"
 
 fmsR = {}
 setmetatable(fmsR, {__index = fms})
 fmsR.id="fmsR"
 setDREFs(fmsR,"cdu2","fms2","sim/FMS2/","fms2")
 fmsR.inCustomFMC=true
-fmsL.targetCustomFMC=true
+fmsR.targetCustomFMC=true
 fmsR.currentPage="INDEX"
-
+fmsR.targetPage="INDEX"
 
 fmsModules.fmsL=fmsL;
 fmsModules.fmsC=fmsC;
