@@ -86,6 +86,7 @@ simDR_gear_handle_down      = find_dataref("sim/cockpit2/controls/gear_handle_do
 simDR_autobrakes_switch     = find_dataref("sim/cockpit2/switches/auto_brake_level")
 simDR_OAT_degC              = find_dataref("sim/cockpit2/temperature/outside_air_temp_degc")
 simDR_tire_rot_speed        = find_dataref("sim/flightmodel2/gear/tire_rotation_speed_rad_sec")
+B747DR_parking_brake_ratio  = find_dataref("laminar/B747/flt_ctrls/parking_brake_ratio")
 simDR_parking_brake_ratio   = find_dataref("sim/cockpit2/controls/parking_brake_ratio")
 simDR_left_brake_ratio      = find_dataref("sim/cockpit2/controls/left_brake_ratio")
 simDR_right_brake_ratio     = find_dataref("sim/cockpit2/controls/right_brake_ratio")
@@ -304,7 +305,7 @@ end
 
 
 
-
+local stopSimBraking=0
 -- AUTOBRAKES SELECTOR DIAL
 function B747_autobrakes_sel_dial_up_CMDhandler(phase, duration)
     if phase == 0 then
@@ -312,6 +313,7 @@ function B747_autobrakes_sel_dial_up_CMDhandler(phase, duration)
         local simSwPos = 1
         if B747DR_autobrakes_sel_dial_pos == 0 then
             simSwPos = 0
+	    
         elseif B747DR_autobrakes_sel_dial_pos >= 3 then
             simSwPos = math.min(5, B747DR_autobrakes_sel_dial_pos - 1)
         end
@@ -320,7 +322,10 @@ function B747_autobrakes_sel_dial_up_CMDhandler(phase, duration)
 end
 function B747_autobrakes_sel_dial_dn_CMDhandler(phase, duration)
     if phase == 0 then
+      
+      
         B747DR_autobrakes_sel_dial_pos = math.max(B747DR_autobrakes_sel_dial_pos-1, 0)
+	
         local simSwPos = 1
         if B747DR_autobrakes_sel_dial_pos == 0 then
             simSwPos = 0
@@ -328,6 +333,10 @@ function B747_autobrakes_sel_dial_dn_CMDhandler(phase, duration)
             simSwPos = math.min(5, B747DR_autobrakes_sel_dial_pos - 1)
         end
         simDR_autobrakes_switch = simSwPos
+	
+	if B747DR_autobrakes_sel_dial_pos == 2 or B747DR_autobrakes_sel_dial_pos == 1 then
+	  simDR_parking_brake_ratio   = B747DR_parking_brake_ratio
+	end
     end
 end
 

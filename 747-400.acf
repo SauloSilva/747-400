@@ -112650,7 +112650,7 @@ GROUP Upper EICAS
           POS 1430.500000 1031.000000
           IMAGE CRT Displays/EICAS Upper/EPR.EGT_box_red
           DATAREF 
-          SHOW_GREATER 1.910000 sim/cockpit2/engine/indicators/EPR_ratio[0]
+          SHOW_GREATER 1.900001 sim/cockpit2/engine/indicators/EPR_ratio[0]
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -112672,7 +112672,7 @@ GROUP Upper EICAS
           POS 1536.500000 1031.000000
           IMAGE CRT Displays/EICAS Upper/EPR.EGT_box_red
           DATAREF 
-          SHOW_GREATER 1.910000 sim/cockpit2/engine/indicators/EPR_ratio[1]
+          SHOW_GREATER 1.900001 sim/cockpit2/engine/indicators/EPR_ratio[1]
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -112694,7 +112694,7 @@ GROUP Upper EICAS
           POS 1642.500000 1031.000000
           IMAGE CRT Displays/EICAS Upper/EPR.EGT_box_red
           DATAREF 
-          SHOW_GREATER 1.910000 sim/cockpit2/engine/indicators/EPR_ratio[2]
+          SHOW_GREATER 1.900001 sim/cockpit2/engine/indicators/EPR_ratio[2]
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -112716,7 +112716,7 @@ GROUP Upper EICAS
           POS 1748.500000 1031.000000
           IMAGE CRT Displays/EICAS Upper/EPR.EGT_box_red
           DATAREF 
-          SHOW_GREATER 1.910000 sim/cockpit2/engine/indicators/EPR_ratio[3]
+          SHOW_GREATER 1.900001 sim/cockpit2/engine/indicators/EPR_ratio[3]
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -112826,7 +112826,7 @@ GROUP Upper EICAS
           POS 1745.000000 1031.000000
           IMAGE CRT Displays/LED/LED_3.30B.xxx000.red
           DATAREF sim/cockpit2/engine/indicators/EPR_ratio[3]
-          SHOW_GREATER 1.910000 sim/cockpit2/engine/indicators/EPR_ratio[3]
+          SHOW_GREATER 1.900001 sim/cockpit2/engine/indicators/EPR_ratio[3]
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -112842,7 +112842,7 @@ GROUP Upper EICAS
           POS 1639.000000 1031.000000
           IMAGE CRT Displays/LED/LED_3.30B.xxx000.red
           DATAREF sim/cockpit2/engine/indicators/EPR_ratio[2]
-          SHOW_GREATER 1.910000 sim/cockpit2/engine/indicators/EPR_ratio[2]
+          SHOW_GREATER 1.900001 sim/cockpit2/engine/indicators/EPR_ratio[2]
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -112858,7 +112858,7 @@ GROUP Upper EICAS
           POS 1533.000000 1031.000000
           IMAGE CRT Displays/LED/LED_3.30B.xxx000.red
           DATAREF sim/cockpit2/engine/indicators/EPR_ratio[1]
-          SHOW_GREATER 1.910000 sim/cockpit2/engine/indicators/EPR_ratio[1]
+          SHOW_GREATER 1.900001 sim/cockpit2/engine/indicators/EPR_ratio[1]
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -112874,7 +112874,7 @@ GROUP Upper EICAS
           POS 1427.000000 1031.000000
           IMAGE CRT Displays/LED/LED_3.30B.xxx000.red
           DATAREF sim/cockpit2/engine/indicators/EPR_ratio[0]
-          SHOW_GREATER 1.910000 sim/cockpit2/engine/indicators/EPR_ratio[0]
+          SHOW_GREATER 1.900001 sim/cockpit2/engine/indicators/EPR_ratio[0]
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
