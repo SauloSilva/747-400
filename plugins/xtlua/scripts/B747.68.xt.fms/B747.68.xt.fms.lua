@@ -3,8 +3,10 @@
 *        COPYRIGHT � 2020 Mark Parker/mSparks CC-BY-NC4
 *****************************************************************************************
 ]]
+simDR_onGround=find_dataref("sim/flightmodel/failures/onground_all")
 B747DR_CAS_advisory_status       = find_dataref("laminar/B747/CAS/advisory_status")
-
+simDR_nav1Freq=find_dataref("sim/cockpit/radios/nav1_freq_hz")
+simDR_nav2Freq=find_dataref("sim/cockpit/radios/nav2_freq_hz")
 B747DR_iru_status         	= find_dataref("laminar/B747/flt_mgmt/iru/status")
 B747DR_iru_mode_sel_pos         = find_dataref("laminar/B747/flt_mgmt/iru/mode_sel_dial_pos")
 
@@ -14,6 +16,10 @@ B747DR_pfd_mode_fo		                = find_dataref("laminar/B747/pfd/fo/irs")
 B747DR_irs_src_fo		                = find_dataref("laminar/B747/flt_inst/irs_src/fo/sel_dial_pos")
 B747DR_irs_src_capt		                = find_dataref("laminar/B747/flt_inst/irs_src/capt/sel_dial_pos")
 --Workaround for stack overflow in init.lua namespace_read
+
+function replace_char(pos, str, r)
+    return str:sub(1, pos-1) .. r .. str:sub(pos+1)
+end
 function hasChild(parent,childKey)
   if(parent==nil) then
     return false
@@ -95,7 +101,7 @@ ilsData=deferred_dataref("laminar/B747/radio/ilsData", "string")
 acars=deferred_dataref("laminar/B747/comm/acars","number")  
 toderate=deferred_dataref("laminar/B747/engine/derate/TO","number") 
 clbderate=deferred_dataref("laminar/B747/engine/derate/CLB","number")
-
+B747DR_radioModes=deferred_dataref("laminar/B747/radio/tuningmodes", "string")
 --*************************************************************************************--
 --** 				        CREATE READ-WRITE CUSTOM DATAREFS                        **--
 --*************************************************************************************--
@@ -141,6 +147,8 @@ fmsModules["data"]={
   flapspeed="**/***",
   airportpos="*****",
   airportgate="*****",
+  preselectLeft="******",
+  preselectRight="******",
 setData=function(self,id,value)
   --always retain the same length
   if value=="" then value="***********" end
@@ -154,6 +162,7 @@ end
 }
 function setFMSData(id,value)
     --print("setting " .. id .. " to "..value.." curently "..fmsModules["data"][id])
+  
    fmsModules["data"]:setData(id,value)
 end  
 function getFMSData(id)
@@ -163,7 +172,6 @@ function getFMSData(id)
   return fmsModules["data"][id]
 end 
 function switchCustomMode()
-  
   fmsModules["fmsL"]["inCustomFMC"]=fmsModules["fmsL"]["targetCustomFMC"]
   fmsModules["fmsC"]["inCustomFMC"]=fmsModules["fmsC"]["targetCustomFMC"]
   fmsModules["fmsR"]["inCustomFMC"]=fmsModules["fmsR"]["targetCustomFMC"]

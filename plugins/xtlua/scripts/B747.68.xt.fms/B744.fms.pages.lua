@@ -5,6 +5,7 @@
 ]]
 fmsFunctions={}
 dofile("acars/acars.lua")
+
 fmsPages["INDEX"]=createPage("INDEX")
 fmsPages["INDEX"].getPage=function(self,pgNo,fmsID)
   local acarsS="      "
@@ -155,7 +156,43 @@ fmsFunctionsDefs["INITREF"]["L5"]={"setpage","TAKEOFF"}
 fmsFunctionsDefs["INITREF"]["L6"]={"setpage","APPROACH"}
 fmsFunctionsDefs["INITREF"]["R6"]={"setpage","MAINT"}
 fmsFunctionsDefs["INITREF"]["R1"]={"setpage","DATABASE"}
-
+local navAids
+function findILS(value)
+  
+  local modes=B747DR_radioModes
+  
+  if value=="DELETE" then 
+    B747DR_radioModes=replace_char(1,modes," ")
+    ilsData=""
+    return
+  end
+  B747DR_radioModes=replace_char(1,modes,"M")
+  navAids=json.decode(navAidsJSON)
+  print(value.." in " .. navAidsJSON)
+  local val=tonumber(value)
+  if val~=nil then val=val*100 end
+  local found=false
+  
+  for n=table.getn(navAids),1,-1 do
+      if navAids[n][2] == 8 then
+	  print("navaid "..n.."->".. navAids[n][1].." ".. navAids[n][2].." ".. navAids[n][3].." ".. navAids[n][4].." ".. navAids[n][5].." ".. navAids[n][6].." ".. navAids[n][7].." ".. navAids[n][8])
+	  if value==navAids[n][8] or (val~=nil and val==navAids[n][3]) then
+	    found=true
+	    ilsData=json.encode(navAids[n])
+	    print("Tuning ILS".. ilsData)
+	    
+	    simDR_nav1Freq=navAids[n][3]
+	    simDR_nav2Freq=navAids[n][3]
+	    local course=(navAids[n][4]+simDR_variation)
+	    simDR_radio_nav_obs_deg[0]=course
+	    simDR_radio_nav_obs_deg[1]=course
+	    print("Tuned ILS "..course)
+	    print("useThis")
+	  end
+      end
+   end
+   return found
+end
 
 
 simDR_variation=find_dataref("sim/flightmodel/position/magnetic_variation")
@@ -180,33 +217,38 @@ fmsPages["NAVRAD"].getPage=function(self,pgNo,fmsID)
     ils1,
     ils2,
     "                        ", 
-    "                        ",
-    "                        "
+    "--------         -------",
+    fmsModules["data"]["preselectLeft"].."            "..fmsModules["data"]["preselectRight"],
     }
   return page
 end
---fmsPages["NAVRAD"]["template"]=
-fmsPages["NAVRAD"]["templateSmall"]={
-"                        ",
-" VOR L             VOR R",
-"                        ",
-" CRS      RADIAL     CRS",
-"                        ",
-" ADF L             ADF R",
-"      ANT            ANT",
-" ILS                    ",
-"                        ",
-"           M            ",
-"                        ",
-"                        ",
-"                        ",
-}
+fmsPages["NAVRAD"].getSmallPage=function(self,pgNo,fmsID)
+  local modes=B747DR_radioModes
+  return{
+  "                        ",
+  " VOR L             VOR R",
+  "      M          M      ",
+  " CRS      RADIAL     CRS",
+  "                        ",
+  " ADF L             ADF R",
+  "      M              M  ",
+  " ILS ".. modes:sub(1, 1) .."                  ",
+  "                        ",
+  "                        ",
+  "        PRESELECT       ",
+  "                        ",
+  "                        ",
+  }
+end
 fmsFunctionsDefs["NAVRAD"]["L1"]={"setDref","VORL"}
 fmsFunctionsDefs["NAVRAD"]["L2"]={"setDref","CRSL"}
 fmsFunctionsDefs["NAVRAD"]["L3"]={"setDref","ADFL"}
 fmsFunctionsDefs["NAVRAD"]["R1"]={"setDref","VORR"}
 fmsFunctionsDefs["NAVRAD"]["R2"]={"setDref","CRSR"}
 fmsFunctionsDefs["NAVRAD"]["R3"]={"setDref","ADFR"}
+fmsFunctionsDefs["NAVRAD"]["L4"]={"setDref","ILS"}
+fmsFunctionsDefs["NAVRAD"]["L6"]={"setdata","preselectLeft"}
+fmsFunctionsDefs["NAVRAD"]["R6"]={"setdata","preselectRight"}
 --fmsFunctionsDefs["NAVRAD"]["L6"]={"setpage","ACARS"}
 
 function fmsFunctions.setpage(fmsO,value)
@@ -282,8 +324,11 @@ function fmsFunctions.getdata(fmsO,value)
   end
   fmsO["scratchpad"]=data
 end
-function fmsFunctions.setdata(fmsO,value) 
-  if value=="depdst" then
+function fmsFunctions.setdata(fmsO,value)
+  local del=false
+  if fmsO["scratchpad"]=="DELETE" then fmsO["scratchpad"]="" del=true end
+  
+  if value=="depdst" and string.len(fmsO["scratchpad"])>3  then
     dep=string.sub(fmsO["scratchpad"],1,4)
     dst=string.sub(fmsO["scratchpad"],-4)
     --fmsModules["data"]["fltdep"]=dep
@@ -343,6 +388,11 @@ function fmsFunctions.setdata(fmsO,value)
     setFMSData("irsLon",lon)
     irsSystem["irsLat"]=lat
     irsSystem["irsLon"]=lon
+  elseif fmsO["scratchpad"]=="" and del==false then
+    cVal=getFMSData(value)
+    
+      fmsO["scratchpad"]=cVal
+    return 
   else
     setFMSData(value,fmsO["scratchpad"])
   end
@@ -351,6 +401,22 @@ end
 
 function fmsFunctions.setDref(fmsO,value)
    local val=tonumber(fmsO["scratchpad"])
+   
+  if value=="TO" then toderate=0 clbderate=0 return  end
+  if value=="TO1" then toderate=1 clbderate=1 return  end
+  if value=="TO2" then toderate=2 clbderate=2 return  end
+  if value=="CLB" then clbderate=0 return  end
+  if value=="CLB1" then clbderate=1 return  end
+  if value=="CLB2" then clbderate=2  return end
+  if value=="ILS" then 
+    if findILS(fmsO["scratchpad"])==false then fmsO["notify"]="INVALID ENTRY" end
+    fmsO["scratchpad"]="" 
+    return 
+  end
+   if val==nil then
+     fmsO["notify"]="INVALID ENTRY"
+     return 
+   end
   print(val)
   if value=="VORL" then simDR_radio_nav_freq_hz[2]=val*100 end
   if value=="VORR" then simDR_radio_nav_freq_hz[3]=val*100 end
@@ -359,12 +425,6 @@ function fmsFunctions.setDref(fmsO,value)
   if value=="ADFL" then simDR_radio_adf1_freq_hz=val end
   if value=="ADFR" then simDR_radio_adf2_freq_hz=val end
   if value=="flapsRef" then B747DR_airspeed_flapsRef=val end
-  if value=="TO" then toderate=0 clbderate=0 end
-  if value=="TO1" then toderate=1 clbderate=1 end
-  if value=="TO2" then toderate=2 clbderate=2 end
-  if value=="CLB" then clbderate=0 end
-  if value=="CLB1" then clbderate=1 end
-  if value=="CLB2" then clbderate=2 end
   
   fmsO["scratchpad"]=""
 end

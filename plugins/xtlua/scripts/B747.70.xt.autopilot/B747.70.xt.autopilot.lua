@@ -42,6 +42,9 @@ end
 function deferred_command(name,desc,realFunc)
 	return wrap_command(name,realFunc,null_command)
 end
+function replace_char(pos, str, r)
+    return str:sub(1, pos-1) .. r .. str:sub(pos+1)
+end
 --replace deferred_dataref
 function deferred_dataref(name,nilType,callFunction)
   if callFunction~=nil then
@@ -210,7 +213,7 @@ B747DR_engine_TOGA_mode             	= find_dataref("laminar/B747/engines/TOGA_m
 --*************************************************************************************--
 --** 				        CREATE READ-ONLY CUSTOM DATAREFS               	         **--
 --*************************************************************************************--
-
+B747DR_radioModes=deferred_dataref("laminar/B747/radio/tuningmodes", "string")
 B747DR_ap_button_switch_position    	= deferred_dataref("laminar/B747/autopilot/button_switch/position", "array[" .. tostring(NUM_AUTOPILOT_BUTTONS) .. "]")
 B747DR_ap_bank_limit_sel_dial_pos   	= deferred_dataref("laminar/B747/autopilot/bank_limit/sel_dial_pos", "number")
 B747DR_ap_ias_mach_window_open      	= deferred_dataref("laminar/B747/autopilot/ias_mach/window_open", "number")
@@ -1109,11 +1112,19 @@ function getDistance(lat1,lon1,lat2,lon2)
   return retVal
 end
 function B747_fltmgmt_setILS()
+  local modes=B747DR_radioModes
+  if modes:sub(1, 1)==" " then
+    targetFMSnum=-1
+    B747DR_radioModes=replace_char(1,modes,"A")
+  elseif  modes:sub(1, 1)=="M" then
+    return
+  end
   local n1=simDR_nav1Freq
   local n2=simDR_nav2Freq
   local d1=simDR_radio_nav_obs_deg[0]
   local d2=simDR_radio_nav_obs_deg[1]--continually get latest
   
+  --print("Tune ILS".. targetFMSnum)
   local fms=json.decode(fmsJSON)
   local newTargetFix=0
   local hitI=-1
@@ -1133,7 +1144,7 @@ function B747_fltmgmt_setILS()
 	  local diffap=getHeadingDifference(ap1Heading,ap2Heading)
 	  local distance = getDistance(fms[i][5],fms[i][6],fms[table.getn(fms)][5],fms[table.getn(fms)][6])
 	  --print("FMS i=" .. i.. ":" .. ap1Heading .. ":" .. ap2Heading .. ":" .. diffap .. ":" .. distance)
-	  if diffap<90 and diffap>-90 and fms[i][8]~=fms[i-1][8] and distance< 11 then
+	  if diffap<90 and diffap>-90 and fms[i][8]~=fms[i-1][8] and distance< 11 and found == false then
 	  for n=table.getn(navAids),1,-1 do
 	    if navAids[n][2] == 8 then
 	      local diff=getHeadingDifference(navAids[n][4],getHeading(fms[i][5],fms[i][6],navAids[n][5],navAids[n][6]))
@@ -1142,12 +1153,14 @@ function B747_fltmgmt_setILS()
 	      if diff<1 and diff<=bestDiff and distance2<10 then
 	      --print("navaid "..n.."->"..fms[i][8].."="..diff.." ".. navAids[n][1].." ".. navAids[n][2].." ".. navAids[n][3].." ".. navAids[n][4].." ".. navAids[n][5].." ".. navAids[n][6].." ".. navAids[n][7].." ".. navAids[n][8])
 	      bestDiff=diff
-	      --if targetFix == newTargetFix then found=true end
+	      --if targetFix == newTargetFix then 
+	      found=true
 	      newTargetFix=n
 	      hitI=i
 	      end
 	    end
 	  end
+	  
        end
       end
       targetFix=newTargetFix
@@ -1160,6 +1173,18 @@ function B747_fltmgmt_setILS()
 	targetFMS=fms[hitI][8]
 	targetFMSnum=hitI
 	targetILS=targetILSS
+	print("Tune ILS".. targetILSS)
+	  
+	  if string.len(targetILSS)>0 then
+	    print("Tuning ILS".. targetILSS)
+	    local ilsNav=json.decode(targetILSS)
+	    simDR_nav1Freq=ilsNav[3]
+	    simDR_nav2Freq=ilsNav[3]
+	    local course=(ilsNav[4]+simDR_variation)
+	    simDR_radio_nav_obs_deg[0]=course
+	    simDR_radio_nav_obs_deg[1]=course
+	    print("Tuned ILS "..course)
+	  end
 	--print("set targetILS")
 	else
 	  targetILS=" "
@@ -1182,7 +1207,7 @@ end
 
 function B747_ap_appr_mode_beforeCMDhandler(phase, duration) 
 	if phase == 0 then
-	  print("Tune ILS".. targetILSS)
+	  --[[print("Tune ILS".. targetILSS)
 	  
 	  if string.len(targetILSS)>0 then
 	    print("Tuning ILS".. targetILSS)
@@ -1193,7 +1218,7 @@ function B747_ap_appr_mode_beforeCMDhandler(phase, duration)
 	    simDR_radio_nav_obs_deg[0]=course
 	    simDR_radio_nav_obs_deg[1]=course
 	    print("Tuned ILS "..course)
-	  end
+	  end]]
 		if simDR_autopilot_nav_status == 1 
 			and simDR_autopilot_gs_status == 1	
 		then

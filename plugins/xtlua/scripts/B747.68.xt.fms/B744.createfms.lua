@@ -131,7 +131,11 @@ function keyDown(fmsModule,key)
        fmsModules[fmsModule].scratchpad=fmsModules[fmsModule].scratchpad.." "
        return
      elseif key=="del" then
-       fmsModules[fmsModule].scratchpad=string.sub(fmsModules[fmsModule].scratchpad,1,-2)
+       if fmsModules[fmsModule].scratchpad=="" then 
+	 fmsModules[fmsModule].scratchpad="DELETE"
+       elseif fmsModules[fmsModule].scratchpad~="DELETE" then
+	  fmsModules[fmsModule].scratchpad=string.sub(fmsModules[fmsModule].scratchpad,1,-2)
+       end
        return
      elseif key=="next" then
        fmsModules[fmsModule].pgNo=fmsModules[fmsModule].pgNo+1
