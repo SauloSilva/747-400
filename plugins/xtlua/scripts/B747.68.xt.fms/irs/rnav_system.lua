@@ -51,6 +51,7 @@ function B747_setNAVRAD()
       nSize=string.len(navAidsJSON)
      
     end
+    if navAids==nil then return end
     for n=table.getn(navAids),1,-1 do
       if navAids[n][2] == 4 and navAids[n][3]>=10800 and navAids[n][3]<=11795 then
 	local distance = getDistance(lat,lon,navAids[n][5],navAids[n][6])

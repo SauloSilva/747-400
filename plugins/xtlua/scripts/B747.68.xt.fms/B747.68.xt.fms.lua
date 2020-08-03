@@ -32,6 +32,13 @@ function hasChild(parent,childKey)
  
   return true
 end
+function split(s, delimiter)
+    result = {};
+    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
+        table.insert(result, match);
+    end
+    return result;
+end
 function cleanFMSLine(line)
     local retval=line:gsub("☐","*")
     retval=retval:gsub("°","`")
@@ -93,6 +100,7 @@ simDR_radio_nav_freq_hz             = find_dataref("sim/cockpit2/radios/actuator
 simDR_radio_nav_course_deg          = find_dataref("sim/cockpit2/radios/actuators/nav_course_deg_mag_pilot")
 simDR_radio_nav_obs_deg             = find_dataref("sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot")
 simDR_radio_nav_horizontal          = find_dataref("sim/cockpit2/radios/indicators/nav_display_horizontal")
+simDR_radio_nav_hasDME              = find_dataref("sim/cockpit2/radios/indicators/nav_has_dme")
 simDR_radio_nav_radial		    = find_dataref("sim/cockpit2/radios/indicators/nav_bearing_deg_mag")
 simDR_radio_nav01_ID                = find_dataref("sim/cockpit2/radios/indicators/nav1_nav_id")
 simDR_radio_nav02_ID                = find_dataref("sim/cockpit2/radios/indicators/nav2_nav_id")
@@ -191,6 +199,9 @@ function switchCustomMode()
   fmsModules["fmsL"]["currentPage"]=fmsModules["fmsL"]["targetPage"]
   fmsModules["fmsC"]["currentPage"]=fmsModules["fmsC"]["targetPage"]
   fmsModules["fmsR"]["currentPage"]=fmsModules["fmsR"]["targetPage"]
+  fmsModules["fmsL"]["pgNo"]=fmsModules["fmsL"]["targetpgNo"]
+  fmsModules["fmsC"]["pgNo"]=fmsModules["fmsC"]["targetpgNo"]
+  fmsModules["fmsR"]["pgNo"]=fmsModules["fmsR"]["targetpgNo"]
 end
 function createPage(page)
   retVal={}

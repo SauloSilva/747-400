@@ -90,6 +90,7 @@ dofile("B744.fms.pages.maintbite.lua")
 dofile("B744.fms.pages.maintcrossload.lua")
 dofile("B744.fms.pages.maintirsmonitor.lua")
 dofile("B744.fms.pages.maintperffactor.lua")
+dofile("B744.fms.pages.progress.lua")
 dofile("B744.fms.pages.actrte1.lua")
 dofile("B744.fms.pages.atcindex.lua")
 dofile("B744.fms.pages.atclogonstatus.lua")
@@ -261,12 +262,13 @@ fmsFunctionsDefs["NAVRAD"]["L4"]={"setDref","ILS"}
 fmsFunctionsDefs["NAVRAD"]["L6"]={"setdata","preselectLeft"}
 fmsFunctionsDefs["NAVRAD"]["R6"]={"setdata","preselectRight"}
 --fmsFunctionsDefs["NAVRAD"]["L6"]={"setpage","ACARS"}
-
-function fmsFunctions.setpage(fmsO,value)
-  fmsO["pgNo"]=1
-  
-  --sim/FMS/navrad
-  --sim/FMS2/navrad
+function fmsFunctions.setpage_no(fmsO,valueA)
+  print("setpage_no="..valueA)
+    local valueO=split(valueA,"_")
+    print(valueO[1].." "..valueO[2])
+   --fmsO["pgNo"]=tonumber(valueO[2])
+   fmsO["targetpgNo"]=tonumber(valueO[2])
+   value=valueO[1]
   if value=="FMC" then
     fmsO["targetCustomFMC"]=false
     fmsO["targetPage"]="FMC"
@@ -305,6 +307,13 @@ function fmsFunctions.setpage(fmsO,value)
   end
   print("setpage " .. value)
   run_after_time(switchCustomMode, 0.25)
+end
+function fmsFunctions.setpage(fmsO,value)
+  value=value.."_1"
+  fmsFunctions["setpage_no"](fmsO,value)
+  --sim/FMS/navrad
+  --sim/FMS2/navrad
+  
 end
 function fmsFunctions.custom2fmc(fmsO,value)
   simCMD_FMS_key[fmsO["id"]]["del"]:once()
