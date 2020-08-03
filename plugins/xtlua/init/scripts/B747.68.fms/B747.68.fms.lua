@@ -15,7 +15,7 @@ acars=create_dataref("laminar/B747/comm/acars","number")
 toderate=deferred_dataref("laminar/B747/engine/derate/TO","number") 
 clbderate=deferred_dataref("laminar/B747/engine/derate/CLB","number")
 radioModes=deferred_dataref("laminar/B747/radio/tuningmodes", "string")
-radioModes="AMMMM" --ils,vor l/r,adf l/r
+radioModes="AAAMM" --ils,vor l/r,adf l/r (ADF is manual only
 function createFMSDatarefs(fmsid)
 create_dataref("laminar/B747/"..fmsid.."/Line01_L", "string")
 create_dataref("laminar/B747/"..fmsid.."/Line02_L", "string")

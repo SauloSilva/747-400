@@ -166,6 +166,25 @@ irsSystem.calcLonA=function()
  if irsSystem["irsR"]["aligned"]==true then alignedIRS=alignedIRS+1 calcLon=calcLon+irsSystem.getLonD("irsR") end
  if alignedIRS>1 then return toDMS((calcLon/alignedIRS),false) else return fmsModules["data"]["irsLon"] end
 end
+irsSystem.calcLatD=function()
+ --should use the closest two, but meh
+ local alignedIRS=0
+ local calcLat=0
+ if irsSystem["irsL"]["aligned"]==true then alignedIRS=alignedIRS+1 calcLat=calcLat+irsSystem.getLatD("irsL") end
+ if irsSystem["irsC"]["aligned"]==true then alignedIRS=alignedIRS+1 calcLat=calcLat+irsSystem.getLatD("irsC") end
+ if irsSystem["irsR"]["aligned"]==true then alignedIRS=alignedIRS+1 calcLat=calcLat+irsSystem.getLatD("irsR") end
+ if alignedIRS>1 then return (calcLat/alignedIRS) else return -9999 end
+end
+irsSystem.calcLonD=function()
+ local alignedIRS=0
+ local calcLon=0
+ if irsSystem["irsL"]["aligned"]==true then alignedIRS=alignedIRS+1 calcLon=calcLon+irsSystem.getLonD("irsL") end
+ if irsSystem["irsC"]["aligned"]==true then alignedIRS=alignedIRS+1 calcLon=calcLon+irsSystem.getLonD("irsC") end
+ if irsSystem["irsR"]["aligned"]==true then alignedIRS=alignedIRS+1 calcLon=calcLon+irsSystem.getLonD("irsR") end
+ if alignedIRS>1 then return (calcLon/alignedIRS) else return -9999 end
+end
+
+
 irsSystem.getGS=function(systemID)
  return irsSystem[systemID].getGS(irsSystem[systemID])
 end

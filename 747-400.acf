@@ -102912,7 +102912,7 @@ GROUP Captain ND
         LOCKED
         GROUP_OPEN
         GROUP VOR L 2
-          SHOW_EQUAL 0.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_pos
+          SHOW_EQUAL 2.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_pos
           LOCKED
           GROUP_OPEN
           gen_needle Course Ptr 2 2
@@ -102959,7 +102959,7 @@ GROUP Captain ND
 
         END_GROUP
         GROUP VOR R 2
-          SHOW_EQUAL 1.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_pos
+          SHOW_EQUAL 3.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_pos
           LOCKED
           GROUP_OPEN
           gen_needle Course Ptr 2 2
@@ -103061,7 +103061,7 @@ GROUP Captain ND
         gen_needle pointer 2
           POS 335.000000 71.000000
           IMAGE EFIS/Maps/Centered/VOR_L_bug
-          DATAREF sim/cockpit2/radios/indicators/nav_relative_bearing_deg[2]
+          DATAREF sim/cockpit2/radios/indicators/nav_relative_bearing_deg[3]
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
@@ -103080,7 +103080,7 @@ GROUP Captain ND
         gen_needle pointer 2
           POS 335.000000 71.000000
           IMAGE EFIS/Maps/Centered/VOR_R_bug
-          DATAREF sim/cockpit2/radios/indicators/nav_relative_bearing_deg[3]
+          DATAREF sim/cockpit2/radios/indicators/nav_relative_bearing_deg[4]
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
@@ -103698,7 +103698,7 @@ GROUP Captain ND
         LOCKED
         HIDE
         GROUP VOR L 2
-          SHOW_EQUAL 0.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_pos
+          SHOW_EQUAL 2.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_pos
           LOCKED
           HIDE
           gen_needle Course Pointer 2 2
@@ -103748,7 +103748,7 @@ GROUP Captain ND
 
         END_GROUP
         GROUP VOR R 2
-          SHOW_EQUAL 1.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_pos
+          SHOW_EQUAL 3.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_pos
           LOCKED
           HIDE
           gen_needle Course Pointer 2 2
@@ -103830,7 +103830,7 @@ GROUP Captain ND
       LOCKED
       HIDE
       GROUP VOR L 2
-        SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_1_selection_copilot
+        SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_1_selection_pilot
         LOCKED
         HIDE
         gen_needle pointer 2
@@ -103852,7 +103852,7 @@ GROUP Captain ND
 
       END_GROUP
       GROUP VOR R 2
-        SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_2_selection_copilot
+        SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_2_selection_pilot
         LOCKED
         HIDE
         gen_needle pointer 2
@@ -103873,7 +103873,7 @@ GROUP Captain ND
 
       END_GROUP
       GROUP ADF L 2
-        SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_1_selection_copilot
+        SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_1_selection_pilot
         LOCKED
         GROUP_OPEN
         gen_needle pointer 2
@@ -103894,7 +103894,7 @@ GROUP Captain ND
 
       END_GROUP
       GROUP ADF R 2
-        SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_2_selection_copilot
+        SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_2_selection_pilot
         LOCKED
         GROUP_OPEN
         gen_needle pointer 2
@@ -104349,7 +104349,7 @@ GROUP Captain ND
         gen_LED Freq LED 2
           POS 612.000000 416.500000
           IMAGE CRT Displays/LED/LED_8.21R.xxx#00.green
-          DATAREF sim/cockpit2/radios/actuators/nav2_frequency_hz
+          DATAREF sim/cockpit2/radios/actuators/nav3_frequency_hz
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 0.000000 laminar/B747/nd/vorR_id_flag/capt
           LOCKED
@@ -104493,7 +104493,7 @@ GROUP Captain ND
         gen_text ID TEXT 2
           POS 584.000000 417.500000
           IMAGE CRT Displays/TEXT/TXT.8.27.green
-          DATAREF sim/cockpit2/radios/indicators/nav2_nav_id
+          DATAREF sim/cockpit2/radios/indicators/nav3_nav_id
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 1.000000 laminar/B747/nd/vorL_id_flag/capt
           SHOW_GREATER 0.010000 [0]
@@ -104627,7 +104627,7 @@ GROUP Captain ND
         gen_text ID TEXT 2 2
           POS 584.000000 417.500000
           IMAGE CRT Displays/TEXT/TXT.8.27.green
-          DATAREF sim/cockpit2/radios/indicators/nav3_nav_id
+          DATAREF sim/cockpit2/radios/indicators/nav4_nav_id
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 1.000000 laminar/B747/nd/vorL_id_flag/capt
           SHOW_GREATER 0.010000 [0]
@@ -104719,7 +104719,7 @@ GROUP Captain ND
         gen_LED DME LED 2 2
           POS 639.000000 368.500000
           IMAGE CRT Displays/LED/LED_8.21R.xx##00.white
-          DATAREF sim/cockpit2/radios/indicators/nav_dme_distance_nm[2]
+          DATAREF sim/cockpit2/radios/indicators/nav_dme_distance_nm[3]
           SHOW_EQUAL 1.000000 sim/cockpit2/radios/indicators/nav_has_dme[3]
           LOCKED
           LIGHT_MODE GLASS_AUTO
@@ -104808,7 +104808,7 @@ GROUP Captain ND
         gen_text ID TEXT 2
           POS 20.000000 -201.500000
           IMAGE CRT Displays/TEXT/TXT.8.27.green
-          DATAREF sim/cockpit2/radios/indicators/nav2_nav_id
+          DATAREF sim/cockpit2/radios/indicators/nav3_nav_id
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 1.000000 laminar/B747/nd/vorL_id_flag/capt
           SHOW_GREATER 0.010000 [0]
@@ -104985,7 +104985,7 @@ GROUP Captain ND
         gen_text ID TEXT 2
           POS 584.000000 -201.500000
           IMAGE CRT Displays/TEXT/TXT.8.27.green
-          DATAREF sim/cockpit2/radios/indicators/nav3_nav_id
+          DATAREF sim/cockpit2/radios/indicators/nav4_nav_id
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 1.000000 laminar/B747/nd/vorR_id_flag/capt
           SHOW_GREATER 0.010000 [0]
@@ -108888,7 +108888,7 @@ GROUP First Officer ND
         SHOW_EQUAL 1.000000 laminar/B747/nd/mode/fo/sel_dial_pos
         LOCKED
         GROUP VOR L
-          SHOW_EQUAL 2.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
+          SHOW_EQUAL 1.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
           LOCKED
           gen_needle Course Ptr 2
             POS 1022.000000 71.000000
@@ -108934,7 +108934,7 @@ GROUP First Officer ND
 
         END_GROUP
         GROUP VOR R
-          SHOW_EQUAL 3.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
+          SHOW_EQUAL 0.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
           LOCKED
           gen_needle Course Ptr 2
             POS 1022.000000 71.000000
@@ -109643,7 +109643,7 @@ GROUP First Officer ND
         SHOW_EQUAL 1.000000 laminar/B747/nd/mode/fo/sel_dial_pos
         LOCKED
         GROUP VOR L
-          SHOW_EQUAL 2.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
+          SHOW_EQUAL 0.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
           LOCKED
           gen_needle Course Pointer 2
             POS 1022.000000 -85.000000
@@ -109689,7 +109689,7 @@ GROUP First Officer ND
 
         END_GROUP
         GROUP VOR R
-          SHOW_EQUAL 3.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
+          SHOW_EQUAL 1.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
           LOCKED
           gen_needle Course Pointer 2
             POS 1022.000000 -85.000000
@@ -110392,7 +110392,7 @@ GROUP First Officer ND
         CLICK_DY 0
 
       GROUP VOR L
-        SHOW_EQUAL 2.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
+        SHOW_EQUAL 0.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
         LOCKED
         gen_rotary Background  VOR L
           POS 1207.000000 417.500000
@@ -110418,7 +110418,7 @@ GROUP First Officer ND
         gen_text ID TEXT
           POS 1262.000000 417.500000
           IMAGE CRT Displays/TEXT/TXT.8.27.green
-          DATAREF sim/cockpit2/radios/indicators/nav2_nav_id
+          DATAREF sim/cockpit2/radios/indicators/nav3_nav_id
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 1.000000 laminar/B747/nd/vorL_id_flag/capt
           SHOW_GREATER 0.010000 [0]
@@ -110525,7 +110525,7 @@ GROUP First Officer ND
 
       END_GROUP
       GROUP VOR R
-        SHOW_EQUAL 3.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
+        SHOW_EQUAL 1.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
         LOCKED
         gen_rotary Background  VOR R
           POS 1207.000000 417.500000
@@ -110551,7 +110551,7 @@ GROUP First Officer ND
         gen_text ID TEXT 2
           POS 1262.000000 417.500000
           IMAGE CRT Displays/TEXT/TXT.8.27.green
-          DATAREF sim/cockpit2/radios/indicators/nav3_nav_id
+          DATAREF sim/cockpit2/radios/indicators/nav4_nav_id
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 1.000000 laminar/B747/nd/vorL_id_flag/capt
           SHOW_GREATER 0.010000 [0]
@@ -110643,7 +110643,7 @@ GROUP First Officer ND
         gen_LED DME LED 2
           POS 1317.000000 368.500000
           IMAGE CRT Displays/LED/LED_8.21R.xx##00.white
-          DATAREF sim/cockpit2/radios/indicators/nav_dme_distance_nm[2]
+          DATAREF sim/cockpit2/radios/indicators/nav_dme_distance_nm[3]
           SHOW_EQUAL 1.000000 sim/cockpit2/radios/indicators/nav_has_dme[3]
           LOCKED
           LIGHT_MODE GLASS_AUTO
@@ -110730,7 +110730,7 @@ GROUP First Officer ND
         gen_text ID TEXT
           POS 698.000000 -201.500000
           IMAGE CRT Displays/TEXT/TXT.8.27.green
-          DATAREF sim/cockpit2/radios/indicators/nav2_nav_id
+          DATAREF sim/cockpit2/radios/indicators/nav3_nav_id
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 1.000000 laminar/B747/nd/vorL_id_flag/capt
           SHOW_GREATER 0.010000 [0]
@@ -110905,7 +110905,7 @@ GROUP First Officer ND
         gen_text ID TEXT
           POS 1262.000000 -201.500000
           IMAGE CRT Displays/TEXT/TXT.8.27.green
-          DATAREF sim/cockpit2/radios/indicators/nav3_nav_id
+          DATAREF sim/cockpit2/radios/indicators/nav4_nav_id
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 1.000000 laminar/B747/nd/vorR_id_flag/capt
           SHOW_GREATER 0.010000 [0]

@@ -175,7 +175,7 @@ function findILS(value)
   
   for n=table.getn(navAids),1,-1 do
       if navAids[n][2] == 8 then
-	  print("navaid "..n.."->".. navAids[n][1].." ".. navAids[n][2].." ".. navAids[n][3].." ".. navAids[n][4].." ".. navAids[n][5].." ".. navAids[n][6].." ".. navAids[n][7].." ".. navAids[n][8])
+	  --print("navaid "..n.."->".. navAids[n][1].." ".. navAids[n][2].." ".. navAids[n][3].." ".. navAids[n][4].." ".. navAids[n][5].." ".. navAids[n][6].." ".. navAids[n][7].." ".. navAids[n][8])
 	  if value==navAids[n][8] or (val~=nil and val==navAids[n][3]) then
 	    found=true
 	    ilsData=json.encode(navAids[n])
@@ -197,20 +197,31 @@ end
 
 simDR_variation=find_dataref("sim/flightmodel/position/magnetic_variation")
 fmsPages["NAVRAD"]=createPage("NAVRAD")
+
 fmsPages["NAVRAD"].getPage=function(self,pgNo,fmsID)
   local ils1="                        "
   local ils2="                        "
+  local modes=B747DR_radioModes
   if string.len(ilsData)>1 then
     local ilsNav=json.decode(ilsData)
     ils1= ilsNav[7]
     ils2= string.format("%6.2f/%03d%s             ", ilsNav[3]*0.01,(ilsNav[4]+simDR_variation), "˚")
   end
+  local modes=B747DR_radioModes
+  local vorL_radial="---"
+  local vorR_radial="---"
+  local vorL_obs="---"
+  local vorR_obs="---"
+  if simDR_radio_nav_horizontal[2]==1 then vorL_radial=string.format("%03d",simDR_radio_nav_radial[2]) end
+  if simDR_radio_nav_horizontal[3]==1 then vorR_radial=string.format("%03d",simDR_radio_nav_radial[3]) end
+  if modes:sub(2, 2)=="M" then vorL_obs=string.format("%03d",simDR_radio_nav_obs_deg[2]) end
+  if modes:sub(3, 3)=="M" then vorR_obs=string.format("%03d",simDR_radio_nav_obs_deg[3]) end
   local page={
     "        NAV RADIO       ",
     "                        ",
     string.format("%6.2f %4s  %4s %6.2f", simDR_radio_nav_freq_hz[2]*0.01, simDR_radio_nav03_ID, simDR_radio_nav04_ID, simDR_radio_nav_freq_hz[3]*0.01),
     string.format("                        ", ""),
-    string.format(" %03d     %3s  %3s    %03d", simDR_radio_nav_obs_deg[2], "---", "---", simDR_radio_nav_obs_deg[3]),
+    string.format("%3s      %3s  %3s    %3s", vorL_obs, vorL_radial,vorR_radial, vorR_obs),
     "                        ",
     string.format("%06.1f         %06.1f   ", simDR_radio_adf1_freq_hz, simDR_radio_adf2_freq_hz),
     "                        ",
@@ -227,7 +238,7 @@ fmsPages["NAVRAD"].getSmallPage=function(self,pgNo,fmsID)
   return{
   "                        ",
   " VOR L             VOR R",
-  "      M          M      ",
+  "      ".. modes:sub(2, 2) .."          ".. modes:sub(3, 3) .."      ",
   " CRS      RADIAL     CRS",
   "                        ",
   " ADF L             ADF R",
@@ -413,13 +424,16 @@ function fmsFunctions.setDref(fmsO,value)
     fmsO["scratchpad"]="" 
     return 
   end
-   if val==nil then
+  local modes=B747DR_radioModes
+  if value=="VORL" and val==nil then B747DR_radioModes=replace_char(2,modes,"A") fmsO["scratchpad"]="" return end
+  if value=="VORR" and val==nil then B747DR_radioModes=replace_char(3,modes,"A") fmsO["scratchpad"]="" return end
+   if val==nil or (value=="CRSL" and modes:sub(2, 2)=="A") or (value=="CRSR" and modes:sub(3, 3)=="A") then
      fmsO["notify"]="INVALID ENTRY"
      return 
    end
   print(val)
-  if value=="VORL" then simDR_radio_nav_freq_hz[2]=val*100 end
-  if value=="VORR" then simDR_radio_nav_freq_hz[3]=val*100 end
+  if value=="VORL" then B747DR_radioModes=replace_char(2,modes,"M") simDR_radio_nav_freq_hz[2]=val*100  end
+  if value=="VORR" then B747DR_radioModes=replace_char(3,modes,"M") simDR_radio_nav_freq_hz[3]=val*100  end
   if value=="CRSL" then simDR_radio_nav_obs_deg[2]=val end
   if value=="CRSR" then simDR_radio_nav_obs_deg[3]=val end
   if value=="ADFL" then simDR_radio_adf1_freq_hz=val end

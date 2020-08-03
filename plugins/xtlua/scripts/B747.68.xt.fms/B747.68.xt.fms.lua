@@ -3,6 +3,7 @@
 *        COPYRIGHT � 2020 Mark Parker/mSparks CC-BY-NC4
 *****************************************************************************************
 ]]
+simDRTime=find_dataref("sim/time/total_running_time_sec")
 simDR_onGround=find_dataref("sim/flightmodel/failures/onground_all")
 B747DR_CAS_advisory_status       = find_dataref("laminar/B747/CAS/advisory_status")
 simDR_nav1Freq=find_dataref("sim/cockpit/radios/nav1_freq_hz")
@@ -36,7 +37,16 @@ function cleanFMSLine(line)
     retval=retval:gsub("°","`")
     return retval
 end 
-
+function getDistance(lat1,lon1,lat2,lon2)
+  alat=math.rad(lat1)
+  alon=math.rad(lon1)
+  blat=math.rad(lat2)
+  blon=math.rad(lon2)
+  av=math.sin(alat)*math.sin(blat) + math.cos(alat)*math.cos(blat)*math.cos(blon-alon)
+  if av > 1 then av=1 end
+  retVal=math.acos(av) * 3440
+  return retVal
+end
 
 function toDMS(value,isLat)
   degrees=value
@@ -79,8 +89,11 @@ simDR_instrument_brightness_ratio   = find_dataref("sim/cockpit2/electrical/inst
 simDR_radio_nav_freq_Mhz            = find_dataref("sim/cockpit2/radios/actuators/nav_frequency_Mhz")
 simDR_radio_nav_freq_khz            = find_dataref("sim/cockpit2/radios/actuators/nav_frequency_khz")
 simDR_radio_nav_freq_hz             = find_dataref("sim/cockpit2/radios/actuators/nav_frequency_hz")
+
 simDR_radio_nav_course_deg          = find_dataref("sim/cockpit2/radios/actuators/nav_course_deg_mag_pilot")
 simDR_radio_nav_obs_deg             = find_dataref("sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot")
+simDR_radio_nav_horizontal          = find_dataref("sim/cockpit2/radios/indicators/nav_display_horizontal")
+simDR_radio_nav_radial		    = find_dataref("sim/cockpit2/radios/indicators/nav_bearing_deg_mag")
 simDR_radio_nav01_ID                = find_dataref("sim/cockpit2/radios/indicators/nav1_nav_id")
 simDR_radio_nav02_ID                = find_dataref("sim/cockpit2/radios/indicators/nav2_nav_id")
 simDR_radio_nav03_ID                = find_dataref("sim/cockpit2/radios/indicators/nav3_nav_id")
@@ -222,6 +235,7 @@ end
 dofile("irs/irs_system.lua")
 dofile("B744.fms.pages.lua")
 
+dofile("irs/rnav_system.lua")
 dofile("B744.createfms.lua")
 
 fmsC = {}
@@ -282,6 +296,7 @@ function after_physics()
     fmsR:B747_fms_display()
     if simDR_bus_volts[0]>24 then
       irsSystem.update()
+      B747_setNAVRAD()
     end
     if acarsSystem.provider.online() then
       B747DR_CAS_memo_status[40]=0 --for CAS
