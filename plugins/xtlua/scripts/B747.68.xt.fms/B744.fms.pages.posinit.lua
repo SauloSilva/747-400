@@ -3,11 +3,19 @@ fmsPages["POSINIT"]=createPage("POSINIT")
 fmsPages["POSINIT"].getPage=function(self,pgNo,fmsID)
   if pgNo==1 then
     
-    fmsFunctionsDefs["POSINIT"]["L2"]={"setdata","airportpos"}
-    fmsFunctionsDefs["POSINIT"]["L3"]={"setdata","airportgate"}
+    
     fmsFunctionsDefs["POSINIT"]["R1"]={"getdata","lastpos"}
+    
     fmsFunctionsDefs["POSINIT"]["R4"]={"getdata","gpspos"}
-    fmsFunctionsDefs["POSINIT"]["R5"]={"setdata","irspos"}
+    if irsSystem["setPos"]==false or irsSystem["irsL"]["aligned"]==false or irsSystem["irsC"]["aligned"]==false or irsSystem["irsR"]["aligned"]==false then 
+      fmsFunctionsDefs["POSINIT"]["R5"]={"setdata","irspos"}
+      fmsFunctionsDefs["POSINIT"]["L2"]={"setdata","airportpos"}
+      fmsFunctionsDefs["POSINIT"]["L3"]={"setdata","airportgate"}
+    else
+      fmsFunctionsDefs["POSINIT"]["L2"]=nil
+      fmsFunctionsDefs["POSINIT"]["L3"]=nil
+      fmsFunctionsDefs["POSINIT"]["R5"]=nil
+    end
     fmsFunctionsDefs["POSINIT"]["R6"]={"setpage","RTE1"}
     return {
     "       POS INIT    1/3  ",
@@ -20,7 +28,7 @@ fmsPages["POSINIT"].getPage=function(self,pgNo,fmsID)
     "                        ",
     string.format("%02d%02dz ",hh,mm).. irsSystem.getLat("gpsL") .." " .. irsSystem.getLon("gpsL"),
     "                        ",
-    "---` "..irsSystem.getLatPos().." "..irsSystem.getLonPos(), 
+    "---` ".. irsSystem.getInitLatPos().." ".. irsSystem.getInitLatPos(), 
     "                        ",
     "<INDEX            ROUTE>"
     } 
@@ -89,6 +97,10 @@ fmsPages["POSINIT"].getPage=function(self,pgNo,fmsID)
 end
 fmsPages["POSINIT"].getSmallPage=function(self,pgNo,fmsID)
   if pgNo==1 then
+    local setIRS="                        "
+    if B747DR_iru_status[0]==4 or B747DR_iru_status[1]==4 or B747DR_iru_status[2]==4 or irsSystem["setPos"]==false then
+      setIRS="SET HDG      SET IRS POS"
+    end
     return {
     "                        ",
     "	             LAST POS",
@@ -99,7 +111,7 @@ fmsPages["POSINIT"].getSmallPage=function(self,pgNo,fmsID)
     "                        ",
     "UTC (GPS)        GPS POS",
     "                        ",
-    "SET HDG      SET IRS POS",
+    setIRS,
     "                        ", 
     "------------------------",
     "                        "

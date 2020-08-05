@@ -17,21 +17,9 @@ fms={
 
 
 simCMD_FMS_key={}
---[[
-local keyRemap={}
-keyRemap["index"]={"initref"}
-keyRemap["fpln"]={"rte"}
-keyRemap["clb"]={"dep_arr"}
-keyRemap["des"]={"vnav"}
-keyRemap["dir_intc"]={"fix"}
-keyRemap["legs"]={"legs"}
-keyRemap["dep_arr"]={"hold"}
-keyRemap["prog"]={"prog"}
-keyRemap["fix"]={"index"} --MENU
-keyRemap["navrad"]={"navrad"}
-]]
+
 function keyDown(fmsModule,key)
-  run_after_time(switchCustomMode, 0.25)
+  run_after_time(switchCustomMode, 0.10)
   print(fmsModule.. " do " .. key)
   if key=="index" then
       fmsModules[fmsModule].targetCustomFMC=true
@@ -68,9 +56,18 @@ function keyDown(fmsModule,key)
       fmsModules[fmsModule].targetpgNo=1
       return
   elseif key=="legs" then
-      fmsModules[fmsModule].targetCustomFMC=false
-      simCMD_FMS_key[fmsModule]["legs"]:once()
-      fmsModules[fmsModule].targetpgNo=1
+      
+      if simDR_onGround ==1 then
+	fmsModules[fmsModule].targetCustomFMC=true
+	fmsModules[fmsModule].targetPage="LEGS"
+	simCMD_FMS_key[fmsModule]["legs"]:once()
+	fmsModules[fmsModule].targetpgNo=1
+      else
+	fmsModules[fmsModule].targetCustomFMC=false
+	fmsModules[fmsModule].targetPage="RTE2"
+	simCMD_FMS_key[fmsModule]["dir_intc"]:once()
+	fmsModules[fmsModule].targetpgNo=1
+      end
       return
   elseif key=="dep_arr" then
       fmsModules[fmsModule].targetCustomFMC=false
@@ -129,7 +126,9 @@ function keyDown(fmsModule,key)
        return
      end
      
-     if string.len(fmsModules[fmsModule].notify)>0 then return end -- require notification clear
+     --if string.len(fmsModules[fmsModule].notify)>0 and (hasChild(fmsFunctionsDefs[page],key)==false or fmsFunctionsDefs[page][key][1]~="key2fmc") then print("reject "..fmsFunctionsDefs[page][key][1].. " for "..key) return end -- require notification clear
+     
+     
      
      if hasChild(fmsFunctionsDefs[page],key) then
       print(fmsModule.. " found " .. fmsFunctionsDefs[page][key][1] .. " for " .. key)
@@ -152,11 +151,11 @@ function keyDown(fmsModule,key)
        end
        return
      elseif key=="next" then
-       fmsModules[fmsModule].pgNo=fmsModules[fmsModule].pgNo+1
+       fmsModules[fmsModule].targetpgNo=fmsModules[fmsModule].pgNo+1
        print(fmsModule.. " did " .. key .. " for " .. page)
        return 
      elseif key=="prev" and fmsModules[fmsModule].pgNo > 1 then
-       fmsModules[fmsModule].pgNo=fmsModules[fmsModule].pgNo-1
+       fmsModules[fmsModule].targetpgNo=fmsModules[fmsModule].pgNo-1
        print(fmsModule.. " did " .. key .. " for " .. page)
        return  
      elseif key=="exec" then
@@ -476,7 +475,7 @@ end
 
 function fms:B747_fms_display()
     local thisID=self.id
-    if self.targetPage~=self.targetPage or self.inCustomFMC~=self.targetCustomFMC then 
+    if self.inCustomFMC~=self.targetCustomFMC or self.currentPage~=self.targetPage then 
       B747DR_fms[thisID][self.swipeOut]="                        "
       B747DR_fms_s[thisID][self.swipeOut]="                        "
       if self.swipeOut<14 then self.swipeOut=self.swipeOut+1 end

@@ -165,6 +165,8 @@ fmsModules["data"]={
   vref2="***",
   irsLat="****`**.*",
   irsLon="****`**.*",
+  initIRSLat="****`**.*",
+  initIRSLon="****`**.*",
   flapspeed="**/***",
   airportpos="*****",
   airportgate="*****",
@@ -295,7 +297,7 @@ function flight_start()
       irsSystem.align("irsC",true)
   
       irsSystem.align("irsR",true)
-
+      irsSystem["setPos"]=true
     end
  
 end

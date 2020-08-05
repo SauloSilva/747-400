@@ -48,6 +48,13 @@ fmsFunctionsDefs["INDEX"]["L1"]={"setpage","FMC"}
 fmsFunctionsDefs["INDEX"]["L2"]={"setpage","ACARS"}
 fmsPages["RTE1"]=createPage("RTE1")
 fmsPages["RTE1"].getPage=function(self,pgNo,fmsID)
+  local lastLine="<RTE 2             PERF>"
+  if simDR_onGround ==1 then
+    fmsFunctionsDefs["RTE1"]["L6"]=nil
+    lastLine="                   PERF>"
+  else
+    fmsFunctionsDefs["RTE1"]["L6"]={"setpage","RTE2"}
+  end
   local page={
   "      ACT RTE 1     " .. string.sub(cleanFMSLine(B747DR_srcfms[fmsID][1]),-4,-1) ,
   cleanFMSLine(B747DR_srcfms[fmsID][2]),
@@ -61,7 +68,7 @@ fmsPages["RTE1"].getPage=function(self,pgNo,fmsID)
   cleanFMSLine(B747DR_srcfms[fmsID][10]),
   cleanFMSLine(B747DR_srcfms[fmsID][11]),
   cleanFMSLine(B747DR_srcfms[fmsID][12]),
-  "<RTE 2             PERF>",
+  lastLine,
   }
   return page 
 end
@@ -70,7 +77,7 @@ fmsFunctionsDefs["RTE1"]["L2"]={"custom2fmc","L2"}
 fmsFunctionsDefs["RTE1"]["L3"]={"custom2fmc","L3"}
 fmsFunctionsDefs["RTE1"]["L4"]={"custom2fmc","L4"}
 fmsFunctionsDefs["RTE1"]["L5"]={"custom2fmc","L5"}
-fmsFunctionsDefs["RTE1"]["L6"]={"setpage","RTE2"}
+
 fmsFunctionsDefs["RTE1"]["R1"]={"custom2fmc","R1"}
 fmsFunctionsDefs["RTE1"]["R2"]={"custom2fmc","R2"}
 fmsFunctionsDefs["RTE1"]["R3"]={"custom2fmc","R3"}
@@ -80,11 +87,13 @@ fmsFunctionsDefs["RTE1"]["R6"]={"setpage","PERFINIT"}
 
 fmsFunctionsDefs["RTE1"]["next"]={"custom2fmc","next"}
 fmsFunctionsDefs["RTE1"]["prev"]={"custom2fmc","prev"}
+fmsFunctionsDefs["RTE1"]["exec"]={"custom2fmc","exec"}
 dofile("B744.fms.pages.posinit.lua")
 dofile("B744.fms.pages.perfinit.lua")
 dofile("B744.fms.pages.thrustlim.lua")
 dofile("B744.fms.pages.takeoff.lua")
 dofile("B744.fms.pages.approach.lua")
+dofile("B744.fms.pages.legs.lua")
 dofile("B744.fms.pages.maint.lua")
 dofile("B744.fms.pages.maintbite.lua")
 dofile("B744.fms.pages.maintcrossload.lua")
@@ -269,6 +278,8 @@ function fmsFunctions.setpage_no(fmsO,valueA)
    --fmsO["pgNo"]=tonumber(valueO[2])
    fmsO["targetpgNo"]=tonumber(valueO[2])
    value=valueO[1]
+
+     
   if value=="FMC" then
     fmsO["targetCustomFMC"]=false
     fmsO["targetPage"]="FMC"
@@ -316,15 +327,35 @@ function fmsFunctions.setpage(fmsO,value)
   
 end
 function fmsFunctions.custom2fmc(fmsO,value)
+  print("custom2fmc" .. value)
   simCMD_FMS_key[fmsO["id"]]["del"]:once()
   simCMD_FMS_key[fmsO["id"]]["clear"]:once()
   if value~="next" and value~="prev" and string.len(fmsO["scratchpad"])>0 then
     for c in string.gmatch(fmsO["scratchpad"],".") do
-      simCMD_FMS_key[fmsO["id"]][c]:once()
+      local v=c
+	if v=="/" then v="slash" end
+	simCMD_FMS_key[fmsO["id"]][v]:once()
     end
   end
   simCMD_FMS_key[fmsO["id"]][value]:once()
   fmsO["scratchpad"]=""
+end
+function fmsFunctions.key2fmc(fmsO,value)
+  print("key2fmc" .. value)
+  if string.len(fmsO["scratchpad"])>0 then
+    simCMD_FMS_key[fmsO["id"]]["del"]:once()
+    simCMD_FMS_key[fmsO["id"]]["clear"]:once()
+    if value~="next" and value~="prev" then
+      for c in string.gmatch(fmsO["scratchpad"],".") do
+	local v=c
+	if v=="/" then v="slash" end
+	simCMD_FMS_key[fmsO["id"]][v]:once()
+      end
+    end
+  end
+  simCMD_FMS_key[fmsO["id"]][value]:once()
+  fmsO["scratchpad"]=""
+  fmsO["notify"]=""
 end
 local updateFrom="fmsL"
 function updateCRZ()
@@ -371,7 +402,9 @@ function fmsFunctions.setdata(fmsO,value)
 	--irsSystem["irsLat"]=lat
 	--irsSystem["irsLon"]=lon
       end
+      
       setFMSData("airportpos",fmsO["scratchpad"])
+      setFMSData("airportgate","*****")
     end
   elseif value=="flttime" then 
     hhV=string.sub(fmsO["scratchpad"],1,2)
@@ -408,8 +441,23 @@ function fmsFunctions.setdata(fmsO,value)
     setFMSData("irsLon",lon)
     irsSystem["irsLat"]=lat
     irsSystem["irsLon"]=lon
+    irsSystem["setPos"]=true
+    fmsModules["data"]["initIRSLat"]=lat
+    fmsModules["data"]["initIRSLon"]=lon
+    
+    if fmsModules["fmsL"].notify=="ENTER IRS POSITION" then fmsModules["fmsL"].notify="" end
+    if fmsModules["fmsC"].notify=="ENTER IRS POSITION" then fmsModules["fmsC"].notify="" end
+    if fmsModules["fmsR"].notify=="ENTER IRS POSITION" then fmsModules["fmsR"].notify="" end
+   elseif value=="airportgate" and string.len(fmsO["scratchpad"])>0 then
+    local lat=toDMS(simDR_latitude,true)
+    local lon=toDMS(simDR_longitude,false)
+    irsSystem["irsLat"]=lat
+    irsSystem["irsLon"]=lon
+    setFMSData("irsLat",lat)
+    setFMSData("irsLon",lon)
+    setFMSData(value,fmsO["scratchpad"])
   elseif fmsO["scratchpad"]=="" and del==false then
-    cVal=getFMSData(value)
+      cVal=getFMSData(value)
     
       fmsO["scratchpad"]=cVal
     return 

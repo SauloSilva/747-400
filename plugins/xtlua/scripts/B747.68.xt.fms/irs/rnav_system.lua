@@ -35,6 +35,10 @@ function B747_setNAVRAD()
     
     local vorL_mode=modes:sub(2, 2)
     local vorR_mode=modes:sub(3, 3)
+    
+
+    if vorL_mode=="A" and simDR_radio_nav_horizontal[2]==1 then simDR_radio_nav_obs_deg[2]=simDR_radio_nav_radial[2] end
+    if vorR_mode=="A" and simDR_radio_nav_horizontal[3]==1 then simDR_radio_nav_obs_deg[3]=simDR_radio_nav_radial[3] end
     --local adfL_mode=modes:sub(4, 1)
     --local adfR_mode=modes:sub(5, 1)
     local vor1_closest=200
