@@ -406,7 +406,12 @@ function B747_ap_switch_vs_mode_CMDhandler(phase, duration)
 		--for animation
 
 		B747DR_ap_vvi_fpm=0
+		if simDR_autopilot_autothrottle_enabled == 0 then							-- AUTOTHROTTLE IS "OFF"
+		  simCMD_autopilot_autothrottle_on:once()									-- ACTIVATE THE AUTOTHROTTLE
+		  
+		  B747DR_engine_TOGA_mode = 0 
 		
+		end
 
 		simDR_autopilot_altitude_ft=B747DR_autopilot_altitude_ft
 		
@@ -428,6 +433,12 @@ function B747_ap_alt_hold_mode_CMDhandler(phase, duration)
 	if phase == 0 then
 		B747DR_ap_ias_mach_window_open = 1	
 		B747_ap_button_switch_position_target[7] = 1
+		if simDR_autopilot_autothrottle_enabled == 0 then							-- AUTOTHROTTLE IS "OFF"
+		  simCMD_autopilot_autothrottle_on:once()									-- ACTIVATE THE AUTOTHROTTLE
+		  
+		  B747DR_engine_TOGA_mode = 0 
+		
+		end
 		simCMD_autopilot_alt_hold_mode:once()
 		--if simDR_autopilot_alt_hold_status < 2 then
 			--simCMD_autopilot_alt_hold_mode:once()	
