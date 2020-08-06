@@ -291,13 +291,13 @@ function flight_start()
     irsSystem["irsR"]["aligned"]=false
     -- ENGINES RUNNING ------------------------------------------------------------------
     elseif simDR_startup_running == 1 then
-
+      irsSystem["setPos"]=true
       irsSystem.align("irsL",true)
   
       irsSystem.align("irsC",true)
   
       irsSystem.align("irsR",true)
-      irsSystem["setPos"]=true
+      
     end
  
 end

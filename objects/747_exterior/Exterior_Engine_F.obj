@@ -46741,7 +46741,7 @@ ANIM_begin
 		ANIM_rotate_key	25.0	-10.50
 		ANIM_rotate_key	99.0	-10.50
 	ANIM_rotate_end
-	#TRIS	146688 48
+	TRIS	146688 48
 	ANIM_begin
 		ANIM_hide	0.0 50.0	sim/flightmodel2/engines/afterburner_on[3]
 		ANIM_show	50.0 1000.0	sim/flightmodel2/engines/afterburner_on[3]
@@ -46768,7 +46768,7 @@ ANIM_begin
 		ANIM_rotate_key	25.0	-10.50
 		ANIM_rotate_key	99.0	-10.50
 	ANIM_rotate_end
-	#TRIS	146832 48
+	TRIS	146832 48
 	ANIM_begin
 		ANIM_hide	0.0 50.0	sim/flightmodel2/engines/afterburner_on[0]
 		ANIM_show	50.0 1000.0	sim/flightmodel2/engines/afterburner_on[0]
@@ -46790,7 +46790,7 @@ ANIM_begin
 	ANIM_show	50.0 1000.0	sim/flightmodel2/engines/afterburner_on[2]
 	ANIM_trans	  11.9133   -3.3509   23.5832	  11.9133   -3.3509   23.5832	0 0	no_ref
 	ANIM_rotate	  -0.0000    0.0000   -1.0000	  0.00   1.00	0 1	sim/flightmodel2/engines/engine_rotation_angle_deg[2]
-	#TRIS	146976 48
+	TRIS	146976 48
 ANIM_end
 ANIM_begin
 	ANIM_hide	0.0 20.0	sim/flightmodel2/engines/afterburner_on[2]
@@ -46798,7 +46798,7 @@ ANIM_begin
 	ANIM_hide	50.0 1000.0	sim/flightmodel2/engines/afterburner_on[2]
 	ANIM_trans	  11.9133   -3.3509   23.5832	  11.9133   -3.3509   23.5832	0 0	no_ref
 	ANIM_rotate	  -0.0000    0.0000   -1.0000	  0.00   1.00	0 1	sim/flightmodel2/engines/engine_rotation_angle_deg[2]
-	#TRIS	147024 48
+	TRIS	147024 48
 ANIM_end
 ANIM_begin
 	ANIM_hide	0.0 20.0	sim/flightmodel2/engines/afterburner_on[1]
@@ -46806,12 +46806,12 @@ ANIM_begin
 	ANIM_hide	50.0 1000.0	sim/flightmodel2/engines/afterburner_on[1]
 	ANIM_trans	 -11.9330   -3.3509   23.5832	 -11.9330   -3.3509   23.5832	0 0	no_ref
 	ANIM_rotate	   0.0000    0.0000   -1.0000	  0.00   1.00	0 1	sim/flightmodel2/engines/engine_rotation_angle_deg[1]
-	#TRIS	147072 48
+	TRIS	147072 48
 ANIM_end
 ANIM_begin
 	ANIM_hide	0.0 50.0	sim/flightmodel2/engines/afterburner_on[1]
 	ANIM_show	50.0 1000.0	sim/flightmodel2/engines/afterburner_on[1]
 	ANIM_trans	 -11.9330   -3.3509   23.5832	 -11.9330   -3.3509   23.5832	0 0	no_ref
 	ANIM_rotate	   0.0000    0.0000   -1.0000	  0.00   1.00	0 1	sim/flightmodel2/engines/engine_rotation_angle_deg[1]
-	#TRIS	147120 48
+	TRIS	147120 48
 ANIM_end
