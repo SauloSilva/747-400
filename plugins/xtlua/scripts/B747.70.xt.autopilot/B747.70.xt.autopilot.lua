@@ -405,8 +405,8 @@ function B747_ap_switch_vs_mode_CMDhandler(phase, duration)
 		B747_ap_button_switch_position_target[6] = 1
 		--for animation
 
-		B747DR_ap_vvi_fpm=0
-		if simDR_autopilot_autothrottle_enabled == 0 then							-- AUTOTHROTTLE IS "OFF"
+		B747DR_ap_vvi_fpm=0 	
+		if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 then							-- AUTOTHROTTLE IS "OFF"
 		  simCMD_autopilot_autothrottle_on:once()									-- ACTIVATE THE AUTOTHROTTLE
 		  
 		  B747DR_engine_TOGA_mode = 0 
@@ -433,7 +433,7 @@ function B747_ap_alt_hold_mode_CMDhandler(phase, duration)
 	if phase == 0 then
 		B747DR_ap_ias_mach_window_open = 1	
 		B747_ap_button_switch_position_target[7] = 1
-		if simDR_autopilot_autothrottle_enabled == 0 then							-- AUTOTHROTTLE IS "OFF"
+		if simDR_autopilot_autothrottle_enabled == 0  and B747DR_toggle_switch_position[29] == 1 then							-- AUTOTHROTTLE IS "OFF"
 		  simCMD_autopilot_autothrottle_on:once()									-- ACTIVATE THE AUTOTHROTTLE
 		  
 		  B747DR_engine_TOGA_mode = 0 
@@ -1358,7 +1358,7 @@ end
 
 ----- IAS/MACH MODE ---------------------------------------------------------------------
 function B747_ap_ias_mach_mode()
-	if simDR_autopilot_autothrottle_enabled == 0 and B747DR_engine_TOGA_mode == 1 and (simDR_radarAlt1>3000 or simDR_ind_airspeed_kts_pilot>simDR_autopilot_airspeed_kts) then							-- AUTOTHROTTLE IS "OFF"
+	if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 and B747DR_engine_TOGA_mode == 1 and (simDR_radarAlt1>3000 or simDR_ind_airspeed_kts_pilot>simDR_autopilot_airspeed_kts) then							-- AUTOTHROTTLE IS "OFF"
 	  simCMD_autopilot_autothrottle_on:once()									-- ACTIVATE THE AUTOTHROTTLE
 	  B747CMD_ap_switch_flch_mode:once()
 	  B747DR_engine_TOGA_mode = 0 
@@ -1618,7 +1618,7 @@ function B747_ap_fma()
     -- (NONE) --
     B747DR_ap_FMA_armed_pitch_mode = 0
 
-    -- (TOGA) --
+    -- (TOGA) -- 
     if B747DR_engine_TOGA_mode == 1 then
         B747DR_ap_FMA_armed_pitch_mode = 1
 
