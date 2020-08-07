@@ -221,7 +221,7 @@ function touchdown_elevator()
       simDR_elevator=B747_set_ap_animation_position(simDR_elevator,initElevator,-1,1,1)
 end
 simDR_Lift=find_dataref("sim/flightmodel/forces/lift_path_axis")
-function preFlare_elevator()
+function preLand_measure()
      totalLift=totalLift+(simDR_Lift/10000)
       liftMeasurements=liftMeasurements+1;
       
@@ -229,6 +229,14 @@ function preFlare_elevator()
       pitchMeasurements=pitchMeasurements+1;
       targetPitch=(neutralPitch/pitchMeasurements)
       print("Lift="..(totalLift/liftMeasurements).. "Pitch="..targetPitch)
+end
+function preFlare_elevator()
+      if simDR_AHARS_pitch_heading_deg_pilot>targetPitch+0.1 then
+	initElevator=-0.2*(simDR_AHARS_pitch_heading_deg_pilot-targetPitch)
+      elseif simDR_AHARS_pitch_heading_deg_pilot<targetPitch-0.1 then
+	initElevator=0.2*(targetPitch-simDR_AHARS_pitch_heading_deg_pilot)
+      end
+      simDR_elevator=B747_set_ap_animation_position(simDR_elevator,initElevator,-1,1,1)
 end
 function do_touchdown()
      touchdown_elevator()
@@ -296,13 +304,17 @@ function runAutoland()
       B747DR_ap_FMA_armed_pitch_mode=3
 	print("autoland preflare ".. simDR_radarAlt1.. " " .. simDR_AHARS_pitch_heading_deg_pilot .." " ..targetPitch)
       return true
+    elseif simDR_radarAlt1 < 500 and numAPengaged>2 then
+      preLand_measure()
+    else
+       zeroRatePitch=6
+      totalLift=0
+      liftMeasurements=0;
+      neutralPitch=0
+      pitchMeasurements=0;
+      touchedGround=false
+      pinRoll=0
     end
-    zeroRatePitch=6
-    totalLift=0
-    liftMeasurements=0;
-    neutralPitch=0
-    pitchMeasurements=0;
-   touchedGround=false
-   pinRoll=0
+   
    return false
 end
