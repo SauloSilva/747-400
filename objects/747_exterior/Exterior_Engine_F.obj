@@ -46612,7 +46612,15 @@ IDX	31783
 IDX	31784
 
 # Image: /Users/JGregory/Applications/X-Plane/XP11/Aircraft/__Laminar Development/Desktop/Heavy Metal/B747_work/objects/747_exterior/Exterior_engine_NEW.png
-TRIS	0 25680
+#TRIS	0 25680
+ANIM_begin
+  ANIM_trans	 -0.04   0   0	 0.04   0   0	-1 1	laminar/B747/engine/vibration_position[2]
+  TRIS 0 12840
+ANIM_end
+ANIM_begin
+  ANIM_trans	 -0.04   0   0	 0.04   0   0	-1 1	laminar/B747/engine/vibration_position[1]
+  TRIS 12840 12840
+ANIM_end
 ANIM_begin
 	ANIM_trans	 -0.04   0   0	 0.04   0   0	-1 1	laminar/B747/engine/vibration_position[3]
 	ANIM_trans	  12.9803   -0.7976   29.2948	  12.9803   -0.7976   29.2948	0 0	no_ref
