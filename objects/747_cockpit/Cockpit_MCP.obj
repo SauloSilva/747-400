@@ -24531,7 +24531,7 @@ IDX	17566
 TRIS	0 19212
 ANIM_begin
 	ANIM_trans	  -0.0557    2.9722    5.0299	  -0.0557    2.9722    5.0299	0 0	no_ref
-	ANIM_rotate	   1.0000   -0.0000    0.0000	  0.00  45.00	0 -100.0	sim/cockpit2/autopilot/vvi_dial_fpm
+	ANIM_rotate	   1.0000   -0.0000    0.0000	  0.00  45.00	0 -100.0	laminar/B747/cockpit2/autopilot/vvi_dial_fpm
 	TRIS	19212 624
 ANIM_end
 ANIM_begin

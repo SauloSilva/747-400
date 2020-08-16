@@ -25,3 +25,25 @@ THRREF	LNAV	VNAVSPD	FD
 THRREF	LNAV	VNAVSPD	CMD
 
 16.54 https://www.youtube.com/watch?v=sDa1ukA3CUo
+
+____
+TODO
+press speed knob for speed intervention - DONE
+press alt knob to begin descent - DONE
+handle resume descent - mostly DONE
+handle alt dial setting in VNAV
+VNAV spd to final - DONE
+disable lighting - DONE 
+disable vs window - DONE
+handle overspeed better to crz
+handle ap disconnect
+handle hit TOD during climb - DONE
+handle mach change during vnav
+handle change in flight plan
+handle off mode switches LNAV/VNAV - WIP
+handle descent values
+Show descent info on des page
+handle bad FMS crz alt
+add data entry definitions
+validate FMA
+

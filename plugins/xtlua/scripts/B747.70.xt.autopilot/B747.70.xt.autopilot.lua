@@ -98,6 +98,7 @@ simDR_autopilot_airspeed_kts_mach   	= find_dataref("sim/cockpit2/autopilot/airs
 --simDR_autopilot_heading_deg         	= find_dataref("sim/cockpit2/autopilot/heading_dial_deg_mag_pilot")
 simDR_autopilot_heading_deg         	= find_dataref("sim/cockpit/autopilot/heading_mag")
 simDR_autopilot_vs_fpm         			= find_dataref("sim/cockpit2/autopilot/vvi_dial_fpm")
+B747DR_autopilot_vs_fpm         			= find_dataref("laminar/B747/cockpit2/autopilot/vvi_dial_fpm")
 simDR_autopilot_vs_status          		= find_dataref("sim/cockpit2/autopilot/vvi_status")
 simDR_autopilot_flch_status         	= find_dataref("sim/cockpit2/autopilot/speed_status")
 simDR_autopilot_TOGA_vert_status    	= find_dataref("sim/cockpit2/autopilot/TOGA_status")
@@ -223,9 +224,11 @@ B747DR_engine_TOGA_mode             	= find_dataref("laminar/B747/engines/TOGA_m
 --*************************************************************************************--
 B747DR_radioModes			= deferred_dataref("laminar/B747/radio/tuningmodes", "string")
 B747DR_FMSdata				= deferred_dataref("laminar/B747/fms/data", "string")
-B747DR_efis_baro_capt_set_dial_pos              = deferred_dataref("laminar/B747/efis/baro/capt/set_dial_pos", "number")
+--B747DR_efis_baro_capt_set_dial_pos              = deferred_dataref("laminar/B747/efis/baro/capt/set_dial_pos", "number")
+B747DR_efis_baro_std_capt_switch_pos            = deferred_dataref("laminar/B747/efis/baro_std/capt/switch_pos", "number")
 B747DR_efis_baro_capt_preselect                 = deferred_dataref("laminar/B747/efis/baro/capt/preselect", "number")
-B747DR_efis_baro_fo_set_dial_pos                = deferred_dataref("laminar/B747/efis/baro/fo/set_dial_pos", "number")
+B747DR_efis_baro_std_fo_switch_pos              = deferred_dataref("laminar/B747/efis/baro_std/fo/switch_pos", "number")
+--B747DR_efis_baro_fo_set_dial_pos                = deferred_dataref("laminar/B747/efis/baro/fo/set_dial_pos", "number")
 B747DR_efis_baro_fo_preselect                   = deferred_dataref("laminar/B747/efis/baro/fo/preselect", "number")
 B747DR_ap_button_switch_position    	= deferred_dataref("laminar/B747/autopilot/button_switch/position", "array[" .. tostring(NUM_AUTOPILOT_BUTTONS) .. "]")
 B747DR_ap_bank_limit_sel_dial_pos   	= deferred_dataref("laminar/B747/autopilot/bank_limit/sel_dial_pos", "number")
@@ -242,6 +245,7 @@ B747DR_ap_vnav_system            	= deferred_dataref("laminar/B747/autopilot/vna
 
 B747DR_ap_vnav_state            	= deferred_dataref("laminar/B747/autopilot/vnav_state", "number")
 B747DR_ap_lnav_state            	= deferred_dataref("laminar/B747/autopilot/lnav_state", "number")
+B747DR_ap_inVNAVdescent 		= deferred_dataref("laminar/B747/autopilot/lnav_descent", "number")
 B747DR_airspeed_Mmo                     = deferred_dataref("laminar/B747/airspeed/Mmo", "number")
 B747DR_ap_vvi_fpm						= deferred_dataref("laminar/B747/autopilot/vvi_fpm", "number")
 B747DR_ap_alt_show_thousands      		= deferred_dataref("laminar/B747/autopilot/altitude/show_thousands", "number")
@@ -402,7 +406,10 @@ end
 function B747_ap_switch_vnavalt_mode_CMDhandler(phase, duration)
 	if phase == 0 then
 		B747_ap_button_switch_position_target[16] = 1									-- SET THE ALT KNOB ANIMATION TO "IN"
-		
+		if B747DR_ap_vnav_state==2 then
+		  simCMD_autopilot_vert_speed_mode:once()
+		  B747DR_ap_inVNAVdescent = 2
+		end
 	elseif phase == 2 then
 		B747_ap_button_switch_position_target[16] = 0									-- SET THE ALT KNOB ANIMATION TO "OUT"				
 	 
@@ -457,7 +464,10 @@ function B747_ap_switch_vs_mode_CMDhandler(phase, duration)
 		end
 
 		simDR_autopilot_altitude_ft=B747DR_autopilot_altitude_ft
-		
+		B747DR_ap_vnav_state=0
+		B747DR_ap_inVNAVdescent =0
+		B747DR_autopilot_vs_fpm=0
+		--print("to VS mode")
 		simCMD_autopilot_vert_speed_mode:once()
 		--if simDR_autopilot_vs_status < 1 then
 		--	B747DR_ap_ias_mach_window_open = 1											-- OPEN THE IAS/MACH WINDOW
@@ -466,7 +476,7 @@ function B747_ap_switch_vs_mode_CMDhandler(phase, duration)
 	  --for autpilot
 		  
 		  simDR_autopilot_vs_fpm=0
-
+		  
 	end
 end
 
@@ -482,6 +492,8 @@ function B747_ap_alt_hold_mode_CMDhandler(phase, duration)
 		  B747DR_engine_TOGA_mode = 0 
 		
 		end
+		B747DR_ap_vnav_state=0
+		B747DR_ap_inVNAVdescent =0
 		simCMD_autopilot_alt_hold_mode:once()
 		--if simDR_autopilot_alt_hold_status < 2 then
 			--simCMD_autopilot_alt_hold_mode:once()	
@@ -814,6 +826,7 @@ function B747_ap_VNAV_mode_CMDhandler(phase, duration)
 		  simCMD_autopilot_FMS_mode:once()
 		elseif B747DR_ap_vnav_state>0 then 
 		  B747DR_ap_vnav_state=0
+		  B747DR_ap_inVNAVdescent =0
 		elseif B747DR_ap_vnav_system == 2 then
 		  B747DR_ap_vnav_state=1 
 		
@@ -1029,19 +1042,32 @@ end
 
 function B747_ap_vertical_speed_up_CMDhandler(phase, duration)
 	if phase == 0 then
-		if B747DR_ap_vs_window_open == 1 then simDR_autopilot_vs_fpm = math.min(6000.0, simDR_autopilot_vs_fpm + 100.0)	end	
+		if B747DR_ap_vs_window_open == 1 then 
+		  
+		  simDR_autopilot_vs_fpm = math.min(6000.0, simDR_autopilot_vs_fpm + 100.0)
+		  B747DR_autopilot_vs_fpm = simDR_autopilot_vs_fpm
+		end	
 	elseif phase == 1 then	
 		if duration > 0.5 then
-			if B747DR_ap_vs_window_open == 1 then simDR_autopilot_vs_fpm = math.min(6000.0, simDR_autopilot_vs_fpm + 100.0)	end		
+			if B747DR_ap_vs_window_open == 1 then 
+			  simDR_autopilot_vs_fpm = math.min(6000.0, simDR_autopilot_vs_fpm + 100.0)
+			  B747DR_autopilot_vs_fpm = simDR_autopilot_vs_fpm
+			end		
 		end				
 	end
 end	
 function B747_ap_vertical_speed_down_CMDhandler(phase, duration)
 	if phase == 0 then
-		if B747DR_ap_vs_window_open == 1 then simDR_autopilot_vs_fpm = math.max(-8000.0, simDR_autopilot_vs_fpm - 100.0) end
+		if B747DR_ap_vs_window_open == 1 then
+		  simDR_autopilot_vs_fpm = math.max(-8000.0, simDR_autopilot_vs_fpm - 100.0) 
+		  B747DR_autopilot_vs_fpm = simDR_autopilot_vs_fpm
+		end
 	elseif phase == 1 then
 		if duration > 0.5 then
-			if B747DR_ap_vs_window_open == 1 then simDR_autopilot_vs_fpm = math.max(-8000.0, simDR_autopilot_vs_fpm - 100.0) end
+			if B747DR_ap_vs_window_open == 1 then 
+			  simDR_autopilot_vs_fpm = math.max(-8000.0, simDR_autopilot_vs_fpm - 100.0) 
+			  B747DR_autopilot_vs_fpm = simDR_autopilot_vs_fpm
+			end
 		end						
 	end
 end	
@@ -1398,7 +1424,7 @@ end
 function B747_ap_vs_mode()
 	
     ----- WINDOW
-	B747DR_ap_vs_window_open = B747_ternary(simDR_autopilot_vs_status >= 1, 1, 0)
+	B747DR_ap_vs_window_open = B747_ternary(simDR_autopilot_vs_status >= 1 and B747DR_ap_vnav_state<2, 1, 0)
     
     
     ----- VVI FOR ANIMATION 
@@ -1499,10 +1525,10 @@ function B747_ap_ias_mach_mode()
 	    maxSafeSpeed=255
 	  elseif simDR_flap_ratio_control<=0.5 then --flaps 10
 	    maxSafeSpeed=235
-	    minSafeSpeed=minSafeSpeed-9
+	    minSafeSpeed=minSafeSpeed-5
 	  elseif simDR_flap_ratio_control<=0.668 then --flaps 20
 	    maxSafeSpeed=225
-	    minSafeSpeed=minSafeSpeed-9
+	    minSafeSpeed=minSafeSpeed-5
 	  elseif simDR_flap_ratio_control<=0.668 then --flaps 25
 	    maxSafeSpeed=200
 	    minSafeSpeed=minSafeSpeed-9
@@ -1522,7 +1548,11 @@ function B747_ap_ias_mach_mode()
 	    end
 	elseif simDR_autopilot_airspeed_is_mach == 1 and B747DR_ap_ias_dial_value* 0.01 > 0.4 then
 	    if simDR_autopilot_airspeed_kts> maxSafeSpeed then
-		simDR_autopilot_airspeed_kts=maxSafeSpeed
+		if simDR_autopilot_flch_status == 0 then 
+		  simDR_autopilot_airspeed_kts=maxSafeSpeed-10
+		else
+		  simDR_autopilot_airspeed_kts=maxSafeSpeed-20 --flch overspeed
+		end
 	    else
 	      simDR_autopilot_airspeed_kts_mach = math.min(B747DR_ap_ias_dial_value* 0.01,maxmach-0.01) ---roundToIncrement(B747DR_ap_ias_dial_value, 1) * 0.01
 	    end
@@ -1540,6 +1570,7 @@ function B747_ap_speed()
   B747_update_ap_speed()
   if gotVNAVSpeed==true then return end
   print("updating speed")
+
   if simDR_onGround==1 then
     
     if B747DR_airspeed_V2<999 then
@@ -1567,9 +1598,12 @@ function B747_ap_speed()
       vnavSPD_conditions["above"]=altval2
       vnavSPD_conditions["below"]=altval-500
       vnavSPD_conditions["onground"]=simDR_onGround
-      B747DR_efis_baro_capt_set_dial_pos = 1
+
+
+
+      B747DR_efis_baro_std_capt_switch_pos = 1
       B747DR_efis_baro_capt_preselect  = 29.92
-      B747DR_efis_baro_fo_set_dial_pos = 1
+      B747DR_efis_baro_std_fo_switch_pos = 1
       B747DR_efis_baro_fo_preselect = 29.92
       simDR_autopilot_airspeed_is_mach = 0
       print("standard baro")
@@ -1597,13 +1631,23 @@ function setVSpeed()
   local totalDistance=getDistance(simDR_latitude,simDR_longitude,fms[fmscurrentIndex][5],fms[fmscurrentIndex][6])
   for i=fmscurrentIndex+1,fmstargetIndex-1,1 do
   totalDistance=totalDistance+getDistance(fms[i][5],fms[i][6],fms[i+1][5],fms[i+1][6])
-  print("i=".. i .." speed="..simDR_groundspeed .. " distance="..totalDistance)
+  --print("i=".. i .." speed="..simDR_groundspeed .. " distance="..totalDistance)
+  end
+  if simDR_radarAlt1<=1200 then
+    --fmstargetIndex=-1
+    --fmscurrentIndex=0
+    --B747DR_ap_vnav_state=0
+    --simCMD_autopilot_alt_hold_mode:once()
+    simDR_autopilot_vs_fpm = -100 -- slow descent, reduces AoA which if it goes to high spoils the landing
+    return
   end
   
   local time=totalDistance*30.8666/(simDR_groundspeed) --time in minutes, gs in m/s....
-  local vdiff=simDR_autopilot_altitude_ft-simDR_pressureAlt1 --to be negative
+  local early=100
+  if simDR_autopilot_altitude_ft>5000 then early=500 end
+  local vdiff=simDR_autopilot_altitude_ft-simDR_pressureAlt1-early --to be negative
   local vspeed=vdiff/time
-  print("speed=".. simDR_groundspeed .. " distance=".. totalDistance .. " vspeed=" .. vspeed .. " vdiff=" .. vdiff .. " time=" .. time)
+  --print("speed=".. simDR_groundspeed .. " distance=".. totalDistance .. " vspeed=" .. vspeed .. " vdiff=" .. vdiff .. " time=" .. time)
 		  --speed=89.32039642334 distance=2.9459299767094vspeed=-6559410.6729958
   simDR_autopilot_vs_fpm = vspeed
   
@@ -1615,7 +1659,24 @@ function B747_ap_altitude()
 	B747DR_ap_alt_show_tenThousands = B747_ternary(B747DR_autopilot_altitude_ft > 9999.99, 1.0, 0.0)
 	--print("B747_ap_altitude")
 	if B747DR_ap_vnav_state>0 then
+	  local diff = simDR_ind_airspeed_kts_pilot - simDR_autopilot_airspeed_kts
+	  local diff2 = simDR_autopilot_altitude_ft - simDR_pressureAlt1
+	  if B747DR_ap_inVNAVdescent ==1 and diff<5 and diff>-5 and diff2<-200 and simDR_autopilot_vs_status == 0 and simDR_radarAlt1>1000 then
+	    if simDR_autopilot_gs_status < 1 then 
+	      simCMD_autopilot_vert_speed_mode:once()
+	      B747DR_ap_inVNAVdescent =2 -- stop on/off, resume below
+	      print("Resume descent")
+	    else
+	      print("Ended descent")
+	    end
+	  elseif B747DR_ap_inVNAVdescent ==1 and simDR_autopilot_vs_status == 0 and simDR_radarAlt1>1000 then
+	    print("waiting to resume descent "..diff.." "..diff2.." "..simDR_radarAlt1)
+	  end
+	  if B747DR_ap_inVNAVdescent == 2 and simDR_autopilot_vs_status == 2 then 
+	      B747DR_ap_inVNAVdescent =1 --has simDR_autopilot_vs_status == 2 in condition
+	    end
 	  if simDR_pressureAlt1>simDR_autopilot_altitude_ft and simDR_autopilot_vs_status == 2 and fms~=nill and table.getn(fms)>2 and fmstargetIndex>0 then
+	    
 	    setVSpeed()
 	  end
 	  fms=json.decode(fmsJSON)
@@ -1651,26 +1712,29 @@ function B747_ap_altitude()
 	    end
 	  end
 	  -- print("targetAlt=".. targetAlt .. " simDR_autopilot_altitude_ft=".. simDR_autopilot_altitude_ft .. "simDR_pressureAlt1=" .. simDR_pressureAlt1)
-	  if targetAlt ~= simDR_autopilot_altitude_ft then
+	  --if targetAlt ~= simDR_autopilot_altitude_ft then
 	      if targetAlt>simDR_pressureAlt1 then
-		print("FMS use climb i=" .. targetIndex.. "@" .. currentIndex .. ":" ..fms[targetIndex][1] .. ":" .. fms[targetIndex][2] .. ":" .. fms[targetIndex][3] .. ":" .. fms[targetIndex][4] .. ":" .. fms[targetIndex][5] .. ":" .. fms[targetIndex][6] .. ":" .. fms[targetIndex][7] .. ":" .. fms[targetIndex][8].. ":" .. fms[targetIndex][9])
+		--print("FMS use climb i=" .. targetIndex.. "@" .. currentIndex .. ":" ..fms[targetIndex][1] .. ":" .. fms[targetIndex][2] .. ":" .. fms[targetIndex][3] .. ":" .. fms[targetIndex][4] .. ":" .. fms[targetIndex][5] .. ":" .. fms[targetIndex][6] .. ":" .. fms[targetIndex][7] .. ":" .. fms[targetIndex][8].. ":" .. fms[targetIndex][9])
+		
+		--inVNAVdescent =0
 		simDR_autopilot_altitude_ft=targetAlt
 		fmstargetIndex=targetIndex
 		fmscurrentIndex=currentIndex
 	      elseif targetAlt<simDR_pressureAlt1 then
-		print("FMS use descend i=" .. targetIndex.. "@" .. currentIndex .. ":" ..fms[targetIndex][1] .. ":" .. fms[targetIndex][2] .. ":" .. fms[targetIndex][3] .. ":" .. fms[targetIndex][4] .. ":" .. fms[targetIndex][5] .. ":" .. fms[targetIndex][6] .. ":" .. fms[targetIndex][7] .. ":" .. fms[targetIndex][8].. ":" .. fms[targetIndex][9])
+		--print("FMS use descend i=" .. targetIndex.. "@" .. currentIndex .. ":" ..fms[targetIndex][1] .. ":" .. fms[targetIndex][2] .. ":" .. fms[targetIndex][3] .. ":" .. fms[targetIndex][4] .. ":" .. fms[targetIndex][5] .. ":" .. fms[targetIndex][6] .. ":" .. fms[targetIndex][7] .. ":" .. fms[targetIndex][8].. ":" .. fms[targetIndex][9])
 		simDR_autopilot_altitude_ft=targetAlt
 		fmstargetIndex=targetIndex
 		fmscurrentIndex=currentIndex
-		if simDR_autopilot_vs_status == 0 then
+		
+		--[[if simDR_autopilot_vs_status == 0 then
 		  simCMD_autopilot_vert_speed_mode:once()
 		  --simDR_autopilot_vs_fpm = vspeed 
 		
-		end
+		end]]
 	     
 		
 	      end
-	  end
+	  --end
 	  
 	end
 end	
@@ -1749,9 +1813,10 @@ function B747_ap_fma()
       and (simDR_autopilot_flch_status > 0 or B747DR_engine_TOGA_mode==1) then
         B747DR_ap_FMA_autothrottle_mode = 5  --THR REF
     elseif simDR_autopilot_autothrottle_on == 1 then
-        B747DR_ap_FMA_autothrottle_mode = 3
+        B747DR_ap_FMA_autothrottle_mode = 3 -- SPD
     else
 	B747DR_ap_FMA_autothrottle_mode = 0
+	
     end
 
     if simDR_radarAlt1>50 and B747DR_ap_lnav_state==1 then
@@ -1816,11 +1881,11 @@ function B747_ap_fma()
     -- (HDG SEL) --
     elseif simDR_autopilot_heading_status == 2 then
         B747DR_ap_FMA_active_roll_mode = 6
-
+	B747DR_ap_lnav_state=0
     -- (HDG HLD) --
     elseif simDR_autopilot_heading_hold_status == 2 then
         B747DR_ap_FMA_active_roll_mode = 7
-        
+        B747DR_ap_lnav_state=0
      -- (ATT) --
     elseif simDR_autopilot_roll_status == 2 
       and simDR_autopilot_flight_dir_mode > 0
@@ -1876,6 +1941,7 @@ function B747_ap_fma()
     elseif simDR_autopilot_gs_status == 2 then
         B747DR_ap_FMA_active_pitch_mode = 2
 	B747DR_ap_vnav_state=0
+	B747DR_ap_inVNAVdescent =0
     -- (FLARE) --
     -- TODO: AUTOLAND LOGIC
 
@@ -1929,6 +1995,7 @@ function B747_ap_fma()
     -- (NONE) --
     else
         B747DR_ap_FMA_active_pitch_mode = 0
+	--B747DR_ap_vnav_state=0
 	throttlederate=1.0
     end
   
