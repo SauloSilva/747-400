@@ -33,7 +33,7 @@ press alt knob to begin descent - DONE
 handle resume descent - mostly DONE
 handle alt dial setting in VNAV
 VNAV spd to final - DONE
-disable lighting - DONE 
+disable switch lighting in VNAV - DONE 
 disable vs window - DONE
 handle overspeed better to crz
 handle ap disconnect
@@ -42,8 +42,8 @@ handle mach change during vnav
 handle change in flight plan
 handle off mode switches LNAV/VNAV - WIP
 handle descent values
-Show descent info on des page
+Show descent info on des page - DONE
 handle bad FMS crz alt
-add data entry definitions
+add data entry definitions - mostly DONE
 validate FMA
 
