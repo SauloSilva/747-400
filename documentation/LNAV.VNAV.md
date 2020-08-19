@@ -35,13 +35,13 @@ handle alt dial setting in VNAV
 VNAV spd to final - DONE
 disable switch lighting in VNAV - DONE 
 disable vs window - DONE
-handle overspeed better to crz
+handle overspeed better to crz - mostly DONE
 handle ap disconnect
-handle hit TOD during climb - DONE
-handle mach change during vnav
-handle change in flight plan
+handle hit TOD during climb - mostly DONE
+handle mach change during vnav - WIP
+handle change in flight plan - mostly DONE
 handle off mode switches LNAV/VNAV - WIP
-handle descent values
+handle descent values - mostly DONE
 Show descent info on des page - DONE
 handle bad FMS crz alt
 add data entry definitions - mostly DONE
