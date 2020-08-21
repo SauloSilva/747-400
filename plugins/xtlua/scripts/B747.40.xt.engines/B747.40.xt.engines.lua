@@ -147,7 +147,7 @@ simDR_thrust_rev_fail_04        = find_dataref("sim/operation/failures/rel_rever
 
 simDR_autopilot_TOGA_vert_status = find_dataref("sim/cockpit2/autopilot/TOGA_status")
 
-
+    simDR_ind_airspeed_kts_pilot        	= find_dataref("sim/cockpit2/gauges/indicators/airspeed_kts_pilot")
 
 
 
@@ -1236,20 +1236,20 @@ function B747_secondary_EICAS2_engine_vibration()
     local timeNow=0
     local phaseNow=0
     local thrust=0
-    local disturbance=math.sqrt((B747DR_EICAS2_wingFlex[0]-lastWingFlex)*(B747DR_EICAS2_wingFlex[0]-lastWingFlex))+4
+    local disturbance=math.sqrt((B747DR_EICAS2_wingFlex[0]-lastWingFlex)*(B747DR_EICAS2_wingFlex[0]-lastWingFlex))
     
     B747DR_EICAS2_engine_disturbance=B747_animate_value(B747DR_EICAS2_engine_disturbance,1,1,5,10)+disturbance
     B747DR_EICAS2_engine_disturbance=math.min(B747DR_EICAS2_engine_disturbance,4)
     lastWingFlex=B747_animate_value(lastWingFlex,B747DR_EICAS2_wingFlex[0],-30,30,20)
-    
+    local airspeedReduction=(400-simDR_ind_airspeed_kts_pilot)/400
     for i = 0, 3 do
     B747DR_EICAS2_engine_vibration[i] = B747_rescale(0.0, 0.0, 100.0, B747_engine_maxVib[i], simDR_engine_N2_pct[i])
     timeNow=B747_engine_lastClock[i]+(os.clock()-B747_engine_lastClock[i])
     thrust=math.max((simDR_engine_N2_pct[i]-60)/10,0)
     phaseNow=(timeNow*thrust)-(B747_engine_lastClock[i]*thrust)
     B747_engine_lastPos[i]=B747_engine_lastPos[i]+phaseNow
-  
-    B747DR_engine_vibration_position[i] =(B747DR_EICAS2_engine_disturbance*math.sin(B747_engine_lastPos[i]+ B747_engine_vibPhase[i]))/20
+    
+    B747DR_engine_vibration_position[i] =airspeedReduction*B747DR_EICAS2_engine_vibration[i]*(B747DR_EICAS2_engine_disturbance*math.sin(B747_engine_lastPos[i]+ B747_engine_vibPhase[i]))/5
 
     B747_engine_lastClock[i] = os.clock()
     end
