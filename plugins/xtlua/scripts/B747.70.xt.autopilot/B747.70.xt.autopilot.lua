@@ -408,11 +408,15 @@ function B747_ap_switch_vnavalt_mode_CMDhandler(phase, duration)
 	if phase == 0 then
 		B747_ap_button_switch_position_target[16] = 1									-- SET THE ALT KNOB ANIMATION TO "IN"
 		if B747DR_ap_vnav_state==2 then
-		  if simDR_autopilot_tod_distance<50 then
+		  if simDR_autopilot_tod_distance<50 and simDR_pressureAlt1>simDR_autopilot_altitude_ft then
 		    simCMD_autopilot_vert_speed_mode:once()
 		    B747DR_ap_inVNAVdescent = 2
 		  elseif simDR_autopilot_flch_status==0 and simDR_pressureAlt1<simDR_autopilot_altitude_ft-1000 then
+		    if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 then							-- AUTOTHROTTLE IS "OFF"
+		      simCMD_autopilot_autothrottle_on:once()
+		    end
 		    simCMD_autopilot_flch_mode:once()
+		    
 		    --B747CMD_ap_switch_flch_mode:once()
 		  end
 		end
@@ -1853,7 +1857,7 @@ function B747_ap_altitude()
 	      if targetAlt>simDR_pressureAlt1 then
 		--print("FMS use climb i=" .. targetIndex.. "@" .. currentIndex .. ":" ..fms[targetIndex][1] .. ":" .. fms[targetIndex][2] .. ":" .. fms[targetIndex][3] .. ":" .. fms[targetIndex][4] .. ":" .. fms[targetIndex][5] .. ":" .. fms[targetIndex][6] .. ":" .. fms[targetIndex][7] .. ":" .. fms[targetIndex][8].. ":" .. fms[targetIndex][9])
 		
-		if targetAlt > B747DR_autopilot_altitude_ft then targetAlt=B747DR_autopilot_altitude_ft end
+		if targetAlt > B747DR_autopilot_altitude_ft and B747DR_autopilot_altitude_ft>simDR_pressureAlt1+150 and simDR_autopilot_alt_hold_status < 2 then targetAlt=B747DR_autopilot_altitude_ft end
 		simDR_autopilot_altitude_ft=targetAlt
 		fmstargetIndex=targetIndex
 		fmscurrentIndex=currentIndex
@@ -1866,7 +1870,7 @@ function B747_ap_altitude()
 			if B747DR_engine_TOGA_mode >0 then B747DR_engine_TOGA_mode = 0 end	-- CANX ENGINE TOGA IF ACTIVE
 		  end	
 		end
-		if targetAlt < B747DR_autopilot_altitude_ft then targetAlt=B747DR_autopilot_altitude_ft end
+		if targetAlt < B747DR_autopilot_altitude_ft and B747DR_autopilot_altitude_ft<simDR_pressureAlt1-150 and simDR_autopilot_alt_hold_status < 2 then targetAlt=B747DR_autopilot_altitude_ft end
 		simDR_autopilot_altitude_ft=targetAlt
 		fmstargetIndex=targetIndex
 		fmscurrentIndex=currentIndex
