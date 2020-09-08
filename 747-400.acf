@@ -99859,7 +99859,7 @@ GROUP Captain PFD
 
         gen_rotary IDLE
           POS 199.000000 1086.500000
-          IMAGE CRT Displays/PFD/Flight Mode Annun/at_HOLD
+          IMAGE CRT Displays/PFD/Flight Mode Annun/at_IDLE
           DATAREF 
           SHOW_EQUAL 2.000000 laminar/B747/autopilot/FMA/autothrottle_mode
           LOCKED
@@ -105896,7 +105896,7 @@ GROUP First Officer PFD
 
         gen_rotary IDLE 2
           POS 878.000000 1086.500000
-          IMAGE CRT Displays/PFD/Flight Mode Annun/at_HOLD
+          IMAGE CRT Displays/PFD/Flight Mode Annun/at_IDLE
           DATAREF 
           SHOW_EQUAL 2.000000 laminar/B747/autopilot/FMA/autothrottle_mode
           LOCKED

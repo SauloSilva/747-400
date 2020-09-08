@@ -223,7 +223,7 @@ B747CMD_engine_start_switch2_off    = find_command("laminar/B747/toggle_switch/e
 B747CMD_engine_start_switch3_off    = find_command("laminar/B747/toggle_switch/engine_start3_off")
 B747CMD_engine_start_switch4_off    = find_command("laminar/B747/toggle_switch/engine_start4_off")
 
-
+simCMD_ThrottleUp=find_command("sim/engines/throttle_up")
 
 
 
@@ -739,9 +739,10 @@ function B747_prop_mode()
     --simDR_prop_mode[0] = B747_ternary(((B747DR_thrust_rev_lever_pos[0] > 0.45) and (simDR_hydraulic_sys_press_01 > 1000.0)), 3, 1)
     --simDR_prop_mode[1] = B747_ternary(((B747DR_thrust_rev_lever_pos[1] > 0.45) and (simDR_hydraulic_sys_press_02 > 1000.0)), 3, 1)
     --simDR_prop_mode[2] = B747_ternary(((B747DR_thrust_rev_lever_pos[2] > 0.45) and (simDR_hydraulic_sys_press_02 > 1000.0)), 3, 1)
-    --simDR_prop_mode[3] = B747_ternary(((B747DR_thrust_rev_lever_pos[3] > 0.45) and (simDR_hydraulic_sys_press_01 > 1000.0)), 3, 1)
+    --simDR_prop_mode[3] = B747_ternary(((B747DR_thrust_rev_lever_pos[3] > 0.45) and (simDR_hydraulic_sys_press_01 > 1000.0)), 3, 1)simCMD_ThrottleUp
+   
     if B747DR_engine_TOGA_mode >0 and B747DR_engine_TOGA_mode < 1 and simDR_allThrottle<0.94 then
-	    simDR_allThrottle = B747_set_animation_position(simDR_allThrottle,0.95,0,1,1)
+	    simCMD_ThrottleUp:once()--simDR_allThrottle = B747_set_animation_position(simDR_allThrottle,0.95,0,1,1)
     elseif B747DR_engine_TOGA_mode >0 and B747DR_engine_TOGA_mode < 1 then
       B747DR_engine_TOGA_mode = 1
       if toderate==0 then throttlederate=1.0
