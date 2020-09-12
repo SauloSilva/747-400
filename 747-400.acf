@@ -101588,7 +101588,7 @@ GROUP Captain PFD
         gen_LED Digits
           POS 539.000000 1067.500000
           IMAGE CRT Displays/LED/LED_2.30R.x####0.magenta
-          DATAREF sim/cockpit2/autopilot/altitude_dial_ft
+          DATAREF laminar/B747/autopilot/heading/altitude_dial_ft
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
@@ -101606,7 +101606,7 @@ GROUP Captain PFD
         gen_LED Thousands
           POS 524.000000 1038.500000
           IMAGE CRT Displays/LED/LED_2.36R.xxx###.magenta
-          DATAREF sim/cockpit2/autopilot/altitude_dial_ft
+          DATAREF laminar/B747/autopilot/heading/altitude_dial_ft
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
@@ -101622,7 +101622,7 @@ GROUP Captain PFD
         gen_LED Hundreds
           POS 568.000000 1036.500000
           IMAGE CRT Displays/LED/LED_2.30R.x####0.magenta
-          DATAREF sim/cockpit2/autopilot/altitude_dial_ft
+          DATAREF laminar/B747/autopilot/heading/altitude_dial_ft
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
@@ -101928,7 +101928,7 @@ GROUP Captain PFD
       gen_pointer Alt Set Bug
         POS 522.500000 767.000000
         IMAGE CRT Displays/PFD/Altimeter/SelAltPtr
-        DATAREF sim/cockpit2/autopilot/altitude_dial_ft
+        DATAREF laminar/B747/autopilot/heading/altitude_dial_ft
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 2
@@ -107641,7 +107641,7 @@ GROUP First Officer PFD
         gen_LED Digits 2
           POS 1218.000000 1067.500000
           IMAGE CRT Displays/LED/LED_2.30R.x####0.magenta
-          DATAREF sim/cockpit2/autopilot/altitude_dial_ft
+          DATAREF laminar/B747/autopilot/heading/altitude_dial_ft
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
@@ -107659,7 +107659,7 @@ GROUP First Officer PFD
         gen_LED Thousands 2
           POS 1203.000000 1038.500000
           IMAGE CRT Displays/LED/LED_2.36R.xxx###.magenta
-          DATAREF sim/cockpit2/autopilot/altitude_dial_ft
+          DATAREF laminar/B747/autopilot/heading/altitude_dial_ft
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
@@ -107675,7 +107675,7 @@ GROUP First Officer PFD
         gen_LED Hundreds 2
           POS 1247.000000 1036.500000
           IMAGE CRT Displays/LED/LED_2.30R.x####0.magenta
-          DATAREF sim/cockpit2/autopilot/altitude_dial_ft
+          DATAREF laminar/B747/autopilot/heading/altitude_dial_ft
           LOCKED
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
@@ -107981,7 +107981,7 @@ GROUP First Officer PFD
       gen_pointer Alt Set Bug 2
         POS 1201.500000 767.000000
         IMAGE CRT Displays/PFD/Altimeter/SelAltPtr
-        DATAREF sim/cockpit2/autopilot/altitude_dial_ft
+        DATAREF laminar/B747/autopilot/heading/altitude_dial_ft
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
