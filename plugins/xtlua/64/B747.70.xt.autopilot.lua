@@ -1359,17 +1359,17 @@ function B747_fltmgmt_setILS()
 	  
 	  --print("cleared targetILS")
 	end
-    
-    end
-  elseif string.len(targetILSS)>0 then
-	    --print("Tuning ILS".. targetILSS)
+    elseif string.len(targetILSS)>0 then
+	    print("Tuning ILS".. targetILSS)
 	    local ilsNav=json.decode(targetILSS)
 	    simDR_nav1Freq=ilsNav[3]
 	    simDR_nav2Freq=ilsNav[3]
 	    local course=(ilsNav[4]+simDR_variation)
 	    simDR_radio_nav_obs_deg[0]=course
 	    simDR_radio_nav_obs_deg[1]=course
-	    --print("Tuned ILS "..course)
+	    print("Tuned ILS "..course)
+    end
+
   end
   
   --print("target="..targetILS.."= "..targetILSS.."= "..targetFix.. " "..nSize.. " "..table.getn(navAids))
@@ -2107,7 +2107,7 @@ function B747_ap_fma()
   --B747DR_ap_FMA_active_roll_mode = 0
     
     -- (TOGA) --
-    local navcrz=simDR_nav1_radio_course_deg
+    
   
     if simDR_autopilot_TOGA_lat_status == 2 then
         B747DR_ap_FMA_active_roll_mode = 1
@@ -2119,7 +2119,7 @@ function B747_ap_fma()
     -- (LOC) --
     elseif simDR_autopilot_nav_status == 2 then
         B747DR_ap_FMA_active_roll_mode = 3
-        simDR_autopilot_heading_deg = roundToIncrement(simDR_nav1_radio_course_deg, 1)            -- SET THE SELECTED HEADING VALUE TO THE LOC COURSE
+        B747DR_ap_heading_deg = roundToIncrement(simDR_nav1_radio_course_deg, 1)            -- SET THE SELECTED HEADING VALUE TO THE LOC COURSE
 	B747DR_ap_lnav_state=0
 
       -- (ROLLOUT) --
