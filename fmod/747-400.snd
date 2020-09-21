@@ -215,14 +215,10 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Controls/B8
 	VEH_XYZ -0.25 5.3 -25.8
-    EVENT_CMND_DOWN laminar/B747/elec_ext_pwr_1/switch_mode
+    EVENT_CMND_DOWN laminar/B747/button_switch/elec_ext_pwr_1
 END_SOUND_ATTACHMENT
 
-BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cockpit/Controls/B8
-	VEH_XYZ -0.25 5.3 -25.8
-    EVENT_CMND_DOWN laminar/B747/elec_ext_pwr_1/switch_mode
-END_SOUND_ATTACHMENT
+
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Controls/B8
