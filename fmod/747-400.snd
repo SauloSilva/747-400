@@ -20,6 +20,7 @@ REQUIRES_BANK PWEngines.bank
 REQUIRES_BANK Dynamics.bank
 REQUIRES_BANK Weather.bank
 REQUIRES_BANK Warning.bank
+REQUIRES_BANK 744BYNC4.bank
 
 # Sound Mixer ###################################
 
@@ -215,14 +216,10 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Controls/B8
 	VEH_XYZ -0.25 5.3 -25.8
-    EVENT_CMND_DOWN laminar/B747/elec_ext_pwr_1/switch_mode
+    EVENT_CMND_DOWN laminar/B747/button_switch/elec_ext_pwr_1
 END_SOUND_ATTACHMENT
 
-BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cockpit/Controls/B8
-	VEH_XYZ -0.25 5.3 -25.8
-    EVENT_CMND_DOWN laminar/B747/elec_ext_pwr_1/switch_mode
-END_SOUND_ATTACHMENT
+
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Controls/B8
@@ -1883,6 +1880,20 @@ BEGIN_SOUND_ATTACHMENT
 	VEH_XYZ 0 4.2 -26.8
 	EVENT_START_COND sim/cockpit2/gauges/indicators/roll_electric_deg_pilot < -35
 	EVENT_END_COND sim/cockpit2/gauges/indicators/roll_electric_deg_pilot > -32 
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /master_warning
+	VEH_XYZ 0 4.2 -26.8
+	EVENT_START_COND laminar/B747/warning/master_warning > 0.5
+	EVENT_END_COND laminar/B747/warning/master_warning < 0.5
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /master_caution
+	VEH_XYZ 0 4.2 -26.8
+	EVENT_START_COND laminar/B747/warning/master_caution > 0.5
+	EVENT_END_COND laminar/B747/warning/master_caution < 0.5
 END_SOUND_ATTACHMENT
 
 # Weather ################################################################
