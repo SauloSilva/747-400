@@ -550,6 +550,7 @@ local B747_CASmemo      = {}
 --*************************************************************************************--
 --** 				                X-PLANE DATAREFS            			    	 **--
 --*************************************************************************************--
+simDR_bus_volts               = find_dataref("sim/cockpit2/electrical/bus_volts")
 
 simDR_startup_running               = find_dataref("sim/operation/prefs/startup_running")
 simDR_all_wheels_on_ground          = find_dataref("sim/flightmodel/failures/onground_all")
@@ -741,7 +742,24 @@ end
 
 
 
-
+function cleanAllWhenOff()
+  for i = 1, #B747_CASwarningMsg do
+    B747_removeWarning(B747_CASwarningMsg[i].name)   
+    B747_CASwarningMsg[i].status=0
+  end
+  for i = 1, #B747_CAScautionMsg do
+    B747_removeCaution(B747_CAScautionMsg[i].name)
+    B747_CAScautionMsg[i].status=0
+  end
+  for i = 1, #B747_CASadvisoryMsg do
+    B747_removeAdvisory(B747_CASadvisoryMsg[i].name) 
+    B747_CASadvisoryMsg[i].status=0
+  end
+  for i = 1, #B747_CASmemoMsg do
+     B747_removeMemo(B747_CASmemoMsg[i].name)
+     B747_CASmemoMsg[i].status = 0
+  end
+end
 
 
 ----- BUILD THE ALERT QUEUE -------------------------------------------------------------
@@ -820,11 +838,13 @@ end
 
 
 
+local powered = false
 
 
 
 ----- BUILD THE CAS DISPLAY PAGES -------------------------------------------------------
 function B747_CAS_display()
+    
     B747DR_CAS_num_msg_pages = #B747_CASwarning
     if #B747_CASwarning < 11 then
         B747DR_CAS_num_msg_pages = math.ceil(math.max(10, (#B747_CASwarning + #B747_CAScaution + #B747_CASadvisory + #B747_CASmemo)) / 11)
@@ -864,7 +884,7 @@ function B747_CAS_display()
             end
         end
         genIndex = genIndex + 1                                                             -- INCREMENT THE GENERIC INDEX
-	::continue::
+	--::continue::
     end
 
 
@@ -1067,8 +1087,11 @@ debug_warning     = deferred_dataref("laminar/B747/debug/warning", "number")
 function after_physics()
   if debug_warning>0 then return end
     local diff=simDRTime-lastUpdate
-
-    if diff>0.5 then
+    if simDR_bus_volts[0]<5 then
+      powered = false
+      cleanAllWhenOff()
+      lastUpdate=simDRTime
+    elseif diff>0.5 and powered == true then
       B747_CAS_queue()
       B747_CAS_display()
 
@@ -1076,6 +1099,8 @@ function after_physics()
 
       B747_warning_monitor_AI()
       lastUpdate=simDRTime
+    elseif diff>4 then
+      powered = true
     end
 end
 

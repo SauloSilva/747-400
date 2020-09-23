@@ -388,6 +388,16 @@ function B747_ap_switch_speed_mode_CMDhandler(phase, duration)
 		end
 		B747DR_ap_vnav_state=0
 		B747DR_ap_inVNAVdescent =0
+		
+		if switchingIASMode==0 then  
+		  if simDR_autopilot_airspeed_is_mach == 0 then
+			simDR_autopilot_airspeed_kts = math.min(B747DR_ap_ias_dial_value,maxSafeSpeed)
+		  elseif simDR_autopilot_airspeed_is_mach == 1 and B747DR_ap_ias_dial_value* 0.01 > 0.4 then
+			simDR_autopilot_airspeed_kts_mach = math.min(B747DR_ap_ias_dial_value* 0.01,maxmach-0.01) ---roundToIncrement(B747DR_ap_ias_dial_value, 1) * 0.01
+
+		  end
+		end
+		
 	elseif phase == 2 then
 		B747_ap_button_switch_position_target[1] = 0									-- SET THE SPEED SWITCH ANIMATION TO "OUT"				
 	 
