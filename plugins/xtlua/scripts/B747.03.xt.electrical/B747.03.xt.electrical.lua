@@ -104,7 +104,11 @@ simDR_apu_N1_pct                = find_dataref("sim/cockpit2/electrical/APU_N1_p
 simDR_apu_running               = find_dataref("sim/cockpit2/electrical/APU_running")
 
 simDR_generator_on              = find_dataref("sim/cockpit2/electrical/generator_on")
-
+simDR_generator_off              = find_dataref("sim/cockpit2/annunciators/generator_off")
+simDR_esys0              = find_dataref("sim/operation/failures/rel_esys")
+simDR_esys1              = find_dataref("sim/operation/failures/rel_esys2")
+simDR_esys2              = find_dataref("sim/operation/failures/rel_esys3")
+simDR_esys3              = find_dataref("sim/operation/failures/rel_esys4")
 
 
 
@@ -115,7 +119,10 @@ simDR_generator_on              = find_dataref("sim/cockpit2/electrical/generato
 
 B747DR_button_switch_position       = find_dataref("laminar/B747/button_switch/position")
 B747DR_elec_ext_pwr_1_switch_mode   = find_dataref("laminar/B747/elec_ext_pwr_1/switch_mode")
+B747DR_elec_ext_pwr_2_switch_mode   = find_dataref("laminar/B747/elec_ext_pwr_2/switch_mode")
 B747DR_elec_apu_pwr_1_switch_mode   = find_dataref("laminar/B747/apu_pwr_1/switch_mode")
+B747DR_elec_apu_pwr_2_switch_mode   = find_dataref("laminar/B747/apu_pwr_2/switch_mode")
+
 B747DR_gen_drive_disc_status        = find_dataref("laminar/B747/electrical/generator/drive_disc_status")
 
 B747DR_CAS_advisory_status          = find_dataref("laminar/B747/CAS/advisory_status")
@@ -135,7 +142,9 @@ B747DR_elec_auto_ignit_sel_pos      = deferred_dataref("laminar/B747/electrical/
 B747DR_elec_apu_inlet_door_pos      = deferred_dataref("laminar/B747/electrical/apu_inlet_door", "number")
 
 B747DR_elec_ext_pwr1_available      = deferred_dataref("laminar/B747/electrical/ext_pwr1_avail", "number")
-
+B747DR_elec_ext_pwr2_available      = deferred_dataref("laminar/B747/electrical/ext_pwr2_avail", "number")
+B747DR_elec_apu_pwr1_available      = deferred_dataref("laminar/B747/electrical/apu_pwr1_avail", "number")
+B747DR_elec_apu_pwr2_available      = deferred_dataref("laminar/B747/electrical/apu_pwr2_avail", "number")
 B747DR_init_elec_CD                 = deferred_dataref("laminar/B747/elec/init_CD", "number")
 
 
@@ -396,13 +405,16 @@ function B747_external_power()
         and simDR_engine_running[3] == 0
     then
         B747DR_elec_ext_pwr1_available = 1
+	B747DR_elec_ext_pwr2_available = 1
     else
         B747DR_elec_ext_pwr1_available = 0
+	B747DR_elec_ext_pwr2_available = 0
     end
 
     -- EXTERNAL POWER ON/OFF
-    if B747DR_elec_ext_pwr1_available == 1
-        and B747DR_elec_ext_pwr_1_switch_mode == 1
+    if (B747DR_elec_ext_pwr1_available == 1
+        and B747DR_elec_ext_pwr_1_switch_mode == 1) or (B747DR_elec_ext_pwr2_available == 1
+        and B747DR_elec_ext_pwr_2_switch_mode == 1)
     then
         simDR_gpu_on = 1
     else
@@ -419,21 +431,43 @@ end
 function B747_bus_tie()
 
     if B747DR_button_switch_position[18] > 0.95
-        and B747DR_button_switch_position[19] > 0.95
-        and B747DR_button_switch_position[20] > 0.95
-        and B747DR_button_switch_position[21] > 0.95
-        and simDR_cross_tie == 0
+        or B747DR_button_switch_position[19] > 0.95
+        or B747DR_button_switch_position[20] > 0.95
+        or B747DR_button_switch_position[21] > 0.95
+        or simDR_cross_tie == 0
     then
         simDR_cross_tie = 1
     elseif (B747DR_button_switch_position[18] < 0.05
-        or B747DR_button_switch_position[19] < 0.05
-        or B747DR_button_switch_position[20] < 0.05
-        or B747DR_button_switch_position[21] < 0.05)
+        and B747DR_button_switch_position[19] < 0.05
+        and B747DR_button_switch_position[20] < 0.05
+        and B747DR_button_switch_position[21] < 0.05)
         and simDR_cross_tie == 1
     then
         simDR_cross_tie = 0
     end
-
+    
+    if B747DR_button_switch_position[18] < 0.05 and simDR_generator_off[0] ==1 then
+      simDR_esys0=1
+    else
+      simDR_esys0=0
+    end
+    if B747DR_button_switch_position[19] < 0.05 and simDR_generator_off[1] ==1 then
+      simDR_esys1=1
+    else
+      simDR_esys1=0
+    end
+    
+    if B747DR_button_switch_position[20] < 0.05 and simDR_generator_off[2] ==1 then
+      simDR_esys2=1
+    else
+      simDR_esys2=0
+    end
+    
+    if B747DR_button_switch_position[21] < 0.05 and simDR_generator_off[3] ==1 then
+      simDR_esys3=1
+    else
+      simDR_esys3=0
+    end
 end
 
 
@@ -445,6 +479,7 @@ function B747_apu_shutdown()
 
     simDR_apu_start_switch_mode = 0
     B747DR_elec_apu_pwr_1_switch_mode = 0
+    B747DR_elec_apu_pwr_2_switch_mode = 0
     B747_apu_inlet_door_target_pos = 0.0
 
 end
@@ -484,20 +519,43 @@ function B747_apu()
 
 
     -- APU GENERATOR
-    if simDR_aircraft_on_ground == 1 then
-        if B747DR_elec_apu_pwr_1_switch_mode == 1
-            and simDR_apu_N1_pct > 95.0
-            and simDR_apu_gen_on == 0
-        then
-            simDR_apu_gen_on = 1
-        elseif B747DR_elec_apu_pwr_1_switch_mode == 0 then
-            simDR_apu_gen_on = 0
-        end
+    if B747DR_elec_apu_sel_pos == 1 and simDR_apu_N1_pct > 95.0 then
+      B747DR_elec_apu_pwr1_available      = 1
+      B747DR_elec_apu_pwr2_available      = 1
     else
-        if simDR_apu_gen_on == 1 then
-            simDR_apu_gen_on = 0
-        end
+      B747DR_elec_apu_pwr1_available      = 0
+      B747DR_elec_apu_pwr2_available      = 0
     end
+    if simDR_aircraft_on_ground == 1 then
+      if (B747DR_elec_apu_pwr_1_switch_mode == 1 or B747DR_elec_apu_pwr_2_switch_mode == 1)
+             and simDR_apu_N1_pct > 95.0
+             and simDR_apu_gen_on == 0
+         then
+             simDR_apu_gen_on = 1
+	 elseif B747DR_elec_apu_pwr_1_switch_mode == 0 and B747DR_elec_apu_pwr_2_switch_mode==0 then
+	    simDR_apu_gen_on = 0
+	 end
+    elseif simDR_apu_gen_on == 1 and B747DR_elec_apu_pwr_1_switch_mode == 0 and B747DR_elec_apu_pwr_2_switch_mode==0 then
+        simDR_apu_gen_on = 0    
+    end
+--     if simDR_aircraft_on_ground == 1 then
+--         if (B747DR_elec_apu_pwr_1_switch_mode == 1 or B747DR_elec_apu_pwr_2_switch_mode == 1)
+--             and simDR_apu_N1_pct > 95.0
+--             and simDR_apu_gen_on == 0
+--         then
+--             simDR_apu_gen_on = 1
+-- 	    B747DR_elec_apu_pwr1_available      = 1
+-- 	    B747DR_elec_apu_pwr2_available      = 1
+--         elseif B747DR_elec_apu_pwr_1_switch_mode == 0 and B747DR_elec_apu_pwr_2_switch_mode==0 then
+--             simDR_apu_gen_on = 0
+--         end
+--     else
+--         if simDR_apu_gen_on == 1 and B747DR_elec_apu_pwr_1_switch_mode == 0 and B747DR_elec_apu_pwr_2_switch_mode==0 then
+--             simDR_apu_gen_on = 0
+-- 	    B747DR_elec_apu_pwr1_available      = 0
+-- 	    B747DR_elec_apu_pwr2_available      = 0
+--         end
+--     end
 
 end
 

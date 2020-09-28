@@ -60,7 +60,9 @@ B747DR_elec_auto_ignit_sel_pos      = deferred_dataref("laminar/B747/electrical/
 B747DR_elec_apu_inlet_door_pos      = deferred_dataref("laminar/B747/electrical/apu_inlet_door", "number")
 
 B747DR_elec_ext_pwr1_available      = deferred_dataref("laminar/B747/electrical/ext_pwr1_avail", "number")
-
+B747DR_elec_ext_pwr2_available      = deferred_dataref("laminar/B747/electrical/ext_pwr2_avail", "number")
+B747DR_elec_apu_pwr1_available      = deferred_dataref("laminar/B747/electrical/apu_pwr1_avail", "number")
+B747DR_elec_apu_pwr2_available      = deferred_dataref("laminar/B747/electrical/apu_pwr2_avail", "number")
 B747DR_init_elec_CD                 = deferred_dataref("laminar/B747/elec/init_CD", "number")
 
 

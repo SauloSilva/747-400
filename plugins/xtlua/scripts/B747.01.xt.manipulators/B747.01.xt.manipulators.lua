@@ -130,10 +130,14 @@ B747DR_init_manip_CD                = deferred_dataref("laminar/B747/manip/init_
 B747DR_button_switch_cover_position = deferred_dataref("laminar/B747/button_switch_cover/position", "array[" .. tostring(NUM_BTN_SW_COVERS) .. "]")
 B747DR_button_switch_position       = deferred_dataref("laminar/B747/button_switch/position", "array[" .. tostring(NUM_BTN_SW) .. "]")
 B747DR_toggle_switch_position       = deferred_dataref("laminar/B747/toggle_switch/position", "array[" .. tostring(NUM_TOGGLE_SW) .. "]")
-
+B747DR_elec_ext_pwr1_available      = find_dataref("laminar/B747/electrical/ext_pwr1_avail")
+B747DR_elec_ext_pwr2_available      = find_dataref("laminar/B747/electrical/ext_pwr2_avail")
+B747DR_elec_apu_pwr1_available      = find_dataref("laminar/B747/electrical/apu_pwr1_avail")
+B747DR_elec_apu_pwr2_available      = find_dataref("laminar/B747/electrical/apu_pwr2_avail")
 B747DR_elec_ext_pwr_1_switch_mode   = deferred_dataref("laminar/B747/elec_ext_pwr_1/switch_mode", "number")
 B747DR_elec_apu_pwr_1_switch_mode   = deferred_dataref("laminar/B747/apu_pwr_1/switch_mode", "number")
-
+B747DR_elec_ext_pwr_2_switch_mode   = deferred_dataref("laminar/B747/elec_ext_pwr_2/switch_mode", "number")
+B747DR_elec_apu_pwr_2_switch_mode   = deferred_dataref("laminar/B747/apu_pwr_2/switch_mode", "number")
 B747DR_gen_drive_disc_status        = deferred_dataref("laminar/B747/electrical/generator/drive_disc_status", "array[4]")
 
 
@@ -575,7 +579,11 @@ end
 function B747_elec_ext_pwr_1_CMDhandler(phase, duration)
     if phase == 0 then
         B747_button_switch_position_target[14] = 1
-        B747DR_elec_ext_pwr_1_switch_mode = 1.0 - B747DR_elec_ext_pwr_1_switch_mode
+	if B747DR_elec_ext_pwr1_available==1 then 
+	  B747DR_elec_ext_pwr_1_switch_mode = 1.0 - B747DR_elec_ext_pwr_1_switch_mode
+	  
+	  B747DR_elec_apu_pwr_1_switch_mode = 0
+	end
     elseif phase == 1 then
         B747_button_switch_position_target[14] = 1
     elseif phase == 2 then
@@ -587,6 +595,10 @@ end
 function B747_elec_ext_pwr_2_CMDhandler(phase, duration)
     if phase == 0 then
         B747_button_switch_position_target[15] = 1
+	if B747DR_elec_ext_pwr2_available==1 then 
+	  B747DR_elec_ext_pwr_2_switch_mode = 1.0 - B747DR_elec_ext_pwr_2_switch_mode
+	  B747DR_elec_apu_pwr_2_switch_mode = 0
+	end
     elseif phase == 1 then
         B747_button_switch_position_target[15] = 1
     elseif phase == 2 then
@@ -597,7 +609,10 @@ end
 function B747_elec_apu_gen_1_CMDhandler(phase, duration)
     if phase == 0 then
         B747_button_switch_position_target[16] = 1
-        B747DR_elec_apu_pwr_1_switch_mode = 1.0 - B747DR_elec_apu_pwr_1_switch_mode
+	if B747DR_elec_apu_pwr1_available==1 then 
+	  B747DR_elec_apu_pwr_1_switch_mode = 1.0 - B747DR_elec_apu_pwr_1_switch_mode
+	  B747DR_elec_ext_pwr_1_switch_mode = 0
+	end
     elseif phase == 1 then
         B747_button_switch_position_target[16] = 1
     elseif phase == 2 then
@@ -608,6 +623,10 @@ end
 function B747_elec_apu_gen_2_CMDhandler(phase, duration)
     if phase == 0 then
         B747_button_switch_position_target[17] = 1
+	if B747DR_elec_apu_pwr2_available==1 then 
+	  B747DR_elec_apu_pwr_2_switch_mode = 1.0 - B747DR_elec_apu_pwr_2_switch_mode
+	  B747DR_elec_ext_pwr_2_switch_mode = 0
+	end
     elseif phase == 1 then
         B747_button_switch_position_target[17] = 1
     elseif phase == 2 then
