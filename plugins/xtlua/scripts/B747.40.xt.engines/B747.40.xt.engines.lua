@@ -1593,15 +1593,8 @@ function B747_flight_start_engines()
 end
 local B747_igniter_status = {0, 0, 0, 0}
 local B747_starter_status = {0, 0, 0, 0}
-function B747_electronic_engine_control()
-
-
-    -------------------------------------------------------------------------------------
-    -----                         E N G I N E   S T A R T                           -----
-    -------------------------------------------------------------------------------------
-
-    -- ENGINE START SWITCH OFF
-    local function B747_engine_start_sw_off(engine)
+-- ENGINE START SWITCH OFF
+function B747_engine_start_sw_off(engine)
 
         if engine == 0 then
             if B747DR_toggle_switch_position[16] > 0 then B747CMD_engine_start_switch1_off:once() end
@@ -1617,9 +1610,8 @@ function B747_electronic_engine_control()
         end
 
     end
-    
     -- ENGINE STARTERS ON
-    local function B747_engine_starter_on(engine)
+    function B747_engine_starter_on(engine)
 
         if engine == 0 then
             if simDR_engine_starter_status[0] < 4 and B747_starter_status[1]==0 then simCMD_starter_on_1:start() B747_starter_status[1]=1 end
@@ -1635,9 +1627,8 @@ function B747_electronic_engine_control()
         end
 
     end
-
     -- ENGINE STARTERS OFF
-    local function B747_engine_starter_off(engine)
+    function B747_engine_starter_off(engine)
 
         if engine == 0 then
             if simDR_engine_starter_status[0] > 3 and B747_starter_status[1]==1 then simCMD_starter_on_1:stop() simCMD_starter_off_1:once() B747_starter_status[1]=0 end
@@ -1653,6 +1644,12 @@ function B747_electronic_engine_control()
         end
 
     end
+function B747_electronic_engine_control()
+
+
+    -------------------------------------------------------------------------------------
+    -----                         E N G I N E   S T A R T                           -----
+    -------------------------------------------------------------------------------------
 
 
 

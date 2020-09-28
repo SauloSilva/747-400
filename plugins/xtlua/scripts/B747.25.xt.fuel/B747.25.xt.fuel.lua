@@ -1206,34 +1206,46 @@ function B747_fuel_valve_control()
     B747.fuel.center_tank.refuel_vlv_R.target_pos = 0                                   -- NOT MODELED
 
     -- JETTISON VALVE (LEFT) --------------------------------------------------------
-    B747.fuel.center_tank.jett_vlv_L.target_pos = 0                                     -- DEFAULT TO VALVE CLOSED
+    
     if ((B747DR_button_switch_position[46] > 0.95 or B747DR_button_switch_position[47] > 0.95) and B747DR_fuel_jettison_sel_dial_pos > 0) then
         if simDR_fueL_tank_weight_total_kg > (B747DR_fuel_to_remain_rheo * 1000) then   -- JETTISON GOAL HAS NOT BEEN MET
             B747.fuel.center_tank.jett_vlv_L.target_pos = 1 * power                     -- OPEN THE VALVE
+	else
+	    B747.fuel.center_tank.jett_vlv_L.target_pos = 0                                     -- DEFAULT TO VALVE CLOSED
         end
+    else
+	B747.fuel.center_tank.jett_vlv_L.target_pos = 0                                     -- DEFAULT TO VALVE CLOSED
     end
 
 
     -- JETTISON VALVE (RIGHT) -------------------------------------------------------
-    B747.fuel.center_tank.jett_vlv_R.target_pos = 0                                     -- DEFAULT TO VALVE CLOSED
+   
     if ((B747DR_button_switch_position[46] > 0.95 or B747DR_button_switch_position[47] > 0.95) and B747DR_fuel_jettison_sel_dial_pos > 0) then
         if simDR_fueL_tank_weight_total_kg > (B747DR_fuel_to_remain_rheo * 1000) then   -- JETTISON GOAL HAS NOT BEEN MET
             B747.fuel.center_tank.jett_vlv_R.target_pos = 1 * power                     -- OPEN THE VALVE
+	else
+	   B747.fuel.center_tank.jett_vlv_R.target_pos = 0                                     -- DEFAULT TO VALVE CLOSED
         end
+    else
+       B747.fuel.center_tank.jett_vlv_R.target_pos = 0                                     -- DEFAULT TO VALVE CLOSED
     end
 
 
     -- STABILIZER TRANSFER VALVE (LEFT) ---------------------------------------------
-    B747.fuel.center_tank.stab_xfr_vlv_L.target_pos = 0                                 -- DEFAULT TO VALVE CLOSED
+   
     if B747_stab_fuel_xfr_L == 1 then                                                   -- LEFT STABILIZER FUEL TRANSFER COMMANDED
         B747.fuel.center_tank.stab_xfr_vlv_L.target_pos = 1 * power                     -- OPEN THE VALVE
+    else
+	B747.fuel.center_tank.stab_xfr_vlv_L.target_pos = 0                                 -- DEFAULT TO VALVE CLOSED
     end
 
 
     -- STABILIZER TRANSFER VALVE (LEFT) ---------------------------------------------
-    B747.fuel.center_tank.stab_xfr_vlv_R.target_pos = 0                                 -- DEFAULT TO VALVE CLOSED
+    
     if B747_stab_fuel_xfr_R == 1 then                                                   -- RIGHT STABILIZER FUEL TRANSFER COMMANDED
         B747.fuel.center_tank.stab_xfr_vlv_R.target_pos = 1 * power                     -- OPEN THE VALVE
+    else
+	B747.fuel.center_tank.stab_xfr_vlv_R.target_pos = 0                                 -- DEFAULT TO VALVE CLOSED
     end
 
 
@@ -1248,14 +1260,16 @@ function B747_fuel_valve_control()
     B747.fuel.main1_tank.refuel_vlv.target_pos = 0                                      -- (NOT MODELED)
 
     -- CROSSFEED VALVE --------------------------------------------------------------
-    B747.fuel.engine1.xfeed_vlv.target_pos = 0                                       -- DEFAULT TO VALVE CLOSED
+    
     if B747DR_button_switch_position[48] > 0.95 then                                 -- VALVE SWITCH DEPRESSED
         B747.fuel.engine1.xfeed_vlv.target_pos = 1 * power                           -- OPEN THE VALVE
+	else
+	  B747.fuel.engine1.xfeed_vlv.target_pos = 0                                       -- DEFAULT TO VALVE CLOSED
     end
 
 
     -- MAIN 1 TO MAIN 2 TRANSFER VALVE ----------------------------------------------
-    B747.fuel.main1_tank.main_xfr_vlv.target_pos = 0                                    -- DEFAULT TO VALVE CLOSED
+    
 
     --- JETTISON MODE ---
     if ((B747DR_button_switch_position[46] > 0.95 or B747DR_button_switch_position[47] > 0.95) and B747DR_fuel_jettison_sel_dial_pos > 0) then
@@ -1266,26 +1280,34 @@ function B747_fuel_valve_control()
             then
                 B747.fuel.main1_tank.main_xfr_vlv.target_pos = 1 * power                -- OPEN THE VALVE
                 B747_main1_jett_fuel_xfr = 1                                            -- SET THE JETTISON TRANSFER FLAG
+	    else
+	      B747.fuel.main1_tank.main_xfr_vlv.target_pos = 0                                    -- DEFAULT TO VALVE CLOSED
             end
+	    else
+	      B747.fuel.main1_tank.main_xfr_vlv.target_pos = 0                                    -- DEFAULT TO VALVE CLOSED
         end
 
     --- MANUAL TRANSFER MODE ---
     else
-        B747_main1_jett_fuel_xfr = 0                                                    -- RESET THE JETTISON TRANSFER FLAG
+       
         if B747DR_button_switch_position[43] > 0.95                                     -- MAIN 1&4 TRANSFER SWITCH IS DEPRESSED
             and simDR_fuel_tank_weight_kg[1] > 0.0                                      -- DON'T OPEN VALVE IF NO FUEL TO TRANSFER
         then
             B747.fuel.main1_tank.main_xfr_vlv.target_pos = 1 * power                    -- OPEN THE VALVE
+	else
+	   B747_main1_jett_fuel_xfr = 0                                                    -- RESET THE JETTISON TRANSFER FLAG
         end
     end
 
 
     -- SPAR VALVE -------------------------------------------------------------------
-    B747.fuel.spar_vlv1.target_pos = 0                                                  -- DEFAULT TO VALVE CLOSED
+   
     if B747DR_fuel_control_toggle_switch_pos[0] > 0.95                                  -- FUEL CUTOFF SWITCH IS IN THE "RUN" POSITION
         and simDR_engine_fire[0] < 6                                                    -- THERE IS NO ENGINE FIRE
     then
         B747.fuel.spar_vlv1.target_pos = 1 * power                                      -- OPEN THE VALVE
+    else
+       B747.fuel.spar_vlv1.target_pos = 0                                                  -- DEFAULT TO VALVE CLOSED
     end
 
 
@@ -1310,27 +1332,35 @@ function B747_fuel_valve_control()
 
 
     -- JETTISON VALVE ---------------------------------------------------------------
-    B747.fuel.main2_tank.jett_vlv.target_pos = 0                                        -- DEFAULT TO VALVE CLOSED
+    
     if ((B747DR_button_switch_position[46] > 0.95 or B747DR_button_switch_position[47] > 0.95) and B747DR_fuel_jettison_sel_dial_pos > 0) then
         if simDR_fueL_tank_weight_total_kg > (B747DR_fuel_to_remain_rheo * 1000) then            -- JETTISON GOAL HAS NOT BEEN MET
             B747.fuel.main2_tank.jett_vlv.target_pos = 1 * power                        -- OPEN THE VALVE
+	else
+	  B747.fuel.main2_tank.jett_vlv.target_pos = 0                                        -- DEFAULT TO VALVE CLOSED
         end
+    else
+	B747.fuel.main2_tank.jett_vlv.target_pos = 0                                        -- DEFAULT TO VALVE CLOSED
     end
 
 
     -- APU VALVE --------------------------------------------------------------------
-    B747.fuel.main2_tank.apu_vlv.target_pos = 0
+    
     if B747DR_elec_apu_sel_pos >= 1 then
         B747.fuel.main2_tank.apu_vlv.target_pos = 1 * power
+    else
+      B747.fuel.main2_tank.apu_vlv.target_pos = 0
     end
 
 
     -- SPAR VALVE -------------------------------------------------------------------
-    B747.fuel.spar_vlv2.target_pos = 0                                                  -- DEFAULT TO VALVE CLOSED
+   
     if B747DR_fuel_control_toggle_switch_pos[1] > 0.95                                  -- FUEL CUTOFF SWITCH IS IN THE "RUN" POSITION
         and simDR_engine_fire[1] < 6                                                    -- THERE IS NO ENGINE FIRE
     then
         B747.fuel.spar_vlv2.target_pos = 1 * power                                      -- OPEN THE VALVE
+    else
+       B747.fuel.spar_vlv2.target_pos = 0                                                  -- DEFAULT TO VALVE CLOSED
     end
 
 
@@ -1343,32 +1373,42 @@ function B747_fuel_valve_control()
 
 
     -- CROSSFEED VALVE --------------------------------------------------------------
-    B747.fuel.engine3.xfeed_vlv.target_pos = 0
+    
     if B747DR_button_switch_position[50] > 0.95 then                                    -- VALVE SWITCH DEPRESSED
-        B747.fuel.engine3.xfeed_vlv.target_pos = 1 * power                              -- OPEN THE VALVE
+        
         if simDR_all_wheels_on_ground == 1                                              -- AIRCRAFT IS ON THE GROUND
             and (simDR_flap_deploy_ratio >= 0.500 and simDR_flap_deploy_ratio <= 0.667) -- FLAPS ARE IN THE TAKEOFF POSITION (FLAPS 10 TO FLAPS 20)
         then
             B747.fuel.engine3.xfeed_vlv.target_pos = 0
+	else
+	    B747.fuel.engine3.xfeed_vlv.target_pos = 1 * power                              -- OPEN THE VALVE
         end
+    else
+	B747.fuel.engine3.xfeed_vlv.target_pos = 0
     end
 
 
     -- JETTISON VALVE ---------------------------------------------------------------
-    B747.fuel.main3_tank.jett_vlv.target_pos = 0                                        -- DEFAULT TO VALVE CLOSED
+    
     if ((B747DR_button_switch_position[46] > 0.95 or B747DR_button_switch_position[47] > 0.95) and B747DR_fuel_jettison_sel_dial_pos > 0) then
         if simDR_fueL_tank_weight_total_kg > (B747DR_fuel_to_remain_rheo * 1000) then            -- JETTISON GOAL HAS NOT BEEN MET
             B747.fuel.main3_tank.jett_vlv.target_pos = 1 * power                        -- OPEN THE VALVE
+    else
+      B747.fuel.main3_tank.jett_vlv.target_pos = 0                                        -- DEFAULT TO VALVE CLOSED
         end
+	else
+	  B747.fuel.main3_tank.jett_vlv.target_pos = 0                                        -- DEFAULT TO VALVE CLOSED
     end
 
 
     -- SPAR VALVE -------------------------------------------------------------------
-    B747.fuel.spar_vlv3.target_pos = 0                                                  -- DEFAULT TO VALVE CLOSED
+    
     if B747DR_fuel_control_toggle_switch_pos[2] > 0.95                                  -- FUEL CUTOFF SWITCH IS IN THE "RUN" POSITION
         and simDR_engine_fire[2] < 6                                                    -- THERE IS NO ENGINE FIRE
     then
         B747.fuel.spar_vlv3.target_pos = 1 * power                                      -- OPEN THE VALVE
+    else
+      B747.fuel.spar_vlv3.target_pos = 0                                                  -- DEFAULT TO VALVE CLOSED
     end
 
 
@@ -1380,14 +1420,16 @@ function B747_fuel_valve_control()
 
 
     -- CROSSFEED VALVE --------------------------------------------------------------
-    B747.fuel.engine4.xfeed_vlv.target_pos = 0                                          -- DEFAULT TO VALVE CLOSED
+    
     if B747DR_button_switch_position[51] > 0.95 then                                    -- VALVE SWITCH DEPRESSED
         B747.fuel.engine4.xfeed_vlv.target_pos = 1 * power                              -- OPEN THE VALVE
+	else
+	  B747.fuel.engine4.xfeed_vlv.target_pos = 0                                          -- DEFAULT TO VALVE CLOSED
     end
 
 
     -- MAIN 4 TO MAIN 3 TRANSFER VALVE ----------------------------------------------
-    B747.fuel.main4_tank.main_xfr_vlv.target_pos = 0                                    -- DEFAULT TO VALVE CLOSED
+   
 
     --- JETTISON MODE ---
     if ((B747DR_button_switch_position[46] > 0.95 or B747DR_button_switch_position[47] > 0.95) and B747DR_fuel_jettison_sel_dial_pos > 0) then
@@ -1398,7 +1440,11 @@ function B747_fuel_valve_control()
             then
                 B747.fuel.main4_tank.main_xfr_vlv.target_pos = 1 * power                -- OPEN THE VALVE
                 B747_main4_jett_fuel_xfr = 1                                            -- SET THE JETTISON TRANSFER FLAG
+	    else
+	       B747.fuel.main4_tank.main_xfr_vlv.target_pos = 0                                    -- DEFAULT TO VALVE CLOSED
             end
+	else 
+	   B747.fuel.main4_tank.main_xfr_vlv.target_pos = 0                                    -- DEFAULT TO VALVE CLOSED
         end
 
     --- MANUAL TRANSFER MODE ---
@@ -1408,16 +1454,21 @@ function B747_fuel_valve_control()
             and simDR_fuel_tank_weight_kg[4] > 0.0                                      -- DON'T OPEN VALVE IF NO FUEL TO TRANSFER
         then
             B747.fuel.main4_tank.main_xfr_vlv.target_pos = 1 * power                    -- OPEN THE VALVE
+	else
+	   B747.fuel.main4_tank.main_xfr_vlv.target_pos = 0                                    -- DEFAULT TO VALVE CLOSED
+	   
         end
     end
 
 
     -- SPAR VALVE -------------------------------------------------------------------
-    B747.fuel.spar_vlv4.target_pos = 0                                                  -- DEFAULT TO VALVE CLOSED
+    
     if B747DR_fuel_control_toggle_switch_pos[3] > 0.95                                  -- FUEL CUTOFF SWITCH IS IN THE "RUN" POSITION
         and simDR_engine_fire[3] < 6                                                    -- THERE IS NO ENGINE FIRE
     then
         B747.fuel.spar_vlv4.target_pos = 1 * power                                      -- OPEN THE VALVE
+    else
+      B747.fuel.spar_vlv4.target_pos = 0                                                  -- DEFAULT TO VALVE CLOSED
     end
 
 
@@ -1430,35 +1481,43 @@ function B747_fuel_valve_control()
     B747.fuel.stab_tank.isolation_vlv_R.target_pos	= 0                                 -- (NOT MODELED)
 
     -- TRANSFER/JETTISON VALVE (LEFT) -----------------------------------------------
-    B747.fuel.stab_tank.xfr_jett_vlv_L.target_pos = 0                                   -- DEFAULT TO VALVE CLOSED
+    
 
     --- JETTISON MODE ---
     if ((B747DR_button_switch_position[46] > 0.95 or B747DR_button_switch_position[47] > 0.95) and B747DR_fuel_jettison_sel_dial_pos > 0) then
         if simDR_fueL_tank_weight_total_kg <= (B747DR_fuel_to_remain_rheo * 1000) then           -- JETTISON GOAL HAS NOT BEEN MET
             B747.fuel.stab_tank.xfr_jett_vlv_L.target_pos = 1 * power                   -- OPEN THE VALVE
+	else
+	    B747.fuel.stab_tank.xfr_jett_vlv_L.target_pos = 0                                   -- DEFAULT TO VALVE CLOSED
         end
 
     --- TRANSFER MODE ---
     else
         if B747_stab_fuel_xfr_L == 1 then                                               -- LEFT STABILIZER FUEL TRANSFER/JETTISON COMMANDED
             B747.fuel.stab_tank.xfr_jett_vlv_L.target_pos = 1 * power                   -- OPEN THE VALVE
+	    else
+	      B747.fuel.stab_tank.xfr_jett_vlv_L.target_pos = 0                                   -- DEFAULT TO VALVE CLOSED
         end
     end
 
 
     -- TRANSFER/JETTISON VALVE (RIGHT) ----------------------------------------------
-    B747.fuel.stab_tank.xfr_jett_vlv_R.target_pos = 0                                   -- DEFAULT TO VALVE CLOSED
+    
 
     --- JETTISON MODE ---
     if ((B747DR_button_switch_position[46] > 0.95 or B747DR_button_switch_position[47] > 0.95) and B747DR_fuel_jettison_sel_dial_pos > 0) then
         if simDR_fueL_tank_weight_total_kg <= (B747DR_fuel_to_remain_rheo * 1000) then           -- JETTISON GOAL HAS NOT BEEN MET
             B747.fuel.stab_tank.xfr_jett_vlv_R.target_pos = 1 * power                   -- OPEN THE VALVE
+    else
+      B747.fuel.stab_tank.xfr_jett_vlv_R.target_pos = 0                                   -- DEFAULT TO VALVE CLOSED
         end
 
     --- TRANSFER MODE ---
     else
         if B747_stab_fuel_xfr_R == 1 then                                               -- RIGHT STABILIZER FUEL TRANSFER/JETTISON COMMANDED
             B747.fuel.stab_tank.xfr_jett_vlv_R.target_pos = 1 * power                   -- OPEN THE VALVE
+	    else
+	      B747.fuel.stab_tank.xfr_jett_vlv_R.target_pos = 0                                   -- DEFAULT TO VALVE CLOSED
         end
     end
 
@@ -1471,7 +1530,7 @@ function B747_fuel_valve_control()
 
 
     -- TRANSFER VALVE A -------------------------------------------------------------
-    B747.fuel.res2_tank.xfr_vlv_A.target_pos = 0                                        -- DEFAULT TO VALVE CLOSED
+    
     if (simDR_fuel_tank_weight_kg[2] < 18200.0                                          -- #2 WEIGHT IS BELOW 18200.0
         or B747_res2A_fuel_xfr == 1)                                                    -- OR ONCE THE VALVE IS OPENED FOR TRANSFER, KEEP IT OPEN!
         and
@@ -1479,11 +1538,13 @@ function B747_fuel_valve_control()
     then
         B747.fuel.res2_tank.xfr_vlv_A.target_pos = 1 * power                            -- OPEN THE VALVE
         B747_res2A_fuel_xfr = 1                                                         -- SET THE TRANSFER FLAG
+    else
+	B747.fuel.res2_tank.xfr_vlv_A.target_pos = 0                                        -- DEFAULT TO VALVE CLOSED
     end
 
 
     -- TRANSFER VALVE B -------------------------------------------------------------
-    B747.fuel.res2_tank.xfr_vlv_B.target_pos = 0                                        -- DEFAULT TO VALVE CLOSED
+    
     if (simDR_fuel_tank_weight_kg[2] < 18200.0                                          -- TANK #2 WEIGHT IS BELOW 18200.0
         or B747_res2B_fuel_xfr == 1)                                                    -- OR ONCE THE VALVE IS OPENED FOR TRANSFER, KEEP IT OPEN!
         and
@@ -1491,6 +1552,8 @@ function B747_fuel_valve_control()
     then
         B747.fuel.res2_tank.xfr_vlv_B.target_pos = 1 * power                            -- OPEN THE VALVE
         B747_res2B_fuel_xfr = 1                                                         -- SET THE TRANSFER FLAG
+    else
+      B747.fuel.res2_tank.xfr_vlv_B.target_pos = 0                                        -- DEFAULT TO VALVE CLOSED
     end
 
 
@@ -1503,7 +1566,7 @@ function B747_fuel_valve_control()
 
 
     -- TRANSFER VALVE A -------------------------------------------------------------
-    B747.fuel.res3_tank.xfr_vlv_A.target_pos = 0                                        -- DEFAULT TO VALVE CLOSED
+    
     if (simDR_fuel_tank_weight_kg[3] < 18200.0                                          -- TANK #3 WEIGHT IS BELOW 18200.0
         or B747_res3A_fuel_xfr == 1)                                                    -- OR ONCE THE VALVE IS OPENED FOR TRANSFER, KEEP IT OPEN!
         and
@@ -1511,11 +1574,13 @@ function B747_fuel_valve_control()
     then
         B747.fuel.res3_tank.xfr_vlv_A.target_pos = 1 * power                            -- OPEN THE VALVE
         B747_res3A_fuel_xfr = 1                                                         -- SET THE TRANSFER FLAG
+    else
+      B747.fuel.res3_tank.xfr_vlv_A.target_pos = 0                                        -- DEFAULT TO VALVE CLOSED
     end
 
 
     -- TRANSFER VALVE B -------------------------------------------------------------
-    B747.fuel.res3_tank.xfr_vlv_B.target_pos = 0                                        -- DEFAULT TO VALVE CLOSED
+    
     if (simDR_fuel_tank_weight_kg[3] < 18200.0                                          -- TANK #3 WEIGHT IS BELOW 18200.0
         or B747_res3B_fuel_xfr == 1)                                                    -- OR ONCE THE VALVE IS OPENED FOR TRANSFER, KEEP IT OPEN!
         and
@@ -1523,6 +1588,8 @@ function B747_fuel_valve_control()
     then
         B747.fuel.res3_tank.xfr_vlv_B.target_pos = 1 * power                            -- OPEN THE VALVE
         B747_res3B_fuel_xfr = 1                                                         -- SET THE TRANSFER FLAG
+    else
+      B747.fuel.res3_tank.xfr_vlv_B.target_pos = 0                                        -- DEFAULT TO VALVE CLOSED
     end
 
 
@@ -1532,29 +1599,35 @@ function B747_fuel_valve_control()
     ---------------------------------------------------------------------------------
 
     -- JETTISON VALVE (LEFT) --------------------------------------------------------
-    B747.fuel.jett_nozzle_vlv_L.target_pos = 0
+    
     if B747DR_button_switch_position[46] > 0.95
         and B747DR_fuel_jettison_sel_dial_pos > 0
     then
         B747.fuel.jett_nozzle_vlv_L.target_pos = 1 * power
+    else
+      B747.fuel.jett_nozzle_vlv_L.target_pos = 0
     end
 
 
     -- JETTISON VALVE (RIGHT) -------------------------------------------------------
-    B747.fuel.jett_nozzle_vlv_R.target_pos = 0
+    
     if B747DR_button_switch_position[47] > 0.95
         and B747DR_fuel_jettison_sel_dial_pos > 0
     then
         B747.fuel.jett_nozzle_vlv_R.target_pos = 1 * power
+    else
+      B747.fuel.jett_nozzle_vlv_R.target_pos = 0
     end
 
 
     -- JETTISON VALVE STATUS --------------------------------------------------------
-    B747DR_gen_jett_valve_status = 0
+    
     if B747.fuel.jett_nozzle_vlv_L.pos > 0.05
         or B747.fuel.jett_nozzle_vlv_R.pos > 0.05
     then
         B747DR_gen_jett_valve_status = 1
+    else
+      B747DR_gen_jett_valve_status = 0
     end
 
 end
@@ -1624,26 +1697,7 @@ end
 
 
 
-
------ ENGINE FUEL SOURCE ------------------------------------------------------------
-function B747_engine_fuel_source()
-
-    --[[
-
-    NOTE:  ALTHOUGH IT IS FEASIBLE THAT ANY MAIN PUMP COULD SUPPLY ANY ENGINE, IT WOUYLD BE RARE AND THEREFORE IT IS NOT MODELED.
-
-    --]]
-
-    local totalFuelFLow_KgH = (simDR_eng_fuel_flow_kg_sec[0] + simDR_eng_fuel_flow_kg_sec[1] + simDR_eng_fuel_flow_kg_sec[2] + simDR_eng_fuel_flow_kg_sec[3]) * 3600.0
-    num_pressurized_oj_pumps = 0
-    if B747.fuel.center_tank.ovrd_jett_pump_L.on == 1 and simDR_fuel_tank_weight_kg[0] > 900.0 then num_pressurized_oj_pumps = num_pressurized_oj_pumps + 1 end
-    if B747.fuel.center_tank.ovrd_jett_pump_R.on == 1 and simDR_fuel_tank_weight_kg[0] > 900.0 then num_pressurized_oj_pumps = num_pressurized_oj_pumps + 1 end
-    if B747.fuel.main2_tank.ovrd_jett_pump_fwd.on == 1 and simDR_fuel_tank_weight_kg[2] > 3200.0 then num_pressurized_oj_pumps = num_pressurized_oj_pumps + 1 end
-    if B747.fuel.main2_tank.ovrd_jett_pump_aft.on == 1 and simDR_fuel_tank_weight_kg[2] > 3200.0 then num_pressurized_oj_pumps = num_pressurized_oj_pumps + 1 end
-    if B747.fuel.main3_tank.ovrd_jett_pump_fwd.on == 1 and simDR_fuel_tank_weight_kg[3] > 3200.0 then num_pressurized_oj_pumps = num_pressurized_oj_pumps + 1 end
-    if B747.fuel.main3_tank.ovrd_jett_pump_aft.on == 1 and simDR_fuel_tank_weight_kg[3] > 3200.0 then num_pressurized_oj_pumps = num_pressurized_oj_pumps + 1 end
-
-    local function set_engine_OJ_sources(source_table)
+function set_engine_OJ_sources(source_table)
 
          -- CENTER TANK
         if B747.fuel.center_tank.ovrd_jett_pump_L.on > 0 or B747.fuel.center_tank.ovrd_jett_pump_R.on > 0 then
@@ -1662,6 +1716,25 @@ function B747_engine_fuel_source()
         end
 
     end
+----- ENGINE FUEL SOURCE ------------------------------------------------------------
+function B747_engine_fuel_source()
+
+    --[[
+
+    NOTE:  ALTHOUGH IT IS FEASIBLE THAT ANY MAIN PUMP COULD SUPPLY ANY ENGINE, IT WOUYLD BE RARE AND THEREFORE IT IS NOT MODELED.
+
+    --]]
+
+    local totalFuelFLow_KgH = (simDR_eng_fuel_flow_kg_sec[0] + simDR_eng_fuel_flow_kg_sec[1] + simDR_eng_fuel_flow_kg_sec[2] + simDR_eng_fuel_flow_kg_sec[3]) * 3600.0
+    num_pressurized_oj_pumps = 0
+    if B747.fuel.center_tank.ovrd_jett_pump_L.on == 1 and simDR_fuel_tank_weight_kg[0] > 900.0 then num_pressurized_oj_pumps = num_pressurized_oj_pumps + 1 end
+    if B747.fuel.center_tank.ovrd_jett_pump_R.on == 1 and simDR_fuel_tank_weight_kg[0] > 900.0 then num_pressurized_oj_pumps = num_pressurized_oj_pumps + 1 end
+    if B747.fuel.main2_tank.ovrd_jett_pump_fwd.on == 1 and simDR_fuel_tank_weight_kg[2] > 3200.0 then num_pressurized_oj_pumps = num_pressurized_oj_pumps + 1 end
+    if B747.fuel.main2_tank.ovrd_jett_pump_aft.on == 1 and simDR_fuel_tank_weight_kg[2] > 3200.0 then num_pressurized_oj_pumps = num_pressurized_oj_pumps + 1 end
+    if B747.fuel.main3_tank.ovrd_jett_pump_fwd.on == 1 and simDR_fuel_tank_weight_kg[3] > 3200.0 then num_pressurized_oj_pumps = num_pressurized_oj_pumps + 1 end
+    if B747.fuel.main3_tank.ovrd_jett_pump_aft.on == 1 and simDR_fuel_tank_weight_kg[3] > 3200.0 then num_pressurized_oj_pumps = num_pressurized_oj_pumps + 1 end
+
+    
 
 
     ---------------------------------------------------------------------------------

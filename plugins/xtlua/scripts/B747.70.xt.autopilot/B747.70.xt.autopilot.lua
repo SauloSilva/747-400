@@ -497,7 +497,7 @@ function B747_ap_switch_vs_mode_CMDhandler(phase, duration)
 		simDR_autopilot_altitude_ft=B747DR_autopilot_altitude_ft
 		B747DR_ap_vnav_state=0
 		B747DR_ap_inVNAVdescent =0
-		B747DR_autopilot_vs_fpm=0
+		B747DR_autopilot_vs_fpm=B744_fpm
 		--print("to VS mode")
 		simCMD_autopilot_vert_speed_mode:once()
 		--if simDR_autopilot_vs_status < 1 then
@@ -506,7 +506,7 @@ function B747_ap_switch_vs_mode_CMDhandler(phase, duration)
 	elseif phase ==2 then
 	  --for autpilot
 		  
-		  simDR_autopilot_vs_fpm=0
+		  simDR_autopilot_vs_fpm=B744_fpm
 		  
 	end
 end
@@ -1861,7 +1861,7 @@ function B747_ap_altitude()
 		simCMD_autopilot_autothrottle_off:once()									-- DEACTIVATE THE AUTOTHROTTLE
 		B747DR_ap_inVNAVdescent =1
 		print("fix idle throttle")
-	  elseif B747DR_ap_inVNAVdescent >0 and simDR_autopilot_autothrottle_enabled == 0 and (simDR_ind_airspeed_kts_pilot<B747DR_airspeed_Vmc+15) then
+	  elseif B747DR_ap_inVNAVdescent >0 and simDR_autopilot_autothrottle_enabled == 0 and (simDR_ind_airspeed_kts_pilot<B747DR_airspeed_Vmc+15) and B747DR_toggle_switch_position[29] == 1 then
 		simCMD_autopilot_autothrottle_on:once()
 		--B747DR_ap_inVNAVdescent =1
 		print("fix idle throttle to climb/maintain")
@@ -1895,7 +1895,7 @@ function B747_ap_altitude()
 	  elseif B747DR_ap_inVNAVdescent ==1 and simDR_autopilot_vs_status == 0 and simDR_radarAlt1>1000 then
 	    print("waiting to resume descent "..diff.." "..diff2.." "..simDR_radarAlt1)
 	  end
-	  if B747DR_ap_inVNAVdescent == 2 and ((simDR_autopilot_alt_hold_status == 2 or simDR_autopilot_vs_status == 0) and inVnavAlt<1) and (diff2<-1000) then 
+	  if B747DR_ap_inVNAVdescent == 2 and ((simDR_autopilot_alt_hold_status == 2 or simDR_autopilot_vs_status == 0) and inVnavAlt<1) and (diff2<-1000) and (diff3<-1000) then 
 	      B747DR_ap_inVNAVdescent =1 --has simDR_autopilot_alt_hold_status == 2 in condition
 	    end
 	  --if simDR_pressureAlt1>simDR_autopilot_altitude_ft and simDR_autopilot_vs_status == 2 and fms~=nill and table.getn(fms)>2 and fmstargetIndex>0 then
@@ -1946,7 +1946,7 @@ function B747_ap_altitude()
 		
 		fmstargetIndex=targetIndex
 		fmscurrentIndex=currentIndex
-		if simDR_autopilot_autothrottle_enabled == 0 and B747DR_engine_TOGA_mode == 0 and B747DR_ap_inVNAVdescent > 0 then							-- AUTOTHROTTLE IS "OFF"
+		if simDR_autopilot_autothrottle_enabled == 0 and B747DR_engine_TOGA_mode == 0 and B747DR_ap_inVNAVdescent > 0 and B747DR_toggle_switch_position[29] == 1 then							-- AUTOTHROTTLE IS "OFF"
 			simCMD_autopilot_autothrottle_on:once()									-- ACTIVATE THE AUTOTHROTTLE
 		end
 		if simDR_autopilot_flch_status==0 and B747DR_engine_TOGA_mode == 0 and B747DR_ap_inVNAVdescent > 0 then
@@ -1957,7 +1957,7 @@ function B747_ap_altitude()
 		--print("FMS use descend i=" .. targetIndex.. "@" .. currentIndex .. ":" ..fms[targetIndex][1] .. ":" .. fms[targetIndex][2] .. ":" .. fms[targetIndex][3] .. ":" .. fms[targetIndex][4] .. ":" .. fms[targetIndex][5] .. ":" .. fms[targetIndex][6] .. ":" .. fms[targetIndex][7] .. ":" .. fms[targetIndex][8].. ":" .. fms[targetIndex][9])
 		if simDR_autopilot_altitude_ft> simDR_pressureAlt1+500 and simDR_autopilot_alt_hold_status < 2 then
 		  simCMD_autopilot_alt_hold_mode:once()
-		  if simDR_autopilot_autothrottle_enabled == 0 then							-- AUTOTHROTTLE IS "OFF"
+		  if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 then							-- AUTOTHROTTLE IS "OFF"
 			simCMD_autopilot_autothrottle_on:once()									-- ACTIVATE THE AUTOTHROTTLE
 			if B747DR_engine_TOGA_mode >0 then B747DR_engine_TOGA_mode = 0 end	-- CANX ENGINE TOGA IF ACTIVE
 		  end	
@@ -2606,6 +2606,7 @@ function after_physics()
     local groundspeed=simDR_groundspeed--constant refresh of dat
     local latitude=simDR_latitude--constant refresh of dat
     local longitude=simDR_longitude--constant refresh of dat
+    local vsi=B744_fpm
     --print(B747DR_FMSdata)
     if string.len(B747DR_FMSdata)>0 then
       fmsData=json.decode(B747DR_FMSdata)
