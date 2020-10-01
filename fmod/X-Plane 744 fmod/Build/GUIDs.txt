@@ -10,5 +10,5 @@
 {751f5066-4651-4afb-a410-4cb9db0894c9} bus:/Master/Interior
 {d8526059-b27c-4eae-9b14-a1ee1cb3dfa1} bus:/Master/Radios
 {77575f3b-b9cd-4bff-9056-637cff744a14} bus:/Master/UI
-{87fb5dc9-9ddc-4347-9143-26c0b23ab13d} bank:/Master Bank
 {af441362-efce-4653-8ca3-12cfc73cd220} bank:/744BYNC4
+{87fb5dc9-9ddc-4347-9143-26c0b23ab13d} bank:/Master Bank

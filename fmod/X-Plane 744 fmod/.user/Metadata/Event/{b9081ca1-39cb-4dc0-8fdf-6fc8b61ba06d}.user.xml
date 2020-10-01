@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.01.08.00">
     <object class="Event" id="{b9081ca1-39cb-4dc0-8fdf-6fc8b61ba06d}">
-        <relationship name="selectables">
-            <destination>{7c2d5cc2-2508-41a2-a038-d0e68ad31315}</destination>
-        </relationship>
         <relationship name="uiLastParameterSelection">
             <destination>{be8f263d-ca45-4042-be8e-087f418010b0}</destination>
         </relationship>
@@ -15,7 +12,7 @@
     <object class="GroupTrack" id="{1637a291-964f-496f-bab8-dbc641536c35}"/>
     <object class="Timeline" id="{be8f263d-ca45-4042-be8e-087f418010b0}">
         <property name="cursorPosition">
-            <value>0.056603773584905662</value>
+            <value>0</value>
         </property>
         <property name="uiLastRulerScaleRatio">
             <value>0.0023700078616352201</value>
@@ -30,6 +27,7 @@
     <object class="MixerBusPanner" id="{0ade4be8-8c0c-4a16-8ca7-f09a0c83e8f9}"/>
     <object class="SingleSound" id="{7c2d5cc2-2508-41a2-a038-d0e68ad31315}"/>
     <object class="EventMixerGroup" id="{629e7a23-7477-4bf4-bcc9-6895360f880b}"/>
+    <object class="LoopRegion" id="{2de5fbb8-a200-43a1-8bd8-b05d1451ca45}"/>
     <object class="MixerBusEffectChain" id="{cb6c76af-a8fd-476b-922a-1613fb2b43d1}"/>
     <object class="MixerBusPanner" id="{448fd9fd-160d-4a5b-97b0-de214db0c001}"/>
     <object class="MixerBusFader" id="{ce21fd86-7648-4c13-a52f-9b132374d3bb}"/>

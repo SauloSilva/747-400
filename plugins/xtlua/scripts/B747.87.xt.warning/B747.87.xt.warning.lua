@@ -781,7 +781,8 @@ function B747_CAS_queue()
         end
 
     end
-
+    if #B747_CASwarning == 0 then B747DR_master_warning = 0 end  
+    
 
     ----- CAUTIONS
     for i = 1, #B747_CAScautionMsg do                                                      -- ITERATE THE CAUTIONS DATA TABLE
@@ -795,11 +796,10 @@ function B747_CAS_queue()
                 B747_removeCaution(B747_CAScautionMsg[i].name)                             -- REMOVE FROM THE CAUTION QUEUE
             end
             B747_CAScautionMsg[i].status = B747DR_CAS_caution_status[B747_CAScautionMsg[i].DRindex]  -- RESET CAUTION STATUS
-
         end
 
     end
-
+    if #B747_CAScaution == 0 then B747DR_master_caution = 0 end  
 
     ----- ADVISORIES
     for i = 1, #B747_CASadvisoryMsg do                                                      -- ITERATE THE CAUTIONS DATA TABLE

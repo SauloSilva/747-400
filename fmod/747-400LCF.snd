@@ -9,7 +9,9 @@ ACF_SOUNDS
 #                 For Laminar B747
 # https://x-plane-sounds.blogspot.com/
 ################################
-
+################################################################################################################
+# YESAVIATION 747-400 FMOD BY WOLFAIR_737 *SOUNDS PROVIDED BY K-AKAI, ADAM'S WORLD, AND HARRY876; THANK YOU!!! #
+################################################################################################################
 BEGIN_SOUND_SPACE
 	SOUND_INDEX 0
 	BLEND_DEPTH 0.2
@@ -1530,7 +1532,46 @@ BEGIN_SOUND_ATTACHMENT
 	EVENT_START_COND sim/flightmodel2/engines/thrust_reverser_deploy_ratio[3] > 0.05
 	EVENT_END_COND sim/flightmodel2/engines/thrust_reverser_deploy_ratio[3] == 0
 END_SOUND_ATTACHMENT
+REQUIRES_BANK GE.bank
 
+
+###########ENGINE###########
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /aircraft/engine/GE/GE_1
+	#EVENT_NAME /aircraft/engine/GE_master
+	VEH_PART engine 0
+	PARAM_DREF_IDX 0
+	EVENT_START_COND sim/flightmodel2/engines/N1_percent[0] > 0
+	EVENT_END_COND sim/flightmodel2/engines/N1_percent[0] <= 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /aircraft/engine/GE/GE_2
+	#EVENT_NAME /aircraft/engine/GE_master
+	VEH_PART engine 1
+	PARAM_DREF_IDX 1
+	EVENT_START_COND sim/flightmodel2/engines/N1_percent[1] > 0
+	EVENT_END_COND sim/flightmodel2/engines/N1_percent[1] <= 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /aircraft/engine/GE/GE_3
+	#EVENT_NAME /aircraft/engine/GE_master
+	VEH_PART engine 2
+	PARAM_DREF_IDX 2
+	EVENT_START_COND sim/flightmodel2/engines/N1_percent[2] > 0
+	EVENT_END_COND sim/flightmodel2/engines/N1_percent[2] <= 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /aircraft/engine/GE/GE_4
+	#EVENT_NAME /aircraft/engine/GE_master
+	VEH_PART engine 3
+	PARAM_DREF_IDX 3
+	EVENT_START_COND sim/flightmodel2/engines/N1_percent[3] > 0
+	EVENT_END_COND sim/flightmodel2/engines/N1_percent[3] <= 0
+END_SOUND_ATTACHMENT
 # Dynamics ##############################################################
 
 BEGIN_SOUND_ATTACHMENT
