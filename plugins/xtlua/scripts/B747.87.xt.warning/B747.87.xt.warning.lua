@@ -571,7 +571,7 @@ B747DR_airspeed_Vmc                 = find_dataref("laminar/B747/airspeed/Vmc")
 --*************************************************************************************--
 --** 				        CREATE READ-ONLY CUSTOM DATAREFS               	         **--
 --*************************************************************************************--
-
+simDR_esys1              = find_dataref("sim/operation/failures/rel_esys2")
 B747DR_CAS_warning_status       = deferred_dataref("laminar/B747/CAS/warning_status", string.format("array[%s]", #B747_CASwarningMsg))
 B747DR_CAS_caution_status       = deferred_dataref("laminar/B747/CAS/caution_status", string.format("array[%s]", #B747_CAScautionMsg))
 B747DR_CAS_advisory_status      = deferred_dataref("laminar/B747/CAS/advisory_status", string.format("array[%s]", #B747_CASadvisoryMsg))
@@ -1087,11 +1087,11 @@ debug_warning     = deferred_dataref("laminar/B747/debug/warning", "number")
 function after_physics()
   if debug_warning>0 then return end
     local diff=simDRTime-lastUpdate
-    if simDR_bus_volts[0]<5 then
+    if simDR_bus_volts[0]<5 or simDR_esys1==6 then
       powered = false
       cleanAllWhenOff()
       lastUpdate=simDRTime
-    elseif diff>0.5 and powered == true then
+    elseif diff>2 and powered == true then
       B747_CAS_queue()
       B747_CAS_display()
 
@@ -1101,6 +1101,7 @@ function after_physics()
       lastUpdate=simDRTime
     elseif diff>4 then
       powered = true
+      lastUpdate=simDRTime
     end
 end
 

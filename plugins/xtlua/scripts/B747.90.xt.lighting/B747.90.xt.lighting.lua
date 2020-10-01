@@ -157,7 +157,10 @@ simDR_autopilot_nav_status          = find_dataref("sim/cockpit2/autopilot/nav_s
 simDR_autopilot_gs_status           = find_dataref("sim/cockpit2/autopilot/glideslope_status")
 simDR_autopilot_app_status          = find_dataref("sim/cockpit2/autopilot/approach_status")
 
-
+simDR_esys0              = find_dataref("sim/operation/failures/rel_esys")
+simDR_esys1              = find_dataref("sim/operation/failures/rel_esys2")
+simDR_esys2              = find_dataref("sim/operation/failures/rel_esys3")
+simDR_esys3              = find_dataref("sim/operation/failures/rel_esys4")
 
 
 simDR_cockpit2_no_smoking_switch    = find_dataref("sim/cockpit2/switches/no_smoking")
@@ -186,6 +189,10 @@ B747DR_elec_ext_pwr1_available      = find_dataref("laminar/B747/electrical/ext_
 B747DR_elec_ext_pwr2_available      = find_dataref("laminar/B747/electrical/ext_pwr2_avail")
 B747DR_elec_apu_pwr1_available      = find_dataref("laminar/B747/electrical/apu_pwr1_avail")
 B747DR_elec_apu_pwr2_available      = find_dataref("laminar/B747/electrical/apu_pwr2_avail")
+B747DR_elec_ext_pwr1_on      	    = find_dataref("laminar/B747/electrical/ext_pwr1_on")
+B747DR_elec_ext_pwr2_on      	    = find_dataref("laminar/B747/electrical/ext_pwr2_on")
+B747DR_elec_apu_pwr1_on      	    = find_dataref("laminar/B747/electrical/apu_pwr1_on")
+B747DR_elec_apu_pwr2_on      	    = find_dataref("laminar/B747/electrical/apu_pwr2_on")
 B747DR_elec_ext_pwr_1_switch_mode   = find_dataref("laminar/B747/elec_ext_pwr_1/switch_mode")
 B747DR_elec_apu_pwr_1_switch_mode   = find_dataref("laminar/B747/apu_pwr_1/switch_mode")
 B747DR_elec_ext_pwr_2_switch_mode   = find_dataref("laminar/B747/elec_ext_pwr_2/switch_mode")
@@ -807,18 +814,40 @@ function B747_animate_value(current_value, target, min, max, speed)
 end
 
 local brightnessRate={}
+local brightnessPower={}
 for i = 0, 32 do
-	brightnessRate[i]=0.2+math.random()
+	brightnessRate[i]=0.5+math.random()
+	brightnessPower[i]=1
 end
 ----- CABIN LIGHTS ----------------------------------------------------------------------
 function B747_cabin_lights()
-
-    for i = 0, 32 do
-	--print(i)
-        simDR_instrument_brightness_switch[i] = B747_animate_value(simDR_instrument_brightness_switch[i],B747DR_instrument_brightness_ratio[i]* simDR_generic_brightness_ratio[63],0,1,brightnessRate[i])
-	--simDR_instrument_brightness_switch[i] = 0.0
-	--B747DR_instrument_brightness_ratio[i] = 0.75
-    end
+     if simDR_esys2==6 then --FO Transfer bus
+       brightnessPower[3]=0 --FO ND
+       brightnessPower[5]=0 --FO PFD
+       brightnessPower[10]=0 --LOWER EICAS
+       brightnessPower[13]=0 --FMS R
+     else
+       brightnessPower[3]=1
+       brightnessPower[5]=1
+       brightnessPower[10]=1
+       brightnessPower[13]=1
+     end
+     
+     if simDR_esys1==6 then --Capt Transfer bus
+       brightnessPower[0]=0 --C ND
+       brightnessPower[2]=0 --C PFD
+       brightnessPower[9]=0 --UPPER EICAS
+       brightnessPower[12]=0 --FMS C/L
+     else
+       brightnessPower[0]=1
+       brightnessPower[2]=1
+       brightnessPower[9]=1
+       brightnessPower[12]=1
+     end
+     for i = 0, 32 do
+-- 	--print(i)
+         simDR_instrument_brightness_switch[i] = B747_animate_value(simDR_instrument_brightness_switch[i],B747DR_instrument_brightness_ratio[i]* simDR_generic_brightness_ratio[63]*brightnessPower[i],0,1,brightnessRate[i])
+     end
     local power = B747_ternary(
         (simDR_apu_gen_on == 1                                                          -- APU IS RUNNING
         or
@@ -947,8 +976,8 @@ function B747_annunciators()
     -- EXTERNAL POWER
     annun.b.ext_pwr_avail_01 = B747_ternary(((B747DR_elec_ext_pwr1_available == 1) and B747DR_elec_ext_pwr_1_switch_mode == 0), 1, 0)
     annun.b.ext_pwr_avail_02 = B747_ternary(((B747DR_elec_ext_pwr2_available == 1) and (B747DR_elec_ext_pwr_2_switch_mode == 0)), 1, 0)
-    annun.b.ext_pwr_on_01 = B747_ternary((B747DR_elec_ext_pwr1_available == 1) and (B747DR_elec_ext_pwr_1_switch_mode == 1), 1, 0)
-    annun.b.ext_pwr_on_02 = B747_ternary((B747DR_elec_ext_pwr2_available == 1) and (B747DR_elec_ext_pwr_2_switch_mode == 1), 1, 0)
+    B747DR_elec_ext_pwr1_on= B747_ternary((B747DR_elec_ext_pwr1_available == 1) and (B747DR_elec_ext_pwr_1_switch_mode == 1), 1, 0)
+    B747DR_elec_ext_pwr2_on= B747_ternary((B747DR_elec_ext_pwr2_available == 1) and (B747DR_elec_ext_pwr_2_switch_mode == 1), 1, 0)
 
     -- APU GENERATOR
     annun.b.apu_gen_avail_01 = B747_ternary(((B747DR_elec_apu_pwr1_available ==1 and B747DR_elec_apu_pwr_1_switch_mode == 0)
@@ -961,8 +990,8 @@ function B747_annunciators()
         and (simDR_apu_running == 1)
         and (simDR_apu_N1_pct > 95.0)),
         1, 0)
-    annun.b.apu_gen_on_01 = B747_ternary(((simDR_apu_gen_on == 1) and B747DR_elec_apu_pwr_1_switch_mode == 1), 1, 0)
-    annun.b.apu_gen_on_02 = B747_ternary(((simDR_apu_gen_on == 1) and B747DR_elec_apu_pwr_2_switch_mode == 1), 1, 0)
+    B747DR_elec_apu_pwr1_on = B747_ternary(((simDR_apu_gen_on == 1) and B747DR_elec_apu_pwr_1_switch_mode == 1), 1, 0)
+    B747DR_elec_apu_pwr2_on = B747_ternary(((simDR_apu_gen_on == 1) and B747DR_elec_apu_pwr_2_switch_mode == 1), 1, 0)
 
     -- BUS TIE
     annun.b.bus_tie_01 = B747_ternary(((simDR_cross_tie == 0) or B747DR_button_switch_position[18]==0), 1, 0)
@@ -1507,7 +1536,7 @@ function B747_ind_lights()
         ind_lts_brt_level = 1.0                             -- TEST
     end
 
-    local bus1Power = B747_rescale(0.0, 0.0, 28.0, 1.0, simDR_electrical_bus_volts[0])
+    local bus1Power = B747_rescale(0.0, 0.0, 28.0, 1.0, simDR_electrical_bus_volts[0] )
     local bus3Power = B747_rescale(0.0, 0.0, 28.0, 1.0, simDR_electrical_bus_volts[2])
     local busPower  = math.max(bus1Power, bus3Power)
     local brightness_level  = ind_lts_brt_level * simDR_generic_brightness_ratio[63] * busPower
@@ -1561,15 +1590,15 @@ function B747_ind_lights()
 
     -- EXTERNAL POWER
     B747DR_annun_brightness_ratio[11]   = B747_ternary((B747DR_toggle_switch_position[13] == 1), brightness_level, (annun.b.ext_pwr_avail_01 * ext_pwr_avail_brightness_level))
-    B747DR_annun_brightness_ratio[12]   = B747_ternary((B747DR_toggle_switch_position[13] == 1), brightness_level, (annun.b.ext_pwr_on_01 * brightness_level))
+    B747DR_annun_brightness_ratio[12]   = B747_ternary((B747DR_toggle_switch_position[13] == 1), brightness_level, (B747DR_elec_ext_pwr1_on * brightness_level))
     B747DR_annun_brightness_ratio[13]   = B747_ternary((B747DR_toggle_switch_position[13] == 1), brightness_level, (annun.b.ext_pwr_avail_02 * ext_pwr_avail_brightness_level))
-    B747DR_annun_brightness_ratio[14]   = B747_ternary((B747DR_toggle_switch_position[13] == 1), brightness_level, (annun.b.ext_pwr_on_02 * brightness_level))
+    B747DR_annun_brightness_ratio[14]   = B747_ternary((B747DR_toggle_switch_position[13] == 1), brightness_level, (B747DR_elec_ext_pwr2_on * brightness_level))
 
     -- APU GENERATOR
     B747DR_annun_brightness_ratio[15]   = B747_ternary((B747DR_toggle_switch_position[13] == 1), brightness_level, (annun.b.apu_gen_avail_01 * apu_avail_brightness_level))
-    B747DR_annun_brightness_ratio[16]   = B747_ternary((B747DR_toggle_switch_position[13] == 1), brightness_level, (annun.b.apu_gen_on_01 * apu_on_brightness_level))
+    B747DR_annun_brightness_ratio[16]   = B747_ternary((B747DR_toggle_switch_position[13] == 1), brightness_level, (B747DR_elec_apu_pwr1_on * apu_on_brightness_level))
     B747DR_annun_brightness_ratio[17]   = B747_ternary((B747DR_toggle_switch_position[13] == 1), brightness_level, (annun.b.apu_gen_avail_02 * apu_avail_brightness_level))
-    B747DR_annun_brightness_ratio[18]   = B747_ternary((B747DR_toggle_switch_position[13] == 1), brightness_level, (annun.b.apu_gen_on_02 * brightness_level))
+    B747DR_annun_brightness_ratio[18]   = B747_ternary((B747DR_toggle_switch_position[13] == 1), brightness_level, (B747DR_elec_apu_pwr2_on * brightness_level))
 
     -- BUS TIE
     B747DR_annun_brightness_ratio[19]   = B747_ternary((B747DR_toggle_switch_position[13] == 1), brightness_level, (annun.b.bus_tie_01 * brightness_level))

@@ -127,7 +127,10 @@ B747DR_gen_drive_disc_status        = find_dataref("laminar/B747/electrical/gene
 
 B747DR_CAS_advisory_status          = find_dataref("laminar/B747/CAS/advisory_status")
 B747DR_CAS_memo_status              = find_dataref("laminar/B747/CAS/memo_status")
-
+B747DR_simDR_esys0              = find_dataref("laminar/B747/rel_esys")
+B747DR_simDR_esys1              = find_dataref("laminar/B747/rel_esys2")
+B747DR_simDR_esys2              = find_dataref("laminar/B747/rel_esys3")
+B747DR_simDR_esys3              = find_dataref("laminar/B747/rel_esys4")
 
 
 --*************************************************************************************--
@@ -146,7 +149,21 @@ B747DR_elec_ext_pwr2_available      = deferred_dataref("laminar/B747/electrical/
 B747DR_elec_apu_pwr1_available      = deferred_dataref("laminar/B747/electrical/apu_pwr1_avail", "number")
 B747DR_elec_apu_pwr2_available      = deferred_dataref("laminar/B747/electrical/apu_pwr2_avail", "number")
 B747DR_init_elec_CD                 = deferred_dataref("laminar/B747/elec/init_CD", "number")
-
+B747DR_elec_ext_pwr1_on      	= deferred_dataref("laminar/B747/electrical/ext_pwr1_on", "number")
+B747DR_elec_ext_pwr2_on      	= deferred_dataref("laminar/B747/electrical/ext_pwr2_on", "number")
+B747DR_elec_apu_pwr1_on      	= deferred_dataref("laminar/B747/electrical/apu_pwr1_on", "number")
+B747DR_elec_apu_pwr2_on      	= deferred_dataref("laminar/B747/electrical/apu_pwr2_on", "number")
+B747DR_elec_ssb      		= deferred_dataref("laminar/B747/electrical/ssb", "number")
+B747DR_elec_topleftbus      	= deferred_dataref("laminar/B747/electrical/topleftbus", "number")
+B747DR_elec_toprightbus      	= deferred_dataref("laminar/B747/electrical/toprightbus", "number")
+B747DR_elec_bus1hot      	= deferred_dataref("laminar/B747/electrical/bus1hot", "number")
+B747DR_elec_bus2hot      	= deferred_dataref("laminar/B747/electrical/bus2hot", "number")
+B747DR_elec_bus3hot      	= deferred_dataref("laminar/B747/electrical/bus3hot", "number")
+B747DR_elec_bus4hot      	= deferred_dataref("laminar/B747/electrical/bus4hot", "number")
+B747DR_elec_utilityleft1      	= deferred_dataref("laminar/B747/electrical/utilityleft1", "number")
+B747DR_elec_utilityright1      	= deferred_dataref("laminar/B747/electrical/utilityright1", "number")
+B747DR_elec_utilityleft2      	= deferred_dataref("laminar/B747/electrical/utilityleft2", "number")
+B747DR_elec_utilityright2      	= deferred_dataref("laminar/B747/electrical/utilityright2", "number")
 
 
 --*************************************************************************************--
@@ -428,46 +445,100 @@ end
 
 
 ----- BUS TIE ---------------------------------------------------------------------------
+function B747_ternary(condition, ifTrue, ifFalse)
+    if condition then return ifTrue else return ifFalse end
+end
 function B747_bus_tie()
-
-    if B747DR_button_switch_position[18] > 0.95
-        or B747DR_button_switch_position[19] > 0.95
-        or B747DR_button_switch_position[20] > 0.95
-        or B747DR_button_switch_position[21] > 0.95
-        or simDR_cross_tie == 0
-    then
-        simDR_cross_tie = 1
-    elseif (B747DR_button_switch_position[18] < 0.05
-        and B747DR_button_switch_position[19] < 0.05
-        and B747DR_button_switch_position[20] < 0.05
-        and B747DR_button_switch_position[21] < 0.05)
-        and simDR_cross_tie == 1
-    then
-        simDR_cross_tie = 0
-    end
+    simDR_cross_tie = 1 -- got power src make it available always then kill off buses
+--     if B747DR_button_switch_position[18] > 0.95
+--         or B747DR_button_switch_position[19] > 0.95
+--         or B747DR_button_switch_position[20] > 0.95
+--         or B747DR_button_switch_position[21] > 0.95
+--         or simDR_cross_tie == 0
+--     then
+--         
+--     elseif (B747DR_button_switch_position[18] < 0.05
+--         and B747DR_button_switch_position[19] < 0.05
+--         and B747DR_button_switch_position[20] < 0.05
+--         and B747DR_button_switch_position[21] < 0.05)
+--         and simDR_cross_tie == 1
+--     then
+--         simDR_cross_tie = 0
+--     end
     
-    if B747DR_button_switch_position[18] < 0.05 and simDR_generator_off[0] ==1 then
-      simDR_esys0=1
-    else
-      simDR_esys0=0
-    end
-    if B747DR_button_switch_position[19] < 0.05 and simDR_generator_off[1] ==1 then
-      simDR_esys1=1
-    else
-      simDR_esys1=0
-    end
+--     if B747DR_button_switch_position[18] < 0.05 and simDR_generator_off[0] ==1 then
+--       simDR_esys0=6
+--     else
+--       simDR_esys0=0
+--     end
+--     if B747DR_button_switch_position[19] < 0.05 and simDR_generator_off[1] ==1 then
+--       simDR_esys1=6
+--     else
+--       simDR_esys1=0
+--     end
+--     
+--     if B747DR_button_switch_position[20] < 0.05 and simDR_generator_off[2] ==1 then
+--       simDR_esys2=6
+--     else
+--       simDR_esys2=0
+--     end
+--     
+--     if B747DR_button_switch_position[21] < 0.05 and simDR_generator_off[3] ==1 then
+--       simDR_esys3=6
+--     else
+--       simDR_esys3=0
+--     end
     
-    if B747DR_button_switch_position[20] < 0.05 and simDR_generator_off[2] ==1 then
-      simDR_esys2=1
-    else
-      simDR_esys2=0
-    end
+    B747DR_simDR_esys0=B747_ternary((B747DR_elec_bus1hot ==1 or simDR_generator_off[0] ==0),0,1)
+    B747DR_simDR_esys1=B747_ternary((B747DR_elec_bus2hot ==1 or simDR_generator_off[1] ==0),0,1)
+    B747DR_simDR_esys2=B747_ternary((B747DR_elec_bus3hot ==1 or simDR_generator_off[2] ==0),0,1)
+    B747DR_simDR_esys3=B747_ternary((B747DR_elec_bus4hot ==1 or simDR_generator_off[3] ==0),0,1)
     
-    if B747DR_button_switch_position[21] < 0.05 and simDR_generator_off[3] ==1 then
-      simDR_esys3=1
-    else
-      simDR_esys3=0
-    end
+    --Captain Transfer Bus
+    simDR_esys2=B747_ternary((B747DR_simDR_esys1 < 0.05 or (B747DR_simDR_esys0 < 0.05 and B747DR_elec_standby_power_sel_pos>0)),0,6)
+    --FO Transfer Bus
+    simDR_esys1=B747_ternary((B747DR_simDR_esys2 < 0.05 or (B747DR_simDR_esys0 < 0.05 and B747DR_elec_standby_power_sel_pos>0)),0,6)
+    
+    
+--     B747DR_elec_ext_pwr1_on     
+--     B747DR_elec_ext_pwr2_on      
+--     B747DR_elec_apu_pwr1_on      	
+--     B747DR_elec_apu_pwr2_on 
+    B747DR_elec_topleftbus = B747_ternary((B747DR_elec_ext_pwr1_on==1 or B747DR_elec_apu_pwr1_on==1 
+      or (B747DR_elec_bus1hot ==1 and simDR_generator_off[0] ==0) or (B747DR_elec_bus2hot==1 and simDR_generator_off[1] ==0) 
+      or B747DR_elec_ssb==1),1,0)
+    B747DR_elec_toprightbus = B747_ternary((B747DR_elec_ext_pwr2_on==1 or B747DR_elec_apu_pwr2_on==1 
+      or (B747DR_elec_bus3hot ==1 and simDR_generator_off[2] ==0) or (B747DR_elec_bus4hot==1 and simDR_generator_off[3] ==0) 
+      or B747DR_elec_ssb==1),1,0)
+    local do_tie= B747_ternary(((B747DR_elec_topleftbus ==1 or B747DR_elec_toprightbus==1) and 
+	(B747DR_elec_ext_pwr1_on==1 or B747DR_elec_apu_pwr1_on==1 
+      or (B747DR_elec_bus1hot ==1 and simDR_generator_off[0] ==0) 
+      or (B747DR_elec_bus2hot ==1 and simDR_generator_off[1] ==0) 
+      or B747DR_elec_ext_pwr2_on==1 or B747DR_elec_apu_pwr2_on==1
+      or (B747DR_elec_bus3hot ==1 and simDR_generator_off[2] ==0) 
+      or (B747DR_elec_bus4hot ==1 and simDR_generator_off[3] ==0))),1,0)
+    local ssb = B747_ternary((B747DR_elec_ext_pwr1_on == 1.0 
+			      or B747DR_elec_ext_pwr2_on == 1.0
+			      or B747DR_elec_apu_pwr1_on == 1.0
+			      or B747DR_elec_apu_pwr2_on == 1.0),0,do_tie)
+    B747DR_elec_ssb =B747_set_animation_position(B747DR_elec_ssb, ssb, 0.0, 1.0, 10)
+    B747DR_elec_utilityleft1  = B747_ternary((B747DR_button_switch_position[11] > 0.95 and (B747DR_elec_bus1hot ==1 or simDR_generator_off[0] ==0)),1.0,0.0) 
+    B747DR_elec_utilityleft2  = B747_ternary((B747DR_button_switch_position[11] > 0.95 and (B747DR_elec_bus2hot ==1 or simDR_generator_off[1] ==0)),1.0,0.0) 
+    B747DR_elec_utilityright1 = B747_ternary((B747DR_button_switch_position[12] > 0.95 and (B747DR_elec_bus3hot ==1 or simDR_generator_off[2] ==0)),1.0,0.0) 
+    B747DR_elec_utilityright2 = B747_ternary((B747DR_button_switch_position[12] > 0.95 and (B747DR_elec_bus4hot ==1 or simDR_generator_off[3] ==0)),1.0,0.0) 
+    
+    B747DR_elec_bus1hot = B747_ternary((B747DR_button_switch_position[18] > 0.95 and (simDR_generator_off[0] ==0 or B747DR_elec_topleftbus ==1)),1,0)
+    B747DR_elec_bus2hot = B747_ternary((B747DR_button_switch_position[19] > 0.95 and (simDR_generator_off[1] ==0 or B747DR_elec_topleftbus ==1)),1,0)
+    B747DR_elec_bus3hot = B747_ternary((B747DR_button_switch_position[20] > 0.95 and (simDR_generator_off[2] ==0 or B747DR_elec_toprightbus ==1)),1,0)
+    B747DR_elec_bus4hot = B747_ternary((B747DR_button_switch_position[21] > 0.95 and (simDR_generator_off[3] ==0 or B747DR_elec_toprightbus ==1)),1,0)
+--[[B747DR_elec_toprightbus      	
+B747DR_elec_bus1hot      	
+B747DR_elec_bus2hot      	
+B747DR_elec_bus3hot      	
+B747DR_elec_bus4hot      	
+B747DR_elec_utilityleft      	
+B747DR_elec_utilityright ]]     	
+    
 end
 
 

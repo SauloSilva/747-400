@@ -63,8 +63,26 @@ B747DR_elec_ext_pwr1_available      = deferred_dataref("laminar/B747/electrical/
 B747DR_elec_ext_pwr2_available      = deferred_dataref("laminar/B747/electrical/ext_pwr2_avail", "number")
 B747DR_elec_apu_pwr1_available      = deferred_dataref("laminar/B747/electrical/apu_pwr1_avail", "number")
 B747DR_elec_apu_pwr2_available      = deferred_dataref("laminar/B747/electrical/apu_pwr2_avail", "number")
+B747DR_elec_ext_pwr1_on      	= deferred_dataref("laminar/B747/electrical/ext_pwr1_on", "number")
+B747DR_elec_ext_pwr2_on      	= deferred_dataref("laminar/B747/electrical/ext_pwr2_on", "number")
+B747DR_elec_apu_pwr1_on      	= deferred_dataref("laminar/B747/electrical/apu_pwr1_on", "number")
+B747DR_elec_apu_pwr2_on      	= deferred_dataref("laminar/B747/electrical/apu_pwr2_on", "number")
+B747DR_elec_ssb      		= deferred_dataref("laminar/B747/electrical/ssb", "number")
+B747DR_elec_topleftbus      	= deferred_dataref("laminar/B747/electrical/topleftbus", "number")
+B747DR_elec_toprightbus      	= deferred_dataref("laminar/B747/electrical/toprightbus", "number")
+B747DR_elec_bus1hot      	= deferred_dataref("laminar/B747/electrical/bus1hot", "number")
+B747DR_elec_bus2hot      	= deferred_dataref("laminar/B747/electrical/bus2hot", "number")
+B747DR_elec_bus3hot      	= deferred_dataref("laminar/B747/electrical/bus3hot", "number")
+B747DR_elec_bus4hot      	= deferred_dataref("laminar/B747/electrical/bus4hot", "number")
+B747DR_elec_utilityleft1      	= deferred_dataref("laminar/B747/electrical/utilityleft1", "number")
+B747DR_elec_utilityright1      	= deferred_dataref("laminar/B747/electrical/utilityright1", "number")
+B747DR_elec_utilityleft2      	= deferred_dataref("laminar/B747/electrical/utilityleft2", "number")
+B747DR_elec_utilityright2      	= deferred_dataref("laminar/B747/electrical/utilityright2", "number")
 B747DR_init_elec_CD                 = deferred_dataref("laminar/B747/elec/init_CD", "number")
-
+B747DR_simDR_esys0              = deferred_dataref("laminar/B747/rel_esys", "number")
+B747DR_simDR_esys1              = deferred_dataref("laminar/B747/rel_esys2", "number")
+B747DR_simDR_esys2              = deferred_dataref("laminar/B747/rel_esys3", "number")
+B747DR_simDR_esys3              = deferred_dataref("laminar/B747/rel_esys4", "number")
 
 
 -- STANDBY POWER
