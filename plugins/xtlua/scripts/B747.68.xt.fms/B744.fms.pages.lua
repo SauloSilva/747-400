@@ -375,6 +375,8 @@ function updateCRZ()
   local setVal=string.sub(B747DR_srcfms[updateFrom][3],20,24)
   print("from line".. updateFrom.." "..B747DR_srcfms[updateFrom][3])
   print("to:"..setVal)
+  local alt=validAlt(setVal)
+  if alt~=nil then B747BR_cruiseAlt=alt end
   fmsModules:setData("crzalt",setVal)
 end
 function fmsFunctions.getdata(fmsO,value) 
@@ -556,11 +558,10 @@ function fmsFunctions.setdata(fmsO,value)
     setFMSData("fltdate",os.date("%Y%m%d"))
   elseif value=="crzalt" then
 
-   simCMD_FMS_key[fmsO.id]["fpln"]:once()--make sure we arent on the vnav page
+    simCMD_FMS_key[fmsO.id]["fpln"]:once()--make sure we arent on the vnav page
     simCMD_FMS_key[fmsO.id]["clb"]:once()--go to the vnav page
-     simCMD_FMS_key[fmsO.id]["next"]:once() --go to the vnav page 2
-    --simCMD_FMS_key[fmsO.id]["L6"]:once()
-    --local setVal=fmsO["scratchpad"]
+    simCMD_FMS_key[fmsO.id]["next"]:once() --go to the vnav page 2
+
     fmsFunctions["custom2fmc"](fmsO,"R1")
     updateFrom=fmsO.id
     local toGet=B747DR_srcfms[updateFrom][3] --make sure we update it

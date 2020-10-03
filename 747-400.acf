@@ -122,7 +122,7 @@ P _gear/0/_lonE 1.0
 P _gear/0/_lonN 1.0
 P _gear/0/_lonR 117.0
 P _gear/0/_scon 358467.468750000
-P _gear/0/_stat_def 0.165289551
+P _gear/0/_stat_def 0.165289536
 P _gear/0/_steerdeg_hispeed 15.0
 P _gear/0/_steerdeg_lospeed 75.0
 P _gear/0/_strut_comp 0.0
@@ -156,7 +156,7 @@ P _gear/1/_lonE 1.0
 P _gear/1/_lonN 1.0
 P _gear/1/_lonR 140.0
 P _gear/1/_scon 358467.468750000
-P _gear/1/_stat_def 0.627037287
+P _gear/1/_stat_def 0.627037168
 P _gear/1/_steerdeg_hispeed 0.0
 P _gear/1/_steerdeg_lospeed 0.0
 P _gear/1/_strut_comp 0.0
@@ -190,7 +190,7 @@ P _gear/2/_lonE 1.0
 P _gear/2/_lonN 1.0
 P _gear/2/_lonR 140.0
 P _gear/2/_scon 358467.468750000
-P _gear/2/_stat_def 0.627037287
+P _gear/2/_stat_def 0.627037168
 P _gear/2/_steerdeg_hispeed 0.0
 P _gear/2/_steerdeg_lospeed 0.0
 P _gear/2/_strut_comp 0.0
@@ -224,7 +224,7 @@ P _gear/3/_lonE 1.0
 P _gear/3/_lonN 1.0
 P _gear/3/_lonR 10.0
 P _gear/3/_scon 358467.468750000
-P _gear/3/_stat_def 0.559550822
+P _gear/3/_stat_def 0.559550881
 P _gear/3/_steerdeg_hispeed 0.0
 P _gear/3/_steerdeg_lospeed 0.0
 P _gear/3/_strut_comp 0.0
@@ -258,7 +258,7 @@ P _gear/4/_lonE 1.0
 P _gear/4/_lonN 1.0
 P _gear/4/_lonR 10.0
 P _gear/4/_scon 358467.468750000
-P _gear/4/_stat_def 0.559550822
+P _gear/4/_stat_def 0.559550881
 P _gear/4/_steerdeg_hispeed 0.0
 P _gear/4/_steerdeg_lospeed 0.0
 P _gear/4/_strut_comp 0.0
@@ -98219,9 +98219,9 @@ P acf/_flap1_ptch_above_50 0
 P acf/_flap1_roll 0.0
 P acf/_flap1_roll_above_50 0
 P acf/_flap1_type 4
-P acf/_flap2_cd 0.109999999
-P acf/_flap2_cl 1.200000048
-P acf/_flap2_cm -0.370999992
+P acf/_flap2_cd 0.074000001
+P acf/_flap2_cl 1.327000022
+P acf/_flap2_cm -0.349000007
 P acf/_flap2_cratR 0.259999990
 P acf/_flap2_cratT 0.259999990
 P acf/_flap2_dn/0 0.0
@@ -98839,11 +98839,11 @@ P acf/_slat2_dn/0 0.0
 P acf/_slat2_dn/1 0.0
 P acf/_slat2_dn/10 0.0
 P acf/_slat2_dn/11 0.0
-P acf/_slat2_dn/2 0.0
-P acf/_slat2_dn/3 0.0
-P acf/_slat2_dn/4 0.0
-P acf/_slat2_dn/5 0.0
-P acf/_slat2_dn/6 0.0
+P acf/_slat2_dn/2 1.0
+P acf/_slat2_dn/3 1.0
+P acf/_slat2_dn/4 1.0
+P acf/_slat2_dn/5 1.0
+P acf/_slat2_dn/6 1.0
 P acf/_slat2_dn/7 0.0
 P acf/_slat2_dn/8 0.0
 P acf/_slat2_dn/9 0.0
@@ -100005,6 +100005,29 @@ GROUP Captain PFD
       GROUP Armed
         LOCKED
         HIDE
+        gen_rotary TOGA
+          POS 320.500000 1064.500000
+          IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/TOGA
+          DATAREF autopilot nav
+          SHOW_EQUAL 1.000000 laminar/B747/autopilot/FMA/armed_roll_mode
+          LOCKED
+          HIDE
+          LIGHT_MODE GLASS_AUTO
+          LIGHT_RHEOSTAT 2
+          BUS_SRC 2
+          KEY_FRAME 0.000000 0.000000 1.000000
+          KEY_FRAME 1.000000 6.000000
+          DIGITS 1
+          ROTARY_TYPE NO_CLICK
+          CLICK_RADIUS 0.000000
+          CLICK_RADIUS_DY 0.000000
+          OFFSET 0.000000
+          STEP1 1.000000
+          STEP2 1.000000
+          CURSOR DEFAULT
+          CLICK_DX 0
+          CLICK_DY 0
+
         gen_rotary LNAV
           POS 320.500000 1064.500000
           IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/roll_LNAV
@@ -100270,6 +100293,29 @@ GROUP Captain PFD
       GROUP Armed
         LOCKED
         HIDE
+        gen_rotary TOGA
+          POS 442.500000 1064.500000
+          IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/TOGA
+          DATAREF 
+          SHOW_EQUAL 1.000000 laminar/B747/autopilot/FMA/armed_pitch_mode
+          LOCKED
+          HIDE
+          LIGHT_MODE GLASS_AUTO
+          LIGHT_RHEOSTAT 2
+          BUS_SRC 2
+          KEY_FRAME 0.000000 0.000000 1.000000
+          KEY_FRAME 1.000000 6.000000
+          DIGITS 1
+          ROTARY_TYPE NO_CLICK
+          CLICK_RADIUS 0.000000
+          CLICK_RADIUS_DY 0.000000
+          OFFSET 0.000000
+          STEP1 1.000000
+          STEP2 1.000000
+          CURSOR DEFAULT
+          CLICK_DX 0
+          CLICK_DY 0
+
         gen_rotary G/S
           POS 442.500000 1064.500000
           IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/pitch_GS
@@ -106472,6 +106518,29 @@ GROUP First Officer PFD
       GROUP Armed 2
         LOCKED
         HIDE
+        gen_rotary TOGA 2
+          POS 999.500000 1064.500000
+          IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/TOGA
+          DATAREF autopilot nav
+          SHOW_EQUAL 1.000000 laminar/B747/autopilot/FMA/armed_roll_mode
+          LOCKED
+          HIDE
+          LIGHT_MODE GLASS_AUTO
+          LIGHT_RHEOSTAT 5
+          BUS_SRC 4
+          KEY_FRAME 0.000000 0.000000 1.000000
+          KEY_FRAME 1.000000 6.000000
+          DIGITS 1
+          ROTARY_TYPE NO_CLICK
+          CLICK_RADIUS 0.000000
+          CLICK_RADIUS_DY 0.000000
+          OFFSET 0.000000
+          STEP1 1.000000
+          STEP2 1.000000
+          CURSOR DEFAULT
+          CLICK_DX 0
+          CLICK_DY 0
+
         gen_rotary LNAV 2
           POS 999.500000 1064.500000
           IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/roll_LNAV
@@ -106737,6 +106806,29 @@ GROUP First Officer PFD
       GROUP Armed 2
         LOCKED
         HIDE
+        gen_rotary TOGA 2
+          POS 1121.500000 1064.500000
+          IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/TOGA
+          DATAREF 
+          SHOW_EQUAL 1.000000 laminar/B747/autopilot/FMA/armed_pitch_mode
+          LOCKED
+          HIDE
+          LIGHT_MODE GLASS_AUTO
+          LIGHT_RHEOSTAT 5
+          BUS_SRC 4
+          KEY_FRAME 0.000000 0.000000 1.000000
+          KEY_FRAME 1.000000 6.000000
+          DIGITS 1
+          ROTARY_TYPE NO_CLICK
+          CLICK_RADIUS 0.000000
+          CLICK_RADIUS_DY 0.000000
+          OFFSET 0.000000
+          STEP1 1.000000
+          STEP2 1.000000
+          CURSOR DEFAULT
+          CLICK_DX 0
+          CLICK_DY 0
+
         gen_rotary G/S 2
           POS 1121.500000 1064.500000
           IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/pitch_GS
@@ -120412,9 +120504,7 @@ GROUP Lower EICAS
       IS_DRAGGABLE 0
       IS_VERTICAL 1
       OFFSET 0.000000
-      CURSOR DEFAULT
-      CLICK_DX 0
-      CLICK_DY 0
+
     gen_rotary ssb_power
       POS 1711.785767 271.500000
       IMAGE CRT Displays/EICAS Lower/ELEC/bustiepower
@@ -120435,6 +120525,7 @@ GROUP Lower EICAS
       CURSOR DEFAULT
       CLICK_DX 0
       CLICK_DY 0
+
     gen_rotary bus1_off
       POS 1437.500000 64.500000
       IMAGE CRT Displays/EICAS Lower/ELEC/busamber

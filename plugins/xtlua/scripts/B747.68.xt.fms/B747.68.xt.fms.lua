@@ -131,6 +131,7 @@ B747DR_radioModes=deferred_dataref("laminar/B747/radio/tuningmodes", "string")
 B747DR_FMSdata=deferred_dataref("laminar/B747/fms/data", "string")
 B747DR_ap_vnav_state                = find_dataref("laminar/B747/autopilot/vnav_state")
 simDR_autopilot_vs_status          = find_dataref("sim/cockpit2/autopilot/vvi_status")
+B747BR_cruiseAlt 			= find_dataref("laminar/B747/autopilot/dist/cruise_alt")
 --*************************************************************************************--
 --** 				        CREATE READ-WRITE CUSTOM DATAREFS                        **--
 --*************************************************************************************--

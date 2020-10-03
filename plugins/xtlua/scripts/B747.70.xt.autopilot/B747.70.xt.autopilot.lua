@@ -98,6 +98,10 @@ simDR_autopilot_altitude_ft    		= find_dataref("sim/cockpit2/autopilot/altitude
 simDR_autopilot_hold_altitude_ft    		= find_dataref("sim/cockpit2/autopilot/altitude_hold_ft")
 simDR_autopilot_tod_index    		= find_dataref("sim/cockpit2/radios/indicators/fms_tod_before_index_pilot")
 simDR_autopilot_tod_distance    	= find_dataref("sim/cockpit2/radios/indicators/fms_distance_to_tod_pilot")
+B747BR_totalDistance 			= find_dataref("laminar/B747/autopilot/dist/remaining_distance")
+B747BR_nextDistanceInFeet 		= find_dataref("laminar/B747/autopilot/dist/next_distance_feet")
+B747BR_cruiseAlt 			= find_dataref("laminar/B747/autopilot/dist/cruise_alt")
+B747BR_tod				= find_dataref("laminar/B747/autopilot/dist/top_of_descent")
 simDR_autopilot_airspeed_kts   		= find_dataref("sim/cockpit2/autopilot/airspeed_dial_kts")
 simDR_autopilot_airspeed_kts_mach   	= find_dataref("sim/cockpit2/autopilot/airspeed_dial_kts_mach")
 --simDR_autopilot_heading_deg         	= find_dataref("sim/cockpit2/autopilot/heading_dial_deg_mag_pilot")
@@ -828,6 +832,8 @@ function B747_ap_reset_CMDhandler(phase, duration)
 		simCMD_autopilot_servos3_fdir_off:once()
 		B747DR_engine_TOGA_mode=0
 		simDR_autopilot_fms_vnav = 0
+		B747DR_ap_vnav_state=0
+		B747DR_ap_inVNAVdescent =0
 		B747_ap_all_cmd_modes_off()
 		B747DR_ap_ias_mach_window_open = 0
 	end
@@ -1292,17 +1298,22 @@ function B747_fltmgmt_setILS()
   end
   local diff=simDRTime-lastILSUpdate
   if diff<10 then return end
+  
   lastILSUpdate=simDRTime
   local n1=simDR_nav1Freq
   local n2=simDR_nav2Freq
   local d1=simDR_radio_nav_obs_deg[0]
   local d2=simDR_radio_nav_obs_deg[1]--continually get latest
-  
-  --print("Tune ILS".. targetFMSnum)
-  local fms=json.decode(fmsJSON)
+  local fmsSTR=fmsJSON
+  print("fmsJSON=".. fmsSTR)
+  local fms=json.decode(fmsSTR)
+  if table.getn(fms)>2 then
+    setDistances(fms)
+  end
   local newTargetFix=0
   local hitI=-1
   if table.getn(fms)>4 and (fms[targetFMSnum]==nil or targetFMS~=fms[targetFMSnum][8]) then
+    
     if string.len(navAidsJSON) ~= nSize then
       navAids=json.decode(navAidsJSON)
       nSize=string.len(navAidsJSON)
@@ -1371,8 +1382,8 @@ function B747_fltmgmt_setILS()
 	end
     
     end
-  elseif string.len(targetILSS)>0 then
-	    --print("Tuning ILS".. targetILSS)
+  elseif string.len(targetILSS)>1 then
+	    print("Tuning ILS".. targetILSS)
 	    local ilsNav=json.decode(targetILSS)
 	    simDR_nav1Freq=ilsNav[3]
 	    simDR_nav2Freq=ilsNav[3]
@@ -1809,13 +1820,30 @@ end
 local fms
 local fmstargetIndex=0
 local fmscurrentIndex=0
-function setVSpeed()
-  local totalDistance=getDistance(simDR_latitude,simDR_longitude,fms[fmscurrentIndex][5],fms[fmscurrentIndex][6])
-  local nextDistanceInFeet=totalDistance*6076.12
-  for i=fmscurrentIndex+1,fmstargetIndex-1,1 do
-  totalDistance=totalDistance+getDistance(fms[i][5],fms[i][6],fms[i+1][5],fms[i+1][6])
-  --print("i=".. i .." speed="..simDR_groundspeed .. " distance="..totalDistance)
+function setDistances(fmsO)
+  print("set distances")
+  local start=fmscurrentIndex
+  if start==0 then start=1 end
+  if fmsO[start]==nil then
+    print("empty data")
+    return
   end
+  local totalDistance=getDistance(simDR_latitude,simDR_longitude,fmsO[start][5],fmsO[start][6])
+  local nextDistanceInFeet=totalDistance*6076.12
+  local endI =table.getn(fmsO)
+  for i=start,endI-1,1 do
+    totalDistance=totalDistance+getDistance(fmsO[i][5],fmsO[i][6],fmsO[i+1][5],fmsO[i+1][6])
+    dtoAirport=getDistance(fmsO[i][5],fmsO[i][6],fmsO[endI][5],fmsO[endI][6])
+    print("i=".. i .." speed="..simDR_groundspeed .. " distance="..totalDistance.." dtoAirport="..dtoAirport)
+    if dtoAirport<5 then break end
+  end
+  
+  B747BR_totalDistance=totalDistance
+  B747BR_nextDistanceInFeet=nextDistanceInFeet
+  B747BR_tod=((B747BR_cruiseAlt)/100)/2.9
+end
+function setVSpeed()
+  
 --   if simDR_radarAlt1<=1200 then
 --     --fmstargetIndex=-1
 --     --fmscurrentIndex=0
@@ -1825,14 +1853,14 @@ function setVSpeed()
 --     return
 --   end
   
-  local time=totalDistance*30.8666/(simDR_groundspeed) --time in minutes, gs in m/s....
+  local time=B747BR_totalDistance*30.8666/(simDR_groundspeed) --time in minutes, gs in m/s....
   local early=100
   if simDR_autopilot_altitude_ft>5000 then early=500 end
   local vdiff=B747DR_ap_vnav_target_alt-simDR_pressureAlt1-early --to be negative
   local vspeed=vdiff/time
   --print("speed=".. simDR_groundspeed .. " distance=".. totalDistance .. " vspeed=" .. vspeed .. " vdiff=" .. vdiff .. " time=" .. time)
 		  --speed=89.32039642334 distance=2.9459299767094vspeed=-6559410.6729958
-  B747DR_ap_vb = math.atan2((vdiff*(nextDistanceInFeet/(totalDistance*6076.12))),nextDistanceInFeet)*-57.2958
+  B747DR_ap_vb = math.atan2((vdiff*(B747BR_nextDistanceInFeet/(B747BR_totalDistance*6076.12))),B747BR_nextDistanceInFeet)*-57.2958
   if vspeed<-2500 then vspeed=-2500 end
   
   if simDR_radarAlt1<=1200 then
@@ -1852,7 +1880,6 @@ function B747_ap_altitude()
 	local vvi_status=simDR_autopilot_vs_status
 	--print("B747_ap_altitude")
 	if B747DR_ap_vnav_state>0 then
-	  
 	  local diff = simDR_ind_airspeed_kts_pilot - simDR_autopilot_airspeed_kts
 	  if B747DR_ap_inVNAVdescent >0 and simDR_autopilot_autothrottle_enabled == 0 and diff>0 and simDR_allThrottle>0 and simDR_radarAlt1>1000 then
 	    simCMD_ThrottleDown:once()
@@ -2067,9 +2094,9 @@ function B747_ap_fma()
         B747DR_ap_FMA_autothrottle_mode = 3 -- SPD
       end
     else
-         if B747DR_ap_vnav_state > 0 and simDR_allThrottle<0.02 then
+         if B747DR_ap_vnav_state > 0 and simDR_allThrottle<0.02 and simDR_onGround==0 then
 	   B747DR_ap_FMA_autothrottle_mode = 2 --IDLE
-	elseif B747DR_ap_vnav_state >0 then
+	elseif B747DR_ap_vnav_state >0 and simDR_onGround==0 then
 	  B747DR_ap_FMA_autothrottle_mode = 1 --HOLD
 	else
 	  B747DR_ap_FMA_autothrottle_mode = 0
@@ -2090,7 +2117,7 @@ function B747_ap_fma()
     
 
     -- (TOGA) --
-    if simDR_autopilot_TOGA_lat_status == 1 then
+    if simDR_autopilot_TOGA_lat_status == 2 and B747DR_engine_TOGA_mode==0 then
         B747DR_ap_FMA_armed_roll_mode = 1
 
     -- (LNAV) --
@@ -2119,7 +2146,7 @@ function B747_ap_fma()
     -- (TOGA) --
     local navcrz=simDR_nav1_radio_course_deg
   
-    if simDR_autopilot_TOGA_lat_status == 2 then
+    if simDR_autopilot_TOGA_lat_status == 2 and B747DR_engine_TOGA_mode>0 then
         B747DR_ap_FMA_active_roll_mode = 1
 
     -- (LNAV) --
@@ -2164,10 +2191,11 @@ function B747_ap_fma()
    
 
     -- (TOGA) -- 
-    if B747DR_ap_vnav_state == 1 then
-        B747DR_ap_FMA_armed_pitch_mode = 4
-    elseif B747DR_engine_TOGA_mode == 1 then
+    if simDR_autopilot_TOGA_vert_status == 2  and B747DR_engine_TOGA_mode==0 then
         B747DR_ap_FMA_armed_pitch_mode = 1
+    
+    elseif B747DR_ap_vnav_state == 1 then
+        B747DR_ap_FMA_armed_pitch_mode = 4
 
     -- (G/S) --
     elseif simDR_autopilot_gs_status == 1 then
@@ -2190,7 +2218,7 @@ function B747_ap_fma()
   --B747DR_ap_FMA_active_pitch_mode = 0
   
     -- (TOGA) --
-    if simDR_autopilot_TOGA_vert_status == 2 then
+    if simDR_autopilot_TOGA_vert_status == 2 and B747DR_engine_TOGA_mode>0 then
     --if B747DR_engine_TOGA_mode == 1 then  
      
         B747DR_ap_FMA_active_pitch_mode = 1
