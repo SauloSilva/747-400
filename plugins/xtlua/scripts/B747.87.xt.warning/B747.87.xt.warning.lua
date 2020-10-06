@@ -609,7 +609,7 @@ B747DR_CAS_caut_adv_display     = deferred_dataref("laminar/B747/CAS/caut_adv_di
 
 B747DR_master_warning           = find_dataref("laminar/B747/warning/master_warning")
 B747DR_master_caution           = find_dataref("laminar/B747/warning/master_caution")
-
+B747DR_fire_ovht_button_pos     = deferred_dataref("laminar/B747/fire/fire_ovht/button_pos", "number")
 B747DR_init_warning_CD          = deferred_dataref("laminar/B747/warning/init_CD", "number")
 
 
@@ -781,8 +781,11 @@ function B747_CAS_queue()
         end
 
     end
-    if #B747_CASwarning == 0 then B747DR_master_warning = 0 end  
-    
+    if #B747_CASwarning == 0 and B747DR_fire_ovht_button_pos==0 then 
+      B747DR_master_warning = 0 
+    elseif B747DR_fire_ovht_button_pos==1 then 
+      B747DR_master_warning = 1 
+    end 
 
     ----- CAUTIONS
     for i = 1, #B747_CAScautionMsg do                                                      -- ITERATE THE CAUTIONS DATA TABLE

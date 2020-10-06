@@ -2,6 +2,10 @@ A
 1000
 ACF_SOUNDS
 
+
+
+
+
 ################################
 #                    x_B747 PW     
 #                          V1.2
@@ -200,7 +204,16 @@ BEGIN_SOUND_ATTACHMENT
 	VEH_XYZ -0.25 5.3 -25.8
 	EVENT_START_COND DELTA=laminar/B747/electrical/apu/sel_dial_pos
 END_SOUND_ATTACHMENT
-
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Controls/B8
+	VEH_XYZ -0.25 5.3 -25.8
+    EVENT_CMND_DOWN laminar/B747/button_switch/yaw_damper_upr
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Controls/B8
+	VEH_XYZ -0.25 5.3 -25.8
+    EVENT_CMND_DOWN laminar/B747/button_switch/yaw_damper_lwr
+END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Controls/B8
 	VEH_XYZ -0.25 5.3 -25.8
@@ -210,7 +223,7 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Controls/B8
 	VEH_XYZ -0.25 5.3 -25.8
-    EVENT_CMND_DOWN laminar/B747/button_switch/elec_util_L
+    EVENT_CMND_DOWN laminar/B747/button_switch/elec_util_R
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -218,8 +231,22 @@ BEGIN_SOUND_ATTACHMENT
 	VEH_XYZ -0.25 5.3 -25.8
     EVENT_CMND_DOWN laminar/B747/button_switch/elec_ext_pwr_1
 END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Controls/B8
+	VEH_XYZ -0.25 5.3 -25.8
+    EVENT_CMND_DOWN laminar/B747/button_switch/elec_ext_pwr_2
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Controls/B8
+	VEH_XYZ -0.25 5.3 -25.8
+    EVENT_CMND_DOWN laminar/B747/button_switch/elec_apu_gen_1
+END_SOUND_ATTACHMENT
 
-
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Controls/B8
+	VEH_XYZ -0.25 5.3 -25.8
+    EVENT_CMND_DOWN laminar/B747/button_switch/elec_apu_gen_2
+END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Controls/B8
@@ -767,6 +794,22 @@ BEGIN_SOUND_ATTACHMENT
     EVENT_START_COND DELTA=sim/cockpit2/switches/landing_lights_switch[2]
     EVENT_START_COND DELTA=sim/cockpit2/switches/landing_lights_switch[3]
 END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Controls/Sw3
+	VEH_XYZ -0.25 5.3 -25.8
+    EVENT_CMND_DOWN laminar/B747/toggle_switch/ind_light_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Controls/Sw3
+	VEH_XYZ -0.25 5.3 -25.8
+    EVENT_CMND_DOWN laminar/B747/toggle_switch/ind_light_down
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Controls/Sw3
+	VEH_XYZ -0.25 5.3 -25.8
+    EVENT_CMND_DOWN laminar/B747/toggle_switch/srvc_interphone
+END_SOUND_ATTACHMENT
+
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Controls/Sw4
@@ -1927,3 +1970,48 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 #######################################################################
+
+################################################################################################################
+# YESAVIATION 747-400 FMOD BY WOLFAIR_737 *SOUNDS PROVIDED BY K-AKAI, ADAM'S WORLD, AND HARRY876; THANK YOU!!! #
+################################################################################################################
+
+REQUIRES_BANK GE.bank
+
+
+###########ENGINE###########
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /aircraft/engine/GE/GE_1
+	#EVENT_NAME /aircraft/engine/GE_master
+	VEH_PART engine 0
+	PARAM_DREF_IDX 0
+	EVENT_START_COND sim/flightmodel2/engines/N1_percent[0] > 0
+	EVENT_END_COND sim/flightmodel2/engines/N1_percent[0] <= 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /aircraft/engine/GE/GE_2
+	#EVENT_NAME /aircraft/engine/GE_master
+	VEH_PART engine 1
+	PARAM_DREF_IDX 1
+	EVENT_START_COND sim/flightmodel2/engines/N1_percent[1] > 0
+	EVENT_END_COND sim/flightmodel2/engines/N1_percent[1] <= 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /aircraft/engine/GE/GE_3
+	#EVENT_NAME /aircraft/engine/GE_master
+	VEH_PART engine 2
+	PARAM_DREF_IDX 2
+	EVENT_START_COND sim/flightmodel2/engines/N1_percent[2] > 0
+	EVENT_END_COND sim/flightmodel2/engines/N1_percent[2] <= 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /aircraft/engine/GE/GE_4
+	#EVENT_NAME /aircraft/engine/GE_master
+	VEH_PART engine 3
+	PARAM_DREF_IDX 3
+	EVENT_START_COND sim/flightmodel2/engines/N1_percent[3] > 0
+	EVENT_END_COND sim/flightmodel2/engines/N1_percent[3] <= 0
+END_SOUND_ATTACHMENT

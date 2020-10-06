@@ -485,8 +485,9 @@ B747DR_gen_xfeed_vlv1_status            = deferred_dataref("laminar/B747/fuel/ge
 B747DR_gen_xfeed_vlv2_status            = deferred_dataref("laminar/B747/fuel/gen/xfeed_vlv2_status", "number")
 B747DR_gen_xfeed_vlv3_status            = deferred_dataref("laminar/B747/fuel/gen/xfeed_vlv3_status", "number")
 B747DR_gen_xfeed_vlv4_status            = deferred_dataref("laminar/B747/fuel/gen/xfeed_vlv4_status", "number")
-
-
+B747DR_refuel				= deferred_dataref("laminar/B747/fuel/refuel", "number")
+B747DR_fuel_preselect			= deferred_dataref("laminar/B747/fuel/preselect", "number")
+B747DR_fuel_add				= deferred_dataref("laminar/B747/fuel/add_fuel", "number")
 B747DR_init_fuel_CD                     = deferred_dataref("laminar/B747/fuel/init_CD", "number")
 
 
@@ -3004,7 +3005,41 @@ end
 
 
 
-
+function B747_refueling()
+  if B747DR_refuel<=0.0 then return end
+  local fuelIn=math.min(10.5*fuel_calc_rate,B747DR_refuel)
+  --print("sending fuel "..fuelIn)
+  if simDR_fuel_tank_weight_kg[1] < B747.fuel.main1_tank.capacity then
+    B747DR_refuel=B747DR_refuel-fuelIn
+    simDR_fuel_tank_weight_kg[1]=simDR_fuel_tank_weight_kg[1]+fuelIn
+  end
+  if simDR_fuel_tank_weight_kg[2] < B747.fuel.main2_tank.capacity then
+    B747DR_refuel=B747DR_refuel-fuelIn
+    simDR_fuel_tank_weight_kg[2]=simDR_fuel_tank_weight_kg[2]+fuelIn
+  elseif simDR_fuel_tank_weight_kg[5] <B747.fuel.res2_tank.capacity then
+    B747DR_refuel=B747DR_refuel-fuelIn
+    simDR_fuel_tank_weight_kg[5]=simDR_fuel_tank_weight_kg[5]+fuelIn
+  end
+  if simDR_fuel_tank_weight_kg[3] < B747.fuel.main3_tank.capacity then
+    B747DR_refuel=B747DR_refuel-fuelIn
+    simDR_fuel_tank_weight_kg[3]=simDR_fuel_tank_weight_kg[3]+fuelIn
+  elseif simDR_fuel_tank_weight_kg[6] <B747.fuel.res3_tank.capacity then
+    B747DR_refuel=B747DR_refuel-fuelIn
+    simDR_fuel_tank_weight_kg[6]=simDR_fuel_tank_weight_kg[6]+fuelIn
+  end
+  if simDR_fuel_tank_weight_kg[4] < B747.fuel.main1_tank.capacity then
+    B747DR_refuel=B747DR_refuel-fuelIn
+    simDR_fuel_tank_weight_kg[4]=simDR_fuel_tank_weight_kg[4]+fuelIn
+  end
+  if simDR_fuel_tank_weight_kg[0] < B747.fuel.center_tank.capacity then
+    B747DR_refuel=B747DR_refuel-fuelIn
+    simDR_fuel_tank_weight_kg[0]=simDR_fuel_tank_weight_kg[0]+fuelIn
+  end
+  if simDR_fuel_tank_weight_kg[7] < B747.fuel.stab_tank.capacity then
+    B747DR_refuel=B747DR_refuel-fuelIn
+    simDR_fuel_tank_weight_kg[7]=simDR_fuel_tank_weight_kg[7]+fuelIn
+  end
+end
 
 
 
@@ -3059,7 +3094,7 @@ function B747_set_fuel_ER()
     -- MANUALLY SET FUEL PROCESSING TO ALLOW FOR UI "ENGINES RUNNING" OPTION
     engineHasFuelProcessing = 0                                                     -- DO NOT ALLOW FUEL PROCESSING
     for i = 0, 3 do
-	print("engine has fuel "..i)
+	--print("engine has fuel "..i)
         simDR_engine_has_fuel[i] = 1                                                -- FORCE "HAS FUEL" TO "ON"
     end
     run_after_time(startFuelProcessing, 10.0)                                        -- DELAYED FUEL PROCESSING
@@ -3181,6 +3216,7 @@ function after_physics()
     B747_fuel_EICAS_msg()
     if debug_fuel>0 then return end
     B747_fuel_monitor_AI()
+    B747_refueling()
 
 end
 

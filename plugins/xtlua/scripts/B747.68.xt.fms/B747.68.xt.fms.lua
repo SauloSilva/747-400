@@ -116,7 +116,7 @@ simDR_radio_adf1_freq_hz            = find_dataref("sim/cockpit2/radios/actuator
 simDR_radio_adf2_freq_hz            = find_dataref("sim/cockpit2/radios/actuators/adf2_frequency_hz")
 
 simDR_fueL_tank_weight_total_kg     = find_dataref("sim/flightmodel/weight/m_fuel_total")
-
+simDR_groundspeed                = find_dataref("sim/flightmodel2/position/groundspeed")
 
 navAidsJSON   = find_dataref("xtlua/navaids")
 
@@ -132,6 +132,10 @@ B747DR_FMSdata=deferred_dataref("laminar/B747/fms/data", "string")
 B747DR_ap_vnav_state                = find_dataref("laminar/B747/autopilot/vnav_state")
 simDR_autopilot_vs_status          = find_dataref("sim/cockpit2/autopilot/vvi_status")
 B747BR_cruiseAlt 			= find_dataref("laminar/B747/autopilot/dist/cruise_alt")
+B747DR__gear_chocked           = find_dataref("laminar/B747/gear/chocked")
+B747DR_fuel_preselect		= find_dataref("laminar/B747/fuel/preselect")
+B747DR_refuel				= find_dataref("laminar/B747/fuel/refuel")
+B747DR_fuel_add				= find_dataref("laminar/B747/fuel/add_fuel")
 --*************************************************************************************--
 --** 				        CREATE READ-WRITE CUSTOM DATAREFS                        **--
 --*************************************************************************************--
@@ -222,6 +226,14 @@ function getFMSData(id)
   end
   return fmsModules["data"][id]
 end 
+fmsModules["lastcmd"]=" "
+fmsModules["cmds"]={}
+fmsModules["cmdstrings"]={}
+function registerFMCCommand(commandID,dataString)
+  fmsModules["cmds"][commandID]=find_command(commandID)
+  fmsModules["cmdstrings"][commandID]=dataString
+end
+
 function switchCustomMode()
   fmsModules["fmsL"]["inCustomFMC"]=fmsModules["fmsL"]["targetCustomFMC"]
   fmsModules["fmsC"]["inCustomFMC"]=fmsModules["fmsC"]["targetCustomFMC"]

@@ -297,7 +297,7 @@ function B747_nacelle_antiice()
         and B747DR_engine2_bleed_air_psi > 12.0
         and B747DR_engine2_bleed_air_start_valve_pos < 0.01
     then
-        B747DR_nacelle_ai_valve_target_pos[0] = 1.0
+        B747DR_nacelle_ai_valve_target_pos[1] = 1.0
     end
 
      -- ENGINE #3
@@ -306,7 +306,7 @@ function B747_nacelle_antiice()
         and B747DR_engine3_bleed_air_psi > 12.0
         and B747DR_engine3_bleed_air_start_valve_pos < 0.01
     then
-        B747DR_nacelle_ai_valve_target_pos[0] = 1.0
+        B747DR_nacelle_ai_valve_target_pos[2] = 1.0
     end
 
      -- ENGINE #4
@@ -315,7 +315,7 @@ function B747_nacelle_antiice()
         and B747DR_engine4_bleed_air_psi > 12.0
         and B747DR_engine4_bleed_air_start_valve_pos < 0.01
     then
-        B747DR_nacelle_ai_valve_target_pos[0] = 1.0
+        B747DR_nacelle_ai_valve_target_pos[3] = 1.0
     end
 
 

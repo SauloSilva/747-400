@@ -50,6 +50,7 @@ end
 simDR_startup_running       = find_dataref("sim/operation/prefs/startup_running")
 
 simDR_engine_fire           = find_dataref("sim/cockpit2/annunciators/engine_fires")
+simDR_apu_fire           = find_dataref("sim/operation/failures/rel_apu_fire")
 simDR_engine_fire_ext_on    = find_dataref("sim/cockpit2/engine/actuators/fire_extinguisher_on")
 simDR_cockpit_smoke         = find_dataref("sim/operation/failures/rel_smoke_cpit")
 simDR_press_diff_psi        = find_dataref("sim/cockpit2/pressurization/indicators/pressure_diffential_psi")
@@ -310,7 +311,7 @@ function B747_fire_extingiuisher_locks()
 end
 
 
-B747DR_engine_fire			    = deferred_dataref("laminar/B747/annunciators/engine_fires", "array[4)")
+B747DR_engine_fire			    = deferred_dataref("laminar/B747/annunciators/engine_fires", "array[5)")
 
 
 
@@ -323,6 +324,11 @@ function B747_fire_ext_switch_animation()
 	B747DR_engine_fire[i]=simDR_engine_fire[i]
       end
     end
+    if  B747DR_fire_ovht_button_pos==1 then 
+	  B747DR_engine_fire[4]=1
+      else
+	B747DR_engine_fire[4]=simDR_apu_fire
+      end
     B747DR_engine01_fire_ext_switch_pos_arm = B747_set_animation_position(B747DR_engine01_fire_ext_switch_pos_arm, fire_extinguisher_switch_pos_arm_target[1], 0.0, 1.0, 10)
     B747DR_engine02_fire_ext_switch_pos_arm = B747_set_animation_position(B747DR_engine02_fire_ext_switch_pos_arm, fire_extinguisher_switch_pos_arm_target[2], 0.0, 1.0, 10)
     B747DR_engine03_fire_ext_switch_pos_arm = B747_set_animation_position(B747DR_engine03_fire_ext_switch_pos_arm, fire_extinguisher_switch_pos_arm_target[3], 0.0, 1.0, 10)

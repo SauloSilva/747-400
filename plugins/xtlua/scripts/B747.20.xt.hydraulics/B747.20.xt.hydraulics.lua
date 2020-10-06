@@ -75,7 +75,7 @@ simDR_hyd_press_2               = find_dataref("sim/cockpit2/hydraulics/indicato
 simDR_hyd_fluid_level           = find_dataref("sim/cockpit2/hydraulics/indicators/hydraulic_fluid_ratio_1")
 simDR_hyd_fluid_level2          = find_dataref("sim/cockpit2/hydraulics/indicators/hydraulic_fluid_ratio_2")
 simDR_parking_brake_ratio       = find_dataref("sim/cockpit2/controls/parking_brake_ratio")
-
+B747DR_parking_brake_ratio = find_dataref("laminar/B747/flt_ctrls/parking_brake_ratio")
 
 
 
@@ -381,7 +381,7 @@ function B747_hyd_EICAS_msg()
 
     -- PARK BRAKE SET
     
-    if simDR_parking_brake_ratio > 0.9 then 
+    if simDR_parking_brake_ratio > 0.9 and B747DR_parking_brake_ratio> 0.9 then 
       B747DR_CAS_memo_status[26] = 1 
     else
       B747DR_CAS_memo_status[26] = 0

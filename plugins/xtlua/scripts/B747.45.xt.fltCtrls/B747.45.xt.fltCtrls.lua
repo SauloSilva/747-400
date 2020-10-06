@@ -113,6 +113,7 @@ simDR_ind_airspeed_kts_pilot    = find_dataref("sim/cockpit2/gauges/indicators/a
 simDR_engine_N1_pct             = find_dataref("sim/cockpit2/engine/indicators/N1_percent")
 simDR_radio_alt_height_capt     = find_dataref("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot")
 
+
 simDR_parking_brake_ratio       = find_dataref("sim/cockpit2/controls/parking_brake_ratio")
 simDR_elevator_trim             = find_dataref("sim/flightmodel2/controls/elevator_trim")
 simDR_acf_weight_total_kg       = find_dataref("sim/flightmodel/weight/m_total")
@@ -134,7 +135,7 @@ B747DR_speedbrake_lever_pos     = deferred_dataref("laminar/B747/flt_ctrls/speed
 B747DR_flap_trans_status        = deferred_dataref("laminar/B747/flt_ctrls/flap/transition_status", "number")
 B747DR_EICAS1_flap_display_status = deferred_dataref("laminar/B747/flt_ctrls/flaps/EICAS1_display_status", "number")
 B747DR_elevator_trim_mid_ind    = deferred_dataref("laminar/B747/flt_ctrls/elevator_trim/mid/indicator", "number")
-
+B747DR__gear_chocked           = deferred_dataref("laminar/B747/gear/chocked", "number")
 B747DR_init_fltctrls_CD         = deferred_dataref("laminar/B747/fltctrls/init_CD", "number")
 
 
@@ -806,7 +807,10 @@ function B747_fltCtrols_EICAS_msg()
     end
 
     -- >CONFIG PARK BRK
-    if simDR_hyd_press_1_2 < 1000 and simDR_parking_brake_ratio > 0 then
+    if B747DR__gear_chocked==1 then
+      simDR_parking_brake_ratio = 1.0
+      last_B747DR_Brake = 1.0
+    elseif simDR_hyd_press_1_2 < 1000 and simDR_parking_brake_ratio > 0 then
       simDR_parking_brake_ratio = B747_animate_value(simDR_parking_brake_ratio,0,0,1,1)
     else
       if B747DR_parking_brake_ratio~=last_B747DR_Brake then --manually changed

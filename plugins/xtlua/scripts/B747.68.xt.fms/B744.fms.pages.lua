@@ -9,6 +9,12 @@ dofile("acars/acars.lua")
 fmsPages["INDEX"]=createPage("INDEX")
 fmsPages["INDEX"].getPage=function(self,pgNo,fmsID)
   local acarsS="      "
+  local gs1="                        "
+
+  if simDR_onGround ==1 then
+    gs1="                 SELECT>"
+
+  end
   if acars==1 and B747DR_rtp_C_off==0 then acarsS="<ACARS" end
 return {
 
@@ -20,32 +26,40 @@ acarsS.."           SELECT>",
 "                        ",
 "<SAT                    ",
 "                        ",
-"                        ",
+gs1,
 "                        ",
 "<ACMS                   ", 
 "                        ",
 "<CMC                    "
 }
 end
-fmsPages["INDEX"]["templateSmall"]={
-"                        ",
-"                 EFIS CP",
-"                        ",
-"                EICAS CP",
-"                        ",
-"                 CTL PNL",
-"                        ",
-"                        ",
-"                        ",
-"                        ",
-"                        ",
-"                        ",
-"                        ",
-}
+fmsPages["INDEX"].getSmallPage=function(self,pgNo,fmsID)
 
+  local gs2="                        "
+  if simDR_onGround ==1 then
+
+    gs2="         GROUND HANDLING"
+  end
+  return {
+      "                        ",
+      "                 EFIS CP",
+      "                        ",
+      "                EICAS CP",
+      "                        ",
+      "                 CTL PNL",
+      "                        ",
+      gs2,
+      "                        ",
+      "                        ",
+      "                        ",
+      "                        ",
+      "                        ",
+      }
+end
 fmsFunctionsDefs["INDEX"]={}
 fmsFunctionsDefs["INDEX"]["L1"]={"setpage","FMC"}
 fmsFunctionsDefs["INDEX"]["L2"]={"setpage","ACARS"}
+fmsFunctionsDefs["INDEX"]["R4"]={"setpage","GNDHNDL"}
 fmsPages["RTE1"]=createPage("RTE1")
 fmsPages["RTE1"].getPage=function(self,pgNo,fmsID)
   local lastLine="<RTE 2             PERF>"
@@ -88,24 +102,25 @@ fmsFunctionsDefs["RTE1"]["R6"]={"setpage","PERFINIT"}
 fmsFunctionsDefs["RTE1"]["next"]={"custom2fmc","next"}
 fmsFunctionsDefs["RTE1"]["prev"]={"custom2fmc","prev"}
 fmsFunctionsDefs["RTE1"]["exec"]={"custom2fmc","exec"}
-dofile("B744.fms.pages.posinit.lua")
-dofile("B744.fms.pages.perfinit.lua")
-dofile("B744.fms.pages.thrustlim.lua")
-dofile("B744.fms.pages.takeoff.lua")
-dofile("B744.fms.pages.approach.lua")
-dofile("B744.fms.pages.legs.lua")
-dofile("B744.fms.pages.maint.lua")
-dofile("B744.fms.pages.maintbite.lua")
-dofile("B744.fms.pages.maintcrossload.lua")
-dofile("B744.fms.pages.maintirsmonitor.lua")
-dofile("B744.fms.pages.maintperffactor.lua")
-dofile("B744.fms.pages.progress.lua")
-dofile("B744.fms.pages.actrte1.lua")
-dofile("B744.fms.pages.atcindex.lua")
-dofile("B744.fms.pages.atclogonstatus.lua")
-dofile("B744.fms.pages.atcreport.lua")
-dofile("B744.fms.pages.fmccomm.lua")
-dofile("B744.fms.pages.vnav.lua")
+dofile("activepages/B744.fms.pages.posinit.lua")
+dofile("activepages/B744.fms.pages.perfinit.lua")
+dofile("activepages/B744.fms.pages.thrustlim.lua")
+dofile("activepages/B744.fms.pages.takeoff.lua")
+dofile("activepages/B744.fms.pages.approach.lua")
+dofile("activepages/B744.fms.pages.legs.lua")
+dofile("activepages/B744.fms.pages.maint.lua")
+dofile("activepages/B744.fms.pages.maintbite.lua")
+dofile("activepages/B744.fms.pages.maintcrossload.lua")
+dofile("activepages/B744.fms.pages.maintirsmonitor.lua")
+dofile("activepages/B744.fms.pages.maintperffactor.lua")
+dofile("activepages/B744.fms.pages.progress.lua")
+dofile("activepages/B744.fms.pages.actrte1.lua")
+dofile("activepages/B744.fms.pages.atcindex.lua")
+dofile("activepages/B744.fms.pages.atclogonstatus.lua")
+dofile("activepages/B744.fms.pages.atcreport.lua")
+dofile("activepages/B744.fms.pages.fmccomm.lua")
+dofile("activepages/B744.fms.pages.vnav.lua")
+dofile("activepages/B744.fms.pages.groundhandling.lua")
 --[[
 dofile("B744.fms.pages.actclb.lua")
 dofile("B744.fms.pages.actcrz.lua")
@@ -585,6 +600,18 @@ function fmsFunctions.setdata(fmsO,value)
     if fmsModules["fmsL"].notify=="ENTER IRS POSITION" then fmsModules["fmsL"].notify="" end
     if fmsModules["fmsC"].notify=="ENTER IRS POSITION" then fmsModules["fmsC"].notify="" end
     if fmsModules["fmsR"].notify=="ENTER IRS POSITION" then fmsModules["fmsR"].notify="" end
+   elseif value=="services" then
+     fmsModules["cmds"]["sim/ground_ops/service_plane"]:once() fmsModules["lastcmd"]=fmsModules["cmdstrings"]["sim/ground_ops/service_plane"]
+     run_after_time(function() B747DR_refuel=B747DR_fuel_add*1000
+      B747DR_fuel_preselect=simDR_fueL_tank_weight_total_kg+B747DR_refuel
+      B747DR_fuel_add=0
+      end,30)
+   elseif value=="fuelpreselect" and string.len(fmsO["scratchpad"])>0 then
+     local fuel=tonumber(fmsO["scratchpad"])
+     if fuel~=nil then
+       B747DR_fuel_add=fuel
+       
+     end
    elseif value=="airportgate" and string.len(fmsO["scratchpad"])>0 then
     local lat=toDMS(simDR_latitude,true)
     local lon=toDMS(simDR_longitude,false)
@@ -608,7 +635,8 @@ function fmsFunctions.setDref(fmsO,value)
    local val=tonumber(fmsO["scratchpad"])
   if value=="VNAVS1" and B747DR_ap_vnav_system ~=1.0 then B747DR_ap_vnav_system=1 return elseif value=="VNAVS1" then B747DR_ap_vnav_system=0 return end 
   if value=="VNAVS2" and B747DR_ap_vnav_system ~=2.0 then B747DR_ap_vnav_system=2 return elseif value=="VNAVS2" then B747DR_ap_vnav_system=0 return end 
-  if value=="VNAVSPAUSE" then B747DR_ap_vnav_pause=1-B747DR_ap_vnav_pause return end  
+  if value=="VNAVSPAUSE" then B747DR_ap_vnav_pause=1-B747DR_ap_vnav_pause return end 
+  if value=="CHOCKS" then B747DR__gear_chocked=1-B747DR__gear_chocked return  end
   if value=="TO" then toderate=0 clbderate=0 return  end
   if value=="TO1" then toderate=1 clbderate=1 return  end
   if value=="TO2" then toderate=2 clbderate=2 return  end
@@ -642,4 +670,9 @@ function fmsFunctions.showmessage(fmsO,value)
   acarsSystem.currentMessage=value
   fmsO["inCustomFMC"]=true
   fmsO["currentPage"]="VIEWACARSMSG" 
+end
+
+function fmsFunctions.doCMD(fmsO,value)
+  print("do fmc command "..value)
+  if fmsModules["cmds"][value] ~= nil then fmsModules["cmds"][value]:once() fmsModules["lastcmd"]=fmsModules["cmdstrings"][value] end
 end

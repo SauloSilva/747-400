@@ -92,7 +92,7 @@ B747DR_tire_pressure            = deferred_dataref("laminar/B747/gear/tire_press
 B747DR_brake_temp               = deferred_dataref("laminar/B747/gear/brake_temp", "array[18]")
 B747DR_brake_temp_ind               = deferred_dataref("laminar/B747/gear/brake_temp_ind", "array[18]")
 B747DR_init_gear_CD             = deferred_dataref("laminar/B747/gear/init_CD", "number")
-
+B747DR__gear_chocked           = deferred_dataref("laminar/B747/gear/chocked", "number")
 ----- GEAR HANDLE DATAREF HANDLER -------------------------------------------------------
 
 local B747_gear_handle_lock_override = 0

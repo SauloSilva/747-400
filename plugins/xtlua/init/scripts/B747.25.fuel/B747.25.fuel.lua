@@ -329,7 +329,9 @@ B747DR_gen_xfeed_vlv1_status            = deferred_dataref("laminar/B747/fuel/ge
 B747DR_gen_xfeed_vlv2_status            = deferred_dataref("laminar/B747/fuel/gen/xfeed_vlv2_status", "number")
 B747DR_gen_xfeed_vlv3_status            = deferred_dataref("laminar/B747/fuel/gen/xfeed_vlv3_status", "number")
 B747DR_gen_xfeed_vlv4_status            = deferred_dataref("laminar/B747/fuel/gen/xfeed_vlv4_status", "number")
-
+B747DR_refuel				= deferred_dataref("laminar/B747/fuel/refuel", "number")
+B747DR_fuel_preselect			= deferred_dataref("laminar/B747/fuel/preselect", "number")
+B747DR_fuel_add				= deferred_dataref("laminar/B747/fuel/add_fuel", "number")
 
 B747DR_init_fuel_CD                     = deferred_dataref("laminar/B747/fuel/init_CD", "number")
 

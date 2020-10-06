@@ -106,7 +106,7 @@ B747DR_bleedAir_engine2_start_valve_pos     = find_dataref("laminar/B747/air/eng
 B747DR_bleedAir_engine3_start_valve_pos     = find_dataref("laminar/B747/air/engine3/bleed_start_valve_pos")
 B747DR_bleedAir_engine4_start_valve_pos     = find_dataref("laminar/B747/air/engine4/bleed_start_valve_pos")
 
-B747DR_engine_fire				= deferred_dataref("laminar/B747/annunciators/engine_fires", "array[4)")
+B747DR_engine_fire				= deferred_dataref("laminar/B747/annunciators/engine_fires", "array[5)")
 
 simDR_engine_N2_pct             = find_dataref("sim/cockpit2/engine/indicators/N2_percent")
 simDR_engine_fuel_mix_ratio     = find_dataref("sim/cockpit2/engine/actuators/mixture_ratio")
