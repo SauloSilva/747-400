@@ -1177,8 +1177,8 @@ function B747_annunciators()
     annun.b.anti_ice_window_heat_R = B747_ternary(((B747DR_button_switch_position[74] > 0.95) and (simDR_window_heat_fail == 6)), 1, 0)
 
     -- YAW DAMPER
-    annun.b.yaw_damper_upper = B747_ternary((simDR_yaw_damper_annun == 0), 1, 0)
-    annun.b.yaw_damper_lower = B747_ternary((simDR_yaw_damper_annun == 0), 1, 0)
+    annun.b.yaw_damper_upper = B747_ternary((simDR_yaw_damper_annun == 0 or B747DR_button_switch_position[82]<0.5), 1, 0)
+    annun.b.yaw_damper_lower = B747_ternary((simDR_yaw_damper_annun == 0 or B747DR_button_switch_position[83]<0.5), 1, 0)
 
     -- TEMPERATURE
     annun.b.temp_zone_reset = B747_ternary((B747DR_button_switch_position[37] < 0.05), 1, 0)

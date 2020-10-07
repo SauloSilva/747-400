@@ -429,7 +429,7 @@ function B747_ap_switch_vnavalt_mode_CMDhandler(phase, duration)
 	if phase == 0 then
 		B747_ap_button_switch_position_target[16] = 1									-- SET THE ALT KNOB ANIMATION TO "IN"
 		if B747DR_ap_vnav_state==2 then
-		  if simDR_autopilot_tod_distance<50 and simDR_pressureAlt1>simDR_autopilot_altitude_ft then
+		  if B747BR_totalDistance>0 and (B747BR_totalDistance-B747BR_tod)<50 and simDR_pressureAlt1>simDR_autopilot_altitude_ft then
 		    if simDR_autopilot_vs_status == 0 then
 		      simCMD_autopilot_vert_speed_mode:once()
 		    end
@@ -1842,8 +1842,8 @@ function setDistances(fmsO)
   B747BR_nextDistanceInFeet=nextDistanceInFeet
   B747BR_tod=((B747BR_cruiseAlt)/100)/2.9
 end
-function setVSpeed()
-  
+function setVSpeed(fmsO)
+  if simDR_autopilot_altitude_ft+600 > simDR_pressureAlt1 then return end --dont set fpm near hold alt
 --   if simDR_radarAlt1<=1200 then
 --     --fmstargetIndex=-1
 --     --fmscurrentIndex=0
@@ -1853,15 +1853,17 @@ function setVSpeed()
 --     return
 --   end
   
-  local time=B747BR_totalDistance*30.8666/(simDR_groundspeed) --time in minutes, gs in m/s....
+  local distanceNM=getDistance(simDR_latitude,simDR_longitude,fmsO[fmstargetIndex][5],fmsO[fmstargetIndex][6]) --B747BR_nextDistanceInFeet/6076.12
+  local nextDistanceInFeet=distanceNM*6076.12
+  local time=distanceNM*30.8666/(simDR_groundspeed) --time in minutes, gs in m/s....
   local early=100
-  if simDR_autopilot_altitude_ft>5000 then early=500 end
+  if simDR_autopilot_altitude_ft>5000 then early=250 end
   local vdiff=B747DR_ap_vnav_target_alt-simDR_pressureAlt1-early --to be negative
   local vspeed=vdiff/time
-  --print("speed=".. simDR_groundspeed .. " distance=".. totalDistance .. " vspeed=" .. vspeed .. " vdiff=" .. vdiff .. " time=" .. time)
+  --print("speed=".. simDR_groundspeed .. " distance=".. distanceNM .. " vspeed=" .. vspeed .. " vdiff=" .. vdiff .. " time=" .. time)
 		  --speed=89.32039642334 distance=2.9459299767094vspeed=-6559410.6729958
-  B747DR_ap_vb = math.atan2((vdiff*(B747BR_nextDistanceInFeet/(B747BR_totalDistance*6076.12))),B747BR_nextDistanceInFeet)*-57.2958
-  if vspeed<-2500 then vspeed=-2500 end
+  B747DR_ap_vb = math.atan2(vdiff,nextDistanceInFeet)*-57.2958
+  if vspeed<-3500 then vspeed=-3500 end
   
   if simDR_radarAlt1<=1200 then
     simDR_autopilot_vs_fpm = -250 -- slow descent, reduces AoA which if it goes to high spoils the landing
@@ -1873,6 +1875,111 @@ function setVSpeed()
 end
 ----- ALTITUDE SELECTED -----------------------------------------------------------------
 local inVnavAlt=0
+local recalcAfter=0
+local vnavcalcwithMCPAlt=0
+function computeVNAVAlt(fms)
+  
+  local dist_to_TOD=(B747BR_totalDistance-B747BR_tod)
+  for i=1,table.getn(fms),1 do
+    if fms[i][10]==true and i<=recalcAfter and vnavcalcwithMCPAlt==B747DR_autopilot_altitude_ft and (dist_to_TOD>50 or dist_to_TOD<49) and (simDR_autopilot_alt_hold_status < 2 or dist_to_TOD>0) then
+      --print("simDR_autopilot_altitude_ft=".. simDR_autopilot_altitude_ft)
+      return 
+    end
+  end
+  if simDR_autopilot_alt_hold_status < 2 or dist_to_TOD>0 then --force a recalc after hold ends to set to B747DR_autopilot_altitude_ft if required
+    vnavcalcwithMCPAlt=B747DR_autopilot_altitude_ft
+  else
+    vnavcalcwithMCPAlt=simDR_autopilot_altitude_ft
+  end 
+  local began=false
+  local targetAlt=simDR_autopilot_altitude_ft
+  local targetIndex=0
+  local currentIndex=0
+  
+  for i=1,table.getn(fms),1 do
+    --print("FMS j="..fmsJSON)
+    
+    if fms[i][10]==true then
+      began=true
+      currentIndex=i
+      local nextDistance=getDistance(simDR_latitude,simDR_longitude,fms[i][5],fms[i][6])
+      if nextDistance>dist_to_TOD and dist_to_TOD>50 and B747BR_cruiseAlt>0 then
+	targetAlt=B747BR_cruiseAlt
+	targetIndex=i
+	break 
+      end
+      
+      --print("FMS current i=" .. i.. ":" .. fms[i][1] .. ":" .. fms[i][2] .. ":" .. fms[i][3] .. ":" .. fms[i][4] .. ":" .. fms[i][5] .. ":" .. fms[i][6] .. ":" .. fms[i][7] .. ":" .. fms[i][8].. ":" .. fms[i][9])
+      if B747BR_totalDistance>0 and dist_to_TOD>50 and (nextDistance)>dist_to_TOD then 
+	break 
+      end
+      if fms[i][9]>0 and fms[i][2] ~= 1 then targetAlt=fms[i][9] targetIndex=i break end
+    
+    elseif began==true then
+      local nextDistance=getDistance(simDR_latitude,simDR_longitude,fms[i][5],fms[i][6])
+      if nextDistance>dist_to_TOD and dist_to_TOD>50 and B747BR_cruiseAlt>0 then
+	targetAlt=B747BR_cruiseAlt
+	targetIndex=i
+	break 
+      end
+      if B747BR_totalDistance>0 and dist_to_TOD>50 and (nextDistance)>dist_to_TOD then 
+	break 
+      end
+      
+      if fms[i][9]>0 and fms[i][2] ~= 1 then targetAlt=fms[i][9] targetIndex=i break end
+    end
+  end
+  --if (targetAlt~=simDR_autopilot_altitude_ft or simDR_autopilot_altitude_ft~=B747DR_autopilot_altitude_ft) or (targetIndex>0 and  targetIndex~=fmstargetIndex) then
+  
+  --if targetAlt ~= simDR_autopilot_altitude_ft then 
+      if targetAlt>simDR_pressureAlt1+300 then
+	--print("FMS use climb i=" .. targetIndex.. "@" .. currentIndex .. ":" ..fms[targetIndex][1] .. ":" .. fms[targetIndex][2] .. ":" .. fms[targetIndex][3] .. ":" .. fms[targetIndex][4] .. ":" .. fms[targetIndex][5] .. ":" .. fms[targetIndex][6] .. ":" .. fms[targetIndex][7] .. ":" .. fms[targetIndex][8].. ":" .. fms[targetIndex][9])
+	B747DR_ap_vnav_target_alt=targetAlt
+	if targetAlt > B747DR_autopilot_altitude_ft and B747DR_autopilot_altitude_ft>simDR_pressureAlt1+150 and simDR_autopilot_alt_hold_status < 2 then 
+	  targetAlt=B747DR_autopilot_altitude_ft 
+	end
+	simDR_autopilot_altitude_ft=targetAlt
+	
+	fmstargetIndex=targetIndex
+	fmscurrentIndex=currentIndex
+	if simDR_autopilot_autothrottle_enabled == 0 and B747DR_engine_TOGA_mode == 0 and B747DR_ap_inVNAVdescent > 0 and B747DR_toggle_switch_position[29] == 1 then							-- AUTOTHROTTLE IS "OFF"
+		simCMD_autopilot_autothrottle_on:once()									-- ACTIVATE THE AUTOTHROTTLE
+	end
+	if simDR_autopilot_flch_status==0 and B747DR_engine_TOGA_mode == 0 and B747DR_ap_inVNAVdescent > 0 then
+	  simCMD_autopilot_flch_mode:once()
+	end
+	B747DR_ap_inVNAVdescent =0
+      elseif targetAlt<simDR_pressureAlt1-300 then
+	--print("FMS use descend i=" .. targetIndex.. "@" .. currentIndex .. ":" ..fms[targetIndex][1] .. ":" .. fms[targetIndex][2] .. ":" .. fms[targetIndex][3] .. ":" .. fms[targetIndex][4] .. ":" .. fms[targetIndex][5] .. ":" .. fms[targetIndex][6] .. ":" .. fms[targetIndex][7] .. ":" .. fms[targetIndex][8].. ":" .. fms[targetIndex][9])
+	
+	B747DR_ap_vnav_target_alt=targetAlt
+	if targetAlt < B747DR_autopilot_altitude_ft and B747DR_autopilot_altitude_ft<simDR_pressureAlt1-150 and simDR_autopilot_alt_hold_status < 2 then 
+	  targetAlt=B747DR_autopilot_altitude_ft 
+	end
+	simDR_autopilot_altitude_ft=targetAlt
+	
+	fmstargetIndex=targetIndex
+	fmscurrentIndex=currentIndex
+	if simDR_autopilot_altitude_ft> simDR_pressureAlt1+500 and simDR_autopilot_alt_hold_status < 2 then
+	  simCMD_autopilot_alt_hold_mode:once()
+	  if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 then							-- AUTOTHROTTLE IS "OFF"
+		simCMD_autopilot_autothrottle_on:once()									-- ACTIVATE THE AUTOTHROTTLE
+		if B747DR_engine_TOGA_mode >0 then B747DR_engine_TOGA_mode = 0 end	-- CANX ENGINE TOGA IF ACTIVE
+	  end	
+	end
+	--[[if simDR_autopilot_vs_status == 0 then
+	  simCMD_autopilot_vert_speed_mode:once()
+	  --simDR_autopilot_vs_fpm = vspeed 
+	
+	end]]
+      
+	
+      end
+      print("targetAlt=".. targetAlt .. " simDR_autopilot_altitude_ft=".. simDR_autopilot_altitude_ft .. " simDR_pressureAlt1=" .. simDR_pressureAlt1 .. " targetIndex=" .. targetIndex .. " B747DR_autopilot_altitude_ft="..B747DR_autopilot_altitude_ft)
+      recalcAfter=fmstargetIndex
+  --end
+end
+
 function B747_ap_altitude()
 	local currentapAlt=simDR_autopilot_altitude_ft
 	B747DR_ap_alt_show_thousands = B747_ternary(B747DR_autopilot_altitude_ft > 999.9, 1.0, 0.0)
@@ -1880,7 +1987,13 @@ function B747_ap_altitude()
 	local vvi_status=simDR_autopilot_vs_status
 	--print("B747_ap_altitude")
 	if B747DR_ap_vnav_state>0 then
+	  
+	  fms=json.decode(fmsJSON)
+	  if table.getn(fms)<2 or fms[table.getn(fms)][2] ~= 1 then print("Cancel VNAV "..table.getn(fms)) B747DR_ap_vnav_state=0 return end --no vnav
+	  
+	  computeVNAVAlt(fms)
 	  local diff = simDR_ind_airspeed_kts_pilot - simDR_autopilot_airspeed_kts
+	  
 	  if B747DR_ap_inVNAVdescent >0 and simDR_autopilot_autothrottle_enabled == 0 and diff>0 and simDR_allThrottle>0 and simDR_radarAlt1>1000 then
 	    simCMD_ThrottleDown:once()
 	    print("go idle")
@@ -1896,7 +2009,7 @@ function B747_ap_altitude()
 	  local diff2 = simDR_autopilot_altitude_ft - simDR_pressureAlt1
 	  local diff3 = B747DR_autopilot_altitude_ft- simDR_pressureAlt1
 	  if B747DR_ap_inVNAVdescent ==0 and diff2<=0 and diff3<=0 
-	    and simDR_autopilot_tod_index>0 and simDR_autopilot_tod_distance<=0
+	    and B747BR_totalDistance>0 and B747BR_totalDistance-B747BR_tod<=0
 	    and simDR_autopilot_vs_status == 0 and simDR_radarAlt1>1000 and simDR_autopilot_autothrottle_enabled>-1 then
 	    B747DR_ap_inVNAVdescent =1
 	    print("Begin descent")
@@ -1920,91 +2033,16 @@ function B747_ap_altitude()
 -- 	      print("Ended descent")
 	    end
 	  elseif B747DR_ap_inVNAVdescent ==1 and simDR_autopilot_vs_status == 0 and simDR_radarAlt1>1000 then
-	    print("waiting to resume descent "..diff.." "..diff2.." "..simDR_radarAlt1)
+	    print("waiting to resume descent "..diff.." "..diff2.." "..simDR_radarAlt1.. " " .. simDR_autopilot_altitude_ft)
 	  end
 	  if B747DR_ap_inVNAVdescent == 2 and ((simDR_autopilot_alt_hold_status == 2 or simDR_autopilot_vs_status == 0) and inVnavAlt<1) and (diff2<-1000) and (diff3<-1000) then 
 	      B747DR_ap_inVNAVdescent =1 --has simDR_autopilot_alt_hold_status == 2 in condition
 	    end
 	  --if simDR_pressureAlt1>simDR_autopilot_altitude_ft and simDR_autopilot_vs_status == 2 and fms~=nill and table.getn(fms)>2 and fmstargetIndex>0 then
 	  if simDR_autopilot_vs_status == 2 and fms~=nill and table.getn(fms)>2 and fmstargetIndex>0 then
-	    setVSpeed()
+	    setVSpeed(fms)
 	  end
-	  fms=json.decode(fmsJSON)
-	  if table.getn(fms)<2 or fms[table.getn(fms)][2] ~= 1 then print("Cancel VNAV "..table.getn(fms)) B747DR_ap_vnav_state=0 return end --no vnav
-	  local began=false
-	  local targetAlt=simDR_autopilot_altitude_ft
-	  local targetIndex=0
-	  local currentIndex=0
-	  for i=1,table.getn(fms),1 do
-	    --print("FMS j="..fmsJSON)
-	    if fms[i][10]==true then
-	      began=true
-	      currentIndex=i
-	      --print("FMS current i=" .. i.. ":" .. fms[i][1] .. ":" .. fms[i][2] .. ":" .. fms[i][3] .. ":" .. fms[i][4] .. ":" .. fms[i][5] .. ":" .. fms[i][6] .. ":" .. fms[i][7] .. ":" .. fms[i][8].. ":" .. fms[i][9])
-	      if simDR_autopilot_tod_distance>50 and simDR_autopilot_tod_index==(i-1) and simDR_autopilot_tod_index~=0 then 
-		--print("skip") 
-		break 
-	      end
-	      --print("FMS use current i=" .. i.. ":" .. fms[i][1] .. ":" .. fms[i][2] .. ":" .. fms[i][3] .. ":" .. fms[i][4] .. ":" .. fms[i][5] .. ":" .. fms[i][6] .. ":" .. fms[i][7] .. ":" .. fms[i][8].. ":" .. fms[i][9])
-	      if fms[i][9]>0 and fms[i][2] ~= 1 then targetAlt=fms[i][9] targetIndex=i break end
-	    
-	    elseif began==true then
-	      if simDR_autopilot_tod_distance>50  and simDR_autopilot_tod_index==(i-1) and simDR_autopilot_tod_index~=0  then 
-		--print("skip") 
-		break 
-	      end
-	      
-	      --print("test FMS i=" .. i.. ":" .. fms[i][1] .. ":" .. fms[i][2] .. ":" .. fms[i][3] .. ":" .. fms[i][4] .. ":" .. fms[i][5] .. ":" .. fms[i][6] .. ":" .. fms[i][7] .. ":" .. fms[i][8].. ":" .. fms[i][9])  
-	      if fms[i][9]>0 and fms[i][2] ~= 1 then targetAlt=fms[i][9] targetIndex=i break end
-	   
-	    --else
-	     -- print("FMS i=" .. i.. ":" .. fms[i][1] .. ":" .. fms[i][2] .. ":" .. fms[i][3] .. ":" .. fms[i][4] .. ":" .. fms[i][5] .. ":" .. fms[i][6] .. ":" .. fms[i][7] .. ":" .. fms[i][8].. ":" .. fms[i][9])
-	    end
-	  end
-	  -- print("targetAlt=".. targetAlt .. " simDR_autopilot_altitude_ft=".. simDR_autopilot_altitude_ft .. "simDR_pressureAlt1=" .. simDR_pressureAlt1)
-	  --if targetAlt ~= simDR_autopilot_altitude_ft then 
-	      if targetAlt>simDR_pressureAlt1 then
-		--print("FMS use climb i=" .. targetIndex.. "@" .. currentIndex .. ":" ..fms[targetIndex][1] .. ":" .. fms[targetIndex][2] .. ":" .. fms[targetIndex][3] .. ":" .. fms[targetIndex][4] .. ":" .. fms[targetIndex][5] .. ":" .. fms[targetIndex][6] .. ":" .. fms[targetIndex][7] .. ":" .. fms[targetIndex][8].. ":" .. fms[targetIndex][9])
-		B747DR_ap_vnav_target_alt=targetAlt
-		if targetAlt > B747DR_autopilot_altitude_ft and B747DR_autopilot_altitude_ft>simDR_pressureAlt1+150 and simDR_autopilot_alt_hold_status < 2 then 
-		  targetAlt=B747DR_autopilot_altitude_ft 
-		end
-		simDR_autopilot_altitude_ft=targetAlt
-		
-		fmstargetIndex=targetIndex
-		fmscurrentIndex=currentIndex
-		if simDR_autopilot_autothrottle_enabled == 0 and B747DR_engine_TOGA_mode == 0 and B747DR_ap_inVNAVdescent > 0 and B747DR_toggle_switch_position[29] == 1 then							-- AUTOTHROTTLE IS "OFF"
-			simCMD_autopilot_autothrottle_on:once()									-- ACTIVATE THE AUTOTHROTTLE
-		end
-		if simDR_autopilot_flch_status==0 and B747DR_engine_TOGA_mode == 0 and B747DR_ap_inVNAVdescent > 0 then
-		  simCMD_autopilot_flch_mode:once()
-		end
-		B747DR_ap_inVNAVdescent =0
-	      elseif targetAlt<simDR_pressureAlt1 then
-		--print("FMS use descend i=" .. targetIndex.. "@" .. currentIndex .. ":" ..fms[targetIndex][1] .. ":" .. fms[targetIndex][2] .. ":" .. fms[targetIndex][3] .. ":" .. fms[targetIndex][4] .. ":" .. fms[targetIndex][5] .. ":" .. fms[targetIndex][6] .. ":" .. fms[targetIndex][7] .. ":" .. fms[targetIndex][8].. ":" .. fms[targetIndex][9])
-		if simDR_autopilot_altitude_ft> simDR_pressureAlt1+500 and simDR_autopilot_alt_hold_status < 2 then
-		  simCMD_autopilot_alt_hold_mode:once()
-		  if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 then							-- AUTOTHROTTLE IS "OFF"
-			simCMD_autopilot_autothrottle_on:once()									-- ACTIVATE THE AUTOTHROTTLE
-			if B747DR_engine_TOGA_mode >0 then B747DR_engine_TOGA_mode = 0 end	-- CANX ENGINE TOGA IF ACTIVE
-		  end	
-		end
-		B747DR_ap_vnav_target_alt=targetAlt
-		if targetAlt < B747DR_autopilot_altitude_ft and B747DR_autopilot_altitude_ft<simDR_pressureAlt1-150 and simDR_autopilot_alt_hold_status < 2 then targetAlt=B747DR_autopilot_altitude_ft end
-		simDR_autopilot_altitude_ft=targetAlt
-		
-		fmstargetIndex=targetIndex
-		fmscurrentIndex=currentIndex
-		
-		--[[if simDR_autopilot_vs_status == 0 then
-		  simCMD_autopilot_vert_speed_mode:once()
-		  --simDR_autopilot_vs_fpm = vspeed 
-		
-		end]]
-	     
-		
-	      end
-	  --end
+	  
 	  
 	end
 end	

@@ -475,7 +475,7 @@ end
 
 function fms:B747_fms_display()
     local thisID=self.id
-    if self.inCustomFMC~=self.targetCustomFMC or self.currentPage~=self.targetPage then 
+    if self.inCustomFMC~=self.targetCustomFMC or self.currentPage~=self.targetPage or self.pgNo~=self.targetpgNo then 
       B747DR_fms[thisID][self.swipeOut]="                        "
       B747DR_fms_s[thisID][self.swipeOut]="                        "
       B747DR_fms[thisID][self.swipeOut+1]="                        "
@@ -495,7 +495,7 @@ function fms:B747_fms_display()
 	B747DR_fms_s[thisID][i]="                        "
       end
     else
-      if self.pgNo>fmsPages[page]:getNumPages() then self.pgNo=fmsPages[page]:getNumPages() end
+      if self.pgNo>fmsPages[page]:getNumPages() then self.pgNo=fmsPages[page]:getNumPages() self.targetpgNo=fmsPages[page]:getNumPages() end
       local fmsPage = fmsPages[page]:getPage(self.pgNo,thisID);
       local fmsPagesmall = fmsPages[page]:getSmallPage(self.pgNo,thisID);
       local tmpSRC

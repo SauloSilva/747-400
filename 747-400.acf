@@ -122,7 +122,7 @@ P _gear/0/_lonE 1.0
 P _gear/0/_lonN 1.0
 P _gear/0/_lonR 117.0
 P _gear/0/_scon 358467.468750000
-P _gear/0/_stat_def 0.165289506
+P _gear/0/_stat_def 0.165289536
 P _gear/0/_steerdeg_hispeed 15.0
 P _gear/0/_steerdeg_lospeed 75.0
 P _gear/0/_strut_comp 0.0
@@ -156,7 +156,7 @@ P _gear/1/_lonE 1.0
 P _gear/1/_lonN 1.0
 P _gear/1/_lonR 140.0
 P _gear/1/_scon 358467.468750000
-P _gear/1/_stat_def 0.627037048
+P _gear/1/_stat_def 0.627037406
 P _gear/1/_steerdeg_hispeed 0.0
 P _gear/1/_steerdeg_lospeed 0.0
 P _gear/1/_strut_comp 0.0
@@ -190,7 +190,7 @@ P _gear/2/_lonE 1.0
 P _gear/2/_lonN 1.0
 P _gear/2/_lonR 140.0
 P _gear/2/_scon 358467.468750000
-P _gear/2/_stat_def 0.627037048
+P _gear/2/_stat_def 0.627037406
 P _gear/2/_steerdeg_hispeed 0.0
 P _gear/2/_steerdeg_lospeed 0.0
 P _gear/2/_strut_comp 0.0
@@ -224,7 +224,7 @@ P _gear/3/_lonE 1.0
 P _gear/3/_lonN 1.0
 P _gear/3/_lonR 10.0
 P _gear/3/_scon 358467.468750000
-P _gear/3/_stat_def 0.559550703
+P _gear/3/_stat_def 0.559550941
 P _gear/3/_steerdeg_hispeed 0.0
 P _gear/3/_steerdeg_lospeed 0.0
 P _gear/3/_strut_comp 0.0
@@ -258,7 +258,7 @@ P _gear/4/_lonE 1.0
 P _gear/4/_lonN 1.0
 P _gear/4/_lonR 10.0
 P _gear/4/_scon 358467.468750000
-P _gear/4/_stat_def 0.559550703
+P _gear/4/_stat_def 0.559550941
 P _gear/4/_steerdeg_hispeed 0.0
 P _gear/4/_steerdeg_lospeed 0.0
 P _gear/4/_strut_comp 0.0
@@ -96792,12 +96792,12 @@ P acf/_beta_pitch 0.0
 P acf/_beta_prop_EQ 0
 P acf/_blown_flap_cl_inc 0.0
 P acf/_blown_flap_min_engag 0.0
-P acf/_board_1/0 -9.500000000
-P acf/_board_1/1 -2.200000048
+P acf/_board_1/0 -10.500000000
+P acf/_board_1/1 -1.200000048
 P acf/_board_1/2 67.0
 P acf/_board_1/count 3
 P acf/_board_2/0 -8.590000153
-P acf/_board_2/1 6.599999905
+P acf/_board_2/1 -1.200000048
 P acf/_board_2/2 57.099998474
 P acf/_board_2/count 3
 P acf/_boost_max_seconds 0.0
@@ -99771,6 +99771,7 @@ GROUP Captain PFD
         POS 315.500000 767.500000
         IMAGE CRT Displays/PFD/FD/FDbarLateral
         DATAREF sim/cockpit2/autopilot/flight_director_roll_deg
+        SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
         LOCKED
         HIDE
         LIGHT_MODE GLASS_AUTO
@@ -99802,6 +99803,7 @@ GROUP Captain PFD
           POS 315.500000 767.500000
           IMAGE CRT Displays/PFD/FD/FDbarVertical
           DATAREF sim/cockpit2/autopilot/flight_director_pitch_deg
+          SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
           LOCKED
           HIDE
           LIGHT_MODE GLASS_AUTO
@@ -100634,6 +100636,7 @@ GROUP Captain PFD
     END_GROUP
   END_GROUP
   GROUP AFDS Status Annun
+    SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
     LOCKED
     HIDE
     gen_rotary Mode Change Box
@@ -106284,6 +106287,7 @@ GROUP First Officer PFD
         POS 994.500000 767.500000
         IMAGE CRT Displays/PFD/FD/FDbarLateral
         DATAREF sim/cockpit2/autopilot/flight_director_roll_deg
+        SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
         LOCKED
         HIDE
         LIGHT_MODE GLASS_AUTO
@@ -106315,6 +106319,7 @@ GROUP First Officer PFD
           POS 994.500000 767.500000
           IMAGE CRT Displays/PFD/FD/FDbarVertical
           DATAREF sim/cockpit2/autopilot/flight_director_pitch_deg
+          SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
           LOCKED
           HIDE
           LIGHT_MODE GLASS_AUTO
@@ -107148,6 +107153,7 @@ GROUP First Officer PFD
     END_GROUP
   END_GROUP
   GROUP AFDS Status Annun 2
+    SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
     LOCKED
     HIDE
     gen_rotary Mode Change Box 2

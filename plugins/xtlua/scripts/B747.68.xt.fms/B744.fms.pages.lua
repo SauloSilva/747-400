@@ -364,6 +364,12 @@ function fmsFunctions.custom2fmc(fmsO,value)
 	if v=="/" then v="slash" end
 	simCMD_FMS_key[fmsO["id"]][v]:once()
     end
+  elseif value=="next" then
+    fmsO["targetpgNo"]=fmsO["pgNo"]+1
+    run_after_time(switchCustomMode, 0.25)
+  elseif value=="prev" then 
+    fmsO["targetpgNo"]=fmsO["pgNo"]-1
+    run_after_time(switchCustomMode, 0.25)
   end
   simCMD_FMS_key[fmsO["id"]][value]:once()
   fmsO["scratchpad"]=""

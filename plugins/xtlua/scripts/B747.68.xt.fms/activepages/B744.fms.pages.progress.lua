@@ -1,15 +1,25 @@
 fmsPages["PROGRESS"]=createPage("PROGRESS")
 fmsPages["PROGRESS"].getPage=function(self,pgNo,fmsID)
+  local l1=cleanFMSLine(B747DR_srcfms[fmsID][1])
+  local page=string.sub(l1,22,22)
+  local l10="                        "
+  local l11="                        "
   local l13="                        "
-  if pgNo==1 then
+  if page=="1" then
         l13="                POS REF>"
 	fmsFunctionsDefs["PROGRESS"]["R6"]={"setpage_no","POSINIT_2"}
+	if B747BR_tod>0 and B747BR_totalDistance>B747BR_tod then
+	  local dist=B747BR_totalDistance-B747BR_tod
+	  l10=" TOP OF DES             "
+	  l11="T/D      ".. string.format("%5d",dist) ..""
+	end
   else
-    fmsFunctionsDefs["PROGRESS"]["R6"]=nil
+     
+      fmsFunctionsDefs["PROGRESS"]["R6"]=nil
   end
   
   local page={
-  cleanFMSLine(B747DR_srcfms[fmsID][1]),
+  l1,
   cleanFMSLine(B747DR_srcfms[fmsID][2]),
   cleanFMSLine(B747DR_srcfms[fmsID][3]),
   cleanFMSLine(B747DR_srcfms[fmsID][4]),
@@ -18,8 +28,8 @@ fmsPages["PROGRESS"].getPage=function(self,pgNo,fmsID)
   cleanFMSLine(B747DR_srcfms[fmsID][7]),
   cleanFMSLine(B747DR_srcfms[fmsID][8]),
   cleanFMSLine(B747DR_srcfms[fmsID][9]),
-  cleanFMSLine(B747DR_srcfms[fmsID][10]),
-  cleanFMSLine(B747DR_srcfms[fmsID][11]),
+  l10,
+  l11,
   cleanFMSLine(B747DR_srcfms[fmsID][12]),
   l13,
   }

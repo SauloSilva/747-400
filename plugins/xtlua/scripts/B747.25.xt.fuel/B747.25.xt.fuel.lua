@@ -497,7 +497,7 @@ B747DR_init_fuel_CD                     = deferred_dataref("laminar/B747/fuel/in
 
 -- FUEL TO REMAIN
 function B747DR_fuel_to_remain_rheo_DRhandler()
-
+    print("DR handler")
 
 
 end
@@ -2058,12 +2058,16 @@ function B747_fuel_flow_rate()
     -- TOTAL JETTISON PUMPS = 6
     -- RATE = 2000 Kg/MIN TOTAL = 333/Kg/MIN/PUMP = 5.55 Kg/SEC/PUMP
     -- JETTISON RESTRICTED TO 3200 Kg REMAINING IN EACH TANK
-    centerTank_jettison_KgSec_L    = B747_ternary((simDR_fuel_tank_weight_kg[0] > 3200.0), ((B747.fuel.center_tank.jett_vlv_L.pos * B747.fuel.center_tank.ovrd_jett_pump_L.on) * 5.55), 0.0)
-    centerTank_jettison_KgSec_R    = B747_ternary((simDR_fuel_tank_weight_kg[0] > 3200.0), ((B747.fuel.center_tank.jett_vlv_R.pos * B747.fuel.center_tank.ovrd_jett_pump_R.on) * 5.55), 0.0)
-    mainTank2_jettison_KgSec_A     = B747_ternary((simDR_fuel_tank_weight_kg[2] > 3200.0), (((B747.fuel.main2_tank.jett_vlv.pos) * ((B747.fuel.main2_tank.ovrd_jett_pump_fwd.on))) * 5.5), 0.0)
-    mainTank2_jettison_KgSec_B     = B747_ternary((simDR_fuel_tank_weight_kg[2] > 3200.0), (((B747.fuel.main2_tank.jett_vlv.pos) * ((B747.fuel.main2_tank.ovrd_jett_pump_aft.on))) * 5.5), 0.0)
-    mainTank3_jettison_KgSec_A     = B747_ternary((simDR_fuel_tank_weight_kg[3] > 3200.0), (((B747.fuel.main3_tank.jett_vlv.pos) * ((B747.fuel.main3_tank.ovrd_jett_pump_fwd.on))) * 5.5), 0.0)
-    mainTank3_jettison_KgSec_B     = B747_ternary((simDR_fuel_tank_weight_kg[3] > 3200.0), (((B747.fuel.main3_tank.jett_vlv.pos) * ((B747.fuel.main3_tank.ovrd_jett_pump_aft.on))) * 5.5), 0.0)
+    local kgDefuelrate=5.55
+    if simDR_all_wheels_on_ground == 1 then
+      kgDefuelrate = 20
+    end
+    centerTank_jettison_KgSec_L    = B747_ternary((simDR_fuel_tank_weight_kg[0] > 3200.0), ((B747.fuel.center_tank.jett_vlv_L.pos * B747.fuel.center_tank.ovrd_jett_pump_L.on) * kgDefuelrate), 0.0)
+    centerTank_jettison_KgSec_R    = B747_ternary((simDR_fuel_tank_weight_kg[0] > 3200.0), ((B747.fuel.center_tank.jett_vlv_R.pos * B747.fuel.center_tank.ovrd_jett_pump_R.on) * kgDefuelrate), 0.0)
+    mainTank2_jettison_KgSec_A     = B747_ternary((simDR_fuel_tank_weight_kg[2] > 3200.0), (((B747.fuel.main2_tank.jett_vlv.pos) * ((B747.fuel.main2_tank.ovrd_jett_pump_fwd.on))) * kgDefuelrate), 0.0)
+    mainTank2_jettison_KgSec_B     = B747_ternary((simDR_fuel_tank_weight_kg[2] > 3200.0), (((B747.fuel.main2_tank.jett_vlv.pos) * ((B747.fuel.main2_tank.ovrd_jett_pump_aft.on))) * kgDefuelrate), 0.0)
+    mainTank3_jettison_KgSec_A     = B747_ternary((simDR_fuel_tank_weight_kg[3] > 3200.0), (((B747.fuel.main3_tank.jett_vlv.pos) * ((B747.fuel.main3_tank.ovrd_jett_pump_fwd.on))) * kgDefuelrate), 0.0)
+    mainTank3_jettison_KgSec_B     = B747_ternary((simDR_fuel_tank_weight_kg[3] > 3200.0), (((B747.fuel.main3_tank.jett_vlv.pos) * ((B747.fuel.main3_tank.ovrd_jett_pump_aft.on))) * kgDefuelrate), 0.0)
 
 
 

@@ -270,7 +270,8 @@ function runAutoland()
   local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
   local diff=simDR_reqHeading-simDR_AHARS_heading_deg_pilot
     
-    if numAPengaged<1 then 
+   if numAPengaged<1 then 
+   --if (simDR_autopilot_approach_status==0 and active_autoland==false) or numAPengaged<1 then
       active_autoland=false 
       simDR_overRideStab=0
       return false

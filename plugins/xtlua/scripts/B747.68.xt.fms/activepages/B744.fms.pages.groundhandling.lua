@@ -156,4 +156,5 @@ fmsPages["PUSHBACK"].getSmallPage=function(self,pgNo,fmsID)
   "                        "
   }
 end
+fmsFunctionsDefs["PUSHBACK"]["L4"]={"setDref","CHOCKS"}
 fmsFunctionsDefs["PUSHBACK"]["L6"]={"setpage","GNDHNDL"}
