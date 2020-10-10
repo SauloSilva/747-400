@@ -84,6 +84,8 @@ simDR_tire_steer_deg        = find_dataref("sim/flightmodel2/gear/tire_steer_act
 simDR_gear_claw_angle       = find_dataref("sim/flightmodel2/gear/eagle_claw_angle_deg")
 simDR_gear_handle_down      = find_dataref("sim/cockpit2/controls/gear_handle_down")
 simDR_autobrakes_switch     = find_dataref("sim/cockpit2/switches/auto_brake_level")
+simDR_joy_axis		    = find_dataref("sim/joystick/joy_mapped_axis_value")
+local seenTakeoffThrust=false
 simDR_OAT_degC              = find_dataref("sim/cockpit2/temperature/outside_air_temp_degc")
 simDR_tire_rot_speed        = find_dataref("sim/flightmodel2/gear/tire_rotation_speed_rad_sec")
 B747DR_parking_brake_ratio  = find_dataref("laminar/B747/flt_ctrls/parking_brake_ratio")
@@ -195,6 +197,11 @@ function B747_animate_value(current_value, target, min, max, speed)
 
 end
 function runGear()
+  if  simDR_aircraft_on_ground == 1 and B747DR_autobrakes_sel_dial_pos==0 and simDR_joy_axis[4]>0.9 and simDR_autobrakes_switch>0 then
+	  simDR_autobrakes_switch = 0
+	  print("ARM RTO")
+  end
+  
   if runningGear ==0 then return end
   if B747DR_gear_handle_detent < 0.037 then B747DR_gear_handle_detent=B747_animate_value(B747DR_gear_handle_detent,0.037,0,0.037,10) return end
   if runningGear ==1 and B747DR_gear_handle<2 then B747DR_gear_handle=B747_animate_value(B747DR_gear_handle,2,0,2,10) return end  
@@ -317,7 +324,9 @@ function B747_autobrakes_sel_dial_up_CMDhandler(phase, duration)
         elseif B747DR_autobrakes_sel_dial_pos >= 3 then
             simSwPos = math.min(5, B747DR_autobrakes_sel_dial_pos - 1)
         end
-        simDR_autobrakes_switch = simSwPos
+	if B747DR_autobrakes_sel_dial_pos>0 or seenTakeoffThrust==true then
+	  simDR_autobrakes_switch = simSwPos
+	end
     end
 end
 function B747_autobrakes_sel_dial_dn_CMDhandler(phase, duration)
@@ -332,7 +341,9 @@ function B747_autobrakes_sel_dial_dn_CMDhandler(phase, duration)
         elseif B747DR_autobrakes_sel_dial_pos >= 3 then
             simSwPos = math.min(5, B747DR_autobrakes_sel_dial_pos - 1)
         end
-        simDR_autobrakes_switch = simSwPos
+	if B747DR_autobrakes_sel_dial_pos>0 or seenTakeoffThrust==true then
+	  simDR_autobrakes_switch = simSwPos
+	end
 	
 	if B747DR_autobrakes_sel_dial_pos == 2 or B747DR_autobrakes_sel_dial_pos == 1 then
 	  simDR_parking_brake_ratio   = B747DR_parking_brake_ratio

@@ -1,10 +1,22 @@
 fmsPages["LEGS"]=createPage("LEGS")
 fmsPages["LEGS"].getPage=function(self,pgNo,fmsID)
+  local l1=cleanFMSLine(B747DR_srcfms[fmsID][1])
+  local pageNo=tonumber(string.sub(l1,21,22))
+  local l1="     RTE LEGS           "
+  local l2="                        "
+  local l3="POS                     "
+  if pageNo~=nil and pageNo~=1 then
+    l2=cleanFMSLine(B747DR_srcfms[fmsID][2])
+    l3=cleanFMSLine(B747DR_srcfms[fmsID][3])
+    fmsFunctionsDefs["LEGS"]["R1"]={"key2fmc","R1"}
+  else
+    fmsFunctionsDefs["LEGS"]["R1"]=nil
+  end
   
   local page={
-    "     RTE LEGS           ",
-    cleanFMSLine(B747DR_srcfms[fmsID][2]),
-    cleanFMSLine(B747DR_srcfms[fmsID][3]),
+    l1,
+    l2,
+    l3,
     cleanFMSLine(B747DR_srcfms[fmsID][4]),
     cleanFMSLine(B747DR_srcfms[fmsID][5]),
     cleanFMSLine(B747DR_srcfms[fmsID][6]),
@@ -26,7 +38,7 @@ fmsFunctionsDefs["LEGS"]["L3"]={"key2fmc","L3"}
 fmsFunctionsDefs["LEGS"]["L4"]={"key2fmc","L4"}
 fmsFunctionsDefs["LEGS"]["L5"]={"key2fmc","L5"}
 fmsFunctionsDefs["LEGS"]["L6"]={"key2fmc","L6"}
-fmsFunctionsDefs["LEGS"]["R1"]={"key2fmc","R1"}
+
 fmsFunctionsDefs["LEGS"]["R2"]={"key2fmc","R2"}
 fmsFunctionsDefs["LEGS"]["R3"]={"key2fmc","R3"}
 fmsFunctionsDefs["LEGS"]["R4"]={"key2fmc","R4"}

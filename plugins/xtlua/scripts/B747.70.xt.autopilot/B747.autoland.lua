@@ -3,7 +3,7 @@
 *        COPYRIGHT � 2020 Mark Parker/mSparks CC-BY-NC4
 *****************************************************************************************
 ]]
-
+local seenApproach=false
 local active_land=false
 local zerodThrottle=false
 local pinThrottle=0;
@@ -208,6 +208,7 @@ function end_Flare()
         simDR_pitch  =0.0
         active_land=true
         zerodThrottle=false
+	
 end
 function touchdown_elevator()
       if simDR_AHARS_pitch_heading_deg_pilot>2 then targetPitch=1
@@ -261,6 +262,7 @@ function do_touchdown()
       end
       if simDR_onGround==1 and simDR_rudder==0 then 
 	active_autoland=false 
+	seenApproach=false
 	simDR_overRideStab=0
 	B747DR_ap_FMA_active_roll_mode=0
       end --we done!
@@ -269,7 +271,9 @@ end
 function runAutoland()
   local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
   local diff=simDR_reqHeading-simDR_AHARS_heading_deg_pilot
-    
+   if simDR_autopilot_approach_status>0 then seenApproach=true end
+  
+   if seenApproach==false then return false end
    if numAPengaged<1 then 
    --if (simDR_autopilot_approach_status==0 and active_autoland==false) or numAPengaged<1 then
       active_autoland=false 

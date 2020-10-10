@@ -67,7 +67,8 @@ fmsPages["RTE1"].getPage=function(self,pgNo,fmsID)
     fmsFunctionsDefs["RTE1"]["L6"]=nil
     lastLine="                   PERF>"
   else
-    fmsFunctionsDefs["RTE1"]["L6"]={"setpage","RTE2"}
+    --fmsFunctionsDefs["RTE1"]["L6"]={"setpage","RTE2"}
+    fmsFunctionsDefs["RTE1"]["L6"]={"setpage","LEGS"}
   end
   local page={
   "      ACT RTE 1     " .. string.sub(cleanFMSLine(B747DR_srcfms[fmsID][1]),-4,-1) ,
@@ -86,7 +87,8 @@ fmsPages["RTE1"].getPage=function(self,pgNo,fmsID)
   }
   return page 
 end
-fmsFunctionsDefs["RTE1"]["L1"]={"custom2fmc","L1"}
+--fmsFunctionsDefs["RTE1"]["L1"]={"custom2fmc","L1"}
+fmsFunctionsDefs["RTE1"]["L1"]={"setdata","origin"}
 fmsFunctionsDefs["RTE1"]["L2"]={"custom2fmc","L2"}
 fmsFunctionsDefs["RTE1"]["L3"]={"custom2fmc","L3"}
 fmsFunctionsDefs["RTE1"]["L4"]={"custom2fmc","L4"}
@@ -195,37 +197,52 @@ fmsFunctionsDefs["INITREF"]["L6"]={"setpage","APPROACH"}
 
 fmsFunctionsDefs["INITREF"]["R1"]={"setpage","DATABASE"}
 local navAids
+
 function findILS(value)
   
   local modes=B747DR_radioModes
-  
+  if navAidsJSON==nil or string.len(navAidsJSON)<5 then return false end
   if value=="DELETE" then 
     B747DR_radioModes=replace_char(1,modes," ")
     ilsData=""
-    return
+    return true
   end
   B747DR_radioModes=replace_char(1,modes,"M")
   navAids=json.decode(navAidsJSON)
-  print(value.." in " .. navAidsJSON)
+  local direction=nil
+  local valueSO=split(value,"/")
+  print(value)
+  if table.getn(valueSO) > 1 then
+    value=valueSO[1]
+     print(value)
+    direction=tonumber(valueSO[2])
+    print(value.." and " .. direction)
+  else
+    print(value)
+  end
+  --print(" in " .. navAidsJSON)
   local val=tonumber(value)
   if val~=nil then val=val*100 end
   local found=false
-  
+  local bestDist=360
   for n=table.getn(navAids),1,-1 do
       if navAids[n][2] == 8 then
 	  --print("navaid "..n.."->".. navAids[n][1].." ".. navAids[n][2].." ".. navAids[n][3].." ".. navAids[n][4].." ".. navAids[n][5].." ".. navAids[n][6].." ".. navAids[n][7].." ".. navAids[n][8])
-	  if value==navAids[n][8] or (val~=nil and val==navAids[n][3]) then
+	  
+	 if (value==navAids[n][8] or (val~=nil and val==navAids[n][3])) and (direction==nil or getHeadingDifferenceM(direction,navAids[n][4])<bestDist) then
 	    found=true
 	    ilsData=json.encode(navAids[n])
 	    print("Tuning ILS".. ilsData)
-	    
+	    if direction ~=nil then
+	      bestDist=getHeadingDifferenceM(direction,navAids[n][4])
+	    end
 	    simDR_nav1Freq=navAids[n][3]
 	    simDR_nav2Freq=navAids[n][3]
 	    local course=(navAids[n][4]+simDR_variation)
 	    simDR_radio_nav_obs_deg[0]=course
 	    simDR_radio_nav_obs_deg[1]=course
 	    print("Tuned ILS "..course)
-	    print("useThis")
+	    print("useThis"..bestDist)
 	  end
       end
    end
@@ -618,6 +635,9 @@ function fmsFunctions.setdata(fmsO,value)
        B747DR_fuel_add=fuel
        
      end
+   elseif value=="origin" and string.len(fmsO["scratchpad"])>0 then
+     fmsFunctions["custom2fmc"](fmsO,"L1")
+     fmsModules:setData("crzalt","*****") -- clear cruise alt /crzalt when entering a new source airport
    elseif value=="airportgate" and string.len(fmsO["scratchpad"])>0 then
     local lat=toDMS(simDR_latitude,true)
     local lon=toDMS(simDR_longitude,false)
@@ -675,7 +695,8 @@ end
 function fmsFunctions.showmessage(fmsO,value)
   acarsSystem.currentMessage=value
   fmsO["inCustomFMC"]=true
-  fmsO["currentPage"]="VIEWACARSMSG" 
+  fmsO["targetPage"]="VIEWACARSMSG" 
+  run_after_time(switchCustomMode, 0.25)
 end
 
 function fmsFunctions.doCMD(fmsO,value)

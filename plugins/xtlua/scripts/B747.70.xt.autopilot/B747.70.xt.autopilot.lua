@@ -98,6 +98,7 @@ simDR_autopilot_altitude_ft    		= find_dataref("sim/cockpit2/autopilot/altitude
 simDR_autopilot_hold_altitude_ft    		= find_dataref("sim/cockpit2/autopilot/altitude_hold_ft")
 simDR_autopilot_tod_index    		= find_dataref("sim/cockpit2/radios/indicators/fms_tod_before_index_pilot")
 simDR_autopilot_tod_distance    	= find_dataref("sim/cockpit2/radios/indicators/fms_distance_to_tod_pilot")
+
 B747BR_totalDistance 			= find_dataref("laminar/B747/autopilot/dist/remaining_distance")
 B747BR_nextDistanceInFeet 		= find_dataref("laminar/B747/autopilot/dist/next_distance_feet")
 B747BR_cruiseAlt 			= find_dataref("laminar/B747/autopilot/dist/cruise_alt")
@@ -869,6 +870,8 @@ function B747_ap_VNAV_mode_CMDhandler(phase, duration)
 		  B747DR_ap_vnav_state=1 
 		  if simDR_autopilot_altitude_ft - simDR_pressureAlt1<-200 then
 		    B747DR_ap_inVNAVdescent =1
+		  elseif simDR_autopilot_altitude_ft - simDR_pressureAlt1>2000 and simDR_autopilot_flch_status==0 and B747DR_engine_TOGA_mode == 0 and simDR_onGround==0 then
+		    simCMD_autopilot_flch_mode:once()
 		  end
 		end
 	elseif phase == 2 then
@@ -1294,10 +1297,14 @@ function B747_fltmgmt_setILS()
     targetFMSnum=-1
     B747DR_radioModes=replace_char(1,modes,"A")
   elseif  modes:sub(1, 1)=="M" then
+    local fms=json.decode(fmsSTR)
+    if table.getn(fms)>2 then
+      setDistances(fms)
+    end
     return
   end
   local diff=simDRTime-lastILSUpdate
-  if diff<10 then return end
+  if diff<2 then return end
   
   lastILSUpdate=simDRTime
   local n1=simDR_nav1Freq
@@ -1305,7 +1312,7 @@ function B747_fltmgmt_setILS()
   local d1=simDR_radio_nav_obs_deg[0]
   local d2=simDR_radio_nav_obs_deg[1]--continually get latest
   local fmsSTR=fmsJSON
-  print("fmsJSON=".. fmsSTR)
+  --print("fmsJSON=".. fmsSTR)
   local fms=json.decode(fmsSTR)
   if table.getn(fms)>2 then
     setDistances(fms)
@@ -1679,7 +1686,7 @@ function B747_ap_speed()
   if manualVNAVspd==1 then return end
   B747_update_ap_speed()
   if gotVNAVSpeed==true then return end
-  print("updating speed")
+  --print("updating speed")
 
   if simDR_onGround==1 then
     
@@ -1821,7 +1828,7 @@ local fms
 local fmstargetIndex=0
 local fmscurrentIndex=0
 function setDistances(fmsO)
-  print("set distances")
+  --print("set distances")
   local start=fmscurrentIndex
   if start==0 then start=1 end
   if fmsO[start]==nil then
@@ -1834,7 +1841,7 @@ function setDistances(fmsO)
   for i=start,endI-1,1 do
     totalDistance=totalDistance+getDistance(fmsO[i][5],fmsO[i][6],fmsO[i+1][5],fmsO[i+1][6])
     dtoAirport=getDistance(fmsO[i][5],fmsO[i][6],fmsO[endI][5],fmsO[endI][6])
-    print("i=".. i .." speed="..simDR_groundspeed .. " distance="..totalDistance.." dtoAirport="..dtoAirport)
+    --print("i=".. i .." speed="..simDR_groundspeed .. " distance="..totalDistance.." dtoAirport="..dtoAirport)
     if dtoAirport<5 then break end
   end
   
@@ -1877,6 +1884,25 @@ end
 local inVnavAlt=0
 local recalcAfter=0
 local vnavcalcwithMCPAlt=0
+
+function getCurrentWayPoint(fms)
+  for i=1,table.getn(fms),1 do
+    if fms[i][10]==true and i<=recalcAfter then
+      --print("simDR_autopilot_altitude_ft=".. simDR_autopilot_altitude_ft)
+      return 
+    end
+  end
+  for i=1,table.getn(fms),1 do
+    --print("FMS j="..fmsJSON)
+    
+    if fms[i][10]==true then
+      fmscurrentIndex=i
+      recalcAfter=i
+      break 
+    end
+  end
+      
+end
 function computeVNAVAlt(fms)
   
   local dist_to_TOD=(B747BR_totalDistance-B747BR_tod)
@@ -1972,10 +1998,11 @@ function computeVNAVAlt(fms)
 	  --simDR_autopilot_vs_fpm = vspeed 
 	
 	end]]
-      
-	
-      end
-      print("targetAlt=".. targetAlt .. " simDR_autopilot_altitude_ft=".. simDR_autopilot_altitude_ft .. " simDR_pressureAlt1=" .. simDR_pressureAlt1 .. " targetIndex=" .. targetIndex .. " B747DR_autopilot_altitude_ft="..B747DR_autopilot_altitude_ft)
+      else
+	fmstargetIndex=targetIndex
+	fmscurrentIndex=currentIndex
+      end 
+      print("targetAlt=".. targetAlt .. " simDR_autopilot_altitude_ft=".. simDR_autopilot_altitude_ft .. " simDR_pressureAlt1=" .. simDR_pressureAlt1.. " vnavcalcwithMCPAlt=" .. vnavcalcwithMCPAlt .. " fmscurrentIndex=" .. fmscurrentIndex .. " targetIndex=" .. targetIndex .. " B747DR_autopilot_altitude_ft="..B747DR_autopilot_altitude_ft)
       recalcAfter=fmstargetIndex
   --end
 end
@@ -1986,9 +2013,11 @@ function B747_ap_altitude()
 	B747DR_ap_alt_show_tenThousands = B747_ternary(B747DR_autopilot_altitude_ft > 9999.99, 1.0, 0.0)
 	local vvi_status=simDR_autopilot_vs_status
 	--print("B747_ap_altitude")
+	fms=json.decode(fmsJSON)
+	if table.getn(fms)<2 or fms[table.getn(fms)][2] ~= 1 then B747DR_ap_vnav_state=0 return end --no nav
 	if B747DR_ap_vnav_state>0 then
 	  
-	  fms=json.decode(fmsJSON)
+	  
 	  if table.getn(fms)<2 or fms[table.getn(fms)][2] ~= 1 then print("Cancel VNAV "..table.getn(fms)) B747DR_ap_vnav_state=0 return end --no vnav
 	  
 	  computeVNAVAlt(fms)
@@ -2043,7 +2072,8 @@ function B747_ap_altitude()
 	    setVSpeed(fms)
 	  end
 	  
-	  
+	else
+	  getCurrentWayPoint(fms)
 	end
 end	
 
@@ -2114,6 +2144,7 @@ function B747_ap_fma()
     if runAutoland() then return end
     -- AUTOTHROTTLE
     -------------------------------------------------------------------------------------
+    
     if B747DR_engine_TOGA_mode >0 and simDR_ind_airspeed_kts_pilot<65 then                                        
         B747DR_ap_FMA_autothrottle_mode = 5 --THR REF
     elseif (B747DR_engine_TOGA_mode == 1 and simDR_radarAlt1<50)  then                                        
@@ -2186,7 +2217,8 @@ function B747_ap_fma()
   
     if simDR_autopilot_TOGA_lat_status == 2 and B747DR_engine_TOGA_mode>0 then
         B747DR_ap_FMA_active_roll_mode = 1
-
+    elseif simDR_onGround==1 then
+       B747DR_ap_FMA_active_roll_mode = 0
     -- (LNAV) --
     elseif simDR_autopilot_gpss == 2 then
         B747DR_ap_FMA_active_roll_mode = 2
@@ -2260,7 +2292,8 @@ function B747_ap_fma()
     --if B747DR_engine_TOGA_mode == 1 then  
      
         B747DR_ap_FMA_active_pitch_mode = 1
-	
+    elseif simDR_onGround==1 then
+       B747DR_ap_FMA_active_pitch_mode = 0
     -- (G/S) --
     elseif simDR_autopilot_gs_status == 2 then
         B747DR_ap_FMA_active_pitch_mode = 2

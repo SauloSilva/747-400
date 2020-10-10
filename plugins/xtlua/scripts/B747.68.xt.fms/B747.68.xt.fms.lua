@@ -49,6 +49,19 @@ function cleanFMSLine(line)
     retval=retval:gsub("°","`")
     return retval
 end 
+function getHeadingDifference(desireddirection,current_heading)
+	error = current_heading - desireddirection
+	if (error >  180) then error =error- 360 end
+	if (error < -180) then error =error+ 360 end
+	return error
+end
+function getHeadingDifferenceM(desireddirection,current_heading)
+	error = current_heading - desireddirection
+	if (error >  180) then error =error- 360 end
+	if (error < -180) then error =error+ 360 end
+	if error<0 then error = error *-1 end
+	return error
+end
 function getDistance(lat1,lon1,lat2,lon2)
   alat=math.rad(lat1)
   alon=math.rad(lon1)
@@ -151,6 +164,7 @@ fmsPages={}
 fmsFunctionsDefs={}
 fmsModules={} --set later
 fmsModules["data"]={
+  acarsInitString="{}",
   fltno="*******",
   fltdate="********",
   fltdep="****",
@@ -345,9 +359,12 @@ function flight_start()
  
 end
 debug_fms     = deferred_dataref("laminar/B747/debug/fms", "number")
+fms_style = find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_style_line2")
 function after_physics()
   if debug_fms>0 then return end
-  
+--     for i =1,24,1 do
+--       print(string.byte(fms_style,i))
+--     end
     B747DR_FMSdata=json.encode(fmsModules["data"]["values"])--make the fms data available to other modules
     --print(B747DR_FMSdata)
     fmsL:B747_fms_display()
