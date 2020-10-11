@@ -69,7 +69,7 @@ annun.b = {}
 --*************************************************************************************--
 --** 				                X-PLANE DATAREFS            			    	 **--
 --*************************************************************************************--
-
+simDR_shadow			    = find_dataref("sim/private/controls/shadow/total_fade_ratio")
 simDR_startup_running               = find_dataref("sim/operation/prefs/startup_running")
 simDR_percent_lights_on             = find_dataref("sim/graphics/scenery/percent_lights_on")
 simDR_ai_flies_aircraft				= find_dataref("sim/operation/prefs/ai_flies_aircraft")
@@ -2098,7 +2098,7 @@ function flight_start()
 	B747DR_instrument_brightness_ratio[i] = 0.75
     end
     B747_flight_start_lighting()
-
+    simDR_shadow=-1
 end
 
 --function flight_crash() end
