@@ -1391,7 +1391,7 @@ function B747_fltmgmt_setILS()
     
     end
   elseif string.len(targetILSS)>1 then
-	    print("Tuning ILS".. targetILSS)
+	    --print("Tuning ILS".. targetILSS)
 	    local ilsNav=json.decode(targetILSS)
 	    simDR_nav1Freq=ilsNav[3]
 	    simDR_nav2Freq=ilsNav[3]
@@ -1767,6 +1767,9 @@ function B747_ap_speed()
 	vnavSPD_conditions["onground"]=simDR_onGround
 	simDR_autopilot_airspeed_is_mach = 1
 	B747DR_ap_ias_dial_value = spdval/10
+	if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 then							-- AUTOTHROTTLE IS "OFF"
+	  simCMD_autopilot_autothrottle_on:once()									-- ACTIVATE THE AUTOTHROTTLE  
+	end	
 	gotVNAVSpeed=true
 	return
       end
@@ -1972,6 +1975,7 @@ function computeVNAVAlt(fms)
 	if simDR_autopilot_autothrottle_enabled == 0 and B747DR_engine_TOGA_mode == 0 and B747DR_ap_inVNAVdescent > 0 and B747DR_toggle_switch_position[29] == 1 then							-- AUTOTHROTTLE IS "OFF"
 		simCMD_autopilot_autothrottle_on:once()									-- ACTIVATE THE AUTOTHROTTLE
 	end
+	
 	if simDR_autopilot_flch_status==0 and B747DR_engine_TOGA_mode == 0 and B747DR_ap_inVNAVdescent > 0 then
 	  simCMD_autopilot_flch_mode:once()
 	end
@@ -2038,7 +2042,7 @@ function B747_ap_altitude()
 	  end
 	  local diff2 = simDR_autopilot_altitude_ft - simDR_pressureAlt1
 	  local diff3 = B747DR_autopilot_altitude_ft- simDR_pressureAlt1
-	  if B747DR_ap_inVNAVdescent ==0 and diff2<=0 and diff3<=0 
+	  if B747DR_ap_inVNAVdescent ==0 and diff2<=0 and diff3<=-2000 
 	    and B747BR_totalDistance>0 and B747BR_totalDistance-B747BR_tod<=0
 	    and simDR_autopilot_vs_status == 0 and simDR_radarAlt1>1000 and simDR_autopilot_autothrottle_enabled>-1 then
 	    B747DR_ap_inVNAVdescent =1
