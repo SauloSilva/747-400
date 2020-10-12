@@ -816,7 +816,7 @@ end
 
 ----- SET STATE TO ENGINES RUNNING ------------------------------------------------------
 function B747_set_elec_ER()
-	
+  B747DR_elec_standby_power_sel_pos = 1
 	
 	
 end	

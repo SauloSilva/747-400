@@ -1293,6 +1293,7 @@ end
 local lastILSUpdate=0
 function B747_fltmgmt_setILS()
   local modes=B747DR_radioModes
+  local fmsSTR=fmsJSON
   if modes:sub(1, 1)==" " then
     targetFMSnum=-1
     B747DR_radioModes=replace_char(1,modes,"A")
@@ -1311,7 +1312,7 @@ function B747_fltmgmt_setILS()
   local n2=simDR_nav2Freq
   local d1=simDR_radio_nav_obs_deg[0]
   local d2=simDR_radio_nav_obs_deg[1]--continually get latest
-  local fmsSTR=fmsJSON
+  
   --print("fmsJSON=".. fmsSTR)
   local fms=json.decode(fmsSTR)
   if table.getn(fms)>2 then
