@@ -121116,6 +121116,7 @@ GROUP Lower EICAS
         POS 1628.500000 390.500000
         IMAGE CRT Displays/EICAS Lower/FUEL/bgnd_label01
         DATAREF
+		SHOW_EQUAL 0 laminar/B747/fuel/fuel_display_units_eicas
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -121132,6 +121133,27 @@ GROUP Lower EICAS
         CLICK_DX 0
         CLICK_DY 0
 
+	  gen_rotary LabelLBS
+        POS 1628.500000 390.500000
+        IMAGE CRT Displays/EICAS Lower/FUEL/bgnd_label01_2
+        DATAREF
+        SHOW_EQUAL 1 laminar/B747/fuel/fuel_display_units_eicas
+        LIGHT_MODE GLASS_AUTO
+        LIGHT_RHEOSTAT 10
+        BUS_SRC 3
+        KEY_FRAME 0.000000 0.000000 1.000000
+        KEY_FRAME 1.000000 6.000000
+        DIGITS 1
+        ROTARY_TYPE NO_CLICK
+        CLICK_RADIUS 0.000000
+        CLICK_RADIUS_DY 0.000000
+        OFFSET 0.000000
+        STEP1 1.000000
+        STEP2 1.000000
+        CURSOR DEFAULT
+        CLICK_DX 0
+        CLICK_DY 0
+		
       gen_LED LED
         POS 1736.000000 398.000000
         IMAGE CRT Displays/LED/LED_3.30B.xx##00.white
@@ -121147,7 +121169,7 @@ GROUP Lower EICAS
         LED_ROWS 4
 
       gen_rotary Label
-        POS 1628.500000 357.500000
+        POS 1628.510000 357.500000
         IMAGE CRT Displays/EICAS Lower/FUEL/bgnd_label01_1
         DATAREF 
         SHOW_GREATER 1.000000 laminar/B747/fuel/refuel
