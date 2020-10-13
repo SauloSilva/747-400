@@ -638,10 +638,19 @@ function fmsFunctions.setdata(fmsO,value)
     if fmsModules["fmsR"].notify=="ENTER IRS POSITION" then fmsModules["fmsR"].notify="" end
    elseif value=="services" then
      fmsModules["cmds"]["sim/ground_ops/service_plane"]:once() fmsModules["lastcmd"]=fmsModules["cmdstrings"]["sim/ground_ops/service_plane"]
-     run_after_time(function() B747DR_refuel=B747DR_fuel_add*1000
-      B747DR_fuel_preselect=simDR_fueL_tank_weight_total_kg+B747DR_refuel
-      B747DR_fuel_add=0
-      end,30)
+     run_after_time(
+					function()
+						-- DETERMINE FUEL WEIGHT DISPLAY UNITS
+						local fuel_calculation_factor = 1
+						local KGS_TO_LBS = 2.2046226218488
+						if B747DR_fuel_display_units == "LBS" then
+							fuel_calculation_factor = KGS_TO_LBS
+						end
+						B747DR_refuel=B747DR_fuel_add*1000 / fuel_calculation_factor
+						B747DR_fuel_preselect=(simDR_fueL_tank_weight_total_kg * fuel_calculation_factor) + (B747DR_refuel * fuel_calculation_factor)
+						B747DR_fuel_add=0
+					end
+	  ,30)
    elseif value=="fuelpreselect" and string.len(fmsO["scratchpad"])>0 then
      local fuel=tonumber(fmsO["scratchpad"])
      if fuel~=nil then
