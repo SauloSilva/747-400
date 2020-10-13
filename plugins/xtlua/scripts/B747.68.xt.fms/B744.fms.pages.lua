@@ -123,6 +123,7 @@ dofile("activepages/B744.fms.pages.atcreport.lua")
 dofile("activepages/B744.fms.pages.fmccomm.lua")
 dofile("activepages/B744.fms.pages.vnav.lua")
 dofile("activepages/B744.fms.pages.groundhandling.lua")
+dofile("activepages/B744.fms.pages.maintsimconfig.lua")
 --[[
 dofile("B744.fms.pages.actclb.lua")
 dofile("B744.fms.pages.actcrz.lua")
@@ -466,6 +467,18 @@ function validateMachSpeed(value)
 
   return ""..val
 end
+
+-- VALIDATE ENTRY OF FUEL WEIGHT UNITS
+function validate_weight_units(value)
+	local val=tostring(value)
+	print(value)
+	if val == "KGS" or value == "LBS" then
+		return true
+	else
+		return false
+	end
+end
+
 function fmsFunctions.setdata(fmsO,value)
   local del=false
   if fmsO["scratchpad"]=="DELETE" then fmsO["scratchpad"]="" del=true end
@@ -646,6 +659,15 @@ function fmsFunctions.setdata(fmsO,value)
     setFMSData("irsLat",lat)
     setFMSData("irsLon",lon)
     setFMSData(value,fmsO["scratchpad"])
+
+--VALIDATE ENTERED FUEL UNITS
+   elseif value=="fuelUnits" and string.len(fmsO["scratchpad"])>0 then
+	if validate_weight_units(fmsO["scratchpad"]) == false then 
+      fmsO["notify"]="INVALID ENTRY"
+    else
+		setFMSData("fuelUnits",fmsO["scratchpad"])
+    end
+
   elseif fmsO["scratchpad"]=="" and del==false then
       cVal=getFMSData(value)
     

@@ -339,7 +339,17 @@ B747DR_init_fuel_CD                     = deferred_dataref("laminar/B747/fuel/in
 -- FUEL TO REMAIN
 B747DR_fuel_to_remain_rheo      = deferred_dataref("laminar/B747/fuel/fuel_to_remain/rheostat", "number")
 
+-- FUEL WEIGHT DISPLAY UNITS (KGS/LBS)
+B747DR_fuel_display_units				= deferred_dataref("laminar/B747/fuel/fuel_display_units", "string")
 
+-- FUEL TANK WEIGHT DISPLAY QTY (8 TANKS)
+B747DR_fuel_tank_display_qty			= deferred_dataref("laminar/B747/fuel/fuel_tank_display_qty", "array[8]")
+
+-- FUEL TOTAL WEIGHT DISPLAY QTY
+B747DR_fuel_total_display_qty			= deferred_dataref("laminar/B747/fuel/fuel_total_display_qty", "number")
+
+-- FUEL FLOW PER SECOND
+B747DR_fuel_flow_sec_display			= deferred_dataref("laminar/B747/fuel/fuel_flow_sec_display", "array[4]")
 
 --*************************************************************************************--
 --** 				              CREATE CUSTOM COMMANDS              			     **--

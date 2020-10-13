@@ -11,9 +11,9 @@ fmsPages["MAINT"]["template"]={
 "                        ",
 "<VNAV CONFIG            ",
 "                        ",
-"                        ", 
 "                        ",
-"<INDEX                  "
+"                        ",
+"<INDEX       SIM CONFIG>"
 }
 
 
@@ -25,6 +25,7 @@ fmsFunctionsDefs["MAINT"]["L3"]={"setpage","MAINTIRSMONITOR"}
 fmsFunctionsDefs["MAINT"]["L4"]={"setpage","VNAVCONFIG"}
 fmsFunctionsDefs["MAINT"]["L6"]={"setpage","INITREF"}
 fmsFunctionsDefs["MAINT"]["R1"]={"setpage","MAINTBITE"}
+fmsFunctionsDefs["MAINT"]["R6"]={"setpage","MAINTSIMCONFIG"}
 
 fmsPages["VNAVCONFIG"]=createPage("VNAVCONFIG")
 fmsPages["VNAVCONFIG"].getPage=function(self,pgNo,fmsID)
