@@ -116980,8 +116980,7 @@ GROUP Upper EICAS
     gen_LED Total LED
       POS 1929.000000 501.000000
       IMAGE CRT Displays/LED/LED_3.30B.xx##00.white
-      DATAREF sim/flightmodel/weight/m_fuel_total[3]
-      SHOW_LESS 100.000000 sim/cockpit2/engine/indicators/N1_percent[3]
+      DATAREF laminar/B747/fuel/fuel_total_display_qty
       LOCKED
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 9
@@ -116997,7 +116996,8 @@ GROUP Upper EICAS
       POS 2003.500000 489.000000
       IMAGE CRT Displays/EICAS Upper/fuel_KGS1000_label
       DATAREF 
-      LOCKED
+      SHOW_EQUAL 0 laminar/B747/fuel/fuel_display_units_eicas
+	  LOCKED
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 9
       BUS_SRC 2
@@ -117014,6 +117014,28 @@ GROUP Upper EICAS
       CLICK_DX 0
       CLICK_DY 0
 
+    gen_rotary LBS Label
+      POS 2003.500000 489.000000
+      IMAGE CRT Displays/EICAS Upper/fuel_LBS1000_label
+      DATAREF 
+      SHOW_EQUAL 1 laminar/B747/fuel/fuel_display_units_eicas
+	  LOCKED
+      LIGHT_MODE GLASS_AUTO
+      LIGHT_RHEOSTAT 9
+      BUS_SRC 2
+      KEY_FRAME 0.000000 0.000000 1.000000
+      KEY_FRAME 1.000000 6.000000
+      DIGITS 1
+      ROTARY_TYPE NO_CLICK
+      CLICK_RADIUS 0.000000
+      CLICK_RADIUS_DY 0.000000
+      OFFSET 0.000000
+      STEP1 1.000000
+      STEP2 1.000000
+      CURSOR DEFAULT
+      CLICK_DX 0
+      CLICK_DY 0
+	  
     GROUP Jettison
       SHOW_GREATER 1.000000 laminar/B747/fuel/fuel_jettison/sel_dial_pos
       LOCKED
@@ -117886,8 +117908,7 @@ GROUP Lower EICAS
         gen_LED LED 1
           POS 1429.000000 210.000000
           IMAGE CRT Displays/LED/LED_3.30B.xx##00.white
-          DATAREF sim/cockpit2/engine/indicators/fuel_flow_kg_sec[0]
-          SHOW_LESS 100.000000 sim/cockpit2/engine/indicators/N2_percent[0]
+          DATAREF laminar/B747/fuel/fuel_flow_sec_display[0]
           LOCKED
           HIDE
           LIGHT_MODE GLASS_AUTO
@@ -117903,8 +117924,7 @@ GROUP Lower EICAS
         gen_LED LED 2
           POS 1534.000000 210.000000
           IMAGE CRT Displays/LED/LED_3.30B.xx##00.white
-          DATAREF sim/cockpit2/engine/indicators/fuel_flow_kg_sec[1]
-          SHOW_LESS 100.000000 sim/cockpit2/engine/indicators/N2_percent[1]
+          DATAREF laminar/B747/fuel/fuel_flow_sec_display[1]
           LOCKED
           HIDE
           LIGHT_MODE GLASS_AUTO
@@ -117920,8 +117940,7 @@ GROUP Lower EICAS
         gen_LED LED 3
           POS 1639.000000 210.000000
           IMAGE CRT Displays/LED/LED_3.30B.xx##00.white
-          DATAREF sim/cockpit2/engine/indicators/fuel_flow_kg_sec[2]
-          SHOW_LESS 100.000000 sim/cockpit2/engine/indicators/N2_percent[2]
+          DATAREF laminar/B747/fuel/fuel_flow_sec_display[2]
           LOCKED
           HIDE
           LIGHT_MODE GLASS_AUTO
@@ -117937,8 +117956,7 @@ GROUP Lower EICAS
         gen_LED LED 4
           POS 1744.000000 210.000000
           IMAGE CRT Displays/LED/LED_3.30B.xx##00.white
-          DATAREF sim/cockpit2/engine/indicators/fuel_flow_kg_sec[3]
-          SHOW_LESS 100.000000 [3]
+          DATAREF laminar/B747/fuel/fuel_flow_sec_display[3]
           LOCKED
           HIDE
           LIGHT_MODE GLASS_AUTO
@@ -121097,7 +121115,8 @@ GROUP Lower EICAS
       gen_rotary Label
         POS 1628.500000 390.500000
         IMAGE CRT Displays/EICAS Lower/FUEL/bgnd_label01
-        DATAREF 
+        DATAREF
+		SHOW_EQUAL 0 laminar/B747/fuel/fuel_display_units_eicas
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -121114,11 +121133,31 @@ GROUP Lower EICAS
         CLICK_DX 0
         CLICK_DY 0
 
+	  gen_rotary LabelLBS
+        POS 1628.500000 390.500000
+        IMAGE CRT Displays/EICAS Lower/FUEL/bgnd_label01_2
+        DATAREF
+        SHOW_EQUAL 1 laminar/B747/fuel/fuel_display_units_eicas
+        LIGHT_MODE GLASS_AUTO
+        LIGHT_RHEOSTAT 10
+        BUS_SRC 3
+        KEY_FRAME 0.000000 0.000000 1.000000
+        KEY_FRAME 1.000000 6.000000
+        DIGITS 1
+        ROTARY_TYPE NO_CLICK
+        CLICK_RADIUS 0.000000
+        CLICK_RADIUS_DY 0.000000
+        OFFSET 0.000000
+        STEP1 1.000000
+        STEP2 1.000000
+        CURSOR DEFAULT
+        CLICK_DX 0
+        CLICK_DY 0
+		
       gen_LED LED
         POS 1736.000000 398.000000
         IMAGE CRT Displays/LED/LED_3.30B.xx##00.white
-        DATAREF sim/flightmodel/weight/m_fuel_total[3]
-        SHOW_LESS 100.000000 sim/cockpit2/engine/indicators/N1_percent[3]
+        DATAREF laminar/B747/fuel/fuel_total_display_qty
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -121130,7 +121169,7 @@ GROUP Lower EICAS
         LED_ROWS 4
 
       gen_rotary Label
-        POS 1628.500000 357.500000
+        POS 1628.510000 357.500000
         IMAGE CRT Displays/EICAS Lower/FUEL/bgnd_label01_1
         DATAREF 
         SHOW_GREATER 1.000000 laminar/B747/fuel/refuel
@@ -122925,13 +122964,13 @@ GROUP Lower EICAS
         gen_LED Center
           POS 1694.000000 193.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF sim/flightmodel/weight/m_fuel[0]
+          DATAREF laminar/B747/fuel/fuel_tank_display_qty[0]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1000.000000 1.000000
-          DIGITS 3
+          DIGITS 4
           DECIMALS 1
           PERIOD_WIDTH 6
           LED_ROWS 4
@@ -122939,7 +122978,7 @@ GROUP Lower EICAS
         gen_LED Main 1
           POS 1414.000000 -29.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF sim/flightmodel/weight/m_fuel[1]
+          DATAREF laminar/B747/fuel/fuel_tank_display_qty[1]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -122953,7 +122992,7 @@ GROUP Lower EICAS
         gen_LED Main 2
           POS 1553.000000 21.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF sim/flightmodel/weight/m_fuel[2]
+          DATAREF laminar/B747/fuel/fuel_tank_display_qty[2]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -122967,7 +123006,7 @@ GROUP Lower EICAS
         gen_LED Main 3
           POS 1840.000000 21.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF sim/flightmodel/weight/m_fuel[3]
+          DATAREF laminar/B747/fuel/fuel_tank_display_qty[3]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -122981,7 +123020,7 @@ GROUP Lower EICAS
         gen_LED Main4
           POS 1978.000000 -29.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF sim/flightmodel/weight/m_fuel[4]
+          DATAREF laminar/B747/fuel/fuel_tank_display_qty[4]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -122995,7 +123034,7 @@ GROUP Lower EICAS
         gen_LED RES 2
           POS 1553.000000 -99.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF sim/flightmodel/weight/m_fuel[5]
+          DATAREF laminar/B747/fuel/fuel_tank_display_qty[5]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -123009,7 +123048,7 @@ GROUP Lower EICAS
         gen_LED RES 3
           POS 1839.000000 -99.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF sim/flightmodel/weight/m_fuel[6]
+          DATAREF laminar/B747/fuel/fuel_tank_display_qty[6]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -123023,7 +123062,7 @@ GROUP Lower EICAS
         gen_LED Stabilizer
           POS 1695.000000 -209.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF sim/flightmodel/weight/m_fuel[7]
+          DATAREF laminar/B747/fuel/fuel_tank_display_qty[7]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3

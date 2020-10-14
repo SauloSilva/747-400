@@ -4,6 +4,9 @@ registerFMCCommand("sim/ground_ops/pushback_left","PUSHBACK LEFT")
 registerFMCCommand("sim/ground_ops/pushback_straight","PUSHBACK STRAIGHT")
 registerFMCCommand("sim/ground_ops/pushback_right","PUSHBACK RIGHT")
 
+-- FUEL WEIGHT DISPLAY UNITS (KGS/LBS)
+B747DR_fuel_display_units				= deferred_dataref("laminar/B747/fuel/fuel_display_units", "string")
+
 fmsPages["GNDHNDL"]=createPage("GNDHNDL")
 fmsPages["GNDHNDL"].getPage=function(self,pgNo,fmsID)
   local lineA="<REMOVE CHOCKS          "
@@ -78,6 +81,12 @@ fmsPages["GNDSRV"].getPage=function(self,pgNo,fmsID)
 end
 
 fmsPages["GNDSRV"].getSmallPage=function(self,pgNo,fmsID)
+	local lineA = "x1000KGS"
+
+	if B747DR_fuel_display_units == "LBS" then
+		lineA = "x1000LBS"
+	end
+	
   return {
   "                        ",
   "                        ",
@@ -85,7 +94,7 @@ fmsPages["GNDSRV"].getSmallPage=function(self,pgNo,fmsID)
   "                        ",
   "                        ",
   "ADD FUEL                ",
-  "     x1000kg            ",
+  "      "..lineA,
   "                        ",
   "                        ",
   "      LAST ACTION       ",
