@@ -9,3 +9,4 @@ B747CMD_VR_toPilot 				= deferred_command("laminar/B747/VR/pilotView", "Move to 
 B747CMD_VR_toFMC 				= deferred_command("laminar/B747/VR/fmcView", "Move to FMC hotspot", B747CMD_VR_toFMC_CMDhandler)
 B747CMD_VR_toMCP 				= deferred_command("laminar/B747/VR/mcpView", "Move to MCP hotspot", B747CMD_VR_toMCP_CMDhandler)
 B747CMD_VR_toOCP 				= deferred_command("laminar/B747/VR/ocpView", "Move to OCP hotspot", B747CMD_VR_toOCP_CMDhandler)
+B747CMD_VR_stop 				= deferred_command("laminar/B747/VR/stopMove", "Stop move commands", B747CMD_VR_stop_CMDhandler)

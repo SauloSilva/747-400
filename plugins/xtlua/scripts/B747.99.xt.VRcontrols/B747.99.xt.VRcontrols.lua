@@ -51,6 +51,14 @@ function killMoves()
     if dZ>0.1 then simCMD_viewBACK:stop() dZ=0 end 
     if dZ<-0.1 then simCMD_viewFWD:stop() dZ=0 end
 end
+function B747CMD_VR_stop_CMDhandler(phase, duration)
+  simCMD_viewRIGHT:stop()
+  simCMD_viewLEFT:stop()
+  simCMD_viewUP:stop()
+  simCMD_viewDOWN:stop()
+  simCMD_viewBACK:stop()
+  simCMD_viewFWD:stop()
+end
 
 function B747CMD_VR_toPilot_CMDhandler(phase, duration)
   if phase ==0 then
@@ -94,7 +102,7 @@ B747CMD_VR_toPilot 				= deferred_command("laminar/B747/VR/pilotView", "Move to 
 B747CMD_VR_toFMC 				= deferred_command("laminar/B747/VR/fmcView", "Move to FMC hotspot", B747CMD_VR_toFMC_CMDhandler)
 B747CMD_VR_toMCP 				= deferred_command("laminar/B747/VR/mcpView", "Move to MCP hotspot", B747CMD_VR_toMCP_CMDhandler)
 B747CMD_VR_toOCP 				= deferred_command("laminar/B747/VR/ocpView", "Move to OCP hotspot", B747CMD_VR_toOCP_CMDhandler)
-
+B747CMD_VR_stop 				= deferred_command("laminar/B747/VR/stopMove", "Stop move commands", B747CMD_VR_stop_CMDhandler)
 
 function after_physics()
   if movingtoTarget==false then 
