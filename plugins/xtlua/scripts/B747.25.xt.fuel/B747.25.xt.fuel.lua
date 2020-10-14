@@ -36,6 +36,10 @@ IN_REPLAY - evaluates to 0 if replay is off, 1 if replay mode is on
 --*************************************************************************************--
 
 NUM_FUEL_TOGGLE_SW = 4
+
+-- FUEL DISPLAY CONVERSION FACTOR
+KGS_TO_LBS = 2.2046226218488
+
 --replace create_command
 function deferred_command(name,desc,realFunc)
 	return replace_command(name,realFunc)
@@ -502,8 +506,17 @@ function B747DR_fuel_to_remain_rheo_DRhandler()
 
 end
 
+-- FUEL WEIGHT DISPLAY UNITS (KGS/LBS)
+B747DR_fuel_display_units				= deferred_dataref("laminar/B747/fuel/fuel_display_units", "string")
 
+-- FUEL TANK WEIGHT DISPLAY QTY (8 TANKS)
+B747DR_fuel_tank_display_qty			= deferred_dataref("laminar/B747/fuel/fuel_tank_display_qty", "array[8]")
 
+-- FUEL TOTAL WEIGHT DISPLAY QTY
+B747DR_fuel_total_display_qty			= deferred_dataref("laminar/B747/fuel/fuel_total_display_qty", "number")
+
+-- FUEL FLOW PER SECOND
+B747DR_fuel_flow_sec_display			= deferred_dataref("laminar/B747/fuel/fuel_flow_sec_display", "array[4]")
 
 --*************************************************************************************--
 --** 				       CREATE READ-WRITE CUSTOM DATAREFS                         **--
@@ -3117,8 +3130,32 @@ function B747_set_fuel_ER()
 	
 end
 
-
-
+-- FUEL DISPLAY UNITS CALCULATION
+--[[
+*	Determine the current selected display units (from the Maintenance page of the FMC)
+*	and use a multiplication factor to convert KGS to LBS if needed.  This will be stored
+*	in a dataref that is used on the 3D display panel for the upper and lower EICAS to
+*	display the fuel quantities in the correct units.
+--]]
+function B747_calculate_fuel_display_units ()
+	local fuel_calculation_factor = 1 -- Initially set to 1 (i.e. KGS) unless LBS is selected
+	local x = 0
+	
+	if B747DR_fuel_display_units == "LBS" then
+		fuel_calculation_factor = KGS_TO_LBS
+	end
+	
+	B747DR_fuel_total_display_qty = simDR_fueL_tank_weight_total_kg * fuel_calculation_factor
+	
+	for x = 0, 7 do
+		B747DR_fuel_tank_display_qty[x] = simDR_fuel_tank_weight_kg[x] * fuel_calculation_factor
+	end
+	
+	-- Determine fuel flow rate for display on EICAS based on fuel calculation factor
+	for x = 0, 3 do
+		B747DR_fuel_flow_sec_display[x] = simDR_eng_fuel_flow_kg_sec[x] * fuel_calculation_factor
+	end
+end
 
 
 
@@ -3129,7 +3166,7 @@ function B747_flight_start_fuel()
     print("B747_flight_start_fuel")
     -- ALL MODES ------------------------------------------------------------------------
     run_at_interval(B747_fuel_tank_levels, fuel_calc_rate)
-
+	
     B747_set_fuel_all_modes()
 
 
@@ -3146,6 +3183,9 @@ function B747_flight_start_fuel()
 
     end
 
+	-- FUEL DISPLAY CALCULATION
+	run_at_interval(B747_calculate_fuel_display_units, fuel_calc_rate)
+	
 end
 
 

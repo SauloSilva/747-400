@@ -66,6 +66,9 @@ createFMSDatarefs("fms3")
 -- CRT BRIGHTNESS DIAL ------------------------------------------------------------------
 B747DR_fms1_display_brightness      = create_dataref("laminar/B747/fms1/display_brightness", "number", B747_fms1_display_brightness_DRhandler)
 
+-- FUEL DISPLAY TOGGLE (EICAS)
+B747DR_fuel_display_units_eicas			= deferred_dataref("laminar/B747/fuel/fuel_display_units_eicas", "number")
+
 function createFMSCommands(fmsO,cduid,fmsid,keyid,fmskeyid)
 B747CMD_fms1_ls_key_L1              = XLuaCreateCommand("laminar/B747/".. fmskeyid .. "/ls_key/L1", fmsO.." Line Select Key 1-Left")
   B747CMD_fms1_ls_key_L2            = XLuaCreateCommand("laminar/B747/".. fmskeyid .. "/ls_key/L2", fmsO.." Line Select Key 2-Left")

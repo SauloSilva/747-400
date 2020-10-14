@@ -123,6 +123,7 @@ dofile("activepages/B744.fms.pages.atcreport.lua")
 dofile("activepages/B744.fms.pages.fmccomm.lua")
 dofile("activepages/B744.fms.pages.vnav.lua")
 dofile("activepages/B744.fms.pages.groundhandling.lua")
+dofile("activepages/B744.fms.pages.maintsimconfig.lua")
 --[[
 dofile("B744.fms.pages.actclb.lua")
 dofile("B744.fms.pages.actcrz.lua")
@@ -466,6 +467,18 @@ function validateMachSpeed(value)
 
   return ""..val
 end
+
+-- VALIDATE ENTRY OF FUEL WEIGHT UNITS
+function validate_weight_units(value)
+	local val=tostring(value)
+	print(value)
+	if val == "KGS" or value == "LBS" then
+		return true
+	else
+		return false
+	end
+end
+
 function fmsFunctions.setdata(fmsO,value)
   local del=false
   if fmsO["scratchpad"]=="DELETE" then fmsO["scratchpad"]="" del=true end
@@ -625,10 +638,19 @@ function fmsFunctions.setdata(fmsO,value)
     if fmsModules["fmsR"].notify=="ENTER IRS POSITION" then fmsModules["fmsR"].notify="" end
    elseif value=="services" then
      fmsModules["cmds"]["sim/ground_ops/service_plane"]:once() fmsModules["lastcmd"]=fmsModules["cmdstrings"]["sim/ground_ops/service_plane"]
-     run_after_time(function() B747DR_refuel=B747DR_fuel_add*1000
-      B747DR_fuel_preselect=simDR_fueL_tank_weight_total_kg+B747DR_refuel
-      B747DR_fuel_add=0
-      end,30)
+     run_after_time(
+					function()
+						-- DETERMINE FUEL WEIGHT DISPLAY UNITS
+						local fuel_calculation_factor = 1
+						local KGS_TO_LBS = 2.2046226218488
+						if B747DR_fuel_display_units == "LBS" then
+							fuel_calculation_factor = KGS_TO_LBS
+						end
+						B747DR_refuel=B747DR_fuel_add*1000 / fuel_calculation_factor
+						B747DR_fuel_preselect=(simDR_fueL_tank_weight_total_kg * fuel_calculation_factor) + (B747DR_refuel * fuel_calculation_factor)
+						B747DR_fuel_add=0
+					end
+	  ,30)
    elseif value=="fuelpreselect" and string.len(fmsO["scratchpad"])>0 then
      local fuel=tonumber(fmsO["scratchpad"])
      if fuel~=nil then
@@ -646,6 +668,15 @@ function fmsFunctions.setdata(fmsO,value)
     setFMSData("irsLat",lat)
     setFMSData("irsLon",lon)
     setFMSData(value,fmsO["scratchpad"])
+
+--VALIDATE ENTERED FUEL UNITS
+   elseif value=="fuelUnits" and string.len(fmsO["scratchpad"])>0 then
+	if validate_weight_units(fmsO["scratchpad"]) == false then 
+      fmsO["notify"]="INVALID ENTRY"
+    else
+		setFMSData("fuelUnits",fmsO["scratchpad"])
+    end
+
   elseif fmsO["scratchpad"]=="" and del==false then
       cVal=getFMSData(value)
     

@@ -159,6 +159,10 @@ B747DR_fuel_add				= find_dataref("laminar/B747/fuel/add_fuel")
 -- CRT BRIGHTNESS DIAL ------------------------------------------------------------------
 B747DR_fms1_display_brightness      = deferred_dataref("laminar/B747/fms1/display_brightness", "number", B747_fms1_display_brightness_DRhandler)
 
+-- FUEL WEIGHT DISPLAY UNITS (KGS/LBS)
+B747DR_fuel_display_units				= deferred_dataref("laminar/B747/fuel/fuel_display_units", "string")
+B747DR_fuel_display_units_eicas			= deferred_dataref("laminar/B747/fuel/fuel_display_units_eicas", "number")
+
 fmsPages={}
 --fmsPagesmall={}
 fmsFunctionsDefs={}
@@ -219,6 +223,7 @@ fmsModules["data"]={
   airportgate="*****",
   preselectLeft="******",
   preselectRight="******",
+  fuelUnits="KGS",   --Set initial fuel weight units
 
 }
 B747DR_FMSdata=json.encode(fmsModules["data"]["values"])--make the fms data available to other modules
@@ -394,4 +399,12 @@ function after_physics()
       end
       acars=0 --for radio
     end
+	
+	--SET FUEL WEIGHT UNITS
+	B747DR_fuel_display_units = getFMSData("fuelUnits")
+	if B747DR_fuel_display_units == "LBS" then
+		B747DR_fuel_display_units_eicas = 1
+	else
+		B747DR_fuel_display_units_eicas = 0
+	end
 end
