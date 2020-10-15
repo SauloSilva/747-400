@@ -518,6 +518,9 @@ B747DR_fuel_total_display_qty			= deferred_dataref("laminar/B747/fuel/fuel_total
 -- FUEL FLOW PER SECOND
 B747DR_fuel_flow_sec_display			= deferred_dataref("laminar/B747/fuel/fuel_flow_sec_display", "array[4]")
 
+-- Temp location for fuel preselect for displaying in correct units
+B747DR_fuel_preselect_temp				= deferred_dataref("laminar/B747/fuel/fuel_preselect_temp", "number")
+
 --*************************************************************************************--
 --** 				       CREATE READ-WRITE CUSTOM DATAREFS                         **--
 --*************************************************************************************--
@@ -3147,6 +3150,8 @@ function B747_calculate_fuel_display_units ()
 	
 	B747DR_fuel_total_display_qty = simDR_fueL_tank_weight_total_kg * fuel_calculation_factor
 	
+	B747DR_fuel_preselect = B747DR_fuel_preselect_temp * fuel_calculation_factor
+	
 	for x = 0, 7 do
 		B747DR_fuel_tank_display_qty[x] = simDR_fuel_tank_weight_kg[x] * fuel_calculation_factor
 	end
@@ -3170,6 +3175,9 @@ function B747_flight_start_fuel()
     B747_set_fuel_all_modes()
 
 
+	-- FUEL DISPLAY CALCULATION
+	run_at_interval(B747_calculate_fuel_display_units, fuel_calc_rate)
+
     -- COLD & DARK ----------------------------------------------------------------------
     if simDR_startup_running == 0 then
 
@@ -3182,9 +3190,6 @@ function B747_flight_start_fuel()
 		B747_set_fuel_ER()
 
     end
-
-	-- FUEL DISPLAY CALCULATION
-	run_at_interval(B747_calculate_fuel_display_units, fuel_calc_rate)
 	
 end
 
