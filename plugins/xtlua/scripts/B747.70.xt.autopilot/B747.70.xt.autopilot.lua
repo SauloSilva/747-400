@@ -250,6 +250,7 @@ B747DR_ap_vs_show_thousands         	= deferred_dataref("laminar/B747/autopilot/
 B747DR_autopilot_altitude_ft    			= find_dataref("laminar/B747/autopilot/heading/altitude_dial_ft")
 B747DR_ap_heading_deg               	= deferred_dataref("laminar/B747/autopilot/heading/degrees", "number")
 B747DR_ap_ias_dial_value            	= deferred_dataref("laminar/B747/autopilot/ias_dial_value", "number")
+B747DR_ap_ias_mach_dial_value            	= deferred_dataref("laminar/B747/autopilot/ias_mach_dial_value", "number") -- display only
 B747DR_airspeed_V2                              = deferred_dataref("laminar/B747/airspeed/V2", "number")
 B747DR_ap_vnav_system            	= deferred_dataref("laminar/B747/autopilot/vnav_system", "number")
 B747DR_ap_vnav_target_alt            	= deferred_dataref("laminar/B747/autopilot/vnav_target_alt", "number")
@@ -948,6 +949,10 @@ function B747_updateIASWindow()
   B747DR_ap_ias_mach_window_open = 1
   switchingIASMode=0
  
+end
+function B747_updateIAS()
+  --simDR_autopilot_airspeed_kts = lastap_dial_airspeed
+  switchingIASMode=0
 end
 function B747_ap_knots_mach_toggle_CMDhandler(phase, duration)
 	if phase == 0 then
@@ -1650,12 +1655,14 @@ function B747_ap_ias_mach_mode()
 	--if B747DR_ap_ias_mach_window_open == 1 and switchingIASMode==0 then
 	if switchingIASMode==0 then  
 	if simDR_autopilot_airspeed_is_mach == 0 then
+	  
 	    if B747DR_ap_ias_dial_value< minSafeSpeed then
 	      simDR_autopilot_airspeed_kts = minSafeSpeed
 	    else
 	      simDR_autopilot_airspeed_kts = math.min(B747DR_ap_ias_dial_value,maxSafeSpeed)
 	    end
 	elseif simDR_autopilot_airspeed_is_mach == 1 and B747DR_ap_ias_dial_value* 0.01 > 0.4 then
+	    B747DR_ap_ias_mach_dial_value=B747DR_ap_ias_dial_value* 0.01
 	    if simDR_autopilot_airspeed_kts> maxSafeSpeed then
 		if simDR_autopilot_flch_status == 0 and B747DR_ap_inVNAVdescent ==0 then 
 		  simDR_autopilot_airspeed_kts=maxSafeSpeed-10
@@ -1725,7 +1732,10 @@ function B747_ap_speed()
       vnavSPD_conditions["descent"]=true
       vnavSPD_conditions["onground"]=simDR_onGround
       simDR_autopilot_airspeed_is_mach = 0
+      switchingIASMode=1
       B747DR_ap_ias_dial_value = math.min(399.0, spdval)
+      lastap_dial_airspeed=B747DR_ap_ias_dial_value
+      run_after_time(B747_updateIAS, 0.25)
       gotVNAVSpeed=true
       return
     end
@@ -1767,10 +1777,13 @@ function B747_ap_speed()
 	vnavSPD_conditions["below"]=altval3
 	vnavSPD_conditions["descent"]=true
 	vnavSPD_conditions["onground"]=simDR_onGround
+	switchingIASMode=1
 	simDR_autopilot_airspeed_is_mach = 1
 	B747DR_ap_ias_dial_value = spdval/10
+	lastap_dial_airspeed=spdval
+	run_after_time(B747_updateIAS, 0.25)
 	if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 then							-- AUTOTHROTTLE IS "OFF"
-	  simCMD_autopilot_autothrottle_on:once()									-- ACTIVATE THE AUTOTHROTTLE  
+	  simDR_autopilot_autothrottle_enabled = 1									-- ACTIVATE THE AUTOTHROTTLE  
 	end	
 	gotVNAVSpeed=true
 	return
@@ -1788,8 +1801,11 @@ function B747_ap_speed()
 	vnavSPD_conditions["below"]=altval
 	vnavSPD_conditions["descent"]=false
 	vnavSPD_conditions["onground"]=simDR_onGround
+	switchingIASMode=1
 	simDR_autopilot_airspeed_is_mach = 1
 	B747DR_ap_ias_dial_value = spdval/10
+	lastap_dial_airspeed=spdval
+	run_after_time(B747_updateIAS, 0.25)
 	--simCMD_autopilot_alt_hold_mode:once()
 	gotVNAVSpeed=true
 	return
@@ -1801,9 +1817,12 @@ function B747_ap_speed()
 	vnavSPD_conditions["below"]=altval2
 	vnavSPD_conditions["descent"]=false
 	vnavSPD_conditions["onground"]=simDR_onGround
+	switchingIASMode=1
 	simDR_autopilot_airspeed_is_mach = 0
 	simCMD_autopilot_alt_hold_mode:once()
 	B747DR_ap_ias_dial_value = spdval
+	lastap_dial_airspeed=B747DR_ap_ias_dial_value
+	run_after_time(B747_updateIAS, 0.25)
 	gotVNAVSpeed=true
 	return
     end
@@ -1813,9 +1832,12 @@ function B747_ap_speed()
 	vnavSPD_conditions["below"]=-1
 	vnavSPD_conditions["descent"]=false
 	vnavSPD_conditions["onground"]=simDR_onGround
+	switchingIASMode=1
 	simDR_autopilot_airspeed_is_mach = 0
 	simCMD_autopilot_alt_hold_mode:once()
 	B747DR_ap_ias_dial_value = spdval
+	lastap_dial_airspeed=B747DR_ap_ias_dial_value
+	run_after_time(B747_updateIAS, 0.25)
 	gotVNAVSpeed=true
 	return
     end

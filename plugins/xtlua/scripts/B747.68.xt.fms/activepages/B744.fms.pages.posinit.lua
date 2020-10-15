@@ -28,7 +28,7 @@ fmsPages["POSINIT"].getPage=function(self,pgNo,fmsID)
     "                        ",
     string.format("%02d%02dz ",hh,mm).. irsSystem.getLat("gpsL") .." " .. irsSystem.getLon("gpsL"),
     "                        ",
-    "---` ".. irsSystem.getInitLatPos().." ".. irsSystem.getInitLatPos(), 
+    "---` ".. irsSystem.getInitLatPos().." ".. irsSystem.getInitLonPos(), 
     "                        ",
     "<INDEX            ROUTE>"
     } 

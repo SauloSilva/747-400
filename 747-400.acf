@@ -100983,7 +100983,7 @@ GROUP Captain PFD
 
     END_GROUP
     GROUP Max Speed
-      SHOW_GREATER 10.000000 sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot
+      #SHOW_GREATER 10.000000 sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot
       LOCKED
       HIDE
       GROUP Spd Ofst Kts
@@ -100992,12 +100992,13 @@ GROUP Captain PFD
         GROUP_ANIMATE_MODE TRANSLATE
         GROUP_WIDTH 43
         GROUP_HEIGHT 480
+        #DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
         DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
         POS 127.500000 767.000000
         CLIP
-        KEY_FRAME 220.000000 240.000000 1.000000
-        KEY_FRAME 280.000000 0.000000 1.000000
-        KEY_FRAME 340.000000 -240.000000
+        KEY_FRAME 220.000000 400.000000 1.000000
+        KEY_FRAME 320.000000 0.000000 1.000000
+        KEY_FRAME 420.000000 -400.000000
         IS_VERTICAL 1
         OFFSET 0.000000
         gen_pointer Max Maneuver
@@ -101006,13 +101007,13 @@ GROUP Captain PFD
           DATAREF laminar/B747/airspeed/Vmaxm
           LOCKED
           HIDE
-          CLIP
+          
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
-          KEY_FRAME 220.000000 0.500000 1.000000
-          KEY_FRAME 280.000000 240.500000 1.000000
-          KEY_FRAME 340.000000 480.500000
+          KEY_FRAME 260.000000 0.500000 1.000000
+          KEY_FRAME 320.000000 240.500000 1.000000
+          KEY_FRAME 380.000000 480.500000
           IS_DRAGGABLE 0
           IS_VERTICAL 1
           OFFSET 0.000000
@@ -101023,13 +101024,13 @@ GROUP Captain PFD
           DATAREF laminar/B747/airspeed/Vmax
           LOCKED
           HIDE
-          CLIP
+          
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
-          KEY_FRAME 220.000000 395.000000 1.000000
-          KEY_FRAME 280.000000 635.000000 1.000000
-          KEY_FRAME 340.000000 875.000000
+          KEY_FRAME 260.000000 395.000000 1.000000
+          KEY_FRAME 320.000000 635.000000 1.000000
+          KEY_FRAME 380.000000 875.000000
           IS_DRAGGABLE 0
           IS_VERTICAL 1
           OFFSET 0.000000
@@ -101097,7 +101098,7 @@ GROUP Captain PFD
         gen_LED Knots
           POS 86.000000 1039.500000
           IMAGE CRT Displays/LED/LED_2.36R.xxx##0.magenta
-          DATAREF sim/cockpit2/autopilot/airspeed_dial_kts_mach
+          DATAREF laminar/B747/autopilot/ias_dial_value
           SHOW_EQUAL 0.000000 sim/cockpit/autopilot/airspeed_is_mach
           LOCKED
           HIDE
@@ -101114,7 +101115,7 @@ GROUP Captain PFD
         gen_LED Mach
           POS 78.000000 1039.500000
           IMAGE CRT Displays/LED/LED_2.36R.xxxxx0.magenta
-          DATAREF sim/cockpit2/autopilot/airspeed_dial_kts_mach
+          DATAREF laminar/B747/autopilot/ias_mach_dial_value
           SHOW_EQUAL 1.000000 sim/cockpit/autopilot/airspeed_is_mach
           LOCKED
           HIDE
@@ -107510,9 +107511,9 @@ GROUP First Officer PFD
         DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_copilot
         POS 806.500000 767.000000
         CLIP
-        KEY_FRAME 220.000000 240.000000 1.000000
-        KEY_FRAME 280.000000 0.000000 1.000000
-        KEY_FRAME 340.000000 -240.000000
+        KEY_FRAME 220.000000 400.000000 1.000000
+        KEY_FRAME 320.000000 0.000000 1.000000
+        KEY_FRAME 420.000000 -400.000000
         IS_VERTICAL 1
         OFFSET 0.000000
         gen_pointer Max Maneuver 2
@@ -107521,13 +107522,13 @@ GROUP First Officer PFD
           DATAREF laminar/B747/airspeed/Vmaxm
           LOCKED
           HIDE
-          CLIP
+          
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
-          KEY_FRAME 220.000000 0.500000 1.000000
-          KEY_FRAME 280.000000 240.500000 1.000000
-          KEY_FRAME 340.000000 480.500000
+          KEY_FRAME 260.000000 0.500000 1.000000
+          KEY_FRAME 320.000000 240.500000 1.000000
+          KEY_FRAME 380.000000 480.500000
           IS_DRAGGABLE 0
           IS_VERTICAL 1
           OFFSET 0.000000
@@ -107538,13 +107539,13 @@ GROUP First Officer PFD
           DATAREF laminar/B747/airspeed/Vmax
           LOCKED
           HIDE
-          CLIP
+          
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
-          KEY_FRAME 220.000000 395.000000 1.000000
-          KEY_FRAME 280.000000 635.000000 1.000000
-          KEY_FRAME 340.000000 875.000000
+          KEY_FRAME 260.000000 395.000000 1.000000
+          KEY_FRAME 320.000000 635.000000 1.000000
+          KEY_FRAME 380.000000 875.000000
           IS_DRAGGABLE 0
           IS_VERTICAL 1
           OFFSET 0.000000
@@ -107614,8 +107615,8 @@ GROUP First Officer PFD
         gen_LED Knots 2
           POS 765.000000 1039.500000
           IMAGE CRT Displays/LED/LED_2.36R.xxx##0.magenta
-          DATAREF sim/cockpit2/autopilot/airspeed_dial_kts_mach
-          SHOW_EQUAL 0.000000 sim/flightmodel/misc/machno
+          DATAREF laminar/B747/autopilot/ias_dial_value
+          SHOW_EQUAL 0.000000 sim/cockpit/autopilot/airspeed_is_mach
           LOCKED
           HIDE
           LIGHT_MODE GLASS_AUTO
@@ -107631,8 +107632,8 @@ GROUP First Officer PFD
         gen_LED Mach
           POS 757.000000 1039.500000
           IMAGE CRT Displays/LED/LED_2.36R.xxxxx0.magenta
-          DATAREF sim/cockpit2/autopilot/airspeed_dial_kts_mach
-          SHOW_EQUAL 1.000000 sim/flightmodel/misc/machno
+          DATAREF laminar/B747/autopilot/ias_mach_dial_value
+          SHOW_EQUAL 1.000000 sim/cockpit/autopilot/airspeed_is_mach
           LOCKED
           HIDE
           LIGHT_MODE GLASS_AUTO
