@@ -23,8 +23,6 @@ B747DR_ap_vb	    = find_dataref("laminar/B747/autopilot/navadata/vb")
 simDR_autopilot_vs_fpm         			= find_dataref("sim/cockpit2/autopilot/vvi_dial_fpm")
 --Workaround for stack overflow in init.lua namespace_read
 
-KGS_TO_LBS = 2.2046226218488
-
 function replace_char(pos, str, r)
     return str:sub(1, pos-1) .. r .. str:sub(pos+1)
 end
@@ -164,7 +162,6 @@ B747DR_fms1_display_brightness      = deferred_dataref("laminar/B747/fms1/displa
 -- FUEL WEIGHT DISPLAY UNITS (KGS/LBS)
 B747DR_fuel_display_units				= deferred_dataref("laminar/B747/fuel/fuel_display_units", "string")
 B747DR_fuel_display_units_eicas			= deferred_dataref("laminar/B747/fuel/fuel_display_units_eicas", "number")
-B747DR_fuel_preselect_temp				= deferred_dataref("laminar/B747/fuel/fuel_preselect_temp", "number")
 
 fmsPages={}
 --fmsPagesmall={}
@@ -227,7 +224,7 @@ fmsModules["data"]={
   preselectLeft="******",
   preselectRight="******",
   fuelUnits="KGS",   --Set initial fuel weight units
-  fuelpreselecttemp=1, --Set initial fuel preselect value
+
 }
 B747DR_FMSdata=json.encode(fmsModules["data"]["values"])--make the fms data available to other modules
 fmsModules["setData"]=function(self,id,value)

@@ -479,23 +479,8 @@ function validate_weight_units(value)
 	end
 end
 
-function preselect_fuel()
-	-- DETERMINE FUEL WEIGHT DISPLAY UNITS
-	local fuel_calculation_factor = 1
-	local KGS_TO_LBS = 2.2046226218488
-	if B747DR_fuel_display_units == "LBS" then
-		fuel_calculation_factor = KGS_TO_LBS
-	end
-	B747DR_refuel=B747DR_fuel_add*1000 / fuel_calculation_factor  --(always add fuel in KGS behind the scenes)
-	B747DR_fuel_preselect=simDR_fueL_tank_weight_total_kg + B747DR_refuel
-						
-	-- Used in calculation for displaying Preselect Fuel Qty in correct weight units (actual display done in B747.25.fuel)
-	B747DR_fuel_preselect_temp = B747DR_fuel_preselect
-	B747DR_fuel_add=0
-end
-
 function fmsFunctions.setdata(fmsO,value)
-  local del=false  
+  local del=false
   if fmsO["scratchpad"]=="DELETE" then fmsO["scratchpad"]="" del=true end
 
   if value=="depdst" and string.len(fmsO["scratchpad"])>3  then
@@ -653,7 +638,19 @@ function fmsFunctions.setdata(fmsO,value)
     if fmsModules["fmsR"].notify=="ENTER IRS POSITION" then fmsModules["fmsR"].notify="" end
    elseif value=="services" then
      fmsModules["cmds"]["sim/ground_ops/service_plane"]:once() fmsModules["lastcmd"]=fmsModules["cmdstrings"]["sim/ground_ops/service_plane"]
-     run_after_time(preselect_fuel,30)
+     run_after_time(
+					function()
+						-- DETERMINE FUEL WEIGHT DISPLAY UNITS
+						local fuel_calculation_factor = 1
+						local KGS_TO_LBS = 2.2046226218488
+						if B747DR_fuel_display_units == "LBS" then
+							fuel_calculation_factor = KGS_TO_LBS
+						end
+						B747DR_refuel=B747DR_fuel_add*1000 / fuel_calculation_factor
+						B747DR_fuel_preselect=(simDR_fueL_tank_weight_total_kg * fuel_calculation_factor) + (B747DR_refuel * fuel_calculation_factor)
+						B747DR_fuel_add=0
+					end
+	  ,30)
    elseif value=="fuelpreselect" and string.len(fmsO["scratchpad"])>0 then
      local fuel=tonumber(fmsO["scratchpad"])
      if fuel~=nil then
@@ -676,11 +673,9 @@ function fmsFunctions.setdata(fmsO,value)
    elseif value=="fuelUnits" and string.len(fmsO["scratchpad"])>0 then
 	if validate_weight_units(fmsO["scratchpad"]) == false then 
       fmsO["notify"]="INVALID ENTRY"
-	elseif is_timer_scheduled(preselect_fuel) == true then
-	  fmsO["notify"]="NA - WAITING FOR FUEL TRUCK"	
     else
 		setFMSData("fuelUnits",fmsO["scratchpad"])
-	end
+    end
 
   elseif fmsO["scratchpad"]=="" and del==false then
       cVal=getFMSData(value)
