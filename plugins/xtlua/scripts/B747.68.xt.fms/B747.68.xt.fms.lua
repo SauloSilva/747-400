@@ -227,7 +227,6 @@ fmsModules["data"]={
   preselectLeft="******",
   preselectRight="******",
   fuelUnits="KGS",   --Set initial fuel weight units
-  fuelpreselecttemp=1, --Set initial fuel preselect value
 }
 B747DR_FMSdata=json.encode(fmsModules["data"]["values"])--make the fms data available to other modules
 fmsModules["setData"]=function(self,id,value)
