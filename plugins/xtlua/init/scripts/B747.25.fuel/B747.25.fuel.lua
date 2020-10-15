@@ -351,6 +351,9 @@ B747DR_fuel_total_display_qty			= deferred_dataref("laminar/B747/fuel/fuel_total
 -- FUEL FLOW PER SECOND
 B747DR_fuel_flow_sec_display			= deferred_dataref("laminar/B747/fuel/fuel_flow_sec_display", "array[4]")
 
+-- Temp location for fuel preselect for displaying in correct units
+B747DR_fuel_preselect_temp				= deferred_dataref("laminar/B747/fuel/fuel_preselect_temp", "number")
+
 --*************************************************************************************--
 --** 				              CREATE CUSTOM COMMANDS              			     **--
 --*************************************************************************************--
