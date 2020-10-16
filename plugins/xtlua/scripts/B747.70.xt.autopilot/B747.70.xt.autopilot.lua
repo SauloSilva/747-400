@@ -1643,7 +1643,7 @@ function B747_ap_ias_mach_mode()
 	  elseif simDR_flap_ratio_control<=0.668 then --flaps 20
 	    maxSafeSpeed=225
 	    minSafeSpeed=minSafeSpeed-5
-	  elseif simDR_flap_ratio_control<=0.668 then --flaps 25
+	  elseif simDR_flap_ratio_control<=0.84 then --flaps 25
 	    maxSafeSpeed=200
 	    minSafeSpeed=minSafeSpeed-9
 	  elseif simDR_flap_ratio_control<=1.0 then --flaps 30
