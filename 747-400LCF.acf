@@ -96050,6 +96050,7 @@ GROUP Captain PFD
         POS 315.500000 767.500000
         IMAGE CRT Displays/PFD/FD/FDbarLateral
         DATAREF sim/cockpit2/autopilot/flight_director_roll_deg
+        SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
         LOCKED
         HIDE
         LIGHT_MODE GLASS_AUTO
@@ -96081,6 +96082,7 @@ GROUP Captain PFD
           POS 315.500000 767.500000
           IMAGE CRT Displays/PFD/FD/FDbarVertical
           DATAREF sim/cockpit2/autopilot/flight_director_pitch_deg
+          SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
           LOCKED
           HIDE
           LIGHT_MODE GLASS_AUTO
@@ -96295,6 +96297,29 @@ GROUP Captain PFD
       GROUP Armed
         LOCKED
         HIDE
+        gen_rotary TOGA
+          POS 320.500000 1064.500000
+          IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/TOGA
+          DATAREF autopilot nav
+          SHOW_EQUAL 1.000000 laminar/B747/autopilot/FMA/armed_roll_mode
+          LOCKED
+          HIDE
+          LIGHT_MODE GLASS_AUTO
+          LIGHT_RHEOSTAT 2
+          BUS_SRC 2
+          KEY_FRAME 0.000000 0.000000 1.000000
+          KEY_FRAME 1.000000 6.000000
+          DIGITS 1
+          ROTARY_TYPE NO_CLICK
+          CLICK_RADIUS 0.000000
+          CLICK_RADIUS_DY 0.000000
+          OFFSET 0.000000
+          STEP1 1.000000
+          STEP2 1.000000
+          CURSOR DEFAULT
+          CLICK_DX 0
+          CLICK_DY 0
+
         gen_rotary LNAV
           POS 320.500000 1064.500000
           IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/roll_LNAV
@@ -96560,6 +96585,29 @@ GROUP Captain PFD
       GROUP Armed
         LOCKED
         HIDE
+        gen_rotary TOGA
+          POS 442.500000 1064.500000
+          IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/TOGA
+          DATAREF 
+          SHOW_EQUAL 1.000000 laminar/B747/autopilot/FMA/armed_pitch_mode
+          LOCKED
+          HIDE
+          LIGHT_MODE GLASS_AUTO
+          LIGHT_RHEOSTAT 2
+          BUS_SRC 2
+          KEY_FRAME 0.000000 0.000000 1.000000
+          KEY_FRAME 1.000000 6.000000
+          DIGITS 1
+          ROTARY_TYPE NO_CLICK
+          CLICK_RADIUS 0.000000
+          CLICK_RADIUS_DY 0.000000
+          OFFSET 0.000000
+          STEP1 1.000000
+          STEP2 1.000000
+          CURSOR DEFAULT
+          CLICK_DX 0
+          CLICK_DY 0
+
         gen_rotary G/S
           POS 442.500000 1064.500000
           IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/pitch_GS
@@ -96867,6 +96915,7 @@ GROUP Captain PFD
     END_GROUP
   END_GROUP
   GROUP AFDS Status Annun
+    SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
     LOCKED
     HIDE
     gen_rotary Mode Change Box
@@ -97213,7 +97262,7 @@ GROUP Captain PFD
 
     END_GROUP
     GROUP Max Speed
-      SHOW_GREATER 10.000000 sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot
+      #SHOW_GREATER 10.000000 sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot
       LOCKED
       HIDE
       GROUP Spd Ofst Kts
@@ -97222,12 +97271,13 @@ GROUP Captain PFD
         GROUP_ANIMATE_MODE TRANSLATE
         GROUP_WIDTH 43
         GROUP_HEIGHT 480
+        #DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
         DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
         POS 127.500000 767.000000
         CLIP
-        KEY_FRAME 0.000000 0.000000 1.000000
-        KEY_FRAME 30.000000 0.000000 1.000000
-        KEY_FRAME 60.000000 -120.000000
+        KEY_FRAME 220.000000 400.000000 1.000000
+        KEY_FRAME 320.000000 0.000000 1.000000
+        KEY_FRAME 420.000000 -400.000000
         IS_VERTICAL 1
         OFFSET 0.000000
         gen_pointer Max Maneuver
@@ -97236,13 +97286,13 @@ GROUP Captain PFD
           DATAREF laminar/B747/airspeed/Vmaxm
           LOCKED
           HIDE
-          CLIP
+          
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
-          KEY_FRAME 0.000000 240.500000 1.000000
-          KEY_FRAME 30.000000 240.500000 0.000000
-          KEY_FRAME 60.000000 360.500000
+          KEY_FRAME 260.000000 0.500000 1.000000
+          KEY_FRAME 320.000000 240.500000 1.000000
+          KEY_FRAME 380.000000 480.500000
           IS_DRAGGABLE 0
           IS_VERTICAL 1
           OFFSET 0.000000
@@ -97253,13 +97303,13 @@ GROUP Captain PFD
           DATAREF laminar/B747/airspeed/Vmax
           LOCKED
           HIDE
-          CLIP
+          
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
-          KEY_FRAME 0.000000 635.000000 1.000000
-          KEY_FRAME 30.000000 635.000000 1.000000
-          KEY_FRAME 60.000000 755.000000
+          KEY_FRAME 260.000000 395.000000 1.000000
+          KEY_FRAME 320.000000 635.000000 1.000000
+          KEY_FRAME 380.000000 875.000000
           IS_DRAGGABLE 0
           IS_VERTICAL 1
           OFFSET 0.000000
@@ -97271,17 +97321,15 @@ GROUP Captain PFD
       LOCKED
       HIDE
       GROUP Spd Ofst Kts
-        LOCKED
-        HIDE
         GROUP_ANIMATE_MODE TRANSLATE
         GROUP_WIDTH 43
         GROUP_HEIGHT 480
         DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
         POS 127.500000 767.000000
         CLIP
-        KEY_FRAME 0.000000 0.000000 1.000000
-        KEY_FRAME 30.000000 0.000000 1.000000
-        KEY_FRAME 60.000000 -120.000000
+        KEY_FRAME 100.000000 240.000000 1.000000
+        KEY_FRAME 160.000000 0.000000 1.000000
+        KEY_FRAME 220.000000 -240.000000
         IS_VERTICAL 1
         OFFSET 0.000000
         gen_pointer Min Maneuver
@@ -97294,9 +97342,9 @@ GROUP Captain PFD
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
-          KEY_FRAME 0.000000 -240.500000 1.000000
-          KEY_FRAME 30.000000 -240.500000 0.000000
-          KEY_FRAME 60.000000 -120.500000
+          KEY_FRAME 100.000000 -480.500000 1.000000
+          KEY_FRAME 160.000000 -240.500000 1.000000
+          KEY_FRAME 220.000000 0.500000
           IS_DRAGGABLE 0
           IS_VERTICAL 1
           OFFSET 0.000000
@@ -97311,9 +97359,9 @@ GROUP Captain PFD
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
-          KEY_FRAME 0.000000 -635.000000 1.000000
-          KEY_FRAME 30.000000 -635.000000 1.000000
-          KEY_FRAME 60.000000 -515.000000
+          KEY_FRAME 100.000000 -875.500000 1.000000
+          KEY_FRAME 160.000000 -635.500000 1.000000
+          KEY_FRAME 220.000000 -395.500000
           IS_DRAGGABLE 0
           IS_VERTICAL 1
           OFFSET 0.000000
@@ -97329,7 +97377,7 @@ GROUP Captain PFD
         gen_LED Knots
           POS 86.000000 1039.500000
           IMAGE CRT Displays/LED/LED_2.36R.xxx##0.magenta
-          DATAREF sim/cockpit2/autopilot/airspeed_dial_kts_mach
+          DATAREF laminar/B747/autopilot/ias_dial_value
           SHOW_EQUAL 0.000000 sim/cockpit/autopilot/airspeed_is_mach
           LOCKED
           HIDE
@@ -97346,7 +97394,7 @@ GROUP Captain PFD
         gen_LED Mach
           POS 78.000000 1039.500000
           IMAGE CRT Displays/LED/LED_2.36R.xxxxx0.magenta
-          DATAREF sim/cockpit2/autopilot/airspeed_dial_kts_mach
+          DATAREF laminar/B747/autopilot/ias_mach_dial_value
           SHOW_EQUAL 1.000000 sim/cockpit/autopilot/airspeed_is_mach
           LOCKED
           HIDE
@@ -102517,6 +102565,7 @@ GROUP First Officer PFD
         POS 994.500000 767.500000
         IMAGE CRT Displays/PFD/FD/FDbarLateral
         DATAREF sim/cockpit2/autopilot/flight_director_roll_deg
+        SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
         LOCKED
         HIDE
         LIGHT_MODE GLASS_AUTO
@@ -102548,6 +102597,7 @@ GROUP First Officer PFD
           POS 994.500000 767.500000
           IMAGE CRT Displays/PFD/FD/FDbarVertical
           DATAREF sim/cockpit2/autopilot/flight_director_pitch_deg
+          SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
           LOCKED
           HIDE
           LIGHT_MODE GLASS_AUTO
@@ -102762,6 +102812,29 @@ GROUP First Officer PFD
       GROUP Armed 2
         LOCKED
         HIDE
+        gen_rotary TOGA 2
+          POS 999.500000 1064.500000
+          IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/TOGA
+          DATAREF autopilot nav
+          SHOW_EQUAL 1.000000 laminar/B747/autopilot/FMA/armed_roll_mode
+          LOCKED
+          HIDE
+          LIGHT_MODE GLASS_AUTO
+          LIGHT_RHEOSTAT 5
+          BUS_SRC 4
+          KEY_FRAME 0.000000 0.000000 1.000000
+          KEY_FRAME 1.000000 6.000000
+          DIGITS 1
+          ROTARY_TYPE NO_CLICK
+          CLICK_RADIUS 0.000000
+          CLICK_RADIUS_DY 0.000000
+          OFFSET 0.000000
+          STEP1 1.000000
+          STEP2 1.000000
+          CURSOR DEFAULT
+          CLICK_DX 0
+          CLICK_DY 0
+
         gen_rotary LNAV 2
           POS 999.500000 1064.500000
           IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/roll_LNAV
@@ -103027,6 +103100,29 @@ GROUP First Officer PFD
       GROUP Armed 2
         LOCKED
         HIDE
+        gen_rotary TOGA 2
+          POS 1121.500000 1064.500000
+          IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/TOGA
+          DATAREF 
+          SHOW_EQUAL 1.000000 laminar/B747/autopilot/FMA/armed_pitch_mode
+          LOCKED
+          HIDE
+          LIGHT_MODE GLASS_AUTO
+          LIGHT_RHEOSTAT 5
+          BUS_SRC 4
+          KEY_FRAME 0.000000 0.000000 1.000000
+          KEY_FRAME 1.000000 6.000000
+          DIGITS 1
+          ROTARY_TYPE NO_CLICK
+          CLICK_RADIUS 0.000000
+          CLICK_RADIUS_DY 0.000000
+          OFFSET 0.000000
+          STEP1 1.000000
+          STEP2 1.000000
+          CURSOR DEFAULT
+          CLICK_DX 0
+          CLICK_DY 0
+
         gen_rotary G/S 2
           POS 1121.500000 1064.500000
           IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/pitch_GS
@@ -103335,6 +103431,7 @@ GROUP First Officer PFD
     END_GROUP
   END_GROUP
   GROUP AFDS Status Annun 2
+    SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
     LOCKED
     HIDE
     gen_rotary Mode Change Box 2
@@ -103693,9 +103790,9 @@ GROUP First Officer PFD
         DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_copilot
         POS 806.500000 767.000000
         CLIP
-        KEY_FRAME 0.000000 0.000000 1.000000
-        KEY_FRAME 30.000000 0.000000 1.000000
-        KEY_FRAME 60.000000 -120.000000
+        KEY_FRAME 220.000000 400.000000 1.000000
+        KEY_FRAME 320.000000 0.000000 1.000000
+        KEY_FRAME 420.000000 -400.000000
         IS_VERTICAL 1
         OFFSET 0.000000
         gen_pointer Max Maneuver 2
@@ -103704,13 +103801,13 @@ GROUP First Officer PFD
           DATAREF laminar/B747/airspeed/Vmaxm
           LOCKED
           HIDE
-          CLIP
+          
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
-          KEY_FRAME 0.000000 240.500000 1.000000
-          KEY_FRAME 30.000000 240.500000 0.000000
-          KEY_FRAME 60.000000 360.500000
+          KEY_FRAME 260.000000 0.500000 1.000000
+          KEY_FRAME 320.000000 240.500000 1.000000
+          KEY_FRAME 380.000000 480.500000
           IS_DRAGGABLE 0
           IS_VERTICAL 1
           OFFSET 0.000000
@@ -103721,13 +103818,13 @@ GROUP First Officer PFD
           DATAREF laminar/B747/airspeed/Vmax
           LOCKED
           HIDE
-          CLIP
+          
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
-          KEY_FRAME 0.000000 635.000000 1.000000
-          KEY_FRAME 30.000000 635.000000 1.000000
-          KEY_FRAME 60.000000 755.000000
+          KEY_FRAME 260.000000 395.000000 1.000000
+          KEY_FRAME 320.000000 635.000000 1.000000
+          KEY_FRAME 380.000000 875.000000
           IS_DRAGGABLE 0
           IS_VERTICAL 1
           OFFSET 0.000000
@@ -103747,9 +103844,9 @@ GROUP First Officer PFD
         DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_copilot
         POS 806.500000 767.000000
         CLIP
-        KEY_FRAME 0.000000 0.000000 1.000000
-        KEY_FRAME 30.000000 0.000000 1.000000
-        KEY_FRAME 60.000000 -120.000000
+        KEY_FRAME 100.000000 240.000000 1.000000
+        KEY_FRAME 160.000000 0.000000 1.000000
+        KEY_FRAME 220.000000 -240.000000
         IS_VERTICAL 1
         OFFSET 0.000000
         gen_pointer Min Maneuver 2
@@ -103762,9 +103859,9 @@ GROUP First Officer PFD
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
-          KEY_FRAME 0.000000 -240.500000 1.000000
-          KEY_FRAME 30.000000 -240.500000 0.000000
-          KEY_FRAME 60.000000 -120.500000
+          KEY_FRAME 100.000000 -480.500000 1.000000
+          KEY_FRAME 160.000000 -240.500000 1.000000
+          KEY_FRAME 220.000000 0.500000
           IS_DRAGGABLE 0
           IS_VERTICAL 1
           OFFSET 0.000000
@@ -103779,9 +103876,9 @@ GROUP First Officer PFD
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
-          KEY_FRAME 0.000000 -635.000000 1.000000
-          KEY_FRAME 30.000000 -635.000000 1.000000
-          KEY_FRAME 60.000000 -515.000000
+          KEY_FRAME 100.000000 -875.500000 1.000000
+          KEY_FRAME 160.000000 -635.500000 1.000000
+          KEY_FRAME 220.000000 -395.500000
           IS_DRAGGABLE 0
           IS_VERTICAL 1
           OFFSET 0.000000
@@ -103797,8 +103894,8 @@ GROUP First Officer PFD
         gen_LED Knots 2
           POS 765.000000 1039.500000
           IMAGE CRT Displays/LED/LED_2.36R.xxx##0.magenta
-          DATAREF sim/cockpit2/autopilot/airspeed_dial_kts_mach
-          SHOW_EQUAL 0.000000 sim/flightmodel/misc/machno
+          DATAREF laminar/B747/autopilot/ias_dial_value
+          SHOW_EQUAL 0.000000 sim/cockpit/autopilot/airspeed_is_mach
           LOCKED
           HIDE
           LIGHT_MODE GLASS_AUTO
@@ -103814,8 +103911,8 @@ GROUP First Officer PFD
         gen_LED Mach
           POS 757.000000 1039.500000
           IMAGE CRT Displays/LED/LED_2.36R.xxxxx0.magenta
-          DATAREF sim/cockpit2/autopilot/airspeed_dial_kts_mach
-          SHOW_EQUAL 1.000000 sim/flightmodel/misc/machno
+          DATAREF laminar/B747/autopilot/ias_mach_dial_value
+          SHOW_EQUAL 1.000000 sim/cockpit/autopilot/airspeed_is_mach
           LOCKED
           HIDE
           LIGHT_MODE GLASS_AUTO
@@ -113161,8 +113258,7 @@ GROUP Upper EICAS
     gen_LED Total LED
       POS 1929.000000 501.000000
       IMAGE CRT Displays/LED/LED_3.30B.xx##00.white
-      DATAREF sim/flightmodel/weight/m_fuel_total[3]
-      SHOW_LESS 100.000000 sim/cockpit2/engine/indicators/N1_percent[3]
+      DATAREF laminar/B747/fuel/fuel_total_display_qty
       LOCKED
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 9
@@ -113178,7 +113274,8 @@ GROUP Upper EICAS
       POS 2003.500000 489.000000
       IMAGE CRT Displays/EICAS Upper/fuel_KGS1000_label
       DATAREF 
-      LOCKED
+      SHOW_EQUAL 0 laminar/B747/fuel/fuel_display_units_eicas
+	  LOCKED
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 9
       BUS_SRC 2
@@ -113195,6 +113292,28 @@ GROUP Upper EICAS
       CLICK_DX 0
       CLICK_DY 0
 
+    gen_rotary LBS Label
+      POS 2003.500000 489.000000
+      IMAGE CRT Displays/EICAS Upper/fuel_LBS1000_label
+      DATAREF 
+      SHOW_EQUAL 1 laminar/B747/fuel/fuel_display_units_eicas
+	  LOCKED
+      LIGHT_MODE GLASS_AUTO
+      LIGHT_RHEOSTAT 9
+      BUS_SRC 2
+      KEY_FRAME 0.000000 0.000000 1.000000
+      KEY_FRAME 1.000000 6.000000
+      DIGITS 1
+      ROTARY_TYPE NO_CLICK
+      CLICK_RADIUS 0.000000
+      CLICK_RADIUS_DY 0.000000
+      OFFSET 0.000000
+      STEP1 1.000000
+      STEP2 1.000000
+      CURSOR DEFAULT
+      CLICK_DX 0
+      CLICK_DY 0
+	  
     GROUP Jettison
       SHOW_GREATER 1.000000 laminar/B747/fuel/fuel_jettison/sel_dial_pos
       LOCKED
@@ -114067,8 +114186,7 @@ GROUP Lower EICAS
         gen_LED LED 1
           POS 1429.000000 210.000000
           IMAGE CRT Displays/LED/LED_3.30B.xx##00.white
-          DATAREF sim/cockpit2/engine/indicators/fuel_flow_kg_sec[0]
-          SHOW_LESS 100.000000 sim/cockpit2/engine/indicators/N2_percent[0]
+          DATAREF laminar/B747/fuel/fuel_flow_sec_display[0]
           LOCKED
           HIDE
           LIGHT_MODE GLASS_AUTO
@@ -114084,8 +114202,7 @@ GROUP Lower EICAS
         gen_LED LED 2
           POS 1534.000000 210.000000
           IMAGE CRT Displays/LED/LED_3.30B.xx##00.white
-          DATAREF sim/cockpit2/engine/indicators/fuel_flow_kg_sec[1]
-          SHOW_LESS 100.000000 sim/cockpit2/engine/indicators/N2_percent[1]
+          DATAREF laminar/B747/fuel/fuel_flow_sec_display[1]
           LOCKED
           HIDE
           LIGHT_MODE GLASS_AUTO
@@ -114101,8 +114218,7 @@ GROUP Lower EICAS
         gen_LED LED 3
           POS 1639.000000 210.000000
           IMAGE CRT Displays/LED/LED_3.30B.xx##00.white
-          DATAREF sim/cockpit2/engine/indicators/fuel_flow_kg_sec[2]
-          SHOW_LESS 100.000000 sim/cockpit2/engine/indicators/N2_percent[2]
+          DATAREF laminar/B747/fuel/fuel_flow_sec_display[2]
           LOCKED
           HIDE
           LIGHT_MODE GLASS_AUTO
@@ -114118,8 +114234,7 @@ GROUP Lower EICAS
         gen_LED LED 4
           POS 1744.000000 210.000000
           IMAGE CRT Displays/LED/LED_3.30B.xx##00.white
-          DATAREF sim/cockpit2/engine/indicators/fuel_flow_kg_sec[3]
-          SHOW_LESS 100.000000 [3]
+          DATAREF laminar/B747/fuel/fuel_flow_sec_display[3]
           LOCKED
           HIDE
           LIGHT_MODE GLASS_AUTO
@@ -116374,12 +116489,13 @@ GROUP Lower EICAS
   GROUP ELEC Synoptic
     SHOW_EQUAL 3.000000 laminar/B747/dsp/synoptic_display
     LOCKED
-    GROUP_OPEN
+    HIDE
     gen_rotary background
       POS 1704.000000 95.000000
       IMAGE CRT Displays/EICAS Lower/ELEC/background
       DATAREF 
       LOCKED
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -116401,6 +116517,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/ext
       DATAREF 
       SHOW_GREATER 0.950000 laminar/B747/electrical/ext_pwr1_on
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -116422,6 +116539,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/ext
       DATAREF 
       SHOW_GREATER 0.950000 laminar/B747/electrical/ext_pwr2_on
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -116443,6 +116561,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/ext
       DATAREF 
       SHOW_GREATER 0.950000 laminar/B747/electrical/apu_pwr1_on
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -116464,6 +116583,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/ext
       DATAREF 
       SHOW_GREATER 0.950000 laminar/B747/electrical/apu_pwr2_on
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -116485,6 +116605,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/isln
       DATAREF 
       SHOW_LESS 0.950000 laminar/B747/button_switch/position[18]
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -116506,6 +116627,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/topmiddle
       DATAREF 
       SHOW_GREATER 0.950000 laminar/B747/electrical/bus1hot
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -116527,6 +116649,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/isln
       DATAREF 
       SHOW_LESS 0.950000 laminar/B747/button_switch/position[19]
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -116548,6 +116671,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/topmiddle
       DATAREF 
       SHOW_GREATER 0.050000 laminar/B747/electrical/bus2hot
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -116569,6 +116693,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/topleft
       DATAREF 
       SHOW_GREATER 0.950000 laminar/B747/electrical/topleftbus
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -116590,6 +116715,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/isln
       DATAREF 
       SHOW_LESS 0.950000 laminar/B747/button_switch/position[20]
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -116611,6 +116737,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/topmiddle
       DATAREF 
       SHOW_GREATER 0.050000 laminar/B747/electrical/bus3hot
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -116632,6 +116759,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/isln
       DATAREF 
       SHOW_LESS 0.950000 laminar/B747/button_switch/position[21]
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -116653,6 +116781,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/topmiddle
       DATAREF 
       SHOW_GREATER 0.050000 laminar/B747/electrical/bus4hot
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -116674,6 +116803,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/topright
       DATAREF 
       SHOW_GREATER 0.950000 laminar/B747/electrical/toprightbus
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -116694,6 +116824,7 @@ GROUP Lower EICAS
       POS 1711.785767 271.500000
       IMAGE CRT Displays/EICAS Lower/ELEC/bustie
       DATAREF laminar/B747/electrical/ssb
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -116702,14 +116833,13 @@ GROUP Lower EICAS
       IS_DRAGGABLE 0
       IS_VERTICAL 1
       OFFSET 0.000000
-      CURSOR DEFAULT
-      CLICK_DX 0
-      CLICK_DY 0
+
     gen_rotary ssb_power
       POS 1711.785767 271.500000
       IMAGE CRT Displays/EICAS Lower/ELEC/bustiepower
       DATAREF 
       SHOW_EQUAL 1.000000 laminar/B747/electrical/ssb
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -116725,11 +116855,13 @@ GROUP Lower EICAS
       CURSOR DEFAULT
       CLICK_DX 0
       CLICK_DY 0
+
     gen_rotary bus1_off
       POS 1437.500000 64.500000
       IMAGE CRT Displays/EICAS Lower/ELEC/busamber
       DATAREF 
       SHOW_EQUAL 1.000000 laminar/B747/rel_esys
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -116751,6 +116883,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/busamberl
       DATAREF 
       SHOW_LESS 0.050000 laminar/B747/electrical/utilityleft1
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -116772,6 +116905,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/busgreen
       DATAREF 
       SHOW_EQUAL 0.000000 laminar/B747/rel_esys
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -116793,6 +116927,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/busgreenl
       DATAREF 
       SHOW_GREATER 0.950000 laminar/B747/electrical/utilityleft1
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -116814,6 +116949,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/busamber
       DATAREF 
       SHOW_EQUAL 1.000000 laminar/B747/rel_esys2
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -116835,6 +116971,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/busamberl
       DATAREF 
       SHOW_LESS 0.050000 laminar/B747/electrical/utilityleft2
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -116856,6 +116993,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/busgreen
       DATAREF 
       SHOW_EQUAL 0.000000 laminar/B747/rel_esys2
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -116877,6 +117015,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/busgreenl
       DATAREF 
       SHOW_GREATER 0.950000 laminar/B747/electrical/utilityleft2
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -116898,6 +117037,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/busamber
       DATAREF 
       SHOW_EQUAL 1.000000 laminar/B747/rel_esys3
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -116919,6 +117059,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/busamberr
       DATAREF 
       SHOW_LESS 0.050000 laminar/B747/electrical/utilityright1
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -116940,6 +117081,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/busgreen
       DATAREF 
       SHOW_EQUAL 0.000000 laminar/B747/rel_esys3
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -116961,6 +117103,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/busgreenr
       DATAREF 
       SHOW_GREATER 0.950000 laminar/B747/electrical/utilityright1
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -116982,6 +117125,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/busamber
       DATAREF 
       SHOW_EQUAL 1.000000 laminar/B747/rel_esys4
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -117003,6 +117147,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/busamberr
       DATAREF 
       SHOW_LESS 0.050000 laminar/B747/electrical/utilityright2
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -117024,6 +117169,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/busgreen
       DATAREF 
       SHOW_EQUAL 0.000000 laminar/B747/rel_esys4
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -117045,6 +117191,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/busgreenr
       DATAREF 
       SHOW_GREATER 0.950000 laminar/B747/electrical/utilityright2
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -117066,6 +117213,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/off
       DATAREF 
       SHOW_EQUAL 1.000000 sim/cockpit2/annunciators/generator_off[0]
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -117087,6 +117235,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/lowerline
       DATAREF 
       SHOW_EQUAL 0.000000 sim/cockpit2/annunciators/generator_off[0]
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -117108,6 +117257,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/off
       DATAREF 
       SHOW_EQUAL 1.000000 sim/cockpit2/annunciators/generator_off[1]
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -117129,6 +117279,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/lowerline
       DATAREF 
       SHOW_EQUAL 0.000000 sim/cockpit2/annunciators/generator_off[1]
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -117150,6 +117301,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/off
       DATAREF 
       SHOW_EQUAL 1.000000 sim/cockpit2/annunciators/generator_off[2]
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -117171,6 +117323,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/lowerline
       DATAREF 
       SHOW_EQUAL 0.000000 sim/cockpit2/annunciators/generator_off[2]
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -117192,6 +117345,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/off
       DATAREF 
       SHOW_EQUAL 1.000000 sim/cockpit2/annunciators/generator_off[3]
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -117213,6 +117367,7 @@ GROUP Lower EICAS
       IMAGE CRT Displays/EICAS Lower/ELEC/lowerline
       DATAREF 
       SHOW_EQUAL 0.000000 sim/cockpit2/annunciators/generator_off[3]
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
       BUS_SRC 3
@@ -117232,17 +117387,14 @@ GROUP Lower EICAS
   END_GROUP
   GROUP FUEL Synoptic
     SHOW_EQUAL 4.000000 laminar/B747/dsp/synoptic_display
-    LOCKED
-    HIDE
+    GROUP_OPEN
     GROUP Total Fuel
-      LOCKED
-      HIDE
+      GROUP_OPEN
       gen_rotary Label
-        POS 1628.500000 382.500000
+        POS 1628.500000 390.500000
         IMAGE CRT Displays/EICAS Lower/FUEL/bgnd_label01
-        DATAREF 
-        LOCKED
-        HIDE
+        DATAREF
+		SHOW_EQUAL 0 laminar/B747/fuel/fuel_display_units_eicas
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -117259,13 +117411,67 @@ GROUP Lower EICAS
         CLICK_DX 0
         CLICK_DY 0
 
+	  gen_rotary LabelLBS
+        POS 1628.500000 390.500000
+        IMAGE CRT Displays/EICAS Lower/FUEL/bgnd_label01_2
+        DATAREF
+        SHOW_EQUAL 1 laminar/B747/fuel/fuel_display_units_eicas
+        LIGHT_MODE GLASS_AUTO
+        LIGHT_RHEOSTAT 10
+        BUS_SRC 3
+        KEY_FRAME 0.000000 0.000000 1.000000
+        KEY_FRAME 1.000000 6.000000
+        DIGITS 1
+        ROTARY_TYPE NO_CLICK
+        CLICK_RADIUS 0.000000
+        CLICK_RADIUS_DY 0.000000
+        OFFSET 0.000000
+        STEP1 1.000000
+        STEP2 1.000000
+        CURSOR DEFAULT
+        CLICK_DX 0
+        CLICK_DY 0
+		
       gen_LED LED
         POS 1736.000000 398.000000
         IMAGE CRT Displays/LED/LED_3.30B.xx##00.white
-        DATAREF sim/flightmodel/weight/m_fuel_total[3]
-        SHOW_LESS 100.000000 sim/cockpit2/engine/indicators/N1_percent[3]
-        LOCKED
-        HIDE
+        DATAREF laminar/B747/fuel/fuel_total_display_qty
+        LIGHT_MODE GLASS_AUTO
+        LIGHT_RHEOSTAT 10
+        BUS_SRC 3
+        KEY_FRAME 0.000000 0.000000 1.000000
+        KEY_FRAME 1000.000000 1.000000
+        DIGITS 4
+        DECIMALS 1
+        PERIOD_WIDTH 5
+        LED_ROWS 4
+
+      gen_rotary Label
+        POS 1628.510000 357.500000
+        IMAGE CRT Displays/EICAS Lower/FUEL/bgnd_label01_1
+        DATAREF 
+        SHOW_GREATER 1.000000 laminar/B747/fuel/refuel
+        LIGHT_MODE GLASS_AUTO
+        LIGHT_RHEOSTAT 10
+        BUS_SRC 3
+        KEY_FRAME 0.000000 0.000000 1.000000
+        KEY_FRAME 1.000000 6.000000
+        DIGITS 1
+        ROTARY_TYPE NO_CLICK
+        CLICK_RADIUS 0.000000
+        CLICK_RADIUS_DY 0.000000
+        OFFSET 0.000000
+        STEP1 1.000000
+        STEP2 1.000000
+        CURSOR DEFAULT
+        CLICK_DX 0
+        CLICK_DY 0
+
+      gen_LED RLED
+        POS 1736.000000 364.000000
+        IMAGE CRT Displays/LED/LED_3.30B.xx##00.white
+        DATAREF laminar/B747/fuel/preselect
+        SHOW_GREATER 1.000000 laminar/B747/fuel/refuel
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -117278,21 +117484,13 @@ GROUP Lower EICAS
 
     END_GROUP
     GROUP Std/Xfr Flow
-      LOCKED
-      HIDE
       GROUP Std Flow
-        LOCKED
-        HIDE
         GROUP Manifold
           SHOW_EQUAL 1.000000 laminar/B747/fuel/gen_XFmfld_status
-          LOCKED
-          HIDE
           gen_rotary Left Leg Flow Bar
             POS 1519.500000 260.000000
             IMAGE CRT Displays/EICAS Lower/FUEL/flow_std/XfeedMnfld_L
             DATAREF 
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -117313,8 +117511,6 @@ GROUP Lower EICAS
             POS 1876.500000 260.500000
             IMAGE CRT Displays/EICAS Lower/FUEL/flow_std/XfeedMnfld_R
             DATAREF 
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -117335,8 +117531,6 @@ GROUP Lower EICAS
             POS 1698.000000 328.500000
             IMAGE CRT Displays/EICAS Lower/FUEL/flow_std/XfeedMnfld
             DATAREF 
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -117356,14 +117550,10 @@ GROUP Lower EICAS
         END_GROUP
         GROUP Main1 to Main2 Mfld
           SHOW_EQUAL 1.000000 laminar/B747/fuel/gen_XFmfld_status
-          LOCKED
-          HIDE
           gen_rotary Flow Bar
             POS 1504.000000 187.000000
             IMAGE CRT Displays/EICAS Lower/FUEL/flow_std/Mn1_2Mfld
             DATAREF 
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -117383,14 +117573,10 @@ GROUP Lower EICAS
         END_GROUP
         GROUP Main4 to Main3 Mfld
           SHOW_EQUAL 1.000000 laminar/B747/fuel/gen_XFmfld_status
-          LOCKED
-          HIDE
           gen_rotary Flow Bar
             POS 1893.000000 187.000000
             IMAGE CRT Displays/EICAS Lower/FUEL/flow_std/Mn4_3Mfld
             DATAREF 
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -117409,18 +117595,12 @@ GROUP Lower EICAS
 
         END_GROUP
         GROUP Xfeed to Engine
-          LOCKED
-          HIDE
           GROUP XF to Eng 1
             SHOW_EQUAL 2.000000 laminar/B747/fuel/engine1_status
-            LOCKED
-            HIDE
             gen_rotary Flow Bar
               POS 1416.500000 165.000000
               IMAGE CRT Displays/EICAS Lower/FUEL/flow_std/XFtoEng1
               DATAREF 
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -117440,14 +117620,10 @@ GROUP Lower EICAS
           END_GROUP
           GROUP XF to Eng 2
             SHOW_EQUAL 2.000000 laminar/B747/fuel/engine2_status
-            LOCKED
-            HIDE
             gen_rotary Flow Bar
               POS 1591.500000 241.000000
               IMAGE CRT Displays/EICAS Lower/FUEL/flow_std/XFtoEng2
               DATAREF 
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -117467,14 +117643,10 @@ GROUP Lower EICAS
           END_GROUP
           GROUP XF to Eng 3
             SHOW_EQUAL 2.000000 laminar/B747/fuel/engine3_status
-            LOCKED
-            HIDE
             gen_rotary Flow Bar
               POS 1805.500000 241.000000
               IMAGE CRT Displays/EICAS Lower/FUEL/flow_std/XFtoEng3
               DATAREF 
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -117494,14 +117666,10 @@ GROUP Lower EICAS
           END_GROUP
           GROUP XF to Eng 4
             SHOW_EQUAL 2.000000 laminar/B747/fuel/engine4_status
-            LOCKED
-            HIDE
             gen_rotary Flow Bar
               POS 1980.500000 165.000000
               IMAGE CRT Displays/EICAS Lower/FUEL/flow_std/XFtoEng4
               DATAREF 
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -117521,18 +117689,12 @@ GROUP Lower EICAS
           END_GROUP
         END_GROUP
         GROUP Tank to Engine
-          LOCKED
-          HIDE
           GROUP Main 1 to Eng 1
             SHOW_EQUAL 1.000000 laminar/B747/fuel/engine1_status
-            LOCKED
-            HIDE
             gen_rotary Flow Bar
               POS 1416.500000 138.500000
               IMAGE CRT Displays/EICAS Lower/FUEL/flow_std/MnToEng
               DATAREF 
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -117552,14 +117714,10 @@ GROUP Lower EICAS
           END_GROUP
           GROUP Main 2 to Eng 2
             SHOW_EQUAL 1.000000 laminar/B747/fuel/engine2_status
-            LOCKED
-            HIDE
             gen_rotary Flow Bar
               POS 1591.500000 215.500000
               IMAGE CRT Displays/EICAS Lower/FUEL/flow_std/MnToEng
               DATAREF 
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -117579,14 +117737,10 @@ GROUP Lower EICAS
           END_GROUP
           GROUP Main 3 to Eng 3
             SHOW_EQUAL 1.000000 laminar/B747/fuel/engine3_status
-            LOCKED
-            HIDE
             gen_rotary Flow Bar
               POS 1805.500000 215.500000
               IMAGE CRT Displays/EICAS Lower/FUEL/flow_std/MnToEng
               DATAREF 
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -117606,14 +117760,10 @@ GROUP Lower EICAS
           END_GROUP
           GROUP Main 4 to Eng 4
             SHOW_EQUAL 1.000000 laminar/B747/fuel/engine4_status
-            LOCKED
-            HIDE
             gen_rotary Flow Bar
               POS 1980.500000 138.500000
               IMAGE CRT Displays/EICAS Lower/FUEL/flow_std/MnToEng
               DATAREF 
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -117634,14 +117784,10 @@ GROUP Lower EICAS
         END_GROUP
         GROUP Main 2 OJ Pump ON
           SHOW_EQUAL 1.000000 laminar/B747/fuel/oj_pump2_status
-          LOCKED
-          HIDE
           gen_rotary Flow Bar
             POS 1519.500000 184.500000
             IMAGE CRT Displays/EICAS Lower/FUEL/flow_std/Mn2OJ
             DATAREF 
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -117661,14 +117807,10 @@ GROUP Lower EICAS
         END_GROUP
         GROUP Main 3 OJ Pump ON
           SHOW_EQUAL 1.000000 laminar/B747/fuel/oj_pump3_status
-          LOCKED
-          HIDE
           gen_rotary Flow Bar
             POS 1876.500000 184.500000
             IMAGE CRT Displays/EICAS Lower/FUEL/flow_std/Mn3OJ
             DATAREF 
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -117688,22 +117830,14 @@ GROUP Lower EICAS
         END_GROUP
         GROUP Ctr OJ Pump L ON
           SHOW_EQUAL 1.000000 laminar/B747/fuel/center_tank/ovrd_jett_pump_L_on
-          LOCKED
-          HIDE
           GROUP Normal Feed
             SHOW_LESS 0.040000 laminar/B747/fuel/center_tank/jett_vlv_L_pos
-            LOCKED
-            HIDE
             GROUP Normal Pressure
               SHOW_GREATER 900.010010 sim/flightmodel/weight/m_fuel[0]
-              LOCKED
-              HIDE
               gen_rotary Flow Bar
                 POS 1673.500000 313.000000
                 IMAGE CRT Displays/EICAS Lower/FUEL/flow_std/CtrOJPump
                 DATAREF 
-                LOCKED
-                HIDE
                 LIGHT_MODE GLASS_AUTO
                 LIGHT_RHEOSTAT 10
                 BUS_SRC 3
@@ -117725,22 +117859,14 @@ GROUP Lower EICAS
         END_GROUP
         GROUP Ctr OJ Pump R ON
           SHOW_EQUAL 1.000000 laminar/B747/fuel/center_tank/ovrd_jett_pump_R_on
-          LOCKED
-          HIDE
           GROUP Normal Feed 2
             SHOW_LESS 0.040000 laminar/B747/fuel/center_tank/jett_vlv_R_pos
-            LOCKED
-            HIDE
             GROUP Normal Pressure 2
               SHOW_GREATER 900.010010 sim/flightmodel/weight/m_fuel[0]
-              LOCKED
-              HIDE
               gen_rotary Flow Bar
                 POS 1719.500000 313.000000
                 IMAGE CRT Displays/EICAS Lower/FUEL/flow_std/CtrOJPump
                 DATAREF 
-                LOCKED
-                HIDE
                 LIGHT_MODE GLASS_AUTO
                 LIGHT_RHEOSTAT 10
                 BUS_SRC 3
@@ -117762,14 +117888,10 @@ GROUP Lower EICAS
         END_GROUP
         GROUP Xfeed Vlv 1 Closed
           SHOW_LESS 1.000000 laminar/B747/fuel/engine1_status
-          LOCKED
-          HIDE
           gen_rotary Flow Bar
             POS 1468.000000 171.500000
             IMAGE CRT Displays/EICAS Lower/FUEL/flow_std/XfeedVlv1_closed
             DATAREF 
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -117789,14 +117911,10 @@ GROUP Lower EICAS
         END_GROUP
         GROUP Xfeed Vlv 2 Closed
           SHOW_LESS 1.000000 laminar/B747/fuel/engine2_status
-          LOCKED
-          HIDE
           gen_rotary Flow Bar 2
             POS 1555.500000 209.500000
             IMAGE CRT Displays/EICAS Lower/FUEL/flow_std/XfeedVlv2_closed
             DATAREF 
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -117816,14 +117934,10 @@ GROUP Lower EICAS
         END_GROUP
         GROUP Xfeed Vlv 3 Closed
           SHOW_LESS 1.000000 laminar/B747/fuel/engine3_status
-          LOCKED
-          HIDE
           gen_rotary Flow Bar
             POS 1840.500000 209.500000
             IMAGE CRT Displays/EICAS Lower/FUEL/flow_std/XfeedVlv3_closed
             DATAREF 
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -117843,14 +117957,10 @@ GROUP Lower EICAS
         END_GROUP
         GROUP Xfeed Vlv 4 Closed
           SHOW_LESS 1.000000 laminar/B747/fuel/engine4_status
-          LOCKED
-          HIDE
           gen_rotary Flow Bar 2
             POS 1928.000000 171.500000
             IMAGE CRT Displays/EICAS Lower/FUEL/flow_std/XfeedVlv4_closed
             DATAREF 
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -117872,8 +117982,6 @@ GROUP Lower EICAS
           POS 1698.500000 215.000000
           IMAGE CRT Displays/EICAS Lower/FUEL/bgnd_flow
           DATAREF 
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -117892,18 +118000,12 @@ GROUP Lower EICAS
 
       END_GROUP
       GROUP Txfr Flow
-        LOCKED
-        HIDE
         GROUP Center to Main2
-          LOCKED
-          HIDE
           gen_rotary Flow Bar
             POS 1668.000000 127.500000
             IMAGE CRT Displays/EICAS Lower/FUEL/flow_xfr_center2main2
             DATAREF 
             SHOW_GREATER 2.000000 laminar/B747/fuel/ctr_scvg_L_status[0]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -117925,8 +118027,6 @@ GROUP Lower EICAS
             IMAGE CRT Displays/EICAS Lower/FUEL/xfr_ptr_center2main2
             DATAREF 
             SHOW_GREATER 1.000000 laminar/B747/fuel/ctr_scvg_L_status
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -117945,15 +118045,11 @@ GROUP Lower EICAS
 
         END_GROUP
         GROUP Center to Main 3
-          LOCKED
-          HIDE
           gen_rotary Flow Bar
             POS 1728.000000 126.500000
             IMAGE CRT Displays/EICAS Lower/FUEL/flow_xfr_center2main3
             DATAREF 
             SHOW_GREATER 2.000000 laminar/B747/fuel/ctr_scvg_R_status[0]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -117975,8 +118071,6 @@ GROUP Lower EICAS
             IMAGE CRT Displays/EICAS Lower/FUEL/xfr_ptr_center2main3
             DATAREF 
             SHOW_GREATER 1.000000 laminar/B747/fuel/ctr_scvg_R_status
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -117996,15 +118090,11 @@ GROUP Lower EICAS
         END_GROUP
         GROUP Main1 to Main2
           SHOW_GREATER 0.050000 laminar/B747/fuel/main1_tank/main_xfr_vlv_pos
-          LOCKED
-          HIDE
           gen_rotary Flow Bar
             POS 1480.500000 -20.500000
             IMAGE CRT Displays/EICAS Lower/FUEL/flow_xfr_main1tomain2
             DATAREF 
             SHOW_GREATER 0.010000 sim/flightmodel/weight/m_fuel[1]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -118025,8 +118115,6 @@ GROUP Lower EICAS
             POS 1481.000000 -20.500000
             IMAGE CRT Displays/EICAS Lower/FUEL/xfr_ptr_main1tomain2
             DATAREF 
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -118046,15 +118134,11 @@ GROUP Lower EICAS
         END_GROUP
         GROUP Main4 to Main3
           SHOW_GREATER 0.050000 laminar/B747/fuel/main4_tank/main_xfr_vlv_pos
-          LOCKED
-          HIDE
           gen_rotary Flow Bar
             POS 1915.500000 -20.500000
             IMAGE CRT Displays/EICAS Lower/FUEL/flow_xfr_main4tomain3
             DATAREF 
             SHOW_GREATER 0.010000 sim/flightmodel/weight/m_fuel[4]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -118075,8 +118159,6 @@ GROUP Lower EICAS
             POS 1916.000000 -20.500000
             IMAGE CRT Displays/EICAS Lower/FUEL/xfr_ptr_main4tomain3
             DATAREF 
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -118095,15 +118177,11 @@ GROUP Lower EICAS
 
         END_GROUP
         GROUP Res3 to Main3
-          LOCKED
-          HIDE
           gen_rotary Flow Bar
             POS 1843.500000 -33.000000
             IMAGE CRT Displays/EICAS Lower/FUEL/flow_xfr_res2main
             DATAREF 
             SHOW_GREATER 2.000000 laminar/B747/fuel/res3_xfr_status
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -118125,8 +118203,6 @@ GROUP Lower EICAS
             IMAGE CRT Displays/EICAS Lower/FUEL/xfr_ptr_res2main
             DATAREF 
             SHOW_GREATER 1.000000 laminar/B747/fuel/res3_xfr_status
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -118145,15 +118221,11 @@ GROUP Lower EICAS
 
         END_GROUP
         GROUP Res2 to Main2
-          LOCKED
-          HIDE
           gen_rotary Flow Bar
             POS 1557.500000 -33.000000
             IMAGE CRT Displays/EICAS Lower/FUEL/flow_xfr_res2main
             DATAREF 
             SHOW_GREATER 2.000000 laminar/B747/fuel/res2_xfr_status
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -118175,8 +118247,6 @@ GROUP Lower EICAS
             IMAGE CRT Displays/EICAS Lower/FUEL/xfr_ptr_res2main
             DATAREF 
             SHOW_GREATER 1.000000 laminar/B747/fuel/res2_xfr_status
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -118195,15 +118265,11 @@ GROUP Lower EICAS
 
         END_GROUP
         GROUP Stab to Center
-          LOCKED
-          HIDE
           gen_rotary Flow Bar 2
             POS 1697.500000 29.500000
             IMAGE CRT Displays/EICAS Lower/FUEL/flow_xfr_stab2center
             DATAREF 
             SHOW_GREATER 2.000000 laminar/B747/fuel/stab_xfr_status[7]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -118225,8 +118291,6 @@ GROUP Lower EICAS
             IMAGE CRT Displays/EICAS Lower/FUEL/xfr_ptr_stab2center
             DATAREF 
             SHOW_GREATER 1.000000 laminar/B747/fuel/stab_xfr_status
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -118248,17 +118312,11 @@ GROUP Lower EICAS
     END_GROUP
     GROUP Jettison
       SHOW_GREATER 1.000000 laminar/B747/fuel/fuel_jettison/sel_dial_pos
-      LOCKED
-      HIDE
       GROUP Jett Time
-        LOCKED
-        HIDE
         gen_rotary Label
           POS 1869.000000 393.500000
           IMAGE CRT Displays/EICAS Lower/FUEL/jettison/jett_label01
           DATAREF 
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -118279,8 +118337,6 @@ GROUP Lower EICAS
           POS 1965.000000 396.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
           DATAREF laminar/B747/fuel/jettison_time
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -118296,8 +118352,6 @@ GROUP Lower EICAS
         POS 1396.500000 -213.500000
         IMAGE CRT Displays/EICAS Lower/FUEL/jettison/jett_label03
         DATAREF 
-        LOCKED
-        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -118318,8 +118372,6 @@ GROUP Lower EICAS
         POS 2002.500000 -213.500000
         IMAGE CRT Displays/EICAS Lower/FUEL/jettison/jett_label03
         DATAREF 
-        LOCKED
-        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -118340,8 +118392,6 @@ GROUP Lower EICAS
         POS 2008.000000 393.500000
         IMAGE CRT Displays/EICAS Lower/FUEL/jettison/jett_label02
         DATAREF 
-        LOCKED
-        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -118359,15 +118409,11 @@ GROUP Lower EICAS
         CLICK_DY 0
 
       GROUP Flow
-        LOCKED
-        HIDE
         gen_rotary OJ Pump Center L
           POS 1656.000000 168.500000
           IMAGE CRT Displays/EICAS Lower/FUEL/jettison/jett_flow_OJpmp_center_L
           DATAREF 
           SHOW_EQUAL 1.000000 laminar/B747/fuel/jett/OJctrL_status
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -118389,8 +118435,6 @@ GROUP Lower EICAS
           IMAGE CRT Displays/EICAS Lower/FUEL/jettison/jett_flow_OJpmp_center_R
           DATAREF 
           SHOW_EQUAL 1.000000 laminar/B747/fuel/jett/OJctrR_status
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -118412,8 +118456,6 @@ GROUP Lower EICAS
           IMAGE CRT Displays/EICAS Lower/FUEL/jettison/jett_flow_OJpmp_main2
           DATAREF 
           SHOW_EQUAL 1.000000 laminar/B747/fuel/jett/OJmain2_status
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -118435,8 +118477,6 @@ GROUP Lower EICAS
           IMAGE CRT Displays/EICAS Lower/FUEL/jettison/jett_flow_OJpmp_main3
           DATAREF 
           SHOW_EQUAL 1.000000 laminar/B747/fuel/jett/OJmain3_status
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -118458,8 +118498,6 @@ GROUP Lower EICAS
           IMAGE CRT Displays/EICAS Lower/FUEL/jettison/jett_flow_Lmfld_1
           DATAREF 
           SHOW_EQUAL 1.000000 laminar/B747/fuel/jett/mfldL1_status
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -118481,8 +118519,6 @@ GROUP Lower EICAS
           IMAGE CRT Displays/EICAS Lower/FUEL/jettison/jett_flow_Lmfld_1
           DATAREF 
           SHOW_EQUAL 1.000000 laminar/B747/fuel/jett/mfldR1_status
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -118504,8 +118540,6 @@ GROUP Lower EICAS
           IMAGE CRT Displays/EICAS Lower/FUEL/jettison/jett_flow_cross_mfld
           DATAREF 
           SHOW_EQUAL 1.000000 laminar/B747/fuel/jett/mXmfld_status
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -118527,8 +118561,6 @@ GROUP Lower EICAS
           IMAGE CRT Displays/EICAS Lower/FUEL/jettison/jett_flow_OJpmp_stab
           DATAREF 
           SHOW_EQUAL 1.000000 laminar/B747/fuel/jett/OJstab_status
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -118550,8 +118582,6 @@ GROUP Lower EICAS
           IMAGE CRT Displays/EICAS Lower/FUEL/jettison/jett_flow_Lmfld_2
           DATAREF 
           SHOW_EQUAL 1.000000 laminar/B747/fuel/jett/mfldL2_status
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -118573,8 +118603,6 @@ GROUP Lower EICAS
           IMAGE CRT Displays/EICAS Lower/FUEL/jettison/jett_flow_Lmfld_2
           DATAREF 
           SHOW_EQUAL 1.000000 laminar/B747/fuel/jett/mfldR2_status
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -118596,8 +118624,6 @@ GROUP Lower EICAS
           IMAGE CRT Displays/EICAS Lower/FUEL/jettison/jett_flow_Lmfld_3
           DATAREF 
           SHOW_EQUAL 1.000000 laminar/B747/fuel/jett/mfldL3_status
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -118619,8 +118645,6 @@ GROUP Lower EICAS
           IMAGE CRT Displays/EICAS Lower/FUEL/jettison/jett_flow_Rmfld_3
           DATAREF 
           SHOW_EQUAL 1.000000 laminar/B747/fuel/jett/mfldR3_status
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -118639,18 +118663,12 @@ GROUP Lower EICAS
 
         GROUP Jett Valve L ON
           SHOW_GREATER 0.050000 laminar/B747/fuel/jett_nozzle_vlv_L_pos
-          LOCKED
-          HIDE
           GROUP Valve Mfld Flow
             SHOW_EQUAL 1.000000 laminar/B747/fuel/jett/mfldL3_status
-            LOCKED
-            HIDE
             gen_rotary Symbol
               POS 1397.000000 -175.000000
               IMAGE CRT Displays/EICAS Lower/FUEL/jettison/jett_vlv_flow
               DATAREF 
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -118671,18 +118689,12 @@ GROUP Lower EICAS
         END_GROUP
         GROUP Jett Valve R ON
           SHOW_GREATER 0.050000 laminar/B747/fuel/jett_nozzle_vlv_R_pos
-          LOCKED
-          HIDE
           GROUP Valve Mfld Flow
             SHOW_EQUAL 1.000000 laminar/B747/fuel/jett/mfldR3_status
-            LOCKED
-            HIDE
             gen_rotary Symbol
               POS 2002.000000 -175.000000
               IMAGE CRT Displays/EICAS Lower/FUEL/jettison/jett_vlv_flow
               DATAREF 
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -118705,8 +118717,6 @@ GROUP Lower EICAS
           POS 1699.500000 36.000000
           IMAGE CRT Displays/EICAS Lower/FUEL/jettison/jett_flow_bgnd
           DATAREF 
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -118726,15 +118736,11 @@ GROUP Lower EICAS
       END_GROUP
     END_GROUP
     GROUP Valves Closed
-      LOCKED
-      HIDE
       gen_rotary Disagree 1
         POS 1454.500000 165.500000
         IMAGE CRT Displays/EICAS Lower/FUEL/xvlv_off_L_amber
         DATAREF 
         SHOW_EQUAL 2.000000 laminar/B747/fuel/gen/xfeed_vlv1_status
-        LOCKED
-        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -118756,8 +118762,6 @@ GROUP Lower EICAS
         IMAGE CRT Displays/EICAS Lower/FUEL/xvlv_off_L_amber
         DATAREF 
         SHOW_EQUAL 2.000000 laminar/B747/fuel/gen/xfeed_vlv2_status
-        LOCKED
-        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -118779,8 +118783,6 @@ GROUP Lower EICAS
         IMAGE CRT Displays/EICAS Lower/FUEL/xvlv_off_R_amber
         DATAREF 
         SHOW_EQUAL 2.000000 laminar/B747/fuel/gen/xfeed_vlv3_status
-        LOCKED
-        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -118802,8 +118804,6 @@ GROUP Lower EICAS
         IMAGE CRT Displays/EICAS Lower/FUEL/xvlv_off_R_amber
         DATAREF 
         SHOW_EQUAL 2.000000 laminar/B747/fuel/gen/xfeed_vlv4_status
-        LOCKED
-        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -118825,8 +118825,6 @@ GROUP Lower EICAS
         IMAGE CRT Displays/EICAS Lower/FUEL/xvlv_off_L_white
         DATAREF 
         SHOW_EQUAL 3.000000 laminar/B747/fuel/gen/xfeed_vlv1_status
-        LOCKED
-        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -118848,8 +118846,6 @@ GROUP Lower EICAS
         IMAGE CRT Displays/EICAS Lower/FUEL/xvlv_off_L_white
         DATAREF 
         SHOW_EQUAL 3.000000 laminar/B747/fuel/gen/xfeed_vlv2_status
-        LOCKED
-        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -118871,8 +118867,6 @@ GROUP Lower EICAS
         IMAGE CRT Displays/EICAS Lower/FUEL/xvlv_off_R_white
         DATAREF 
         SHOW_EQUAL 3.000000 laminar/B747/fuel/gen/xfeed_vlv3_status
-        LOCKED
-        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -118894,8 +118888,6 @@ GROUP Lower EICAS
         IMAGE CRT Displays/EICAS Lower/FUEL/xvlv_off_R_white
         DATAREF 
         SHOW_EQUAL 3.000000 laminar/B747/fuel/gen/xfeed_vlv4_status
-        LOCKED
-        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -118914,15 +118906,11 @@ GROUP Lower EICAS
 
     END_GROUP
     GROUP Valves Open
-      LOCKED
-      HIDE
       gen_rotary Disagree 1
         POS 1454.000000 165.500000
         IMAGE CRT Displays/EICAS Lower/FUEL/xvlv_on_L_amber
         DATAREF 
         SHOW_EQUAL 0.000000 laminar/B747/fuel/gen/xfeed_vlv1_status
-        LOCKED
-        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -118944,8 +118932,6 @@ GROUP Lower EICAS
         IMAGE CRT Displays/EICAS Lower/FUEL/xvlv_on_L_amber
         DATAREF 
         SHOW_EQUAL 0.000000 laminar/B747/fuel/gen/xfeed_vlv2_status
-        LOCKED
-        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -118967,8 +118953,6 @@ GROUP Lower EICAS
         IMAGE CRT Displays/EICAS Lower/FUEL/xvlv_on_R_amber
         DATAREF 
         SHOW_EQUAL 0.000000 laminar/B747/fuel/gen/xfeed_vlv3_status
-        LOCKED
-        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -118990,8 +118974,6 @@ GROUP Lower EICAS
         IMAGE CRT Displays/EICAS Lower/FUEL/xvlv_on_R_amber
         DATAREF 
         SHOW_EQUAL 0.000000 laminar/B747/fuel/gen/xfeed_vlv4_status
-        LOCKED
-        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -119013,8 +118995,6 @@ GROUP Lower EICAS
         IMAGE CRT Displays/EICAS Lower/FUEL/xvlv_on_L_white
         DATAREF 
         SHOW_EQUAL 1.000000 laminar/B747/fuel/gen/xfeed_vlv1_status
-        LOCKED
-        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -119036,8 +119016,6 @@ GROUP Lower EICAS
         IMAGE CRT Displays/EICAS Lower/FUEL/xvlv_on_L_white
         DATAREF 
         SHOW_EQUAL 1.000000 laminar/B747/fuel/gen/xfeed_vlv2_status
-        LOCKED
-        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -119059,8 +119037,6 @@ GROUP Lower EICAS
         IMAGE CRT Displays/EICAS Lower/FUEL/xvlv_on_R_white
         DATAREF 
         SHOW_EQUAL 1.000000 laminar/B747/fuel/gen/xfeed_vlv3_status
-        LOCKED
-        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -119082,8 +119058,6 @@ GROUP Lower EICAS
         IMAGE CRT Displays/EICAS Lower/FUEL/xvlv_on_R_white
         DATAREF 
         SHOW_EQUAL 1.000000 laminar/B747/fuel/gen/xfeed_vlv4_status
-        LOCKED
-        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -119102,17 +119076,11 @@ GROUP Lower EICAS
 
     END_GROUP
     GROUP Tanks
-      LOCKED
-      HIDE
       GROUP Labels
-        LOCKED
-        HIDE
         gen_rotary Center
           POS 1697.000000 221.500000
           IMAGE CRT Displays/EICAS Lower/FUEL/bgnd_label06
           DATAREF 
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -119133,8 +119101,6 @@ GROUP Lower EICAS
           POS 1416.000000 0.500000
           IMAGE CRT Displays/EICAS Lower/FUEL/bgnd_label07
           DATAREF 
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -119155,8 +119121,6 @@ GROUP Lower EICAS
           POS 1554.500000 51.500000
           IMAGE CRT Displays/EICAS Lower/FUEL/bgnd_label08
           DATAREF 
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -119177,8 +119141,6 @@ GROUP Lower EICAS
           POS 1840.500000 51.500000
           IMAGE CRT Displays/EICAS Lower/FUEL/bgnd_label09
           DATAREF 
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -119199,8 +119161,6 @@ GROUP Lower EICAS
           POS 1980.000000 0.500000
           IMAGE CRT Displays/EICAS Lower/FUEL/bgnd_label10
           DATAREF 
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -119221,8 +119181,6 @@ GROUP Lower EICAS
           POS 1557.500000 -74.500000
           IMAGE CRT Displays/EICAS Lower/FUEL/bgnd_label11
           DATAREF 
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -119243,8 +119201,6 @@ GROUP Lower EICAS
           POS 1844.500000 -74.500000
           IMAGE CRT Displays/EICAS Lower/FUEL/bgnd_label12
           DATAREF 
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -119265,8 +119221,6 @@ GROUP Lower EICAS
           POS 1698.000000 -184.500000
           IMAGE CRT Displays/EICAS Lower/FUEL/bgnd_label13
           DATAREF 
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -119285,20 +119239,16 @@ GROUP Lower EICAS
 
       END_GROUP
       GROUP LED
-        LOCKED
-        HIDE
         gen_LED Center
           POS 1694.000000 193.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF sim/flightmodel/weight/m_fuel[0]
-          LOCKED
-          HIDE
+          DATAREF laminar/B747/fuel/fuel_tank_display_qty[0]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1000.000000 1.000000
-          DIGITS 3
+          DIGITS 4
           DECIMALS 1
           PERIOD_WIDTH 6
           LED_ROWS 4
@@ -119306,9 +119256,7 @@ GROUP Lower EICAS
         gen_LED Main 1
           POS 1414.000000 -29.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF sim/flightmodel/weight/m_fuel[1]
-          LOCKED
-          HIDE
+          DATAREF laminar/B747/fuel/fuel_tank_display_qty[1]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -119322,9 +119270,7 @@ GROUP Lower EICAS
         gen_LED Main 2
           POS 1553.000000 21.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF sim/flightmodel/weight/m_fuel[2]
-          LOCKED
-          HIDE
+          DATAREF laminar/B747/fuel/fuel_tank_display_qty[2]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -119338,9 +119284,7 @@ GROUP Lower EICAS
         gen_LED Main 3
           POS 1840.000000 21.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF sim/flightmodel/weight/m_fuel[3]
-          LOCKED
-          HIDE
+          DATAREF laminar/B747/fuel/fuel_tank_display_qty[3]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -119354,9 +119298,7 @@ GROUP Lower EICAS
         gen_LED Main4
           POS 1978.000000 -29.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF sim/flightmodel/weight/m_fuel[4]
-          LOCKED
-          HIDE
+          DATAREF laminar/B747/fuel/fuel_tank_display_qty[4]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -119370,9 +119312,7 @@ GROUP Lower EICAS
         gen_LED RES 2
           POS 1553.000000 -99.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF sim/flightmodel/weight/m_fuel[5]
-          LOCKED
-          HIDE
+          DATAREF laminar/B747/fuel/fuel_tank_display_qty[5]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -119386,9 +119326,7 @@ GROUP Lower EICAS
         gen_LED RES 3
           POS 1839.000000 -99.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF sim/flightmodel/weight/m_fuel[6]
-          LOCKED
-          HIDE
+          DATAREF laminar/B747/fuel/fuel_tank_display_qty[6]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -119402,9 +119340,7 @@ GROUP Lower EICAS
         gen_LED Stabilizer
           POS 1695.000000 -209.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
-          DATAREF sim/flightmodel/weight/m_fuel[7]
-          LOCKED
-          HIDE
+          DATAREF laminar/B747/fuel/fuel_tank_display_qty[7]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -119420,8 +119356,6 @@ GROUP Lower EICAS
         POS 1696.500000 192.500000
         IMAGE CRT Displays/EICAS Lower/FUEL/ctr_tank
         DATAREF 
-        LOCKED
-        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -119439,15 +119373,11 @@ GROUP Lower EICAS
         CLICK_DY 0
 
       GROUP Main 1
-        LOCKED
-        HIDE
         gen_rotary Low/Imbalance
           POS 1416.000000 -28.500000
           IMAGE CRT Displays/EICAS Lower/FUEL/main_OB_tank_amber
           DATAREF 
           SHOW_LESS 900.000000 sim/flightmodel/weight/m_fuel[1]
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -119469,8 +119399,6 @@ GROUP Lower EICAS
           IMAGE CRT Displays/EICAS Lower/FUEL/main_OB_tank
           DATAREF 
           SHOW_GREATER 900.010010 sim/flightmodel/weight/m_fuel[1]
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -119489,15 +119417,11 @@ GROUP Lower EICAS
 
       END_GROUP
       GROUP Main 2
-        LOCKED
-        HIDE
         gen_rotary Low/Imbalance
           POS 1555.500000 20.500000
           IMAGE CRT Displays/EICAS Lower/FUEL/main_IB_tank_amber
           DATAREF 
           SHOW_LESS 900.000000 sim/flightmodel/weight/m_fuel[2]
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -119519,8 +119443,6 @@ GROUP Lower EICAS
           IMAGE CRT Displays/EICAS Lower/FUEL/main_IB_tank
           DATAREF 
           SHOW_GREATER 900.010010 sim/flightmodel/weight/m_fuel[2]
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -119539,15 +119461,11 @@ GROUP Lower EICAS
 
       END_GROUP
       GROUP Main 3
-        LOCKED
-        HIDE
         gen_rotary Low/Imbalance
           POS 1842.500000 20.500000
           IMAGE CRT Displays/EICAS Lower/FUEL/main_IB_tank_amber
           DATAREF 
           SHOW_LESS 900.000000 sim/flightmodel/weight/m_fuel[3]
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -119569,8 +119487,6 @@ GROUP Lower EICAS
           IMAGE CRT Displays/EICAS Lower/FUEL/main_IB_tank
           DATAREF 
           SHOW_GREATER 900.010010 sim/flightmodel/weight/m_fuel[3]
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -119589,15 +119505,11 @@ GROUP Lower EICAS
 
       END_GROUP
       GROUP Main 4
-        LOCKED
-        HIDE
         gen_rotary Low/Imbalance
           POS 1980.000000 -28.500000
           IMAGE CRT Displays/EICAS Lower/FUEL/main_OB_tank_amber
           DATAREF 
           SHOW_LESS 900.000000 sim/flightmodel/weight/m_fuel[4]
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -119619,8 +119531,6 @@ GROUP Lower EICAS
           IMAGE CRT Displays/EICAS Lower/FUEL/main_OB_tank
           DATAREF 
           SHOW_GREATER 900.010010 sim/flightmodel/weight/m_fuel[4]
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -119642,8 +119552,6 @@ GROUP Lower EICAS
         POS 1555.000000 -102.000000
         IMAGE CRT Displays/EICAS Lower/FUEL/res_stab_tank
         DATAREF 
-        LOCKED
-        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -119664,8 +119572,6 @@ GROUP Lower EICAS
         POS 1842.000000 -102.000000
         IMAGE CRT Displays/EICAS Lower/FUEL/res_stab_tank
         DATAREF 
-        LOCKED
-        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -119686,8 +119592,6 @@ GROUP Lower EICAS
         POS 1697.000000 -212.000000
         IMAGE CRT Displays/EICAS Lower/FUEL/res_stab_tank
         DATAREF 
-        LOCKED
-        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -119706,23 +119610,15 @@ GROUP Lower EICAS
 
     END_GROUP
     GROUP Pumps
-      LOCKED
-      HIDE
       GROUP Main1 FWD
-        LOCKED
-        HIDE
         GROUP ON
           SHOW_EQUAL 1.000000 laminar/B747/fuel/main1_tank/main_pump_fwd_on
-          LOCKED
-          HIDE
           gen_rotary Pressure
             POS 1416.500000 74.500000
             IMAGE CRT Displays/EICAS Lower/FUEL/pump-ON_green
             DATAREF 
             SHOW_EQUAL 0.000000 [1]
             SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[1]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -119744,8 +119640,6 @@ GROUP Lower EICAS
             IMAGE CRT Displays/EICAS Lower/FUEL/pump-ON_amber
             DATAREF 
             SHOW_LESS 10.000000 sim/flightmodel/weight/m_fuel[1]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -119768,8 +119662,6 @@ GROUP Lower EICAS
           IMAGE CRT Displays/EICAS Lower/FUEL/pump-OFF_white
           DATAREF 
           SHOW_EQUAL 0.000000 laminar/B747/fuel/main1_tank/main_pump_fwd_on
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -119788,19 +119680,13 @@ GROUP Lower EICAS
 
       END_GROUP
       GROUP Main 1 Aft
-        LOCKED
-        HIDE
         GROUP ON
           SHOW_EQUAL 1.000000 laminar/B747/fuel/main1_tank/main_pump_aft_on
-          LOCKED
-          HIDE
           gen_rotary Pressure
             POS 1416.500000 34.500000
             IMAGE CRT Displays/EICAS Lower/FUEL/pump-ON_green
             DATAREF 
             SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[1]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -119822,8 +119708,6 @@ GROUP Lower EICAS
             IMAGE CRT Displays/EICAS Lower/FUEL/pump-ON_amber
             DATAREF 
             SHOW_LESS 10.000000 sim/flightmodel/weight/m_fuel[1]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -119846,8 +119730,6 @@ GROUP Lower EICAS
           IMAGE CRT Displays/EICAS Lower/FUEL/pump-OFF_white
           DATAREF 
           SHOW_EQUAL 0.000000 laminar/B747/fuel/main1_tank/main_pump_aft_on
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -119866,23 +119748,15 @@ GROUP Lower EICAS
 
       END_GROUP
       GROUP Main 2 OJ FWD
-        LOCKED
-        HIDE
         GROUP ON
           SHOW_EQUAL 1.000000 laminar/B747/fuel/main2_tank/ovrd_jett_pump_fwd_on
-          LOCKED
-          HIDE
           GROUP Jettison
             SHOW_EQUAL 1.000000 laminar/B747/fuel/jett_vlv_status
-            LOCKED
-            HIDE
             gen_rotary ON No FLow
               POS 1519.000000 150.000000
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-JETT_magenta
               DATAREF 
               SHOW_LESS 3200.000000 sim/flightmodel/weight/m_fuel[2]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -119904,8 +119778,6 @@ GROUP Lower EICAS
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-JETT_magentaF
               DATAREF 
               SHOW_GREATER 3200.010010 sim/flightmodel/weight/m_fuel[2]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -119925,15 +119797,11 @@ GROUP Lower EICAS
           END_GROUP
           GROUP Normal Feed
             SHOW_EQUAL 0.000000 laminar/B747/fuel/jett_vlv_status
-            LOCKED
-            HIDE
             gen_rotary Pressure
               POS 1519.000000 150.000000
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-ON_green
               DATAREF 
               SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[2]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -119955,8 +119823,6 @@ GROUP Lower EICAS
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-LP_amber
               DATAREF 
               SHOW_LESS 10.000000 sim/flightmodel/weight/m_fuel[2]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -119977,16 +119843,12 @@ GROUP Lower EICAS
         END_GROUP
         GROUP OFF/STANDBY
           SHOW_EQUAL 0.000000 laminar/B747/fuel/main2_tank/ovrd_jett_pump_fwd_on
-          LOCKED
-          HIDE
           gen_rotary STBY - Switch ON
             POS 1519.000000 150.000000
             IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-STBY_cyan
             DATAREF 
             SHOW_EQUAL 1.000000 [64]
             SHOW_GREATER 0.500000 laminar/B747/button_switch/position[64]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -120008,8 +119870,6 @@ GROUP Lower EICAS
             IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-OFF_white
             DATAREF 
             SHOW_LESS 0.490000 laminar/B747/button_switch/position[64]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -120029,23 +119889,15 @@ GROUP Lower EICAS
         END_GROUP
       END_GROUP
       GROUP Main 2 OJ AFT
-        LOCKED
-        HIDE
         GROUP ON
           SHOW_EQUAL 1.000000 laminar/B747/fuel/main2_tank/ovrd_jett_pump_aft_on
-          LOCKED
-          HIDE
           GROUP Jettison
             SHOW_EQUAL 1.000000 blaminar/B747/fuel/jett_vlv_status
-            LOCKED
-            HIDE
             gen_rotary ON No Flow
               POS 1519.000000 104.000000
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-JETT_magenta
               DATAREF 
               SHOW_LESS 3200.000000 sim/flightmodel/weight/m_fuel[2]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -120067,8 +119919,6 @@ GROUP Lower EICAS
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-JETT_magentaF
               DATAREF 
               SHOW_GREATER 3200.010010 sim/flightmodel/weight/m_fuel[2]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -120088,15 +119938,11 @@ GROUP Lower EICAS
           END_GROUP
           GROUP Normal Feed
             SHOW_EQUAL 0.000000 laminar/B747/fuel/jett_vlv_status
-            LOCKED
-            HIDE
             gen_rotary Pressure
               POS 1519.000000 104.000000
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-ON_green
               DATAREF 
               SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[2]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -120118,8 +119964,6 @@ GROUP Lower EICAS
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-LP_amber
               DATAREF 
               SHOW_LESS -10.010000 sim/flightmodel/weight/m_fuel[2]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -120140,15 +119984,11 @@ GROUP Lower EICAS
         END_GROUP
         GROUP OFF/STANDBY
           SHOW_EQUAL 0.000000 laminar/B747/fuel/main2_tank/ovrd_jett_pump_aft_on
-          LOCKED
-          HIDE
           gen_rotary STBY - Switch ON
             POS 1519.000000 104.000000
             IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-STBY_cyan
             DATAREF 
             SHOW_GREATER 0.500000 laminar/B747/button_switch/position[66]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -120170,8 +120010,6 @@ GROUP Lower EICAS
             IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-OFF_white
             DATAREF 
             SHOW_LESS 0.490000 laminar/B747/button_switch/position[66]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -120191,19 +120029,13 @@ GROUP Lower EICAS
         END_GROUP
       END_GROUP
       GROUP Main 2 FWD
-        LOCKED
-        HIDE
         GROUP ON
           SHOW_EQUAL 1.000000 laminar/B747/fuel/main2_tank/main_pump_fwd_on
-          LOCKED
-          HIDE
           gen_rotary Pressure
             POS 1592.500000 150.500000
             IMAGE CRT Displays/EICAS Lower/FUEL/pump-ON_green
             DATAREF 
             SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[2]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -120225,8 +120057,6 @@ GROUP Lower EICAS
             IMAGE CRT Displays/EICAS Lower/FUEL/pump-ON_amber
             DATAREF 
             SHOW_LESS 10.000000 sim/flightmodel/weight/m_fuel[2]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -120249,8 +120079,6 @@ GROUP Lower EICAS
           IMAGE CRT Displays/EICAS Lower/FUEL/pump-OFF_white
           DATAREF 
           SHOW_EQUAL 0.000000 laminar/B747/fuel/main2_tank/main_pump_fwd_on
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -120269,19 +120097,13 @@ GROUP Lower EICAS
 
       END_GROUP
       GROUP Main 2 AFT
-        LOCKED
-        HIDE
         GROUP ON
           SHOW_EQUAL 1.000000 laminar/B747/fuel/main2_tank/main_pump_aft_on
-          LOCKED
-          HIDE
           gen_rotary Pressure
             POS 1592.500000 110.500000
             IMAGE CRT Displays/EICAS Lower/FUEL/pump-ON_green
             DATAREF 
             SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[2]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -120303,8 +120125,6 @@ GROUP Lower EICAS
             IMAGE CRT Displays/EICAS Lower/FUEL/pump-ON_amber
             DATAREF 
             SHOW_LESS 10.000000 sim/flightmodel/weight/m_fuel[2]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -120327,8 +120147,6 @@ GROUP Lower EICAS
           IMAGE CRT Displays/EICAS Lower/FUEL/pump-OFF_white
           DATAREF 
           SHOW_EQUAL 0.000000 laminar/B747/fuel/main2_tank/main_pump_aft_on
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -120347,23 +120165,15 @@ GROUP Lower EICAS
 
       END_GROUP
       GROUP Center OJ Left
-        LOCKED
-        HIDE
         GROUP ON
           SHOW_EQUAL 1.000000 laminar/B747/fuel/center_tank/ovrd_jett_pump_L_on
-          LOCKED
-          HIDE
           GROUP Jettison
             SHOW_EQUAL 1.000000 laminar/B747/fuel/jett_vlv_status
-            LOCKED
-            HIDE
             gen_rotary ON No Flow
               POS 1672.000000 282.000000
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-JETT_magenta
               DATAREF 
               SHOW_LESS 3200.000000 sim/flightmodel/weight/m_fuel[0]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -120385,8 +120195,6 @@ GROUP Lower EICAS
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-JETT_magentaF
               DATAREF 
               SHOW_GREATER 3200.010010 sim/flightmodel/weight/m_fuel[0]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -120406,15 +120214,11 @@ GROUP Lower EICAS
           END_GROUP
           GROUP Normal Feed
             SHOW_EQUAL 0.000000 laminar/B747/fuel/jett_vlv_status
-            LOCKED
-            HIDE
             gen_rotary Pressure
               POS 1673.000000 282.000000
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-ON_green
               DATAREF 
               SHOW_GREATER 900.010010 sim/flightmodel/weight/m_fuel[0]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -120436,8 +120240,6 @@ GROUP Lower EICAS
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-LP_amber
               DATAREF 
               SHOW_LESS 900.000000 sim/flightmodel/weight/m_fuel[0]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -120461,8 +120263,6 @@ GROUP Lower EICAS
           IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-OFF_white
           DATAREF 
           SHOW_EQUAL 0.000000 laminar/B747/fuel/center_tank/ovrd_jett_pump_L_on
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -120481,23 +120281,15 @@ GROUP Lower EICAS
 
       END_GROUP
       GROUP Center OJ RIght
-        LOCKED
-        HIDE
         GROUP ON
           SHOW_EQUAL 1.000000 laminar/B747/fuel/center_tank/ovrd_jett_pump_R_on
-          LOCKED
-          HIDE
           GROUP Jettison
             SHOW_EQUAL 1.000000 laminar/B747/fuel/jett_vlv_status
-            LOCKED
-            HIDE
             gen_rotary ON No Flow
               POS 1719.000000 282.000000
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-JETT_magenta
               DATAREF 
               SHOW_LESS 3200.000000 sim/flightmodel/weight/m_fuel[0]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -120519,8 +120311,6 @@ GROUP Lower EICAS
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-JETT_magentaF
               DATAREF 
               SHOW_GREATER 3200.010010 sim/flightmodel/weight/m_fuel[0]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -120540,15 +120330,11 @@ GROUP Lower EICAS
           END_GROUP
           GROUP Normal Feed
             SHOW_EQUAL 0.000000 laminar/B747/fuel/jett_vlv_status
-            LOCKED
-            HIDE
             gen_rotary Pressure
               POS 1719.000000 282.000000
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-ON_green
               DATAREF 
               SHOW_GREATER 900.010010 sim/flightmodel/weight/m_fuel[0]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -120570,8 +120356,6 @@ GROUP Lower EICAS
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-LP_amber
               DATAREF 
               SHOW_LESS 900.000000 sim/flightmodel/weight/m_fuel[0]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -120595,8 +120379,6 @@ GROUP Lower EICAS
           IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-OFF_white
           DATAREF 
           SHOW_EQUAL 0.000000 laminar/B747/fuel/center_tank/ovrd_jett_pump_R_on
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -120615,19 +120397,13 @@ GROUP Lower EICAS
 
       END_GROUP
       GROUP Main 3 FWD
-        LOCKED
-        HIDE
         GROUP ON
           SHOW_EQUAL 1.000000 laminar/B747/fuel/main3_tank/main_pump_fwd_on
-          LOCKED
-          HIDE
           gen_rotary Pressure
             POS 1805.500000 150.500000
             IMAGE CRT Displays/EICAS Lower/FUEL/pump-ON_green
             DATAREF 
             SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[3]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -120649,8 +120425,6 @@ GROUP Lower EICAS
             IMAGE CRT Displays/EICAS Lower/FUEL/pump-ON_amber
             DATAREF 
             SHOW_LESS 10.000000 sim/flightmodel/weight/m_fuel[3]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -120673,8 +120447,6 @@ GROUP Lower EICAS
           IMAGE CRT Displays/EICAS Lower/FUEL/pump-OFF_white
           DATAREF 
           SHOW_EQUAL 0.000000 laminar/B747/fuel/main3_tank/main_pump_fwd_on
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -120693,19 +120465,13 @@ GROUP Lower EICAS
 
       END_GROUP
       GROUP Main 3 Aft
-        LOCKED
-        HIDE
         GROUP ON
           SHOW_EQUAL 1.000000 laminar/B747/fuel/main3_tank/main_pump_aft_on
-          LOCKED
-          HIDE
           gen_rotary Pressure
             POS 1805.500000 110.500000
             IMAGE CRT Displays/EICAS Lower/FUEL/pump-ON_green
             DATAREF 
             SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[3]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -120727,8 +120493,6 @@ GROUP Lower EICAS
             IMAGE CRT Displays/EICAS Lower/FUEL/pump-ON_amber
             DATAREF 
             SHOW_LESS 10.000000 sim/flightmodel/weight/m_fuel[3]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -120751,8 +120515,6 @@ GROUP Lower EICAS
           IMAGE CRT Displays/EICAS Lower/FUEL/pump-OFF_white
           DATAREF 
           SHOW_EQUAL 0.000000 laminar/B747/fuel/main3_tank/main_pump_aft_on
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -120771,23 +120533,15 @@ GROUP Lower EICAS
 
       END_GROUP
       GROUP Main 3 OJ FWD
-        LOCKED
-        HIDE
         GROUP ON
           SHOW_EQUAL 1.000000 laminar/B747/fuel/main3_tank/ovrd_jett_pump_fwd_on
-          LOCKED
-          HIDE
           GROUP Jettison
             SHOW_EQUAL 1.000000 laminar/B747/fuel/jett_vlv_status
-            LOCKED
-            HIDE
             gen_rotary ON No Flow
               POS 1876.000000 150.000000
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-JETT_magenta
               DATAREF 
               SHOW_LESS 3200.000000 sim/flightmodel/weight/m_fuel[3]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -120809,8 +120563,6 @@ GROUP Lower EICAS
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-JETT_magentaF
               DATAREF 
               SHOW_GREATER 3200.010010 sim/flightmodel/weight/m_fuel[3]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -120830,15 +120582,11 @@ GROUP Lower EICAS
           END_GROUP
           GROUP Normal Feed
             SHOW_EQUAL 0.000000 laminar/B747/fuel/jett_vlv_status
-            LOCKED
-            HIDE
             gen_rotary Pressure
               POS 1876.000000 150.000000
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-ON_green
               DATAREF 
               SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[3]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -120860,8 +120608,6 @@ GROUP Lower EICAS
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-LP_amber
               DATAREF 
               SHOW_LESS 10.000000 sim/flightmodel/weight/m_fuel[3]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -120882,15 +120628,11 @@ GROUP Lower EICAS
         END_GROUP
         GROUP OFF/STANDBY
           SHOW_EQUAL 0.000000 laminar/B747/fuel/main3_tank/ovrd_jett_pump_fwd_on
-          LOCKED
-          HIDE
           gen_rotary STBY - Switch ON
             POS 1876.000000 150.000000
             IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-STBY_cyan
             DATAREF 
             SHOW_GREATER 0.500000 laminar/B747/button_switch/position[65]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -120912,8 +120654,6 @@ GROUP Lower EICAS
             IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-OFF_white
             DATAREF 
             SHOW_LESS 0.490000 laminar/B747/button_switch/position[65]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -120933,23 +120673,15 @@ GROUP Lower EICAS
         END_GROUP
       END_GROUP
       GROUP Main 3 OJ AFT
-        LOCKED
-        HIDE
         GROUP ON
           SHOW_EQUAL 1.000000 laminar/B747/fuel/main3_tank/ovrd_jett_pump_aft_on
-          LOCKED
-          HIDE
           GROUP Jettison
             SHOW_EQUAL 1.000000 laminar/B747/fuel/jett_vlv_status
-            LOCKED
-            HIDE
             gen_rotary ON No Flow
               POS 1876.000000 104.000000
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-JETT_magenta
               DATAREF 
               SHOW_LESS 3200.000000 sim/flightmodel/weight/m_fuel[3]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -120971,8 +120703,6 @@ GROUP Lower EICAS
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-JETT_magentaF
               DATAREF 
               SHOW_GREATER 3200.010010 sim/flightmodel/weight/m_fuel[3]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -120992,15 +120722,11 @@ GROUP Lower EICAS
           END_GROUP
           GROUP Normal Feed
             SHOW_EQUAL 0.000000 laminar/B747/fuel/jett_vlv_status
-            LOCKED
-            HIDE
             gen_rotary Pressure
               POS 1876.000000 104.000000
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-ON_green
               DATAREF 
               SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[3]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -121022,8 +120748,6 @@ GROUP Lower EICAS
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-LP_amber
               DATAREF 
               SHOW_LESS 10.000000 sim/flightmodel/weight/m_fuel[3]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -121044,15 +120768,11 @@ GROUP Lower EICAS
         END_GROUP
         GROUP OFF/STANDBY
           SHOW_EQUAL 0.000000 laminar/B747/fuel/main3_tank/ovrd_jett_pump_aft_on
-          LOCKED
-          HIDE
           gen_rotary STBY - Switch ON
             POS 1876.000000 104.000000
             IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-STBY_cyan
             DATAREF 
             SHOW_GREATER 0.500000 laminar/B747/button_switch/position[67]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -121074,8 +120794,6 @@ GROUP Lower EICAS
             IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-OFF_white
             DATAREF 
             SHOW_LESS 0.490000 laminar/B747/button_switch/position[67]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -121095,19 +120813,13 @@ GROUP Lower EICAS
         END_GROUP
       END_GROUP
       GROUP Main 4 FWD
-        LOCKED
-        HIDE
         GROUP ON
           SHOW_EQUAL 1.000000 laminar/B747/fuel/main4_tank/main_pump_fwd_on
-          LOCKED
-          HIDE
           gen_rotary Pressure
             POS 1981.500000 74.500000
             IMAGE CRT Displays/EICAS Lower/FUEL/pump-ON_green
             DATAREF 
             SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[4]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -121129,8 +120841,6 @@ GROUP Lower EICAS
             IMAGE CRT Displays/EICAS Lower/FUEL/pump-ON_amber
             DATAREF 
             SHOW_LESS 10.000000 sim/flightmodel/weight/m_fuel[4]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -121153,8 +120863,6 @@ GROUP Lower EICAS
           IMAGE CRT Displays/EICAS Lower/FUEL/pump-OFF_white
           DATAREF 
           SHOW_EQUAL 0.000000 laminar/B747/fuel/main4_tank/main_pump_fwd_on
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -121173,19 +120881,13 @@ GROUP Lower EICAS
 
       END_GROUP
       GROUP Main 4 AFT
-        LOCKED
-        HIDE
         GROUP ON
           SHOW_EQUAL 1.000000 laminar/B747/fuel/main4_tank/main_pump_aft_on
-          LOCKED
-          HIDE
           gen_rotary Pressure
             POS 1981.500000 34.500000
             IMAGE CRT Displays/EICAS Lower/FUEL/pump-ON_green
             DATAREF 
             SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[4]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -121207,8 +120909,6 @@ GROUP Lower EICAS
             IMAGE CRT Displays/EICAS Lower/FUEL/pump-ON_amber
             DATAREF 
             SHOW_LESS 10.000000 sim/flightmodel/weight/m_fuel[4]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -121231,8 +120931,6 @@ GROUP Lower EICAS
           IMAGE CRT Displays/EICAS Lower/FUEL/pump-OFF_white
           DATAREF 
           SHOW_EQUAL 0.000000 laminar/B747/fuel/main4_tank/main_pump_aft_on
-          LOCKED
-          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
           BUS_SRC 3
@@ -121251,23 +120949,15 @@ GROUP Lower EICAS
 
       END_GROUP
       GROUP Stabilizer XJ Left
-        LOCKED
-        HIDE
         GROUP ON
           SHOW_EQUAL 1.000000 laminar/B747/fuel/stab_tank/xfr_jett_pump_L_on
-          LOCKED
-          HIDE
           GROUP Jettison
             SHOW_EQUAL 1.000000 laminar/B747/fuel/jett_vlv_status
-            LOCKED
-            HIDE
             gen_rotary ON No FLow
               POS 1675.000000 -134.000000
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-JETT_magenta
               DATAREF 
               SHOW_LESS 10.000000 sim/flightmodel/weight/m_fuel[7]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -121289,8 +120979,6 @@ GROUP Lower EICAS
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-JETT_magentaF
               DATAREF 
               SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[7]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -121310,15 +120998,11 @@ GROUP Lower EICAS
           END_GROUP
           GROUP Transfer
             SHOW_EQUAL 0.000000 laminar/B747/fuel/jett_vlv_status
-            LOCKED
-            HIDE
             gen_rotary Pressure
               POS 1675.000000 -134.000000
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-ON_green
               DATAREF 
               SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[7]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -121340,8 +121024,6 @@ GROUP Lower EICAS
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-LP_amber
               DATAREF 
               SHOW_LESS 10.000000 sim/flightmodel/weight/m_fuel[7]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -121362,15 +121044,11 @@ GROUP Lower EICAS
         END_GROUP
         GROUP OFF/STANDBY
           SHOW_EQUAL 0.000000 laminar/B747/fuel/stab_tank/xfr_jett_pump_L_on
-          LOCKED
-          HIDE
           gen_rotary STBY - Switch ON
             POS 1675.000000 -134.000000
             IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-STBY_cyan
             DATAREF 
             SHOW_GREATER 0.500000 laminar/B747/button_switch/position[54]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -121392,8 +121070,6 @@ GROUP Lower EICAS
             IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-OFF_white
             DATAREF 
             SHOW_LESS 0.490000 laminar/B747/button_switch/position[54]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -121413,23 +121089,15 @@ GROUP Lower EICAS
         END_GROUP
       END_GROUP
       GROUP Stabilizer XJ Right
-        LOCKED
-        HIDE
         GROUP ON
           SHOW_EQUAL 1.000000 laminar/B747/fuel/stab_tank/xfr_jett_pump_R_on
-          LOCKED
-          HIDE
           GROUP Jettison
             SHOW_EQUAL 1.000000 laminar/B747/fuel/jett_vlv_status
-            LOCKED
-            HIDE
             gen_rotary ON No Flow
               POS 1721.000000 -134.000000
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-JETT_magenta
               DATAREF 
               SHOW_LESS 10.000000 sim/flightmodel/weight/m_fuel[7]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -121451,8 +121119,6 @@ GROUP Lower EICAS
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-JETT_magentaF
               DATAREF 
               SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[7]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -121472,15 +121138,11 @@ GROUP Lower EICAS
           END_GROUP
           GROUP Transfer
             SHOW_EQUAL 0.000000 laminar/B747/fuel/jett_vlv_status
-            LOCKED
-            HIDE
             gen_rotary Pressure
               POS 1721.000000 -134.000000
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-ON_green
               DATAREF 
               SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[7]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -121502,8 +121164,6 @@ GROUP Lower EICAS
               IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-LP_amber
               DATAREF 
               SHOW_LESS 10.000000 sim/flightmodel/weight/m_fuel[7]
-              LOCKED
-              HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
               BUS_SRC 3
@@ -121524,15 +121184,11 @@ GROUP Lower EICAS
         END_GROUP
         GROUP OFF/STANDBY
           SHOW_EQUAL 0.000000 laminar/B747/fuel/stab_tank/xfr_jett_pump_R_on
-          LOCKED
-          HIDE
           gen_rotary STBY - Switch ON
             POS 1721.000000 -134.000000
             IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-STBY_cyan
             DATAREF 
             SHOW_GREATER 0.500000 laminar/B747/button_switch/position[55]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -121554,8 +121210,6 @@ GROUP Lower EICAS
             IMAGE CRT Displays/EICAS Lower/FUEL/pumpOJ-OFF_white
             DATAREF 
             SHOW_LESS 0.490000 laminar/B747/button_switch/position[55]
-            LOCKED
-            HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 3
@@ -121576,14 +121230,10 @@ GROUP Lower EICAS
       END_GROUP
     END_GROUP
     GROUP Engines
-      LOCKED
-      HIDE
       gen_rotary Eng #1 Label
         POS 1415.500000 219.500000
         IMAGE CRT Displays/EICAS Lower/FUEL/bgnd_label02
         DATAREF 
-        LOCKED
-        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -121604,8 +121254,6 @@ GROUP Lower EICAS
         POS 1592.000000 295.500000
         IMAGE CRT Displays/EICAS Lower/FUEL/bgnd_label03
         DATAREF 
-        LOCKED
-        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -121626,8 +121274,6 @@ GROUP Lower EICAS
         POS 1806.000000 295.500000
         IMAGE CRT Displays/EICAS Lower/FUEL/bgnd_label04
         DATAREF 
-        LOCKED
-        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -121648,8 +121294,6 @@ GROUP Lower EICAS
         POS 1980.000000 219.500000
         IMAGE CRT Displays/EICAS Lower/FUEL/bgnd_label05
         DATAREF 
-        LOCKED
-        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -121670,8 +121314,6 @@ GROUP Lower EICAS
         POS 1592.000000 289.500000
         IMAGE CRT Displays/EICAS Lower/FUEL/engine
         DATAREF 
-        LOCKED
-        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -121692,8 +121334,6 @@ GROUP Lower EICAS
         POS 1806.000000 289.500000
         IMAGE CRT Displays/EICAS Lower/FUEL/engine
         DATAREF 
-        LOCKED
-        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -121714,8 +121354,6 @@ GROUP Lower EICAS
         POS 1980.000000 211.500000
         IMAGE CRT Displays/EICAS Lower/FUEL/engine
         DATAREF 
-        LOCKED
-        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -121736,8 +121374,6 @@ GROUP Lower EICAS
         POS 1416.000000 211.500000
         IMAGE CRT Displays/EICAS Lower/FUEL/engine
         DATAREF 
-        LOCKED
-        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
