@@ -81,6 +81,7 @@ local vnavSPD_conditions={}
 vnavSPD_conditions["onground"]=0
 vnavSPD_conditions["below"]=-1
 vnavSPD_conditions["above"]=-1
+vnavSPD_conditions["name"]="unknown"
 --*************************************************************************************--
 --** 				             FIND X-PLANE DATAREFS           			    	 **--
 --*************************************************************************************--
@@ -1680,15 +1681,15 @@ end
 function B747_update_ap_speed()
   if simDR_onGround~=vnavSPD_conditions["onground"] then gotVNAVSpeed=false end
   if vnavSPD_conditions["above"]>0 and vnavSPD_conditions["above"]<simDR_pressureAlt1 then 
-    print("above "..vnavSPD_conditions["above"])
+    print("above "..vnavSPD_conditions["above"].. " " ..vnavSPD_conditions["name"])
     gotVNAVSpeed=false 
   end
   if vnavSPD_conditions["descent"]==(B747DR_ap_inVNAVdescent>0) then 
-     print("descent "..B747DR_ap_inVNAVdescent)
+     print("descent "..B747DR_ap_inVNAVdescent.. " " ..vnavSPD_conditions["name"])
     gotVNAVSpeed=false 
   end
   if vnavSPD_conditions["below"]>0 and vnavSPD_conditions["below"]>simDR_pressureAlt1 then 
-     print("below "..vnavSPD_conditions["below"])
+     print("below "..vnavSPD_conditions["below"].. " " ..vnavSPD_conditions["name"])
     gotVNAVSpeed=false 
   end
 end
@@ -1706,6 +1707,7 @@ function B747_ap_speed()
       B747DR_ap_ias_dial_value = math.min(399.0, B747DR_airspeed_V2 + 10)
       vnavSPD_conditions["onground"]=1
       vnavSPD_conditions["descent"]=true
+      vnavSPD_conditions["name"]="on ground"
       gotVNAVSpeed=true
       print("updated speed simDR_onGround")
     end
@@ -1720,19 +1722,25 @@ function B747_ap_speed()
       vnavSPD_conditions["onground"]=simDR_onGround
       simDR_autopilot_airspeed_is_mach = 0
       B747DR_ap_ias_dial_value = math.min(399.0, spdval)
-      
+      vnavSPD_conditions["name"]="<clbrestalt"
       gotVNAVSpeed=true
       return
     end
     
     spdval=tonumber(fmsData["clbspd"])
-    local altval2=tonumber(fmsData["spdtransalt"])
+    local spdtransalt=tonumber(fmsData["spdtransalt"])
+    local above = spdtransalt
+    local transalt=tonumber(fmsData["transalt"])
+    if transalt<spdtransalt then above= transalt end
+    
     local altval3=tonumber(fmsData["desrestalt"])
-    if B747DR_ap_inVNAVdescent ==0 and altval~=nil and spdval~=nil and altval2~=nil and simDR_pressureAlt1>=altval and simDR_pressureAlt1<altval2  then 
-      vnavSPD_conditions["above"]=altval2
+    if B747DR_ap_inVNAVdescent ==0 and altval~=nil and spdval~=nil and spdtransalt~=nil and simDR_pressureAlt1>=altval and simDR_pressureAlt1<above  then 
+      
+      vnavSPD_conditions["above"]=above
       vnavSPD_conditions["below"]=altval3
       vnavSPD_conditions["descent"]=true
       vnavSPD_conditions["onground"]=simDR_onGround
+      vnavSPD_conditions["name"]=">clbrestalt <spdtransalt"
       simDR_autopilot_airspeed_is_mach = 0
       switchingIASMode=1
       B747DR_ap_ias_dial_value = math.min(399.0, spdval)
@@ -1741,28 +1749,28 @@ function B747_ap_speed()
       gotVNAVSpeed=true
       return
     end
-    altval=tonumber(fmsData["spdtransalt"])
-    altval2=tonumber(fmsData["transalt"])
+    
+    
     altval3=tonumber(fmsData["desspdtransalt"])
     spdval=tonumber(fmsData["transpd"])
-    if B747DR_ap_inVNAVdescent ==0 and altval~=nil and spdval~=nil and altval2~=nil and simDR_pressureAlt1>=altval and simDR_pressureAlt1<altval2  then 
-      vnavSPD_conditions["above"]=altval2
-      vnavSPD_conditions["below"]=altval3
-      vnavSPD_conditions["descent"]=true
-      vnavSPD_conditions["onground"]=simDR_onGround 
-      B747DR_ap_ias_dial_value = math.min(399.0, spdval)
-      gotVNAVSpeed=true
-      return
-    end
+    
     if tonumber(string.sub(fmsData["crzalt"],3))~=nil then
       altval=tonumber(fmsData["transalt"])
       
       altval2=(tonumber(string.sub(fmsData["crzalt"],3))*100)-1000
+      local above=altval2
+      
       if B747DR_ap_inVNAVdescent ==0 and spdval~=nil and altval~=nil and simDR_pressureAlt1>=altval and (B747DR_efis_baro_std_capt_switch_pos==0 or B747DR_efis_baro_std_fo_switch_pos==0)  then 
-	vnavSPD_conditions["above"]=altval2
-	vnavSPD_conditions["below"]=altval3
+	if simDR_pressureAlt1<=spdtransalt then above=spdtransalt end
+	vnavSPD_conditions["above"]=above
+	if simDR_pressureAlt1<=altval3 then 
+	  vnavSPD_conditions["below"]=simDR_pressureAlt1-1000
+	else
+	  vnavSPD_conditions["below"]=altval3
+	end
 	vnavSPD_conditions["descent"]=true
 	vnavSPD_conditions["onground"]=simDR_onGround
+	vnavSPD_conditions["name"]=">standard baro"
 	B747DR_efis_baro_std_capt_switch_pos = 1
 	B747DR_efis_baro_capt_preselect  = 29.92
 	B747DR_efis_baro_std_fo_switch_pos = 1
@@ -1773,12 +1781,27 @@ function B747_ap_speed()
 	gotVNAVSpeed=true
 	return
       end
+      
+      if B747DR_ap_inVNAVdescent ==0 and altval~=nil and spdval~=nil and simDR_pressureAlt1>=spdtransalt and simDR_pressureAlt1<above  then 
+      if simDR_pressureAlt1<=transalt then above=transalt end
+      vnavSPD_conditions["above"]=above
+      
+      vnavSPD_conditions["below"]=altval3
+      vnavSPD_conditions["descent"]=true
+      vnavSPD_conditions["onground"]=simDR_onGround 
+      vnavSPD_conditions["name"]=">spdtransalt <"..above
+      B747DR_ap_ias_dial_value = math.min(399.0, spdval)
+      gotVNAVSpeed=true
+      return
+    end
+      
       spdval=tonumber(fmsData["crzspd"])
       if B747DR_ap_inVNAVdescent ==0 and spdval~=nil and altval2~=nil and simDR_pressureAlt1>=altval2  then 
 	vnavSPD_conditions["above"]=-1
 	vnavSPD_conditions["below"]=altval3
 	vnavSPD_conditions["descent"]=true
 	vnavSPD_conditions["onground"]=simDR_onGround
+	vnavSPD_conditions["name"]="crzspd"
 	switchingIASMode=1
 	simDR_autopilot_airspeed_is_mach = 1
 	B747DR_ap_ias_dial_value = spdval/10
@@ -1803,6 +1826,7 @@ function B747_ap_speed()
 	vnavSPD_conditions["below"]=altval
 	vnavSPD_conditions["descent"]=false
 	vnavSPD_conditions["onground"]=simDR_onGround
+	vnavSPD_conditions["name"]=">desspdtransalt"
 	switchingIASMode=1
 	simDR_autopilot_airspeed_is_mach = 1
 	B747DR_ap_ias_dial_value = spdval/10
@@ -1819,6 +1843,7 @@ function B747_ap_speed()
 	vnavSPD_conditions["below"]=altval2
 	vnavSPD_conditions["descent"]=false
 	vnavSPD_conditions["onground"]=simDR_onGround
+	vnavSPD_conditions["name"]=">desrestalt <desspdtransalt"
 	switchingIASMode=1
 	simDR_autopilot_airspeed_is_mach = 0
 	simCMD_autopilot_alt_hold_mode:once()
@@ -1834,6 +1859,7 @@ function B747_ap_speed()
 	vnavSPD_conditions["below"]=-1
 	vnavSPD_conditions["descent"]=false
 	vnavSPD_conditions["onground"]=simDR_onGround
+	vnavSPD_conditions["name"]="<desrestalt"
 	switchingIASMode=1
 	simDR_autopilot_airspeed_is_mach = 0
 	simCMD_autopilot_alt_hold_mode:once()
