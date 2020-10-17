@@ -859,8 +859,10 @@ end
 
 function B747_ap_VNAV_mode_CMDhandler(phase, duration)
 	if phase == 0 then
-		gotVNAVSpeed=false
+		
 		B747_ap_button_switch_position_target[3] = 1
+		if B747BR_cruiseAlt < 10 then return end
+		gotVNAVSpeed=false
 		if B747DR_ap_vnav_system == 1 then
 		  simCMD_autopilot_FMS_mode:once()
 		elseif B747DR_ap_vnav_state>0 then 
