@@ -69,6 +69,11 @@ B747DR_fms1_display_brightness      = create_dataref("laminar/B747/fms1/display_
 -- FUEL DISPLAY TOGGLE (EICAS)
 B747DR_fuel_display_units_eicas			= deferred_dataref("laminar/B747/fuel/fuel_display_units_eicas", "number")
 
+--Waypoint info for ND DISPLAY
+B747DR_ND_waypoint_eta					= deferred_dataref("laminar/B747/nd/waypoint_eta", "string")
+B747DR_ND_current_waypoint				= deferred_dataref("laminar/B747/nd/current_waypoint", "string")
+B747DR_ND_waypoint_distance				= deferred_dataref("laminar/B747/nd/waypoint_distance", "string")
+
 function createFMSCommands(fmsO,cduid,fmsid,keyid,fmskeyid)
 B747CMD_fms1_ls_key_L1              = XLuaCreateCommand("laminar/B747/".. fmskeyid .. "/ls_key/L1", fmsO.." Line Select Key 1-Left")
   B747CMD_fms1_ls_key_L2            = XLuaCreateCommand("laminar/B747/".. fmskeyid .. "/ls_key/L2", fmsO.." Line Select Key 2-Left")
