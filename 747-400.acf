@@ -34,12 +34,12 @@ P _cgpt/5/_w_now 0.0
 P _cgpt/5/_w_test 0.0
 P _cgpt/5/_z_ref 115.300003052
 P _cgpt/6/_name fuel tank #6
-P _cgpt/6/_w_max 8809.700195313
+P _cgpt/6/_w_max 8809.700195312
 P _cgpt/6/_w_now 0.0
 P _cgpt/6/_w_test 0.0
 P _cgpt/6/_z_ref 133.0
 P _cgpt/7/_name fuel tank #7
-P _cgpt/7/_w_max 8809.700195313
+P _cgpt/7/_w_max 8809.700195312
 P _cgpt/7/_w_now 0.0
 P _cgpt/7/_w_test 0.0
 P _cgpt/7/_z_ref 133.0
@@ -122,7 +122,7 @@ P _gear/0/_lonE 1.0
 P _gear/0/_lonN 1.0
 P _gear/0/_lonR 117.0
 P _gear/0/_scon 358467.468750000
-P _gear/0/_stat_def 0.165289521
+P _gear/0/_stat_def 0.165289536
 P _gear/0/_steerdeg_hispeed 15.0
 P _gear/0/_steerdeg_lospeed 75.0
 P _gear/0/_strut_comp 0.0
@@ -156,7 +156,7 @@ P _gear/1/_lonE 1.0
 P _gear/1/_lonN 1.0
 P _gear/1/_lonR 140.0
 P _gear/1/_scon 358467.468750000
-P _gear/1/_stat_def 0.627037287
+P _gear/1/_stat_def 0.627037406
 P _gear/1/_steerdeg_hispeed 0.0
 P _gear/1/_steerdeg_lospeed 0.0
 P _gear/1/_strut_comp 0.0
@@ -190,7 +190,7 @@ P _gear/2/_lonE 1.0
 P _gear/2/_lonN 1.0
 P _gear/2/_lonR 140.0
 P _gear/2/_scon 358467.468750000
-P _gear/2/_stat_def 0.627037287
+P _gear/2/_stat_def 0.627037406
 P _gear/2/_steerdeg_hispeed 0.0
 P _gear/2/_steerdeg_lospeed 0.0
 P _gear/2/_strut_comp 0.0
@@ -882,7 +882,7 @@ P _panel_inst_3d 0
 P _part/0/_bot_s1 0.0
 P _part/0/_bot_s2 0.015625000
 P _part/0/_bot_t1 0.255859375
-P _part/0/_bot_t2 0.379882813
+P _part/0/_bot_t2 0.379882812
 P _part/0/_geo_xyz/0,0,0 0.0
 P _part/0/_geo_xyz/0,0,1 0.274120092
 P _part/0/_geo_xyz/0,0,2 -1.100000858
@@ -2348,11 +2348,11 @@ P _part/0/_s_dim 20
 P _part/0/_top_s1 0.0
 P _part/0/_top_s2 0.015625000
 P _part/0/_top_t1 0.255859375
-P _part/0/_top_t2 0.379882813
+P _part/0/_top_t2 0.379882812
 P _part/1/_bot_s1 0.0
 P _part/1/_bot_s2 0.015625000
 P _part/1/_bot_t1 0.255859375
-P _part/1/_bot_t2 0.379882813
+P _part/1/_bot_t2 0.379882812
 P _part/1/_geo_xyz/0,0,0 0.0
 P _part/1/_geo_xyz/0,0,1 0.274120092
 P _part/1/_geo_xyz/0,0,2 -1.100000858
@@ -3818,7 +3818,7 @@ P _part/1/_s_dim 20
 P _part/1/_top_s1 0.0
 P _part/1/_top_s2 0.015625000
 P _part/1/_top_t1 0.255859375
-P _part/1/_top_t2 0.379882813
+P _part/1/_top_t2 0.379882812
 P _part/10/_bot_s1 0.382999986
 P _part/10/_bot_s2 0.507000029
 P _part/10/_bot_t1 0.586000025
@@ -5649,7 +5649,7 @@ P _part/11/_geo_xyz/14,17,1 0.0
 P _part/11/_geo_xyz/14,17,2 0.0
 P _part/11/_geo_xyz/14,2,0 63.642986298
 P _part/11/_geo_xyz/14,2,1 -1.219985247
-P _part/11/_geo_xyz/14,2,2 120.961914063
+P _part/11/_geo_xyz/14,2,2 120.961914062
 P _part/11/_geo_xyz/14,3,0 63.652614594
 P _part/11/_geo_xyz/14,3,1 -1.311596513
 P _part/11/_geo_xyz/14,3,2 120.306968689
@@ -6823,7 +6823,7 @@ P _part/12/_geo_xyz/1,0,2 98.565185547
 P _part/12/_geo_xyz/1,1,0 -45.090122223
 P _part/12/_geo_xyz/1,1,1 0.023749948
 P _part/12/_geo_xyz/1,1,2 99.428634644
-P _part/12/_geo_xyz/1,10,0 -45.578479767
+P _part/12/_geo_xyz/1,10,0 -45.578483582
 P _part/12/_geo_xyz/1,10,1 -2.161039591
 P _part/12/_geo_xyz/1,10,2 105.480598450
 P _part/12/_geo_xyz/1,11,0 -45.475292206
@@ -6850,7 +6850,7 @@ P _part/12/_geo_xyz/1,17,2 -3.358891249
 P _part/12/_geo_xyz/1,2,0 -44.988044739
 P _part/12/_geo_xyz/1,2,1 0.480424225
 P _part/12/_geo_xyz/1,2,2 101.408889771
-P _part/12/_geo_xyz/1,3,0 -44.969425201
+P _part/12/_geo_xyz/1,3,0 -44.969421387
 P _part/12/_geo_xyz/1,3,1 0.563730419
 P _part/12/_geo_xyz/1,3,2 105.609825134
 P _part/12/_geo_xyz/1,4,0 -45.025802612
@@ -7417,7 +7417,7 @@ P _part/12/_geo_xyz/2,0,2 98.565185547
 P _part/12/_geo_xyz/2,1,0 -45.090122223
 P _part/12/_geo_xyz/2,1,1 0.023749948
 P _part/12/_geo_xyz/2,1,2 99.428634644
-P _part/12/_geo_xyz/2,10,0 -45.578479767
+P _part/12/_geo_xyz/2,10,0 -45.578483582
 P _part/12/_geo_xyz/2,10,1 -2.161039591
 P _part/12/_geo_xyz/2,10,2 105.480598450
 P _part/12/_geo_xyz/2,11,0 -45.475292206
@@ -7444,7 +7444,7 @@ P _part/12/_geo_xyz/2,17,2 -2.338366032
 P _part/12/_geo_xyz/2,2,0 -44.988044739
 P _part/12/_geo_xyz/2,2,1 0.480424225
 P _part/12/_geo_xyz/2,2,2 101.408889771
-P _part/12/_geo_xyz/2,3,0 -44.969425201
+P _part/12/_geo_xyz/2,3,0 -44.969421387
 P _part/12/_geo_xyz/2,3,1 0.563730419
 P _part/12/_geo_xyz/2,3,2 105.609825134
 P _part/12/_geo_xyz/2,4,0 -45.025802612
@@ -8293,7 +8293,7 @@ P _part/13/_geo_xyz/1,0,2 98.565185547
 P _part/13/_geo_xyz/1,1,0 45.090122223
 P _part/13/_geo_xyz/1,1,1 0.023749948
 P _part/13/_geo_xyz/1,1,2 99.428634644
-P _part/13/_geo_xyz/1,10,0 45.578479767
+P _part/13/_geo_xyz/1,10,0 45.578483582
 P _part/13/_geo_xyz/1,10,1 -2.161039591
 P _part/13/_geo_xyz/1,10,2 105.480598450
 P _part/13/_geo_xyz/1,11,0 45.475292206
@@ -8320,7 +8320,7 @@ P _part/13/_geo_xyz/1,17,2 -3.358891249
 P _part/13/_geo_xyz/1,2,0 44.988044739
 P _part/13/_geo_xyz/1,2,1 0.480424225
 P _part/13/_geo_xyz/1,2,2 101.408889771
-P _part/13/_geo_xyz/1,3,0 44.969425201
+P _part/13/_geo_xyz/1,3,0 44.969421387
 P _part/13/_geo_xyz/1,3,1 0.563730419
 P _part/13/_geo_xyz/1,3,2 105.609825134
 P _part/13/_geo_xyz/1,4,0 45.025802612
@@ -8887,7 +8887,7 @@ P _part/13/_geo_xyz/2,0,2 98.565185547
 P _part/13/_geo_xyz/2,1,0 45.090122223
 P _part/13/_geo_xyz/2,1,1 0.023749948
 P _part/13/_geo_xyz/2,1,2 99.428634644
-P _part/13/_geo_xyz/2,10,0 45.578479767
+P _part/13/_geo_xyz/2,10,0 45.578483582
 P _part/13/_geo_xyz/2,10,1 -2.161039591
 P _part/13/_geo_xyz/2,10,2 105.480598450
 P _part/13/_geo_xyz/2,11,0 45.475292206
@@ -8914,7 +8914,7 @@ P _part/13/_geo_xyz/2,17,2 -2.338366032
 P _part/13/_geo_xyz/2,2,0 44.988044739
 P _part/13/_geo_xyz/2,2,1 0.480424225
 P _part/13/_geo_xyz/2,2,2 101.408889771
-P _part/13/_geo_xyz/2,3,0 44.969425201
+P _part/13/_geo_xyz/2,3,0 44.969421387
 P _part/13/_geo_xyz/2,3,1 0.563730419
 P _part/13/_geo_xyz/2,3,2 105.609825134
 P _part/13/_geo_xyz/2,4,0 45.025802612
@@ -9903,7 +9903,7 @@ P _part/14/_geo_xyz/11,3,1 10.401514053
 P _part/14/_geo_xyz/11,3,2 138.844894409
 P _part/14/_geo_xyz/11,4,0 -85.607978821
 P _part/14/_geo_xyz/11,4,1 10.393646240
-P _part/14/_geo_xyz/11,4,2 142.004882813
+P _part/14/_geo_xyz/11,4,2 142.004882812
 P _part/14/_geo_xyz/11,5,0 -85.682983398
 P _part/14/_geo_xyz/11,5,1 10.162804604
 P _part/14/_geo_xyz/11,5,2 144.848266602
@@ -9957,7 +9957,7 @@ P _part/14/_geo_xyz/12,3,1 10.401514053
 P _part/14/_geo_xyz/12,3,2 138.844894409
 P _part/14/_geo_xyz/12,4,0 -85.607978821
 P _part/14/_geo_xyz/12,4,1 10.393646240
-P _part/14/_geo_xyz/12,4,2 142.004882813
+P _part/14/_geo_xyz/12,4,2 142.004882812
 P _part/14/_geo_xyz/12,5,0 -85.682983398
 P _part/14/_geo_xyz/12,5,1 10.162804604
 P _part/14/_geo_xyz/12,5,2 144.848266602
@@ -11373,7 +11373,7 @@ P _part/15/_geo_xyz/11,3,1 10.401514053
 P _part/15/_geo_xyz/11,3,2 138.844894409
 P _part/15/_geo_xyz/11,4,0 85.607978821
 P _part/15/_geo_xyz/11,4,1 10.393646240
-P _part/15/_geo_xyz/11,4,2 142.004882813
+P _part/15/_geo_xyz/11,4,2 142.004882812
 P _part/15/_geo_xyz/11,5,0 85.682983398
 P _part/15/_geo_xyz/11,5,1 10.162804604
 P _part/15/_geo_xyz/11,5,2 144.848266602
@@ -11427,7 +11427,7 @@ P _part/15/_geo_xyz/12,3,1 10.401514053
 P _part/15/_geo_xyz/12,3,2 138.844894409
 P _part/15/_geo_xyz/12,4,0 85.607978821
 P _part/15/_geo_xyz/12,4,1 10.393646240
-P _part/15/_geo_xyz/12,4,2 142.004882813
+P _part/15/_geo_xyz/12,4,2 142.004882812
 P _part/15/_geo_xyz/12,5,0 85.682983398
 P _part/15/_geo_xyz/12,5,1 10.162804604
 P _part/15/_geo_xyz/12,5,2 144.848266602
@@ -12736,7 +12736,7 @@ P _part/16/_geo_xyz/1,3,2 200.609893799
 P _part/16/_geo_xyz/1,4,0 -6.907952309
 P _part/16/_geo_xyz/1,4,1 7.118985176
 P _part/16/_geo_xyz/1,4,2 207.640579224
-P _part/16/_geo_xyz/1,5,0 -6.930144787
+P _part/16/_geo_xyz/1,5,0 -6.930145264
 P _part/16/_geo_xyz/1,5,1 6.801611900
 P _part/16/_geo_xyz/1,5,2 212.557296753
 P _part/16/_geo_xyz/1,6,0 -6.970208645
@@ -12957,10 +12957,10 @@ P _part/16/_geo_xyz/13,5,1 7.747411728
 P _part/16/_geo_xyz/13,5,2 223.164642334
 P _part/16/_geo_xyz/13,6,0 -26.591459274
 P _part/16/_geo_xyz/13,6,1 7.600727081
-P _part/16/_geo_xyz/13,6,2 226.747070313
+P _part/16/_geo_xyz/13,6,2 226.747070312
 P _part/16/_geo_xyz/13,7,0 -26.591459274
 P _part/16/_geo_xyz/13,7,1 7.600727081
-P _part/16/_geo_xyz/13,7,2 226.747070313
+P _part/16/_geo_xyz/13,7,2 226.747070312
 P _part/16/_geo_xyz/13,8,0 -26.608156204
 P _part/16/_geo_xyz/13,8,1 7.361938477
 P _part/16/_geo_xyz/13,8,2 223.164642334
@@ -13011,10 +13011,10 @@ P _part/16/_geo_xyz/14,5,1 7.747411728
 P _part/16/_geo_xyz/14,5,2 223.164642334
 P _part/16/_geo_xyz/14,6,0 -26.591459274
 P _part/16/_geo_xyz/14,6,1 7.600727081
-P _part/16/_geo_xyz/14,6,2 226.747070313
+P _part/16/_geo_xyz/14,6,2 226.747070312
 P _part/16/_geo_xyz/14,7,0 -26.591459274
 P _part/16/_geo_xyz/14,7,1 7.600727081
-P _part/16/_geo_xyz/14,7,2 226.747070313
+P _part/16/_geo_xyz/14,7,2 226.747070312
 P _part/16/_geo_xyz/14,8,0 -26.608156204
 P _part/16/_geo_xyz/14,8,1 7.361938477
 P _part/16/_geo_xyz/14,8,2 223.164642334
@@ -13137,7 +13137,7 @@ P _part/16/_geo_xyz/17,1,1 8.183702469
 P _part/16/_geo_xyz/17,1,2 217.995681763
 P _part/16/_geo_xyz/17,10,0 -33.161239624
 P _part/16/_geo_xyz/17,10,1 7.638196945
-P _part/16/_geo_xyz/17,10,2 221.348632813
+P _part/16/_geo_xyz/17,10,2 221.348632812
 P _part/16/_geo_xyz/17,11,0 -33.152820587
 P _part/16/_geo_xyz/17,11,1 7.758583069
 P _part/16/_geo_xyz/17,11,2 219.186370850
@@ -13191,7 +13191,7 @@ P _part/16/_geo_xyz/18,1,1 8.183702469
 P _part/16/_geo_xyz/18,1,2 217.995681763
 P _part/16/_geo_xyz/18,10,0 -33.161239624
 P _part/16/_geo_xyz/18,10,1 7.638196945
-P _part/16/_geo_xyz/18,10,2 221.348632813
+P _part/16/_geo_xyz/18,10,2 221.348632812
 P _part/16/_geo_xyz/18,11,0 -33.152820587
 P _part/16/_geo_xyz/18,11,1 7.758583069
 P _part/16/_geo_xyz/18,11,2 219.186370850
@@ -13330,7 +13330,7 @@ P _part/16/_geo_xyz/2,3,2 200.609893799
 P _part/16/_geo_xyz/2,4,0 -6.907952309
 P _part/16/_geo_xyz/2,4,1 7.118985176
 P _part/16/_geo_xyz/2,4,2 207.640579224
-P _part/16/_geo_xyz/2,5,0 -6.930144787
+P _part/16/_geo_xyz/2,5,0 -6.930145264
 P _part/16/_geo_xyz/2,5,1 6.801611900
 P _part/16/_geo_xyz/2,5,2 212.557296753
 P _part/16/_geo_xyz/2,6,0 -6.970208645
@@ -14206,7 +14206,7 @@ P _part/17/_geo_xyz/1,3,2 200.609893799
 P _part/17/_geo_xyz/1,4,0 6.907952309
 P _part/17/_geo_xyz/1,4,1 7.118985176
 P _part/17/_geo_xyz/1,4,2 207.640579224
-P _part/17/_geo_xyz/1,5,0 6.930144787
+P _part/17/_geo_xyz/1,5,0 6.930145264
 P _part/17/_geo_xyz/1,5,1 6.801611900
 P _part/17/_geo_xyz/1,5,2 212.557296753
 P _part/17/_geo_xyz/1,6,0 6.970208645
@@ -14427,10 +14427,10 @@ P _part/17/_geo_xyz/13,5,1 7.747411728
 P _part/17/_geo_xyz/13,5,2 223.164642334
 P _part/17/_geo_xyz/13,6,0 26.591459274
 P _part/17/_geo_xyz/13,6,1 7.600727081
-P _part/17/_geo_xyz/13,6,2 226.747070313
+P _part/17/_geo_xyz/13,6,2 226.747070312
 P _part/17/_geo_xyz/13,7,0 26.591459274
 P _part/17/_geo_xyz/13,7,1 7.600727081
-P _part/17/_geo_xyz/13,7,2 226.747070313
+P _part/17/_geo_xyz/13,7,2 226.747070312
 P _part/17/_geo_xyz/13,8,0 26.608156204
 P _part/17/_geo_xyz/13,8,1 7.361938477
 P _part/17/_geo_xyz/13,8,2 223.164642334
@@ -14481,10 +14481,10 @@ P _part/17/_geo_xyz/14,5,1 7.747411728
 P _part/17/_geo_xyz/14,5,2 223.164642334
 P _part/17/_geo_xyz/14,6,0 26.591459274
 P _part/17/_geo_xyz/14,6,1 7.600727081
-P _part/17/_geo_xyz/14,6,2 226.747070313
+P _part/17/_geo_xyz/14,6,2 226.747070312
 P _part/17/_geo_xyz/14,7,0 26.591459274
 P _part/17/_geo_xyz/14,7,1 7.600727081
-P _part/17/_geo_xyz/14,7,2 226.747070313
+P _part/17/_geo_xyz/14,7,2 226.747070312
 P _part/17/_geo_xyz/14,8,0 26.608156204
 P _part/17/_geo_xyz/14,8,1 7.361938477
 P _part/17/_geo_xyz/14,8,2 223.164642334
@@ -14607,7 +14607,7 @@ P _part/17/_geo_xyz/17,1,1 8.183702469
 P _part/17/_geo_xyz/17,1,2 217.995681763
 P _part/17/_geo_xyz/17,10,0 33.161239624
 P _part/17/_geo_xyz/17,10,1 7.638196945
-P _part/17/_geo_xyz/17,10,2 221.348632813
+P _part/17/_geo_xyz/17,10,2 221.348632812
 P _part/17/_geo_xyz/17,11,0 33.152820587
 P _part/17/_geo_xyz/17,11,1 7.758583069
 P _part/17/_geo_xyz/17,11,2 219.186370850
@@ -14661,7 +14661,7 @@ P _part/17/_geo_xyz/18,1,1 8.183702469
 P _part/17/_geo_xyz/18,1,2 217.995681763
 P _part/17/_geo_xyz/18,10,0 33.161239624
 P _part/17/_geo_xyz/18,10,1 7.638196945
-P _part/17/_geo_xyz/18,10,2 221.348632813
+P _part/17/_geo_xyz/18,10,2 221.348632812
 P _part/17/_geo_xyz/18,11,0 33.152820587
 P _part/17/_geo_xyz/18,11,1 7.758583069
 P _part/17/_geo_xyz/18,11,2 219.186370850
@@ -14800,7 +14800,7 @@ P _part/17/_geo_xyz/2,3,2 200.609893799
 P _part/17/_geo_xyz/2,4,0 6.907952309
 P _part/17/_geo_xyz/2,4,1 7.118985176
 P _part/17/_geo_xyz/2,4,2 207.640579224
-P _part/17/_geo_xyz/2,5,0 6.930144787
+P _part/17/_geo_xyz/2,5,0 6.930145264
 P _part/17/_geo_xyz/2,5,1 6.801611900
 P _part/17/_geo_xyz/2,5,2 212.557296753
 P _part/17/_geo_xyz/2,6,0 6.970208645
@@ -18522,7 +18522,7 @@ P _part/19/_top_t2 0.509000003
 P _part/2/_bot_s1 0.0
 P _part/2/_bot_s2 0.015625000
 P _part/2/_bot_t1 0.255859375
-P _part/2/_bot_t2 0.379882813
+P _part/2/_bot_t2 0.379882812
 P _part/2/_geo_xyz/0,0,0 0.0
 P _part/2/_geo_xyz/0,0,1 0.274120092
 P _part/2/_geo_xyz/0,0,2 -1.100000858
@@ -19988,7 +19988,7 @@ P _part/2/_s_dim 20
 P _part/2/_top_s1 0.0
 P _part/2/_top_s2 0.015625000
 P _part/2/_top_t1 0.255859375
-P _part/2/_top_t2 0.379882813
+P _part/2/_top_t2 0.379882812
 P _part/20/_bot_s1 0.0
 P _part/20/_bot_s2 0.125000000
 P _part/20/_bot_t1 0.126000002
@@ -30282,7 +30282,7 @@ P _part/27/_top_t2 0.384000003
 P _part/3/_bot_s1 0.0
 P _part/3/_bot_s2 0.015625000
 P _part/3/_bot_t1 0.255859375
-P _part/3/_bot_t2 0.379882813
+P _part/3/_bot_t2 0.379882812
 P _part/3/_geo_xyz/0,0,0 0.0
 P _part/3/_geo_xyz/0,0,1 0.274120092
 P _part/3/_geo_xyz/0,0,2 -1.100000858
@@ -31748,7 +31748,7 @@ P _part/3/_s_dim 20
 P _part/3/_top_s1 0.0
 P _part/3/_top_s2 0.015625000
 P _part/3/_top_t1 0.255859375
-P _part/3/_top_t2 0.379882813
+P _part/3/_top_t2 0.379882812
 P _part/40/_bot_s1 0.755999982
 P _part/40/_bot_s2 1.0
 P _part/40/_bot_t1 0.446999997
@@ -67033,22 +67033,22 @@ P _part/8/_bot_s1 0.261999995
 P _part/8/_bot_s2 0.500999987
 P _part/8/_bot_t1 0.250000000
 P _part/8/_bot_t2 0.586000025
-P _part/8/_geo_xyz/0,0,0 0.099736072
+P _part/8/_geo_xyz/0,0,0 0.099736057
 P _part/8/_geo_xyz/0,0,1 -6.799217701
 P _part/8/_geo_xyz/0,0,2 56.993537903
-P _part/8/_geo_xyz/0,1,0 0.270463139
+P _part/8/_geo_xyz/0,1,0 0.270463109
 P _part/8/_geo_xyz/0,1,1 -5.599626541
 P _part/8/_geo_xyz/0,1,2 58.682266235
-P _part/8/_geo_xyz/0,10,0 -0.456738532
+P _part/8/_geo_xyz/0,10,0 -0.456738472
 P _part/8/_geo_xyz/0,10,1 -10.709212303
 P _part/8/_geo_xyz/0,10,2 70.330116272
-P _part/8/_geo_xyz/0,11,0 -0.305549204
+P _part/8/_geo_xyz/0,11,0 -0.305549175
 P _part/8/_geo_xyz/0,11,1 -9.646900177
 P _part/8/_geo_xyz/0,11,2 62.260215759
-P _part/8/_geo_xyz/0,12,0 -0.094927676
+P _part/8/_geo_xyz/0,12,0 -0.094927669
 P _part/8/_geo_xyz/0,12,1 -8.166996956
 P _part/8/_geo_xyz/0,12,2 58.546360016
-P _part/8/_geo_xyz/0,13,0 0.099736072
+P _part/8/_geo_xyz/0,13,0 0.099736057
 P _part/8/_geo_xyz/0,13,1 -6.799217701
 P _part/8/_geo_xyz/0,13,2 56.993537903
 P _part/8/_geo_xyz/0,14,0 -0.0
@@ -67063,28 +67063,28 @@ P _part/8/_geo_xyz/0,16,2 -10.899997711
 P _part/8/_geo_xyz/0,17,0 -0.0
 P _part/8/_geo_xyz/0,17,1 -0.181668833
 P _part/8/_geo_xyz/0,17,2 -10.899997711
-P _part/8/_geo_xyz/0,2,0 0.425232440
+P _part/8/_geo_xyz/0,2,0 0.425232410
 P _part/8/_geo_xyz/0,2,1 -4.512160778
 P _part/8/_geo_xyz/0,2,2 62.532028198
-P _part/8/_geo_xyz/0,3,0 0.456738532
+P _part/8/_geo_xyz/0,3,0 0.456738472
 P _part/8/_geo_xyz/0,3,1 -4.290787697
 P _part/8/_geo_xyz/0,3,2 70.669883728
-P _part/8/_geo_xyz/0,4,0 0.376949668
+P _part/8/_geo_xyz/0,4,0 0.376949638
 P _part/8/_geo_xyz/0,4,1 -4.851413727
 P _part/8/_geo_xyz/0,4,2 81.475051880
 P _part/8/_geo_xyz/0,5,0 0.008136271
 P _part/8/_geo_xyz/0,5,1 -7.442831516
 P _part/8/_geo_xyz/0,5,2 97.590148926
-P _part/8/_geo_xyz/0,6,0 -0.299208194
+P _part/8/_geo_xyz/0,6,0 -0.299208164
 P _part/8/_geo_xyz/0,6,1 -9.602346420
 P _part/8/_geo_xyz/0,6,2 111.019393921
-P _part/8/_geo_xyz/0,7,0 -0.299208194
+P _part/8/_geo_xyz/0,7,0 -0.299208164
 P _part/8/_geo_xyz/0,7,1 -9.602346420
 P _part/8/_geo_xyz/0,7,2 111.019393921
-P _part/8/_geo_xyz/0,8,0 -0.407080561
+P _part/8/_geo_xyz/0,8,0 -0.407080501
 P _part/8/_geo_xyz/0,8,1 -10.360297203
 P _part/8/_geo_xyz/0,8,2 97.435707092
-P _part/8/_geo_xyz/0,9,0 -0.536527395
+P _part/8/_geo_xyz/0,9,0 -0.536527336
 P _part/8/_geo_xyz/0,9,1 -11.269838333
 P _part/8/_geo_xyz/0,9,2 81.135284424
 P _part/8/_geo_xyz/1,0,0 -3.558344364
@@ -67120,7 +67120,7 @@ P _part/8/_geo_xyz/1,17,2 -10.593917847
 P _part/8/_geo_xyz/1,2,0 -3.255019665
 P _part/8/_geo_xyz/1,2,1 -4.118869781
 P _part/8/_geo_xyz/1,2,2 65.679832458
-P _part/8/_geo_xyz/1,3,0 -3.231040955
+P _part/8/_geo_xyz/1,3,0 -3.231041193
 P _part/8/_geo_xyz/1,3,1 -3.950387955
 P _part/8/_geo_xyz/1,3,2 73.491546631
 P _part/8/_geo_xyz/1,4,0 -3.314005375
@@ -67129,10 +67129,10 @@ P _part/8/_geo_xyz/1,4,2 83.860847473
 P _part/8/_geo_xyz/1,5,0 -3.673547268
 P _part/8/_geo_xyz/1,5,1 -7.059598923
 P _part/8/_geo_xyz/1,5,2 99.320045471
-P _part/8/_geo_xyz/1,6,0 -3.973165751
+P _part/8/_geo_xyz/1,6,0 -3.973165512
 P _part/8/_geo_xyz/1,6,1 -9.164827347
 P _part/8/_geo_xyz/1,6,2 112.202713013
-P _part/8/_geo_xyz/1,7,0 -3.973165751
+P _part/8/_geo_xyz/1,7,0 -3.973165512
 P _part/8/_geo_xyz/1,7,1 -9.164827347
 P _part/8/_geo_xyz/1,7,2 112.202713013
 P _part/8/_geo_xyz/1,8,0 -4.065373421
@@ -67714,7 +67714,7 @@ P _part/8/_geo_xyz/2,17,2 -9.889913559
 P _part/8/_geo_xyz/2,2,0 -3.255019665
 P _part/8/_geo_xyz/2,2,1 -4.118869781
 P _part/8/_geo_xyz/2,2,2 65.679832458
-P _part/8/_geo_xyz/2,3,0 -3.231040955
+P _part/8/_geo_xyz/2,3,0 -3.231041193
 P _part/8/_geo_xyz/2,3,1 -3.950387955
 P _part/8/_geo_xyz/2,3,2 73.491546631
 P _part/8/_geo_xyz/2,4,0 -3.314005375
@@ -67723,10 +67723,10 @@ P _part/8/_geo_xyz/2,4,2 83.860847473
 P _part/8/_geo_xyz/2,5,0 -3.673547268
 P _part/8/_geo_xyz/2,5,1 -7.059598923
 P _part/8/_geo_xyz/2,5,2 99.320045471
-P _part/8/_geo_xyz/2,6,0 -3.973165751
+P _part/8/_geo_xyz/2,6,0 -3.973165512
 P _part/8/_geo_xyz/2,6,1 -9.164827347
 P _part/8/_geo_xyz/2,6,2 112.202713013
-P _part/8/_geo_xyz/2,7,0 -3.973165751
+P _part/8/_geo_xyz/2,7,0 -3.973165512
 P _part/8/_geo_xyz/2,7,1 -9.164827347
 P _part/8/_geo_xyz/2,7,2 112.202713013
 P _part/8/_geo_xyz/2,8,0 -4.065373421
@@ -77323,22 +77323,22 @@ P _part/9/_bot_s1 0.261999995
 P _part/9/_bot_s2 0.500999987
 P _part/9/_bot_t1 0.250000000
 P _part/9/_bot_t2 0.586000025
-P _part/9/_geo_xyz/0,0,0 -0.099736072
+P _part/9/_geo_xyz/0,0,0 -0.099736057
 P _part/9/_geo_xyz/0,0,1 -6.799217701
 P _part/9/_geo_xyz/0,0,2 56.993537903
-P _part/9/_geo_xyz/0,1,0 -0.270463139
+P _part/9/_geo_xyz/0,1,0 -0.270463109
 P _part/9/_geo_xyz/0,1,1 -5.599626541
 P _part/9/_geo_xyz/0,1,2 58.682266235
-P _part/9/_geo_xyz/0,10,0 0.456738532
+P _part/9/_geo_xyz/0,10,0 0.456738472
 P _part/9/_geo_xyz/0,10,1 -10.709212303
 P _part/9/_geo_xyz/0,10,2 70.330116272
-P _part/9/_geo_xyz/0,11,0 0.305549204
+P _part/9/_geo_xyz/0,11,0 0.305549175
 P _part/9/_geo_xyz/0,11,1 -9.646900177
 P _part/9/_geo_xyz/0,11,2 62.260215759
-P _part/9/_geo_xyz/0,12,0 0.094927676
+P _part/9/_geo_xyz/0,12,0 0.094927669
 P _part/9/_geo_xyz/0,12,1 -8.166996956
 P _part/9/_geo_xyz/0,12,2 58.546360016
-P _part/9/_geo_xyz/0,13,0 -0.099736072
+P _part/9/_geo_xyz/0,13,0 -0.099736057
 P _part/9/_geo_xyz/0,13,1 -6.799217701
 P _part/9/_geo_xyz/0,13,2 56.993537903
 P _part/9/_geo_xyz/0,14,0 -0.0
@@ -77353,28 +77353,28 @@ P _part/9/_geo_xyz/0,16,2 -10.899997711
 P _part/9/_geo_xyz/0,17,0 -0.0
 P _part/9/_geo_xyz/0,17,1 -0.181668833
 P _part/9/_geo_xyz/0,17,2 -10.899997711
-P _part/9/_geo_xyz/0,2,0 -0.425232440
+P _part/9/_geo_xyz/0,2,0 -0.425232410
 P _part/9/_geo_xyz/0,2,1 -4.512160778
 P _part/9/_geo_xyz/0,2,2 62.532028198
-P _part/9/_geo_xyz/0,3,0 -0.456738532
+P _part/9/_geo_xyz/0,3,0 -0.456738472
 P _part/9/_geo_xyz/0,3,1 -4.290787697
 P _part/9/_geo_xyz/0,3,2 70.669883728
-P _part/9/_geo_xyz/0,4,0 -0.376949668
+P _part/9/_geo_xyz/0,4,0 -0.376949638
 P _part/9/_geo_xyz/0,4,1 -4.851413727
 P _part/9/_geo_xyz/0,4,2 81.475051880
 P _part/9/_geo_xyz/0,5,0 -0.008136271
 P _part/9/_geo_xyz/0,5,1 -7.442831516
 P _part/9/_geo_xyz/0,5,2 97.590148926
-P _part/9/_geo_xyz/0,6,0 0.299208194
+P _part/9/_geo_xyz/0,6,0 0.299208164
 P _part/9/_geo_xyz/0,6,1 -9.602346420
 P _part/9/_geo_xyz/0,6,2 111.019393921
-P _part/9/_geo_xyz/0,7,0 0.299208194
+P _part/9/_geo_xyz/0,7,0 0.299208164
 P _part/9/_geo_xyz/0,7,1 -9.602346420
 P _part/9/_geo_xyz/0,7,2 111.019393921
-P _part/9/_geo_xyz/0,8,0 0.407080561
+P _part/9/_geo_xyz/0,8,0 0.407080501
 P _part/9/_geo_xyz/0,8,1 -10.360297203
 P _part/9/_geo_xyz/0,8,2 97.435707092
-P _part/9/_geo_xyz/0,9,0 0.536527395
+P _part/9/_geo_xyz/0,9,0 0.536527336
 P _part/9/_geo_xyz/0,9,1 -11.269838333
 P _part/9/_geo_xyz/0,9,2 81.135284424
 P _part/9/_geo_xyz/1,0,0 3.558344364
@@ -77410,7 +77410,7 @@ P _part/9/_geo_xyz/1,17,2 -10.593917847
 P _part/9/_geo_xyz/1,2,0 3.255019665
 P _part/9/_geo_xyz/1,2,1 -4.118869781
 P _part/9/_geo_xyz/1,2,2 65.679832458
-P _part/9/_geo_xyz/1,3,0 3.231040955
+P _part/9/_geo_xyz/1,3,0 3.231041193
 P _part/9/_geo_xyz/1,3,1 -3.950387955
 P _part/9/_geo_xyz/1,3,2 73.491546631
 P _part/9/_geo_xyz/1,4,0 3.314005375
@@ -77419,10 +77419,10 @@ P _part/9/_geo_xyz/1,4,2 83.860847473
 P _part/9/_geo_xyz/1,5,0 3.673547268
 P _part/9/_geo_xyz/1,5,1 -7.059598923
 P _part/9/_geo_xyz/1,5,2 99.320045471
-P _part/9/_geo_xyz/1,6,0 3.973165751
+P _part/9/_geo_xyz/1,6,0 3.973165512
 P _part/9/_geo_xyz/1,6,1 -9.164827347
 P _part/9/_geo_xyz/1,6,2 112.202713013
-P _part/9/_geo_xyz/1,7,0 3.973165751
+P _part/9/_geo_xyz/1,7,0 3.973165512
 P _part/9/_geo_xyz/1,7,1 -9.164827347
 P _part/9/_geo_xyz/1,7,2 112.202713013
 P _part/9/_geo_xyz/1,8,0 4.065373421
@@ -78004,7 +78004,7 @@ P _part/9/_geo_xyz/2,17,2 -9.889913559
 P _part/9/_geo_xyz/2,2,0 3.255019665
 P _part/9/_geo_xyz/2,2,1 -4.118869781
 P _part/9/_geo_xyz/2,2,2 65.679832458
-P _part/9/_geo_xyz/2,3,0 3.231040955
+P _part/9/_geo_xyz/2,3,0 3.231041193
 P _part/9/_geo_xyz/2,3,1 -3.950387955
 P _part/9/_geo_xyz/2,3,2 73.491546631
 P _part/9/_geo_xyz/2,4,0 3.314005375
@@ -78013,10 +78013,10 @@ P _part/9/_geo_xyz/2,4,2 83.860847473
 P _part/9/_geo_xyz/2,5,0 3.673547268
 P _part/9/_geo_xyz/2,5,1 -7.059598923
 P _part/9/_geo_xyz/2,5,2 99.320045471
-P _part/9/_geo_xyz/2,6,0 3.973165751
+P _part/9/_geo_xyz/2,6,0 3.973165512
 P _part/9/_geo_xyz/2,6,1 -9.164827347
 P _part/9/_geo_xyz/2,6,2 112.202713013
-P _part/9/_geo_xyz/2,7,0 3.973165751
+P _part/9/_geo_xyz/2,7,0 3.973165512
 P _part/9/_geo_xyz/2,7,1 -9.164827347
 P _part/9/_geo_xyz/2,7,2 112.202713013
 P _part/9/_geo_xyz/2,8,0 4.065373421
@@ -99340,7 +99340,6 @@ GROUP Captain PFD
         SHOW_EQUAL 1.000000 sim/cockpit2/radios/indicators/hsi_display_horizontal_pilot
         
         HIDE
-        LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 2
         BUS_SRC 2
@@ -99362,7 +99361,6 @@ GROUP Captain PFD
       SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
       
       HIDE
-      LOCKED
       CLIP
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 2
@@ -99381,7 +99379,6 @@ GROUP Captain PFD
       SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
       
       HIDE
-      LOCKED
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 2
       BUS_SRC 2
@@ -99405,7 +99402,6 @@ GROUP Captain PFD
       SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
       
       HIDE
-      LOCKED
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 2
       BUS_SRC 2
@@ -99420,7 +99416,6 @@ GROUP Captain PFD
     GROUP Slip/Skid Offset
       
       HIDE
-      LOCKED
       GROUP_ANIMATE_MODE ROTATE
       GROUP_WIDTH 0
       GROUP_HEIGHT 0
@@ -99436,7 +99431,6 @@ GROUP Captain PFD
         DATAREF sim/cockpit2/gauges/indicators/slip_deg
         
         HIDE
-        LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 2
         BUS_SRC 2
@@ -99454,7 +99448,6 @@ GROUP Captain PFD
       DATAREF 
       
       HIDE
-      LOCKED
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 2
       BUS_SRC 2
@@ -99472,15 +99465,18 @@ GROUP Captain PFD
       CLICK_DY 0
 
     GROUP Marker Beacons
-      LOCKED
+      
+      HIDE
       GROUP Outer Marker
         SHOW_GREATER 1.000000 sim/cockpit2/radios/indicators/over_outer_marker
-        LOCKED
+        
+        HIDE
         gen_rotary Annunciator
           POS 448.500000 913.500000
           IMAGE CRT Displays/PFD/Marker Beacons/OMannun
           DATAREF sim/cockpit2/radios/indicators/outer_marker_lit
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -99508,7 +99504,8 @@ GROUP Captain PFD
       END_GROUP
       GROUP Middle Marker
         SHOW_GREATER 1.000000 sim/cockpit2/radios/indicators/over_middle_marker
-        LOCKED
+        
+        HIDE
         gen_rotary Annunciator
           POS 448.500000 913.500000
           IMAGE CRT Displays/PFD/Marker Beacons/MMannun
@@ -99578,13 +99575,16 @@ GROUP Captain PFD
     END_GROUP
     GROUP Glideslope
       SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
-      LOCKED
+      
+      HIDE
       GROUP Pointer
         SHOW_GREATER 1.000000 sim/cockpit2/radios/indicators/hsi_display_vertical_pilot
-        LOCKED
+        
+        HIDE
         GROUP Pointer VDEF > 2.3
           SHOW_GREATER 2.340000 sim/cockpit2/radios/indicators/hsi_vdef_dots_pilot
-          LOCKED
+          
+          HIDE
           gen_pointer Pointer
             POS 465.500000 767.500000
             IMAGE CRT Displays/PFD/Artificial Horizon/HrznGSpointer
@@ -99607,12 +99607,14 @@ GROUP Captain PFD
         END_GROUP
         GROUP Pointer VDEF <= 2.3
           SHOW_LESS 2.333333 sim/cockpit2/radios/indicators/hsi_vdef_dots_pilot
-          LOCKED
+          
+          HIDE
           gen_pointer Pointer
             POS 465.500000 767.500000
             IMAGE CRT Displays/PFD/Artificial Horizon/HrznGSpointer2
             DATAREF sim/cockpit2/radios/indicators/hsi_vdef_dots_pilot
-            LOCKED
+            
+            HIDE
             CLIP
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 2
@@ -99633,7 +99635,8 @@ GROUP Captain PFD
         IMAGE CRT Displays/PFD/Artificial Horizon/HrznGSscale
         DATAREF 
         SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
-        LOCKED
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 2
         BUS_SRC 2
@@ -99653,14 +99656,17 @@ GROUP Captain PFD
     END_GROUP
     GROUP Localizer
       SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
-      LOCKED
+      
+      HIDE
       GROUP Localizer Mask
-        LOCKED
+        
+        HIDE
         gen_rotary Mask
           POS 315.000000 614.000000
           IMAGE CRT Displays/PFD/Artificial Horizon/HrznLOCscaleMask
           DATAREF 
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -99680,13 +99686,15 @@ GROUP Captain PFD
       END_GROUP
       GROUP Localizer Pointer
         SHOW_GREATER 1.000000 sim/cockpit2/radios/indicators/hsi_display_horizontal_pilot
-        LOCKED
+        
+        HIDE
         gen_pointer Ptr >= 2.34
           POS 315.500000 618.500000
           IMAGE CRT Displays/PFD/Artificial Horizon/HrznLOCpointer
           DATAREF sim/cockpit2/radios/indicators/hsi_hdef_dots_pilot
           SHOW_GREATER 2.340000 sim/cockpit2/radios/indicators/hsi_hdef_dots_pilot
-          LOCKED
+          
+          HIDE
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
@@ -99706,7 +99714,8 @@ GROUP Captain PFD
           DATAREF sim/cockpit2/radios/indicators/hsi_hdef_dots_pilot
           SHOW_LESS 2.330000 sim/cockpit2/radios/indicators/hsi_hdef_dots_pilot
           SHOW_GREATER 0.510000 sim/cockpit2/radios/indicators/hsi_hdef_dots_pilot
-          LOCKED
+          
+          HIDE
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
@@ -99725,7 +99734,8 @@ GROUP Captain PFD
           IMAGE CRT Displays/PFD/Artificial Horizon/HrznLOCpointer2
           DATAREF sim/cockpit2/radios/indicators/hsi_hdef_dots_pilot
           SHOW_LESS 0.500000 sim/cockpit2/radios/indicators/hsi_hdef_dots_pilot
-          LOCKED
+          
+          HIDE
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
@@ -99741,13 +99751,15 @@ GROUP Captain PFD
 
       END_GROUP
       GROUP Localizer Scale
-        LOCKED
+        
+        HIDE
         gen_rotary Scale >= 0.51
           POS 315.500000 618.500000
           IMAGE CRT Displays/PFD/Artificial Horizon/HrznLOCscale
           DATAREF 
           SHOW_GREATER 0.510000 sim/cockpit2/radios/indicators/hsi_hdef_dots_pilot
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -99768,7 +99780,8 @@ GROUP Captain PFD
           POS 315.500000 618.500000
           IMAGE CRT Displays/PFD/Artificial Horizon/HrznLOCscaleEx
           DATAREF 
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -99789,13 +99802,15 @@ GROUP Captain PFD
     END_GROUP
     GROUP Flight Director
       SHOW_EQUAL 1.000000 laminar/B747/toggle_switch/position[23]
-      LOCKED
+      
+      HIDE
       gen_pointer FD Bar - Roll
         POS 315.500000 767.500000
         IMAGE CRT Displays/PFD/FD/FDbarLateral
         DATAREF sim/cockpit2/autopilot/flight_director_roll_deg
         SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
-        LOCKED
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 2
         BUS_SRC 2
@@ -99808,7 +99823,8 @@ GROUP Captain PFD
 
       GROUP Flt Dir Offset
         SHOW_EQUAL 1.000000 [23]
-        LOCKED
+        
+        HIDE
         GROUP_OPEN
         GROUP_ANIMATE_MODE TRANSLATE
         GROUP_WIDTH 200
@@ -99825,7 +99841,8 @@ GROUP Captain PFD
           IMAGE CRT Displays/PFD/FD/FDbarVertical
           DATAREF sim/cockpit2/autopilot/flight_director_pitch_deg
           SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -99843,7 +99860,8 @@ GROUP Captain PFD
     POS 344.500000 779.000000
     IMAGE CRT Displays/PFD/Artificial Horizon/HrznMask
     DATAREF 
-    LOCKED
+    
+    HIDE
     LIGHT_MODE GLASS_AUTO
     LIGHT_RHEOSTAT 2
     BUS_SRC 2
@@ -99861,12 +99879,14 @@ GROUP Captain PFD
     CLICK_DY 0
 
   GROUP Flight Mode Annun
-    LOCKED
+    
+    HIDE
     gen_rotary Separators
       POS 320.500000 1069.500000
       IMAGE CRT Displays/PFD/Flight Mode Annun/Seperators
       DATAREF 
-      LOCKED
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 2
       BUS_SRC 2
@@ -99884,15 +99904,18 @@ GROUP Captain PFD
       CLICK_DY 0
 
     GROUP AutoThrottle Modes
-      LOCKED
+      
+      HIDE
       GROUP Active
-        LOCKED
+        
+        HIDE
         gen_rotary Mode Change Box
           POS 198.500000 1087.000000
           IMAGE CRT Displays/PFD/Flight Mode Annun/Box
           DATAREF 
           SHOW_EQUAL 1.000000 laminar/B747/autopilot/FMA/autothrottle/mode_box_status
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -99914,7 +99937,8 @@ GROUP Captain PFD
           IMAGE CRT Displays/PFD/Flight Mode Annun/at_HOLD
           DATAREF 
           SHOW_EQUAL 1.000000 laminar/B747/autopilot/FMA/autothrottle_mode
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -99936,7 +99960,8 @@ GROUP Captain PFD
           IMAGE CRT Displays/PFD/Flight Mode Annun/at_IDLE
           DATAREF 
           SHOW_EQUAL 2.000000 laminar/B747/autopilot/FMA/autothrottle_mode
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -99958,7 +99983,8 @@ GROUP Captain PFD
           IMAGE CRT Displays/PFD/Flight Mode Annun/at_SPD
           DATAREF 
           SHOW_EQUAL 3.000000 laminar/B747/autopilot/FMA/autothrottle_mode
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -99980,7 +100006,8 @@ GROUP Captain PFD
           IMAGE CRT Displays/PFD/Flight Mode Annun/at_THR
           DATAREF 
           SHOW_EQUAL 4.000000 laminar/B747/autopilot/FMA/autothrottle_mode
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -100002,7 +100029,8 @@ GROUP Captain PFD
           IMAGE CRT Displays/PFD/Flight Mode Annun/at_THR_REF
           DATAREF 
           SHOW_EQUAL 5.000000 laminar/B747/autopilot/FMA/autothrottle_mode
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -100022,15 +100050,18 @@ GROUP Captain PFD
       END_GROUP
     END_GROUP
     GROUP Roll Modes
-      LOCKED
+      
+      HIDE
       GROUP Armed
-        LOCKED
+        
+        HIDE
         gen_rotary TOGA
           POS 320.500000 1064.500000
           IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/TOGA
           DATAREF autopilot nav
           SHOW_EQUAL 1.000000 laminar/B747/autopilot/FMA/armed_roll_mode
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -100052,7 +100083,8 @@ GROUP Captain PFD
           IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/roll_LNAV
           DATAREF autopilot nav
           SHOW_EQUAL 2.000000 laminar/B747/autopilot/FMA/armed_roll_mode
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -100074,7 +100106,8 @@ GROUP Captain PFD
           IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/roll_LOC
           DATAREF autopilot nav
           SHOW_EQUAL 3.000000 laminar/B747/autopilot/FMA/armed_roll_mode
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -100096,7 +100129,8 @@ GROUP Captain PFD
           IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/roll_ROLLOUT
           DATAREF autopilot nav
           SHOW_EQUAL 4.000000 laminar/B747/autopilot/FMA/armed_roll_mode
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -100115,13 +100149,15 @@ GROUP Captain PFD
 
       END_GROUP
       GROUP Active
-        LOCKED
+        
+        HIDE
         gen_rotary Mode Change Box
           POS 320.500000 1087.000000
           IMAGE CRT Displays/PFD/Flight Mode Annun/Box
           DATAREF 
           SHOW_EQUAL 1.000000 laminar/B747/autopilot/FMA/roll/mode_box_status
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -100143,7 +100179,8 @@ GROUP Captain PFD
           IMAGE CRT Displays/PFD/Flight Mode Annun/TOGA
           DATAREF 
           SHOW_EQUAL 1.000000 laminar/B747/autopilot/FMA/active_roll_mode
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -100165,7 +100202,8 @@ GROUP Captain PFD
           IMAGE CRT Displays/PFD/Flight Mode Annun/roll_LNAV
           DATAREF 
           SHOW_EQUAL 2.000000 laminar/B747/autopilot/FMA/active_roll_mode
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -100187,7 +100225,8 @@ GROUP Captain PFD
           IMAGE CRT Displays/PFD/Flight Mode Annun/roll_LOC
           DATAREF 
           SHOW_EQUAL 3.000000 laminar/B747/autopilot/FMA/active_roll_mode
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -100209,7 +100248,8 @@ GROUP Captain PFD
           IMAGE CRT Displays/PFD/Flight Mode Annun/roll_ROLLOUT
           DATAREF 
           SHOW_EQUAL 4.000000 laminar/B747/autopilot/FMA/active_roll_mode
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -100231,7 +100271,8 @@ GROUP Captain PFD
           IMAGE CRT Displays/PFD/Flight Mode Annun/roll_ATT
           DATAREF 
           SHOW_EQUAL 5.000000 laminar/B747/autopilot/FMA/active_roll_mode
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -100253,7 +100294,8 @@ GROUP Captain PFD
           IMAGE CRT Displays/PFD/Flight Mode Annun/roll_HDG_SEL
           DATAREF 
           SHOW_EQUAL 6.000000 laminar/B747/autopilot/FMA/active_roll_mode
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -100275,7 +100317,8 @@ GROUP Captain PFD
           IMAGE CRT Displays/PFD/Flight Mode Annun/roll_HDG HOLD
           DATAREF 
           SHOW_EQUAL 7.000000 laminar/B747/autopilot/FMA/active_roll_mode
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -100295,15 +100338,18 @@ GROUP Captain PFD
       END_GROUP
     END_GROUP
     GROUP Pitch Modes
-      LOCKED
+      
+      HIDE
       GROUP Armed
-        LOCKED
+        
+        HIDE
         gen_rotary TOGA
           POS 442.500000 1064.500000
           IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/TOGA
           DATAREF 
           SHOW_EQUAL 1.000000 laminar/B747/autopilot/FMA/armed_pitch_mode
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -100325,7 +100371,8 @@ GROUP Captain PFD
           IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/pitch_GS
           DATAREF 
           SHOW_EQUAL 2.000000 laminar/B747/autopilot/FMA/armed_pitch_mode
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -100347,7 +100394,8 @@ GROUP Captain PFD
           IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/pitch_FLARE
           DATAREF 
           SHOW_EQUAL 3.000000 laminar/B747/autopilot/FMA/armed_pitch_mode
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -100369,7 +100417,8 @@ GROUP Captain PFD
           IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/pitch_VNAV
           DATAREF 
           SHOW_EQUAL 4.000000 laminar/B747/autopilot/FMA/armed_pitch_mode
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -100388,13 +100437,15 @@ GROUP Captain PFD
 
       END_GROUP
       GROUP Active
-        LOCKED
+        
+        HIDE
         gen_rotary Mode Change Box
           POS 442.500000 1087.000000
           IMAGE CRT Displays/PFD/Flight Mode Annun/Box
           DATAREF 
           SHOW_EQUAL 1.000000 laminar/B747/autopilot/FMA/pitch/mode_box_status
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -100416,7 +100467,8 @@ GROUP Captain PFD
           IMAGE CRT Displays/PFD/Flight Mode Annun/TOGA
           DATAREF 
           SHOW_EQUAL 1.000000 laminar/B747/autopilot/FMA/active_pitch_mode
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -100438,7 +100490,8 @@ GROUP Captain PFD
           IMAGE CRT Displays/PFD/Flight Mode Annun/pitch_GS
           DATAREF 
           SHOW_EQUAL 2.000000 laminar/B747/autopilot/FMA/active_pitch_mode
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -100460,7 +100513,8 @@ GROUP Captain PFD
           IMAGE CRT Displays/PFD/Flight Mode Annun/pitch_FLARE
           DATAREF 
           SHOW_EQUAL 3.000000 laminar/B747/autopilot/FMA/active_pitch_mode
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -100482,7 +100536,8 @@ GROUP Captain PFD
           IMAGE CRT Displays/PFD/Flight Mode Annun/pitch_VNAV_SPD
           DATAREF 
           SHOW_EQUAL 4.000000 laminar/B747/autopilot/FMA/active_pitch_mode
-          LOCKED
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -100990,7 +101045,6 @@ GROUP Captain PFD
           
           HIDE
           
-          CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -101008,7 +101062,6 @@ GROUP Captain PFD
           
           HIDE
           
-          CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -101026,7 +101079,6 @@ GROUP Captain PFD
       
       HIDE
       GROUP Spd Ofst Kts
-        LOCKED
         GROUP_ANIMATE_MODE TRANSLATE
         GROUP_WIDTH 43
         GROUP_HEIGHT 480
@@ -101798,6 +101850,10 @@ GROUP Captain PFD
           DATAREF laminar/B747/autopilot/heading/altitude_dial_ft
           
           HIDE
+          LIGHT_MODE GLASS_AUTO
+          LIGHT_RHEOSTAT 2
+          BUS_SRC 2
+          KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 100.000000 30.480000
           DIGITS 5
           DECIMALS 0
@@ -102381,7 +102437,8 @@ GROUP Captain PFD
       POS 446.000000 592.500000
       IMAGE CRT Displays/PFD/Minimums/MDAlabel
       DATAREF 
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 2
       BUS_SRC 2
@@ -102402,7 +102459,8 @@ HIDE
       POS 435.000000 573.500000
       IMAGE CRT Displays/LED/LED_2.18R.xx###0.green
       DATAREF laminar/B747/efis/baro_ref/capt
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 2
       BUS_SRC 2
@@ -102422,7 +102480,8 @@ HIDE
       IMAGE CRT Displays/PFD/Baro/STDlabel
       DATAREF 
       SHOW_EQUAL 1.000000 laminar/B747/efis/baro_std/capt/switch_pos
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 2
       BUS_SRC 2
@@ -102447,7 +102506,9 @@ HIDE
         POS 544.000000 481.500000
         IMAGE CRT Displays/LED/LED_1.14B.xx###0.white
         DATAREF laminar/B747/efis/baro/capt/preselect
-        SHOW_EQUAL 0.000000 laminar/B747/efis/baro_ref/capt/sel_dial_posHIDE
+        SHOW_EQUAL 0.000000 laminar/B747/efis/baro_ref/capt/sel_dial_pos
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 2
         BUS_SRC 2
@@ -102462,7 +102523,9 @@ HIDE
         POS 544.000000 481.500000
         IMAGE CRT Displays/LED/LED_1.14B.xx###0.white
         DATAREF laminar/B747/efis/baro/capt/preselect
-        SHOW_EQUAL 1.000000 laminar/B747/efis/baro_ref/capt/sel_dial_posHIDE
+        SHOW_EQUAL 1.000000 laminar/B747/efis/baro_ref/capt/sel_dial_pos
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 2
         BUS_SRC 2
@@ -102476,7 +102539,9 @@ HIDE
       gen_rotary Annun IN/HPA
         POS 581.000000 482.000000
         IMAGE CRT Displays/PFD/Annunciators/BAROref2
-        DATAREF laminar/B747/efis/baro_ref/capt/sel_dial_posHIDE
+        DATAREF laminar/B747/efis/baro_ref/capt/sel_dial_pos
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 2
         BUS_SRC 2
@@ -102496,12 +102561,15 @@ HIDE
     END_GROUP
     GROUP Active: Non-STD
       SHOW_EQUAL 0.000000 laminar/B747/efis/baro_std/capt/switch_pos
-HIDE
+      
+      HIDE
       gen_LED LED in/Hg
         POS 537.000000 502.500000
         IMAGE CRT Displays/LED/LED_2.18R.xx###0.green
         DATAREF sim/cockpit2/gauges/actuators/barometer_setting_in_hg_pilot
-        SHOW_EQUAL 0.000000 laminar/B747/efis/baro_ref/capt/sel_dial_posHIDE
+        SHOW_EQUAL 0.000000 laminar/B747/efis/baro_ref/capt/sel_dial_pos
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 2
         BUS_SRC 2
@@ -102516,7 +102584,9 @@ HIDE
         POS 537.000000 502.500000
         IMAGE CRT Displays/LED/LED_2.18R.xx###0.green
         DATAREF sim/cockpit2/gauges/actuators/barometer_setting_in_hg_pilot
-        SHOW_EQUAL 1.000000 laminar/B747/efis/baro_ref/capt/sel_dial_posHIDE
+        SHOW_EQUAL 1.000000 laminar/B747/efis/baro_ref/capt/sel_dial_pos
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 2
         BUS_SRC 2
@@ -102530,7 +102600,9 @@ HIDE
       gen_rotary Annun IN/HPA
         POS 595.000000 502.500000
         IMAGE CRT Displays/PFD/Annunciators/BAROref
-        DATAREF laminar/B747/efis/baro_ref/capt/sel_dial_posHIDE
+        DATAREF laminar/B747/efis/baro_ref/capt/sel_dial_pos
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 2
         BUS_SRC 2
@@ -102551,13 +102623,15 @@ HIDE
   END_GROUP
   GROUP Hdg/Track Display
     SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
-HIDE
+    
+    HIDE
     GROUP_OPEN
     gen_rotary Background
       POS 315.000000 507.000000
       IMAGE CRT Displays/PFD/Heading Track/HdgTrackBgnd
       DATAREF 
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 2
       BUS_SRC 2
@@ -102578,7 +102652,8 @@ HIDE
       POS 315.000000 560.500000
       IMAGE CRT Displays/PFD/Heading Track/HdgTrackPtr
       DATAREF 
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 2
       BUS_SRC 2
@@ -102599,7 +102674,8 @@ HIDE
       POS 315.000000 507.000000
       IMAGE CRT Displays/PFD/Heading Track/HdgTrackRose
       DATAREF sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_pilot
-HIDE
+      
+      HIDE
       CLIP
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 2
@@ -102614,7 +102690,8 @@ HIDE
       POS 263.000000 477.500000
       IMAGE CRT Displays/LED/LED_1.14B.xxx000.magenta
       DATAREF sim/cockpit2/autopilot/heading_dial_deg_mag_pilot
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 2
       BUS_SRC 2
@@ -102629,7 +102706,8 @@ HIDE
       POS 372.500000 478.000000
       IMAGE CRT Displays/PFD/Heading Track/HdgTrackMagLabel
       DATAREF 
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 2
       BUS_SRC 2
@@ -102647,7 +102725,8 @@ HIDE
       CLICK_DY 0
 
     GROUP Rose Offset
-HIDE
+      
+      HIDE
       GROUP_OPEN
       GROUP_ANIMATE_MODE ROTATE
       GROUP_WIDTH 344
@@ -102662,7 +102741,9 @@ HIDE
       gen_needle Track Indicator
         POS 316.000000 507.000000
         IMAGE CRT Displays/PFD/Heading Track/HdgTrackTrackInd
-        DATAREF sim/cockpit2/gauges/indicators/ground_track_mag_pilotHIDE
+        DATAREF sim/cockpit2/gauges/indicators/ground_track_mag_pilot
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 2
         BUS_SRC 2
@@ -102676,7 +102757,9 @@ HIDE
         POS 315.000000 507.000000
         IMAGE CRT Displays/PFD/Heading Track/HdgTrackBug
         DATAREF sim/cockpit2/autopilot/heading_dial_deg_mag_pilot
-        SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irsHIDE
+        SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 2
         BUS_SRC 2
@@ -102935,6 +103018,9 @@ GROUP Captain ND
         
         HIDE
         GROUP_OPEN
+        gen_rotary Heading Box 2
+          POS 335.000000 398.500000
+          IMAGE EFIS/Maps/hdg_box
           DATAREF 
           
           HIDE
@@ -102986,7 +103072,8 @@ GROUP Captain ND
           POS 277.500000 337.500000
           IMAGE EFIS/Maps/label_TRK
           DATAREF 
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -103008,7 +103095,8 @@ HIDE
           IMAGE CRT Displays/LED/LED_3.30B.xxx000.white
           DATAREF sim/cockpit2/gauges/indicators/ground_track_mag_pilot
           SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/map_mode
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -103033,6 +103121,7 @@ HIDE
             POS 277.500000 337.500000
             IMAGE EFIS/Maps/label_HDG
             DATAREF 
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -103054,6 +103143,7 @@ HIDE
             POS 335.000000 339.000000
             IMAGE CRT Displays/LED/LED_3.30B.xxx000.white
             DATAREF sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_pilot
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -103068,12 +103158,14 @@ HIDE
         END_GROUP
         GROUP PLN 2
           SHOW_EQUAL 3.000000 laminar/B747/nd/mode/capt/sel_dial_pos
-HIDE
+          
+          HIDE
           GROUP_OPEN
           gen_rotary HDG Label 2 2
             POS 277.500000 395.500000
             IMAGE EFIS/Maps/label_HDG
             DATAREF 
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -103095,6 +103187,7 @@ HIDE
             POS 335.000000 397.000000
             IMAGE CRT Displays/LED/LED_3.30B.xxx000.white
             DATAREF sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_pilot
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -103137,6 +103230,7 @@ HIDE
             POS 335.000000 71.000000
             IMAGE EFIS/Maps/Centered/sel_crs_ptr
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[0]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -103151,6 +103245,7 @@ HIDE
             IMAGE EFIS/Maps/Centered/cdi
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[0]
             SHOW_GREATER 2.310000 sim/cockpit2/radios/indicators/nav1_hdef_dots_pilot
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -103167,6 +103262,7 @@ HIDE
             IMAGE EFIS/Maps/Centered/cdi_filled
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[0]
             SHOW_LESS 2.300000 sim/cockpit2/radios/indicators/nav1_hdef_dots_pilot
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -103182,6 +103278,7 @@ HIDE
             POS 335.000000 71.500000
             IMAGE EFIS/Maps/Expanded/LOCscale
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[0]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -103194,12 +103291,14 @@ HIDE
         END_GROUP
         GROUP ILS R 2
           SHOW_EQUAL 1.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_pos
-HIDE
+          
+          HIDE
           GROUP_OPEN
           gen_needle Course Ptr 2
             POS 335.000000 71.000000
             IMAGE EFIS/Maps/Centered/sel_crs_ptr
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[1]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -103214,6 +103313,7 @@ HIDE
             IMAGE EFIS/Maps/Centered/cdi
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[1]
             SHOW_GREATER 2.310000 sim/cockpit2/radios/indicators/nav2_hdef_dots_pilot
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -103230,6 +103330,7 @@ HIDE
             IMAGE EFIS/Maps/Centered/cdi_filled
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[1]
             SHOW_LESS 2.300000 sim/cockpit2/radios/indicators/nav2_hdef_dots_pilot
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -103245,6 +103346,7 @@ HIDE
             POS 335.000000 71.500000
             IMAGE EFIS/Maps/Expanded/LOCscale
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[1]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -103270,6 +103372,7 @@ HIDE
             POS 335.000000 71.000000
             IMAGE EFIS/Maps/Centered/sel_crs_ptr
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[2]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -103284,6 +103387,7 @@ HIDE
             IMAGE EFIS/Maps/Centered/cdi
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[2]
             SHOW_GREATER 2.310000 [2]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -103299,6 +103403,7 @@ HIDE
             POS 335.000000 71.500000
             IMAGE EFIS/Maps/Expanded/LOCscale
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[2]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -103311,12 +103416,14 @@ HIDE
         END_GROUP
         GROUP VOR R 2
           SHOW_EQUAL 3.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_pos
-HIDE
+          
+          HIDE
           GROUP_OPEN
           gen_needle Course Ptr 2 2
             POS 335.000000 71.000000
             IMAGE EFIS/Maps/Centered/sel_crs_ptr
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[3]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -103330,6 +103437,7 @@ HIDE
             POS 335.000000 71.000000
             IMAGE EFIS/Maps/Centered/cdi
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[3]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -103345,6 +103453,7 @@ HIDE
             POS 335.000000 71.500000
             IMAGE EFIS/Maps/Expanded/LOCscale
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[3]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -103360,7 +103469,9 @@ HIDE
         POS 335.000000 309.000000
         IMAGE EFIS/Maps/hdg_ptr
         DATAREF sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_copilot
-        SHOW_LESS 2.000000 laminar/B747/nd/mode/capt/sel_dial_posHIDE
+        SHOW_LESS 2.000000 laminar/B747/nd/mode/capt/sel_dial_pos
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 0
         BUS_SRC 2
@@ -103389,7 +103500,9 @@ HIDE
         POS 335.000000 367.000000
         IMAGE EFIS/Maps/hdg_ptr
         DATAREF sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_pilot
-        SHOW_EQUAL 3.000000 laminar/B747/nd/mode/capt/sel_dial_posHIDE
+        SHOW_EQUAL 3.000000 laminar/B747/nd/mode/capt/sel_dial_pos
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 0
         BUS_SRC 2
@@ -103414,7 +103527,8 @@ HIDE
           POS 335.000000 71.000000
           IMAGE EFIS/Maps/Centered/VOR_L_bug
           DATAREF sim/cockpit2/radios/indicators/nav_relative_bearing_deg[3]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -103426,13 +103540,16 @@ HIDE
 
       END_GROUP
       GROUP VOR R 2
-        SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_2_selection_pilotHIDE
+        SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_2_selection_pilot
+        
+        HIDE
         GROUP_OPEN
         gen_needle pointer 2
           POS 335.000000 71.000000
           IMAGE EFIS/Maps/Centered/VOR_R_bug
           DATAREF sim/cockpit2/radios/indicators/nav_relative_bearing_deg[4]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -103444,13 +103561,16 @@ HIDE
 
       END_GROUP
       GROUP ADF L 2
-        SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_1_selection_pilotHIDE
+        SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_1_selection_pilot
+        
+        HIDE
         GROUP_OPEN
         gen_needle pointer 2
           POS 335.000000 71.000000
           IMAGE EFIS/Maps/Centered/ADF_L_bug
           DATAREF sim/cockpit2/radios/indicators/adf1_relative_bearing_deg[10]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -103462,13 +103582,16 @@ HIDE
 
       END_GROUP
       GROUP ADF R 2
-        SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_2_selection_pilotHIDE
+        SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_2_selection_pilot
+        
+        HIDE
         GROUP_OPEN
         gen_needle pointer 2
           POS 335.000000 71.000000
           IMAGE EFIS/Maps/Centered/ADF_R_bug
           DATAREF sim/cockpit2/radios/indicators/adf2_relative_bearing_deg[10]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -103485,7 +103608,8 @@ HIDE
       IMAGE EFIS/Maps/aircraft_triangle
       DATAREF 
       SHOW_EQUAL 2.000000 laminar/B747/nd/mode/capt/sel_dial_pos
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 0
       BUS_SRC 2
@@ -103507,7 +103631,8 @@ HIDE
       IMAGE EFIS/Maps/Centered/aircraft_symbol
       DATAREF 
       SHOW_LESS 1.000000 laminar/B747/nd/mode/capt/sel_dial_pos
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 0
       BUS_SRC 2
@@ -103574,7 +103699,8 @@ HIDE
       IMAGE EFIS/Maps/NorthArrow
       DATAREF 
       SHOW_EQUAL 3.000000 laminar/B747/nd/mode/capt/sel_dial_pos
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 0
       BUS_SRC 2
@@ -103599,7 +103725,9 @@ HIDE
       gen_rotary Mask:GS 2
         POS 654.500000 70.000000
         IMAGE EFIS/Maps/GSscaleMask
-        DATAREF HIDE
+        DATAREF 
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 0
         BUS_SRC 2
@@ -103630,6 +103758,7 @@ HIDE
             POS 654.500000 70.500000
             IMAGE CRT Displays/PFD/Artificial Horizon/HrznGSpointer
             DATAREF sim/cockpit2/radios/indicators/hsi_vdef_dots_pilot
+            
             HIDE
             CLIP
             LIGHT_MODE GLASS_AUTO
@@ -103647,12 +103776,14 @@ HIDE
         END_GROUP
         GROUP Pointer VDEF <= 2.3
           SHOW_LESS 2.333333 sim/cockpit2/radios/indicators/hsi_vdef_dots_pilot
-HIDE
+          
+          HIDE
           GROUP_OPEN
           gen_pointer Pointer 2 2
             POS 654.500000 70.500000
             IMAGE CRT Displays/PFD/Artificial Horizon/HrznGSpointer2
             DATAREF sim/cockpit2/radios/indicators/hsi_vdef_dots_pilot
+            
             HIDE
             CLIP
             LIGHT_MODE GLASS_AUTO
@@ -103672,7 +103803,9 @@ HIDE
       gen_rotary Scale 2
         POS 654.500000 70.500000
         IMAGE CRT Displays/PFD/Artificial Horizon/HrznGSscale
-        DATAREF HIDE
+        DATAREF 
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 0
         BUS_SRC 2
@@ -103704,7 +103837,9 @@ HIDE
       EFIS_map_t_HM map_t_HM.png 2
         POS 336.000000 -81.000000
         DATAREF 
-        SIZE 3.500000HIDE
+        SIZE 3.500000
+        
+        HIDE
         LIGHT_MODE MECHANICAL
         LIGHT_RHEOSTAT 0
         BUS_SRC 2
@@ -103714,7 +103849,9 @@ HIDE
       gen_rotary Mask:Expanded 2
         POS 335.500000 95.000000
         IMAGE EFIS/Maps/mask_expanded
-        DATAREF HIDE
+        DATAREF 
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 0
         BUS_SRC 2
@@ -103734,7 +103871,9 @@ HIDE
       gen_needle Rose 2
         POS 335.500000 166.000000
         IMAGE EFIS/Maps/rose_L
-        DATAREF sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_pilotHIDE
+        DATAREF sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_pilot
+        
+        HIDE
         CLIP
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 0
@@ -103754,7 +103893,9 @@ HIDE
       gen_rotary Heading Box 2
         POS 335.000000 398.500000
         IMAGE EFIS/Maps/hdg_box
-        DATAREF HIDE
+        DATAREF 
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 0
         BUS_SRC 2
@@ -103774,7 +103915,9 @@ HIDE
       gen_rotary MAG Label 2
         POS 392.500000 396.500000
         IMAGE EFIS/Maps/label_MAG
-        DATAREF HIDE
+        DATAREF 
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 0
         BUS_SRC 2
@@ -103792,13 +103935,16 @@ HIDE
         CLICK_DY 0
 
       GROUP TRACK 2
-        SHOW_EQUAL 2.000000 laminar/B747/nd/mode/fo/sel_dial_posHIDE
+        SHOW_EQUAL 2.000000 laminar/B747/nd/mode/fo/sel_dial_pos
+        
+        HIDE
         GROUP_OPEN
         gen_rotary TRK Label 2
           POS 277.500000 396.500000
           IMAGE EFIS/Maps/label_TRK
           DATAREF 
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -103819,7 +103965,8 @@ HIDE
           POS 335.000000 398.000000
           IMAGE CRT Displays/LED/LED_3.30B.xxx000.white
           DATAREF sim/cockpit2/gauges/indicators/ground_track_mag_pilot
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -103844,6 +103991,7 @@ HIDE
             POS 277.500000 396.500000
             IMAGE EFIS/Maps/label_HDG
             DATAREF 
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -103865,6 +104013,7 @@ HIDE
             POS 335.000000 398.000000
             IMAGE CRT Displays/LED/LED_3.30B.xxx000.white
             DATAREF sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_pilot
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -103879,12 +104028,14 @@ HIDE
         END_GROUP
         GROUP PLAN 2
           SHOW_EQUAL 3.000000 laminar/B747/nd/mode/fo/sel_dial_pos
-HIDE
+          
+          HIDE
           GROUP_OPEN
           gen_rotary HDG Label 2
             POS 277.500000 396.500000
             IMAGE EFIS/Maps/label_HDG
             DATAREF 
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -103906,6 +104057,7 @@ HIDE
             POS 335.000000 398.000000
             IMAGE CRT Displays/LED/LED_3.30B.xxx000.white
             DATAREF sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_pilot
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -103939,7 +104091,9 @@ HIDE
         POS 335.000000 137.000000
         IMAGE EFIS/Maps/Expanded/track_line
         DATAREF sim/cockpit2/gauges/indicators/ground_track_mag_pilot
-        SHOW_EQUAL 1.000000 laminar/B747/nd/track_line_onHIDE
+        SHOW_EQUAL 1.000000 laminar/B747/nd/track_line_on
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 0
         BUS_SRC 2
@@ -103963,6 +104117,7 @@ HIDE
             POS 335.000000 -85.000000
             IMAGE EFIS/Maps/Expanded/sel_crs_ptr
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[0]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -103977,6 +104132,7 @@ HIDE
             IMAGE EFIS/Maps/Expanded/cdi
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[0]
             SHOW_GREATER 2.310000 sim/cockpit2/radios/indicators/nav1_hdef_dots_pilot
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -103993,6 +104149,7 @@ HIDE
             IMAGE EFIS/Maps/Expanded/cdi_filled
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[0]
             SHOW_LESS 2.300000 sim/cockpit2/radios/indicators/nav1_hdef_dots_pilot
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -104008,6 +104165,7 @@ HIDE
             POS 335.000000 -84.500000
             IMAGE EFIS/Maps/Expanded/LOCscale
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[0]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -104020,12 +104178,14 @@ HIDE
         END_GROUP
         GROUP ILS R 2
           SHOW_EQUAL 1.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_pos
-HIDE
+          
+          HIDE
           GROUP_OPEN
           gen_needle Course Pointer 2
             POS 335.000000 -85.000000
             IMAGE EFIS/Maps/Expanded/sel_crs_ptr
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[1]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -104040,6 +104200,7 @@ HIDE
             IMAGE EFIS/Maps/Expanded/cdi
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[1]
             SHOW_GREATER 2.310000 sim/cockpit2/radios/indicators/nav2_hdef_dots_pilot
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -104056,6 +104217,7 @@ HIDE
             IMAGE EFIS/Maps/Expanded/cdi_filled
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[1]
             SHOW_LESS 2.300000 sim/cockpit2/radios/indicators/nav2_hdef_dots_pilot
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -104071,6 +104233,7 @@ HIDE
             POS 335.000000 -84.500000
             IMAGE EFIS/Maps/Expanded/LOCscale
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[1]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -104096,6 +104259,7 @@ HIDE
             POS 335.000000 -85.000000
             IMAGE EFIS/Maps/Expanded/sel_crs_ptr
             DATAREF sim/cockpit2/radios/actuators/nav_course_deg_mag_pilot[2]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -104110,6 +104274,7 @@ HIDE
             IMAGE EFIS/Maps/Expanded/cdi
             DATAREF sim/cockpit2/radios/actuators/nav_course_deg_mag_pilot[2]
             SHOW_GREATER 2.310000 [2]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -104125,6 +104290,7 @@ HIDE
             POS 335.000000 -84.500000
             IMAGE EFIS/Maps/Expanded/LOCscale
             DATAREF sim/cockpit2/radios/actuators/nav_course_deg_mag_pilot[2]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -104137,12 +104303,14 @@ HIDE
         END_GROUP
         GROUP VOR R 2
           SHOW_EQUAL 3.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_pos
-HIDE
+          
+          HIDE
           GROUP_OPEN
           gen_needle Course Pointer 2 2
             POS 335.000000 -85.000000
             IMAGE EFIS/Maps/Expanded/sel_crs_ptr
             DATAREF sim/cockpit2/radios/actuators/nav_course_deg_mag_pilot[3]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -104156,6 +104324,7 @@ HIDE
             POS 335.000000 -85.000000
             IMAGE EFIS/Maps/Expanded/cdi
             DATAREF sim/cockpit2/radios/actuators/nav_course_deg_mag_pilot[3]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -104171,6 +104340,7 @@ HIDE
             POS 335.000000 -84.500000
             IMAGE EFIS/Maps/Expanded/LOCscale
             DATAREF sim/cockpit2/radios/actuators/nav_course_deg_mag_pilot[3]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 0
@@ -104186,7 +104356,9 @@ HIDE
         POS 335.000000 347.000000
         IMAGE EFIS/Maps/Expanded/heading_bugP
         DATAREF sim/cockpit2/autopilot/heading_dial_deg_mag_pilot
-        SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irsHIDE
+        SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 0
         BUS_SRC 2
@@ -104200,7 +104372,9 @@ HIDE
         POS 335.000000 137.000000
         IMAGE EFIS/Maps/Expanded/heading_bug_line
         DATAREF sim/cockpit2/autopilot/heading_dial_deg_mag_pilot
-        SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irsHIDE
+        SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 0
         BUS_SRC 2
@@ -104224,7 +104398,8 @@ HIDE
           POS 335.500000 144.000000
           IMAGE EFIS/Maps/Expanded/VOR_L_bug
           DATAREF sim/cockpit2/radios/indicators/nav_relative_bearing_deg[2]
-HIDE
+          
+          HIDE
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
@@ -104238,13 +104413,16 @@ HIDE
 
       END_GROUP
       GROUP VOR R 2
-        SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_2_selection_pilotHIDE
+        SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_2_selection_pilot
+        
+        HIDE
         GROUP_OPEN
         gen_needle pointer 2
           POS 335.500000 143.500000
           IMAGE EFIS/Maps/Expanded/VOR_R_bug
           DATAREF sim/cockpit2/radios/indicators/nav_relative_bearing_deg[3]
-HIDE
+          
+          HIDE
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
@@ -104258,13 +104436,16 @@ HIDE
 
       END_GROUP
       GROUP ADF L 2
-        SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_1_selection_pilotHIDE
+        SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_1_selection_pilot
+        
+        HIDE
         GROUP_OPEN
         gen_needle pointer 2
           POS 335.500000 144.000000
           IMAGE EFIS/Maps/Expanded/ADF_L_bug
           DATAREF sim/cockpit2/radios/indicators/adf1_relative_bearing_deg[10]
-HIDE
+          
+          HIDE
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
@@ -104278,13 +104459,16 @@ HIDE
 
       END_GROUP
       GROUP ADF R 2
-        SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_2_selection_pilotHIDE
+        SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_2_selection_pilot
+        
+        HIDE
         GROUP_OPEN
         gen_needle pointer 2
           POS 335.500000 143.500000
           IMAGE EFIS/Maps/Expanded/ADF_R_bug
           DATAREF sim/cockpit2/radios/indicators/adf2_relative_bearing_deg[10]
-HIDE
+          
+          HIDE
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
@@ -104302,7 +104486,8 @@ HIDE
       POS 334.500000 -107.000000
       IMAGE EFIS/Maps/aircraft_triangle
       DATAREF 
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 0
       BUS_SRC 2
@@ -104371,7 +104556,9 @@ HIDE
       gen_rotary Mask:GS 2
         POS 654.500000 -36.000000
         IMAGE EFIS/Maps/GSscaleMask
-        DATAREF HIDE
+        DATAREF 
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 0
         BUS_SRC 2
@@ -104402,6 +104589,7 @@ HIDE
             POS 654.500000 -36.500000
             IMAGE CRT Displays/PFD/Artificial Horizon/HrznGSpointer
             DATAREF sim/cockpit2/radios/indicators/hsi_vdef_dots_copilot
+            
             HIDE
             CLIP
             LIGHT_MODE GLASS_AUTO
@@ -104419,12 +104607,14 @@ HIDE
         END_GROUP
         GROUP Pointer VDEF <= 2.3
           SHOW_LESS 2.333333 sim/cockpit2/radios/indicators/hsi_vdef_dots_copilot
-HIDE
+          
+          HIDE
           GROUP_OPEN
           gen_pointer Pointer 2
             POS 654.500000 -36.500000
             IMAGE CRT Displays/PFD/Artificial Horizon/HrznGSpointer2
             DATAREF sim/cockpit2/radios/indicators/hsi_vdef_dots_copilot
+            
             HIDE
             CLIP
             LIGHT_MODE GLASS_AUTO
@@ -104444,7 +104634,9 @@ HIDE
       gen_rotary Scale 2
         POS 654.500000 -36.500000
         IMAGE CRT Displays/PFD/Artificial Horizon/HrznGSscale
-        DATAREF HIDE
+        DATAREF 
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 0
         BUS_SRC 2
@@ -104472,7 +104664,8 @@ HIDE
       IMAGE CRT Displays/ND/EFIS annun/ARPT
       DATAREF 
       SHOW_EQUAL 1.000000 sim/cockpit2/EFIS/EFIS_airport_on
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 0
       BUS_SRC 2
@@ -104494,7 +104687,8 @@ HIDE
       IMAGE CRT Displays/ND/EFIS annun/WPT
       DATAREF 
       SHOW_EQUAL 1.000000 sim/cockpit2/EFIS/EFIS_fix_on
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 0
       BUS_SRC 2
@@ -104516,7 +104710,8 @@ HIDE
       IMAGE CRT Displays/ND/EFIS annun/STA
       DATAREF 
       SHOW_EQUAL 1.000000 laminar/B747/nd/data/capt/vor_ndb
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 0
       BUS_SRC 2
@@ -104538,7 +104733,8 @@ HIDE
       IMAGE CRT Displays/ND/EFIS annun/TFC
       DATAREF 
       SHOW_EQUAL 1.000000 sim/cockpit2/EFIS/EFIS_tcas_on
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 0
       BUS_SRC 2
@@ -104560,7 +104756,8 @@ HIDE
       IMAGE CRT Displays/ND/EFIS annun/WXR
       DATAREF 
       SHOW_EQUAL 1.000000 sim/cockpit2/EFIS/EFIS_weather_on
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 0
       BUS_SRC 2
@@ -104590,7 +104787,9 @@ HIDE
       gen_rotary Background  CRS 2
         POS 596.500000 391.500000
         IMAGE CRT Displays/ND/Ref Rcvr/crs_bkgnd
-        DATAREF HIDE
+        DATAREF 
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 0
         BUS_SRC 2
@@ -104608,13 +104807,16 @@ HIDE
         CLICK_DY 0
 
       GROUP ILS L 2
-        SHOW_EQUAL 0.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_posHIDE
+        SHOW_EQUAL 0.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_pos
+        
+        HIDE
         GROUP_OPEN
         gen_rotary Background  ILS L 2
           POS 529.000000 417.500000
           IMAGE CRT Displays/ND/Ref Rcvr/ils_L_bkgnd
           DATAREF 
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -104638,7 +104840,8 @@ HIDE
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 1.000000 laminar/B747/nd/vorL_id_flag/capt
           SHOW_GREATER 0.010000 [0]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -104653,7 +104856,8 @@ HIDE
           DATAREF sim/cockpit2/radios/actuators/nav1_frequency_hz
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 0.000000 laminar/B747/nd/vorL_id_flag/capt
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -104668,7 +104872,8 @@ HIDE
           POS 653.000000 392.500000
           IMAGE CRT Displays/LED/LED_8.21R.xxxxx0.white
           DATAREF sim/cockpit2/radios/actuators/nav1_course_deg_mag_pilot
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -104684,7 +104889,8 @@ HIDE
           IMAGE CRT Displays/ND/Ref Rcvr/dme_bkgnd
           DATAREF 
           SHOW_EQUAL 1.000000 sim/cockpit2/radios/indicators/nav1_has_dme
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -104706,7 +104912,8 @@ HIDE
           IMAGE CRT Displays/ND/dmeX_bkgnd_L
           DATAREF 
           SHOW_EQUAL 0.000000 sim/cockpit2/radios/indicators/nav1_has_dme
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -104728,7 +104935,8 @@ HIDE
           IMAGE CRT Displays/LED/LED_8.21R.xx##00.white
           DATAREF sim/cockpit2/radios/indicators/nav1_dme_distance_nm
           SHOW_EQUAL 1.000000 sim/cockpit2/radios/indicators/nav1_has_dme
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -104741,13 +104949,16 @@ HIDE
 
       END_GROUP
       GROUP ILS R 2
-        SHOW_EQUAL 1.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_posHIDE
+        SHOW_EQUAL 1.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_pos
+        
+        HIDE
         GROUP_OPEN
         gen_rotary Background  ILS R 2
           POS 529.000000 417.500000
           IMAGE CRT Displays/ND/Ref Rcvr/ils_R_bkgnd
           DATAREF 
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -104771,7 +104982,8 @@ HIDE
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 1.000000 laminar/B747/nd/vorR_id_flag/capt
           SHOW_GREATER 0.010000 [0]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -104786,7 +104998,8 @@ HIDE
           DATAREF sim/cockpit2/radios/actuators/nav3_frequency_hz
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 0.000000 laminar/B747/nd/vorR_id_flag/capt
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -104801,7 +105014,8 @@ HIDE
           POS 653.000000 392.500000
           IMAGE CRT Displays/LED/LED_8.21R.xxxxx0.white
           DATAREF sim/cockpit2/radios/actuators/nav2_course_deg_mag_pilot
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -104817,7 +105031,8 @@ HIDE
           IMAGE CRT Displays/ND/Ref Rcvr/dme_bkgnd
           DATAREF 
           SHOW_EQUAL 1.000000 sim/cockpit2/radios/indicators/nav2_has_dme
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -104839,7 +105054,8 @@ HIDE
           IMAGE CRT Displays/ND/dmeX_bkgnd_R
           DATAREF 
           SHOW_EQUAL 0.000000 sim/cockpit2/radios/indicators/nav2_has_dme
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -104861,7 +105077,8 @@ HIDE
           IMAGE CRT Displays/LED/LED_8.21R.xx##00.white
           DATAREF sim/cockpit2/radios/indicators/nav2_dme_distance_nm
           SHOW_EQUAL 1.000000 sim/cockpit2/radios/indicators/nav2_has_dme
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -104876,12 +105093,15 @@ HIDE
     END_GROUP
     GROUP Sel Rec VOR 2
       SHOW_EQUAL 1.000000 laminar/B747/nd/mode/capt/sel_dial_pos
-HIDE
+      
+      HIDE
       GROUP_OPEN
       gen_rotary Background  CRS 2
         POS 596.500000 391.500000
         IMAGE CRT Displays/ND/Ref Rcvr/crs_bkgnd
-        DATAREF HIDE
+        DATAREF 
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 0
         BUS_SRC 2
@@ -104899,13 +105119,16 @@ HIDE
         CLICK_DY 0
 
       GROUP VOR L 2
-        SHOW_EQUAL 2.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_posHIDE
+        SHOW_EQUAL 2.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_pos
+        
+        HIDE
         GROUP_OPEN
         gen_rotary Background  VOR L 2
           POS 529.000000 417.500000
           IMAGE CRT Displays/ND/vor_L_bkgnd
           DATAREF 
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -104929,7 +105152,8 @@ HIDE
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 1.000000 laminar/B747/nd/vorL_id_flag/capt
           SHOW_GREATER 0.010000 [0]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -104944,7 +105168,8 @@ HIDE
           DATAREF sim/cockpit2/radios/actuators/nav_frequency_hz[2]
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 0.000000 laminar/B747/nd/vorL_id_flag/capt
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -104959,7 +105184,8 @@ HIDE
           POS 653.000000 392.500000
           IMAGE CRT Displays/LED/LED_8.21R.xxxxx0.white
           DATAREF sim/cockpit2/radios/actuators/nav_course_deg_mag_pilot[2]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -104975,7 +105201,8 @@ HIDE
           IMAGE CRT Displays/ND/Ref Rcvr/dme_bkgnd
           DATAREF 
           SHOW_EQUAL 1.000000 sim/cockpit2/radios/indicators/nav_has_dme[2]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -104997,7 +105224,8 @@ HIDE
           IMAGE CRT Displays/ND/dmeX_bkgnd_R
           DATAREF 
           SHOW_EQUAL 0.000000 sim/cockpit2/radios/indicators/nav_has_dme[2]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -105019,7 +105247,8 @@ HIDE
           IMAGE CRT Displays/LED/LED_8.21R.xx##00.white
           DATAREF sim/cockpit2/radios/indicators/nav_dme_distance_nm[2]
           SHOW_EQUAL 1.000000 sim/cockpit2/radios/indicators/nav_has_dme[2]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -105032,13 +105261,16 @@ HIDE
 
       END_GROUP
       GROUP VOR R 2
-        SHOW_EQUAL 3.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_posHIDE
+        SHOW_EQUAL 3.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_pos
+        
+        HIDE
         GROUP_OPEN
         gen_rotary Background  VOR R 2
           POS 529.000000 417.500000
           IMAGE CRT Displays/ND/vor_R_bkgnd
           DATAREF 
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -105062,7 +105294,8 @@ HIDE
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 1.000000 laminar/B747/nd/vorL_id_flag/capt
           SHOW_GREATER 0.010000 [0]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -105077,7 +105310,8 @@ HIDE
           DATAREF sim/cockpit2/radios/actuators/nav_frequency_hz[3]
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 0.000000 laminar/B747/nd/vorL_id_flag/capt
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -105092,7 +105326,8 @@ HIDE
           POS 653.000000 392.500000
           IMAGE CRT Displays/LED/LED_8.21R.xxxxx0.white
           DATAREF sim/cockpit2/radios/actuators/nav_course_deg_mag_pilot[3]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -105108,7 +105343,8 @@ HIDE
           IMAGE CRT Displays/ND/Ref Rcvr/dme_bkgnd
           DATAREF 
           SHOW_EQUAL 1.000000 sim/cockpit2/radios/indicators/nav_has_dme[3]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -105130,7 +105366,8 @@ HIDE
           IMAGE CRT Displays/ND/dmeX_bkgnd_R
           DATAREF 
           SHOW_EQUAL 0.000000 sim/cockpit2/radios/indicators/nav_has_dme[3]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -105152,7 +105389,8 @@ HIDE
           IMAGE CRT Displays/LED/LED_8.21R.xx##00.white
           DATAREF sim/cockpit2/radios/indicators/nav_dme_distance_nm[3]
           SHOW_EQUAL 1.000000 sim/cockpit2/radios/indicators/nav_has_dme[3]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -105167,12 +105405,15 @@ HIDE
     END_GROUP
     GROUP APP/VOR/MAP Mode 2
       SHOW_LESS 2.000000 laminar/B747/nd/mode/capt/sel_dial_pos
-HIDE
+      
+      HIDE
       GROUP_OPEN
       gen_rotary Radio Mask L 2
         POS 71.000000 -206.000000
         IMAGE EFIS/Maps/rad_mask
-        DATAREF HIDE
+        DATAREF 
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 0
         BUS_SRC 2
@@ -105192,7 +105433,9 @@ HIDE
       gen_rotary Radio Mask R 2
         POS 618.000000 -206.000000
         IMAGE EFIS/Maps/rad_mask
-        DATAREF HIDE
+        DATAREF 
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 0
         BUS_SRC 2
@@ -105210,13 +105453,16 @@ HIDE
         CLICK_DY 0
 
       GROUP VOR L 2
-        SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_1_selection_pilotHIDE
+        SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_1_selection_pilot
+        
+        HIDE
         GROUP_OPEN
         gen_rotary Background VOR L 2
           POS 48.000000 -178.500000
           IMAGE CRT Displays/ND/vor_L_bkgnd
           DATAREF 
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -105240,7 +105486,8 @@ HIDE
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 1.000000 laminar/B747/nd/vorL_id_flag/capt
           SHOW_GREATER 0.010000 [0]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -105255,7 +105502,8 @@ HIDE
           DATAREF sim/cockpit2/radios/actuators/nav_frequency_hz[2]
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 0.000000 laminar/B747/nd/vorL_id_flag/capt
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -105271,7 +105519,8 @@ HIDE
           IMAGE CRT Displays/ND/dme_bkgnd
           DATAREF 
           SHOW_EQUAL 1.000000 sim/cockpit2/radios/indicators/nav_has_dme[2]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -105293,7 +105542,8 @@ HIDE
           IMAGE CRT Displays/LED/LED_8.21R.xxx#00.green
           DATAREF sim/cockpit2/radios/indicators/nav_dme_distance_nm[2]
           SHOW_EQUAL 1.000000 sim/cockpit2/radios/indicators/nav_has_dme[2]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -105309,7 +105559,8 @@ HIDE
           IMAGE CRT Displays/ND/dmeX_bkgnd_L
           DATAREF 
           SHOW_EQUAL 0.000000 sim/cockpit2/radios/indicators/nav_has_dme[2]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -105328,13 +105579,16 @@ HIDE
 
       END_GROUP
       GROUP ADF L 2
-        SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_1_selection_pilotHIDE
+        SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_1_selection_pilot
+        
+        HIDE
         GROUP_OPEN
         gen_rotary Background 2
           POS 48.000000 -178.500000
           IMAGE CRT Displays/ND/adf_L_bkgnd
           DATAREF 
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -105358,7 +105612,8 @@ HIDE
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 1.000000 laminar/B747/nd/adfL_id_flag/capt
           SHOW_GREATER 0.010000 [0]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -105372,7 +105627,8 @@ HIDE
           IMAGE CRT Displays/LED/LED_8.21R.xxx#00.blue
           DATAREF sim/cockpit2/radios/actuators/adf1_frequency_hz
           SHOW_EQUAL 0.000000 laminar/B747/nd/adfL_id_flag/capt
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -105385,13 +105641,16 @@ HIDE
 
       END_GROUP
       GROUP VOR R 2
-        SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_2_selection_pilotHIDE
+        SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_2_selection_pilot
+        
+        HIDE
         GROUP_OPEN
         gen_rotary Background VOR R 2
           POS 612.000000 -178.500000
           IMAGE CRT Displays/ND/vor_R_bkgnd
           DATAREF 
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -105415,7 +105674,8 @@ HIDE
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 1.000000 laminar/B747/nd/vorR_id_flag/capt
           SHOW_GREATER 0.010000 [0]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -105429,7 +105689,8 @@ HIDE
           IMAGE CRT Displays/LED/LED_8.21R.xxx#00.green
           DATAREF sim/cockpit2/radios/actuators/nav_frequency_hz[3]
           SHOW_EQUAL 0.000000 laminar/B747/nd/vorR_id_flag/capt
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -105445,7 +105706,8 @@ HIDE
           IMAGE CRT Displays/ND/dme_bkgnd
           DATAREF 
           SHOW_EQUAL 1.000000 sim/cockpit2/radios/indicators/nav_has_dme[3]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -105467,7 +105729,8 @@ HIDE
           IMAGE CRT Displays/LED/LED_8.21R.xxx#00.green
           DATAREF sim/cockpit2/radios/indicators/nav_dme_distance_nm[3]
           SHOW_EQUAL 1.000000 sim/cockpit2/radios/indicators/nav_has_dme[3]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -105483,7 +105746,8 @@ HIDE
           IMAGE CRT Displays/ND/dmeX_bkgnd_R
           DATAREF 
           SHOW_EQUAL 0.000000 sim/cockpit2/radios/indicators/nav_has_dme[3]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -105502,13 +105766,16 @@ HIDE
 
       END_GROUP
       GROUP ADF R 2
-        SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_2_selection_pilotHIDE
+        SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_2_selection_pilot
+        
+        HIDE
         GROUP_OPEN
         gen_rotary Background 2
           POS 612.000000 -178.500000
           IMAGE CRT Displays/ND/adf_R_bkgnd
           DATAREF 
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -105532,7 +105799,8 @@ HIDE
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 1.000000 laminar/B747/nd/adfR_id_flag/capt
           SHOW_GREATER 0.010000 [0]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -105546,7 +105814,8 @@ HIDE
           IMAGE CRT Displays/LED/LED_8.21R.xxx#00.blue
           DATAREF sim/cockpit2/radios/actuators/adf2_frequency_hz
           SHOW_EQUAL 0.000000 laminar/B747/nd/adfR_id_flag/capt
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 0
           BUS_SRC 2
@@ -105561,15 +105830,18 @@ HIDE
     END_GROUP
   END_GROUP
   GROUP CAPT IRS INFO
-    LOCKED
+    HIDE
+    GROUP_OPEN
     GROUP CAPT IRS ON
       SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
-      LOCKED
+      HIDE
       GROUP_OPEN
       EFIS_TAS_GS_wind el_TAS_GS_wind.png
         POS 95.000000 370.000000
         DATAREF 
-        SIZE 3.200000HIDE
+        SIZE 3.200000
+        
+        HIDE
         LIGHT_MODE MECHANICAL
         LIGHT_RHEOSTAT 0
         BUS_SRC 2
@@ -105579,12 +105851,14 @@ HIDE
     END_GROUP
     GROUP CAPT IRS OFF
       SHOW_LESS 0.100000 laminar/B747/pfd/capt/irs
-      LOCKED
+      HIDE
       GROUP_OPEN
       gen_text irs line1
-        POS 95.500000 370.000000
+        POS 95.000000 370.000000
         IMAGE CRT Displays/TEXT/TXT.2.28.white
-        DATAREF laminar/B747/irs/line1HIDE
+        DATAREF laminar/B747/irs/line1
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 2
         BUS_SRC 2
@@ -105594,9 +105868,11 @@ HIDE
         OFFSET_Y -8.000000
 
       gen_text irs line2
-        POS 95.500000 345.000000
+        POS 95.000000 345.000000
         IMAGE CRT Displays/TEXT/TXT.2.28.white
-        DATAREF laminar/B747/irs/line2HIDE
+        DATAREF laminar/B747/irs/line2
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 2
         BUS_SRC 2
@@ -105606,9 +105882,11 @@ HIDE
         OFFSET_Y -8.000000
 
       gen_text irs line3
-        POS 95.500000 320.000000
+        POS 95.000000 320.000000
         IMAGE CRT Displays/TEXT/TXT.2.28.white
-        DATAREF laminar/B747/irs/line3HIDE
+        DATAREF laminar/B747/irs/line3
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 2
         BUS_SRC 2
@@ -105618,7 +105896,7 @@ HIDE
         OFFSET_Y -8.000000
 
       gen_text irs line4
-        POS 95.500000 295.000000
+        POS 95.000000 295.000000
         IMAGE CRT Displays/TEXT/TXT.2.28.white
         DATAREF laminar/B747/irs/line4
         
@@ -106185,12 +106463,15 @@ GROUP First Officer PFD
     END_GROUP
     GROUP Flight Director 2
       SHOW_EQUAL 1.000000 laminar/B747/toggle_switch/position[24]
-HIDE
+      
+      HIDE
       gen_pointer FD Bar - Roll 2
         POS 994.500000 767.500000
         IMAGE CRT Displays/PFD/FD/FDbarLateral
         DATAREF sim/cockpit2/autopilot/flight_director_roll_deg
-        SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irsHIDE
+        SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
         BUS_SRC 4
@@ -106202,7 +106483,9 @@ HIDE
         OFFSET 0.000000
 
       GROUP Flt Dir Offset 2
-        SHOW_EQUAL 1.000000 [23]HIDE
+        SHOW_EQUAL 1.000000 [23]
+        
+        HIDE
         GROUP_OPEN
         GROUP_ANIMATE_MODE TRANSLATE
         GROUP_WIDTH 200
@@ -106219,7 +106502,8 @@ HIDE
           IMAGE CRT Displays/PFD/FD/FDbarVertical
           DATAREF sim/cockpit2/autopilot/flight_director_pitch_deg
           SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106237,7 +106521,8 @@ HIDE
     POS 1023.500000 779.000000
     IMAGE CRT Displays/PFD/Artificial Horizon/HrznMask
     DATAREF 
-HIDE
+    
+    HIDE
     LIGHT_MODE GLASS_AUTO
     LIGHT_RHEOSTAT 5
     BUS_SRC 4
@@ -106255,12 +106540,14 @@ HIDE
     CLICK_DY 0
 
   GROUP Flight Mode Annun 2
-HIDE
+    
+    HIDE
     gen_rotary Separators 2
       POS 999.500000 1069.500000
       IMAGE CRT Displays/PFD/Flight Mode Annun/Seperators
       DATAREF 
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
       BUS_SRC 4
@@ -106288,7 +106575,8 @@ HIDE
           IMAGE CRT Displays/PFD/Flight Mode Annun/Box
           DATAREF 
           SHOW_EQUAL 1.000000 laminar/B747/autopilot/FMA/autothrottle/mode_box_status
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106310,7 +106598,8 @@ HIDE
           IMAGE CRT Displays/PFD/Flight Mode Annun/at_HOLD
           DATAREF 
           SHOW_EQUAL 1.000000 laminar/B747/autopilot/FMA/autothrottle_mode
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106332,7 +106621,8 @@ HIDE
           IMAGE CRT Displays/PFD/Flight Mode Annun/at_IDLE
           DATAREF 
           SHOW_EQUAL 2.000000 laminar/B747/autopilot/FMA/autothrottle_mode
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106354,7 +106644,8 @@ HIDE
           IMAGE CRT Displays/PFD/Flight Mode Annun/at_SPD
           DATAREF 
           SHOW_EQUAL 3.000000 laminar/B747/autopilot/FMA/autothrottle_mode
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106376,7 +106667,8 @@ HIDE
           IMAGE CRT Displays/PFD/Flight Mode Annun/at_THR
           DATAREF 
           SHOW_EQUAL 4.000000 laminar/B747/autopilot/FMA/autothrottle_mode
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106398,7 +106690,8 @@ HIDE
           IMAGE CRT Displays/PFD/Flight Mode Annun/at_THR_REF
           DATAREF 
           SHOW_EQUAL 5.000000 laminar/B747/autopilot/FMA/autothrottle_mode
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106428,7 +106721,8 @@ HIDE
           IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/TOGA
           DATAREF autopilot nav
           SHOW_EQUAL 1.000000 laminar/B747/autopilot/FMA/armed_roll_mode
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106450,7 +106744,8 @@ HIDE
           IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/roll_LNAV
           DATAREF autopilot nav
           SHOW_EQUAL 2.000000 laminar/B747/autopilot/FMA/armed_roll_mode
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106472,7 +106767,8 @@ HIDE
           IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/roll_LOC
           DATAREF autopilot nav
           SHOW_EQUAL 3.000000 laminar/B747/autopilot/FMA/armed_roll_mode
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106494,7 +106790,8 @@ HIDE
           IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/roll_ROLLOUT
           DATAREF autopilot nav
           SHOW_EQUAL 4.000000 laminar/B747/autopilot/FMA/armed_roll_mode
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106512,13 +106809,16 @@ HIDE
           CLICK_DY 0
 
       END_GROUP
-      GROUP Active 2HIDE
+      GROUP Active 2
+        
+        HIDE
         gen_rotary Mode Change Box 2
           POS 999.500000 1087.000000
           IMAGE CRT Displays/PFD/Flight Mode Annun/Box
           DATAREF 
           SHOW_EQUAL 1.000000 laminar/B747/autopilot/FMA/roll/mode_box_status
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106540,7 +106840,8 @@ HIDE
           IMAGE CRT Displays/PFD/Flight Mode Annun/TOGA
           DATAREF 
           SHOW_EQUAL 1.000000 laminar/B747/autopilot/FMA/active_roll_mode
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106562,7 +106863,8 @@ HIDE
           IMAGE CRT Displays/PFD/Flight Mode Annun/roll_LNAV
           DATAREF 
           SHOW_EQUAL 2.000000 laminar/B747/autopilot/FMA/active_roll_mode
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106584,7 +106886,8 @@ HIDE
           IMAGE CRT Displays/PFD/Flight Mode Annun/roll_LOC
           DATAREF 
           SHOW_EQUAL 3.000000 laminar/B747/autopilot/FMA/active_roll_mode
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106606,7 +106909,8 @@ HIDE
           IMAGE CRT Displays/PFD/Flight Mode Annun/roll_ROLLOUT
           DATAREF 
           SHOW_EQUAL 4.000000 laminar/B747/autopilot/FMA/active_roll_mode
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106628,7 +106932,8 @@ HIDE
           IMAGE CRT Displays/PFD/Flight Mode Annun/roll_ATT
           DATAREF 
           SHOW_EQUAL 5.000000 laminar/B747/autopilot/FMA/active_roll_mode
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106650,7 +106955,8 @@ HIDE
           IMAGE CRT Displays/PFD/Flight Mode Annun/roll_HDG_SEL
           DATAREF 
           SHOW_EQUAL 6.000000 laminar/B747/autopilot/FMA/active_roll_mode
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106672,7 +106978,8 @@ HIDE
           IMAGE CRT Displays/PFD/Flight Mode Annun/roll_HDG HOLD
           DATAREF 
           SHOW_EQUAL 7.000000 laminar/B747/autopilot/FMA/active_roll_mode
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106702,7 +107009,8 @@ HIDE
           IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/TOGA
           DATAREF 
           SHOW_EQUAL 1.000000 laminar/B747/autopilot/FMA/armed_pitch_mode
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106724,7 +107032,8 @@ HIDE
           IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/pitch_GS
           DATAREF 
           SHOW_EQUAL 2.000000 laminar/B747/autopilot/FMA/armed_pitch_mode
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106746,7 +107055,8 @@ HIDE
           IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/pitch_FLARE
           DATAREF 
           SHOW_EQUAL 3.000000 laminar/B747/autopilot/FMA/armed_pitch_mode
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106768,7 +107078,8 @@ HIDE
           IMAGE CRT Displays/PFD/Flight Mode Annun/Armed/pitch_VNAV
           DATAREF 
           SHOW_EQUAL 4.000000 laminar/B747/autopilot/FMA/armed_pitch_mode
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106786,13 +107097,16 @@ HIDE
           CLICK_DY 0
 
       END_GROUP
-      GROUP Active 2HIDE
+      GROUP Active 2
+        
+        HIDE
         gen_rotary Mode Change Box 2
           POS 1121.500000 1087.000000
           IMAGE CRT Displays/PFD/Flight Mode Annun/Box
           DATAREF 
           SHOW_EQUAL 1.000000 laminar/B747/autopilot/FMA/pitch/mode_box_status
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106814,7 +107128,8 @@ HIDE
           IMAGE CRT Displays/PFD/Flight Mode Annun/TOGA
           DATAREF 
           SHOW_EQUAL 1.000000 laminar/B747/autopilot/FMA/active_pitch_mode
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106836,7 +107151,8 @@ HIDE
           IMAGE CRT Displays/PFD/Flight Mode Annun/pitch_GS
           DATAREF 
           SHOW_EQUAL 2.000000 laminar/B747/autopilot/FMA/active_pitch_mode
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106859,7 +107175,8 @@ HIDE
           DATAREF 
           SHOW_LESS 0.000000 laminar/B747/CAS/caution_status
           SHOW_EQUAL 3.000000 laminar/B747/autopilot/FMA/active_pitch_mode
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106881,7 +107198,8 @@ HIDE
           IMAGE CRT Displays/PFD/Flight Mode Annun/pitch_VNAV_SPD
           DATAREF 
           SHOW_EQUAL 4.000000 laminar/B747/autopilot/FMA/active_pitch_mode
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106903,7 +107221,8 @@ HIDE
           IMAGE CRT Displays/PFD/Flight Mode Annun/pitch_VNAV_ALT
           DATAREF 
           SHOW_EQUAL 5.000000 laminar/B747/autopilot/FMA/active_pitch_mode
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106925,7 +107244,8 @@ HIDE
           IMAGE CRT Displays/PFD/Flight Mode Annun/pitch_VNAV_PATH
           DATAREF 
           SHOW_EQUAL 6.000000 laminar/B747/autopilot/FMA/active_pitch_mode
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106947,7 +107267,8 @@ HIDE
           IMAGE CRT Displays/PFD/Flight Mode Annun/pitch_VS
           DATAREF 
           SHOW_EQUAL 7.000000 laminar/B747/autopilot/FMA/active_pitch_mode
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106969,7 +107290,8 @@ HIDE
           IMAGE CRT Displays/PFD/Flight Mode Annun/pitch_FLCH_SPD
           DATAREF 
           SHOW_EQUAL 8.000000 laminar/B747/autopilot/FMA/active_pitch_mode
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -106991,7 +107313,8 @@ HIDE
           IMAGE CRT Displays/PFD/Flight Mode Annun/pitch_ALT
           DATAREF 
           SHOW_EQUAL 9.000000 laminar/B747/autopilot/FMA/active_pitch_mode
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -107013,13 +107336,15 @@ HIDE
   END_GROUP
   GROUP AFDS Status Annun 2
     SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
-HIDE
+    
+    HIDE
     gen_rotary Mode Change Box 2
       POS 994.500000 957.000000
       IMAGE CRT Displays/PFD/AFDS Status Annun/box
       DATAREF 
       SHOW_EQUAL 1.000000 laminar/B747/autopilot/AFDS/mode_box_status
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
       BUS_SRC 4
@@ -107041,7 +107366,8 @@ HIDE
       IMAGE CRT Displays/PFD/AFDS Status Annun/box2
       DATAREF 
       SHOW_EQUAL 1.000000 laminar/B747/autopilot/AFDS/mode_box2_status
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
       BUS_SRC 4
@@ -107063,7 +107389,8 @@ HIDE
       IMAGE CRT Displays/PFD/AFDS Status Annun/FD
       DATAREF 
       SHOW_EQUAL 1.000000 laminar/B747/autopilot/AFDS/status_annun
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
       BUS_SRC 4
@@ -107085,7 +107412,8 @@ HIDE
       IMAGE CRT Displays/PFD/AFDS Status Annun/CMD
       DATAREF 
       SHOW_EQUAL 2.000000 laminar/B747/autopilot/AFDS/status_annun
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
       BUS_SRC 4
@@ -107107,7 +107435,8 @@ HIDE
       IMAGE CRT Displays/PFD/AFDS Status Annun/LAND_2
       DATAREF 
       SHOW_EQUAL 3.000000 laminar/B747/autopilot/AFDS/status_annun
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
       BUS_SRC 4
@@ -107129,7 +107458,8 @@ HIDE
       IMAGE CRT Displays/PFD/AFDS Status Annun/LAND_3
       DATAREF 
       SHOW_EQUAL 4.000000 laminar/B747/autopilot/AFDS/status_annun
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
       BUS_SRC 4
@@ -107151,7 +107481,8 @@ HIDE
       IMAGE CRT Displays/PFD/AFDS Status Annun/NO_AUTOLAND
       DATAREF 
       SHOW_EQUAL 5.000000 laminar/B747/autopilot/AFDS/status_annun
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
       BUS_SRC 4
@@ -107170,12 +107501,14 @@ HIDE
 
   END_GROUP
   GROUP Airspeed Display 2
-HIDE
+    
+    HIDE
     gen_rotary Tape Bkgnd 2
       POS 758.500000 767.000000
       IMAGE CRT Displays/PFD/ASI_ALTbgnd
       DATAREF 
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
       BUS_SRC 4
@@ -107196,7 +107529,8 @@ HIDE
       POS 758.500000 767.000000
       IMAGE CRT Displays/PFD/ASI/ASItape
       DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_copilot
-HIDE
+      
+      HIDE
       CLIP
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
@@ -107210,11 +107544,14 @@ HIDE
       OFFSET 0.000000
 
     GROUP Trend Vector 2
-HIDE
+      
+      HIDE
       gen_pointer Line UP 2
         POS 786.500000 887.500000
         IMAGE CRT Displays/PFD/ASI/ASITrndLineUP
-        DATAREF sim/cockpit2/gauges/indicators/airspeed_acceleration_kts_sec_pilotHIDE
+        DATAREF sim/cockpit2/gauges/indicators/airspeed_acceleration_kts_sec_pilot
+        
+        HIDE
         CLIP
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
@@ -107230,7 +107567,9 @@ HIDE
       gen_pointer Line DN 2
         POS 786.500000 646.500000
         IMAGE CRT Displays/PFD/ASI/ASITrndLineDN
-        DATAREF sim/cockpit2/gauges/indicators/airspeed_acceleration_kts_sec_copilotHIDE
+        DATAREF sim/cockpit2/gauges/indicators/airspeed_acceleration_kts_sec_copilot
+        
+        HIDE
         CLIP
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
@@ -107245,11 +107584,14 @@ HIDE
 
     END_GROUP
     GROUP Rolling Display 2
-HIDE
+      
+      HIDE
       gen_rotary Crnt Arspd Window 2
         POS 750.500000 767.000000
         IMAGE CRT Displays/PFD/ASI/ASIcrntWndw
-        DATAREF HIDE
+        DATAREF 
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
         BUS_SRC 4
@@ -107267,13 +107609,16 @@ HIDE
         CLICK_DY 0
 
       GROUP Crnt Arspd Wndw Min
-        SHOW_GREATER 100.000000 sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_copilotHIDE
+        SHOW_GREATER 100.000000 sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_copilot
+        
+        HIDE
         gen_rotary Window Image 2
           POS 750.500000 767.000000
           IMAGE CRT Displays/PFD/ASI/ASIcrntWndwMin
           DATAREF 
           SHOW_EQUAL 1.000000 laminar/B747/airspeed_window/min
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -107295,7 +107640,9 @@ HIDE
         POS 745.500000 767.000000
         IMAGE CRT Displays/PFD/ASI/ASIcrntHndrds
         DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_copilot
-        SHOW_GREATER 100.000000 sim/cockpit2/gauges/indicators/airspeed_kts_copilotHIDE
+        SHOW_GREATER 100.000000 sim/cockpit2/gauges/indicators/airspeed_kts_copilot
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
         BUS_SRC 4
@@ -107307,7 +107654,9 @@ HIDE
       gen_rolling Tens 2
         POS 745.500000 767.000000
         IMAGE CRT Displays/PFD/ASI/ASIcrntTens
-        DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_copilotHIDE
+        DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_copilot
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
         BUS_SRC 4
@@ -107320,7 +107669,9 @@ HIDE
       gen_rolling Ones 2
         POS 745.500000 767.000000
         IMAGE CRT Displays/PFD/ASI/ASIcrntOnes
-        DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_copilotHIDE
+        DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_copilot
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
         BUS_SRC 4
@@ -107408,7 +107759,8 @@ HIDE
           POS 806.500000 767.000000
           IMAGE CRT Displays/PFD/ASI/ASIminMnvrTape
           DATAREF laminar/B747/airspeed/Vmc
-HIDE
+          
+          HIDE
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
@@ -107424,7 +107776,8 @@ HIDE
           POS 806.500000 767.000000
           IMAGE CRT Displays/PFD/ASI/ASIminMaxTape
           DATAREF laminar/B747/airspeed/Vs
-HIDE
+          
+          HIDE
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
@@ -107449,7 +107802,8 @@ HIDE
           IMAGE CRT Displays/LED/LED_2.36R.xxx##0.magenta
           DATAREF laminar/B747/autopilot/ias_dial_value
           SHOW_EQUAL 0.000000 sim/cockpit/autopilot/airspeed_is_mach
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -107465,7 +107819,8 @@ HIDE
           IMAGE CRT Displays/LED/LED_2.36R.xxxxx0.magenta
           DATAREF laminar/B747/autopilot/ias_mach_dial_value
           SHOW_EQUAL 1.000000 sim/cockpit/autopilot/airspeed_is_mach
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -107477,7 +107832,9 @@ HIDE
           LED_ROWS 1
 
       END_GROUP
-      GROUP Spd Ofst Kts 2HIDE
+      GROUP Spd Ofst Kts 2
+        
+        HIDE
         GROUP_ANIMATE_MODE TRANSLATE
         GROUP_WIDTH 43
         GROUP_HEIGHT 480
@@ -107493,7 +107850,8 @@ HIDE
           POS 806.500000 767.000000
           IMAGE CRT Displays/PFD/ASI/ASIcmdSpdPtr
           DATAREF sim/cockpit2/autopilot/airspeed_dial_kts
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -107525,12 +107883,14 @@ HIDE
         OFFSET 0.000000
         GROUP Vref 2
           SHOW_GREATER 24.950001 sim/flightmodel2/wing/flap1_deg[0]
-HIDE
+          
+          HIDE
           gen_pointer Vref30 2
             POS 812.000000 767.500000
             IMAGE CRT Displays/PFD/Vspeeds/Vref
             DATAREF laminar/B747/airspeed/Vref30
             SHOW_GREATER 5.000000 sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_copilot
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 5
@@ -107548,7 +107908,8 @@ HIDE
           IMAGE CRT Displays/PFD/Vspeeds/Vr
           DATAREF laminar/B747/airspeed/Vr
           SHOW_LESS 10.000000 sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_copilot
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -107564,7 +107925,8 @@ HIDE
           IMAGE CRT Displays/PFD/Vspeeds/V1
           DATAREF laminar/B747/airspeed/V1
           SHOW_LESS 10.000000 sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_copilot
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -107602,7 +107964,8 @@ HIDE
           DATAREF laminar/B747/airspeed/Vf0
           SHOW_LESS 0.170000 sim/cockpit2/controls/flap_ratio
           SHOW_GREATER 0.010000 sim/cockpit2/controls/flap_ratio
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -107619,7 +107982,8 @@ HIDE
           DATAREF laminar/B747/airspeed/Vf1
           SHOW_LESS 0.336000 sim/cockpit2/controls/flap_ratio
           SHOW_GREATER 0.167000 sim/cockpit2/controls/flap_ratio
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -107636,7 +108000,8 @@ HIDE
           DATAREF laminar/B747/airspeed/Vf5
           SHOW_LESS 0.500000 sim/cockpit2/controls/flap_ratio
           SHOW_GREATER 0.336000 sim/cockpit2/controls/flap_ratio
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -107653,7 +108018,8 @@ HIDE
           DATAREF laminar/B747/airspeed/Vf10
           SHOW_LESS 0.667000 sim/cockpit2/controls/flap_ratio
           SHOW_GREATER 0.500000 sim/cockpit2/controls/flap_ratio
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -107670,7 +108036,8 @@ HIDE
           DATAREF laminar/B747/airspeed/Vf20
           SHOW_LESS 0.830000 sim/cockpit2/controls/flap_ratio
           SHOW_GREATER 0.667000 sim/cockpit2/controls/flap_ratio
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -107687,7 +108054,8 @@ HIDE
           DATAREF laminar/B747/airspeed/Vf25
           SHOW_LESS 1.000000 'sim/cockpit2/controls/flap_ratio
           SHOW_GREATER 0.830000 sim/cockpit2/controls/flap_ratio
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -107703,7 +108071,8 @@ HIDE
           IMAGE CRT Displays/PFD/Flap Speeds/flaps30
           DATAREF laminar/B747/airspeed/Vf30
           SHOW_GREATER 1.000000 sim/cockpit2/controls/flap_ratio
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -107718,12 +108087,15 @@ HIDE
     END_GROUP
     GROUP Mach Speed 2
       SHOW_GREATER 0.400000 sim/flightmodel/misc/machno
-HIDE
+      
+      HIDE
       GROUP_OPEN
       gen_LED Mach Speed LED 2
         POS 757.000000 487.500000
         IMAGE CRT Displays/LED/LED_2.36R.xxxxx0.white
-        DATAREF sim/flightmodel/misc/machnoHIDE
+        DATAREF sim/flightmodel/misc/machno
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
         BUS_SRC 4
@@ -107737,13 +108109,15 @@ HIDE
     END_GROUP
   END_GROUP
   GROUP Approach Ref 2
-HIDE
+    
+    HIDE
     gen_text ILS L
       POS 879.000000 1013.500000
       IMAGE CRT Displays/TEXT/TXT.1.24.white
       DATAREF sim/cockpit2/radios/indicators/nav1_nav_id[0]
       SHOW_EQUAL 0.000000 laminar/B747/flt_inst/fmc_master_src/ctr_pnl/sel_dial_pos
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
       BUS_SRC 4
@@ -107757,7 +108131,8 @@ HIDE
       IMAGE CRT Displays/TEXT/TXT.1.24.white
       DATAREF sim/cockpit2/radios/indicators/nav1_nav_id[0]
       SHOW_EQUAL 1.000000 laminar/B747/flt_inst/fmc_master_src/ctr_pnl/sel_dial_pos
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
       BUS_SRC 4
@@ -107770,7 +108145,8 @@ HIDE
       POS 843.500000 993.000000
       IMAGE CRT Displays/PFD/Approach Ref/ILSdmeLabel
       DATAREF 
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
       BUS_SRC 4
@@ -107792,7 +108168,8 @@ HIDE
       IMAGE CRT Displays/LED/LED_2.18R.xx###0.white
       DATAREF sim/cockpit/radios/nav1_dme_dist_m
       SHOW_EQUAL 0.000000 laminar/B747/flt_inst/fmc_master_src/ctr_pnl/sel_dial_pos
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
       BUS_SRC 4
@@ -107808,7 +108185,8 @@ HIDE
       IMAGE CRT Displays/LED/LED_2.18R.xx###0.white
       DATAREF sim/cockpit/radios/nav2_dme_dist_m
       SHOW_EQUAL 1.000000 laminar/B747/flt_inst/fmc_master_src/ctr_pnl/sel_dial_pos
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
       BUS_SRC 4
@@ -107823,13 +108201,15 @@ HIDE
   GROUP Decision Height 2
     SHOW_LESS 999.000000 sim/cockpit2/gauges/actuators/radio_altimeter_bug_ft_copilot
     SHOW_GREATER 0.000000 sim/cockpit2/gauges/actuators/radio_altimeter_bug_ft_copilot
-HIDE
+    
+    HIDE
     gen_rotary DH Annun 2
       POS 1116.000000 1025.500000
       IMAGE CRT Displays/PFD/Decision Height/DH_Label2
       DATAREF 
       SHOW_EQUAL 1.000000 laminar/B747/dec_height/display_status
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
       BUS_SRC 4
@@ -107848,11 +108228,14 @@ HIDE
 
     GROUP DH Green 2
       SHOW_LESS 0.000000 laminar/B747/dec_height/display_status
-HIDE
+      
+      HIDE
       gen_rotary DH Label 2
         POS 1073.000000 1023.500000
         IMAGE CRT Displays/PFD/Decision Height/DH_Label
-        DATAREF HIDE
+        DATAREF 
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
         BUS_SRC 4
@@ -107872,7 +108255,9 @@ HIDE
       gen_LED DH LED 2
         POS 1114.000000 1021.500000
         IMAGE CRT Displays/LED/LED_2.18R.xx###0.green
-        DATAREF sim/cockpit2/gauges/actuators/radio_altimeter_bug_ft_copilotHIDE
+        DATAREF sim/cockpit2/gauges/actuators/radio_altimeter_bug_ft_copilot
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
         BUS_SRC 4
@@ -107897,7 +108282,9 @@ HIDE
       gen_LED LED 2
         POS 1108.000000 996.500000
         IMAGE CRT Displays/LED/LED_2.30R.x####0.yellow
-        DATAREF laminar/B747/efis/radio_altitudeHIDE
+        DATAREF laminar/B747/efis/radio_altitude
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
         BUS_SRC 4
@@ -107911,11 +108298,14 @@ HIDE
     END_GROUP
     GROUP > DH 2
       SHOW_LESS 0.000000 laminar/B747/radio_alt/display_status
-HIDE
+      
+      HIDE
       gen_LED LED 2
         POS 1108.000000 996.500000
         IMAGE CRT Displays/LED/LED_2.30R.x####0.white
-        DATAREF laminar/B747/efis/radio_altitudeHIDE
+        DATAREF laminar/B747/efis/radio_altitude
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
         BUS_SRC 4
@@ -107929,12 +108319,14 @@ HIDE
     END_GROUP
   END_GROUP
   GROUP VSI Display 2
-HIDE
+    
+    HIDE
     gen_rotary VSI Bgnd 2
       POS 1318.000000 767.000000
       IMAGE CRT Displays/PFD/VSI/VSIbgnd
       DATAREF 
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
       BUS_SRC 4
@@ -107955,7 +108347,8 @@ HIDE
       POS 1311.000000 766.000000
       IMAGE CRT Displays/PFD/VSI/VSIscale
       DATAREF 
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
       BUS_SRC 4
@@ -107976,7 +108369,8 @@ HIDE
       POS 1331.000000 767.000000
       IMAGE CRT Displays/PFD/VSI/VSIspdPtr
       DATAREF sim/cockpit2/gauges/indicators/vvi_fpm_copilot
-HIDE
+      
+      HIDE
       CLIP
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
@@ -107998,7 +108392,8 @@ HIDE
       POS 1322.000000 767.000000
       IMAGE CRT Displays/PFD/VSI/VSIselSpdPtr
       DATAREF sim/cockpit2/autopilot/vvi_dial_fpm
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
       BUS_SRC 4
@@ -108019,7 +108414,8 @@ HIDE
       POS 1318.000000 767.000000
       IMAGE CRT Displays/PFD/VSI/VSIselSpdPtrMask
       DATAREF 
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
       BUS_SRC 4
@@ -108037,12 +108433,15 @@ HIDE
       CLICK_DY 0
 
     GROUP LED 2
-HIDE
+      
+      HIDE
       gen_LED VSI > 400 2
         POS 1321.000000 946.500000
         IMAGE CRT Displays/LED/LED_2.18R.xx###0.white
         DATAREF laminar/B747/vsi/fpm
-        SHOW_GREATER 400.000000 sim/cockpit2/gauges/indicators/vvi_fpm_copilotHIDE
+        SHOW_GREATER 400.000000 sim/cockpit2/gauges/indicators/vvi_fpm_copilot
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
         BUS_SRC 4
@@ -108057,7 +108456,9 @@ HIDE
         POS 1321.000000 589.500000
         IMAGE CRT Displays/LED/LED_2.18R.xx###0.white
         DATAREF laminar/B747/vsi/fpm
-        SHOW_LESS -400.000000 sim/cockpit2/gauges/indicators/vvi_fpm_copilotHIDE
+        SHOW_LESS -400.000000 sim/cockpit2/gauges/indicators/vvi_fpm_copilot
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
         BUS_SRC 4
@@ -108071,12 +108472,14 @@ HIDE
     END_GROUP
   END_GROUP
   GROUP Altimeter Display 2
-HIDE
+    
+    HIDE
     gen_rotary Altimeter Bkgnd 2
       POS 1228.500000 767.000000
       IMAGE CRT Displays/PFD/ASI_ALTbgnd
       DATAREF 
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
       BUS_SRC 4
@@ -108104,7 +108507,8 @@ HIDE
           POS 1265.000000 1064.500000
           IMAGE CRT Displays/PFD/Altimeter/SelAltLabelM
           DATAREF 
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -108125,7 +108529,8 @@ HIDE
           POS 1218.000000 1067.500000
           IMAGE CRT Displays/LED/LED_2.30R.x####0.magenta
           DATAREF laminar/B747/autopilot/heading/altitude_dial_ft
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -108137,12 +108542,15 @@ HIDE
           LED_ROWS 5
 
       END_GROUP
-      GROUP Feet 2HIDE
+      GROUP Feet 2
+        
+        HIDE
         gen_LED Thousands 2
           POS 1203.000000 1038.500000
           IMAGE CRT Displays/LED/LED_2.36R.xxx###.magenta
           DATAREF laminar/B747/autopilot/heading/altitude_dial_ft
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -108158,7 +108566,8 @@ HIDE
           POS 1247.000000 1036.500000
           IMAGE CRT Displays/LED/LED_2.30R.x####0.magenta
           DATAREF laminar/B747/autopilot/heading/altitude_dial_ft
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -108172,12 +108581,15 @@ HIDE
       END_GROUP
     END_GROUP
     GROUP Tapes 2
-HIDE
+      
+      HIDE
       gen_pointer Tape -1000-2000 2
         POS 1228.500000 767.000000
         IMAGE CRT Displays/PFD/Altimeter/ALTtapes/ALTtape01
         DATAREF sim/cockpit2/gauges/indicators/altitude_ft_copilot
-        SHOW_LESS 2500.000000 sim/cockpit2/gauges/indicators/altitude_ft_pilotHIDE
+        SHOW_LESS 2500.000000 sim/cockpit2/gauges/indicators/altitude_ft_pilot
+        
+        HIDE
         CLIP
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
@@ -108195,7 +108607,9 @@ HIDE
         IMAGE CRT Displays/PFD/Altimeter/ALTtapes/ALTtape02
         DATAREF sim/cockpit2/gauges/indicators/altitude_ft_copilot
         SHOW_LESS 5500.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilot
-        SHOW_GREATER 1600.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilotHIDE
+        SHOW_GREATER 1600.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilot
+        
+        HIDE
         CLIP
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
@@ -108211,7 +108625,9 @@ HIDE
         IMAGE CRT Displays/PFD/Altimeter/ALTtapes/ALTtape03
         DATAREF sim/cockpit2/gauges/indicators/altitude_ft_copilot
         SHOW_LESS 8500.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilot
-        SHOW_GREATER 4600.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilotHIDE
+        SHOW_GREATER 4600.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilot
+        
+        HIDE
         CLIP
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
@@ -108227,7 +108643,9 @@ HIDE
         IMAGE CRT Displays/PFD/Altimeter/ALTtapes/ALTtape04
         DATAREF sim/cockpit2/gauges/indicators/altitude_ft_copilot
         SHOW_LESS 11500.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilot
-        SHOW_GREATER 7600.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilotHIDE
+        SHOW_GREATER 7600.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilot
+        
+        HIDE
         CLIP
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
@@ -108243,7 +108661,9 @@ HIDE
         IMAGE CRT Displays/PFD/Altimeter/ALTtapes/ALTtape05
         DATAREF sim/cockpit2/gauges/indicators/altitude_ft_copilot
         SHOW_LESS 14500.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilot
-        SHOW_GREATER 10600.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilotHIDE
+        SHOW_GREATER 10600.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilot
+        
+        HIDE
         CLIP
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
@@ -108259,7 +108679,9 @@ HIDE
         IMAGE CRT Displays/PFD/Altimeter/ALTtapes/ALTtape06
         DATAREF sim/cockpit2/gauges/indicators/altitude_ft_copilot
         SHOW_LESS 17500.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilot
-        SHOW_GREATER 13600.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilotHIDE
+        SHOW_GREATER 13600.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilot
+        
+        HIDE
         CLIP
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
@@ -108275,7 +108697,9 @@ HIDE
         IMAGE CRT Displays/PFD/Altimeter/ALTtapes/ALTtape07
         DATAREF sim/cockpit2/gauges/indicators/altitude_ft_copilot
         SHOW_LESS 20500.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilot
-        SHOW_GREATER 16600.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilotHIDE
+        SHOW_GREATER 16600.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilot
+        
+        HIDE
         CLIP
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
@@ -108291,7 +108715,9 @@ HIDE
         IMAGE CRT Displays/PFD/Altimeter/ALTtapes/ALTtape08
         DATAREF sim/cockpit2/gauges/indicators/altitude_ft_copilot
         SHOW_LESS 23500.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilot
-        SHOW_GREATER 19600.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilotHIDE
+        SHOW_GREATER 19600.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilot
+        
+        HIDE
         CLIP
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
@@ -108307,7 +108733,9 @@ HIDE
         IMAGE CRT Displays/PFD/Altimeter/ALTtapes/ALTtape09
         DATAREF sim/cockpit2/gauges/indicators/altitude_ft_copilot
         SHOW_LESS 26500.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilot
-        SHOW_GREATER 22600.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilotHIDE
+        SHOW_GREATER 22600.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilot
+        
+        HIDE
         CLIP
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
@@ -108323,7 +108751,9 @@ HIDE
         IMAGE CRT Displays/PFD/Altimeter/ALTtapes/ALTtape10
         DATAREF sim/cockpit2/gauges/indicators/altitude_ft_copilot
         SHOW_LESS 29500.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilot
-        SHOW_GREATER 25600.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilotHIDE
+        SHOW_GREATER 25600.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilot
+        
+        HIDE
         CLIP
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
@@ -108339,7 +108769,9 @@ HIDE
         IMAGE CRT Displays/PFD/Altimeter/ALTtapes/ALTtape11
         DATAREF sim/cockpit2/gauges/indicators/altitude_ft_copilot
         SHOW_LESS 32500.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilot
-        SHOW_GREATER 28600.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilotHIDE
+        SHOW_GREATER 28600.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilot
+        
+        HIDE
         CLIP
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
@@ -108355,7 +108787,9 @@ HIDE
         IMAGE CRT Displays/PFD/Altimeter/ALTtapes/ALTtape12
         DATAREF sim/cockpit2/gauges/indicators/altitude_ft_copilot
         SHOW_LESS 35500.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilot
-        SHOW_GREATER 31600.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilotHIDE
+        SHOW_GREATER 31600.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilot
+        
+        HIDE
         CLIP
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
@@ -108371,7 +108805,9 @@ HIDE
         IMAGE CRT Displays/PFD/Altimeter/ALTtapes/ALTtape13
         DATAREF sim/cockpit2/gauges/indicators/altitude_ft_copilot
         SHOW_LESS 38500.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilot
-        SHOW_GREATER 34600.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilotHIDE
+        SHOW_GREATER 34600.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilot
+        
+        HIDE
         CLIP
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
@@ -108387,7 +108823,9 @@ HIDE
         IMAGE CRT Displays/PFD/Altimeter/ALTtapes/ALTtape14
         DATAREF sim/cockpit2/gauges/indicators/altitude_ft_copilot
         SHOW_LESS 41500.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilot
-        SHOW_GREATER 37600.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilotHIDE
+        SHOW_GREATER 37600.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilot
+        
+        HIDE
         CLIP
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
@@ -108403,7 +108841,9 @@ HIDE
         IMAGE CRT Displays/PFD/Altimeter/ALTtapes/ALTtape16
         DATAREF sim/cockpit2/gauges/indicators/altitude_ft_copilot
         SHOW_LESS 99999.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilot
-        SHOW_GREATER 43600.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilotHIDE
+        SHOW_GREATER 43600.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilot
+        
+        HIDE
         CLIP
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
@@ -108420,7 +108860,9 @@ HIDE
         IMAGE CRT Displays/PFD/Altimeter/ALTtapes/ALTtape15
         DATAREF sim/cockpit2/gauges/indicators/altitude_ft_copilot
         SHOW_LESS 44500.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilot
-        SHOW_GREATER 40600.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilotHIDE
+        SHOW_GREATER 40600.000000 sim/cockpit2/gauges/indicators/altitude_ft_copilot
+        
+        HIDE
         CLIP
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
@@ -108433,7 +108875,8 @@ HIDE
 
     END_GROUP
     GROUP Altitude Offset 2
-HIDE
+      
+      HIDE
       GROUP_ANIMATE_MODE TRANSLATE
       GROUP_WIDTH 106
       GROUP_HEIGHT 480
@@ -108447,7 +108890,9 @@ HIDE
       gen_pointer Alt Set Bug 2
         POS 1201.500000 767.000000
         IMAGE CRT Displays/PFD/Altimeter/SelAltPtr
-        DATAREF laminar/B747/autopilot/heading/altitude_dial_ftHIDE
+        DATAREF laminar/B747/autopilot/heading/altitude_dial_ft
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
         BUS_SRC 4
@@ -108460,7 +108905,9 @@ HIDE
       gen_pointer MDA Bug 2
         POS 1221.000000 767.000000
         IMAGE CRT Displays/PFD/Altimeter/BaroAltPtr
-        DATAREF laminar/B747/efis/baro_ref/foHIDE
+        DATAREF laminar/B747/efis/baro_ref/fo
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
         BUS_SRC 4
@@ -108482,7 +108929,8 @@ HIDE
           POS 1261.000000 812.000000
           IMAGE CRT Displays/PFD/Altimeter/ALTrollingDigits/ALTcrntWndwM
           DATAREF 
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -108503,7 +108951,8 @@ HIDE
           POS 1255.000000 813.500000
           IMAGE CRT Displays/LED/LED_2.30R.x####0.white
           DATAREF sim/cockpit2/gauges/indicators/altitude_ft_copilot
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -108515,12 +108964,15 @@ HIDE
           LED_ROWS 5
 
       END_GROUP
-      GROUP Feet 2HIDE
+      GROUP Feet 2
+        
+        HIDE
         gen_rotary Crnt Alt Window 2
           POS 1254.500000 767.000000
           IMAGE CRT Displays/PFD/Altimeter/ALTrollingDigits/ALTcrntWndw
           DATAREF 
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -108541,7 +108993,8 @@ HIDE
           POS 1290.500000 767.000000
           IMAGE CRT Displays/PFD/Altimeter/ALTrollingDigits/ALTcrntTensOnes
           DATAREF sim/cockpit2/gauges/indicators/altitude_ft_copilot
-HIDE
+          
+          HIDE
           KF_WRAP_BOTTOM
           KF_WRAP_TOP
           CLIP
@@ -108558,7 +109011,8 @@ HIDE
           POS 1281.500000 767.000000
           IMAGE CRT Displays/PFD/Altimeter/ALTrollingDigits/ALTcrntHndrds
           DATAREF sim/cockpit2/gauges/indicators/altitude_ft_copilot
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -108570,7 +109024,8 @@ HIDE
           POS 1274.500000 767.000000
           IMAGE CRT Displays/PFD/Altimeter/ALTrollingDigits/ALTcrntThousands
           DATAREF sim/cockpit2/gauges/indicators/altitude_ft_copilot
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -108582,7 +109037,8 @@ HIDE
           POS 1263.500000 767.000000
           IMAGE CRT Displays/PFD/Altimeter/ALTrollingDigits/ALTcrntTenThsnd
           DATAREF sim/cockpit2/gauges/indicators/altitude_ft_copilot
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -108594,12 +109050,14 @@ HIDE
     END_GROUP
   END_GROUP
   GROUP Approach Course 2
-HIDE
+    
+    HIDE
     gen_rotary CRS Label 2
       POS 843.500000 576.000000
       IMAGE CRT Displays/PFD/Approach Course/ILScrsLabel
       DATAREF 
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
       BUS_SRC 4
@@ -108621,7 +109079,8 @@ HIDE
       IMAGE CRT Displays/LED/LED_1.14B.xxx##0.white
       DATAREF sim/cockpit2/radios/actuators/nav1_course_deg_mag_copilot
       SHOW_EQUAL 0.000000 laminar/B747/flt_inst/fmc_master_src/ctr_pnl/sel_dial_pos
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
       BUS_SRC 4
@@ -108637,7 +109096,8 @@ HIDE
       IMAGE CRT Displays/LED/LED_1.14B.xxx##0.white
       DATAREF sim/cockpit2/radios/actuators/nav2_course_deg_mag_pilot
       SHOW_EQUAL 1.000000 laminar/B747/flt_inst/fmc_master_src/ctr_pnl/sel_dial_pos
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
       BUS_SRC 4
@@ -108651,12 +109111,14 @@ HIDE
   END_GROUP
   GROUP MDA 2
     SHOW_GREATER -100.000000 laminar/B747/efis/baro_ref/fo
-HIDE
+    
+    HIDE
     gen_rotary MDA Label 2
       POS 1125.000000 592.500000
       IMAGE CRT Displays/PFD/Minimums/MDAlabel
       DATAREF 
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
       BUS_SRC 4
@@ -108677,7 +109139,8 @@ HIDE
       POS 1114.000000 573.500000
       IMAGE CRT Displays/LED/LED_2.18R.xx###0.green
       DATAREF laminar/B747/efis/baro_ref/fo
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
       BUS_SRC 4
@@ -108690,13 +109153,15 @@ HIDE
 
   END_GROUP
   GROUP Baro 2
-HIDE
+    
+    HIDE
     gen_rotary STD Label 2
       POS 1231.000000 504.500000
       IMAGE CRT Displays/PFD/Baro/STDlabel
       DATAREF 
       SHOW_EQUAL 1.000000 laminar/B747/efis/baro_std/fo/switch_pos
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
       BUS_SRC 4
@@ -108715,12 +109180,15 @@ HIDE
 
     GROUP Pre-Select 2
       SHOW_EQUAL 1.000000 laminar/B747/efis/baro_std/fo/switch_pos
-HIDE
+      
+      HIDE
       gen_LED LED in/Hg 2
         POS 1223.000000 481.500000
         IMAGE CRT Displays/LED/LED_1.14B.xx###0.white
         DATAREF laminar/B747/efis/baro/fo/preselect
-        SHOW_EQUAL 0.000000 laminar/B747/efis/baro_ref/fo/sel_dial_posHIDE
+        SHOW_EQUAL 0.000000 laminar/B747/efis/baro_ref/fo/sel_dial_pos
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
         BUS_SRC 4
@@ -108735,7 +109203,9 @@ HIDE
         POS 1223.000000 481.500000
         IMAGE CRT Displays/LED/LED_1.14B.xx###0.white
         DATAREF laminar/B747/efis/baro/fo/preselect
-        SHOW_EQUAL 1.000000 laminar/B747/efis/baro_ref/fo/sel_dial_posHIDE
+        SHOW_EQUAL 1.000000 laminar/B747/efis/baro_ref/fo/sel_dial_pos
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
         BUS_SRC 4
@@ -108749,7 +109219,9 @@ HIDE
       gen_rotary Annun IN/HPA 2
         POS 1260.000000 482.000000
         IMAGE CRT Displays/PFD/Annunciators/BAROref2
-        DATAREF laminar/B747/efis/baro_ref/fo/sel_dial_posHIDE
+        DATAREF laminar/B747/efis/baro_ref/fo/sel_dial_pos
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
         BUS_SRC 4
@@ -108769,12 +109241,15 @@ HIDE
     END_GROUP
     GROUP Active: Non-STD 2
       SHOW_EQUAL 0.000000 laminar/B747/efis/baro_std/fo/switch_pos
-HIDE
+      
+      HIDE
       gen_LED LED in/Hg 2
         POS 1216.000000 502.500000
         IMAGE CRT Displays/LED/LED_2.18R.xx###0.green
         DATAREF sim/cockpit2/gauges/actuators/barometer_setting_in_hg_copilot
-        SHOW_EQUAL 0.000000 laminar/B747/efis/baro_ref/fo/sel_dial_posHIDE
+        SHOW_EQUAL 0.000000 laminar/B747/efis/baro_ref/fo/sel_dial_pos
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
         BUS_SRC 4
@@ -108789,7 +109264,9 @@ HIDE
         POS 1216.000000 502.500000
         IMAGE CRT Displays/LED/LED_2.18R.xx###0.green
         DATAREF sim/cockpit2/gauges/actuators/barometer_setting_in_hg_copilot
-        SHOW_EQUAL 1.000000 laminar/B747/efis/baro_ref/fo/sel_dial_posHIDE
+        SHOW_EQUAL 1.000000 laminar/B747/efis/baro_ref/fo/sel_dial_pos
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
         BUS_SRC 4
@@ -108803,7 +109280,9 @@ HIDE
       gen_rotary Annun IN/HPA 2
         POS 1274.000000 502.500000
         IMAGE CRT Displays/PFD/Annunciators/BAROref
-        DATAREF laminar/B747/efis/baro_ref/fo/sel_dial_posHIDE
+        DATAREF laminar/B747/efis/baro_ref/fo/sel_dial_pos
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
         BUS_SRC 4
@@ -108824,12 +109303,14 @@ HIDE
   END_GROUP
   GROUP Hdg/Track Display 2
     SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
-HIDE
+    
+    HIDE
     gen_rotary Background 2
       POS 994.000000 507.000000
       IMAGE CRT Displays/PFD/Heading Track/HdgTrackBgnd
       DATAREF 
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
       BUS_SRC 4
@@ -108850,7 +109331,8 @@ HIDE
       POS 994.000000 560.500000
       IMAGE CRT Displays/PFD/Heading Track/HdgTrackPtr
       DATAREF 
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
       BUS_SRC 4
@@ -108871,7 +109353,8 @@ HIDE
       POS 994.000000 507.000000
       IMAGE CRT Displays/PFD/Heading Track/HdgTrackRose
       DATAREF sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_copilot
-HIDE
+      
+      HIDE
       CLIP
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
@@ -108886,7 +109369,8 @@ HIDE
       POS 942.000000 477.500000
       IMAGE CRT Displays/LED/LED_1.14B.xxx000.magenta
       DATAREF sim/cockpit2/autopilot/heading_dial_deg_mag_pilot
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
       BUS_SRC 4
@@ -108901,7 +109385,8 @@ HIDE
       POS 1051.500000 478.000000
       IMAGE CRT Displays/PFD/Heading Track/HdgTrackMagLabel
       DATAREF 
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
       BUS_SRC 4
@@ -108919,7 +109404,8 @@ HIDE
       CLICK_DY 0
 
     GROUP Rose Offset 2
-HIDE
+      
+      HIDE
       GROUP_ANIMATE_MODE ROTATE
       GROUP_WIDTH 344
       GROUP_HEIGHT 86
@@ -109023,7 +109509,9 @@ GROUP First Officer ND
         POS 1023.000000 78.000000
         DATAREF 
         SIZE 3.500000
-        COPILOTHIDE
+        COPILOT
+        
+        HIDE
         LIGHT_MODE MECHANICAL
         LIGHT_RHEOSTAT 3
         BUS_SRC 4
@@ -109034,7 +109522,9 @@ GROUP First Officer ND
         POS 1023.500000 95.000000
         IMAGE EFIS/Maps/mask_centered
         DATAREF 
-        SHOW_LESS 2.000000 laminar/B747/nd/mode/fo/sel_dial_posHIDE
+        SHOW_LESS 2.000000 laminar/B747/nd/mode/fo/sel_dial_pos
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 3
         BUS_SRC 4
@@ -109055,7 +109545,9 @@ GROUP First Officer ND
         POS 1022.500000 95.000000
         IMAGE EFIS/Maps/mask_expanded
         DATAREF 
-        SHOW_EQUAL 3.000000 laminar/B747/nd/mode/fo/sel_dial_posHIDE
+        SHOW_EQUAL 3.000000 laminar/B747/nd/mode/fo/sel_dial_pos
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 3
         BUS_SRC 4
@@ -109081,7 +109573,8 @@ GROUP First Officer ND
           IMAGE EFIS/Maps/rose_S_outer_tick
           DATAREF 
           SHOW_LESS 1.000000 laminar/B747/nd/mode/fo/sel_dial_pos
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -109103,7 +109596,8 @@ HIDE
           IMAGE EFIS/Maps/rose_S
           DATAREF 
           SHOW_LESS 1.000000 laminar/B747/nd/mode/fo/sel_dial_pos
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -109117,7 +109611,8 @@ HIDE
           IMAGE EFIS/Maps/roseM_S
           DATAREF 
           SHOW_EQUAL 2.000000 laminar/B747/nd/mode/fo/sel_dial_pos
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -109131,7 +109626,8 @@ HIDE
           IMAGE EFIS/Maps/rose_L
           DATAREF 
           SHOW_EQUAL 3.000000 laminar/B747/nd/mode/fo/sel_dial_pos
-HIDE
+          
+          HIDE
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
@@ -109158,7 +109654,8 @@ HIDE
           POS 1022.000000 339.500000
           IMAGE EFIS/Maps/hdg_box
           DATAREF 
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -109179,7 +109676,8 @@ HIDE
           POS 1079.500000 337.500000
           IMAGE EFIS/Maps/label_MAG
           DATAREF 
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -109198,13 +109696,16 @@ HIDE
 
       END_GROUP
       GROUP PLN
-        SHOW_EQUAL 3.000000 laminar/B747/nd/mode/fo/sel_dial_posHIDE
+        SHOW_EQUAL 3.000000 laminar/B747/nd/mode/fo/sel_dial_pos
+        
+        HIDE
         GROUP_OPEN
         gen_rotary Heading Box
           POS 1022.000000 398.500000
           IMAGE EFIS/Maps/hdg_box
           DATAREF 
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -109225,7 +109726,8 @@ HIDE
           POS 1079.500000 396.500000
           IMAGE EFIS/Maps/label_MAG
           DATAREF 
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -109244,13 +109746,16 @@ HIDE
 
       END_GROUP
       GROUP TRACK
-        SHOW_EQUAL 2.000000 laminar/B747/nd/mode/fo/sel_dial_posHIDE
+        SHOW_EQUAL 2.000000 laminar/B747/nd/mode/fo/sel_dial_pos
+        
+        HIDE
         GROUP_OPEN
         gen_rotary TRK Label
           POS 964.500000 337.500000
           IMAGE EFIS/Maps/label_TRK
           DATAREF 
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -109272,7 +109777,8 @@ HIDE
           IMAGE CRT Displays/LED/LED_3.30B.xxx000.white
           DATAREF sim/cockpit2/gauges/indicators/ground_track_mag_copilot
           SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/map_mode
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -109297,6 +109803,7 @@ HIDE
             POS 964.500000 337.500000
             IMAGE EFIS/Maps/label_HDG
             DATAREF 
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -109318,6 +109825,7 @@ HIDE
             POS 1022.000000 339.000000
             IMAGE CRT Displays/LED/LED_3.30B.xxx000.white
             DATAREF sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_copilot
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -109332,12 +109840,14 @@ HIDE
         END_GROUP
         GROUP PLN
           SHOW_EQUAL 3.000000 laminar/B747/nd/mode/fo/sel_dial_pos
-HIDE
+          
+          HIDE
           GROUP_OPEN
           gen_rotary HDG Label 2
             POS 964.500000 395.500000
             IMAGE EFIS/Maps/label_HDG
             DATAREF 
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -109359,6 +109869,7 @@ HIDE
             POS 1022.000000 397.000000
             IMAGE CRT Displays/LED/LED_3.30B.xxx000.white
             DATAREF sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_copilot
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -109374,7 +109885,8 @@ HIDE
       END_GROUP
     END_GROUP
     GROUP Hdg Ofst:APP/VOR/MA
-HIDE
+      
+      HIDE
       GROUP_OPEN
       GROUP_ANIMATE_MODE ROTATE
       GROUP_WIDTH 500
@@ -109400,6 +109912,7 @@ HIDE
             POS 1022.000000 71.000000
             IMAGE EFIS/Maps/Centered/sel_crs_ptr
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[0]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -109414,6 +109927,7 @@ HIDE
             IMAGE EFIS/Maps/Centered/cdi
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[0]
             SHOW_GREATER 2.310000 sim/cockpit2/radios/indicators/nav1_hdef_dots_copilot
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -109430,6 +109944,7 @@ HIDE
             IMAGE EFIS/Maps/Centered/cdi_filled
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[0]
             SHOW_LESS 2.300000 sim/cockpit2/radios/indicators/nav1_hdef_dots_copilot
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -109445,6 +109960,7 @@ HIDE
             POS 1022.000000 71.500000
             IMAGE EFIS/Maps/Expanded/LOCscale
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[0]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -109457,12 +109973,14 @@ HIDE
         END_GROUP
         GROUP ILS R
           SHOW_EQUAL 3.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
-HIDE
+          
+          HIDE
           GROUP_OPEN
           gen_needle Course Ptr
             POS 1022.000000 71.000000
             IMAGE EFIS/Maps/Centered/sel_crs_ptr
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[1]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -109477,6 +109995,7 @@ HIDE
             IMAGE EFIS/Maps/Centered/cdi
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[1]
             SHOW_GREATER 2.310000 sim/cockpit2/radios/indicators/nav2_hdef_dots_copilot
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -109493,6 +110012,7 @@ HIDE
             IMAGE EFIS/Maps/Centered/cdi_filled
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[1]
             SHOW_LESS 2.300000 sim/cockpit2/radios/indicators/nav2_hdef_dots_copilot
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -109508,6 +110028,7 @@ HIDE
             POS 1022.000000 71.500000
             IMAGE EFIS/Maps/Expanded/LOCscale
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[1]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -109533,6 +110054,7 @@ HIDE
             POS 1022.000000 71.000000
             IMAGE EFIS/Maps/Centered/sel_crs_ptr
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[2]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -109547,6 +110069,7 @@ HIDE
             IMAGE EFIS/Maps/Centered/cdi
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[2]
             SHOW_GREATER 2.310000 [2]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -109562,6 +110085,7 @@ HIDE
             POS 1022.000000 71.500000
             IMAGE EFIS/Maps/Expanded/LOCscale
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[2]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -109574,12 +110098,14 @@ HIDE
         END_GROUP
         GROUP VOR R
           SHOW_EQUAL 0.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
-HIDE
+          
+          HIDE
           GROUP_OPEN
           gen_needle Course Ptr 2
             POS 1022.000000 71.000000
             IMAGE EFIS/Maps/Centered/sel_crs_ptr
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[3]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -109593,6 +110119,7 @@ HIDE
             POS 1022.000000 71.000000
             IMAGE EFIS/Maps/Centered/cdi
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[3]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -109608,6 +110135,7 @@ HIDE
             POS 1022.000000 71.500000
             IMAGE EFIS/Maps/Expanded/LOCscale
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[3]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -109623,7 +110151,9 @@ HIDE
         POS 1022.000000 309.000000
         IMAGE EFIS/Maps/hdg_ptr
         DATAREF sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_copilot
-        SHOW_LESS 2.000000 laminar/B747/nd/mode/capt/sel_dial_posHIDE
+        SHOW_LESS 2.000000 laminar/B747/nd/mode/capt/sel_dial_pos
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 3
         BUS_SRC 4
@@ -109652,7 +110182,9 @@ HIDE
         POS 1022.000000 367.000000
         IMAGE EFIS/Maps/hdg_ptr
         DATAREF sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_copilot
-        SHOW_EQUAL 3.000000 laminar/B747/nd/mode/fo/sel_dial_posHIDE
+        SHOW_EQUAL 3.000000 laminar/B747/nd/mode/fo/sel_dial_pos
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 3
         BUS_SRC 4
@@ -109677,7 +110209,8 @@ HIDE
           POS 1022.000000 71.000000
           IMAGE EFIS/Maps/Centered/VOR_L_bug
           DATAREF sim/cockpit2/radios/indicators/nav_relative_bearing_deg[2]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -109689,13 +110222,16 @@ HIDE
 
       END_GROUP
       GROUP VOR R
-        SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_2_selection_copilotHIDE
+        SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_2_selection_copilot
+        
+        HIDE
         GROUP_OPEN
         gen_needle pointer
           POS 1022.000000 71.000000
           IMAGE EFIS/Maps/Centered/VOR_R_bug
           DATAREF sim/cockpit2/radios/indicators/nav_relative_bearing_deg[3]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -109707,13 +110243,16 @@ HIDE
 
       END_GROUP
       GROUP ADF L
-        SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_1_selection_copilotHIDE
+        SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_1_selection_copilot
+        
+        HIDE
         GROUP_OPEN
         gen_needle pointer
           POS 1022.000000 71.000000
           IMAGE EFIS/Maps/Centered/ADF_L_bug
           DATAREF sim/cockpit2/radios/indicators/adf1_relative_bearing_deg[10]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -109725,13 +110264,16 @@ HIDE
 
       END_GROUP
       GROUP ADF R
-        SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_2_selection_copilotHIDE
+        SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_2_selection_copilot
+        
+        HIDE
         GROUP_OPEN
         gen_needle pointer
           POS 1022.000000 71.000000
           IMAGE EFIS/Maps/Centered/ADF_R_bug
           DATAREF sim/cockpit2/radios/indicators/adf2_relative_bearing_deg[10]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -109748,7 +110290,8 @@ HIDE
       IMAGE EFIS/Maps/aircraft_triangle
       DATAREF 
       SHOW_EQUAL 2.000000 laminar/B747/nd/mode/fo/sel_dial_pos
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 3
       BUS_SRC 4
@@ -109770,7 +110313,8 @@ HIDE
       IMAGE EFIS/Maps/Centered/aircraft_symbol
       DATAREF 
       SHOW_LESS 1.000000 laminar/B747/nd/mode/fo/sel_dial_pos
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 3
       BUS_SRC 4
@@ -109837,7 +110381,8 @@ HIDE
       IMAGE EFIS/Maps/NorthArrow
       DATAREF 
       SHOW_EQUAL 3.000000 laminar/B747/nd/mode/fo/sel_dial_pos
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 3
       BUS_SRC 4
@@ -109862,7 +110407,9 @@ HIDE
       gen_rotary Mask:GS
         POS 1341.500000 70.000000
         IMAGE EFIS/Maps/GSscaleMask
-        DATAREF HIDE
+        DATAREF 
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 3
         BUS_SRC 4
@@ -109893,6 +110440,7 @@ HIDE
             POS 1341.500000 70.500000
             IMAGE CRT Displays/PFD/Artificial Horizon/HrznGSpointer
             DATAREF sim/cockpit2/radios/indicators/hsi_vdef_dots_copilot
+            
             HIDE
             CLIP
             LIGHT_MODE GLASS_AUTO
@@ -109910,12 +110458,14 @@ HIDE
         END_GROUP
         GROUP Pointer VDEF <= 2.3
           SHOW_LESS 2.333333 sim/cockpit2/radios/indicators/hsi_vdef_dots_copilot
-HIDE
+          
+          HIDE
           GROUP_OPEN
           gen_pointer Pointer 2
             POS 1341.500000 70.500000
             IMAGE CRT Displays/PFD/Artificial Horizon/HrznGSpointer2
             DATAREF sim/cockpit2/radios/indicators/hsi_vdef_dots_copilot
+            
             HIDE
             CLIP
             LIGHT_MODE GLASS_AUTO
@@ -109935,7 +110485,9 @@ HIDE
       gen_rotary Scale
         POS 1341.500000 70.500000
         IMAGE CRT Displays/PFD/Artificial Horizon/HrznGSscale
-        DATAREF HIDE
+        DATAREF 
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 3
         BUS_SRC 4
@@ -109968,7 +110520,9 @@ HIDE
         POS 1023.000000 -81.000000
         DATAREF 
         SIZE 3.500000
-        COPILOTHIDE
+        COPILOT
+        
+        HIDE
         LIGHT_MODE MECHANICAL
         LIGHT_RHEOSTAT 3
         BUS_SRC 4
@@ -109978,7 +110532,9 @@ HIDE
       gen_rotary Mask:Expanded
         POS 1022.500000 95.000000
         IMAGE EFIS/Maps/mask_expanded
-        DATAREF HIDE
+        DATAREF 
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 3
         BUS_SRC 4
@@ -109998,7 +110554,9 @@ HIDE
       gen_needle Rose
         POS 1022.500000 166.000000
         IMAGE EFIS/Maps/rose_L
-        DATAREF sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_copilotHIDE
+        DATAREF sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_copilot
+        
+        HIDE
         CLIP
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 3
@@ -110018,7 +110576,9 @@ HIDE
       gen_rotary Heading Box
         POS 1022.000000 398.500000
         IMAGE EFIS/Maps/hdg_box
-        DATAREF HIDE
+        DATAREF 
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 3
         BUS_SRC 4
@@ -110038,7 +110598,9 @@ HIDE
       gen_rotary MAG Label
         POS 1079.500000 396.500000
         IMAGE EFIS/Maps/label_MAG
-        DATAREF HIDE
+        DATAREF 
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 3
         BUS_SRC 4
@@ -110056,13 +110618,16 @@ HIDE
         CLICK_DY 0
 
       GROUP TRACK
-        SHOW_EQUAL 2.000000 laminar/B747/nd/mode/fo/sel_dial_posHIDE
+        SHOW_EQUAL 2.000000 laminar/B747/nd/mode/fo/sel_dial_pos
+        
+        HIDE
         GROUP_OPEN
         gen_rotary TRK Label
           POS 964.500000 396.500000
           IMAGE EFIS/Maps/label_TRK
           DATAREF 
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -110083,7 +110648,8 @@ HIDE
           POS 1022.000000 398.000000
           IMAGE CRT Displays/LED/LED_3.30B.xxx000.white
           DATAREF sim/cockpit2/gauges/indicators/ground_track_mag_copilot
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -110108,6 +110674,7 @@ HIDE
             POS 964.500000 396.500000
             IMAGE EFIS/Maps/label_HDG
             DATAREF 
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -110129,6 +110696,7 @@ HIDE
             POS 1022.000000 398.000000
             IMAGE CRT Displays/LED/LED_3.30B.xxx000.white
             DATAREF sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_pilot
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -110143,12 +110711,14 @@ HIDE
         END_GROUP
         GROUP PLAN
           SHOW_EQUAL 3.000000 laminar/B747/nd/mode/fo/sel_dial_pos
-HIDE
+          
+          HIDE
           GROUP_OPEN
           gen_rotary HDG Label
             POS 964.500000 396.500000
             IMAGE EFIS/Maps/label_HDG
             DATAREF 
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -110170,6 +110740,7 @@ HIDE
             POS 1022.000000 398.000000
             IMAGE CRT Displays/LED/LED_3.30B.xxx000.white
             DATAREF sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_copilot
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -110203,7 +110774,9 @@ HIDE
         POS 1022.000000 137.000000
         IMAGE EFIS/Maps/Expanded/track_line
         DATAREF sim/cockpit2/gauges/indicators/ground_track_mag_copilot
-        SHOW_EQUAL 1.000000 laminar/B747/nd/track_line_onHIDE
+        SHOW_EQUAL 1.000000 laminar/B747/nd/track_line_on
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 3
         BUS_SRC 4
@@ -110227,6 +110800,7 @@ HIDE
             POS 1022.000000 -85.000000
             IMAGE EFIS/Maps/Expanded/sel_crs_ptr
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[0]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -110241,6 +110815,7 @@ HIDE
             IMAGE EFIS/Maps/Expanded/cdi
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[0]
             SHOW_GREATER 2.310000 sim/cockpit2/radios/indicators/nav1_hdef_dots_pilot
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -110257,6 +110832,7 @@ HIDE
             IMAGE EFIS/Maps/Expanded/cdi_filled
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[0]
             SHOW_LESS 2.300000 sim/cockpit2/radios/indicators/nav1_hdef_dots_pilot
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -110272,6 +110848,7 @@ HIDE
             POS 1022.000000 -84.500000
             IMAGE EFIS/Maps/Expanded/LOCscale
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[0]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -110284,12 +110861,14 @@ HIDE
         END_GROUP
         GROUP ILS R
           SHOW_EQUAL 3.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
-HIDE
+          
+          HIDE
           GROUP_OPEN
           gen_needle Course Pointer
             POS 1022.000000 -85.000000
             IMAGE EFIS/Maps/Expanded/sel_crs_ptr
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[1]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -110304,6 +110883,7 @@ HIDE
             IMAGE EFIS/Maps/Expanded/cdi
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[1]
             SHOW_GREATER 2.310000 sim/cockpit2/radios/indicators/nav2_hdef_dots_pilot
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -110320,6 +110900,7 @@ HIDE
             IMAGE EFIS/Maps/Expanded/cdi_filled
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[1]
             SHOW_LESS 2.300000 sim/cockpit2/radios/indicators/nav2_hdef_dots_pilot
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -110335,6 +110916,7 @@ HIDE
             POS 1022.000000 -84.500000
             IMAGE EFIS/Maps/Expanded/LOCscale
             DATAREF sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot[1]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -110360,6 +110942,7 @@ HIDE
             POS 1022.000000 -85.000000
             IMAGE EFIS/Maps/Expanded/sel_crs_ptr
             DATAREF sim/cockpit2/radios/actuators/nav_course_deg_mag_pilot[2]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -110374,6 +110957,7 @@ HIDE
             IMAGE EFIS/Maps/Expanded/cdi
             DATAREF sim/cockpit2/radios/actuators/nav_course_deg_mag_pilot[2]
             SHOW_GREATER 2.310000 [2]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -110389,6 +110973,7 @@ HIDE
             POS 1022.000000 -84.500000
             IMAGE EFIS/Maps/Expanded/LOCscale
             DATAREF sim/cockpit2/radios/actuators/nav_course_deg_mag_pilot[2]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -110401,12 +110986,14 @@ HIDE
         END_GROUP
         GROUP VOR R
           SHOW_EQUAL 1.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
-HIDE
+          
+          HIDE
           GROUP_OPEN
           gen_needle Course Pointer 2
             POS 1022.000000 -85.000000
             IMAGE EFIS/Maps/Expanded/sel_crs_ptr
             DATAREF sim/cockpit2/radios/actuators/nav_course_deg_mag_pilot[3]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -110420,6 +111007,7 @@ HIDE
             POS 1022.000000 -85.000000
             IMAGE EFIS/Maps/Expanded/cdi
             DATAREF sim/cockpit2/radios/actuators/nav_course_deg_mag_pilot[3]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -110435,6 +111023,7 @@ HIDE
             POS 1022.000000 -84.500000
             IMAGE EFIS/Maps/Expanded/LOCscale
             DATAREF sim/cockpit2/radios/actuators/nav_course_deg_mag_pilot[3]
+            
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 3
@@ -110450,7 +111039,9 @@ HIDE
         POS 1022.000000 347.000000
         IMAGE EFIS/Maps/Expanded/heading_bugP
         DATAREF sim/cockpit2/autopilot/heading_dial_deg_mag_pilot
-        SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irsHIDE
+        SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 3
         BUS_SRC 4
@@ -110464,7 +111055,9 @@ HIDE
         POS 1022.000000 137.000000
         IMAGE EFIS/Maps/Expanded/heading_bug_line
         DATAREF sim/cockpit2/autopilot/heading_dial_deg_mag_pilot
-        SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irsHIDE
+        SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 3
         BUS_SRC 4
@@ -110488,7 +111081,8 @@ HIDE
           POS 1022.500000 144.000000
           IMAGE EFIS/Maps/Expanded/VOR_L_bug
           DATAREF sim/cockpit2/radios/indicators/nav_relative_bearing_deg[2]
-HIDE
+          
+          HIDE
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
@@ -110502,13 +111096,16 @@ HIDE
 
       END_GROUP
       GROUP VOR R
-        SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_2_selection_copilotHIDE
+        SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_2_selection_copilot
+        
+        HIDE
         GROUP_OPEN
         gen_needle pointer
           POS 1022.500000 143.500000
           IMAGE EFIS/Maps/Expanded/VOR_R_bug
           DATAREF sim/cockpit2/radios/indicators/nav_relative_bearing_deg[3]
-HIDE
+          
+          HIDE
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
@@ -110522,13 +111119,16 @@ HIDE
 
       END_GROUP
       GROUP ADF L
-        SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_1_selection_copilotHIDE
+        SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_1_selection_copilot
+        
+        HIDE
         GROUP_OPEN
         gen_needle pointer
           POS 1022.500000 144.000000
           IMAGE EFIS/Maps/Expanded/ADF_L_bug
           DATAREF sim/cockpit2/radios/indicators/adf1_relative_bearing_deg[10]
-HIDE
+          
+          HIDE
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
@@ -110542,13 +111142,16 @@ HIDE
 
       END_GROUP
       GROUP ADF R
-        SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_2_selection_copilotHIDE
+        SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_2_selection_copilot
+        
+        HIDE
         GROUP_OPEN
         gen_needle pointer
           POS 1022.500000 143.500000
           IMAGE EFIS/Maps/Expanded/ADF_R_bug
           DATAREF sim/cockpit2/radios/indicators/adf2_relative_bearing_deg[10]
-HIDE
+          
+          HIDE
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
@@ -110566,7 +111169,8 @@ HIDE
       POS 1021.500000 -107.000000
       IMAGE EFIS/Maps/aircraft_triangle
       DATAREF 
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 3
       BUS_SRC 4
@@ -110636,7 +111240,9 @@ HIDE
       gen_rotary Mask:GS
         POS 1341.500000 -36.000000
         IMAGE EFIS/Maps/GSscaleMask
-        DATAREF HIDE
+        DATAREF 
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 3
         BUS_SRC 4
@@ -110667,6 +111273,7 @@ HIDE
             POS 1341.500000 -36.500000
             IMAGE CRT Displays/PFD/Artificial Horizon/HrznGSpointer
             DATAREF sim/cockpit2/radios/indicators/hsi_vdef_dots_copilot
+            
             HIDE
             CLIP
             LIGHT_MODE GLASS_AUTO
@@ -110684,12 +111291,14 @@ HIDE
         END_GROUP
         GROUP Pointer VDEF <= 2.3
           SHOW_LESS 2.333333 sim/cockpit2/radios/indicators/hsi_vdef_dots_copilot
-HIDE
+          
+          HIDE
           GROUP_OPEN
           gen_pointer Pointer
             POS 1341.500000 -36.500000
             IMAGE CRT Displays/PFD/Artificial Horizon/HrznGSpointer2
             DATAREF sim/cockpit2/radios/indicators/hsi_vdef_dots_copilot
+            
             HIDE
             CLIP
             LIGHT_MODE GLASS_AUTO
@@ -110709,7 +111318,9 @@ HIDE
       gen_rotary Scale
         POS 1341.500000 -36.500000
         IMAGE CRT Displays/PFD/Artificial Horizon/HrznGSscale
-        DATAREF HIDE
+        DATAREF 
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 3
         BUS_SRC 4
@@ -110737,7 +111348,8 @@ HIDE
       IMAGE CRT Displays/ND/EFIS annun/ARPT
       DATAREF 
       SHOW_EQUAL 1.000000 sim/cockpit2/EFIS/EFIS_airport_on
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 3
       BUS_SRC 4
@@ -110759,7 +111371,8 @@ HIDE
       IMAGE CRT Displays/ND/EFIS annun/WPT
       DATAREF 
       SHOW_EQUAL 1.000000 sim/cockpit2/EFIS/EFIS_fix_on
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 3
       BUS_SRC 4
@@ -110781,7 +111394,8 @@ HIDE
       IMAGE CRT Displays/ND/EFIS annun/STA
       DATAREF 
       SHOW_EQUAL 1.000000 laminar/B747/nd/data/capt/vor_ndb
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 3
       BUS_SRC 4
@@ -110803,7 +111417,8 @@ HIDE
       IMAGE CRT Displays/ND/EFIS annun/TFC
       DATAREF 
       SHOW_EQUAL 1.000000 sim/cockpit2/EFIS/EFIS_tcas_on
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 3
       BUS_SRC 4
@@ -110825,7 +111440,8 @@ HIDE
       IMAGE CRT Displays/ND/EFIS annun/WXR
       DATAREF 
       SHOW_EQUAL 1.000000 sim/cockpit2/EFIS/EFIS_weather_on
-HIDE
+      
+      HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 3
       BUS_SRC 4
@@ -110854,7 +111470,9 @@ HIDE
       gen_rotary Background  CRS
         POS 1274.500000 391.500000
         IMAGE CRT Displays/ND/Ref Rcvr/crs_bkgnd
-        DATAREF HIDE
+        DATAREF 
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 3
         BUS_SRC 4
@@ -110872,13 +111490,16 @@ HIDE
         CLICK_DY 0
 
       GROUP ILS L
-        SHOW_EQUAL 2.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_posHIDE
+        SHOW_EQUAL 2.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
+        
+        HIDE
         GROUP_OPEN
         gen_rotary Background  ILS L
           POS 1207.000000 417.500000
           IMAGE CRT Displays/ND/Ref Rcvr/ils_L_bkgnd
           DATAREF 
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -110902,7 +111523,8 @@ HIDE
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 1.000000 laminar/B747/nd/vorL_id_flag/capt
           SHOW_GREATER 0.010000 [0]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -110917,7 +111539,8 @@ HIDE
           DATAREF sim/cockpit2/radios/actuators/nav1_frequency_hz
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 0.000000 laminar/B747/nd/vorL_id_flag/capt
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -110932,7 +111555,8 @@ HIDE
           POS 1331.000000 392.500000
           IMAGE CRT Displays/LED/LED_8.21R.xxxxx0.white
           DATAREF sim/cockpit2/radios/actuators/nav1_course_deg_mag_pilot
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -110948,7 +111572,8 @@ HIDE
           IMAGE CRT Displays/ND/Ref Rcvr/dme_bkgnd
           DATAREF 
           SHOW_EQUAL 1.000000 sim/cockpit2/radios/indicators/nav1_has_dme
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -110970,7 +111595,8 @@ HIDE
           IMAGE CRT Displays/ND/dmeX_bkgnd_L
           DATAREF 
           SHOW_EQUAL 0.000000 sim/cockpit2/radios/indicators/nav1_has_dme
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -110992,7 +111618,8 @@ HIDE
           IMAGE CRT Displays/LED/LED_8.21R.xx##00.white
           DATAREF sim/cockpit2/radios/indicators/nav1_dme_distance_nm
           SHOW_EQUAL 1.000000 sim/cockpit2/radios/indicators/nav1_has_dme
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111005,13 +111632,16 @@ HIDE
 
       END_GROUP
       GROUP ILS R
-        SHOW_EQUAL 3.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_posHIDE
+        SHOW_EQUAL 3.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
+        
+        HIDE
         GROUP_OPEN
         gen_rotary Background  ILS R
           POS 1207.000000 417.500000
           IMAGE CRT Displays/ND/Ref Rcvr/ils_R_bkgnd
           DATAREF 
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111035,7 +111665,8 @@ HIDE
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 1.000000 laminar/B747/nd/vorR_id_flag/capt
           SHOW_GREATER 0.010000 [0]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111050,7 +111681,8 @@ HIDE
           DATAREF sim/cockpit2/radios/actuators/nav2_frequency_hz
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 0.000000 laminar/B747/nd/vorR_id_flag/capt
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111065,7 +111697,8 @@ HIDE
           POS 1331.000000 392.500000
           IMAGE CRT Displays/LED/LED_8.21R.xxxxx0.white
           DATAREF sim/cockpit2/radios/actuators/nav2_course_deg_mag_pilot
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111081,7 +111714,8 @@ HIDE
           IMAGE CRT Displays/ND/Ref Rcvr/dme_bkgnd
           DATAREF 
           SHOW_EQUAL 1.000000 sim/cockpit2/radios/indicators/nav2_has_dme
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111103,7 +111737,8 @@ HIDE
           IMAGE CRT Displays/ND/dmeX_bkgnd_R
           DATAREF 
           SHOW_EQUAL 0.000000 sim/cockpit2/radios/indicators/nav2_has_dme
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111125,7 +111760,8 @@ HIDE
           IMAGE CRT Displays/LED/LED_8.21R.xx##00.white
           DATAREF sim/cockpit2/radios/indicators/nav2_dme_distance_nm
           SHOW_EQUAL 1.000000 sim/cockpit2/radios/indicators/nav2_has_dme
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111140,12 +111776,15 @@ HIDE
     END_GROUP
     GROUP Sel Rec VOR
       SHOW_EQUAL 1.000000 laminar/B747/nd/mode/fo/sel_dial_pos
-HIDE
+      
+      HIDE
       GROUP_OPEN
       gen_rotary Background  CRS
         POS 1274.500000 391.500000
         IMAGE CRT Displays/ND/Ref Rcvr/crs_bkgnd
-        DATAREF HIDE
+        DATAREF 
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 3
         BUS_SRC 4
@@ -111163,13 +111802,16 @@ HIDE
         CLICK_DY 0
 
       GROUP VOR L
-        SHOW_EQUAL 0.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_posHIDE
+        SHOW_EQUAL 0.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
+        
+        HIDE
         GROUP_OPEN
         gen_rotary Background  VOR L
           POS 1207.000000 417.500000
           IMAGE CRT Displays/ND/vor_L_bkgnd
           DATAREF 
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111193,7 +111835,8 @@ HIDE
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 1.000000 laminar/B747/nd/vorL_id_flag/capt
           SHOW_GREATER 0.010000 [0]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111208,7 +111851,8 @@ HIDE
           DATAREF sim/cockpit2/radios/actuators/nav_frequency_hz[2]
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 0.000000 laminar/B747/nd/vorL_id_flag/capt
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111223,7 +111867,8 @@ HIDE
           POS 1331.000000 392.500000
           IMAGE CRT Displays/LED/LED_8.21R.xxxxx0.white
           DATAREF sim/cockpit2/radios/actuators/nav_course_deg_mag_pilot[2]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111239,7 +111884,8 @@ HIDE
           IMAGE CRT Displays/ND/Ref Rcvr/dme_bkgnd
           DATAREF 
           SHOW_EQUAL 1.000000 sim/cockpit2/radios/indicators/nav_has_dme[2]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111261,7 +111907,8 @@ HIDE
           IMAGE CRT Displays/ND/dmeX_bkgnd_R
           DATAREF 
           SHOW_EQUAL 0.000000 sim/cockpit2/radios/indicators/nav_has_dme[2]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111283,7 +111930,8 @@ HIDE
           IMAGE CRT Displays/LED/LED_8.21R.xx##00.white
           DATAREF sim/cockpit2/radios/indicators/nav_dme_distance_nm[2]
           SHOW_EQUAL 1.000000 sim/cockpit2/radios/indicators/nav_has_dme[2]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111296,13 +111944,16 @@ HIDE
 
       END_GROUP
       GROUP VOR R
-        SHOW_EQUAL 1.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_posHIDE
+        SHOW_EQUAL 1.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
+        
+        HIDE
         GROUP_OPEN
         gen_rotary Background  VOR R
           POS 1207.000000 417.500000
           IMAGE CRT Displays/ND/vor_R_bkgnd
           DATAREF 
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111326,7 +111977,8 @@ HIDE
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 1.000000 laminar/B747/nd/vorL_id_flag/capt
           SHOW_GREATER 0.010000 [0]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111341,7 +111993,8 @@ HIDE
           DATAREF sim/cockpit2/radios/actuators/nav_frequency_hz[3]
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 0.000000 laminar/B747/nd/vorL_id_flag/capt
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111356,7 +112009,8 @@ HIDE
           POS 1331.000000 392.500000
           IMAGE CRT Displays/LED/LED_8.21R.xxxxx0.white
           DATAREF sim/cockpit2/radios/actuators/nav_course_deg_mag_pilot[3]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111372,7 +112026,8 @@ HIDE
           IMAGE CRT Displays/ND/Ref Rcvr/dme_bkgnd
           DATAREF 
           SHOW_EQUAL 1.000000 sim/cockpit2/radios/indicators/nav_has_dme[3]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111394,7 +112049,8 @@ HIDE
           IMAGE CRT Displays/ND/dmeX_bkgnd_R
           DATAREF 
           SHOW_EQUAL 0.000000 sim/cockpit2/radios/indicators/nav_has_dme[3]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111416,7 +112072,8 @@ HIDE
           IMAGE CRT Displays/LED/LED_8.21R.xx##00.white
           DATAREF sim/cockpit2/radios/indicators/nav_dme_distance_nm[3]
           SHOW_EQUAL 1.000000 sim/cockpit2/radios/indicators/nav_has_dme[3]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111431,12 +112088,15 @@ HIDE
     END_GROUP
     GROUP APP/VOR/MAP Mode
       SHOW_LESS 2.000000 laminar/B747/nd/mode/fo/sel_dial_pos
-HIDE
+      
+      HIDE
       GROUP_OPEN
       gen_rotary Radio Mask L
         POS 749.000000 -206.000000
         IMAGE EFIS/Maps/rad_mask
-        DATAREF HIDE
+        DATAREF 
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 3
         BUS_SRC 4
@@ -111456,7 +112116,9 @@ HIDE
       gen_rotary Radio Mask R
         POS 1296.000000 -206.000000
         IMAGE EFIS/Maps/rad_mask
-        DATAREF HIDE
+        DATAREF 
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 3
         BUS_SRC 4
@@ -111474,13 +112136,16 @@ HIDE
         CLICK_DY 0
 
       GROUP VOR L
-        SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_1_selection_copilotHIDE
+        SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_1_selection_copilot
+        
+        HIDE
         GROUP_OPEN
         gen_rotary Background VOR L
           POS 726.000000 -178.500000
           IMAGE CRT Displays/ND/vor_L_bkgnd
           DATAREF 
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111504,7 +112169,8 @@ HIDE
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 1.000000 laminar/B747/nd/vorL_id_flag/capt
           SHOW_GREATER 0.010000 [0]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111519,7 +112185,8 @@ HIDE
           DATAREF sim/cockpit2/radios/actuators/nav_frequency_hz[2]
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 0.000000 laminar/B747/nd/vorL_id_flag/capt
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111535,7 +112202,8 @@ HIDE
           IMAGE CRT Displays/ND/dme_bkgnd
           DATAREF 
           SHOW_EQUAL 1.000000 sim/cockpit2/radios/indicators/nav_has_dme[2]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111557,7 +112225,8 @@ HIDE
           IMAGE CRT Displays/LED/LED_8.21R.xxx#00.green
           DATAREF sim/cockpit2/radios/indicators/nav_dme_distance_nm[2]
           SHOW_EQUAL 1.000000 sim/cockpit2/radios/indicators/nav_has_dme[2]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111573,7 +112242,8 @@ HIDE
           IMAGE CRT Displays/ND/dmeX_bkgnd_L
           DATAREF 
           SHOW_EQUAL 0.000000 sim/cockpit2/radios/indicators/nav_has_dme[2]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111592,13 +112262,16 @@ HIDE
 
       END_GROUP
       GROUP ADF L
-        SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_1_selection_copilotHIDE
+        SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_1_selection_copilot
+        
+        HIDE
         GROUP_OPEN
         gen_rotary Background
           POS 726.000000 -178.500000
           IMAGE CRT Displays/ND/adf_L_bkgnd
           DATAREF 
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111622,7 +112295,8 @@ HIDE
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 1.000000 laminar/B747/nd/adfL_id_flag/capt
           SHOW_GREATER 0.010000 [0]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111636,7 +112310,8 @@ HIDE
           IMAGE CRT Displays/LED/LED_8.21R.xxx#00.blue
           DATAREF sim/cockpit2/radios/actuators/adf1_frequency_hz
           SHOW_EQUAL 0.000000 laminar/B747/nd/adfL_id_flag/capt
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111649,13 +112324,16 @@ HIDE
 
       END_GROUP
       GROUP VOR R
-        SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_2_selection_copilotHIDE
+        SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_2_selection_copilot
+        
+        HIDE
         GROUP_OPEN
         gen_rotary Background VOR R
           POS 1290.000000 -178.500000
           IMAGE CRT Displays/ND/vor_R_bkgnd
           DATAREF 
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111679,7 +112357,8 @@ HIDE
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 1.000000 laminar/B747/nd/vorR_id_flag/capt
           SHOW_GREATER 0.010000 [0]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111693,7 +112372,8 @@ HIDE
           IMAGE CRT Displays/LED/LED_8.21R.xxx#00.green
           DATAREF sim/cockpit2/radios/actuators/nav_frequency_hz[3]
           SHOW_EQUAL 0.000000 laminar/B747/nd/vorR_id_flag/capt
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111709,7 +112389,8 @@ HIDE
           IMAGE CRT Displays/ND/dme_bkgnd
           DATAREF 
           SHOW_EQUAL 1.000000 sim/cockpit2/radios/indicators/nav_has_dme[3]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111731,7 +112412,8 @@ HIDE
           IMAGE CRT Displays/LED/LED_8.21R.xxx#00.green
           DATAREF sim/cockpit2/radios/indicators/nav_dme_distance_nm[3]
           SHOW_EQUAL 1.000000 sim/cockpit2/radios/indicators/nav_has_dme[3]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111747,7 +112429,8 @@ HIDE
           IMAGE CRT Displays/ND/dmeX_bkgnd_R
           DATAREF 
           SHOW_EQUAL 0.000000 sim/cockpit2/radios/indicators/nav_has_dme[3]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111766,13 +112449,16 @@ HIDE
 
       END_GROUP
       GROUP ADF R
-        SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_2_selection_copilotHIDE
+        SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_2_selection_copilot
+        
+        HIDE
         GROUP_OPEN
         gen_rotary Background
           POS 1290.000000 -178.500000
           IMAGE CRT Displays/ND/adf_R_bkgnd
           DATAREF 
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111796,7 +112482,8 @@ HIDE
           SHOW_LESS 0.000000 [0]
           SHOW_EQUAL 1.000000 laminar/B747/nd/adfR_id_flag/capt
           SHOW_GREATER 0.010000 [0]
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111810,7 +112497,8 @@ HIDE
           IMAGE CRT Displays/LED/LED_8.21R.xxx#00.blue
           DATAREF sim/cockpit2/radios/actuators/adf2_frequency_hz
           SHOW_EQUAL 0.000000 laminar/B747/nd/adfR_id_flag/capt
-HIDE
+          
+          HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 3
           BUS_SRC 4
@@ -111825,15 +112513,18 @@ HIDE
     END_GROUP
   END_GROUP
   GROUP FO IRS INFO
-    LOCKED
+    HIDE
+    GROUP_OPEN
     GROUP FO IRS ON
       SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
-      LOCKED
+      HIDE
       GROUP_OPEN
       EFIS_TAS_GS_wind el_TAS_GS_wind.png
         POS 772.000000 370.000000
         DATAREF [0]
-        SIZE 3.200000HIDE
+        SIZE 3.200000
+        
+        HIDE
         LIGHT_MODE MECHANICAL
         LIGHT_RHEOSTAT 3
         BUS_SRC 4
@@ -111843,12 +112534,14 @@ HIDE
     END_GROUP
     GROUP FO IRS OFF
       SHOW_LESS 0.100000 laminar/B747/pfd/fo/irs
-      LOCKED
+      HIDE
       GROUP_OPEN
       gen_text irs line1
         POS 786.500000 370.000000
         IMAGE CRT Displays/TEXT/TXT.2.28.white
-        DATAREF laminar/B747/irs/line1HIDE
+        DATAREF laminar/B747/irs/line1
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 3
         BUS_SRC 4
@@ -111860,7 +112553,9 @@ HIDE
       gen_text irs line2
         POS 786.500000 345.000000
         IMAGE CRT Displays/TEXT/TXT.2.28.white
-        DATAREF laminar/B747/irs/line2HIDE
+        DATAREF laminar/B747/irs/line2
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 3
         BUS_SRC 4
@@ -111872,7 +112567,9 @@ HIDE
       gen_text irs line3
         POS 786.500000 320.000000
         IMAGE CRT Displays/TEXT/TXT.2.28.white
-        DATAREF laminar/B747/irs/line3HIDE
+        DATAREF laminar/B747/irs/line3
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 3
         BUS_SRC 4
@@ -111884,7 +112581,9 @@ HIDE
       gen_text irs line4
         POS 786.500000 295.000000
         IMAGE CRT Displays/TEXT/TXT.2.28.white
-        DATAREF laminar/B747/irs/line4HIDE
+        DATAREF laminar/B747/irs/line4
+        
+        HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 3
         BUS_SRC 4
@@ -116712,7 +117411,7 @@ GROUP Upper EICAS
       CURSOR DEFAULT
       CLICK_DX 0
       CLICK_DY 0
-
+	  
     GROUP Jettison
       SHOW_GREATER 1.000000 laminar/B747/fuel/fuel_jettison/sel_dial_pos
       
@@ -120816,8 +121515,8 @@ GROUP Lower EICAS
       gen_rotary Label
         POS 1628.500000 390.500000
         IMAGE CRT Displays/EICAS Lower/FUEL/bgnd_label01
-        DATAREF 
-        SHOW_EQUAL 0.000000 laminar/B747/fuel/fuel_display_units_eicas
+        DATAREF
+		SHOW_EQUAL 0 laminar/B747/fuel/fuel_display_units_eicas
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -120834,11 +121533,11 @@ GROUP Lower EICAS
         CLICK_DX 0
         CLICK_DY 0
 
-      gen_rotary LabelLBS
+	  gen_rotary LabelLBS
         POS 1628.500000 390.500000
         IMAGE CRT Displays/EICAS Lower/FUEL/bgnd_label01_2
-        DATAREF 
-        SHOW_EQUAL 1.000000 laminar/B747/fuel/fuel_display_units_eicas
+        DATAREF
+        SHOW_EQUAL 1 laminar/B747/fuel/fuel_display_units_eicas
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
         BUS_SRC 3
@@ -120854,7 +121553,7 @@ GROUP Lower EICAS
         CURSOR DEFAULT
         CLICK_DX 0
         CLICK_DY 0
-
+		
       gen_LED LED
         POS 1736.000000 398.000000
         IMAGE CRT Displays/LED/LED_3.30B.xx##00.white
@@ -120870,7 +121569,7 @@ GROUP Lower EICAS
         LED_ROWS 4
 
       gen_rotary Label
-        POS 1628.500000 357.000000
+        POS 1628.510000 357.500000
         IMAGE CRT Displays/EICAS Lower/FUEL/bgnd_label01_1
         DATAREF 
         SHOW_GREATER 1.000000 laminar/B747/fuel/refuel
@@ -129754,15 +130453,12 @@ END_GROUP
 GROUP Clocks
   
   GROUP Captain
-    LOCKED
-    GROUP_OPEN
+    
     GROUP Upper LCD/GMT
-      LOCKED
-      GROUP_OPEN
+      
       GROUP UTC
         SHOW_EQUAL 0.000000 laminar/B747/fltInst/capt/clock_utc_display
-        LOCKED
-        GROUP_OPEN
+        
         gen_LED UTC Hours
           POS 748.000000 1176.000000
           IMAGE Clocks/TimeLCD
