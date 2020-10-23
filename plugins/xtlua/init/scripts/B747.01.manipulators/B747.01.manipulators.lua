@@ -76,6 +76,7 @@ B747DR_ovhd_map_light_y_capt        = deferred_dataref("laminar/B747/misc/ovhd_m
 B747DR_ovhd_map_light_x_fo          = deferred_dataref("laminar/B747/misc/ovhd_map_light/x_axis/fo", "number", B747_ovhd_map_light_x_fo_DRhandler)
 B747DR_ovhd_map_light_y_fo          = deferred_dataref("laminar/B747/misc/ovhd_map_light/y_axis/fo", "number", B747_ovhd_map_light_y_fo_DRhandler)
 
+
 --*************************************************************************************--
 --** 				                 CUSTOM COMMANDS                			     **--
 --*************************************************************************************--

@@ -840,9 +840,9 @@ function B747_rtp_R_freq_khz_sel_dial_up_CMDhandler(phase, duration)
     if phase == 0 then
         if B747DR_rtp_R_off_status == 0 then
             if B747DR_rtp_R_lcd_to_display == 0 then
-                simCMD_com1_stby_fine_dn:once()
+                simCMD_com1_stby_fine_up:once()
             elseif B747DR_rtp_R_lcd_to_display == 1 then
-                simCMD_com2_stby_fine_dn:once()
+                simCMD_com2_stby_fine_up:once()
             end
         end
         B747DR_rtp_R_freq_khz_sel_dial_pos = B747DR_rtp_R_freq_khz_sel_dial_pos + 1

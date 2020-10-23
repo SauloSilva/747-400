@@ -520,6 +520,25 @@ B747CMD_ai_fltctrls_quick_start			= deferred_command("laminar/B747/ai/fltctrls_q
 
 
 
+function B747CMD_parking_brake_on_CMDhandler(phase, duration)
+	if phase == 0 then
+	  B747DR_parking_brake_ratio=1.0
+	end    
+end
+function B747CMD_parking_brake_off_CMDhandler(phase, duration)
+	if phase == 0 then
+	  B747DR_parking_brake_ratio=0.0
+	end    
+end
+function B747CMD_parking_brake_toggle_CMDhandler(phase, duration)
+	if phase == 0 then
+	  B747DR_parking_brake_ratio=1.0-B747DR_parking_brake_ratio
+	end    
+end
+B747CMD_parking_brake_on            = deferred_command("laminar/B747/flt_ctrls/parking_brake_on", "Parking brake on", B747CMD_parking_brake_on_CMDhandler)
+B747CMD_parking_brake_off            = deferred_command("laminar/B747/flt_ctrls/parking_brake_off", "Parking brake off", B747CMD_parking_brake_off_CMDhandler)
+B747CMD_parking_brake_toggle            = deferred_command("laminar/B747/flt_ctrls/parking_brake_toggle", "Parking brake toggle", B747CMD_parking_brake_toggle_CMDhandler)
+
 
 --*************************************************************************************--
 --** 					            OBJECT CONSTRUCTORS         		    		 **--
@@ -667,15 +686,84 @@ end
 
 
 
-
------ FLAP INDICATOR STATUS -------------------------------------------------------------
-function B747_flap_transition_status()
-
-    B747DR_flap_trans_status = 0
-    if math.abs(simDR_flap_handle_deploy_ratio - simDR_flap_ratio_control) > 0.01 then
-        B747DR_flap_trans_status = 1
+function B747_flap_move_to_slot()
+    
+    
+    if simDR_flap_ratio_control<=0.0835 then --flaps 0
+	    simDR_flap_ratio_control=0
+    elseif simDR_flap_ratio_control<=0.25 then --flaps 5 
+	    simDR_flap_ratio_control= 0.167
+    elseif simDR_flap_ratio_control<=0.4165 then --flaps 10
+	    simDR_flap_ratio_control= 0.333
+    elseif simDR_flap_ratio_control<=0.5835 then --flaps 20
+	    simDR_flap_ratio_control= 0.5
+    elseif simDR_flap_ratio_control<=0.7505 then --flaps 25
+	    simDR_flap_ratio_control= 0.667
+    elseif simDR_flap_ratio_control<=0.9165 then --flaps 30
+	    simDR_flap_ratio_control= 0.833
+    else
+	    simDR_flap_ratio_control = 1.0
     end
 
+end
+
+function FlapinSlot()
+  if simDR_flap_ratio_control<0.001 then --flaps 0
+
+	   return true
+    elseif simDR_flap_ratio_control>0.166 and simDR_flap_ratio_control<0.168 then --flaps 1 
+
+      simDR_flap_ratio_control= 0.167
+	    return true
+    elseif simDR_flap_ratio_control>0.332 and simDR_flap_ratio_control<0.334 then --flaps 5
+      simDR_flap_ratio_control= 0.333
+
+	    return true
+    elseif simDR_flap_ratio_control>0.499 and simDR_flap_ratio_control<0.501 then --flaps 10
+      simDR_flap_ratio_control= 0.5
+
+	    return true
+    elseif simDR_flap_ratio_control>0.666 and simDR_flap_ratio_control<0.668 then --flaps 20
+     simDR_flap_ratio_control= 0.667
+
+	    return true
+    elseif simDR_flap_ratio_control>0.832 and simDR_flap_ratio_control<0.834 then --flaps 25
+      simDR_flap_ratio_control= 0.833
+
+	   return true
+    elseif simDR_flap_ratio_control>0.999 then --flaps 30
+      simDR_flap_ratio_control = 1.0
+
+	   return true
+    end
+    --print("flap not in slot")
+    return false
+end
+local last_flap_handle=-1
+----- FLAP INDICATOR STATUS -------------------------------------------------------------
+function B747_flap_transition_status()
+    if last_flap_handle~=simDR_flap_ratio_control then
+      if is_timer_scheduled(B747_flap_move_to_slot) == false then
+	      stop_timer(B747_flap_move_to_slot)    
+      end
+      run_after_time(B747_flap_move_to_slot, 2.0)
+    end
+    
+    last_flap_handle=simDR_flap_ratio_control
+    if FlapinSlot()==false then 
+      B747DR_flap_lever_detent = 0.006 
+    else
+      --print("flap in slot")
+       B747DR_flap_lever_detent = 0.0
+    end
+    if math.abs(simDR_flap_handle_deploy_ratio - simDR_flap_ratio_control) > 0.01 then
+        B747DR_flap_trans_status = 1
+	
+    else
+	
+        B747DR_flap_trans_status = 0
+    end
+    
 end
 
 
