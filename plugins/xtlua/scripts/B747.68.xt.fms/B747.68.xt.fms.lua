@@ -131,7 +131,6 @@ simDR_radio_adf1_freq_hz            = find_dataref("sim/cockpit2/radios/actuator
 simDR_radio_adf2_freq_hz            = find_dataref("sim/cockpit2/radios/actuators/adf2_frequency_hz")
 
 simDR_fueL_tank_weight_total_kg     = find_dataref("sim/flightmodel/weight/m_fuel_total")
-simDR_groundspeed                = find_dataref("sim/flightmodel2/position/groundspeed")
 
 navAidsJSON   = find_dataref("xtlua/navaids")
 
@@ -154,6 +153,13 @@ B747DR__gear_chocked           = find_dataref("laminar/B747/gear/chocked")
 B747DR_fuel_preselect		= find_dataref("laminar/B747/fuel/preselect")
 B747DR_refuel				= find_dataref("laminar/B747/fuel/refuel")
 B747DR_fuel_add				= find_dataref("laminar/B747/fuel/add_fuel")
+
+--Used in ND DISPLAY
+simDR_nav_dist_nm			= find_dataref("sim/cockpit2/radios/indicators/gps_dme_distance_nm")
+simDR_ND_current_waypoint	= find_dataref("sim/cockpit2/radios/indicators/gps_nav_id")
+simDR_ND_speed				= find_dataref("sim/cockpit2/radios/indicators/gps_dme_speed_kts")
+--simDR_ND_altitude			= find_dataref("sim/cockpit2/gauges/indicators/altitude_ft_pilot")
+
 --*************************************************************************************--
 --** 				        CREATE READ-WRITE CUSTOM DATAREFS                        **--
 --*************************************************************************************--
@@ -165,6 +171,11 @@ B747DR_fms1_display_brightness      = deferred_dataref("laminar/B747/fms1/displa
 B747DR_fuel_display_units				= deferred_dataref("laminar/B747/fuel/fuel_display_units", "string")
 B747DR_fuel_display_units_eicas			= deferred_dataref("laminar/B747/fuel/fuel_display_units_eicas", "number")
 B747DR_fuel_preselect_temp				= deferred_dataref("laminar/B747/fuel/fuel_preselect_temp", "number")
+
+--ETA for ND DISPLAY
+B747DR_ND_waypoint_eta					= deferred_dataref("laminar/B747/nd/waypoint_eta", "string")
+B747DR_ND_current_waypoint				= deferred_dataref("laminar/B747/nd/current_waypoint", "string")
+B747DR_ND_waypoint_distance				= deferred_dataref("laminar/B747/nd/waypoint_distance", "string")
 
 fmsPages={}
 --fmsPagesmall={}
@@ -348,6 +359,59 @@ fmsModules.fmsR=fmsR;
 
 
 B747DR_CAS_memo_status          = find_dataref("laminar/B747/CAS/memo_status")
+
+function waypoint_eta_display()
+	local hours = 0
+	local mins = 0
+	local secs = 0
+	local default_speed = 275
+	local actual_speed = simDR_ND_speed
+	local time_to_waypoint = 0
+
+	if simDR_onGround == 1 then
+		time_to_waypoint = (simDR_nav_dist_nm / default_speed) * 3600
+	else
+		time_to_waypoint = (simDR_nav_dist_nm / math.max(default_speed, actual_speed)) * 3600
+	end
+
+	hours = math.floor((time_to_waypoint % 86400) / 3600)
+	mins = math.floor((time_to_waypoint % 3600) / 60)
+	secs = (time_to_waypoint % 60) / 60
+
+	--Add to current Zulu time
+	hours = hours + hh
+	mins = mins + mm
+	secs = secs + (ss / 60)
+	
+	if hours >= 24 then
+		hours = hours - 24
+	end
+		
+	if mins >= 60 then
+		mins = mins - 60
+		hours = hours + 1
+	end
+	
+	if secs >= 1 then
+		secs = secs - 1
+		mins = mins + 1
+	end
+
+	--The simDR_ND_current_waypoint defaults to "K---" so don't use it, also ignore VECTORs
+	--Need to revamp this to use the programmed waypoints from the Nav DB in the FMC
+	if string.find(simDR_ND_current_waypoint, "-") or string.find(simDR_ND_current_waypoint, "VECTOR") then
+		B747DR_ND_current_waypoint = "-----"
+		B747DR_ND_waypoint_distance = "------NM"
+		B747DR_ND_waypoint_eta = "------Z"
+	else
+		B747DR_ND_current_waypoint = simDR_ND_current_waypoint
+		B747DR_ND_waypoint_distance = string.format("%5.1f".."nm", simDR_nav_dist_nm)
+		B747DR_ND_waypoint_eta = string.format("%02d%02d.%d".."z", hours, mins, secs * 10)
+	end
+		
+end
+
+
 function flight_start()
   if simDR_startup_running == 0 then
     irsSystem["irsL"]["aligned"]=false
@@ -364,7 +428,10 @@ function flight_start()
       
     end
  
+	--Display Waypoint ETA on ND
+	run_at_interval(waypoint_eta_display, 0.5)
 end
+
 debug_fms     = deferred_dataref("laminar/B747/debug/fms", "number")
 fms_style = find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_style_line2")
 function after_physics()
@@ -409,4 +476,5 @@ function after_physics()
 	else
 		B747DR_fuel_display_units_eicas = 0
 	end
+
 end
