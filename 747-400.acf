@@ -101184,7 +101184,7 @@ GROUP Captain PFD
         gen_pointer Speed Bug
           POS 127.500000 767.000000
           IMAGE CRT Displays/PFD/ASI/ASIcmdSpdPtr
-          DATAREF sim/cockpit2/autopilot/airspeed_dial_kts
+          DATAREF laminar/B747/autopilot/ias_dial_value
           
           HIDE
           LIGHT_MODE GLASS_AUTO
@@ -107848,7 +107848,7 @@ GROUP First Officer PFD
         gen_pointer Speed Bug 2
           POS 806.500000 767.000000
           IMAGE CRT Displays/PFD/ASI/ASIcmdSpdPtr
-          DATAREF sim/cockpit2/autopilot/airspeed_dial_kts
+          DATAREF laminar/B747/autopilot/ias_dial_value
           
           HIDE
           LIGHT_MODE GLASS_AUTO
@@ -126716,8 +126716,8 @@ GROUP Lower EICAS
       
     gen_rotary hsys12
       POS 1704.000000 366.000000
-      IMAGE CRT Displays/EICAS Lower/HYD/fail12
-      SHOW_LESS 2000.000000 laminar/B747/hydraulics/pressure_12
+      IMAGE CRT Displays/EICAS Lower/HYD/fail13
+      SHOW_LESS 2000.000000 laminar/B747/hydraulics/pressure_13
       DATAREF 
       
       HIDE

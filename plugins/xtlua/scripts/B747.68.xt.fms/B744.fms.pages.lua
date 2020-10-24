@@ -124,6 +124,7 @@ dofile("activepages/B744.fms.pages.fmccomm.lua")
 dofile("activepages/B744.fms.pages.vnav.lua")
 dofile("activepages/B744.fms.pages.groundhandling.lua")
 dofile("activepages/B744.fms.pages.maintsimconfig.lua")
+dofile("activepages/B744.fms.pages.identpage.lua")
 --[[
 dofile("B744.fms.pages.actclb.lua")
 dofile("B744.fms.pages.actcrz.lua")
@@ -338,7 +339,7 @@ function fmsFunctions.setpage_no(fmsO,valueA)
     simCMD_FMS_key[fmsO.id]["navrad"]:once()
     
   elseif value=="IDENT" then
-    fmsO["targetCustomFMC"]=false
+    fmsO["targetCustomFMC"]=true
     fmsO["targetPage"]="IDENT"
     simCMD_FMS_key[fmsO.id]["index"]:once()
     simCMD_FMS_key[fmsO.id]["L1"]:once()

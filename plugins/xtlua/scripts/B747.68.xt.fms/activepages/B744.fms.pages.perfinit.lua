@@ -2,6 +2,7 @@ simDR_GRWT=find_dataref("sim/flightmodel/weight/m_total")
 simDR_fuel=find_dataref("sim/flightmodel/weight/m_fuel_total")
 simDR_payload=find_dataref("sim/flightmodel/weight/fixed")
 simDR_fuel_tanks=find_dataref("sim/flightmodel/weight/m_fuel") --res on 5 and 6
+simDR_cg=find_dataref("sim/flightmodel/misc/cgz_ref_to_default") 
 fmsPages["PERFINIT"]=createPage("PERFINIT")
 fmsPages["PERFINIT"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be this way
     local grwt=string.format("%05.1f",simDR_GRWT/1000)
@@ -18,7 +19,7 @@ fmsPages["PERFINIT"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be
  "                        ",
  ""..zfw ,
  "                        ",
- ""..reserves .."              "..fmsModules["data"]["crzcg"],
+ ""..reserves .."              "..simDR_cg,
  "                        ",
  ""..fmsModules["data"]["costindex"] .."              ICAO", 
  "                        ",
@@ -55,5 +56,5 @@ fmsFunctionsDefs["PERFINIT"]["L4"]={"setdata","reserves"}
 fmsFunctionsDefs["PERFINIT"]["L5"]={"setdata","costindex"}
 fmsFunctionsDefs["PERFINIT"]["L6"]={"setpage","INITREF"}
 fmsFunctionsDefs["PERFINIT"]["R1"]={"setdata","crzalt"}
-fmsFunctionsDefs["PERFINIT"]["R4"]={"setdata","crzcg"}
+--fmsFunctionsDefs["PERFINIT"]["R4"]={"setdata","crzcg"}
 fmsFunctionsDefs["PERFINIT"]["R6"]={"setpage","THRUSTLIM"}
