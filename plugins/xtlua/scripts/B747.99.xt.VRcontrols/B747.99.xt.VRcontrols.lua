@@ -106,12 +106,16 @@ B747CMD_VR_toFMC 				= deferred_command("laminar/B747/VR/fmcView", "Move to FMC 
 B747CMD_VR_toMCP 				= deferred_command("laminar/B747/VR/mcpView", "Move to MCP hotspot", B747CMD_VR_toMCP_CMDhandler)
 B747CMD_VR_toOCP 				= deferred_command("laminar/B747/VR/ocpView", "Move to OCP hotspot", B747CMD_VR_toOCP_CMDhandler)
 B747CMD_VR_stop 				= deferred_command("laminar/B747/VR/stopMove", "Stop move commands", B747CMD_VR_stop_CMDhandler)
-
+local lastMoveUpdate=0
 function after_physics()
   if movingtoTarget==false then 
     
     return 
   end
+  local diff=simDRTime-lastMoveUpdate
+  if diff<0.3 then return end --workaround XP bug with start/stop inside the same frame
+  lastMoveUpdate=simDRTime
+  
   
   local diffX=targetHotspot[0]-simDR_headX
   if diffX<-0.02 then 
