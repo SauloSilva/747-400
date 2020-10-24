@@ -17,7 +17,7 @@ simCMD_viewLEFTFast					= find_command("sim/general/left_fast")
 simCMD_viewRIGHTFast				= find_command("sim/general/right_fast")
 simCMD_viewFWDFast					= find_command("sim/general/forward_fast")
 simCMD_viewBACKFast					= find_command("sim/general/backward_fast")
-
+simDRTime=find_dataref("sim/time/total_running_time_sec")
 
 pilotSeatHotspot={}
 pilotSeatHotspot[0]=-0.53738
@@ -69,7 +69,7 @@ function B747CMD_VR_toPilot_CMDhandler(phase, duration)
     movingtoTarget=true
   elseif phase==2 then 
     movingtoTarget=false
-    killMoves()
+    run_after_time(killMoves,0.05)
   end
 end
 function B747CMD_VR_toFMC_CMDhandler(phase, duration)
@@ -78,7 +78,7 @@ function B747CMD_VR_toFMC_CMDhandler(phase, duration)
     movingtoTarget=true
   elseif phase==2 then 
     movingtoTarget=false
-    killMoves()
+    run_after_time(killMoves,0.05)
   end
 end
 function B747CMD_VR_toMCP_CMDhandler(phase, duration)
@@ -87,7 +87,7 @@ function B747CMD_VR_toMCP_CMDhandler(phase, duration)
     movingtoTarget=true
   elseif phase==2 then 
     movingtoTarget=false
-    killMoves()
+    run_after_time(killMoves,0.05)
   end
 end
 function B747CMD_VR_toOCP_CMDhandler(phase, duration)
@@ -96,7 +96,7 @@ function B747CMD_VR_toOCP_CMDhandler(phase, duration)
     movingtoTarget=true
   elseif phase==2 then 
     movingtoTarget=false
-    killMoves()
+    run_after_time(killMoves,0.05)
   end
 end
 
@@ -113,7 +113,7 @@ function after_physics()
     return 
   end
   local diff=simDRTime-lastMoveUpdate
-  if diff<0.3 then return end --workaround XP bug with start/stop inside the same frame
+  if diff<0.05 then return end --workaround XP bug with start/stop inside the same frame
   lastMoveUpdate=simDRTime
   
   

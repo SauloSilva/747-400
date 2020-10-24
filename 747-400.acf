@@ -103650,8 +103650,7 @@ GROUP Captain ND
       CLICK_DY 0
 
     GROUP Waypoints 1
-      SHOW_EQUAL 1.000000 laminar/B747/nd/map_center/capt
-      SHOW_GREATER 2.000000 sim/cockpit2/EFIS/map_mode
+      SHOW_GREATER 2.000000 laminar/B747/nd/mode/capt/sel_dial_pos
       LOCKED
       GROUP_OPEN
       gen_text Active Waypoint 1
@@ -104505,7 +104504,7 @@ GROUP Captain ND
       CLICK_DY 0
 
     GROUP Waypoints 2
-      SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/map_mode
+      SHOW_EQUAL 2.000000 laminar/B747/nd/mode/capt/sel_dial_pos
       LOCKED
       GROUP_OPEN
       gen_text Active Waypoint 2
@@ -110332,8 +110331,7 @@ GROUP First Officer ND
       CLICK_DY 0
 
     GROUP Waypoints 3
-      SHOW_EQUAL 1.000000 laminar/B747/nd/map_center/capt
-      SHOW_GREATER 2.000000 sim/cockpit2/EFIS/map_mode
+      SHOW_GREATER 2.000000 laminar/B747/nd/mode/fo/sel_dial_pos
       LOCKED
       GROUP_OPEN
       gen_text Active Waypoint 3
@@ -111188,8 +111186,7 @@ GROUP First Officer ND
       CLICK_DY 0
 
     GROUP Waypoints 4
-      SHOW_EQUAL 1.000000 laminar/B747/nd/map_center/fo
-      SHOW_GREATER 2.000000 sim/cockpit2/EFIS/map_mode
+      SHOW_GREATER 2.000000 laminar/B747/nd/mode/fo/sel_dial_pos
       LOCKED
       GROUP_OPEN
       gen_text Active Waypoint 4
