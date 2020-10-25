@@ -125521,7 +125521,7 @@ GROUP Lower EICAS
     
     HIDE
     gen_rotary sys_pressure
-      POS 1455.000000 310.500000
+      POS 1455.000000 223.500000
       IMAGE CRT Displays/EICAS Lower/HYD/sys_pressure
       DATAREF 
       SHOW_GREATER 2000.000000 laminar/B747/hydraulics/pressure_1
@@ -125543,7 +125543,7 @@ GROUP Lower EICAS
       CLICK_DY 0
 
     gen_rotary sys_pressure 2
-      POS 1602.000000 309.500000
+      POS 1602.000000 222.500000
       IMAGE CRT Displays/EICAS Lower/HYD/sys_pressure
       DATAREF 
       SHOW_GREATER 2000.000000 laminar/B747/hydraulics/pressure_2
@@ -125565,7 +125565,7 @@ GROUP Lower EICAS
       CLICK_DY 0
 
     gen_rotary sys_pressure 3
-      POS 1748.000000 309.500000
+      POS 1748.000000 222.500000
       IMAGE CRT Displays/EICAS Lower/HYD/sys_pressure
       DATAREF 
       SHOW_GREATER 2000.000000 laminar/B747/hydraulics/pressure_3
@@ -125587,7 +125587,7 @@ GROUP Lower EICAS
       CLICK_DY 0
 
     gen_rotary sys_pressure 4
-      POS 1895.000000 313.500000
+      POS 1895.000000 226.500000
       IMAGE CRT Displays/EICAS Lower/HYD/sys_pressure
       DATAREF 
       SHOW_GREATER 2000.000000 laminar/B747/hydraulics/pressure_4
@@ -125612,7 +125612,7 @@ GROUP Lower EICAS
       HIDE
       GROUP_OPEN
       gen_rotary edp_pump 1
-        POS 1462.000000 171.500000
+        POS 1462.000000 84.500000
         IMAGE CRT Displays/EICAS Lower/HYD/edp_pressure
         DATAREF 
         SHOW_GREATER 2000.000000 laminar/B747/hydraulics/edp_pressure_1
@@ -125634,7 +125634,7 @@ GROUP Lower EICAS
         CLICK_DY 0
 
       gen_rotary edp_pump 2
-        POS 1610.000000 172.500000
+        POS 1610.000000 85.500000
         IMAGE CRT Displays/EICAS Lower/HYD/edp_pressure
         DATAREF 
         SHOW_GREATER 2000.000000 laminar/B747/hydraulics/edp_pressure_2
@@ -125656,7 +125656,7 @@ GROUP Lower EICAS
         CLICK_DY 0
 
       gen_rotary edp_pump 3
-        POS 1756.000000 172.500000
+        POS 1756.000000 85.500000
         IMAGE CRT Displays/EICAS Lower/HYD/edp_pressure
         DATAREF 
         SHOW_GREATER 2000.000000 laminar/B747/hydraulics/edp_pressure_3
@@ -125678,7 +125678,7 @@ GROUP Lower EICAS
         CLICK_DY 0
 
       gen_rotary edp_pump 4
-        POS 1903.000000 172.500000
+        POS 1903.000000 85.500000
         IMAGE CRT Displays/EICAS Lower/HYD/edp_pressure
         DATAREF 
         SHOW_GREATER 2000.000000 laminar/B747/hydraulics/edp_pressure_4
@@ -125700,7 +125700,7 @@ GROUP Lower EICAS
         CLICK_DY 0
 
       gen_rotary edp_pump 4 2
-        POS 1945.000000 156.000000
+        POS 1945.000000 69.000000
         IMAGE CRT Displays/EICAS Lower/HYD/aux_pressure
         DATAREF 
         SHOW_GREATER 2000.000000 laminar/B747/hydraulics/aux_pressure
@@ -125722,7 +125722,7 @@ GROUP Lower EICAS
         CLICK_DY 0
 
       gen_rotary dem_pump 1
-        POS 1445.000000 171.500000
+        POS 1445.000000 84.500000
         IMAGE CRT Displays/EICAS Lower/HYD/dem_pressure
         DATAREF 
         SHOW_GREATER 2000.000000 laminar/B747/hydraulics/dem_pressure_1
@@ -125744,7 +125744,7 @@ GROUP Lower EICAS
         CLICK_DY 0
 
       gen_rotary dem_pump 2
-        POS 1591.000000 171.500000
+        POS 1591.000000 84.500000
         IMAGE CRT Displays/EICAS Lower/HYD/dem_pressure
         DATAREF 
         SHOW_GREATER 2000.000000 laminar/B747/hydraulics/dem_pressure_2
@@ -125766,7 +125766,7 @@ GROUP Lower EICAS
         CLICK_DY 0
 
       gen_rotary dem_pump 3
-        POS 1737.000000 172.500000
+        POS 1737.000000 85.500000
         IMAGE CRT Displays/EICAS Lower/HYD/dem_pressure
         DATAREF 
         SHOW_GREATER 2000.000000 laminar/B747/hydraulics/dem_pressure_3
@@ -125788,7 +125788,7 @@ GROUP Lower EICAS
         CLICK_DY 0
 
       gen_rotary dem_pump 4
-        POS 1884.000000 171.500000
+        POS 1884.000000 84.500000
         IMAGE CRT Displays/EICAS Lower/HYD/dem_pressure
         DATAREF 
         SHOW_GREATER 2000.000000 laminar/B747/hydraulics/dem_pressure_4
@@ -125823,7 +125823,7 @@ GROUP Lower EICAS
       IS_VERTICAL 1
       OFFSET 0.000000
       gen_rotary res 1 level
-        POS 1453.500000 -2.500000
+        POS 1453.500000 -89.500000
         IMAGE CRT Displays/EICAS Lower/HYD/res_level
         DATAREF 
         HIDE
@@ -125851,7 +125851,7 @@ GROUP Lower EICAS
       GROUP_WIDTH 0
       GROUP_HEIGHT 0
       DATAREF laminar/B747/hydraulics/res_2
-      POS 10.000000 -10.000000
+      POS 10.000000 -97.000000
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 44.000000
       IS_VERTICAL 1
@@ -125885,7 +125885,7 @@ GROUP Lower EICAS
       GROUP_WIDTH 0
       GROUP_HEIGHT 0
       DATAREF laminar/B747/hydraulics/res_3
-      POS 10.000000 -10.000000
+      POS 10.000000 -97.000000
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 44.000000
       IS_VERTICAL 1
@@ -125919,7 +125919,7 @@ GROUP Lower EICAS
       GROUP_WIDTH 0
       GROUP_HEIGHT 0
       DATAREF laminar/B747/hydraulics/res_4
-      POS 20.000000 -20.000000
+      POS 20.000000 -107.000000
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 44.000000
       IS_VERTICAL 1
@@ -125950,7 +125950,7 @@ GROUP Lower EICAS
       HIDE
       GROUP_OPEN
       gen_rotary dem_1 auto
-        POS 1419.000000 168.500000
+        POS 1419.000000 81.500000
         IMAGE CRT Displays/EICAS Lower/HYD/d_auto
         DATAREF 
         SHOW_EQUAL 1.000000 laminar/B747/hydraulics/dem_mode_1
@@ -125972,7 +125972,7 @@ GROUP Lower EICAS
         CLICK_DY 0
 
       gen_rotary dem_1 off
-        POS 1419.500000 168.500000
+        POS 1419.500000 81.500000
         IMAGE CRT Displays/EICAS Lower/HYD/d_off
         DATAREF 
         SHOW_EQUAL 0.000000 laminar/B747/hydraulics/dem_mode_1
@@ -125994,7 +125994,7 @@ GROUP Lower EICAS
         CLICK_DY 0
 
       gen_rotary dem_2 auto
-        POS 1566.000000 169.500000
+        POS 1566.000000 82.500000
         IMAGE CRT Displays/EICAS Lower/HYD/d_auto
         DATAREF 
         SHOW_EQUAL 1.000000 laminar/B747/hydraulics/dem_mode_2
@@ -126016,7 +126016,7 @@ GROUP Lower EICAS
         CLICK_DY 0
 
       gen_rotary dem_2 off
-        POS 1567.500000 169.500000
+        POS 1567.500000 82.500000
         IMAGE CRT Displays/EICAS Lower/HYD/d_off
         DATAREF 
         SHOW_EQUAL 0.000000 laminar/B747/hydraulics/dem_mode_2
@@ -126038,7 +126038,7 @@ GROUP Lower EICAS
         CLICK_DY 0
 
       gen_rotary dem_3 auto
-        POS 1712.000000 167.500000
+        POS 1712.000000 80.500000
         IMAGE CRT Displays/EICAS Lower/HYD/d_auto
         DATAREF 
         SHOW_EQUAL 1.000000 laminar/B747/hydraulics/dem_mode_3
@@ -126060,7 +126060,7 @@ GROUP Lower EICAS
         CLICK_DY 0
 
       gen_rotary dem_3 off
-        POS 1712.500000 167.500000
+        POS 1712.500000 80.500000
         IMAGE CRT Displays/EICAS Lower/HYD/d_off
         DATAREF 
         SHOW_EQUAL 0.000000 laminar/B747/hydraulics/dem_mode_3
@@ -126082,7 +126082,7 @@ GROUP Lower EICAS
         CLICK_DY 0
 
       gen_rotary dem_4 auto
-        POS 1859.000000 168.500000
+        POS 1859.000000 81.500000
         IMAGE CRT Displays/EICAS Lower/HYD/d_auto
         DATAREF 
         SHOW_EQUAL 1.000000 laminar/B747/hydraulics/dem_mode_4
@@ -126104,7 +126104,7 @@ GROUP Lower EICAS
         CLICK_DY 0
 
       gen_rotary dem_4 off
-        POS 1860.500000 168.500000
+        POS 1860.500000 81.500000
         IMAGE CRT Displays/EICAS Lower/HYD/d_off
         DATAREF 
         SHOW_LESS 0.000000 laminar/B747/hydraulics/dem_mode_4
@@ -126130,7 +126130,7 @@ GROUP Lower EICAS
       HIDE
       GROUP_OPEN
       gen_rotary valve 1 on
-        POS 1487.500000 108.500000
+        POS 1487.500000 21.500000
         IMAGE CRT Displays/EICAS Lower/HYD/valve_on
         DATAREF 
         SHOW_GREATER 0.950000 laminar/B747/hydraulics/valve_1
@@ -126152,7 +126152,7 @@ GROUP Lower EICAS
         CLICK_DY 0
 
       gen_rotary valve 1 off
-        POS 1487.000000 107.500000
+        POS 1487.000000 20.500000
         IMAGE CRT Displays/EICAS Lower/HYD/valve_off
         DATAREF 
         SHOW_LESS 0.100000 laminar/B747/hydraulics/valve_1
@@ -126174,7 +126174,7 @@ GROUP Lower EICAS
         CLICK_DY 0
 
       gen_rotary edp 1 off
-        POS 1487.500000 226.500000
+        POS 1487.500000 139.500000
         IMAGE CRT Displays/EICAS Lower/HYD/d_off
         DATAREF 
         SHOW_LESS 0.100000 laminar/B747/hydraulics/valve_1
@@ -126196,7 +126196,7 @@ GROUP Lower EICAS
         CLICK_DY 0
 
       gen_rotary valve 2 on
-        POS 1634.500000 108.500000
+        POS 1634.500000 21.500000
         IMAGE CRT Displays/EICAS Lower/HYD/valve_on
         DATAREF 
         SHOW_GREATER 0.950000 laminar/B747/hydraulics/valve_2
@@ -126218,7 +126218,7 @@ GROUP Lower EICAS
         CLICK_DY 0
 
       gen_rotary valve 2 off
-        POS 1634.000000 107.500000
+        POS 1634.000000 20.500000
         IMAGE CRT Displays/EICAS Lower/HYD/valve_off
         DATAREF 
         SHOW_LESS 0.100000 laminar/B747/hydraulics/valve_2
@@ -126240,7 +126240,7 @@ GROUP Lower EICAS
         CLICK_DY 0
 
       gen_rotary edp 2 off
-        POS 1634.500000 226.500000
+        POS 1634.500000 139.500000
         IMAGE CRT Displays/EICAS Lower/HYD/d_off
         DATAREF 
         SHOW_LESS 0.100000 laminar/B747/hydraulics/valve_2
@@ -126262,7 +126262,7 @@ GROUP Lower EICAS
         CLICK_DY 0
 
       gen_rotary valve 3 on
-        POS 1781.500000 108.500000
+        POS 1781.500000 21.500000
         IMAGE CRT Displays/EICAS Lower/HYD/valve_on
         DATAREF 
         SHOW_GREATER 0.950000 laminar/B747/hydraulics/valve_3
@@ -126284,7 +126284,7 @@ GROUP Lower EICAS
         CLICK_DY 0
 
       gen_rotary valve 3 off
-        POS 1781.000000 107.500000
+        POS 1781.000000 20.500000
         IMAGE CRT Displays/EICAS Lower/HYD/valve_off
         DATAREF 
         SHOW_LESS 0.100000 laminar/B747/hydraulics/valve_3
@@ -126306,7 +126306,7 @@ GROUP Lower EICAS
         CLICK_DY 0
 
       gen_rotary edp 3 off
-        POS 1781.500000 226.500000
+        POS 1781.500000 139.500000
         IMAGE CRT Displays/EICAS Lower/HYD/d_off
         DATAREF 
         SHOW_LESS 0.100000 laminar/B747/hydraulics/valve_3
@@ -126328,7 +126328,7 @@ GROUP Lower EICAS
         CLICK_DY 0
 
       gen_rotary valve 4 on
-        POS 1927.500000 108.500000
+        POS 1927.500000 21.500000
         IMAGE CRT Displays/EICAS Lower/HYD/valve_on
         DATAREF 
         SHOW_GREATER 0.950000 laminar/B747/hydraulics/valve_4
@@ -126350,7 +126350,7 @@ GROUP Lower EICAS
         CLICK_DY 0
 
       gen_rotary valve 4 off
-        POS 1927.000000 107.500000
+        POS 1927.000000 20.500000
         IMAGE CRT Displays/EICAS Lower/HYD/valve_off
         DATAREF 
         SHOW_LESS 0.100000 laminar/B747/hydraulics/valve_4
@@ -126372,7 +126372,7 @@ GROUP Lower EICAS
         CLICK_DY 0
 
       gen_rotary edp 4 off
-        POS 1927.500000 226.500000
+        POS 1927.500000 139.500000
         IMAGE CRT Displays/EICAS Lower/HYD/d_off
         DATAREF 
         SHOW_LESS 0.100000 laminar/B747/hydraulics/valve_4
@@ -126399,7 +126399,7 @@ GROUP Lower EICAS
       HIDE
       GROUP_OPEN
       gen_LED LED Temp 1
-        POS 1453.000000 -80.000000
+        POS 1453.000000 -167.000000
         IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
         DATAREF laminar/B747/hydraulics/temp_1[0]
         SHOW_LESS 1.900000 [0]
@@ -126416,7 +126416,7 @@ GROUP Lower EICAS
         LED_ROWS 4
 
       gen_LED LED Temp 2
-        POS 1601.000000 -81.000000
+        POS 1601.000000 -168.000000
         IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
         DATAREF laminar/B747/hydraulics/temp_2[0]
         SHOW_LESS 1.900000 [0]
@@ -126433,7 +126433,7 @@ GROUP Lower EICAS
         LED_ROWS 4
 
       gen_LED LED Temp 3
-        POS 1748.000000 -81.000000
+        POS 1748.000000 -168.000000
         IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
         DATAREF laminar/B747/hydraulics/temp_3[0]
         SHOW_LESS 1.900000 [0]
@@ -126450,7 +126450,7 @@ GROUP Lower EICAS
         LED_ROWS 4
 
       gen_LED LED Temp 4
-        POS 1893.000000 -81.000000
+        POS 1893.000000 -168.000000
         IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
         DATAREF laminar/B747/hydraulics/temp_4[0]
         SHOW_LESS 1.900000 [0]
@@ -126467,7 +126467,7 @@ GROUP Lower EICAS
         LED_ROWS 4
 
       gen_LED LED Pressure 1
-        POS 1446.000000 -50.000000
+        POS 1446.000000 -137.000000
         IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
         DATAREF laminar/B747/hydraulics/pressure_1[0]
         SHOW_LESS 1.900000 [0]
@@ -126484,7 +126484,7 @@ GROUP Lower EICAS
         LED_ROWS 4
 
       gen_LED LED Pressure 2
-        POS 1593.000000 -50.000000
+        POS 1593.000000 -137.000000
         IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
         DATAREF laminar/B747/hydraulics/pressure_2[0]
         SHOW_LESS 1.900000 [0]
@@ -126501,7 +126501,7 @@ GROUP Lower EICAS
         LED_ROWS 4
 
       gen_LED LED Pressure 3
-        POS 1740.000000 -50.000000
+        POS 1740.000000 -137.000000
         IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
         DATAREF laminar/B747/hydraulics/pressure_3[0]
         SHOW_LESS 1.900000 [0]
@@ -126518,7 +126518,7 @@ GROUP Lower EICAS
         LED_ROWS 4
 
       gen_LED LED Pressure 4
-        POS 1886.000000 -50.000000
+        POS 1886.000000 -137.000000
         IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
         DATAREF laminar/B747/hydraulics/pressure_4[0]
         SHOW_LESS 1.900000 [0]
@@ -126535,7 +126535,7 @@ GROUP Lower EICAS
         LED_ROWS 4
 
       gen_LED LED Qty 4
-        POS 1889.000000 -20.000000
+        POS 1889.000000 -107.000000
         IMAGE CRT Displays/LED/LED_3.26B.xxx#00.white
         DATAREF laminar/B747/hydraulics/res_4[0]
         SHOW_LESS 1.900000 [0]
@@ -126552,7 +126552,7 @@ GROUP Lower EICAS
         LED_ROWS 3
 
       gen_LED LED Qty 3
-        POS 1743.000000 -20.000000
+        POS 1743.000000 -107.000000
         IMAGE CRT Displays/LED/LED_3.26B.xxx#00.white
         DATAREF laminar/B747/hydraulics/res_3[0]
         SHOW_LESS 1.900000 [0]
@@ -126569,7 +126569,7 @@ GROUP Lower EICAS
         LED_ROWS 3
 
       gen_LED LED Qty 2
-        POS 1596.000000 -20.000000
+        POS 1596.000000 -107.000000
         IMAGE CRT Displays/LED/LED_3.26B.xxx#00.white
         DATAREF laminar/B747/hydraulics/res_2[0]
         SHOW_LESS 1.900000 [0]
@@ -126586,7 +126586,7 @@ GROUP Lower EICAS
         LED_ROWS 3
 
       gen_LED LED Qty 1
-        POS 1449.000000 -20.000000
+        POS 1449.000000 -107.000000
         IMAGE CRT Displays/LED/LED_3.26B.xxx#00.white
         DATAREF laminar/B747/hydraulics/res_1[0]
         SHOW_LESS 1.900000 [0]
@@ -126604,7 +126604,7 @@ GROUP Lower EICAS
 
     END_GROUP
     gen_rotary background
-      POS 1704.000000 95.000000
+      POS 1704.000000 8.000000
       IMAGE CRT Displays/EICAS Lower/HYD/background
       DATAREF 
       
