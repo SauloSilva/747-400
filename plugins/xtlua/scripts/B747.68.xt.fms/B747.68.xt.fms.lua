@@ -158,7 +158,7 @@ B747DR_fuel_add				= find_dataref("laminar/B747/fuel/add_fuel")
 simDR_nav_dist_nm			= find_dataref("sim/cockpit2/radios/indicators/gps_dme_distance_nm")
 simDR_ND_current_waypoint	= find_dataref("sim/cockpit2/radios/indicators/gps_nav_id")
 simDR_ND_speed				= find_dataref("sim/cockpit2/radios/indicators/gps_dme_speed_kts")
---simDR_ND_altitude			= find_dataref("sim/cockpit2/gauges/indicators/altitude_ft_pilot")
+
 
 --*************************************************************************************--
 --** 				        CREATE READ-WRITE CUSTOM DATAREFS                        **--
@@ -176,6 +176,7 @@ B747DR_fuel_preselect_temp				= deferred_dataref("laminar/B747/fuel/fuel_presele
 B747DR_ND_waypoint_eta					= deferred_dataref("laminar/B747/nd/waypoint_eta", "string")
 B747DR_ND_current_waypoint				= deferred_dataref("laminar/B747/nd/current_waypoint", "string")
 B747DR_ND_waypoint_distance				= deferred_dataref("laminar/B747/nd/waypoint_distance", "string")
+B747DR_ND_radio_altitude				= deferred_dataref("laminar/B747/efis/radio_altitude", "number")
 
 fmsPages={}
 --fmsPagesmall={}
@@ -400,10 +401,10 @@ function waypoint_eta_display()
 	--The simDR_ND_current_waypoint defaults to "K---" so don't use it, also ignore VECTORs
 	--Need to revamp this to use the programmed waypoints from the Nav DB in the FMC
 	if string.find(simDR_ND_current_waypoint, "-") or string.find(simDR_ND_current_waypoint, "VECTOR") then
-		B747DR_ND_current_waypoint = "-----"
+		B747DR_ND_current_waypoint = ""
 		B747DR_ND_waypoint_distance = "------NM"
 		B747DR_ND_waypoint_eta = "------Z"
-	else
+	elseif B747DR_ND_radio_altitude >= 400 then
 		B747DR_ND_current_waypoint = simDR_ND_current_waypoint
 		B747DR_ND_waypoint_distance = string.format("%5.1f".."nm", simDR_nav_dist_nm)
 		B747DR_ND_waypoint_eta = string.format("%02d%02d.%d".."z", hours, mins, secs * 10)
