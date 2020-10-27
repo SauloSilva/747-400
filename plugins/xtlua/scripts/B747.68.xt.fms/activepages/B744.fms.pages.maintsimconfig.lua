@@ -1,11 +1,18 @@
 fmsPages["MAINTSIMCONFIG"]=createPage("MAINTSIMCONFIG")
 fmsPages["MAINTSIMCONFIG"].getPage=function(self,pgNo,fmsID)
-
+	local current_units = fmsModules["data"]["fuelUnits"]
+	local display_fuel_units
+	
+	if current_units == "KGS" then
+		display_fuel_units = current_units.."/"
+	else
+		display_fuel_units = "   /"..current_units
+	end
+	
   return {
-
   "   SIM CONFIGURATION    ",
   "                        ",
-  ""..fmsModules["data"]["fuelUnits"],
+  ""..display_fuel_units,
   "                        ",
   "                        ",
   "                        ",
@@ -20,10 +27,19 @@ fmsPages["MAINTSIMCONFIG"].getPage=function(self,pgNo,fmsID)
 end
 
 fmsPages["MAINTSIMCONFIG"].getSmallPage=function(self,pgNo,fmsID)
+	local current_units = fmsModules["data"]["fuelUnits"]
+	local display_fuel_units
+	
+	if current_units == "KGS" then
+		display_fuel_units = "    LBS"
+	else
+		display_fuel_units = "KGS"
+	end
+
   return {
   "                        ",
   "FUEL WEIGHT             ",
-  "     (KGS/LBS)          ",
+  ""..display_fuel_units,
   "                        ",
   "                        ",
   "                        ",
