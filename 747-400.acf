@@ -115264,7 +115264,7 @@ GROUP Upper EICAS
             IMAGE CRT Displays/EICAS Upper/N1_thrust
             DATAREF sim/cockpit2/engine/actuators/throttle_ratio[0]
             
-            IGHT_MODE GLASS_AUTO
+            LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
             BUS_SRC 2
             KEY_FRAME 0.000000 -90.000000 1.000000

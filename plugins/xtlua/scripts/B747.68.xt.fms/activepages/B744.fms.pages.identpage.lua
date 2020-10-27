@@ -1,4 +1,6 @@
 fmsPages["IDENT"]=createPage("IDENT")
+dofile("activepages/version.lua")
+
 fmsPages["IDENT"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be this way
     return{
 
@@ -10,7 +12,7 @@ fmsPages["IDENT"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be th
  "      "..cleanFMSLine(B747DR_srcfms[fmsID][5]),
  "                        ",
  "                        ",
- "XP1150-2020/10/24       ",
+ fmcVersion.."       ",
  "                        ",
  "+1.1/-3.5         ******", 
  "------------------------",
