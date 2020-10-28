@@ -125855,7 +125855,7 @@ GROUP Lower EICAS
       IS_VERTICAL 1
       OFFSET 0.000000
       gen_rotary res 2 level
-        POS 1599.500000 -1.500000
+        POS 1599.500000 -89.500000
         IMAGE CRT Displays/EICAS Lower/HYD/res_level
         DATAREF 
         HIDE
@@ -125889,7 +125889,7 @@ GROUP Lower EICAS
       IS_VERTICAL 1
       OFFSET 0.000000
       gen_rotary res 3 level
-        POS 1746.500000 -1.500000
+        POS 1746.500000 -89.500000
         IMAGE CRT Displays/EICAS Lower/HYD/res_level
         DATAREF 
         HIDE
@@ -125923,7 +125923,7 @@ GROUP Lower EICAS
       IS_VERTICAL 1
       OFFSET 0.000000
       gen_rotary res 4 level
-        POS 1894.500000 -1.500000
+        POS 1894.500000 -89.500000
         IMAGE CRT Displays/EICAS Lower/HYD/res_level
         DATAREF 
         HIDE
