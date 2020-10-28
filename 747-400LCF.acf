@@ -105741,19 +105741,26 @@ GROUP First Officer ND
         IS_VERTICAL 0
         OFFSET 0.000000
         
-        gen_rotary CRT Background
+  GROUP Lower EICAS Vertical
+	GROUP_ANIMATE_MODE TRANSLATE
+        DATAREF laminar/B747/flt_inst/display/fo/nd_pos
+        KEY_FRAME 0.000000 0.000000 1.000000
+        KEY_FRAME 1.000000 0.000000 #lower eiacs
+        KEY_FRAME 2.000000 683.000000 #lower eiacs
+        IS_VERTICAL 1
+        OFFSET 0.000000
+  gen_rotary CRT Background
     POS 1022.500000 95.000000
     IMAGE CRT Displays/Background
     DATAREF 
     
     HIDE
-    LIGHT_MODE GLASS_TRANS_AUOTO
-    LIGHT_RHEOSTAT 3
+    LIGHT_MODE GLASS_AUTO
+    LIGHT_RHEOSTAT 0
     BUS_SRC 4
     KEY_FRAME 0.000000 0.000000 1.000000
     KEY_FRAME 1.000000 6.000000
     DIGITS 1
-    CLIP
     ROTARY_TYPE NO_CLICK
     CLICK_RADIUS 0.000000
     CLICK_RADIUS_DY 0.000000
@@ -105763,15 +105770,6 @@ GROUP First Officer ND
     CURSOR DEFAULT
     CLICK_DX 0
     CLICK_DY 0
-  GROUP Lower EICAS Vertical
-	GROUP_ANIMATE_MODE TRANSLATE
-        DATAREF laminar/B747/flt_inst/display/fo/nd_pos
-        KEY_FRAME 0.000000 0.000000 1.000000
-        KEY_FRAME 1.000000 0.000000 #lower eiacs
-        KEY_FRAME 2.000000 683.000000 #lower eiacs
-        IS_VERTICAL 1
-        OFFSET 0.000000
-  
 
   GROUP Map:Centered
     SHOW_EQUAL 1.000000 laminar/B747/nd/map_center/fo
