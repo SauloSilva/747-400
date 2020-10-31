@@ -485,7 +485,7 @@ function preselect_fuel()
 	local fuel_calculation_factor = 1
 	local KGS_TO_LBS = 2.2046226218488
 	if B747DR_fuel_display_units == "LBS" then
-		fuel_calculation_factor = KGS_TO_LBS
+		fuel_calcul4ation_factor = KGS_TO_LBS
 	end
 	B747DR_refuel=B747DR_fuel_add*1000 / fuel_calculation_factor  --(always add fuel in KGS behind the scenes)
 	B747DR_fuel_preselect=simDR_fueL_tank_weight_total_kg + B747DR_refuel
@@ -493,6 +493,7 @@ function preselect_fuel()
 	-- Used in calculation for displaying Preselect Fuel Qty in correct weight units (actual display done in B747.25.fuel)
 	B747DR_fuel_preselect_temp = B747DR_fuel_preselect
 	B747DR_fuel_add=0
+	simDR_m_jettison=simDR_acf_m_jettison
 end
 
 function fmsFunctions.setdata(fmsO,value)
@@ -648,12 +649,21 @@ function fmsFunctions.setdata(fmsO,value)
     irsSystem["setPos"]=true
     fmsModules["data"]["initIRSLat"]=lat
     fmsModules["data"]["initIRSLon"]=lon
-    
-    if fmsModules["fmsL"].notify=="ENTER IRS POSITION" then fmsModules["fmsL"].notify="" end
-    if fmsModules["fmsC"].notify=="ENTER IRS POSITION" then fmsModules["fmsC"].notify="" end
-    if fmsModules["fmsR"].notify=="ENTER IRS POSITION" then fmsModules["fmsR"].notify="" end
+    B747DR_fmc_notifications[12]=0
+--     if fmsModules["fmsL"].notify=="ENTER IRS POSITION" then fmsModules["fmsL"].notify="" end
+--     if fmsModules["fmsC"].notify=="ENTER IRS POSITION" then fmsModules["fmsC"].notify="" end
+--     if fmsModules["fmsR"].notify=="ENTER IRS POSITION" then fmsModules["fmsR"].notify="" end
+   elseif value=="passengers" then
+     local numPassengers=tonumber(fmsO["scratchpad"])
+     if numPassengers==nil then numPassengers=2 end
+     if numPassengers<2 then numPassengers=2 end
+     if numPassengers>416 then numPassengers=416 end
+     B747DR_payload_weight=numPassengers*120
    elseif value=="services" then
-     fmsModules["cmds"]["sim/ground_ops/service_plane"]:once() fmsModules["lastcmd"]=fmsModules["cmdstrings"]["sim/ground_ops/service_plane"]
+     if simDR_acf_m_jettison==0 then
+	fmsModules["cmds"]["sim/ground_ops/service_plane"]:once() 
+     end
+     fmsModules["lastcmd"]=fmsModules["cmdstrings"]["sim/ground_ops/service_plane"]
      run_after_time(preselect_fuel,30)
    elseif value=="fuelpreselect" and string.len(fmsO["scratchpad"])>0 then
      local fuel=tonumber(fmsO["scratchpad"])

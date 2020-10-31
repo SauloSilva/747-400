@@ -75,6 +75,10 @@ local B747_ap_last_FMA_autothrottle_mode = 0
 local B747_ap_last_FMA_roll_mode = 0
 local B747_ap_last_FMA_pitch_mode = 0
 local fmsData
+local inVnavAlt=0
+local recalcAfter=0
+local vnavcalcwithMCPAlt=0
+local vnavcalcwithTargetAlt=0
 local gotVNAVSpeed=false
 local manualVNAVspd=0
 local vnavSPD_conditions={}
@@ -99,6 +103,7 @@ simDR_autopilot_altitude_ft    		= find_dataref("sim/cockpit2/autopilot/altitude
 simDR_autopilot_hold_altitude_ft    		= find_dataref("sim/cockpit2/autopilot/altitude_hold_ft")
 simDR_autopilot_tod_index    		= find_dataref("sim/cockpit2/radios/indicators/fms_tod_before_index_pilot")
 simDR_autopilot_tod_distance    	= find_dataref("sim/cockpit2/radios/indicators/fms_distance_to_tod_pilot")
+B747DR_fmc_notifications            = find_dataref("laminar/B747/fms/notification")
 
 B747BR_totalDistance 			= find_dataref("laminar/B747/autopilot/dist/remaining_distance")
 B747BR_nextDistanceInFeet 		= find_dataref("laminar/B747/autopilot/dist/next_distance_feet")
@@ -190,7 +195,7 @@ throttlederate=find_dataref("sim/aircraft/engine/acf_throtmax_FWD")
 
 B747DR_toggle_switch_position       	= find_dataref("laminar/B747/toggle_switch/position")
 B747DR_CAS_caution_status       		= find_dataref("laminar/B747/CAS/caution_status")
-
+B747DR_speedbrake_lever     	= find_dataref("laminar/B747/flt_ctrls/speedbrake_lever")
 
 
 --*************************************************************************************--
@@ -251,6 +256,7 @@ B747DR_ap_vs_show_thousands         	= deferred_dataref("laminar/B747/autopilot/
 B747DR_autopilot_altitude_ft    			= find_dataref("laminar/B747/autopilot/heading/altitude_dial_ft")
 B747DR_ap_heading_deg               	= deferred_dataref("laminar/B747/autopilot/heading/degrees", "number")
 B747DR_ap_ias_dial_value            	= deferred_dataref("laminar/B747/autopilot/ias_dial_value", "number")
+B747DR_ap_ias_bug_value            	= deferred_dataref("laminar/B747/autopilot/ias_bug_value", "number")
 B747DR_ap_ias_mach_dial_value            	= deferred_dataref("laminar/B747/autopilot/ias_mach_dial_value", "number") -- display only
 B747DR_airspeed_V2                              = deferred_dataref("laminar/B747/airspeed/V2", "number")
 B747DR_ap_vnav_system            	= deferred_dataref("laminar/B747/autopilot/vnav_system", "number")
@@ -431,6 +437,12 @@ end
 function B747_ap_switch_vnavalt_mode_CMDhandler(phase, duration)
 	if phase == 0 then
 		B747_ap_button_switch_position_target[16] = 1									-- SET THE ALT KNOB ANIMATION TO "IN"
+		vnavcalcwithTargetAlt=0
+		if manualVNAVspd==0 then
+		    gotVNAVSpeed=false
+		    B747_ap_speed()
+		     
+		end
 		if B747DR_ap_vnav_state==2 then
 		  if B747BR_totalDistance>0 and (B747BR_totalDistance-B747BR_tod)<50 and simDR_pressureAlt1>simDR_autopilot_altitude_ft then
 		    if simDR_autopilot_vs_status == 0 then
@@ -862,8 +874,12 @@ function B747_ap_VNAV_mode_CMDhandler(phase, duration)
 	if phase == 0 then
 		
 		B747_ap_button_switch_position_target[3] = 1
-		if B747BR_cruiseAlt < 10 then return end
+		if B747BR_cruiseAlt < 10 then
+		  B747DR_fmc_notifications[30]=1
+		  return 
+		end
 		gotVNAVSpeed=false
+		B747_ap_speed()
 		if B747DR_ap_vnav_system == 1 then
 		  simCMD_autopilot_FMS_mode:once()
 		elseif B747DR_ap_vnav_state>0 then 
@@ -871,7 +887,7 @@ function B747_ap_VNAV_mode_CMDhandler(phase, duration)
 		  
 		  B747DR_ap_inVNAVdescent =0
 		elseif B747DR_ap_vnav_system == 2 then
-		  B747DR_ap_vnav_state=1 
+		  B747DR_ap_vnav_state=1  
 -- 		  if simDR_autopilot_altitude_ft - simDR_pressureAlt1<-200 then
 -- 		    B747DR_ap_inVNAVdescent =1
 -- 		  elseif simDR_autopilot_altitude_ft - simDR_pressureAlt1>2000 and simDR_autopilot_flch_status==0 and B747DR_engine_TOGA_mode == 0 and simDR_onGround==0 then
@@ -1663,7 +1679,7 @@ function B747_ap_ias_mach_mode()
 	--if B747DR_ap_ias_mach_window_open == 1 and switchingIASMode==0 then
 	if switchingIASMode==0 then  
 	if simDR_autopilot_airspeed_is_mach == 0 then
-	  
+	    B747DR_ap_ias_bug_value=B747DR_ap_ias_dial_value
 	    if B747DR_ap_ias_dial_value< minSafeSpeed then
 	      simDR_autopilot_airspeed_kts = minSafeSpeed
 	    else
@@ -1671,6 +1687,7 @@ function B747_ap_ias_mach_mode()
 	    end
 	elseif simDR_autopilot_airspeed_is_mach == 1 and B747DR_ap_ias_dial_value* 0.01 > 0.4 then
 	    B747DR_ap_ias_mach_dial_value=B747DR_ap_ias_dial_value* 0.01
+	    B747DR_ap_ias_bug_value=simDR_autopilot_airspeed_kts
 	    if simDR_autopilot_airspeed_kts> maxSafeSpeed then
 		if simDR_autopilot_flch_status == 0 and B747DR_ap_inVNAVdescent ==0 then 
 		  simDR_autopilot_airspeed_kts=maxSafeSpeed-10
@@ -1977,10 +1994,7 @@ function setDescentVSpeed(fmsO)
   
 end
 ----- ALTITUDE SELECTED -----------------------------------------------------------------
-local inVnavAlt=0
-local recalcAfter=0
-local vnavcalcwithMCPAlt=0
-local vnavcalcwithTargetAlt=0
+
 function getCurrentWayPoint(fms)
   for i=1,table.getn(fms),1 do
     if fms[i][10]==true and i<=recalcAfter then
@@ -2185,7 +2199,7 @@ function vnavCruise()
 	print("flch > 1000 feet climb")
       end 
   elseif diff2>100 and simDR_autopilot_altitude_ft==B747BR_cruiseAlt then
-    print("last 1000 feet climb")
+    return --print("last 1000 feet climb")
   elseif diff2<-1000 and simDR_autopilot_altitude_ft==B747BR_cruiseAlt then
       if simDR_autopilot_vs_status == 0 then
 	simCMD_autopilot_vert_speed_mode:once()
@@ -2222,11 +2236,19 @@ function B747_ap_altitude()
 	local vvi_status=simDR_autopilot_vs_status
 	--print("B747_ap_altitude")
 	fms=json.decode(fmsJSON)
-	if table.getn(fms)<2 or fms[table.getn(fms)][2] ~= 1 then B747DR_ap_vnav_state=0 return end --no nav
+-- 	if table.getn(fms)<2 or fms[table.getn(fms)][2] ~= 1 then 
+-- 	  B747DR_ap_vnav_state=0 
+-- 	  return 
+-- 	end --no nav
 	if B747DR_ap_vnav_state>0 then
 	  
 	  
-	  if table.getn(fms)<2 or fms[table.getn(fms)][2] ~= 1 then print("Cancel VNAV "..table.getn(fms)) B747DR_ap_vnav_state=0 return end --no vnav
+	  if table.getn(fms)<2 or fms[table.getn(fms)][2] ~= 1 then 
+	    print("Cancel VNAV "..table.getn(fms)) 
+	    B747DR_fmc_notifications[30]=1
+	    B747DR_ap_vnav_state=0 
+	    return
+	  end --no vnav
 	  
 	  computeVNAVAlt(fms)
 	  if B747BR_totalDistance-B747BR_tod<=50 then
@@ -2732,9 +2754,14 @@ function B747_ap_EICAS_msg()
     if simDR_autopilot_fail == 6 then
         B747DR_CAS_caution_status[4] = 1
     end
-
-    -- >AUTOTHROT DISC
-
+    --print("test drag required".. B747DR_speedbrake_lever .. " " .. simDR_all_wheels_on_ground .. " " .. simDR_autopilot_vs_fpm .. " " .. simDR_autopilot_vs_status .. " " )
+    -- >AUTOTHROT DISC 
+    if B747DR_speedbrake_lever <0.3  and simDR_autopilot_vs_fpm<-2000 and simDR_autopilot_vs_status >= 1 and B747DR_ap_vnav_state>0 then 
+      --just a simple one for now, min thrust and increasing speed in vs mode would be better
+      B747DR_fmc_notifications[9]=1
+    else
+      B747DR_fmc_notifications[9]=0
+    end
 
 end
 

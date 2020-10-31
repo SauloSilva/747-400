@@ -1,3 +1,5 @@
+
+
 registerFMCCommand("sim/ground_ops/service_plane","GROUND SERVICES")
 registerFMCCommand("sim/ground_ops/pushback_stop","STOP PUSHBACK")
 registerFMCCommand("sim/ground_ops/pushback_left","PUSHBACK LEFT")
@@ -11,7 +13,8 @@ fmsPages["GNDHNDL"]=createPage("GNDHNDL")
 fmsPages["GNDHNDL"].getPage=function(self,pgNo,fmsID)
   local lineA="<REMOVE CHOCKS          "
   local LineB="<REQUEST GROUND SERVICES"
-  local LineC="<REQUEST PUSH BACK      "	
+  local LineC="<REQUEST PUSH BACK      "
+
   if B747DR__gear_chocked == 0.0 then
       lineA="<REQUEST CHOCKS         "
   end
@@ -59,7 +62,15 @@ fmsFunctionsDefs["GNDHNDL"]["L6"]={"setpage","INDEX"}
 fmsPages["GNDSRV"]=createPage("GNDSRV")
 fmsPages["GNDSRV"].getPage=function(self,pgNo,fmsID)
   local lineA=string.format("%03d",B747DR_fuel_add)
-	
+
+  local lineC = " ".. string.format("%03d",B747DR_payload_weight/120)
+  if simDR_acf_m_jettison>0 then
+	local jet_weight=simDR_m_jettison
+	if B747DR_fuel_display_units == "LBS" then
+	   jet_weight=simDR_m_jettison*2.2046226218488
+	end
+	lineC = "               ".. string.format("%06d",jet_weight) .."         "
+  end	  
 
 
   return {
@@ -72,7 +83,7 @@ fmsPages["GNDSRV"].getPage=function(self,pgNo,fmsID)
   "                        ",
   " "..lineA,
   "                        ",
-  "                        ",
+  lineC,
   "                        ",
   "  "..fmsModules["lastcmd"], 
   "                        ",
@@ -82,9 +93,25 @@ end
 
 fmsPages["GNDSRV"].getSmallPage=function(self,pgNo,fmsID)
 	local lineA = "x1000KGS"
-
+	local lineB = "                        "
+	local lineC = "                        "
+	if simDR_acf_m_jettison>0 then
+	  lineB = "     FIRE RETARDANT LOAD"
+	  fmsFunctionsDefs["GNDSRV"]["L4"]=nil
+	  if B747DR_fuel_display_units == "LBS" then
+	    lineC = "                     LBS"
+	  else
+	    lineC = "                     KGS"
+	  end
+	else
+	    lineB = "Passengers              "
+	    lineC = "      x120kgs           "
+	    fmsFunctionsDefs["GNDSRV"]["L4"]={"setdata","passengers"}
+	end
 	if B747DR_fuel_display_units == "LBS" then
 		lineA = "x1000LBS"
+		lineC = "      x265LBS           "
+		
 	end
 	
   return {
@@ -95,8 +122,8 @@ fmsPages["GNDSRV"].getSmallPage=function(self,pgNo,fmsID)
   "                        ",
   "ADD FUEL                ",
   "      "..lineA,
-  "                        ",
-  "                        ",
+  lineB,
+  lineC,
   "      LAST ACTION       ",
   "                        ",
   "                        ",

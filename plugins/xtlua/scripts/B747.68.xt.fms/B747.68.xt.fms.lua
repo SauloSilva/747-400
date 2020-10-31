@@ -5,6 +5,12 @@
 ]]
 simDRTime=find_dataref("sim/time/total_running_time_sec")
 simDR_onGround=find_dataref("sim/flightmodel/failures/onground_all")
+
+
+B747DR_acfType               = find_dataref("laminar/B747/acfType")
+B747DR_payload_weight               = find_dataref("sim/flightmodel/weight/m_fixed")
+simDR_acf_m_jettison  		=find_dataref("sim/aircraft/weight/acf_m_jettison")
+simDR_m_jettison  		=find_dataref("sim/flightmodel/weight/m_jettison")
 B747DR_CAS_advisory_status       = find_dataref("laminar/B747/CAS/advisory_status")
 B747DR_ap_vnav_system            = find_dataref("laminar/B747/autopilot/vnav_system")
 B747DR_ap_vnav_pause            = find_dataref("laminar/B747/autopilot/vnav_pause")
@@ -21,6 +27,7 @@ B747DR_irs_src_capt		 = find_dataref("laminar/B747/flt_inst/irs_src/capt/sel_dia
 B747DR_ap_fpa	    = find_dataref("laminar/B747/autopilot/navadata/fpa")
 B747DR_ap_vb	    = find_dataref("laminar/B747/autopilot/navadata/vb")
 simDR_autopilot_vs_fpm         			= find_dataref("sim/cockpit2/autopilot/vvi_dial_fpm")
+B747DR_fmc_notifications            = find_dataref("laminar/B747/fms/notification")
 --Workaround for stack overflow in init.lua namespace_read
 
 KGS_TO_LBS = 2.2046226218488
@@ -319,7 +326,7 @@ function createPage(page)
   fmsFunctionsDefs[page]={}
   return retVal
 end
-
+dofile("B744.notifications.lua")
 dofile("irs/irs_system.lua")
 dofile("B744.fms.pages.lua")
 
@@ -434,11 +441,34 @@ end
 
 debug_fms     = deferred_dataref("laminar/B747/debug/fms", "number")
 fms_style = find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_style_line2")
+lastNotify=0
+function setNotifications()
+  local diff=simDRTime-lastNotify
+  if diff<10 then return end
+  --print("FMS notify")
+  lastNotify=simDRTime
+  for i =1,53,1 do
+    --print("do FMS notify".." ".. i .." " ..B747DR_fmc_notifications[i])
+    if B747DR_fmc_notifications[i]>0 then
+      fmsModules["fmsL"]["notify"]=B747_FMCAlertMsg[i].name
+      fmsModules["fmsC"]["notify"]=B747_FMCAlertMsg[i].name
+      fmsModules["fmsR"]["notify"]=B747_FMCAlertMsg[i].name
+      print("do FMS notify"..B747_FMCAlertMsg[i].name)
+      break
+    else
+      if fmsModules["fmsL"]["notify"]==B747_FMCAlertMsg[i].name then fmsModules["fmsL"]["notify"]="" end
+      if fmsModules["fmsC"]["notify"]==B747_FMCAlertMsg[i].name then fmsModules["fmsC"]["notify"]="" end
+      if fmsModules["fmsR"]["notify"]==B747_FMCAlertMsg[i].name then fmsModules["fmsR"]["notify"]="" end
+    end
+  end
+
+end
 function after_physics()
   if debug_fms>0 then return end
 --     for i =1,24,1 do
 --       print(string.byte(fms_style,i))
 --     end
+    setNotifications()
     B747DR_FMSdata=json.encode(fmsModules["data"]["values"])--make the fms data available to other modules
     --print(B747DR_FMSdata)
     fmsL:B747_fms_display()

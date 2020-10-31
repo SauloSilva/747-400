@@ -155,7 +155,7 @@ simDR_autopilot_TOGA_vert_status = find_dataref("sim/cockpit2/autopilot/TOGA_sta
 --*************************************************************************************--
 --** 				              FIND CUSTOM DATAREFS             			    	 **--
 --*************************************************************************************--
-
+B747DR_acfType               = find_dataref("laminar/B747/acfType")
 B747DR_button_switch_position               = find_dataref("laminar/B747/button_switch/position")
 B747DR_toggle_switch_position               = find_dataref("laminar/B747/toggle_switch/position")
 

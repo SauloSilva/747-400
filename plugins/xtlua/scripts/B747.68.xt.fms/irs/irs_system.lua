@@ -93,9 +93,10 @@ function irsFromNum(num)
 end
 
 function irs_notify()
-  fmsModules["fmsL"].notify="ENTER IRS POSITION"
-  fmsModules["fmsC"].notify="ENTER IRS POSITION"
-  fmsModules["fmsR"].notify="ENTER IRS POSITION"
+--   fmsModules["fmsL"].notify="ENTER IRS POSITION"
+--   fmsModules["fmsC"].notify="ENTER IRS POSITION"
+--   fmsModules["fmsR"].notify="ENTER IRS POSITION"
+  B747DR_fmc_notifications[12]=1
 end
 doIRSAlign={}
 doIRSAlign["irsL"]=function()

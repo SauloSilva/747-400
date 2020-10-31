@@ -66,7 +66,7 @@ local B747_wheels_on_ground = 1
 local B747_last_sim_sb_handle_pos = 0
 B747_sb_manip_changed = deferred_dataref("laminar/B747/flt_ctrls/speedbrake_lever_changed", "number")
 
-
+B747DR_fmc_notifications            = find_dataref("laminar/B747/fms/notification")
 
 
 --*************************************************************************************--
@@ -137,7 +137,18 @@ B747DR_EICAS1_flap_display_status = deferred_dataref("laminar/B747/flt_ctrls/fla
 B747DR_elevator_trim_mid_ind    = deferred_dataref("laminar/B747/flt_ctrls/elevator_trim/mid/indicator", "number")
 B747DR__gear_chocked           = deferred_dataref("laminar/B747/gear/chocked", "number")
 B747DR_init_fltctrls_CD         = deferred_dataref("laminar/B747/fltctrls/init_CD", "number")
+--*************************************************************************************--
+--** 				       CREATE READ-WRITE CUSTOM DATAREFS                         **--
+--*************************************************************************************--
 
+----- SPEEDBRAKE HANDLE -----------------------------------------------------------------
+B747DR_speedbrake_lever     	= deferred_dataref("laminar/B747/flt_ctrls/speedbrake_lever", "number")--uses change handler B747_speedbrake_lever_DRhandler in xlua
+B747DR_speedbrake_lever_detent  = deferred_dataref("laminar/B747/flt_ctrls/speedbrake_lever_detent", "number")
+
+
+
+----- FLAP HANDLE -----------------------------------------------------------------------
+B747DR_flap_lever_detent		= deferred_dataref("laminar/B747/flt_ctrls/flap_lever_detent", "number")
 
 
 --*************************************************************************************--
@@ -190,18 +201,7 @@ function B747_flap_lever_detent_DRhandler() end
 
 
 
---*************************************************************************************--
---** 				       CREATE READ-WRITE CUSTOM DATAREFS                         **--
---*************************************************************************************--
 
------ SPEEDBRAKE HANDLE -----------------------------------------------------------------
-B747DR_speedbrake_lever     	= deferred_dataref("laminar/B747/flt_ctrls/speedbrake_lever", "number")--uses change handler B747_speedbrake_lever_DRhandler in xlua
-B747DR_speedbrake_lever_detent  = deferred_dataref("laminar/B747/flt_ctrls/speedbrake_lever_detent", "number")
-
-
-
------ FLAP HANDLE -----------------------------------------------------------------------
-B747DR_flap_lever_detent		= deferred_dataref("laminar/B747/flt_ctrls/flap_lever_detent", "number")
 
 
 
@@ -833,6 +833,7 @@ function B747_speedbrake_warn()
         and numClimb>=2 then  
         B747DR_CAS_warning_status[6] = 1
     end
+    
 end
 local last_simDR_Brake=simDR_parking_brake_ratio
 local last_B747DR_Brake=B747DR_parking_brake_ratio

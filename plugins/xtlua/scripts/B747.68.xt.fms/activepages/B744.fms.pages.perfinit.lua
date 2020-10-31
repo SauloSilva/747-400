@@ -5,44 +5,62 @@ simDR_fuel_tanks=find_dataref("sim/flightmodel/weight/m_fuel") --res on 5 and 6
 simDR_cg=find_dataref("sim/flightmodel/misc/cgz_ref_to_default") 
 fmsPages["PERFINIT"]=createPage("PERFINIT")
 fmsPages["PERFINIT"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be this way
-    local grwt=string.format("%05.1f",simDR_GRWT/1000)
-    local grfuel=string.format("%05.1f",simDR_fuel/1000)
-    local zfw=string.format("%05.1f",(simDR_GRWT-simDR_fuel)/1000)
-    local reserves=string.format("%05.1f",(simDR_fuel_tanks[5]+simDR_fuel_tanks[6])/1000)
+    local grwtV=simDR_GRWT/1000
+    local grfuelV=simDR_fuel/1000
+    local zfwV=(simDR_GRWT-simDR_fuel)/1000
+    local reservesV=(simDR_fuel_tanks[5]+simDR_fuel_tanks[6])/1000
+    local jet_weightV=simDR_m_jettison/1000
+    if B747DR_fuel_display_units == "LBS" then
+      grwtV=grwtV*2.2046226218488
+      grfuelV=grfuelV*2.2046226218488
+      zfwV=zfwV*2.2046226218488
+      reservesV=reservesV*2.2046226218488
+      jet_weightV=jet_weightV*2.2046226218488
+    end
+    local grwt=string.format("%05.1f",grwtV)
+    local grfuel=string.format("%05.1f",grfuelV)
+    local zfw=string.format("%05.1f",zfwV)
+    local reserves=string.format("%05.1f",reservesV)
+    local jet_weight="     "
+    if jet_weightV>0 then jet_weight=string.format("%05.1f",jet_weightV) end
     return{
 
  "       PERF INIT        ",
  "                        ",
  "".. grwt .."              "..fmsModules["data"]["crzalt"],
  "                        ",
- ""..grfuel ,
+ ""..grfuel .. "              "..jet_weight ,
  "                        ",
  ""..zfw ,
  "                        ",
- ""..reserves .."              "..simDR_cg,
+ ""..reserves .."              "..string.format("%03.1f",simDR_cg),
  "                        ",
  ""..fmsModules["data"]["costindex"] .."              ICAO", 
  "                        ",
  "<INDEX       THRUST LIM>"
     }
 end
-
-fmsPages["PERFINIT"]["templateSmall"]={
-"                        ",
-" GR WT           CRZ ALT",
-"                        ",
-" FUEL                   ",
-"     CALC               ",
-" ZFW                    ",
-"                        ",
-" RESERVES         CRZ CG",
-"                        ",
-" COST INDEX    STEP SIZE",
-"                        ", 
-"                        ",
-"                        "
-}
-
+fmsPages["PERFINIT"].getSmallPage=function(self,pgNo,fmsID)
+    local lineA=" FUEL                   "
+    if simDR_m_jettison>0 then
+    lineA=" FUEL         RETARDANT "
+    end  
+    return {
+      "                        ",
+      " GR WT           CRZ ALT",
+      "                        ",
+      lineA,
+      "     CALC               ",
+      " ZFW                    ",
+      "                        ",
+      " RESERVES         CRZ CG",
+      "                        ",
+      " COST INDEX    STEP SIZE",
+      "                        ", 
+      "                        ",
+      "                        "
+      }
+end
 
   
   

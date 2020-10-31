@@ -98490,13 +98490,13 @@ P acf/_jato_sfc 0.0
 P acf/_jato_theta 0.0
 P acf/_jato_thrust 0.0
 P acf/_jett_is_acft 0
-P acf/_jett_is_ret 0
+P acf/_jett_is_ret 1
 P acf/_jett_is_slung 0
 P acf/_jett_is_water 0
 P acf/_jett_the 0.0
 P acf/_jett_xyz/0 0.0
-P acf/_jett_xyz/1 0.0
-P acf/_jett_xyz/2 0.0
+P acf/_jett_xyz/1 -7.0
+P acf/_jett_xyz/2 60.0
 P acf/_jett_xyz/count 3
 P acf/_lo_speed_is_position 0
 P acf/_load_alt_presel_on_alt_hit 1
@@ -99146,7 +99146,7 @@ P acf/_wate_xyz/0 0.0
 P acf/_wate_xyz/1 -3.0
 P acf/_wate_xyz/2 96.0
 P acf/_wate_xyz/count 3
-P acf/_water_drop_dep_time 0.500000000
+P acf/_water_drop_dep_time 11.000000000
 P acf/_water_rud_Z 0.0
 P acf/_water_rud_area 0.0
 P acf/_water_rud_maxdef 0.0
@@ -101184,7 +101184,7 @@ GROUP Captain PFD
         gen_pointer Speed Bug
           POS 127.500000 767.000000
           IMAGE CRT Displays/PFD/ASI/ASIcmdSpdPtr
-          DATAREF laminar/B747/autopilot/ias_dial_value
+          DATAREF laminar/B747/autopilot/ias_bug_value
           
           HIDE
           LIGHT_MODE GLASS_AUTO
@@ -107848,7 +107848,7 @@ GROUP First Officer PFD
         gen_pointer Speed Bug 2
           POS 806.500000 767.000000
           IMAGE CRT Displays/PFD/ASI/ASIcmdSpdPtr
-          DATAREF laminar/B747/autopilot/ias_dial_value
+          DATAREF laminar/B747/autopilot/ias_bug_value
           
           HIDE
           LIGHT_MODE GLASS_AUTO
