@@ -99297,7 +99297,7 @@ GROUP Captain PFD
   GROUP Attitude Indicator
     
     HIDE
-    GROUP_OPEN
+    
     gen_needle Artificial Horizon
       POS 315.000000 767.000000
       IMAGE CRT Displays/PFD/Artificial Horizon/HrznBackgroiund
@@ -99320,7 +99320,7 @@ GROUP Captain PFD
       SHOW_LESS 2500.000000 sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot
       
       HIDE
-      GROUP_OPEN
+      
       GROUP_ANIMATE_MODE TRANSLATE
       GROUP_WIDTH 320
       GROUP_HEIGHT 200
@@ -99825,7 +99825,7 @@ GROUP Captain PFD
         SHOW_EQUAL 1.000000 [23]
         
         HIDE
-        GROUP_OPEN
+        
         GROUP_ANIMATE_MODE TRANSLATE
         GROUP_WIDTH 200
         GROUP_HEIGHT 200
@@ -101220,7 +101220,7 @@ GROUP Captain PFD
           SHOW_GREATER 24.950001 sim/flightmodel2/wing/flap1_deg[0]
           
           HIDE
-          GROUP_OPEN
+          
           gen_pointer Vref30
             POS 133.000000 767.500000
             IMAGE CRT Displays/PFD/Vspeeds/Vref
@@ -102432,7 +102432,7 @@ GROUP Captain PFD
     SHOW_GREATER -100.000000 laminar/B747/efis/baro_ref/capt
     
     HIDE
-    GROUP_OPEN
+    
     gen_rotary MDA Label
       POS 446.000000 592.500000
       IMAGE CRT Displays/PFD/Minimums/MDAlabel
@@ -102625,7 +102625,7 @@ GROUP Captain PFD
     SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
     
     HIDE
-    GROUP_OPEN
+    
     gen_rotary Background
       POS 315.000000 507.000000
       IMAGE CRT Displays/PFD/Heading Track/HdgTrackBgnd
@@ -102727,7 +102727,7 @@ GROUP Captain PFD
     GROUP Rose Offset
       
       HIDE
-      GROUP_OPEN
+      
       GROUP_ANIMATE_MODE ROTATE
       GROUP_WIDTH 344
       GROUP_HEIGHT 86
@@ -102818,12 +102818,12 @@ GROUP Captain ND
     SHOW_EQUAL 1.000000 laminar/B747/nd/map_center/capt
     
     HIDE
-    GROUP_OPEN
+    
     GROUP Map/Rose 2
       SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
       
       HIDE
-      GROUP_OPEN
+      
       EFIS_map_s_HM map_s_HM.png 2
         POS 336.000000 78.000000
         DATAREF 
@@ -102885,7 +102885,7 @@ GROUP Captain ND
       GROUP Compass Rose 2
         
         HIDE
-        GROUP_OPEN
+        
         gen_rotary Outer Tick Marks 2
           POS 336.000000 72.000000
           IMAGE EFIS/Maps/rose_S_outer_tick
@@ -102962,12 +102962,12 @@ GROUP Captain ND
       SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
       
       HIDE
-      GROUP_OPEN
+      
       GROUP APP/VOR/MAP 2
         SHOW_LESS 2.000000 laminar/B747/nd/mode/capt/sel_dial_pos
         
         HIDE
-        GROUP_OPEN
+        
         gen_rotary Heading Box 2
           POS 335.000000 339.500000
           IMAGE EFIS/Maps/hdg_box
@@ -103017,7 +103017,7 @@ GROUP Captain ND
         SHOW_EQUAL 3.000000 laminar/B747/nd/mode/capt/sel_dial_pos
         
         HIDE
-        GROUP_OPEN
+        
         gen_rotary Heading Box 2
           POS 335.000000 398.500000
           IMAGE EFIS/Maps/hdg_box
@@ -103067,7 +103067,7 @@ GROUP Captain ND
         SHOW_EQUAL 2.000000 laminar/B747/nd/mode/capt/sel_dial_pos
         
         HIDE
-        GROUP_OPEN
+        
         gen_rotary TRK Label 2
           POS 277.500000 337.500000
           IMAGE EFIS/Maps/label_TRK
@@ -103111,12 +103111,12 @@ GROUP Captain ND
       GROUP HDG 2
         
         HIDE
-        GROUP_OPEN
+        
         GROUP APP/VOR/MAP 2
           SHOW_LESS 1.000000 laminar/B747/nd/mode/capt/sel_dial_pos
           
           HIDE
-          GROUP_OPEN
+          
           gen_rotary HDG Label 2
             POS 277.500000 337.500000
             IMAGE EFIS/Maps/label_HDG
@@ -103160,7 +103160,7 @@ GROUP Captain ND
           SHOW_EQUAL 3.000000 laminar/B747/nd/mode/capt/sel_dial_pos
           
           HIDE
-          GROUP_OPEN
+          
           gen_rotary HDG Label 2 2
             POS 277.500000 395.500000
             IMAGE EFIS/Maps/label_HDG
@@ -103205,7 +103205,7 @@ GROUP Captain ND
     GROUP Hdg Ofst:APP/VOR/MA
       
       HIDE
-      GROUP_OPEN
+      
       GROUP_ANIMATE_MODE ROTATE
       GROUP_WIDTH 500
       GROUP_HEIGHT 500
@@ -103220,12 +103220,12 @@ GROUP Captain ND
         SHOW_EQUAL 0.000000 laminar/B747/nd/mode/capt/sel_dial_pos
         
         HIDE
-        GROUP_OPEN
+        
         GROUP ILS L 2
           SHOW_EQUAL 0.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_pos
           
           HIDE
-          GROUP_OPEN
+          
           gen_needle Course Ptr 2
             POS 335.000000 71.000000
             IMAGE EFIS/Maps/Centered/sel_crs_ptr
@@ -103293,7 +103293,7 @@ GROUP Captain ND
           SHOW_EQUAL 1.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_pos
           
           HIDE
-          GROUP_OPEN
+          
           gen_needle Course Ptr 2
             POS 335.000000 71.000000
             IMAGE EFIS/Maps/Centered/sel_crs_ptr
@@ -103362,12 +103362,12 @@ GROUP Captain ND
         SHOW_EQUAL 1.000000 laminar/B747/nd/mode/capt/sel_dial_pos
         
         HIDE
-        GROUP_OPEN
+        
         GROUP VOR L 2
           SHOW_EQUAL 2.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_pos
           
           HIDE
-          GROUP_OPEN
+          
           gen_needle Course Ptr 2 2
             POS 335.000000 71.000000
             IMAGE EFIS/Maps/Centered/sel_crs_ptr
@@ -103418,7 +103418,7 @@ GROUP Captain ND
           SHOW_EQUAL 3.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_pos
           
           HIDE
-          GROUP_OPEN
+          
           gen_needle Course Ptr 2 2
             POS 335.000000 71.000000
             IMAGE EFIS/Maps/Centered/sel_crs_ptr
@@ -103485,7 +103485,7 @@ GROUP Captain ND
     GROUP Hdg Ofst:PLN 2
       
       HIDE
-      GROUP_OPEN
+      
       GROUP_ANIMATE_MODE ROTATE
       GROUP_WIDTH 677
       GROUP_HEIGHT 602
@@ -103517,12 +103517,12 @@ GROUP Captain ND
       SHOW_LESS 1.000000 laminar/B747/nd/mode/capt/sel_dial_pos
       
       HIDE
-      GROUP_OPEN
+      
       GROUP VOR L 2
         SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_1_selection_pilot
         
         HIDE
-        GROUP_OPEN
+        
         gen_needle pointer 2
           POS 335.000000 71.000000
           IMAGE EFIS/Maps/Centered/VOR_L_bug
@@ -103543,7 +103543,7 @@ GROUP Captain ND
         SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_2_selection_pilot
         
         HIDE
-        GROUP_OPEN
+        
         gen_needle pointer 2
           POS 335.000000 71.000000
           IMAGE EFIS/Maps/Centered/VOR_R_bug
@@ -103564,7 +103564,7 @@ GROUP Captain ND
         SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_1_selection_pilot
         
         HIDE
-        GROUP_OPEN
+        
         gen_needle pointer 2
           POS 335.000000 71.000000
           IMAGE EFIS/Maps/Centered/ADF_L_bug
@@ -103585,7 +103585,7 @@ GROUP Captain ND
         SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_2_selection_pilot
         
         HIDE
-        GROUP_OPEN
+        
         gen_needle pointer 2
           POS 335.000000 71.000000
           IMAGE EFIS/Maps/Centered/ADF_R_bug
@@ -103652,7 +103652,7 @@ GROUP Captain ND
     GROUP Waypoints 1
       SHOW_GREATER 2.000000 laminar/B747/nd/mode/capt/sel_dial_pos
       LOCKED
-      GROUP_OPEN
+      
       gen_text Active Waypoint 1
         POS 593.500000 398.000000
         IMAGE CRT Displays/TEXT/TXT.2.28.magenta
@@ -103720,7 +103720,7 @@ GROUP Captain ND
       SHOW_EQUAL 0.000000 laminar/B747/nd/mode/capt/sel_dial_pos
       
       HIDE
-      GROUP_OPEN
+      
       gen_rotary Mask:GS 2
         POS 654.500000 70.000000
         IMAGE EFIS/Maps/GSscaleMask
@@ -103747,12 +103747,12 @@ GROUP Captain ND
         SHOW_GREATER 1.000000 sim/cockpit2/radios/indicators/hsi_display_vertical_pilot
         
         HIDE
-        GROUP_OPEN
+        
         GROUP Pointer VDEF > 2.3
           SHOW_GREATER 2.340000 sim/cockpit2/radios/indicators/hsi_vdef_dots_pilot
           
           HIDE
-          GROUP_OPEN
+          
           gen_pointer Pointer 2 2
             POS 654.500000 70.500000
             IMAGE CRT Displays/PFD/Artificial Horizon/HrznGSpointer
@@ -103777,7 +103777,7 @@ GROUP Captain ND
           SHOW_LESS 2.333333 sim/cockpit2/radios/indicators/hsi_vdef_dots_pilot
           
           HIDE
-          GROUP_OPEN
+          
           gen_pointer Pointer 2 2
             POS 654.500000 70.500000
             IMAGE CRT Displays/PFD/Artificial Horizon/HrznGSpointer2
@@ -103827,17 +103827,17 @@ GROUP Captain ND
     SHOW_EQUAL 0.000000 laminar/B747/nd/map_center/capt
     
     HIDE
-    GROUP_OPEN
+    
     GROUP Map/Rose 2
       SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
       
       HIDE
-      GROUP_OPEN
+      
       EFIS_map_t_HM map_t_HM.png 2
         POS 336.000000 -81.000000
         DATAREF 
         SIZE 3.500000
-        
+        CLIP
         HIDE
         LIGHT_MODE MECHANICAL
         LIGHT_RHEOSTAT 0
@@ -103888,7 +103888,7 @@ GROUP Captain ND
       SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
       
       HIDE
-      GROUP_OPEN
+      
       gen_rotary Heading Box 2
         POS 335.000000 398.500000
         IMAGE EFIS/Maps/hdg_box
@@ -103937,7 +103937,7 @@ GROUP Captain ND
         SHOW_EQUAL 2.000000 laminar/B747/nd/mode/fo/sel_dial_pos
         
         HIDE
-        GROUP_OPEN
+        
         gen_rotary TRK Label 2
           POS 277.500000 396.500000
           IMAGE EFIS/Maps/label_TRK
@@ -103980,12 +103980,12 @@ GROUP Captain ND
       GROUP HDG 2
         
         HIDE
-        GROUP_OPEN
+        
         GROUP APP/VOR 2
           SHOW_LESS 1.000000 laminar/B747/nd/mode/fo/sel_dial_pos
           
           HIDE
-          GROUP_OPEN
+          
           gen_rotary HDG Label 2
             POS 277.500000 396.500000
             IMAGE EFIS/Maps/label_HDG
@@ -104029,7 +104029,7 @@ GROUP Captain ND
           SHOW_EQUAL 3.000000 laminar/B747/nd/mode/fo/sel_dial_pos
           
           HIDE
-          GROUP_OPEN
+          
           gen_rotary HDG Label 2
             POS 277.500000 396.500000
             IMAGE EFIS/Maps/label_HDG
@@ -104074,7 +104074,7 @@ GROUP Captain ND
     GROUP Heading Offset 2
       
       HIDE
-      GROUP_OPEN
+      
       GROUP_ANIMATE_MODE ROTATE
       GROUP_WIDTH 677
       GROUP_HEIGHT 602
@@ -104106,12 +104106,12 @@ GROUP Captain ND
         SHOW_EQUAL 0.000000 laminar/B747/nd/mode/capt/sel_dial_pos
         
         HIDE
-        GROUP_OPEN
+        
         GROUP ILS L 2
           SHOW_EQUAL 0.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_pos
           
           HIDE
-          GROUP_OPEN
+          
           gen_needle Course Pointer 2
             POS 335.000000 -85.000000
             IMAGE EFIS/Maps/Expanded/sel_crs_ptr
@@ -104179,7 +104179,7 @@ GROUP Captain ND
           SHOW_EQUAL 1.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_pos
           
           HIDE
-          GROUP_OPEN
+          
           gen_needle Course Pointer 2
             POS 335.000000 -85.000000
             IMAGE EFIS/Maps/Expanded/sel_crs_ptr
@@ -104248,12 +104248,12 @@ GROUP Captain ND
         SHOW_EQUAL 1.000000 laminar/B747/nd/mode/capt/sel_dial_pos
         
         HIDE
-        GROUP_OPEN
+        
         GROUP VOR L 2
           SHOW_EQUAL 2.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_pos
           
           HIDE
-          GROUP_OPEN
+          
           gen_needle Course Pointer 2 2
             POS 335.000000 -85.000000
             IMAGE EFIS/Maps/Expanded/sel_crs_ptr
@@ -104304,7 +104304,7 @@ GROUP Captain ND
           SHOW_EQUAL 3.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_pos
           
           HIDE
-          GROUP_OPEN
+          
           gen_needle Course Pointer 2 2
             POS 335.000000 -85.000000
             IMAGE EFIS/Maps/Expanded/sel_crs_ptr
@@ -104387,12 +104387,12 @@ GROUP Captain ND
     GROUP Bearing Pointers 2
       
       HIDE
-      GROUP_OPEN
+      
       GROUP VOR L 2
         SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_1_selection_pilot
         
         HIDE
-        GROUP_OPEN
+        
         gen_needle pointer 2
           POS 335.500000 144.000000
           IMAGE EFIS/Maps/Expanded/VOR_L_bug
@@ -104415,7 +104415,7 @@ GROUP Captain ND
         SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_2_selection_pilot
         
         HIDE
-        GROUP_OPEN
+        
         gen_needle pointer 2
           POS 335.500000 143.500000
           IMAGE EFIS/Maps/Expanded/VOR_R_bug
@@ -104438,7 +104438,7 @@ GROUP Captain ND
         SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_1_selection_pilot
         
         HIDE
-        GROUP_OPEN
+        
         gen_needle pointer 2
           POS 335.500000 144.000000
           IMAGE EFIS/Maps/Expanded/ADF_L_bug
@@ -104461,7 +104461,7 @@ GROUP Captain ND
         SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_2_selection_pilot
         
         HIDE
-        GROUP_OPEN
+        
         gen_needle pointer 2
           POS 335.500000 143.500000
           IMAGE EFIS/Maps/Expanded/ADF_R_bug
@@ -104506,7 +104506,7 @@ GROUP Captain ND
     GROUP Waypoints 2
       SHOW_EQUAL 2.000000 laminar/B747/nd/mode/capt/sel_dial_pos
       LOCKED
-      GROUP_OPEN
+      
       gen_text Active Waypoint 2
         POS 593.500000 398.000000
         IMAGE CRT Displays/TEXT/TXT.2.28.magenta
@@ -104551,7 +104551,7 @@ GROUP Captain ND
       SHOW_EQUAL 0.000000 laminar/B747/nd/mode/capt/sel_dial_pos
       
       HIDE
-      GROUP_OPEN
+      
       gen_rotary Mask:GS 2
         POS 654.500000 -36.000000
         IMAGE EFIS/Maps/GSscaleMask
@@ -104578,12 +104578,12 @@ GROUP Captain ND
         SHOW_GREATER 1.000000 sim/cockpit2/radios/indicators/hsi_display_vertical_pilot
         
         HIDE
-        GROUP_OPEN
+        
         GROUP Pointer VDEF > 2.3
           SHOW_GREATER 2.340000 sim/cockpit2/radios/indicators/hsi_vdef_dots_copilot
           
           HIDE
-          GROUP_OPEN
+          
           gen_pointer Pointer 2
             POS 654.500000 -36.500000
             IMAGE CRT Displays/PFD/Artificial Horizon/HrznGSpointer
@@ -104608,7 +104608,7 @@ GROUP Captain ND
           SHOW_LESS 2.333333 sim/cockpit2/radios/indicators/hsi_vdef_dots_copilot
           
           HIDE
-          GROUP_OPEN
+          
           gen_pointer Pointer 2
             POS 654.500000 -36.500000
             IMAGE CRT Displays/PFD/Artificial Horizon/HrznGSpointer2
@@ -104657,7 +104657,7 @@ GROUP Captain ND
   GROUP EFIS Data Annun 2
     
     HIDE
-    GROUP_OPEN
+    
     gen_rotary ARPT 2
       POS 35.500000 36.500000
       IMAGE CRT Displays/ND/EFIS annun/ARPT
@@ -104777,12 +104777,12 @@ GROUP Captain ND
   GROUP Radio Data 2
     
     HIDE
-    GROUP_OPEN
+    
     GROUP Sel Rec ILS 2
       SHOW_EQUAL 0.000000 laminar/B747/nd/mode/capt/sel_dial_pos
       
       HIDE
-      GROUP_OPEN
+      
       gen_rotary Background  CRS 2
         POS 596.500000 391.500000
         IMAGE CRT Displays/ND/Ref Rcvr/crs_bkgnd
@@ -104809,7 +104809,7 @@ GROUP Captain ND
         SHOW_EQUAL 0.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_pos
         
         HIDE
-        GROUP_OPEN
+        
         gen_rotary Background  ILS L 2
           POS 529.000000 417.500000
           IMAGE CRT Displays/ND/Ref Rcvr/ils_L_bkgnd
@@ -104951,7 +104951,7 @@ GROUP Captain ND
         SHOW_EQUAL 1.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_pos
         
         HIDE
-        GROUP_OPEN
+        
         gen_rotary Background  ILS R 2
           POS 529.000000 417.500000
           IMAGE CRT Displays/ND/Ref Rcvr/ils_R_bkgnd
@@ -105094,7 +105094,7 @@ GROUP Captain ND
       SHOW_EQUAL 1.000000 laminar/B747/nd/mode/capt/sel_dial_pos
       
       HIDE
-      GROUP_OPEN
+      
       gen_rotary Background  CRS 2
         POS 596.500000 391.500000
         IMAGE CRT Displays/ND/Ref Rcvr/crs_bkgnd
@@ -105121,7 +105121,7 @@ GROUP Captain ND
         SHOW_EQUAL 2.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_pos
         
         HIDE
-        GROUP_OPEN
+        
         gen_rotary Background  VOR L 2
           POS 529.000000 417.500000
           IMAGE CRT Displays/ND/vor_L_bkgnd
@@ -105263,7 +105263,7 @@ GROUP Captain ND
         SHOW_EQUAL 3.000000 laminar/B747/flt_inst/nav_src/capt/sel_dial_pos
         
         HIDE
-        GROUP_OPEN
+        
         gen_rotary Background  VOR R 2
           POS 529.000000 417.500000
           IMAGE CRT Displays/ND/vor_R_bkgnd
@@ -105406,7 +105406,7 @@ GROUP Captain ND
       SHOW_LESS 2.000000 laminar/B747/nd/mode/capt/sel_dial_pos
       
       HIDE
-      GROUP_OPEN
+      
       gen_rotary Radio Mask L 2
         POS 71.000000 -206.000000
         IMAGE EFIS/Maps/rad_mask
@@ -105455,7 +105455,7 @@ GROUP Captain ND
         SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_1_selection_pilot
         
         HIDE
-        GROUP_OPEN
+        
         gen_rotary Background VOR L 2
           POS 48.000000 -178.500000
           IMAGE CRT Displays/ND/vor_L_bkgnd
@@ -105581,7 +105581,7 @@ GROUP Captain ND
         SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_1_selection_pilot
         
         HIDE
-        GROUP_OPEN
+        
         gen_rotary Background 2
           POS 48.000000 -178.500000
           IMAGE CRT Displays/ND/adf_L_bkgnd
@@ -105643,7 +105643,7 @@ GROUP Captain ND
         SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_2_selection_pilot
         
         HIDE
-        GROUP_OPEN
+        
         gen_rotary Background VOR R 2
           POS 612.000000 -178.500000
           IMAGE CRT Displays/ND/vor_R_bkgnd
@@ -105768,7 +105768,7 @@ GROUP Captain ND
         SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_2_selection_pilot
         
         HIDE
-        GROUP_OPEN
+        
         gen_rotary Background 2
           POS 612.000000 -178.500000
           IMAGE CRT Displays/ND/adf_R_bkgnd
@@ -105830,11 +105830,11 @@ GROUP Captain ND
   END_GROUP
   GROUP CAPT IRS INFO
     HIDE
-    GROUP_OPEN
+    
     GROUP CAPT IRS ON
       SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
       HIDE
-      GROUP_OPEN
+      
       EFIS_TAS_GS_wind el_TAS_GS_wind.png
         POS 95.000000 370.000000
         DATAREF 
@@ -105851,7 +105851,7 @@ GROUP Captain ND
     GROUP CAPT IRS OFF
       SHOW_LESS 0.100000 laminar/B747/pfd/capt/irs
       HIDE
-      GROUP_OPEN
+      
       gen_text irs line1
         POS 95.000000 370.000000
         IMAGE CRT Displays/TEXT/TXT.2.28.white
@@ -105957,7 +105957,7 @@ GROUP First Officer PFD
   GROUP Attitude Indicator
     
     HIDE
-    GROUP_OPEN
+    
     gen_needle Artificial Horizon
       POS 994.000000 767.000000
       IMAGE CRT Displays/PFD/Artificial Horizon/HrznBackgroiund
@@ -105980,7 +105980,7 @@ GROUP First Officer PFD
       SHOW_LESS 2500.000000 sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_copilot
       
       HIDE
-      GROUP_OPEN
+      
       GROUP_ANIMATE_MODE TRANSLATE
       GROUP_WIDTH 320
       GROUP_HEIGHT 200
@@ -106485,7 +106485,7 @@ GROUP First Officer PFD
         SHOW_EQUAL 1.000000 [23]
         
         HIDE
-        GROUP_OPEN
+        
         GROUP_ANIMATE_MODE TRANSLATE
         GROUP_WIDTH 200
         GROUP_HEIGHT 200
@@ -108088,7 +108088,7 @@ GROUP First Officer PFD
       SHOW_GREATER 0.400000 sim/flightmodel/misc/machno
       
       HIDE
-      GROUP_OPEN
+      
       gen_LED Mach Speed LED 2
         POS 757.000000 487.500000
         IMAGE CRT Displays/LED/LED_2.36R.xxxxx0.white
@@ -109496,12 +109496,12 @@ GROUP First Officer ND
     SHOW_EQUAL 1.000000 laminar/B747/nd/map_center/fo
     
     HIDE
-    GROUP_OPEN
+    
     GROUP Map/Rose
       SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
       
       HIDE
-      GROUP_OPEN
+      
       EFIS_map_s_HM map_s_HM.png
         POS 1023.000000 78.000000
         DATAREF 
@@ -109564,7 +109564,7 @@ GROUP First Officer ND
       GROUP Compass Rose
         
         HIDE
-        GROUP_OPEN
+        
         gen_rotary Outer Tick Marks
           POS 1023.000000 72.000000
           IMAGE EFIS/Maps/rose_S_outer_tick
@@ -109641,12 +109641,12 @@ GROUP First Officer ND
       SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
       
       HIDE
-      GROUP_OPEN
+      
       GROUP APP/VOR/MAP
         SHOW_LESS 2.000000 laminar/B747/nd/mode/fo/sel_dial_pos
         
         HIDE
-        GROUP_OPEN
+        
         gen_rotary Heading Box
           POS 1022.000000 339.500000
           IMAGE EFIS/Maps/hdg_box
@@ -109696,7 +109696,7 @@ GROUP First Officer ND
         SHOW_EQUAL 3.000000 laminar/B747/nd/mode/fo/sel_dial_pos
         
         HIDE
-        GROUP_OPEN
+        
         gen_rotary Heading Box
           POS 1022.000000 398.500000
           IMAGE EFIS/Maps/hdg_box
@@ -109746,7 +109746,7 @@ GROUP First Officer ND
         SHOW_EQUAL 2.000000 laminar/B747/nd/mode/fo/sel_dial_pos
         
         HIDE
-        GROUP_OPEN
+        
         gen_rotary TRK Label
           POS 964.500000 337.500000
           IMAGE EFIS/Maps/label_TRK
@@ -109790,12 +109790,12 @@ GROUP First Officer ND
       GROUP HDG
         
         HIDE
-        GROUP_OPEN
+        
         GROUP APP/VOR/MAP
           SHOW_LESS 1.000000 laminar/B747/nd/mode/fo/sel_dial_pos
           
           HIDE
-          GROUP_OPEN
+          
           gen_rotary HDG Label
             POS 964.500000 337.500000
             IMAGE EFIS/Maps/label_HDG
@@ -109839,7 +109839,7 @@ GROUP First Officer ND
           SHOW_EQUAL 3.000000 laminar/B747/nd/mode/fo/sel_dial_pos
           
           HIDE
-          GROUP_OPEN
+          
           gen_rotary HDG Label 2
             POS 964.500000 395.500000
             IMAGE EFIS/Maps/label_HDG
@@ -109884,7 +109884,7 @@ GROUP First Officer ND
     GROUP Hdg Ofst:APP/VOR/MA
       
       HIDE
-      GROUP_OPEN
+      
       GROUP_ANIMATE_MODE ROTATE
       GROUP_WIDTH 500
       GROUP_HEIGHT 500
@@ -109899,12 +109899,12 @@ GROUP First Officer ND
         SHOW_EQUAL 0.000000 laminar/B747/nd/mode/fo/sel_dial_pos
         
         HIDE
-        GROUP_OPEN
+        
         GROUP ILS L
           SHOW_EQUAL 2.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
           
           HIDE
-          GROUP_OPEN
+          
           gen_needle Course Ptr
             POS 1022.000000 71.000000
             IMAGE EFIS/Maps/Centered/sel_crs_ptr
@@ -109972,7 +109972,7 @@ GROUP First Officer ND
           SHOW_EQUAL 3.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
           
           HIDE
-          GROUP_OPEN
+          
           gen_needle Course Ptr
             POS 1022.000000 71.000000
             IMAGE EFIS/Maps/Centered/sel_crs_ptr
@@ -110041,12 +110041,12 @@ GROUP First Officer ND
         SHOW_EQUAL 1.000000 laminar/B747/nd/mode/fo/sel_dial_pos
         
         HIDE
-        GROUP_OPEN
+        
         GROUP VOR L
           SHOW_EQUAL 1.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
           
           HIDE
-          GROUP_OPEN
+          
           gen_needle Course Ptr 2
             POS 1022.000000 71.000000
             IMAGE EFIS/Maps/Centered/sel_crs_ptr
@@ -110097,7 +110097,7 @@ GROUP First Officer ND
           SHOW_EQUAL 0.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
           
           HIDE
-          GROUP_OPEN
+          
           gen_needle Course Ptr 2
             POS 1022.000000 71.000000
             IMAGE EFIS/Maps/Centered/sel_crs_ptr
@@ -110164,7 +110164,7 @@ GROUP First Officer ND
     GROUP Hdg Ofst:PLN
       
       HIDE
-      GROUP_OPEN
+      
       GROUP_ANIMATE_MODE ROTATE
       GROUP_WIDTH 677
       GROUP_HEIGHT 602
@@ -110196,12 +110196,12 @@ GROUP First Officer ND
       SHOW_LESS 1.000000 laminar/B747/nd/mode/fo/sel_dial_pos
       
       HIDE
-      GROUP_OPEN
+      
       GROUP VOR L
         SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_1_selection_copilot
         
         HIDE
-        GROUP_OPEN
+        
         gen_needle pointer
           POS 1022.000000 71.000000
           IMAGE EFIS/Maps/Centered/VOR_L_bug
@@ -110222,7 +110222,7 @@ GROUP First Officer ND
         SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_2_selection_copilot
         
         HIDE
-        GROUP_OPEN
+        
         gen_needle pointer
           POS 1022.000000 71.000000
           IMAGE EFIS/Maps/Centered/VOR_R_bug
@@ -110243,7 +110243,7 @@ GROUP First Officer ND
         SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_1_selection_copilot
         
         HIDE
-        GROUP_OPEN
+        
         gen_needle pointer
           POS 1022.000000 71.000000
           IMAGE EFIS/Maps/Centered/ADF_L_bug
@@ -110264,7 +110264,7 @@ GROUP First Officer ND
         SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_2_selection_copilot
         
         HIDE
-        GROUP_OPEN
+        
         gen_needle pointer
           POS 1022.000000 71.000000
           IMAGE EFIS/Maps/Centered/ADF_R_bug
@@ -110331,7 +110331,7 @@ GROUP First Officer ND
     GROUP Waypoints 3
       SHOW_GREATER 2.000000 laminar/B747/nd/mode/fo/sel_dial_pos
       LOCKED
-      GROUP_OPEN
+      
       gen_text Active Waypoint 3
         POS 1273.500000 398.000000
         IMAGE CRT Displays/TEXT/TXT.2.28.magenta
@@ -110399,7 +110399,7 @@ GROUP First Officer ND
       SHOW_EQUAL 0.000000 laminar/B747/nd/mode/fo/sel_dial_pos
       
       HIDE
-      GROUP_OPEN
+      
       gen_rotary Mask:GS
         POS 1341.500000 70.000000
         IMAGE EFIS/Maps/GSscaleMask
@@ -110426,12 +110426,12 @@ GROUP First Officer ND
         SHOW_GREATER 1.000000 sim/cockpit2/radios/indicators/hsi_display_vertical_copilot
         
         HIDE
-        GROUP_OPEN
+        
         GROUP Pointer VDEF > 2.3
           SHOW_GREATER 2.340000 sim/cockpit2/radios/indicators/hsi_vdef_dots_copilot
           
           HIDE
-          GROUP_OPEN
+          
           gen_pointer Pointer 2
             POS 1341.500000 70.500000
             IMAGE CRT Displays/PFD/Artificial Horizon/HrznGSpointer
@@ -110456,7 +110456,7 @@ GROUP First Officer ND
           SHOW_LESS 2.333333 sim/cockpit2/radios/indicators/hsi_vdef_dots_copilot
           
           HIDE
-          GROUP_OPEN
+          
           gen_pointer Pointer 2
             POS 1341.500000 70.500000
             IMAGE CRT Displays/PFD/Artificial Horizon/HrznGSpointer2
@@ -110506,12 +110506,12 @@ GROUP First Officer ND
     SHOW_EQUAL 0.000000 laminar/B747/nd/map_center/fo
     
     HIDE
-    GROUP_OPEN
+    
     GROUP Map/Rose
       SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
       
       HIDE
-      GROUP_OPEN
+      
       EFIS_map_t_HM map_t_HM.png
         POS 1023.000000 -81.000000
         DATAREF 
@@ -110568,7 +110568,7 @@ GROUP First Officer ND
       SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
       
       HIDE
-      GROUP_OPEN
+      
       gen_rotary Heading Box
         POS 1022.000000 398.500000
         IMAGE EFIS/Maps/hdg_box
@@ -110617,7 +110617,7 @@ GROUP First Officer ND
         SHOW_EQUAL 2.000000 laminar/B747/nd/mode/fo/sel_dial_pos
         
         HIDE
-        GROUP_OPEN
+        
         gen_rotary TRK Label
           POS 964.500000 396.500000
           IMAGE EFIS/Maps/label_TRK
@@ -110660,12 +110660,12 @@ GROUP First Officer ND
       GROUP HDG
         
         HIDE
-        GROUP_OPEN
+        
         GROUP APP/VOR
           SHOW_LESS 1.000000 laminar/B747/nd/mode/fo/sel_dial_pos
           
           HIDE
-          GROUP_OPEN
+          
           gen_rotary HDG Label
             POS 964.500000 396.500000
             IMAGE EFIS/Maps/label_HDG
@@ -110709,7 +110709,7 @@ GROUP First Officer ND
           SHOW_EQUAL 3.000000 laminar/B747/nd/mode/fo/sel_dial_pos
           
           HIDE
-          GROUP_OPEN
+          
           gen_rotary HDG Label
             POS 964.500000 396.500000
             IMAGE EFIS/Maps/label_HDG
@@ -110754,7 +110754,7 @@ GROUP First Officer ND
     GROUP Heading Offset
       
       HIDE
-      GROUP_OPEN
+      
       GROUP_ANIMATE_MODE ROTATE
       GROUP_WIDTH 677
       GROUP_HEIGHT 602
@@ -110786,12 +110786,12 @@ GROUP First Officer ND
         SHOW_EQUAL 0.000000 laminar/B747/nd/mode/fo/sel_dial_pos
         
         HIDE
-        GROUP_OPEN
+        
         GROUP ILS L
           SHOW_EQUAL 2.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
           
           HIDE
-          GROUP_OPEN
+          
           gen_needle Course Pointer
             POS 1022.000000 -85.000000
             IMAGE EFIS/Maps/Expanded/sel_crs_ptr
@@ -110859,7 +110859,7 @@ GROUP First Officer ND
           SHOW_EQUAL 3.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
           
           HIDE
-          GROUP_OPEN
+          
           gen_needle Course Pointer
             POS 1022.000000 -85.000000
             IMAGE EFIS/Maps/Expanded/sel_crs_ptr
@@ -110928,12 +110928,12 @@ GROUP First Officer ND
         SHOW_EQUAL 1.000000 laminar/B747/nd/mode/fo/sel_dial_pos
         
         HIDE
-        GROUP_OPEN
+        
         GROUP VOR L
           SHOW_EQUAL 0.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
           
           HIDE
-          GROUP_OPEN
+          
           gen_needle Course Pointer 2
             POS 1022.000000 -85.000000
             IMAGE EFIS/Maps/Expanded/sel_crs_ptr
@@ -110984,7 +110984,7 @@ GROUP First Officer ND
           SHOW_EQUAL 1.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
           
           HIDE
-          GROUP_OPEN
+          
           gen_needle Course Pointer 2
             POS 1022.000000 -85.000000
             IMAGE EFIS/Maps/Expanded/sel_crs_ptr
@@ -111031,11 +111031,13 @@ GROUP First Officer ND
 
         END_GROUP
       END_GROUP
+      GROUP ND Heading Bug
+        SHOW_LESS 1.000000 laminar/B747/nd/mode/fo/sel_dial_pos
       gen_needle Heading Bug
         POS 1022.000000 347.000000
         IMAGE EFIS/Maps/Expanded/heading_bugP
         DATAREF sim/cockpit2/autopilot/heading_dial_deg_mag_pilot
-        SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
+        SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
         
         HIDE
         LIGHT_MODE GLASS_AUTO
@@ -111045,13 +111047,13 @@ GROUP First Officer ND
         KEY_FRAME 90.000000 90.000000
         IS_DRAGGABLE 0
         OFFSET 430.000000
-        NEEDLE_OFFSET_Y -430.000000
+        NEEDLE_OFFSET_Y -222.000000
 
       gen_needle Heading Bug Line
         POS 1022.000000 137.000000
         IMAGE EFIS/Maps/Expanded/heading_bug_line
         DATAREF sim/cockpit2/autopilot/heading_dial_deg_mag_pilot
-        SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
+        SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
         
         HIDE
         LIGHT_MODE GLASS_AUTO
@@ -111062,17 +111064,17 @@ GROUP First Officer ND
         IS_DRAGGABLE 0
         OFFSET 222.000000
         NEEDLE_OFFSET_Y -222.000000
-
+      END_GROUP
     END_GROUP
     GROUP Bearing Pointers
       
       HIDE
-      GROUP_OPEN
+      
       GROUP VOR L
         SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_1_selection_copilot
         
         HIDE
-        GROUP_OPEN
+        
         gen_needle pointer
           POS 1022.500000 144.000000
           IMAGE EFIS/Maps/Expanded/VOR_L_bug
@@ -111095,7 +111097,7 @@ GROUP First Officer ND
         SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_2_selection_copilot
         
         HIDE
-        GROUP_OPEN
+        
         gen_needle pointer
           POS 1022.500000 143.500000
           IMAGE EFIS/Maps/Expanded/VOR_R_bug
@@ -111118,7 +111120,7 @@ GROUP First Officer ND
         SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_1_selection_copilot
         
         HIDE
-        GROUP_OPEN
+        
         gen_needle pointer
           POS 1022.500000 144.000000
           IMAGE EFIS/Maps/Expanded/ADF_L_bug
@@ -111141,7 +111143,7 @@ GROUP First Officer ND
         SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_2_selection_copilot
         
         HIDE
-        GROUP_OPEN
+        
         gen_needle pointer
           POS 1022.500000 143.500000
           IMAGE EFIS/Maps/Expanded/ADF_R_bug
@@ -111184,9 +111186,9 @@ GROUP First Officer ND
       CLICK_DY 0
 
     GROUP Waypoints 4
-      SHOW_GREATER 2.000000 laminar/B747/nd/mode/fo/sel_dial_pos
+      SHOW_EQUAL 2.000000 laminar/B747/nd/mode/fo/sel_dial_pos
       LOCKED
-      GROUP_OPEN
+      
       gen_text Active Waypoint 4
         POS 1273.500000 398.000000
         IMAGE CRT Displays/TEXT/TXT.2.28.magenta
@@ -111231,7 +111233,7 @@ GROUP First Officer ND
       SHOW_EQUAL 0.000000 laminar/B747/nd/mode/fo/sel_dial_pos
       
       HIDE
-      GROUP_OPEN
+      
       gen_rotary Mask:GS
         POS 1341.500000 -36.000000
         IMAGE EFIS/Maps/GSscaleMask
@@ -111258,12 +111260,12 @@ GROUP First Officer ND
         SHOW_GREATER 1.000000 sim/cockpit2/radios/indicators/hsi_display_vertical_copilot
         
         HIDE
-        GROUP_OPEN
+        
         GROUP Pointer VDEF > 2.3
           SHOW_GREATER 2.340000 sim/cockpit2/radios/indicators/hsi_vdef_dots_copilot
           
           HIDE
-          GROUP_OPEN
+          
           gen_pointer Pointer
             POS 1341.500000 -36.500000
             IMAGE CRT Displays/PFD/Artificial Horizon/HrznGSpointer
@@ -111288,7 +111290,7 @@ GROUP First Officer ND
           SHOW_LESS 2.333333 sim/cockpit2/radios/indicators/hsi_vdef_dots_copilot
           
           HIDE
-          GROUP_OPEN
+          
           gen_pointer Pointer
             POS 1341.500000 -36.500000
             IMAGE CRT Displays/PFD/Artificial Horizon/HrznGSpointer2
@@ -111337,7 +111339,7 @@ GROUP First Officer ND
   GROUP EFIS Data Annun
     
     HIDE
-    GROUP_OPEN
+    
     gen_rotary ARPT
       POS 713.500000 36.500000
       IMAGE CRT Displays/ND/EFIS annun/ARPT
@@ -111461,7 +111463,7 @@ GROUP First Officer ND
       SHOW_EQUAL 0.000000 laminar/B747/nd/mode/fo/sel_dial_pos
       
       HIDE
-      GROUP_OPEN
+      
       gen_rotary Background  CRS
         POS 1274.500000 391.500000
         IMAGE CRT Displays/ND/Ref Rcvr/crs_bkgnd
@@ -111488,7 +111490,7 @@ GROUP First Officer ND
         SHOW_EQUAL 2.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
         
         HIDE
-        GROUP_OPEN
+        
         gen_rotary Background  ILS L
           POS 1207.000000 417.500000
           IMAGE CRT Displays/ND/Ref Rcvr/ils_L_bkgnd
@@ -111630,7 +111632,7 @@ GROUP First Officer ND
         SHOW_EQUAL 3.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
         
         HIDE
-        GROUP_OPEN
+        
         gen_rotary Background  ILS R
           POS 1207.000000 417.500000
           IMAGE CRT Displays/ND/Ref Rcvr/ils_R_bkgnd
@@ -111773,7 +111775,7 @@ GROUP First Officer ND
       SHOW_EQUAL 1.000000 laminar/B747/nd/mode/fo/sel_dial_pos
       
       HIDE
-      GROUP_OPEN
+      
       gen_rotary Background  CRS
         POS 1274.500000 391.500000
         IMAGE CRT Displays/ND/Ref Rcvr/crs_bkgnd
@@ -111800,7 +111802,7 @@ GROUP First Officer ND
         SHOW_EQUAL 0.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
         
         HIDE
-        GROUP_OPEN
+        
         gen_rotary Background  VOR L
           POS 1207.000000 417.500000
           IMAGE CRT Displays/ND/vor_L_bkgnd
@@ -111942,7 +111944,7 @@ GROUP First Officer ND
         SHOW_EQUAL 1.000000 laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
         
         HIDE
-        GROUP_OPEN
+        
         gen_rotary Background  VOR R
           POS 1207.000000 417.500000
           IMAGE CRT Displays/ND/vor_R_bkgnd
@@ -112085,7 +112087,7 @@ GROUP First Officer ND
       SHOW_LESS 2.000000 laminar/B747/nd/mode/fo/sel_dial_pos
       
       HIDE
-      GROUP_OPEN
+      
       gen_rotary Radio Mask L
         POS 749.000000 -206.000000
         IMAGE EFIS/Maps/rad_mask
@@ -112134,7 +112136,7 @@ GROUP First Officer ND
         SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_1_selection_copilot
         
         HIDE
-        GROUP_OPEN
+        
         gen_rotary Background VOR L
           POS 726.000000 -178.500000
           IMAGE CRT Displays/ND/vor_L_bkgnd
@@ -112260,7 +112262,7 @@ GROUP First Officer ND
         SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_1_selection_copilot
         
         HIDE
-        GROUP_OPEN
+        
         gen_rotary Background
           POS 726.000000 -178.500000
           IMAGE CRT Displays/ND/adf_L_bkgnd
@@ -112322,7 +112324,7 @@ GROUP First Officer ND
         SHOW_EQUAL 2.000000 sim/cockpit2/EFIS/EFIS_2_selection_copilot
         
         HIDE
-        GROUP_OPEN
+        
         gen_rotary Background VOR R
           POS 1290.000000 -178.500000
           IMAGE CRT Displays/ND/vor_R_bkgnd
@@ -112447,7 +112449,7 @@ GROUP First Officer ND
         SHOW_EQUAL 0.000000 sim/cockpit2/EFIS/EFIS_2_selection_copilot
         
         HIDE
-        GROUP_OPEN
+        
         gen_rotary Background
           POS 1290.000000 -178.500000
           IMAGE CRT Displays/ND/adf_R_bkgnd
@@ -112509,11 +112511,11 @@ GROUP First Officer ND
   END_GROUP
   GROUP FO IRS INFO
     HIDE
-    GROUP_OPEN
+    
     GROUP FO IRS ON
       SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
       HIDE
-      GROUP_OPEN
+      
       EFIS_TAS_GS_wind el_TAS_GS_wind.png
         POS 772.000000 370.000000
         DATAREF [0]
@@ -112530,7 +112532,7 @@ GROUP First Officer ND
     GROUP FO IRS OFF
       SHOW_LESS 0.100000 laminar/B747/pfd/fo/irs
       HIDE
-      GROUP_OPEN
+      
       gen_text irs line1
         POS 786.500000 370.000000
         IMAGE CRT Displays/TEXT/TXT.2.28.white
@@ -112637,7 +112639,7 @@ GROUP Upper EICAS
 
   GROUP CAS Messages
     
-    GROUP_OPEN
+    
     gen_rotary Recall
       POS 1843.500000 824.500000
       IMAGE CRT Displays/EICAS Upper/EICAS_cas_recall
@@ -112663,7 +112665,7 @@ GROUP Upper EICAS
     GROUP Page #
       SHOW_GREATER 2.000000 laminar/B747/CAS/num_msg_pages
       
-      GROUP_OPEN
+      
       gen_rotary PG Label
         POS 1976.000000 824.500000
         IMAGE CRT Displays/EICAS Upper/EICAS_cas_pg
@@ -112703,11 +112705,11 @@ GROUP Upper EICAS
     END_GROUP
     GROUP Warnings
       
-      GROUP_OPEN
+      
       GROUP Page 1
         SHOW_EQUAL 1.000000 laminar/B747/CAS/msg_page
         
-        GROUP_OPEN
+        
         gen_text WARNING MESSAGE
           POS 1914.500000 1091.000000
           IMAGE CRT Displays/TEXT/TXT.2.28.red
@@ -112855,7 +112857,7 @@ GROUP Upper EICAS
       GROUP Page 2
         SHOW_EQUAL 2.000000 laminar/B747/CAS/msg_page
         
-        GROUP_OPEN
+        
         gen_text WARNING MESSAGE 2
           POS 1914.500000 1091.000000
           IMAGE CRT Displays/TEXT/TXT.2.28.red
@@ -113003,11 +113005,11 @@ GROUP Upper EICAS
     END_GROUP
     GROUP Cautions
       
-      GROUP_OPEN
+      
       GROUP Page 1
         SHOW_EQUAL 1.000000 laminar/B747/CAS/msg_page
         
-        GROUP_OPEN
+        
         gen_text CAUTION MESSAGE
           POS 1914.500000 1091.000000
           IMAGE CRT Displays/TEXT/TXT.2.28.amber
@@ -113155,7 +113157,7 @@ GROUP Upper EICAS
       GROUP Page 2
         SHOW_EQUAL 2.000000 laminar/B747/CAS/msg_page
         
-        GROUP_OPEN
+        
         gen_text CAUTION MESSAGE 2
           POS 1914.500000 1091.000000
           IMAGE CRT Displays/TEXT/TXT.2.28.amber
@@ -113303,11 +113305,11 @@ GROUP Upper EICAS
     END_GROUP
     GROUP Advisories
       
-      GROUP_OPEN
+      
       GROUP Page 1
         SHOW_EQUAL 1.000000 laminar/B747/CAS/msg_page
         
-        GROUP_OPEN
+        
         gen_text ADVISORY MESSAGE
           POS 1927.500000 1091.000000
           IMAGE CRT Displays/TEXT/TXT.2.28.amber
@@ -113455,7 +113457,7 @@ GROUP Upper EICAS
       GROUP Page 2
         SHOW_EQUAL 2.000000 laminar/B747/CAS/msg_page
         
-        GROUP_OPEN
+        
         gen_text ADVISORY MESSAGE 2
           POS 1927.500000 1091.000000
           IMAGE CRT Displays/TEXT/TXT.2.28.amber
@@ -113603,11 +113605,11 @@ GROUP Upper EICAS
     END_GROUP
     GROUP Memos
       
-      GROUP_OPEN
+      
       GROUP Page 1
         SHOW_EQUAL 1.000000 laminar/B747/CAS/msg_page
         
-        GROUP_OPEN
+        
         gen_text MEMO MESSAGE
           POS 1915.500000 1091.000000
           IMAGE CRT Displays/TEXT/TXT.2.28.white
@@ -113755,7 +113757,7 @@ GROUP Upper EICAS
       GROUP Page 2
         SHOW_EQUAL 2.000000 laminar/B747/CAS/msg_page
         
-        GROUP_OPEN
+        
         gen_text MEMO MESSAGE 2
           POS 1915.500000 1091.000000
           IMAGE CRT Displays/TEXT/TXT.2.28.white
@@ -113904,10 +113906,10 @@ GROUP Upper EICAS
   END_GROUP
   GROUP Anti-Ice
     
-    GROUP_OPEN
+    
     GROUP Wing
       
-      GROUP_OPEN
+      
       gen_rotary Left
         POS 1484.000000 716.000000
         IMAGE CRT Displays/EICAS Upper/WAI
@@ -113955,7 +113957,7 @@ GROUP Upper EICAS
     END_GROUP
     GROUP Nacelle
       
-      GROUP_OPEN
+      
       gen_rotary Engine 4
         POS 1722.000000 761.000000
         IMAGE CRT Displays/EICAS Upper/NAI
@@ -114048,7 +114050,7 @@ GROUP Upper EICAS
   END_GROUP
   GROUP TAT
     
-    GROUP_OPEN
+    
     gen_rotary Background
       POS 1440.000000 1088.500000
       IMAGE CRT Displays/EICAS Upper/EICAS_mode_bgnd
@@ -114192,10 +114194,10 @@ GROUP Upper EICAS
 
     GROUP EPR
       
-      GROUP_OPEN
+      
       GROUP EPR LED
         
-        GROUP_OPEN
+        
         gen_rotary Box 1 Red
           POS 1430.500000 1031.000000
           IMAGE CRT Displays/EICAS Upper/EPR.EGT_box_red
@@ -114504,7 +114506,7 @@ GROUP Upper EICAS
       END_GROUP
       GROUP EPR Tapes
         
-        GROUP_OPEN
+        
         gen_tape EPR 4 Tape Red
           POS 1748.500000 942.000000
           IMAGE CRT Displays/EICAS Upper/EPR_tapeR
@@ -114611,7 +114613,7 @@ GROUP Upper EICAS
 
         GROUP EPR Limit Markers
           
-          GROUP_OPEN
+          
           gen_rotary Max EPR 4 Amber
             POS 1748.500000 1002.000000
             IMAGE CRT Displays/EICAS Upper/EPR_maxLineA
@@ -114705,10 +114707,10 @@ GROUP Upper EICAS
     END_GROUP
     GROUP N1
       
-      GROUP_OPEN
+      
       GROUP N1 Tape
         
-        GROUP_OPEN
+        
         gen_tape Engine 4 Red
           POS 1748.500000 760.500000
           IMAGE CRT Displays/EICAS Upper/N1.EGT_tapeR
@@ -114816,7 +114818,7 @@ GROUP Upper EICAS
 
         GROUP Redline Markers
           
-          GROUP_OPEN
+          
           gen_rotary Engine 4
             POS 1748.500000 812.000000
             IMAGE CRT Displays/EICAS Upper/N1.EGT_redLine
@@ -114905,7 +114907,7 @@ GROUP Upper EICAS
       END_GROUP
       GROUP N1 LED
         
-        GROUP_OPEN
+        
         gen_rotary Box 1 Red
           POS 1430.500000 841.000000
           IMAGE CRT Displays/EICAS Upper/N1_box_red
@@ -115214,7 +115216,7 @@ GROUP Upper EICAS
       END_GROUP
       GROUP N1 Thrust Command
         
-        GROUP_OPEN
+        
         gen_pointer Engine 4
             POS 1748.500000 812.000000
             IMAGE CRT Displays/EICAS Upper/N1_thrust
@@ -115275,10 +115277,10 @@ GROUP Upper EICAS
     END_GROUP
     GROUP EGT
       
-      GROUP_OPEN
+      
       GROUP EGT Tape
         
-        GROUP_OPEN
+        
         gen_tape Engine 4 Red
           POS 1748.500000 596.500000
           IMAGE CRT Displays/EICAS Upper/N1.EGT_tapeR
@@ -115450,7 +115452,7 @@ GROUP Upper EICAS
 
         GROUP Continuous  Limit
           
-          GROUP_OPEN
+          
           gen_rotary Engine 4
             POS 1748.500000 641.000000
             IMAGE CRT Displays/EICAS Upper/EPR_maxLineA
@@ -115547,7 +115549,7 @@ GROUP Upper EICAS
         END_GROUP
         GROUP Start Limit Markers
           
-          GROUP_OPEN
+          
           gen_rotary Engine 4
             POS 1748.500000 626.000000
             IMAGE CRT Displays/EICAS Upper/EGT_startLimit
@@ -115639,7 +115641,7 @@ GROUP Upper EICAS
         END_GROUP
         GROUP Redline Markers
           
-          GROUP_OPEN
+          
           gen_rotary Engine 4
             POS 1748.500000 645.000000
             IMAGE CRT Displays/EICAS Upper/N1.EGT_redLine
@@ -115728,7 +115730,7 @@ GROUP Upper EICAS
       END_GROUP
       GROUP EGT LED
         
-        GROUP_OPEN
+        
         gen_rotary Box 1 Amber
           POS 1430.500000 674.000000
           IMAGE CRT Displays/EICAS Upper/EGT_box_amber
@@ -116218,7 +116220,7 @@ GROUP Upper EICAS
     GROUP Ind 1
       SHOW_EQUAL 3.000000 sim/cockpit2/engine/actuators/prop_mode[0]
       
-      GROUP_OPEN
+      
       gen_rotary Transit
         POS 1431.000000 1063.500000
         IMAGE CRT Displays/EICAS Upper/EICAS_TRind_amber
@@ -116269,7 +116271,7 @@ GROUP Upper EICAS
     GROUP Ind 2
       SHOW_EQUAL 3.000000 sim/cockpit2/engine/actuators/prop_mode[1]
       
-      GROUP_OPEN
+      
       gen_rotary Transit
         POS 1537.000000 1063.500000
         IMAGE CRT Displays/EICAS Upper/EICAS_TRind_amber
@@ -116320,7 +116322,7 @@ GROUP Upper EICAS
     GROUP Ind 3
       SHOW_EQUAL 3.000000 sim/cockpit2/engine/actuators/prop_mode[2]
       
-      GROUP_OPEN
+      
       gen_rotary Transit
         POS 1643.000000 1063.500000
         IMAGE CRT Displays/EICAS Upper/EICAS_TRind_amber
@@ -116371,7 +116373,7 @@ GROUP Upper EICAS
     GROUP Ind 4
       SHOW_EQUAL 3.000000 sim/cockpit2/engine/actuators/prop_mode[3]
       
-      GROUP_OPEN
+      
       gen_rotary Transit
         POS 1750.000000 1063.500000
         IMAGE CRT Displays/EICAS Upper/EICAS_TRind_amber
@@ -116537,7 +116539,7 @@ GROUP Upper EICAS
 
     GROUP Tape
       
-      GROUP_OPEN
+      
       gen_rotary Ind Bgnd
         POS 1915.500000 604.000000
         IMAGE CRT Displays/EICAS Upper/flaps_tape_bgnd
@@ -116573,11 +116575,11 @@ GROUP Upper EICAS
 
       GROUP Ind Labels
         
-        GROUP_OPEN
+        
         GROUP Selected(green)
           SHOW_EQUAL 0.000000 laminar/B747/flt_ctrls/flap/transition_status
           
-          GROUP_OPEN
+          
           gen_rotary 30
             POS 1944.000000 535.500000
             IMAGE CRT Displays/EICAS Upper/flaps30_green
@@ -116741,7 +116743,7 @@ GROUP Upper EICAS
         GROUP Selected(magenta)
           SHOW_EQUAL 1.000000 laminar/B747/flt_ctrls/flap/transition_status
           
-          GROUP_OPEN
+          
           gen_rotary 30
             POS 1944.000000 535.500000
             IMAGE CRT Displays/EICAS Upper/flaps30_magenta
@@ -116905,7 +116907,7 @@ GROUP Upper EICAS
       END_GROUP
       GROUP Ind Line
         
-        GROUP_OPEN
+        
         gen_pointer Line: In Transit
           POS 1915.500000 604.000000
           IMAGE CRT Displays/EICAS Upper/flaps_indLine_magenta
@@ -116975,10 +116977,10 @@ GROUP Upper EICAS
 
     GROUP Duct Pressure
       
-      GROUP_OPEN
+      
       GROUP Low
         
-        GROUP_OPEN
+        
         gen_LED LED L
           POS 1501.000000 520.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.amber
@@ -117014,7 +117016,7 @@ GROUP Upper EICAS
       END_GROUP
       GROUP Normal
         
-        GROUP_OPEN
+        
         gen_LED LED L
           POS 1501.000000 520.000000
           IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
@@ -117051,7 +117053,7 @@ GROUP Upper EICAS
     END_GROUP
     GROUP Cabin Alt
       
-      GROUP_OPEN
+      
       gen_LED LED White
         POS 1568.000000 491.000000
         IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
@@ -117104,7 +117106,7 @@ GROUP Upper EICAS
     END_GROUP
     GROUP Landing Alt
       
-      GROUP_OPEN
+      
       gen_LED LED
         POS 1560.000000 467.000000
         IMAGE CRT Displays/LED/LED_3.26B.x####0.white
@@ -117145,7 +117147,7 @@ GROUP Upper EICAS
     END_GROUP
     GROUP Rate
       
-      GROUP_OPEN
+      
       gen_rotary POS Sign
         POS 1665.000000 490.500000
         IMAGE CRT Displays/EICAS Upper/TAT_posSign
@@ -117208,7 +117210,7 @@ GROUP Upper EICAS
     END_GROUP
     GROUP Diff Press
       
-      GROUP_OPEN
+      
       gen_LED LED High Red
         POS 1705.000000 467.000000
         IMAGE CRT Displays/LED/LED_3.26B.xxx#00.red
@@ -117278,7 +117280,7 @@ GROUP Upper EICAS
     END_GROUP
     GROUP Mode Annun
       
-      GROUP_OPEN
+      
       gen_rotary man
         POS 1622.000000 464.500000
         IMAGE CRT Displays/EICAS Upper/press_mode_man
@@ -117410,7 +117412,7 @@ GROUP Upper EICAS
     GROUP Jettison
       SHOW_GREATER 1.000000 laminar/B747/fuel/fuel_jettison/sel_dial_pos
       
-      GROUP_OPEN
+      
       gen_rotary Background
         POS 1843.000000 466.500000
         IMAGE CRT Displays/EICAS Upper/EICAS_fuel_rem_bgnd
@@ -117451,7 +117453,7 @@ GROUP Upper EICAS
     GROUP Temp
       SHOW_LESS 0.000000 laminar/B747/fuel/fuel_jettison/sel_dial_pos
       
-      GROUP_OPEN
+      
       gen_rotary Background
         POS 1865.000000 466.000000
         IMAGE CRT Displays/EICAS Upper/EICAS_fuel_temp_bgnd
@@ -117560,7 +117562,7 @@ GROUP Upper EICAS
 END_GROUP
 GROUP Lower EICAS
   
-  GROUP_OPEN
+  
   GROUP_ANIMATE_MODE TRANSLATE
   SHOW_GREATER 0.0 laminar/B747/flt_inst/display/fo/eicas_pos
         DATAREF laminar/B747/flt_inst/display/eicas_pos
@@ -117612,7 +117614,7 @@ GROUP Lower EICAS
     GROUP N2
       
       HIDE
-      GROUP_OPEN
+      
       gen_rotary Background
         POS 1591.500000 318.500000
         IMAGE CRT Displays/EICAS Lower/N2_bgnd
@@ -118461,7 +118463,7 @@ GROUP Lower EICAS
     GROUP Oil Pressure
       
       HIDE
-      GROUP_OPEN
+      
       gen_rotary Background
         POS 1591.000000 96.500000
         IMAGE CRT Displays/EICAS Lower/oil_p_bgnd
@@ -118487,11 +118489,11 @@ GROUP Lower EICAS
       GROUP LED
         
         HIDE
-        GROUP_OPEN
+        
         GROUP Lo Limit
           
           HIDE
-          GROUP_OPEN
+          
           gen_LED Engine 4
             POS 1751.000000 75.000000
             IMAGE CRT Displays/LED/LED_3.26B.xx###0.red
@@ -118568,7 +118570,7 @@ GROUP Lower EICAS
         GROUP Normal
           
           HIDE
-          GROUP_OPEN
+          
           gen_LED Engine 4
             POS 1751.000000 75.000000
             IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
@@ -118646,11 +118648,11 @@ GROUP Lower EICAS
       GROUP Tape
         
         HIDE
-        GROUP_OPEN
+        
         GROUP Engine 1&2
           
           HIDE
-          GROUP_OPEN
+          
           gen_rotary Background
             POS 1484.500000 75.500000
             IMAGE CRT Displays/EICAS Lower/oil_p_ptr_bgnd
@@ -118676,7 +118678,7 @@ GROUP Lower EICAS
           GROUP Pointer
             
             HIDE
-            GROUP_OPEN
+            
             GROUP Lo Limit
               
               HIDE
@@ -118762,7 +118764,7 @@ GROUP Lower EICAS
         GROUP Engine 3&4
           
           HIDE
-          GROUP_OPEN
+          
           gen_rotary Background
             POS 1694.500000 75.500000
             IMAGE CRT Displays/EICAS Lower/oil_p_ptr_bgnd
@@ -118788,11 +118790,11 @@ GROUP Lower EICAS
           GROUP Pointer
             
             HIDE
-            GROUP_OPEN
+            
             GROUP Lo Lomit
               
               HIDE
-              GROUP_OPEN
+              
               gen_pointer Engine 3
                 POS 1676.500000 75.500000
                 IMAGE CRT Displays/EICAS Lower/ptr_right_red
@@ -118833,7 +118835,7 @@ GROUP Lower EICAS
             GROUP Normal
               
               HIDE
-              GROUP_OPEN
+              
               gen_pointer Engine 3
                 POS 1676.500000 75.500000
                 IMAGE CRT Displays/EICAS Lower/ptr_right
@@ -121504,9 +121506,9 @@ GROUP Lower EICAS
   END_GROUP
   GROUP FUEL Synoptic
     SHOW_EQUAL 4.000000 laminar/B747/dsp/synoptic_display
-    GROUP_OPEN
+    
     GROUP Total Fuel
-      GROUP_OPEN
+      
       gen_rotary Label
         POS 1628.500000 390.500000
         IMAGE CRT Displays/EICAS Lower/FUEL/bgnd_label01
@@ -125608,7 +125610,7 @@ GROUP Lower EICAS
 
     GROUP pumps
       HIDE
-      GROUP_OPEN
+      
       gen_rotary edp_pump 1
         POS 1462.000000 84.500000
         IMAGE CRT Displays/EICAS Lower/HYD/edp_pressure
@@ -125810,7 +125812,7 @@ GROUP Lower EICAS
     END_GROUP
     GROUP res 1
       HIDE
-      GROUP_OPEN
+      
       GROUP_ANIMATE_MODE TRANSLATE
       GROUP_WIDTH 0
       GROUP_HEIGHT 0
@@ -125844,7 +125846,7 @@ GROUP Lower EICAS
     END_GROUP
     GROUP res 2
       HIDE
-      GROUP_OPEN
+      
       GROUP_ANIMATE_MODE TRANSLATE
       GROUP_WIDTH 0
       GROUP_HEIGHT 0
@@ -125878,7 +125880,7 @@ GROUP Lower EICAS
     END_GROUP
     GROUP res 3
       HIDE
-      GROUP_OPEN
+      
       GROUP_ANIMATE_MODE TRANSLATE
       GROUP_WIDTH 0
       GROUP_HEIGHT 0
@@ -125912,7 +125914,7 @@ GROUP Lower EICAS
     END_GROUP
     GROUP res 4
       HIDE
-      GROUP_OPEN
+      
       GROUP_ANIMATE_MODE TRANSLATE
       GROUP_WIDTH 0
       GROUP_HEIGHT 0
@@ -125946,7 +125948,7 @@ GROUP Lower EICAS
     END_GROUP
     GROUP dem indicator
       HIDE
-      GROUP_OPEN
+      
       gen_rotary dem_1 auto
         POS 1419.000000 81.500000
         IMAGE CRT Displays/EICAS Lower/HYD/d_auto
@@ -126126,7 +126128,7 @@ GROUP Lower EICAS
     END_GROUP
     GROUP edp indication
       HIDE
-      GROUP_OPEN
+      
       gen_rotary valve 1 on
         POS 1487.500000 21.500000
         IMAGE CRT Displays/EICAS Lower/HYD/valve_on
@@ -126395,7 +126397,7 @@ GROUP Lower EICAS
     GROUP Hydraulics
       
       HIDE
-      GROUP_OPEN
+      
       gen_LED LED Temp 1
         POS 1453.000000 -167.000000
         IMAGE CRT Displays/LED/LED_3.26B.xx###0.white
@@ -129196,7 +129198,7 @@ GROUP FMS L
 END_GROUP
 GROUP FMS R
   
-  GROUP_OPEN
+  
   SHOW_GREATER 0.1 sim/cockpit/electrical/avionics_on
   gen_rotary CRT Background
     POS 1026.000000 1512.500000
@@ -129234,7 +129236,7 @@ GROUP FMS R
   GROUP NAV RAD
     
     CHAINED
-    GROUP_OPEN
+    
     gen_rotary CDU739 Mask
       POS 1026.000000 1512.500000
       IMAGE FMS Displays/Background
@@ -129258,7 +129260,7 @@ GROUP FMS R
 
     GROUP Lines-Large Font
       
-      GROUP_OPEN
+      
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 1046.500000 1735.500000
         IMAGE FMS Displays/TEXT/TXT.fms.38_2.green
@@ -129444,7 +129446,7 @@ GROUP FMS R
     END_GROUP
     GROUP Lines-Small Font
       
-      GROUP_OPEN
+      
       gen_text XXXXXXXXXXXXXXXXXXX
         POS 1046.500000 1738.000000
         IMAGE FMS Displays/TEXT/TXT.fms.34_2.green

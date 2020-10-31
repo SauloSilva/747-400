@@ -120,6 +120,7 @@ simDR_prop_mode                 = find_dataref("sim/cockpit2/engine/actuators/pr
 simDR_engine_throttle_jet       = find_dataref("sim/cockpit2/engine/actuators/throttle_jet_rev_ratio")
 simDR_engine_throttle_jet_all   = find_dataref("sim/cockpit2/engine/actuators/throttle_jet_rev_ratio_all")
 simCMD_autopilot_autothrottle_on		= find_command("sim/autopilot/autothrottle_on")
+simCMD_autopilot_autothrottle_off		= find_command("sim/autopilot/autothrottle_off")
 simDR_hydraulic_sys_press_01    = find_dataref("sim/operation/failures/hydraulic_pressure_ratio")
 simDR_hydraulic_sys_press_02    = find_dataref("sim/operation/failures/hydraulic_pressure_ratio2")
 
@@ -175,7 +176,7 @@ B747DR_engine04_fire_ext_switch_pos_disch   = find_dataref("laminar/B747/fire/en
 B747DR_CAS_caution_status                   = find_dataref("laminar/B747/CAS/caution_status")
 B747DR_CAS_advisory_status                  = find_dataref("laminar/B747/CAS/advisory_status")
 B747DR_CAS_memo_status                      = find_dataref("laminar/B747/CAS/memo_status")
-
+B747DR_ap_autoland            	= find_dataref("laminar/B747/autopilot/autoland")
 
 
 
@@ -563,6 +564,8 @@ function B747_engine_TOGA_power_CMDhandler(phase, duration)
 	if phase == 0 then
         if B747DR_toggle_switch_position[29] == 1 then
             --if simDR_allThrottle>0.25 then
+		    B747DR_ap_autoland=-2
+		    simCMD_autopilot_autothrottle_off:once()
 	            if B747DR_engine_TOGA_mode == 0 then
                 	--[[simDR_engine_throttle_input[0] = 0.95
                 	simDR_engine_throttle_input[1] = 0.95
@@ -741,7 +744,7 @@ function B747_prop_mode()
     --simDR_prop_mode[2] = B747_ternary(((B747DR_thrust_rev_lever_pos[2] > 0.45) and (simDR_hydraulic_sys_press_02 > 1000.0)), 3, 1)
     --simDR_prop_mode[3] = B747_ternary(((B747DR_thrust_rev_lever_pos[3] > 0.45) and (simDR_hydraulic_sys_press_01 > 1000.0)), 3, 1)simCMD_ThrottleUp
    
-    if B747DR_engine_TOGA_mode >0 and B747DR_engine_TOGA_mode < 1 and simDR_allThrottle<0.94 then
+    if ((B747DR_engine_TOGA_mode >0 and B747DR_engine_TOGA_mode < 1) or B747DR_ap_autoland<0) and simDR_allThrottle<0.94 then
 	    simCMD_ThrottleUp:once()--simDR_allThrottle = B747_set_animation_position(simDR_allThrottle,0.95,0,1,1)
     elseif B747DR_engine_TOGA_mode >0 and B747DR_engine_TOGA_mode < 1 then
       B747DR_engine_TOGA_mode = 1

@@ -160,7 +160,7 @@ B747DR_ap_AFDS_status_annun            	= deferred_dataref("laminar/B747/autopil
     4 = LAND 3
     5 = NO AUTOLAND
 --]]
-
+B747DR_ap_autoland            	= deferred_dataref("laminar/B747/autopilot/autoland", "number")
 
 B747CMD_ap_thrust_mode              	= deferred_command("laminar/B747/autopilot/button_switch/thrust_mode", "Autopilot THR Mode", B747_ap_thrust_mode_CMDhandler)
 B747CMD_ap_switch_speed_mode			= deferred_command("laminar/B747/autopilot/button_switch/speed_mode", "A/P Speed Mode Switch", B747_ap_switch_speed_mode_CMDhandler)
