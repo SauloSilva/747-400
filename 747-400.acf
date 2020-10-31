@@ -101020,19 +101020,20 @@ GROUP Captain PFD
 
     END_GROUP
     GROUP Max Speed
-      #SHOW_GREATER 10.000000 sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot
+      SHOW_GREATER 10.000000 sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot
+      GROUP_WIDTH 43
+      GROUP_HEIGHT 480
       
-      HIDE
+      
       GROUP Spd Ofst Kts
         
         HIDE
         GROUP_ANIMATE_MODE TRANSLATE
         GROUP_WIDTH 43
         GROUP_HEIGHT 480
-        #DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
         DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
         POS 127.500000 767.000000
-        CLIP
+        
         KEY_FRAME 220.000000 400.000000 1.000000
         KEY_FRAME 320.000000 0.000000 1.000000
         KEY_FRAME 420.000000 -400.000000
@@ -101076,15 +101077,19 @@ GROUP Captain PFD
     END_GROUP
     GROUP Min Speed
       SHOW_GREATER 10.000000 sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot
+      GROUP_WIDTH 43
+      GROUP_HEIGHT 480
       
-      HIDE
+      
+      
+      
       GROUP Spd Ofst Kts
         GROUP_ANIMATE_MODE TRANSLATE
         GROUP_WIDTH 43
         GROUP_HEIGHT 480
         DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
         POS 127.500000 767.000000
-        CLIP
+        
         KEY_FRAME 100.000000 240.000000 1.000000
         KEY_FRAME 160.000000 0.000000 1.000000
         KEY_FRAME 220.000000 -240.000000
@@ -101096,7 +101101,7 @@ GROUP Captain PFD
           DATAREF laminar/B747/airspeed/Vmc
           
           HIDE
-          CLIP
+          
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -101113,7 +101118,7 @@ GROUP Captain PFD
           DATAREF laminar/B747/airspeed/Vs
           
           HIDE
-          CLIP
+          
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 2
           BUS_SRC 2
@@ -101125,6 +101130,27 @@ GROUP Captain PFD
           OFFSET 0.000000
 
       END_GROUP
+      gen_rotary tape clip 2
+      POS 127.500000 772.000000
+      IMAGE CRT Displays/PFD/ASI/ASITapebg
+      DATAREF 
+      
+      
+      LIGHT_MODE GLASS_AUTO
+      LIGHT_RHEOSTAT 2
+      BUS_SRC 2
+      KEY_FRAME 0.000000 0.000000 1.000000
+      KEY_FRAME 1.000000 6.000000
+      DIGITS 1
+      ROTARY_TYPE NO_CLICK
+      CLICK_RADIUS 0.000000
+      CLICK_RADIUS_DY 0.000000
+      OFFSET 0.000000
+      STEP1 1.000000
+      STEP2 1.000000
+      CURSOR DEFAULT
+      CLICK_DX 0
+      CLICK_DY 0
     END_GROUP
     GROUP CMD Speed
       
@@ -102783,20 +102809,12 @@ GROUP Captain ND
         KEY_FRAME 2.000000 1366.000000 #upper eiacs
         IS_VERTICAL 0
         OFFSET 0.000000
-  GROUP Lower EICAS Vertical
-	GROUP_ANIMATE_MODE TRANSLATE
-        DATAREF laminar/B747/flt_inst/display/capt/nd_pos
-        KEY_FRAME 0.000000 0.000000 1.000000
-        KEY_FRAME 1.000000 0.000000 #lower eiacs
-        KEY_FRAME 2.000000 683.000000 #lower eiacs
-        IS_VERTICAL 1
-        OFFSET 0.000000
-  HIDE
-  gen_rotary CRT Background
+        
+        gen_rotary CRT Background
     POS 344.500000 95.000000
     IMAGE CRT Displays/Background
     DATAREF 
-    
+    CLIP
     HIDE
     LIGHT_MODE GLASS_AUTO
     LIGHT_RHEOSTAT 0
@@ -102813,6 +102831,16 @@ GROUP Captain ND
     CURSOR DEFAULT
     CLICK_DX 0
     CLICK_DY 0
+  GROUP Lower EICAS Vertical
+	GROUP_ANIMATE_MODE TRANSLATE
+        DATAREF laminar/B747/flt_inst/display/capt/nd_pos
+        KEY_FRAME 0.000000 0.000000 1.000000
+        KEY_FRAME 1.000000 0.000000 #lower eiacs
+        KEY_FRAME 2.000000 683.000000 #lower eiacs
+        IS_VERTICAL 1
+        OFFSET 0.000000
+  HIDE
+  
 
   GROUP Map:Centered 2
     SHOW_EQUAL 1.000000 laminar/B747/nd/map_center/capt
@@ -107705,7 +107733,7 @@ GROUP First Officer PFD
           
           HIDE
           
-          CLIP
+          
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -107723,7 +107751,7 @@ GROUP First Officer PFD
           
           HIDE
           
-          CLIP
+          
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -107748,7 +107776,7 @@ GROUP First Officer PFD
         GROUP_HEIGHT 480
         DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_copilot
         POS 806.500000 767.000000
-        CLIP
+        
         KEY_FRAME 100.000000 240.000000 1.000000
         KEY_FRAME 160.000000 0.000000 1.000000
         KEY_FRAME 220.000000 -240.000000
@@ -107760,7 +107788,7 @@ GROUP First Officer PFD
           DATAREF laminar/B747/airspeed/Vmc
           
           HIDE
-          CLIP
+          
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -107777,7 +107805,7 @@ GROUP First Officer PFD
           DATAREF laminar/B747/airspeed/Vs
           
           HIDE
-          CLIP
+          
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 5
           BUS_SRC 4
@@ -107789,6 +107817,27 @@ GROUP First Officer PFD
           OFFSET 0.000000
 
       END_GROUP
+      gen_rotary tape clip 2
+      POS 806.500000 772.000000
+      IMAGE CRT Displays/PFD/ASI/ASITapebg
+      DATAREF 
+      
+      
+      LIGHT_MODE GLASS_AUTO
+      LIGHT_RHEOSTAT 5
+      BUS_SRC 4
+      KEY_FRAME 0.000000 0.000000 1.000000
+      KEY_FRAME 1.000000 6.000000
+      DIGITS 1
+      ROTARY_TYPE NO_CLICK
+      CLICK_RADIUS 0.000000
+      CLICK_RADIUS_DY 0.000000
+      OFFSET 0.000000
+      STEP1 1.000000
+      STEP2 1.000000
+      CURSOR DEFAULT
+      CLICK_DX 0
+      CLICK_DY 0
     END_GROUP
     GROUP CMD Speed 2
       
@@ -109461,20 +109510,11 @@ GROUP First Officer ND
         KEY_FRAME 2.000000 683.000000 #upper eiacs
         IS_VERTICAL 0
         OFFSET 0.000000
-        
-  GROUP Lower EICAS Vertical
-	GROUP_ANIMATE_MODE TRANSLATE
-        DATAREF laminar/B747/flt_inst/display/fo/nd_pos
-        KEY_FRAME 0.000000 0.000000 1.000000
-        KEY_FRAME 1.000000 0.000000 #lower eiacs
-        KEY_FRAME 2.000000 683.000000 #lower eiacs
-        IS_VERTICAL 1
-        OFFSET 0.000000
-  gen_rotary CRT Background
+    gen_rotary CRT Background
     POS 1022.500000 95.000000
     IMAGE CRT Displays/Background
     DATAREF 
-    
+    CLIP
     HIDE
     LIGHT_MODE GLASS_AUTO
     LIGHT_RHEOSTAT 0
@@ -109490,7 +109530,19 @@ GROUP First Officer ND
     STEP2 1.000000
     CURSOR DEFAULT
     CLICK_DX 0
-    CLICK_DY 0
+    CLICK_DY 0  
+  GROUP Lower EICAS Vertical
+	GROUP_WIDTH 480
+	GROUP_HEIGHT 480
+	GROUP_ANIMATE_MODE TRANSLATE
+        DATAREF laminar/B747/flt_inst/display/fo/nd_pos
+        KEY_FRAME 0.000000 0.000000 1.000000
+        KEY_FRAME 1.000000 0.000000 #lower eiacs
+        KEY_FRAME 2.000000 683.000000 #lower eiacs
+        IS_VERTICAL 1
+        CLIP
+        OFFSET 0.000000
+  
 
   GROUP Map:Centered
     SHOW_EQUAL 1.000000 laminar/B747/nd/map_center/fo
@@ -111047,7 +111099,7 @@ GROUP First Officer ND
         KEY_FRAME 90.000000 90.000000
         IS_DRAGGABLE 0
         OFFSET 430.000000
-        NEEDLE_OFFSET_Y -222.000000
+        NEEDLE_OFFSET_Y -430.000000
 
       gen_needle Heading Bug Line
         POS 1022.000000 137.000000
@@ -112620,7 +112672,7 @@ GROUP Upper EICAS
     POS 1704.500000 779.000000
     IMAGE CRT Displays/Background
     DATAREF 
-    
+    CLIP
     LIGHT_MODE GLASS_AUTO
     LIGHT_RHEOSTAT 9
     BUS_SRC 2
@@ -117589,7 +117641,7 @@ GROUP Lower EICAS
     POS 1704.500000 95.000000
     IMAGE CRT Displays/Background
     DATAREF 
-    
+    CLIP
     HIDE
     LIGHT_MODE GLASS_AUTO
     LIGHT_RHEOSTAT 10
