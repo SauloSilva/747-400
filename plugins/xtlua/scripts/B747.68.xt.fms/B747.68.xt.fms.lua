@@ -72,6 +72,8 @@ function getDistance(lat1,lon1,lat2,lon2)
   av=math.sin(alat)*math.sin(blat) + math.cos(alat)*math.cos(blat)*math.cos(blon-alon)
   if av > 1 then av=1 end
   retVal=math.acos(av) * 3440
+  --print(lat1.." "..lon1.." "..lat2.." "..lon2)
+  --print("Distance = "..retVal) 
   return retVal
 end
 
@@ -133,6 +135,7 @@ simDR_radio_adf2_freq_hz            = find_dataref("sim/cockpit2/radios/actuator
 simDR_fueL_tank_weight_total_kg     = find_dataref("sim/flightmodel/weight/m_fuel_total")
 
 navAidsJSON   = find_dataref("xtlua/navaids")
+fmsJSON = find_dataref("xtlua/fms")
 
 B747DR_fms1_display_mode            = find_dataref("laminar/B747/fms1/display_mode")
 
@@ -155,10 +158,11 @@ B747DR_refuel				= find_dataref("laminar/B747/fuel/refuel")
 B747DR_fuel_add				= find_dataref("laminar/B747/fuel/add_fuel")
 
 --Used in ND DISPLAY
-simDR_nav_dist_nm			= find_dataref("sim/cockpit2/radios/indicators/gps_dme_distance_nm")
-simDR_ND_current_waypoint	= find_dataref("sim/cockpit2/radios/indicators/gps_nav_id")
 simDR_ND_speed				= find_dataref("sim/cockpit2/radios/indicators/gps_dme_speed_kts")
---simDR_ND_altitude			= find_dataref("sim/cockpit2/gauges/indicators/altitude_ft_pilot")
+simDR_latitude				= find_dataref("sim/flightmodel/position/latitude")
+simDR_longitude				= find_dataref("sim/flightmodel/position/longitude")
+simDR_navID					= find_dataref("sim/cockpit2/radios/indicators/gps_nav_id")
+
 
 --*************************************************************************************--
 --** 				        CREATE READ-WRITE CUSTOM DATAREFS                        **--
@@ -360,6 +364,23 @@ fmsModules.fmsR=fmsR;
 
 B747DR_CAS_memo_status          = find_dataref("laminar/B747/CAS/memo_status")
 
+function getCurrentWayPoint(fms)
+
+	for i=1,table.getn(fms),1 do
+    --print("FMS j="..fmsJSON)
+
+		if fms[i][10] == true then
+				--print("Found TRUE = "..fms[i][1].." "..fms[i][2].." "..fms[i][8])
+				if fms[i][8] == "latlon" then
+					return simDR_navID, fms[i][5], fms[i][6]
+				else
+					return fms[i][8], fms[i][5], fms[i][6]
+				end
+		end		
+	end
+	return ""  --NOT FOUND
+end
+
 function waypoint_eta_display()
 	local hours = 0
 	local mins = 0
@@ -367,48 +388,61 @@ function waypoint_eta_display()
 	local default_speed = 275
 	local actual_speed = simDR_ND_speed
 	local time_to_waypoint = 0
-
-	if simDR_onGround == 1 then
-		time_to_waypoint = (simDR_nav_dist_nm / default_speed) * 3600
-	else
-		time_to_waypoint = (simDR_nav_dist_nm / math.max(default_speed, actual_speed)) * 3600
-	end
-
-	hours = math.floor((time_to_waypoint % 86400) / 3600)
-	mins = math.floor((time_to_waypoint % 3600) / 60)
-	secs = (time_to_waypoint % 60) / 60
-
-	--Add to current Zulu time
-	hours = hours + hh
-	mins = mins + mm
-	secs = secs + (ss / 60)
+	local fms = {}
+	local fms_current_waypoint = ""
+	local fms_latitude = ""
+	local fms_longitude = ""
+	local fms_distance_to_waypoint = 0
 	
-	if hours >= 24 then
-		hours = hours - 24
-	end
-		
-	if mins >= 60 then
-		mins = mins - 60
-		hours = hours + 1
+	if simDR_onGround ~= 1 and string.len(fmsJSON) > 2 then
+		--print(fmsJSON)
+		fms = json.decode(fmsJSON)	
+		fms_current_waypoint, fms_latitude, fms_longitude = getCurrentWayPoint(fms)
+		--print(string.match(fms_current_waypoint, "%("))
+		if fms_current_waypoint ~= "" and fms_current_waypoint ~= "VECTOR" and not string.match(fms_current_waypoint, "%(") then
+			--print("Checking distance for waypoint = "..fms_current_waypoint)
+			fms_distance_to_waypoint = getDistance(simDR_latitude, simDR_longitude, fms_latitude, fms_longitude)
+	
+			time_to_waypoint = (fms_distance_to_waypoint / math.max(default_speed, actual_speed)) * 3600
+			
+			hours = math.floor((time_to_waypoint % 86400) / 3600)
+			mins = math.floor((time_to_waypoint % 3600) / 60)
+			secs = (time_to_waypoint % 60) / 60
+
+			--Add to current Zulu time
+			hours = hours + hh
+			mins = mins + mm
+			secs = secs + (ss / 60)
+			
+			if hours >= 24 then
+				hours = hours - 24
+			end
+				
+			if mins >= 60 then
+				mins = mins - 60
+				hours = hours + 1
+			end
+			
+			if secs >= 1 then
+				secs = secs - 1
+				mins = mins + 1
+			end
+		end
 	end
 	
-	if secs >= 1 then
-		secs = secs - 1
-		mins = mins + 1
-	end
-
-	--The simDR_ND_current_waypoint defaults to "K---" so don't use it, also ignore VECTORs
-	--Need to revamp this to use the programmed waypoints from the Nav DB in the FMC
-	if string.find(simDR_ND_current_waypoint, "-") or string.find(simDR_ND_current_waypoint, "VECTOR") then
-		B747DR_ND_current_waypoint = "-----"
+	if fms_current_waypoint == "" or string.match(fms_current_waypoint, "%(") then
+		B747DR_ND_current_waypoint = ""
+		B747DR_ND_waypoint_distance = "------NM"
+		B747DR_ND_waypoint_eta = "------Z"	
+	elseif fms_current_waypoint == "VECTOR" then
+		B747DR_ND_current_waypoint = fms_current_waypoint
 		B747DR_ND_waypoint_distance = "------NM"
 		B747DR_ND_waypoint_eta = "------Z"
 	else
-		B747DR_ND_current_waypoint = simDR_ND_current_waypoint
-		B747DR_ND_waypoint_distance = string.format("%5.1f".."nm", simDR_nav_dist_nm)
-		B747DR_ND_waypoint_eta = string.format("%02d%02d.%d".."z", hours, mins, secs * 10)
+		B747DR_ND_current_waypoint = fms_current_waypoint
+		B747DR_ND_waypoint_distance = string.format("%5.1f".."nm", fms_distance_to_waypoint)
+		B747DR_ND_waypoint_eta = string.format("%02d%02d.%d".."z", hours, mins, secs * 10)			
 	end
-		
 end
 
 
@@ -454,17 +488,17 @@ function after_physics()
       acarsSystem.provider.receive()
       local hasNew=0
       for i = table.getn(acarsSystem.messages.values), 1, -1 do
-	if not acarsSystem.messages[i]["read"] then 
-	  hasNew=1
-	end 
+		if not acarsSystem.messages[i]["read"] then 
+			hasNew=1
+		end 
       end 
       B747DR_CAS_memo_status[0]=hasNew
     else
       
       if B747DR_rtp_C_off==0 then
-	B747DR_CAS_memo_status[40]=1 --for CAS
+		B747DR_CAS_memo_status[40]=1 --for CAS
       else
-	B747DR_CAS_memo_status[40]=0
+		B747DR_CAS_memo_status[40]=0
       end
       acars=0 --for radio
     end
