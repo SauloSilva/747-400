@@ -684,15 +684,19 @@ function fmsFunctions.setdata(fmsO,value)
     setFMSData(value,fmsO["scratchpad"])
 
 --VALIDATE ENTERED FUEL UNITS
-   elseif value=="fuelUnits" and string.len(fmsO["scratchpad"])>0 then
-	if validate_weight_units(fmsO["scratchpad"]) == false then 
+   elseif value=="fuelUnits" then
+	if string.len(fmsO["scratchpad"])>0 and validate_weight_units(fmsO["scratchpad"]) == false then 
       fmsO["notify"]="INVALID ENTRY"
 	elseif is_timer_scheduled(preselect_fuel) == true then
 	  fmsO["notify"]="NA - WAITING FOR FUEL TRUCK"	
     else
+		if fmsModules["data"]["fuelUnits"] == "KGS" then
+			fmsO["scratchpad"] = "LBS"
+		else
+			fmsO["scratchpad"] = "KGS"
+		end
 		setFMSData("fuelUnits",fmsO["scratchpad"])
 	end
-
   elseif fmsO["scratchpad"]=="" and del==false then
       cVal=getFMSData(value)
     
