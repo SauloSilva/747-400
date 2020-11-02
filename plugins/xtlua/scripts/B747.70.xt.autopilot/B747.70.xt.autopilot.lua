@@ -545,10 +545,6 @@ function B747_ap_alt_hold_mode_CMDhandler(phase, duration)
 		B747DR_ap_vnav_state=0
 		B747DR_ap_inVNAVdescent =0
 		simCMD_autopilot_alt_hold_mode:once()
-		--if simDR_autopilot_alt_hold_status < 2 then
-			--simCMD_autopilot_alt_hold_mode:once()	
-			--B747DR_ap_ias_mach_window_open = 1
-		--end
 	elseif phase == 2 then
 		B747_ap_button_switch_position_target[7] = 0					
 	end
@@ -2014,7 +2010,7 @@ function getCurrentWayPoint(fms)
       
 end
 function computeVNAVAlt(fms)
-  
+  local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
   local dist_to_TOD=(B747BR_totalDistance-B747BR_tod)
   for i=1,table.getn(fms),1 do
     if fms[i][10]==true and i<=recalcAfter and 
@@ -2026,7 +2022,7 @@ function computeVNAVAlt(fms)
       return 
     end
   end
-  if simDR_autopilot_alt_hold_status < 2 or dist_to_TOD>0 then --force a recalc after hold ends to set to B747DR_autopilot_altitude_ft if required
+  if simDR_autopilot_alt_hold_status < 2 or dist_to_TOD>0 or numAPengaged==0 then --force a recalc after hold ends to set to B747DR_autopilot_altitude_ft if required
     vnavcalcwithMCPAlt=B747DR_autopilot_altitude_ft
   else
     vnavcalcwithMCPAlt=simDR_autopilot_altitude_ft
@@ -2078,7 +2074,7 @@ function computeVNAVAlt(fms)
       if targetAlt>simDR_pressureAlt1+300 then
 	--print("FMS use climb i=" .. targetIndex.. "@" .. currentIndex .. ":" ..fms[targetIndex][1] .. ":" .. fms[targetIndex][2] .. ":" .. fms[targetIndex][3] .. ":" .. fms[targetIndex][4] .. ":" .. fms[targetIndex][5] .. ":" .. fms[targetIndex][6] .. ":" .. fms[targetIndex][7] .. ":" .. fms[targetIndex][8].. ":" .. fms[targetIndex][9])
 	B747DR_ap_vnav_target_alt=targetAlt
-	if targetAlt > B747DR_autopilot_altitude_ft and B747DR_autopilot_altitude_ft>simDR_pressureAlt1+150 and simDR_autopilot_alt_hold_status < 2 then 
+	if targetAlt > B747DR_autopilot_altitude_ft and B747DR_autopilot_altitude_ft>simDR_pressureAlt1+150 and (simDR_autopilot_alt_hold_status < 2 or numAPengaged==0) then 
 	  targetAlt=B747DR_autopilot_altitude_ft 
 	end
 	simDR_autopilot_altitude_ft=targetAlt
@@ -2097,14 +2093,14 @@ function computeVNAVAlt(fms)
 	--print("FMS use descend i=" .. targetIndex.. "@" .. currentIndex .. ":" ..fms[targetIndex][1] .. ":" .. fms[targetIndex][2] .. ":" .. fms[targetIndex][3] .. ":" .. fms[targetIndex][4] .. ":" .. fms[targetIndex][5] .. ":" .. fms[targetIndex][6] .. ":" .. fms[targetIndex][7] .. ":" .. fms[targetIndex][8].. ":" .. fms[targetIndex][9])
 	
 	B747DR_ap_vnav_target_alt=targetAlt
-	if targetAlt < B747DR_autopilot_altitude_ft and B747DR_autopilot_altitude_ft<simDR_pressureAlt1-150 and simDR_autopilot_alt_hold_status < 2 then 
+	if targetAlt < B747DR_autopilot_altitude_ft and B747DR_autopilot_altitude_ft<simDR_pressureAlt1-150 and (simDR_autopilot_alt_hold_status < 2 or numAPengaged==0) then 
 	  targetAlt=B747DR_autopilot_altitude_ft 
 	end
 	simDR_autopilot_altitude_ft=targetAlt
 	
 	fmstargetIndex=targetIndex
 	fmscurrentIndex=currentIndex
-	if simDR_autopilot_altitude_ft> simDR_pressureAlt1+500 and simDR_autopilot_alt_hold_status < 2 then
+	if simDR_autopilot_altitude_ft> simDR_pressureAlt1+500 and (simDR_autopilot_alt_hold_status < 2 or numAPengaged==0) then
 	  simCMD_autopilot_alt_hold_mode:once()
 	  if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 then							-- AUTOTHROTTLE IS "OFF"
 		simCMD_autopilot_autothrottle_on:once()									-- ACTIVATE THE AUTOTHROTTLE
@@ -2126,7 +2122,7 @@ function computeVNAVAlt(fms)
 end
 function vnavDescent()
   local diff = simDR_ind_airspeed_kts_pilot - simDR_autopilot_airspeed_kts
-	  
+	  local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
 	  if B747DR_ap_inVNAVdescent >0 and simDR_autopilot_autothrottle_enabled == 0 and diff>0 and simDR_allThrottle>0 and simDR_radarAlt1>1000 then
 	    simCMD_ThrottleDown:once()
 	    print("go idle")
@@ -2168,7 +2164,7 @@ function vnavDescent()
 	  --elseif B747DR_ap_inVNAVdescent ==1 and simDR_autopilot_vs_status == 0 and simDR_radarAlt1>1000 then
 	   -- print("waiting to resume descent "..diff.." "..diff2.." "..simDR_radarAlt1.. " " .. simDR_autopilot_altitude_ft)
 	  end
-	  if B747DR_ap_inVNAVdescent == 2 and ((simDR_autopilot_alt_hold_status == 2 or simDR_autopilot_vs_status == 0) and inVnavAlt<1) and (diff2<-1000) and (diff3<-1000) then 
+	  if B747DR_ap_inVNAVdescent == 2 and ((simDR_autopilot_alt_hold_status == 2 or numAPengaged==0 or simDR_autopilot_vs_status == 0) and inVnavAlt<1) and (diff2<-1000) and (diff3<-1000) then 
 	      B747DR_ap_inVNAVdescent =1 --has simDR_autopilot_alt_hold_status == 2 in condition
 	  end
 	  
@@ -2189,15 +2185,30 @@ end
 
 function vnavCruise()
   --if simDR_autopilot_alt_hold_status == 2 then return end
+  local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
   local diff2 = simDR_autopilot_altitude_ft - simDR_pressureAlt1
+  local diff = simDR_autopilot_hold_altitude_ft - simDR_pressureAlt1
+  
   --if diff2>100 and simDR_autopilot_flch_status > 0 then return end
   --if diff2<-100 and simDR_autopilot_vs_status == 2 then return end
-  if diff2>1000 and simDR_autopilot_altitude_ft==B747BR_cruiseAlt then
-      if simDR_autopilot_flch_status == 0 then
+  if diff2>1000 then --and simDR_autopilot_altitude_ft==B747BR_cruiseAlt - dont care, we are vnav climb, make sure we do
+      if simDR_autopilot_flch_status == 0 and (simDR_autopilot_alt_hold_status == 0 or numAPengaged==0 )then
 	simCMD_autopilot_flch_mode:once()
 	simDR_autopilot_flch_status =1
 	print("flch > 1000 feet climb")
       end 
+      spdval=tonumber(fmsData["crzspd"])/10
+      
+      if simDR_airspeed_mach > (spdval/100) and B747DR_ap_ias_mach_window_open == 0 and switchingIASMode==0 and simDR_autopilot_airspeed_is_mach ==0 then
+	print("convert to cruise speed")
+	switchingIASMode=1
+	simDR_autopilot_airspeed_is_mach = 1
+	B747DR_ap_ias_dial_value = spdval
+	lastap_dial_airspeed=spdval
+	
+	run_after_time(B747_updateIAS, 0.25)
+      end
+      
   elseif diff2>100 and simDR_autopilot_altitude_ft==B747BR_cruiseAlt then
     return --print("last 1000 feet climb")
   elseif diff2<-1000 and simDR_autopilot_altitude_ft==B747BR_cruiseAlt then
@@ -2206,7 +2217,7 @@ function vnavCruise()
 	simDR_autopilot_vs_status =1
       end 
       simDR_autopilot_vs_fpm = -1000
-  elseif diff2<-100 and simDR_autopilot_altitude_ft==B747BR_cruiseAlt then
+  elseif (diff2<-100 or diff<-1000) and simDR_autopilot_altitude_ft==B747BR_cruiseAlt then
     if simDR_autopilot_vs_status == 0 and is_timer_scheduled(doAltChange) == false then
       run_after_time(doAltChange, 15.0)
     end
@@ -2217,7 +2228,7 @@ function vnavCruise()
       if B747DR_ap_ias_dial_value ~=  spdval and B747DR_ap_ias_mach_window_open == 0 and switchingIASMode==0 then 
 	switchingIASMode=1
 	simDR_autopilot_airspeed_is_mach = 1
-	B747DR_ap_ias_dial_value = spdval/10
+	B747DR_ap_ias_dial_value = spdval
 	lastap_dial_airspeed=spdval
 	
 	run_after_time(B747_updateIAS, 0.25)
@@ -2234,6 +2245,11 @@ function B747_ap_altitude()
 	B747DR_ap_alt_show_thousands = B747_ternary(B747DR_autopilot_altitude_ft > 999.9, 1.0, 0.0)
 	B747DR_ap_alt_show_tenThousands = B747_ternary(B747DR_autopilot_altitude_ft > 9999.99, 1.0, 0.0)
 	local vvi_status=simDR_autopilot_vs_status
+	local servoStatus=simDR_autopilot_servos_on
+	local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
+	
+	
+	
 	--print("B747_ap_altitude")
 	fms=json.decode(fmsJSON)
 -- 	if table.getn(fms)<2 or fms[table.getn(fms)][2] ~= 1 then 
