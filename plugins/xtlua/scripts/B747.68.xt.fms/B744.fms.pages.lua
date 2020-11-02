@@ -485,7 +485,7 @@ function preselect_fuel()
 	local fuel_calculation_factor = 1
 	local KGS_TO_LBS = 2.2046226218488
 	if B747DR_fuel_display_units == "LBS" then
-		fuel_calcul4ation_factor = KGS_TO_LBS
+		fuel_calculation_factor = KGS_TO_LBS
 	end
 	B747DR_refuel=B747DR_fuel_add*1000 / fuel_calculation_factor  --(always add fuel in KGS behind the scenes)
 	B747DR_fuel_preselect=simDR_fueL_tank_weight_total_kg + B747DR_refuel
