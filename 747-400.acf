@@ -98540,14 +98540,14 @@ P acf/_max_press_diff 9.399999619
 P acf/_max_vac 8.0
 P acf/_max_xmsn_P 1.0
 P acf/_max_xmsn_T 1.0
-P acf/_min_n1 10.0
+P acf/_min_n1 0.4
 P acf/_min_n2 25.0
 P acf/_min_rwy_len 1000.0
 P acf/_min_vec_on_ground 0.0
 P acf/_mixt_x_ctr 0.0
 P acf/_n1_power_curve1 2.0
 P acf/_n1_power_curve2 3.0
-P acf/_n2_power_curve 5.000000000
+P acf/_n2_power_curve 3.500000000
 P acf/_name Boeing 747-400 GE
 P acf/_new_plot_XP3D_cock/0 1
 P acf/_new_plot_XP3D_cock/1 1
