@@ -122963,7 +122963,7 @@ GROUP Lower EICAS
       CLICK_DX 0
       CLICK_DY 0
   gen_rotary hsys1
-      POS 1704.000000 296.000000
+      POS 1704.000000 317.000000
       IMAGE CRT Displays/EICAS Lower/HYD/fail1
       SHOW_LESS 2000.000000 laminar/B747/hydraulics/pressure_1
       DATAREF 
@@ -122985,7 +122985,7 @@ GROUP Lower EICAS
       CLICK_DX 0
       CLICK_DY 0
     gen_rotary hsys2
-      POS 1704.000000 296.000000
+      POS 1704.000000 317.000000
       IMAGE CRT Displays/EICAS Lower/HYD/fail2
       SHOW_LESS 2000.000000 laminar/B747/hydraulics/pressure_2
       DATAREF 
@@ -123008,7 +123008,7 @@ GROUP Lower EICAS
       CLICK_DY 0 
       
     gen_rotary hsys3
-      POS 1704.000000 296.000000
+      POS 1704.000000 317.000000
       IMAGE CRT Displays/EICAS Lower/HYD/fail3
       SHOW_LESS 2000.000000 laminar/B747/hydraulics/pressure_3
       DATAREF 
@@ -123030,7 +123030,7 @@ GROUP Lower EICAS
       CLICK_DX 0
       CLICK_DY 0  
     gen_rotary hsys4
-      POS 1704.000000 296.000000
+      POS 1704.000000 317.000000
       IMAGE CRT Displays/EICAS Lower/HYD/fail4
       SHOW_LESS 2000.000000 laminar/B747/hydraulics/pressure_4
       DATAREF 
@@ -123053,7 +123053,7 @@ GROUP Lower EICAS
       CLICK_DY 0
       
     gen_rotary hsys12
-      POS 1704.000000 296.000000
+      POS 1704.000000 317.000000
       IMAGE CRT Displays/EICAS Lower/HYD/fail13
       SHOW_LESS 2000.000000 laminar/B747/hydraulics/pressure_13
       DATAREF 
@@ -123076,7 +123076,7 @@ GROUP Lower EICAS
       CLICK_DY 0 
       
     gen_rotary hsys23
-      POS 1704.000000 296.000000
+      POS 1704.000000 317.000000
       IMAGE CRT Displays/EICAS Lower/HYD/fail23
       SHOW_LESS 2000.000000 laminar/B747/hydraulics/pressure_23
       DATAREF 
@@ -123098,7 +123098,7 @@ GROUP Lower EICAS
       CLICK_DX 0
       CLICK_DY 0  
     gen_rotary hsys24
-      POS 1704.000000 296.000000
+      POS 1704.000000 317.000000
       IMAGE CRT Displays/EICAS Lower/HYD/fail24
       SHOW_LESS 2000.000000 laminar/B747/hydraulics/pressure_24
       DATAREF 
@@ -123120,7 +123120,7 @@ GROUP Lower EICAS
       CLICK_DX 0
       CLICK_DY 0 
     gen_rotary hsys234
-      POS 1704.000000 296.000000
+      POS 1704.000000 317.000000
       IMAGE CRT Displays/EICAS Lower/HYD/fail234
       SHOW_LESS 2000.000000 laminar/B747/hydraulics/pressure_234
       DATAREF 
