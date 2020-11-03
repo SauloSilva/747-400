@@ -98541,7 +98541,7 @@ P acf/_max_vac 8.0
 P acf/_max_xmsn_P 1.0
 P acf/_max_xmsn_T 1.0
 P acf/_min_n1 10.0
-P acf/_min_n2 46.0
+P acf/_min_n2 25.0
 P acf/_min_rwy_len 1000.0
 P acf/_min_vec_on_ground 0.0
 P acf/_mixt_x_ctr 0.0
