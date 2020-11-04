@@ -69,5 +69,55 @@ Additionally, the break lever and X-Plane breaks are now seperated, there is a n
 
 
 ### Changelog:
-TODO
 See the [commit history](https://github.com/mSparks43/747-400/commits/master) for detailed changes.
+
+To 02/11/2020:
+
+- fuel fixes
+- font, image and texture overhaul
+- Fuel Weights & ND Waypoint Display Tweaks
+- Speed tapes
+- Global Supertanker support
+- VNAV overhaul to 747-400 specification
+- Electrical Synoptic
+- Fuel Units - Selectable by LSK
+- Thrust references
+- Hydraulic synoptic
+- Split rudder
+- VR move commands
+- Custom parking brake command
+- Chocks
+- CRT selector implementation
+- autolatch flap handle
+- Autoland
+- Fixed VR manipulators
+- ground handling on FMC
+- TOGA implimentation
+- updated lighting
+- ILS tuning and autotune
+- new TOD implimentation
+- engine sound banks
+- bug fixes to fuel, engines and autopilot
+- Numerous CAS and FMC messages
+- speed and altitude knob depress functionality
+- engine vibration
+- IRS simulation
+- blackened displays when IRS not aligned
+- Nav radio autotuning
+- fix fire test button
+- Thrust limiting
+- fixed landing gear through floor
+- xlua depreciated for XTLua
+- 3 indpendant FMS objects
+- custom FMS
+- fix autobrake animating parking brake
+- brake source light
+- flight envelope protection
+- Added sounds from https://k-akai.blogspot.com/ (with permission)
+- voice commands
+- engine 4 fuel consumption fixed
+- fixed FMS buttons
+- green screen CDUs
+- Hydraulic system simulation
+
+
