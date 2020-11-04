@@ -31,6 +31,8 @@ XTlua source is [here](https://github.com/mSparks43/XLua/tree/xTLua)
 
 **How can I contribute**
 
+Please use the [github issue page](https://github.com/mSparks43/747-400/issues) if you find a problem. If your issue is already listed please add your details, problems that can be recreated are generally fixed quickly.
+
 The 744 project was licenced as CC-BY-NC 4 on the 1st of May 2019, anyone with any confusion as to what this means should review the [licence](https://creativecommons.org/licenses/by-nc/4.0/)
 
 You can follow progress, make requests and generally chat about the 747 on the 747-400 channel on the Go Ahead discord server
