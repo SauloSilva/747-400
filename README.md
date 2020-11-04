@@ -79,6 +79,7 @@ To 02/11/2020:
 - font, image and texture overhaul
 - Fuel Weights & ND Waypoint Display Tweaks
 - Speed tapes
+- CRT display selectors
 - Global Supertanker support
 - VNAV overhaul to 747-400 specification
 - Electrical Synoptic
