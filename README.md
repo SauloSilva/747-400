@@ -54,7 +54,19 @@ In order to use this aircraft
 
 ### Troubleshooting
 
-TODO
+**What is the black console window that opens when I start the plane** Don't close it. The console window is part of the systems monitoring and will give important information needed to report issues for example if the plane crashes to desktop. This and the X-Plane Log.txt are the two primary tools for investigating issues.
+
+**All my cockpit is black and I can't click anything** Windows users: Please install the installers linked above.
+
+**Why is my FMC blank** certain controllers have their switches automatically bound to avionics power, if these are off it turns off the avionics needed by the FMC, either switch on the switch on your controller, or bind a key to "avionics on" and use that to bring the FMC to life
+
+**Why can't I move** The aircraft brakes require hydraulic pressure to function, to prevent the aircraft rolling away before the hydraulics are pressurised the wheels are fitted with chocks when starting cold and dark, remove the from the ground services menu in one of the FMCs.
+
+Additionally, the break lever and X-Plane breaks are now seperated, there is a new command to engage the breaks by lifting the parking break lever.
+
+**Why are my screens half black** IRS alignment cannot complete until you set the IRS position in the FMC. (INIT REF -> POS -> L4 to copy GPS position, L5 to enter it into current position.
+
+
 
 ### Changelog:
 TODO
