@@ -98503,7 +98503,7 @@ P acf/_load_alt_presel_on_alt_hit 1
 P acf/_load_presel_on_asi_hit 1
 P acf/_load_presel_on_vvi_hit 1
 P acf/_lock_n1 0.0
-P acf/_lock_n2 0.0
+P acf/_lock_n2 20.0
 P acf/_lock_with_elev_EQ 0
 P acf/_m_displaced 0.0
 P acf/_m_displaced_Y 0.0
@@ -98540,8 +98540,8 @@ P acf/_max_press_diff 9.399999619
 P acf/_max_vac 8.0
 P acf/_max_xmsn_P 1.0
 P acf/_max_xmsn_T 1.0
-P acf/_min_n1 0.4
-P acf/_min_n2 25.0
+P acf/_min_n1 0.0
+P acf/_min_n2 20.0
 P acf/_min_rwy_len 1000.0
 P acf/_min_vec_on_ground 0.0
 P acf/_mixt_x_ctr 0.0
@@ -98900,7 +98900,7 @@ P acf/_spoi2_v2 999.0
 P acf/_spoi2_with_flit_sbrk 45.0
 P acf/_spoi2_with_grnd_pitch 0.0
 P acf/_spoi2_with_grnd_sbrk 45.0
-P acf/_spool_time_compressor_jet 7.0
+P acf/_spool_time_compressor_jet 26.0
 P acf/_spool_time_compressor_prop 7.0
 P acf/_spot1_3d_rgb/0 0.990000010
 P acf/_spot1_3d_rgb/1 0.939999998
