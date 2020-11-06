@@ -2010,13 +2010,16 @@ function B747_engine_has_fuel()
         simDR_engine_has_fuel[2] = B747_ternary((#engine3fuelSrc > 0 and B747.fuel.spar_vlv3.pos > 0 and B747DR_engine_fuel_valve_pos[2] > 0), 1, 0)
         simDR_engine_has_fuel[3] = B747_ternary((#engine4fuelSrc > 0 and B747.fuel.spar_vlv4.pos > 0 and B747DR_engine_fuel_valve_pos[3] > 0), 1, 0)
     end
-    if engineHasFuelProcessing == 0 then
+    --if engineHasFuelProcessing == 0 then
      local update=B747DR_engine_fuel_valve_pos[0]
      update=B747DR_engine_fuel_valve_pos[1]
      update=B747DR_engine_fuel_valve_pos[2]
      update=B747DR_engine_fuel_valve_pos[3]
-      
-    end
+     update=simDR_engine_has_fuel[0] 
+     update=simDR_engine_has_fuel[1] 
+     update=simDR_engine_has_fuel[2] 
+     update=simDR_engine_has_fuel[3] 
+    --end
       
 end
 
