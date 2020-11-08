@@ -952,6 +952,10 @@ B747CMD_ai_ap_quick_start				= deferred_command("laminar/B747/ai/autopilot_quick
 --** 				          REPLACE X-PLANE COMMAND HANDLERS             	    	 **--
 --*************************************************************************************--
 local lastap_dial_airspeed = simDR_autopilot_airspeed_kts
+local max_dial_machspeed = 0.95
+local target_descentAlt = 0.0
+local target_descentSpeed = 0.0
+local descentSpeedGradient = 0.0
 local switchingIASMode=0
 function B747_updateIASWindow()
   
@@ -978,6 +982,11 @@ function B747_updateIASSpeed()
   print("set kts_mach to "..lastap_dial_airspeed)
   switchingIASMode=0
   run_after_time(confirm_B747_updateIASSpeed, 1)
+end
+function B747_updateIASMaxSpeed()
+  max_dial_machspeed=simDR_autopilot_airspeed_kts_mach
+  print("set max kts_mach to ".. max_dial_machspeed)
+  switchingIASMode=0
 end
 function B747_ap_knots_mach_toggle_CMDhandler(phase, duration)
 	if phase == 0 then
@@ -1694,14 +1703,18 @@ function B747_ap_ias_mach_mode()
 	    end
 	elseif simDR_autopilot_airspeed_is_mach == 1 and B747DR_ap_ias_dial_value* 0.01 > 0.4 then
 	    B747DR_ap_ias_mach_dial_value=B747DR_ap_ias_dial_value* 0.01
-	    B747DR_ap_ias_bug_value=simDR_autopilot_airspeed_kts
-	    if simDR_autopilot_airspeed_kts> maxSafeSpeed then
+	    
+	    if simDR_autopilot_airspeed_kts>= maxSafeSpeed-20 then
+	        
 		if simDR_autopilot_flch_status == 0 and B747DR_ap_inVNAVdescent ==0 then 
 		  simDR_autopilot_airspeed_kts=maxSafeSpeed-10
 		else
 		  simDR_autopilot_airspeed_kts=maxSafeSpeed-20 --flch/descent overspeed
 		end
+		--switchingIASMode=1
+		--run_after_time(B747_updateIASMaxSpeed, 0.25)
 	    else
+	      B747DR_ap_ias_bug_value=simDR_autopilot_airspeed_kts
 	      simDR_autopilot_airspeed_kts_mach = math.min(B747DR_ap_ias_dial_value* 0.01,maxmach-0.01) ---roundToIncrement(B747DR_ap_ias_dial_value, 1) * 0.01
 	    end
 	end
@@ -2018,6 +2031,15 @@ function setDescentVSpeed(fmsO)
   simDR_autopilot_vs_fpm = vspeed
   B747DR_ap_fpa=math.atan2(vspeed,simDR_groundspeed*196.85)*-57.2958
   
+  if descentSpeedGradient>0 and simDR_pressureAlt1>target_descentAlt then
+    simDR_autopilot_airspeed_kts=target_descentSpeed+(simDR_pressureAlt1-target_descentAlt)*descentSpeedGradient
+    if simDR_autopilot_airspeed_is_mach == 1 then
+      B747DR_ap_ias_dial_value=simDR_autopilot_airspeed_kts_mach*100
+    end
+    --print("set descentSpeed to " .. simDR_autopilot_airspeed_kts)
+  end
+
+  
 end
 ----- ALTITUDE SELECTED -----------------------------------------------------------------
 
@@ -2150,6 +2172,15 @@ function computeVNAVAlt(fms)
       recalcAfter=fmstargetIndex
   --end
 end
+
+function getDescentTarget()
+  target_descentSpeed=tonumber(fmsData["destranspd"])
+  target_descentAlt=tonumber(fmsData["desspdtransalt"])
+  if target_descentAlt>simDR_pressureAlt1 or simDR_autopilot_airspeed_kts<target_descentSpeed then descentSpeedGradient=0 return end
+  descentSpeedGradient=(simDR_autopilot_airspeed_kts-target_descentSpeed)/(simDR_pressureAlt1-target_descentAlt)
+  print("set descentSpeedGradient to " .. descentSpeedGradient)
+end
+
 function vnavDescent()
   local diff = simDR_ind_airspeed_kts_pilot - simDR_autopilot_airspeed_kts
 	  local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
@@ -2172,6 +2203,7 @@ function vnavDescent()
 	    and simDR_autopilot_vs_status == 0 and simDR_radarAlt1>1000 and simDR_autopilot_autothrottle_enabled>-1 then
 	    B747DR_ap_inVNAVdescent =1
 	    print("Begin descent")
+	    getDescentTarget()
 	     --if simDR_autopilot_autothrottle_enabled == 1 then							-- AUTOTHROTTLE IS "ON"
 		--simDR_autopilot_autothrottle_enabled=0
 		--simCMD_autopilot_autothrottle_off:once()									-- DEACTIVATE THE AUTOTHROTTLE
@@ -2215,6 +2247,8 @@ end
 
 function vnavCruise()
   --if simDR_autopilot_alt_hold_status == 2 then return end
+  if switchingIASMode==1 then return end -- if we are in an airspeed mode switch just go away
+  --not called in descent anyway
   local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
   local diff2 = simDR_autopilot_altitude_ft - simDR_pressureAlt1
   local diff = simDR_autopilot_hold_altitude_ft - simDR_pressureAlt1
