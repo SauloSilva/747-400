@@ -169,6 +169,8 @@ simDR_ND_speed				= find_dataref("sim/cockpit2/radios/indicators/gps_dme_speed_k
 simDR_latitude				= find_dataref("sim/flightmodel/position/latitude")
 simDR_longitude				= find_dataref("sim/flightmodel/position/longitude")
 simDR_navID					= find_dataref("sim/cockpit2/radios/indicators/gps_nav_id")
+simDR_range_dial_capt		= find_dataref("laminar/B747/nd/range/capt/sel_dial_pos")
+simDR_range_dial_fo			= find_dataref("laminar/B747/nd/range/fo/sel_dial_pos")
 
 
 --*************************************************************************************--
@@ -187,6 +189,10 @@ B747DR_fuel_preselect_temp				= deferred_dataref("laminar/B747/fuel/fuel_presele
 B747DR_ND_waypoint_eta					= deferred_dataref("laminar/B747/nd/waypoint_eta", "string")
 B747DR_ND_current_waypoint				= deferred_dataref("laminar/B747/nd/current_waypoint", "string")
 B747DR_ND_waypoint_distance				= deferred_dataref("laminar/B747/nd/waypoint_distance", "string")
+
+--ND Range DISPLAY
+B747DR_ND_range_display_capt			= deferred_dataref("laminar/B747/nd/range_display_capt", "number")
+B747DR_ND_range_display_fo				= deferred_dataref("laminar/B747/nd/range_display_fo", "number")
 
 fmsPages={}
 --fmsPagesmall={}
@@ -452,6 +458,12 @@ function waypoint_eta_display()
 	end
 end
 
+function nd_range_display ()
+	local range = {5, 10, 20, 40, 80, 160, 320}
+			
+	B747DR_ND_range_display_capt	= range[simDR_range_dial_capt + 1]
+	B747DR_ND_range_display_fo		= range[simDR_range_dial_fo + 1]
+end
 
 function flight_start()
   if simDR_startup_running == 0 then
@@ -541,4 +553,6 @@ function after_physics()
 		B747DR_fuel_display_units_eicas = 0
 	end
 
+	--Display range NM on ND
+	nd_range_display ()
 end
