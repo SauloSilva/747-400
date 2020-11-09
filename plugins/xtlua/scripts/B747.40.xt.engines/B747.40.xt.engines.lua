@@ -145,7 +145,7 @@ simDR_thrust_rev_fail_01        = find_dataref("sim/operation/failures/rel_rever
 simDR_thrust_rev_fail_02        = find_dataref("sim/operation/failures/rel_revers1")
 simDR_thrust_rev_fail_03        = find_dataref("sim/operation/failures/rel_revers2")
 simDR_thrust_rev_fail_04        = find_dataref("sim/operation/failures/rel_revers3")
-
+simDR_thrust_spoolTime	        = find_dataref("sim/aircraft/engine/acf_spooltime_turbine")
 simDR_autopilot_TOGA_vert_status = find_dataref("sim/cockpit2/autopilot/TOGA_status")
 
     simDR_ind_airspeed_kts_pilot        	= find_dataref("sim/cockpit2/gauges/indicators/airspeed_kts_pilot")
@@ -852,7 +852,11 @@ function B747_EGT_indicator()
             num_eng_running = num_eng_running + 1
         end
     end
-
+    if num_eng_running==4 then 
+      simDR_thrust_spoolTime=5
+    elseif num_eng_running==0 then
+      simDR_thrust_spoolTime=26
+    end
     -- ----------------------------------------------------------------------------------
     -- ENGINE #1
     -- ----------------------------------------------------------------------------------
@@ -1502,7 +1506,7 @@ function B747_engines_monitor_AI()
         B747_set_engines_all_modes2()
         B747DR_init_engines_CD = 2
     end
-
+    
 end
 
 
@@ -1554,7 +1558,7 @@ function B747_set_engines_ER()
     B747DR_engine_fuel_valve_pos[1] = 1
     B747DR_engine_fuel_valve_pos[2] = 1
     B747DR_engine_fuel_valve_pos[3] = 1  
-
+    simDR_thrust_spoolTime=5
     B747_startup_ignition()
 	
 end
