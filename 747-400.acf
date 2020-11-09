@@ -98583,9 +98583,9 @@ P acf/_num_xmsn 4
 P acf/_nw_side_k 0.0
 P acf/_o2_bottle_liter 0
 P acf/_oilT_is_C 1
-P acf/_ott_asi_kts_off_for_full_def 5.0
-P acf/_ott_asi_sec_into_future 30.0
-P acf/_ott_asi_thro_per_sec 0.119999997
+P acf/_ott_asi_kts_off_for_full_def 22.0
+P acf/_ott_asi_sec_into_future 5.0
+P acf/_ott_asi_thro_per_sec 0.05
 P acf/_ott_atr_Kd 0.0
 P acf/_ott_atr_Ki 0.0
 P acf/_ott_atr_Kp 0.0

@@ -1704,11 +1704,12 @@ function B747_ap_ias_mach_mode()
 	elseif simDR_autopilot_airspeed_is_mach == 1 and B747DR_ap_ias_dial_value* 0.01 > 0.4 then
 	    B747DR_ap_ias_mach_dial_value=B747DR_ap_ias_dial_value* 0.01
 	    
-	    if simDR_autopilot_airspeed_kts>= maxSafeSpeed-20 then
-	        
-		if simDR_autopilot_flch_status == 0 and B747DR_ap_inVNAVdescent ==0 then 
+	    if simDR_autopilot_airspeed_kts>= maxSafeSpeed-10 then
+	        if simDR_autopilot_airspeed_kts< maxSafeSpeed then B747DR_ap_ias_bug_value=simDR_autopilot_airspeed_kts end
+		
+		if simDR_autopilot_flch_status == 0 and B747DR_ap_inVNAVdescent ==0 and simDR_autopilot_airspeed_kts>maxSafeSpeed-10 then 
 		  simDR_autopilot_airspeed_kts=maxSafeSpeed-10
-		else
+		elseif simDR_autopilot_airspeed_kts>maxSafeSpeed-20 then
 		  simDR_autopilot_airspeed_kts=maxSafeSpeed-20 --flch/descent overspeed
 		end
 		--switchingIASMode=1
