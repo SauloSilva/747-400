@@ -97773,7 +97773,7 @@ P acf/_cyclic_up_trim_rat 0.0
 P acf/_deg_psi_per_deg_def 3.0
 P acf/_deg_the_per_deg_def 6.0
 P acf/_delta3 0.0
-P acf/_descrip B747-400
+P acf/_descrip 747-400
 P acf/_diff_coll_with_hdng 0.0
 P acf/_diff_coll_with_ptch 0.0
 P acf/_diff_coll_with_roll 0.0
@@ -98583,9 +98583,9 @@ P acf/_num_xmsn 4
 P acf/_nw_side_k 0.0
 P acf/_o2_bottle_liter 0
 P acf/_oilT_is_C 1
-P acf/_ott_asi_kts_off_for_full_def 22.0
-P acf/_ott_asi_sec_into_future 5.0
-P acf/_ott_asi_thro_per_sec 0.05
+P acf/_ott_asi_kts_off_for_full_def 5.0
+P acf/_ott_asi_sec_into_future 30.0
+P acf/_ott_asi_thro_per_sec 0.119999997
 P acf/_ott_atr_Kd 0.0
 P acf/_ott_atr_Ki 0.0
 P acf/_ott_atr_Kp 0.0
@@ -99318,7 +99318,6 @@ GROUP Captain PFD
 
     GROUP Rsng Rwy Offset
       SHOW_LESS 2500.000000 sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot
-      
       HIDE
       
       GROUP_ANIMATE_MODE TRANSLATE
@@ -101300,6 +101299,29 @@ GROUP Captain PFD
           OFFSET 0.000000
 
       END_GROUP
+	  
+		gen_rotary NOVSPD X CAPT PFD
+		  POS 140.000000 870.500000
+		  IMAGE CRT Displays/PFD/Failure Flags/novspdX
+		  DATAREF
+		  SHOW_EQUAL 999 laminar/B747/airspeed/V1
+		  HIDE
+		  LIGHT_MODE GLASS_AUTO
+		  LIGHT_RHEOSTAT 3
+		  BUS_SRC 3
+		  KEY_FRAME 0.000000 0.000000 1.000000
+		  KEY_FRAME 1.000000 6.000000
+		  DIGITS 1
+		  ROTARY_TYPE NO_CLICK
+		  CLICK_RADIUS 0.000000
+		  CLICK_RADIUS_DY 0.000000
+		  OFFSET 0.000000
+		  STEP1 1.000000
+		  STEP2 1.000000
+		  CURSOR DEFAULT
+		  CLICK_DX 0
+		  CLICK_DY 0
+	  
     END_GROUP
     GROUP Flap Speeds
       SHOW_GREATER 10.000000 sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot
@@ -101470,7 +101492,7 @@ GROUP Captain PFD
     END_GROUP
   END_GROUP
   GROUP Approach Ref
-    
+  SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
     HIDE
     gen_text ILS Label
       POS 200.000000 1013.500000
@@ -101546,14 +101568,14 @@ GROUP Captain PFD
   GROUP Decision Height
     SHOW_LESS 999.000000 sim/cockpit2/gauges/actuators/radio_altimeter_bug_ft_pilot
     SHOW_GREATER 0.000000 sim/cockpit2/gauges/actuators/radio_altimeter_bug_ft_pilot
-    
+	
     HIDE
     gen_rotary DH Annun
       POS 437.000000 1025.500000
       IMAGE CRT Displays/PFD/Decision Height/DH_Label2
       DATAREF 
       SHOW_EQUAL 1.000000 laminar/B747/dec_height/display_status
-      
+      SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 2
@@ -101579,7 +101601,7 @@ GROUP Captain PFD
         POS 394.000000 1023.500000
         IMAGE CRT Displays/PFD/Decision Height/DH_Label
         DATAREF 
-        
+        SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 2
@@ -101601,7 +101623,7 @@ GROUP Captain PFD
         POS 435.000000 1021.500000
         IMAGE CRT Displays/LED/LED_2.18R.xx###0.green
         DATAREF sim/cockpit2/gauges/actuators/radio_altimeter_bug_ft_pilot
-        
+        SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 2
@@ -101617,7 +101639,7 @@ GROUP Captain PFD
   END_GROUP
   GROUP Radio Altitude
     SHOW_LESS 2500.000000 sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot
-    
+	
     HIDE
     GROUP <= DH
       SHOW_LESS 0.000000 laminar/B747/radio_alt/display_status
@@ -101628,7 +101650,7 @@ GROUP Captain PFD
         POS 429.000000 996.500000
         IMAGE CRT Displays/LED/LED_2.30R.x####0.yellow
         DATAREF laminar/B747/efis/radio_altitude
-        
+        SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 2
@@ -101649,7 +101671,7 @@ GROUP Captain PFD
         POS 429.000000 996.500000
         IMAGE CRT Displays/LED/LED_2.30R.x####0.white
         DATAREF laminar/B747/efis/radio_altitude
-        
+        SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 2
@@ -101664,7 +101686,8 @@ GROUP Captain PFD
     END_GROUP
   END_GROUP
   GROUP VSI Display
-    
+    SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
+
     HIDE
     gen_rotary VSI Bgnd
       POS 639.000000 767.000000
@@ -101816,6 +101839,28 @@ GROUP Captain PFD
 
     END_GROUP
   END_GROUP
+	gen_rotary VERT X CAPT PFD
+	  POS 650.000000 767.500000
+	  IMAGE CRT Displays/PFD/Failure Flags/vertX
+	  DATAREF
+	  SHOW_LESS 0.100000 laminar/B747/pfd/capt/irs
+	  HIDE
+	  LIGHT_MODE GLASS_AUTO
+	  LIGHT_RHEOSTAT 3
+	  BUS_SRC 3
+	  KEY_FRAME 0.000000 0.000000 1.000000
+	  KEY_FRAME 1.000000 6.000000
+	  DIGITS 1
+	  ROTARY_TYPE NO_CLICK
+	  CLICK_RADIUS 0.000000
+	  CLICK_RADIUS_DY 0.000000
+	  OFFSET 0.000000
+	  STEP1 1.000000
+	  STEP2 1.000000
+	  CURSOR DEFAULT
+	  CLICK_DX 0
+	  CLICK_DY 0
+  
   GROUP Altimeter Display
     
     HIDE
@@ -102395,7 +102440,7 @@ GROUP Captain PFD
     END_GROUP
   END_GROUP
   GROUP Approach Course
-    
+  SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
     HIDE
     gen_rotary CRS Label
       POS 164.500000 576.000000
@@ -102456,14 +102501,13 @@ GROUP Captain PFD
   END_GROUP
   GROUP MDA
     SHOW_GREATER -100.000000 laminar/B747/efis/baro_ref/capt
-    
     HIDE
     
     gen_rotary MDA Label
       POS 446.000000 592.500000
       IMAGE CRT Displays/PFD/Minimums/MDAlabel
       DATAREF 
-      
+      SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 2
@@ -102485,7 +102529,7 @@ GROUP Captain PFD
       POS 435.000000 573.500000
       IMAGE CRT Displays/LED/LED_2.18R.xx###0.green
       DATAREF laminar/B747/efis/baro_ref/capt
-      
+      SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 2
@@ -102797,6 +102841,54 @@ GROUP Captain PFD
     END_GROUP
     END_GROUP
     END_GROUP
+    GROUP CAPT IRS OFF PFD
+      SHOW_LESS 0.100000 laminar/B747/pfd/capt/irs
+      HIDE     
+
+		gen_rotary HDG X CAPT PFD
+		  POS 315.000000 540.500000
+		  IMAGE CRT Displays/PFD/Failure Flags/hdgX
+		  DATAREF
+		  HIDE
+		  LIGHT_MODE GLASS_AUTO
+		  LIGHT_RHEOSTAT 3
+		  BUS_SRC 3
+		  KEY_FRAME 0.000000 0.000000 1.000000
+		  KEY_FRAME 1.000000 6.000000
+		  DIGITS 1
+		  ROTARY_TYPE NO_CLICK
+		  CLICK_RADIUS 0.000000
+		  CLICK_RADIUS_DY 0.000000
+		  OFFSET 0.000000
+		  STEP1 1.000000
+		  STEP2 1.000000
+		  CURSOR DEFAULT
+		  CLICK_DX 0
+		  CLICK_DY 0
+
+		gen_rotary ATT X CAPT PFD
+		  POS 315.000000 820.500000
+		  IMAGE CRT Displays/PFD/Failure Flags/attX
+		  DATAREF
+		  HIDE
+		  LIGHT_MODE GLASS_AUTO
+		  LIGHT_RHEOSTAT 3
+		  BUS_SRC 3
+		  KEY_FRAME 0.000000 0.000000 1.000000
+		  KEY_FRAME 1.000000 6.000000
+		  DIGITS 1
+		  ROTARY_TYPE NO_CLICK
+		  CLICK_RADIUS 0.000000
+		  CLICK_RADIUS_DY 0.000000
+		  OFFSET 0.000000
+		  STEP1 1.000000
+		  STEP2 1.000000
+		  CURSOR DEFAULT
+		  CLICK_DX 0
+		  CLICK_DY 0
+
+    END_GROUP
+	
   END_GROUP
 END_GROUP
 GROUP First Officer PFD
@@ -102865,7 +102957,6 @@ GROUP First Officer PFD
 
     GROUP Rsng Rwy Offset 2
       SHOW_LESS 2500.000000 sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_copilot
-      
       HIDE
       
       GROUP_ANIMATE_MODE TRANSLATE
@@ -104845,6 +104936,29 @@ GROUP First Officer PFD
           OFFSET 0.000000
 
       END_GROUP
+	  
+		gen_rotary NOVSPD X FO PFD
+		  POS 819.000000 870.500000
+		  IMAGE CRT Displays/PFD/Failure Flags/novspdX
+		  DATAREF
+		  SHOW_EQUAL 999 laminar/B747/airspeed/V1
+		  HIDE
+		  LIGHT_MODE GLASS_AUTO
+		  LIGHT_RHEOSTAT 3
+		  BUS_SRC 2
+		  KEY_FRAME 0.000000 0.000000 1.000000
+		  KEY_FRAME 1.000000 6.000000
+		  DIGITS 1
+		  ROTARY_TYPE NO_CLICK
+		  CLICK_RADIUS 0.000000
+		  CLICK_RADIUS_DY 0.000000
+		  OFFSET 0.000000
+		  STEP1 1.000000
+		  STEP2 1.000000
+		  CURSOR DEFAULT
+		  CLICK_DX 0
+		  CLICK_DY 0
+
     END_GROUP
     GROUP Flap Speeds 2
       SHOW_GREATER 10.000000 sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_copilot
@@ -105016,7 +105130,7 @@ GROUP First Officer PFD
     END_GROUP
   END_GROUP
   GROUP Approach Ref 2
-    
+  SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
     HIDE
     gen_text ILS L
       POS 879.000000 1013.500000
@@ -105115,7 +105229,7 @@ GROUP First Officer PFD
       IMAGE CRT Displays/PFD/Decision Height/DH_Label2
       DATAREF 
       SHOW_EQUAL 1.000000 laminar/B747/dec_height/display_status
-      
+      SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
@@ -105141,7 +105255,7 @@ GROUP First Officer PFD
         POS 1073.000000 1023.500000
         IMAGE CRT Displays/PFD/Decision Height/DH_Label
         DATAREF 
-        
+        SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
@@ -105163,7 +105277,7 @@ GROUP First Officer PFD
         POS 1114.000000 1021.500000
         IMAGE CRT Displays/LED/LED_2.18R.xx###0.green
         DATAREF sim/cockpit2/gauges/actuators/radio_altimeter_bug_ft_copilot
-        
+        SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
@@ -105190,7 +105304,7 @@ GROUP First Officer PFD
         POS 1108.000000 996.500000
         IMAGE CRT Displays/LED/LED_2.30R.x####0.yellow
         DATAREF laminar/B747/efis/radio_altitude
-        
+        SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
@@ -105211,7 +105325,7 @@ GROUP First Officer PFD
         POS 1108.000000 996.500000
         IMAGE CRT Displays/LED/LED_2.30R.x####0.white
         DATAREF laminar/B747/efis/radio_altitude
-        
+        SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 5
@@ -105226,7 +105340,7 @@ GROUP First Officer PFD
     END_GROUP
   END_GROUP
   GROUP VSI Display 2
-    
+    SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
     HIDE
     gen_rotary VSI Bgnd 2
       POS 1318.000000 767.000000
@@ -105378,6 +105492,29 @@ GROUP First Officer PFD
 
     END_GROUP
   END_GROUP
+  
+	gen_rotary VERT X FO PFD
+	  POS 1329.000000 767.500000
+	  IMAGE CRT Displays/PFD/Failure Flags/vertX
+	  DATAREF
+	  SHOW_LESS 0.100000 laminar/B747/pfd/fo/irs
+	  HIDE
+	  LIGHT_MODE GLASS_AUTO
+	  LIGHT_RHEOSTAT 3
+	  BUS_SRC 2
+	  KEY_FRAME 0.000000 0.000000 1.000000
+	  KEY_FRAME 1.000000 6.000000
+	  DIGITS 1
+	  ROTARY_TYPE NO_CLICK
+	  CLICK_RADIUS 0.000000
+	  CLICK_RADIUS_DY 0.000000
+	  OFFSET 0.000000
+	  STEP1 1.000000
+	  STEP2 1.000000
+	  CURSOR DEFAULT
+	  CLICK_DX 0
+	  CLICK_DY 0
+  
   GROUP Altimeter Display 2
     
     HIDE
@@ -105957,7 +106094,7 @@ GROUP First Officer PFD
     END_GROUP
   END_GROUP
   GROUP Approach Course 2
-    
+  SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
     HIDE
     gen_rotary CRS Label 2
       POS 843.500000 576.000000
@@ -106018,13 +106155,13 @@ GROUP First Officer PFD
   END_GROUP
   GROUP MDA 2
     SHOW_GREATER -100.000000 laminar/B747/efis/baro_ref/fo
-    
     HIDE
+	
     gen_rotary MDA Label 2
       POS 1125.000000 592.500000
       IMAGE CRT Displays/PFD/Minimums/MDAlabel
       DATAREF 
-      
+      SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
@@ -106046,7 +106183,7 @@ GROUP First Officer PFD
       POS 1114.000000 573.500000
       IMAGE CRT Displays/LED/LED_2.18R.xx###0.green
       DATAREF laminar/B747/efis/baro_ref/fo
-      
+      SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 5
@@ -106356,6 +106493,55 @@ GROUP First Officer PFD
        END_GROUP 
     END_GROUP
     END_GROUP
+	
+    GROUP FO IRS OFF PFD
+      SHOW_LESS 0.100000 laminar/B747/pfd/fo/irs
+      HIDE     
+
+		gen_rotary HDG X FO PFD
+		  POS 994.000000 540.500000
+		  IMAGE CRT Displays/PFD/Failure Flags/hdgX
+		  DATAREF
+		  HIDE
+		  LIGHT_MODE GLASS_AUTO
+		  LIGHT_RHEOSTAT 3
+		  BUS_SRC 2
+		  KEY_FRAME 0.000000 0.000000 1.000000
+		  KEY_FRAME 1.000000 6.000000
+		  DIGITS 1
+		  ROTARY_TYPE NO_CLICK
+		  CLICK_RADIUS 0.000000
+		  CLICK_RADIUS_DY 0.000000
+		  OFFSET 0.000000
+		  STEP1 1.000000
+		  STEP2 1.000000
+		  CURSOR DEFAULT
+		  CLICK_DX 0
+		  CLICK_DY 0
+
+		gen_rotary ATT X FO PFD
+		  POS 994.000000 820.500000
+		  IMAGE CRT Displays/PFD/Failure Flags/attX
+		  DATAREF
+		  HIDE
+		  LIGHT_MODE GLASS_AUTO
+		  LIGHT_RHEOSTAT 3
+		  BUS_SRC 2
+		  KEY_FRAME 0.000000 0.000000 1.000000
+		  KEY_FRAME 1.000000 6.000000
+		  DIGITS 1
+		  ROTARY_TYPE NO_CLICK
+		  CLICK_RADIUS 0.000000
+		  CLICK_RADIUS_DY 0.000000
+		  OFFSET 0.000000
+		  STEP1 1.000000
+		  STEP2 1.000000
+		  CURSOR DEFAULT
+		  CLICK_DX 0
+		  CLICK_DY 0
+
+    END_GROUP
+	
   END_GROUP
 END_GROUP
 GROUP First Officer ND
@@ -107238,11 +107424,11 @@ GROUP First Officer ND
       CLICK_DX 0
       CLICK_DY 0
 
-    GROUP Waypoints 3
+    GROUP Waypoints FO CENTERED
       SHOW_GREATER 2.000000 laminar/B747/nd/mode/fo/sel_dial_pos
       LOCKED
       
-      gen_text Active Waypoint 3
+      gen_text Active Waypoint FO CENTERED
         POS 1273.500000 398.000000
         IMAGE CRT Displays/TEXT/TXT.2.28.magenta
         DATAREF laminar/B747/nd/current_waypoint
@@ -107255,7 +107441,7 @@ GROUP First Officer ND
         OFFSET_X -50
         OFFSET_Y -10.000000
 
-      gen_text Waypoint ETA 3
+      gen_text Waypoint ETA FO CENTERED
         POS 1257.500000 374.000000
         IMAGE CRT Displays/TEXT/TXT.2.28.white
         DATAREF laminar/B747/nd/waypoint_eta
@@ -107268,7 +107454,7 @@ GROUP First Officer ND
         OFFSET_X -50
         OFFSET_Y -10.000000
 
-      gen_text Waypoint Distance 3
+      gen_text Waypoint Distance FO CENTERED
         POS 1246.500000 350.000000
         IMAGE CRT Displays/TEXT/TXT.2.28.white
         DATAREF laminar/B747/nd/waypoint_distance
@@ -108100,11 +108286,11 @@ GROUP First Officer ND
       CLICK_DX 0
       CLICK_DY 0
 
-    GROUP Waypoints 4
+    GROUP Waypoints FO EXPANDED
       SHOW_EQUAL 2.000000 laminar/B747/nd/mode/fo/sel_dial_pos
       LOCKED
       
-      gen_text Active Waypoint 4
+      gen_text Active Waypoint FO EXPANDED
         POS 1273.500000 398.000000
         IMAGE CRT Displays/TEXT/TXT.2.28.magenta
         DATAREF laminar/B747/nd/current_waypoint
@@ -108117,7 +108303,7 @@ GROUP First Officer ND
         OFFSET_X -50
         OFFSET_Y -10.000000
 
-      gen_text Waypoint ETA 4
+      gen_text Waypoint ETA FO EXPANDED
         POS 1257.500000 374.000000
         IMAGE CRT Displays/TEXT/TXT.2.28.white
         DATAREF laminar/B747/nd/waypoint_eta
@@ -108130,7 +108316,7 @@ GROUP First Officer ND
         OFFSET_X -50
         OFFSET_Y -10.000000
 
-      gen_text Waypoint Distance 4
+      gen_text Waypoint Distance FO EXPANDED
         POS 1246.500000 350.000000
         IMAGE CRT Displays/TEXT/TXT.2.28.white
         DATAREF laminar/B747/nd/waypoint_distance
@@ -108250,6 +108436,125 @@ GROUP First Officer ND
         CLICK_DY 0
 
     END_GROUP
+  END_GROUP
+  GROUP EFIS Data Annun
+  SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
+	HIDE
+	gen_rotary ARPT
+	  POS 713.500000 36.500000
+	  IMAGE CRT Displays/ND/EFIS annun/ARPT
+	  DATAREF 
+	  SHOW_EQUAL 1.000000 sim/cockpit2/EFIS/EFIS_airport_on
+	  
+	  HIDE
+	  LIGHT_MODE GLASS_AUTO
+	  LIGHT_RHEOSTAT 3
+	  BUS_SRC 4
+	  KEY_FRAME 0.000000 0.000000 1.000000
+	  KEY_FRAME 1.000000 6.000000
+	  DIGITS 1
+	  ROTARY_TYPE NO_CLICK
+	  CLICK_RADIUS 0.000000
+	  CLICK_RADIUS_DY 0.000000
+	  OFFSET 0.000000
+	  STEP1 1.000000
+	  STEP2 1.000000
+	  CURSOR DEFAULT
+	  CLICK_DX 0
+	  CLICK_DY 0
+
+	gen_rotary WPT
+	  POS 713.500000 17.500000
+	  IMAGE CRT Displays/ND/EFIS annun/WPT
+	  DATAREF 
+	  SHOW_EQUAL 1.000000 sim/cockpit2/EFIS/EFIS_fix_on
+	  
+	  HIDE
+	  LIGHT_MODE GLASS_AUTO
+	  LIGHT_RHEOSTAT 3
+	  BUS_SRC 4
+	  KEY_FRAME 0.000000 0.000000 1.000000
+	  KEY_FRAME 1.000000 6.000000
+	  DIGITS 1
+	  ROTARY_TYPE NO_CLICK
+	  CLICK_RADIUS 0.000000
+	  CLICK_RADIUS_DY 0.000000
+	  OFFSET 0.000000
+	  STEP1 1.000000
+	  STEP2 1.000000
+	  CURSOR DEFAULT
+	  CLICK_DX 0
+	  CLICK_DY 0
+
+	gen_rotary STA
+	  POS 713.500000 -0.500000
+	  IMAGE CRT Displays/ND/EFIS annun/STA
+	  DATAREF 
+	  SHOW_EQUAL 1.000000 laminar/B747/nd/data/capt/vor_ndb
+	  
+	  HIDE
+	  LIGHT_MODE GLASS_AUTO
+	  LIGHT_RHEOSTAT 3
+	  BUS_SRC 4
+	  KEY_FRAME 0.000000 0.000000 1.000000
+	  KEY_FRAME 1.000000 6.000000
+	  DIGITS 1
+	  ROTARY_TYPE NO_CLICK
+	  CLICK_RADIUS 0.000000
+	  CLICK_RADIUS_DY 0.000000
+	  OFFSET 0.000000
+	  STEP1 1.000000
+	  STEP2 1.000000
+	  CURSOR DEFAULT
+	  CLICK_DX 0
+	  CLICK_DY 0
+
+	gen_rotary TFC
+	  POS 713.500000 -19.500000
+	  IMAGE CRT Displays/ND/EFIS annun/TFC
+	  DATAREF 
+	  SHOW_EQUAL 1.000000 sim/cockpit2/EFIS/EFIS_tcas_on
+	  
+	  HIDE
+	  LIGHT_MODE GLASS_AUTO
+	  LIGHT_RHEOSTAT 3
+	  BUS_SRC 4
+	  KEY_FRAME 0.000000 0.000000 1.000000
+	  KEY_FRAME 1.000000 6.000000
+	  DIGITS 1
+	  ROTARY_TYPE NO_CLICK
+	  CLICK_RADIUS 0.000000
+	  CLICK_RADIUS_DY 0.000000
+	  OFFSET 0.000000
+	  STEP1 1.000000
+	  STEP2 1.000000
+	  CURSOR DEFAULT
+	  CLICK_DX 0
+	  CLICK_DY 0
+
+	gen_rotary WXR
+	  POS 713.500000 -38.500000
+	  IMAGE CRT Displays/ND/EFIS annun/WXR
+	  DATAREF 
+	  SHOW_EQUAL 1.000000 sim/cockpit2/EFIS/EFIS_weather_on
+	  
+	  HIDE
+	  LIGHT_MODE GLASS_AUTO
+	  LIGHT_RHEOSTAT 3
+	  BUS_SRC 4
+	  KEY_FRAME 0.000000 0.000000 1.000000
+	  KEY_FRAME 1.000000 6.000000
+	  DIGITS 1
+	  ROTARY_TYPE NO_CLICK
+	  CLICK_RADIUS 0.000000
+	  CLICK_RADIUS_DY 0.000000
+	  OFFSET 0.000000
+	  STEP1 1.000000
+	  STEP2 1.000000
+	  CURSOR DEFAULT
+	  CLICK_DX 0
+	  CLICK_DY 0
+
   END_GROUP
 
   GROUP Radio Data
@@ -109324,128 +109629,8 @@ GROUP First Officer ND
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
 
-	  GROUP EFIS Data Annun
-		
-		HIDE
-		
-		gen_rotary ARPT
-		  POS 713.500000 36.500000
-		  IMAGE CRT Displays/ND/EFIS annun/ARPT
-		  DATAREF 
-		  SHOW_EQUAL 1.000000 sim/cockpit2/EFIS/EFIS_airport_on
-		  
-		  HIDE
-		  LIGHT_MODE GLASS_AUTO
-		  LIGHT_RHEOSTAT 3
-		  BUS_SRC 4
-		  KEY_FRAME 0.000000 0.000000 1.000000
-		  KEY_FRAME 1.000000 6.000000
-		  DIGITS 1
-		  ROTARY_TYPE NO_CLICK
-		  CLICK_RADIUS 0.000000
-		  CLICK_RADIUS_DY 0.000000
-		  OFFSET 0.000000
-		  STEP1 1.000000
-		  STEP2 1.000000
-		  CURSOR DEFAULT
-		  CLICK_DX 0
-		  CLICK_DY 0
 
-		gen_rotary WPT
-		  POS 713.500000 17.500000
-		  IMAGE CRT Displays/ND/EFIS annun/WPT
-		  DATAREF 
-		  SHOW_EQUAL 1.000000 sim/cockpit2/EFIS/EFIS_fix_on
-		  
-		  HIDE
-		  LIGHT_MODE GLASS_AUTO
-		  LIGHT_RHEOSTAT 3
-		  BUS_SRC 4
-		  KEY_FRAME 0.000000 0.000000 1.000000
-		  KEY_FRAME 1.000000 6.000000
-		  DIGITS 1
-		  ROTARY_TYPE NO_CLICK
-		  CLICK_RADIUS 0.000000
-		  CLICK_RADIUS_DY 0.000000
-		  OFFSET 0.000000
-		  STEP1 1.000000
-		  STEP2 1.000000
-		  CURSOR DEFAULT
-		  CLICK_DX 0
-		  CLICK_DY 0
-
-		gen_rotary STA
-		  POS 713.500000 -0.500000
-		  IMAGE CRT Displays/ND/EFIS annun/STA
-		  DATAREF 
-		  SHOW_EQUAL 1.000000 laminar/B747/nd/data/capt/vor_ndb
-		  
-		  HIDE
-		  LIGHT_MODE GLASS_AUTO
-		  LIGHT_RHEOSTAT 3
-		  BUS_SRC 4
-		  KEY_FRAME 0.000000 0.000000 1.000000
-		  KEY_FRAME 1.000000 6.000000
-		  DIGITS 1
-		  ROTARY_TYPE NO_CLICK
-		  CLICK_RADIUS 0.000000
-		  CLICK_RADIUS_DY 0.000000
-		  OFFSET 0.000000
-		  STEP1 1.000000
-		  STEP2 1.000000
-		  CURSOR DEFAULT
-		  CLICK_DX 0
-		  CLICK_DY 0
-
-		gen_rotary TFC
-		  POS 713.500000 -19.500000
-		  IMAGE CRT Displays/ND/EFIS annun/TFC
-		  DATAREF 
-		  SHOW_EQUAL 1.000000 sim/cockpit2/EFIS/EFIS_tcas_on
-		  
-		  HIDE
-		  LIGHT_MODE GLASS_AUTO
-		  LIGHT_RHEOSTAT 3
-		  BUS_SRC 4
-		  KEY_FRAME 0.000000 0.000000 1.000000
-		  KEY_FRAME 1.000000 6.000000
-		  DIGITS 1
-		  ROTARY_TYPE NO_CLICK
-		  CLICK_RADIUS 0.000000
-		  CLICK_RADIUS_DY 0.000000
-		  OFFSET 0.000000
-		  STEP1 1.000000
-		  STEP2 1.000000
-		  CURSOR DEFAULT
-		  CLICK_DX 0
-		  CLICK_DY 0
-
-		gen_rotary WXR
-		  POS 713.500000 -38.500000
-		  IMAGE CRT Displays/ND/EFIS annun/WXR
-		  DATAREF 
-		  SHOW_EQUAL 1.000000 sim/cockpit2/EFIS/EFIS_weather_on
-		  
-		  HIDE
-		  LIGHT_MODE GLASS_AUTO
-		  LIGHT_RHEOSTAT 3
-		  BUS_SRC 4
-		  KEY_FRAME 0.000000 0.000000 1.000000
-		  KEY_FRAME 1.000000 6.000000
-		  DIGITS 1
-		  ROTARY_TYPE NO_CLICK
-		  CLICK_RADIUS 0.000000
-		  CLICK_RADIUS_DY 0.000000
-		  OFFSET 0.000000
-		  STEP1 1.000000
-		  STEP2 1.000000
-		  CURSOR DEFAULT
-		  CLICK_DX 0
-		  CLICK_DY 0
-
-	  END_GROUP
-
-		gen_LED Range Display ND 2
+		gen_LED Range Display ND FO
 		  POS 989.000000 138.000000
 		  IMAGE CRT Displays/LED/LED_2.18R.xx###0.white
 		  DATAREF laminar/B747/nd/range_display_fo
@@ -109521,7 +109706,7 @@ GROUP First Officer ND
         OFFSET_X -50
         OFFSET_Y -8.000000
 
-	gen_rotary MAP X 2
+	gen_rotary MAP X FO
 	  POS 1019.50000 142.000000
 	  IMAGE CRT Displays/ND/mapX
 	  DATAREF
@@ -109543,8 +109728,8 @@ GROUP First Officer ND
 	  CLICK_DX 0
 	  CLICK_DY 0
 
-	gen_rotary VTK X 2
-	  POS 1299.500000 -93.500000
+	gen_rotary VTK X FO
+	  POS 1299.500000 -25.500000
 	  IMAGE CRT Displays/ND/vtkX
 	  DATAREF
 	  SHOW_EQUAL 2 laminar/B747/nd/mode/fo/sel_dial_pos
@@ -109565,7 +109750,7 @@ GROUP First Officer ND
 	  CLICK_DX 0
 	  CLICK_DY 0
 
-	gen_rotary TRK X 2
+	gen_rotary TRK X FO
 	  POS 1024.500000 398.500000
 	  IMAGE CRT Displays/ND/trkX
 	  DATAREF
@@ -109587,7 +109772,7 @@ GROUP First Officer ND
 	  CLICK_DX 0
 	  CLICK_DY 0
 
-	gen_rotary HDG X 2
+	gen_rotary HDG X FO
 	  POS 1022.500000 398.500000
 	  IMAGE CRT Displays/ND/hdgX
 	  DATAREF
@@ -109611,7 +109796,7 @@ GROUP First Officer ND
 
     END_GROUP
     END_GROUP
-        gen_text GPS Display Line 2
+        gen_text GPS Display Line FO
           POS 1171.500000 -213.000000
           IMAGE CRT Displays/TEXT/TXT.2.28.green
           DATAREF laminar/B747/irs/gps_display_line
@@ -109622,7 +109807,7 @@ GROUP First Officer ND
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
 
-        gen_text IRS Display Line 2
+        gen_text IRS Display Line FO
           POS 1154.500000 -235.000000
           IMAGE CRT Displays/TEXT/TXT.2.28.green
           DATAREF laminar/B747/irs/irs_display_line
@@ -109636,7 +109821,7 @@ GROUP First Officer ND
     END_GROUP
   END_GROUP
 
-	gen_rotary TCAS X 2
+	gen_rotary TCAS X FO
 	  POS 751.500000 -112.500000
 	  IMAGE CRT Displays/ND/tcasX
 	  DATAREF
@@ -110539,44 +110724,44 @@ GROUP Captain ND
       CLICK_DX 0
       CLICK_DY 0
 
-    GROUP Waypoints 1
+    GROUP Waypoints CAPT CENTERED
       SHOW_GREATER 2.000000 laminar/B747/nd/mode/capt/sel_dial_pos
       LOCKED
       
-      gen_text Active Waypoint 1
+      gen_text Active Waypoint CAPT CENTERED
         POS 593.500000 398.000000
         IMAGE CRT Displays/TEXT/TXT.2.28.magenta
         DATAREF laminar/B747/nd/current_waypoint
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 2
-        BUS_SRC 2
+        BUS_SRC 3
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         OFFSET_X -50
         OFFSET_Y -10.000000
 
-      gen_text Waypoint ETA 1
+      gen_text Waypoint ETA CAPT CENTERED
         POS 577.500000 374.000000
         IMAGE CRT Displays/TEXT/TXT.2.28.white
         DATAREF laminar/B747/nd/waypoint_eta
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 2
-        BUS_SRC 2
+        BUS_SRC 3
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         OFFSET_X -50
         OFFSET_Y -10.000000
 
-      gen_text Waypoint Distance 1
+      gen_text Waypoint Distance CAPT CENTERED
         POS 566.500000 350.000000
         IMAGE CRT Displays/TEXT/TXT.2.28.white
         DATAREF laminar/B747/nd/waypoint_distance
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 2
-        BUS_SRC 2
+        BUS_SRC 3
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         OFFSET_X -50
@@ -111393,7 +111578,7 @@ GROUP Captain ND
       CLICK_DX 0
       CLICK_DY 0
 
-    GROUP Waypoints 2
+    GROUP Waypoints CAPT EXPANDED
       SHOW_EQUAL 2.000000 laminar/B747/nd/mode/capt/sel_dial_pos
       LOCKED
       
@@ -111404,33 +111589,33 @@ GROUP Captain ND
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 2
-        BUS_SRC 2
+        BUS_SRC 3
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         OFFSET_X -50
         OFFSET_Y -10.000000
 
-      gen_text Waypoint ETA 2
+      gen_text Waypoint ETA CAPT EXPANDED
         POS 577.500000 374.000000
         IMAGE CRT Displays/TEXT/TXT.2.28.white
         DATAREF laminar/B747/nd/waypoint_eta
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 2
-        BUS_SRC 2
+        BUS_SRC 3
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         OFFSET_X -50
         OFFSET_Y -10.000000
 
-      gen_text Waypoint Distance 2
+      gen_text Waypoint Distance CAPT EXPANDED
         POS 566.500000 350.000000
         IMAGE CRT Displays/TEXT/TXT.2.28.white
         DATAREF laminar/B747/nd/waypoint_distance
         LOCKED
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 2
-        BUS_SRC 2
+        BUS_SRC 3
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         OFFSET_X -50
@@ -111545,6 +111730,126 @@ GROUP Captain ND
 
     END_GROUP
   END_GROUP
+  GROUP EFIS Data Annun 2
+  SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
+	HIDE
+	gen_rotary ARPT 2
+	  POS 35.500000 36.500000
+	  IMAGE CRT Displays/ND/EFIS annun/ARPT
+	  DATAREF 
+	  SHOW_EQUAL 1.000000 sim/cockpit2/EFIS/EFIS_airport_on
+	  
+	  HIDE
+	  LIGHT_MODE GLASS_AUTO
+	  LIGHT_RHEOSTAT 0
+	  BUS_SRC 2
+	  KEY_FRAME 0.000000 0.000000 1.000000
+	  KEY_FRAME 1.000000 6.000000
+	  DIGITS 1
+	  ROTARY_TYPE NO_CLICK
+	  CLICK_RADIUS 0.000000
+	  CLICK_RADIUS_DY 0.000000
+	  OFFSET 0.000000
+	  STEP1 1.000000
+	  STEP2 1.000000
+	  CURSOR DEFAULT
+	  CLICK_DX 0
+	  CLICK_DY 0
+
+	gen_rotary WPT 2
+	  POS 35.500000 17.500000
+	  IMAGE CRT Displays/ND/EFIS annun/WPT
+	  DATAREF 
+	  SHOW_EQUAL 1.000000 sim/cockpit2/EFIS/EFIS_fix_on
+	  
+	  HIDE
+	  LIGHT_MODE GLASS_AUTO
+	  LIGHT_RHEOSTAT 0
+	  BUS_SRC 2
+	  KEY_FRAME 0.000000 0.000000 1.000000
+	  KEY_FRAME 1.000000 6.000000
+	  DIGITS 1
+	  ROTARY_TYPE NO_CLICK
+	  CLICK_RADIUS 0.000000
+	  CLICK_RADIUS_DY 0.000000
+	  OFFSET 0.000000
+	  STEP1 1.000000
+	  STEP2 1.000000
+	  CURSOR DEFAULT
+	  CLICK_DX 0
+	  CLICK_DY 0
+
+	gen_rotary STA 2
+	  POS 35.500000 -0.500000
+	  IMAGE CRT Displays/ND/EFIS annun/STA
+	  DATAREF 
+	  SHOW_EQUAL 1.000000 laminar/B747/nd/data/capt/vor_ndb
+	  
+	  HIDE
+	  LIGHT_MODE GLASS_AUTO
+	  LIGHT_RHEOSTAT 0
+	  BUS_SRC 2
+	  KEY_FRAME 0.000000 0.000000 1.000000
+	  KEY_FRAME 1.000000 6.000000
+	  DIGITS 1
+	  ROTARY_TYPE NO_CLICK
+	  CLICK_RADIUS 0.000000
+	  CLICK_RADIUS_DY 0.000000
+	  OFFSET 0.000000
+	  STEP1 1.000000
+	  STEP2 1.000000
+	  CURSOR DEFAULT
+	  CLICK_DX 0
+	  CLICK_DY 0
+
+	gen_rotary TFC 2
+	  POS 35.500000 -19.500000
+	  IMAGE CRT Displays/ND/EFIS annun/TFC
+	  DATAREF 
+	  SHOW_EQUAL 1.000000 sim/cockpit2/EFIS/EFIS_tcas_on
+	  
+	  HIDE
+	  LIGHT_MODE GLASS_AUTO
+	  LIGHT_RHEOSTAT 0
+	  BUS_SRC 2
+	  KEY_FRAME 0.000000 0.000000 1.000000
+	  KEY_FRAME 1.000000 6.000000
+	  DIGITS 1
+	  ROTARY_TYPE NO_CLICK
+	  CLICK_RADIUS 0.000000
+	  CLICK_RADIUS_DY 0.000000
+	  OFFSET 0.000000
+	  STEP1 1.000000
+	  STEP2 1.000000
+	  CURSOR DEFAULT
+	  CLICK_DX 0
+	  CLICK_DY 0
+
+	gen_rotary WXR 2
+	  POS 35.500000 -38.500000
+	  IMAGE CRT Displays/ND/EFIS annun/WXR
+	  DATAREF 
+	  SHOW_EQUAL 1.000000 sim/cockpit2/EFIS/EFIS_weather_on
+	  
+	  HIDE
+	  LIGHT_MODE GLASS_AUTO
+	  LIGHT_RHEOSTAT 0
+	  BUS_SRC 2
+	  KEY_FRAME 0.000000 0.000000 1.000000
+	  KEY_FRAME 1.000000 6.000000
+	  DIGITS 1
+	  ROTARY_TYPE NO_CLICK
+	  CLICK_RADIUS 0.000000
+	  CLICK_RADIUS_DY 0.000000
+	  OFFSET 0.000000
+	  STEP1 1.000000
+	  STEP2 1.000000
+	  CURSOR DEFAULT
+	  CLICK_DX 0
+	  CLICK_DY 0
+
+  END_GROUP
+  
   GROUP Radio Data 2
     
     HIDE
@@ -112619,127 +112924,7 @@ GROUP Captain ND
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
 
-	  GROUP EFIS Data Annun 2
-		HIDE
-		
-		gen_rotary ARPT 2
-		  POS 35.500000 36.500000
-		  IMAGE CRT Displays/ND/EFIS annun/ARPT
-		  DATAREF 
-		  SHOW_EQUAL 1.000000 sim/cockpit2/EFIS/EFIS_airport_on
-		  
-		  HIDE
-		  LIGHT_MODE GLASS_AUTO
-		  LIGHT_RHEOSTAT 0
-		  BUS_SRC 2
-		  KEY_FRAME 0.000000 0.000000 1.000000
-		  KEY_FRAME 1.000000 6.000000
-		  DIGITS 1
-		  ROTARY_TYPE NO_CLICK
-		  CLICK_RADIUS 0.000000
-		  CLICK_RADIUS_DY 0.000000
-		  OFFSET 0.000000
-		  STEP1 1.000000
-		  STEP2 1.000000
-		  CURSOR DEFAULT
-		  CLICK_DX 0
-		  CLICK_DY 0
-
-		gen_rotary WPT 2
-		  POS 35.500000 17.500000
-		  IMAGE CRT Displays/ND/EFIS annun/WPT
-		  DATAREF 
-		  SHOW_EQUAL 1.000000 sim/cockpit2/EFIS/EFIS_fix_on
-		  
-		  HIDE
-		  LIGHT_MODE GLASS_AUTO
-		  LIGHT_RHEOSTAT 0
-		  BUS_SRC 2
-		  KEY_FRAME 0.000000 0.000000 1.000000
-		  KEY_FRAME 1.000000 6.000000
-		  DIGITS 1
-		  ROTARY_TYPE NO_CLICK
-		  CLICK_RADIUS 0.000000
-		  CLICK_RADIUS_DY 0.000000
-		  OFFSET 0.000000
-		  STEP1 1.000000
-		  STEP2 1.000000
-		  CURSOR DEFAULT
-		  CLICK_DX 0
-		  CLICK_DY 0
-
-		gen_rotary STA 2
-		  POS 35.500000 -0.500000
-		  IMAGE CRT Displays/ND/EFIS annun/STA
-		  DATAREF 
-		  SHOW_EQUAL 1.000000 laminar/B747/nd/data/capt/vor_ndb
-		  
-		  HIDE
-		  LIGHT_MODE GLASS_AUTO
-		  LIGHT_RHEOSTAT 0
-		  BUS_SRC 2
-		  KEY_FRAME 0.000000 0.000000 1.000000
-		  KEY_FRAME 1.000000 6.000000
-		  DIGITS 1
-		  ROTARY_TYPE NO_CLICK
-		  CLICK_RADIUS 0.000000
-		  CLICK_RADIUS_DY 0.000000
-		  OFFSET 0.000000
-		  STEP1 1.000000
-		  STEP2 1.000000
-		  CURSOR DEFAULT
-		  CLICK_DX 0
-		  CLICK_DY 0
-
-		gen_rotary TFC 2
-		  POS 35.500000 -19.500000
-		  IMAGE CRT Displays/ND/EFIS annun/TFC
-		  DATAREF 
-		  SHOW_EQUAL 1.000000 sim/cockpit2/EFIS/EFIS_tcas_on
-		  
-		  HIDE
-		  LIGHT_MODE GLASS_AUTO
-		  LIGHT_RHEOSTAT 0
-		  BUS_SRC 2
-		  KEY_FRAME 0.000000 0.000000 1.000000
-		  KEY_FRAME 1.000000 6.000000
-		  DIGITS 1
-		  ROTARY_TYPE NO_CLICK
-		  CLICK_RADIUS 0.000000
-		  CLICK_RADIUS_DY 0.000000
-		  OFFSET 0.000000
-		  STEP1 1.000000
-		  STEP2 1.000000
-		  CURSOR DEFAULT
-		  CLICK_DX 0
-		  CLICK_DY 0
-
-		gen_rotary WXR 2
-		  POS 35.500000 -38.500000
-		  IMAGE CRT Displays/ND/EFIS annun/WXR
-		  DATAREF 
-		  SHOW_EQUAL 1.000000 sim/cockpit2/EFIS/EFIS_weather_on
-		  
-		  HIDE
-		  LIGHT_MODE GLASS_AUTO
-		  LIGHT_RHEOSTAT 0
-		  BUS_SRC 2
-		  KEY_FRAME 0.000000 0.000000 1.000000
-		  KEY_FRAME 1.000000 6.000000
-		  DIGITS 1
-		  ROTARY_TYPE NO_CLICK
-		  CLICK_RADIUS 0.000000
-		  CLICK_RADIUS_DY 0.000000
-		  OFFSET 0.000000
-		  STEP1 1.000000
-		  STEP2 1.000000
-		  CURSOR DEFAULT
-		  CLICK_DX 0
-		  CLICK_DY 0
-
-	  END_GROUP
-
-		gen_LED Range Display ND
+		gen_LED Range Display ND CAPT
 		  POS 300.000000 138.000000
 		  IMAGE CRT Displays/LED/LED_2.18R.xx###0.white
 		  DATAREF laminar/B747/nd/range_display_capt
@@ -112747,7 +112932,7 @@ GROUP Captain ND
 		  HIDE
 		  LIGHT_MODE GLASS_AUTO
 		  LIGHT_RHEOSTAT 0
-		  BUS_SRC 2
+		  BUS_SRC 3
 		  KEY_FRAME 0.000000 0.000000 1.000000
 		  KEY_FRAME 999.000000 999.000000
 		  DIGITS 3
@@ -112815,7 +113000,7 @@ GROUP Captain ND
         OFFSET_X -50
         OFFSET_Y -8.000000
 		
-	gen_rotary MAP X
+	gen_rotary MAP X CAPT ND
 	  POS 332.50000 142.000000
 	  IMAGE CRT Displays/ND/mapX
 	  DATAREF
@@ -112823,7 +113008,7 @@ GROUP Captain ND
 	  HIDE
 	  LIGHT_MODE GLASS_AUTO
 	  LIGHT_RHEOSTAT 3
-	  BUS_SRC 2
+	  BUS_SRC 3
 	  KEY_FRAME 0.000000 0.000000 1.000000
 	  KEY_FRAME 1.000000 6.000000
 	  DIGITS 1
@@ -112837,15 +113022,15 @@ GROUP Captain ND
 	  CLICK_DX 0
 	  CLICK_DY 0
 
-	gen_rotary VTK X
-	  POS 610.500000 -93.500000
+	gen_rotary VTK X CAPT ND
+	  POS 610.500000 -25.500000
 	  IMAGE CRT Displays/ND/vtkX
 	  DATAREF
 	  SHOW_EQUAL 2 laminar/B747/nd/mode/capt/sel_dial_pos
 	  HIDE
 	  LIGHT_MODE GLASS_AUTO
 	  LIGHT_RHEOSTAT 3
-	  BUS_SRC 2
+	  BUS_SRC 3
 	  KEY_FRAME 0.000000 0.000000 1.000000
 	  KEY_FRAME 1.000000 6.000000
 	  DIGITS 1
@@ -112859,7 +113044,7 @@ GROUP Captain ND
 	  CLICK_DX 0
 	  CLICK_DY 0
 
-	gen_rotary TRK X
+	gen_rotary TRK X CAPT ND
 	  POS 335.500000 398.500000
 	  IMAGE CRT Displays/ND/trkX
 	  DATAREF
@@ -112867,7 +113052,7 @@ GROUP Captain ND
 	  HIDE
 	  LIGHT_MODE GLASS_AUTO
 	  LIGHT_RHEOSTAT 3
-	  BUS_SRC 2
+	  BUS_SRC 3
 	  KEY_FRAME 0.000000 0.000000 1.000000
 	  KEY_FRAME 1.000000 6.000000
 	  DIGITS 1
@@ -112881,7 +113066,7 @@ GROUP Captain ND
 	  CLICK_DX 0
 	  CLICK_DY 0
 
-	gen_rotary HDG X
+	gen_rotary HDG X CAPT ND
 	  POS 335.500000 398.500000
 	  IMAGE CRT Displays/ND/hdgX
 	  DATAREF
@@ -112889,7 +113074,7 @@ GROUP Captain ND
 	  HIDE
 	  LIGHT_MODE GLASS_AUTO
 	  LIGHT_RHEOSTAT 3
-	  BUS_SRC 2
+	  BUS_SRC 3
 	  KEY_FRAME 0.000000 0.000000 1.000000
 	  KEY_FRAME 1.000000 6.000000
 	  DIGITS 1
@@ -112905,31 +113090,31 @@ GROUP Captain ND
 
     END_GROUP
     END_GROUP
-        gen_text GPS Display Line
+        gen_text GPS Display Line CAPT ND
           POS 482.500000 -213.000000
           IMAGE CRT Displays/TEXT/TXT.2.28.green
           DATAREF laminar/B747/irs/gps_display_line
 		  SHOW_EQUAL 2 laminar/B747/nd/mode/capt/sel_dial_pos
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 2
+          BUS_SRC 3
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
 
-        gen_text IRS Display Line
+        gen_text IRS Display Line CAPT ND
           POS 465.500000 -235.000000
           IMAGE CRT Displays/TEXT/TXT.2.28.green
           DATAREF laminar/B747/irs/irs_display_line
 		  SHOW_EQUAL 2 laminar/B747/nd/mode/capt/sel_dial_pos
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 2
+          BUS_SRC 3
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
 	
     END_GROUP
   END_GROUP
-  	gen_rotary TCAS X
+  	gen_rotary TCAS X CAPT
 	  POS 62.500000 -112.500000
 	  IMAGE CRT Displays/ND/tcasX
 	  DATAREF
@@ -112939,7 +113124,7 @@ GROUP Captain ND
 	  HIDE
 	  LIGHT_MODE GLASS_AUTO
 	  LIGHT_RHEOSTAT 3
-	  BUS_SRC 2
+	  BUS_SRC 3
 	  KEY_FRAME 0.000000 0.000000 1.000000
 	  KEY_FRAME 1.000000 6.000000
 	  DIGITS 1
