@@ -1306,13 +1306,14 @@ function B747_fuel_valve_control()
 
     --- MANUAL TRANSFER MODE ---
     else
-       
+       B747_main1_jett_fuel_xfr = 0                                                    -- RESET THE JETTISON TRANSFER FLAG
         if B747DR_button_switch_position[43] > 0.95                                     -- MAIN 1&4 TRANSFER SWITCH IS DEPRESSED
             and simDR_fuel_tank_weight_kg[1] > 0.0                                      -- DON'T OPEN VALVE IF NO FUEL TO TRANSFER
         then
             B747.fuel.main1_tank.main_xfr_vlv.target_pos = 1 * power                    -- OPEN THE VALVE
 	else
-	   B747_main1_jett_fuel_xfr = 0                                                    -- RESET THE JETTISON TRANSFER FLAG
+	   
+	   B747.fuel.main1_tank.main_xfr_vlv.target_pos = 0
         end
     end
 

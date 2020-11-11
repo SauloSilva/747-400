@@ -98584,7 +98584,7 @@ P acf/_nw_side_k 0.0
 P acf/_o2_bottle_liter 0
 P acf/_oilT_is_C 1
 P acf/_ott_asi_kts_off_for_full_def 22.0
-P acf/_ott_asi_sec_into_future 5.0
+P acf/_ott_asi_sec_into_future 7.0
 P acf/_ott_asi_thro_per_sec 0.05
 P acf/_ott_atr_Kd 0.0
 P acf/_ott_atr_Ki 0.0
@@ -120840,24 +120840,9 @@ GROUP Lower EICAS
         IS_VERTICAL 0
         OFFSET 0.000000
 
-      gen_pointer Spoiler L
+      gen_pointer Spoiler L_outer
         POS 1828.500000 -62.500000
         IMAGE CRT Displays/EICAS Lower/ptr_right
-        DATAREF sim/flightmodel2/wing/spoiler1_deg[0]
-        
-        HIDE
-        LIGHT_MODE GLASS_AUTO
-        LIGHT_RHEOSTAT 10
-        BUS_SRC 3
-        KEY_FRAME 0.000000 -36.000000 1.000000
-        KEY_FRAME 20.000000 36.000000
-        IS_DRAGGABLE 0
-        IS_VERTICAL 1
-        OFFSET 0.000000
-
-      gen_pointer Spoiler R
-        POS 1952.500000 -62.500000
-        IMAGE CRT Displays/EICAS Lower/ptr_left
         DATAREF sim/flightmodel2/wing/spoiler2_deg[0]
         
         HIDE
@@ -120869,7 +120854,48 @@ GROUP Lower EICAS
         IS_DRAGGABLE 0
         IS_VERTICAL 1
         OFFSET 0.000000
-
+      gen_pointer Spoiler L_inner
+        POS 1856.500000 -62.500000
+        IMAGE CRT Displays/EICAS Lower/ptr_left
+        DATAREF sim/flightmodel2/wing/spoiler1_deg[0]
+        
+        HIDE
+        LIGHT_MODE GLASS_AUTO
+        LIGHT_RHEOSTAT 10
+        BUS_SRC 3
+        KEY_FRAME 0.000000 -36.000000 1.000000
+        KEY_FRAME 45.000000 36.000000
+        IS_DRAGGABLE 0
+        IS_VERTICAL 1
+        OFFSET 0.000000
+      gen_pointer Spoiler R_outer
+        POS 1952.500000 -62.500000
+        IMAGE CRT Displays/EICAS Lower/ptr_left
+        DATAREF sim/flightmodel2/wing/spoiler2_deg[1]
+        5
+        HIDE
+        LIGHT_MODE GLASS_AUTO
+        LIGHT_RHEOSTAT 10
+        BUS_SRC 3
+        KEY_FRAME 0.000000 -36.000000 1.000000
+        KEY_FRAME 45.000000 36.000000
+        IS_DRAGGABLE 0
+        IS_VERTICAL 1
+        OFFSET 0.000000
+      gen_pointer Spoiler R_inner
+        POS 1924.500000 -62.500000
+        IMAGE CRT Displays/EICAS Lower/ptr_right
+        DATAREF sim/flightmodel2/wing/spoiler1_deg[1]
+        5
+        HIDE
+        LIGHT_MODE GLASS_AUTO
+        LIGHT_RHEOSTAT 10
+        BUS_SRC 3
+        KEY_FRAME 0.000000 -36.000000 1.000000
+        KEY_FRAME 45.000000 36.000000
+        IS_DRAGGABLE 0
+        IS_VERTICAL 1
+        OFFSET 0.000000
       gen_pointer Elevator R
         POS 1904.500000 -98.500000
         IMAGE CRT Displays/EICAS Lower/ptr_left
@@ -120918,7 +120944,7 @@ GROUP Lower EICAS
         IS_VERTICAL 1
         OFFSET 0.000000
 
-      gen_pointer Outboard AIleron L
+      gen_pointer Outboard Aileron L
         POS 1775.500000 -98.500000
         IMAGE CRT Displays/EICAS Lower/ptr_right
         DATAREF sim/flightmodel/controls/wing4l_ail1def[0]
