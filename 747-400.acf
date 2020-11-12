@@ -99272,7 +99272,7 @@ GROUP Captain PFD
     HIDE
     LIGHT_MODE GLASS_AUTO
     LIGHT_RHEOSTAT 10
-    BUS_SRC 3
+    BUS_SRC 2
     KEY_FRAME 0.000000 0.000000 1.000000
     KEY_FRAME 1.000000 6.000000
     DIGITS 1
@@ -102819,7 +102819,7 @@ GROUP First Officer PFD
     HIDE
     LIGHT_MODE GLASS_AUTO
     LIGHT_RHEOSTAT 10
-    BUS_SRC 3
+    BUS_SRC 2
     KEY_FRAME 0.000000 0.000000 1.000000
     KEY_FRAME 1.000000 6.000000
     DIGITS 1
@@ -107248,8 +107248,8 @@ GROUP First Officer ND
         DATAREF laminar/B747/nd/current_waypoint
         LOCKED
         LIGHT_MODE GLASS_AUTO
-        LIGHT_RHEOSTAT 2
-        BUS_SRC 2
+        LIGHT_RHEOSTAT 3
+        BUS_SRC 4
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         OFFSET_X -50
@@ -107261,8 +107261,8 @@ GROUP First Officer ND
         DATAREF laminar/B747/nd/waypoint_eta
         LOCKED
         LIGHT_MODE GLASS_AUTO
-        LIGHT_RHEOSTAT 2
-        BUS_SRC 2
+        LIGHT_RHEOSTAT 3
+        BUS_SRC 4
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         OFFSET_X -50
@@ -107274,8 +107274,8 @@ GROUP First Officer ND
         DATAREF laminar/B747/nd/waypoint_distance
         LOCKED
         LIGHT_MODE GLASS_AUTO
-        LIGHT_RHEOSTAT 2
-        BUS_SRC 2
+        LIGHT_RHEOSTAT 3
+        BUS_SRC 4
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         OFFSET_X -50
@@ -108110,8 +108110,8 @@ GROUP First Officer ND
         DATAREF laminar/B747/nd/current_waypoint
         LOCKED
         LIGHT_MODE GLASS_AUTO
-        LIGHT_RHEOSTAT 2
-        BUS_SRC 2
+        LIGHT_RHEOSTAT 3
+        BUS_SRC 4
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         OFFSET_X -50
@@ -108123,8 +108123,8 @@ GROUP First Officer ND
         DATAREF laminar/B747/nd/waypoint_eta
         LOCKED
         LIGHT_MODE GLASS_AUTO
-        LIGHT_RHEOSTAT 2
-        BUS_SRC 2
+        LIGHT_RHEOSTAT 3
+        BUS_SRC 4
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         OFFSET_X -50
@@ -108136,8 +108136,8 @@ GROUP First Officer ND
         DATAREF laminar/B747/nd/waypoint_distance
         LOCKED
         LIGHT_MODE GLASS_AUTO
-        LIGHT_RHEOSTAT 2
-        BUS_SRC 2
+        LIGHT_RHEOSTAT 3
+        BUS_SRC 4
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         OFFSET_X -50
@@ -109452,8 +109452,8 @@ GROUP First Officer ND
 		  SHOW_EQUAL 2 laminar/B747/nd/mode/fo/sel_dial_pos
 		  HIDE
 		  LIGHT_MODE GLASS_AUTO
-		  LIGHT_RHEOSTAT 0
-		  BUS_SRC 2
+		  LIGHT_RHEOSTAT 3
+		  BUS_SRC 4
 		  KEY_FRAME 0.000000 0.000000 1.000000
 		  KEY_FRAME 999.000000 999.000000
 		  DIGITS 3
@@ -110727,7 +110727,7 @@ GROUP Captain ND
         POS 336.000000 -81.000000
         DATAREF 
         SIZE 3.500000
-        CLIP
+        
         HIDE
         LIGHT_MODE MECHANICAL
         LIGHT_RHEOSTAT 0
@@ -117956,7 +117956,7 @@ GROUP Lower EICAS
     HIDE
     LIGHT_MODE GLASS_AUTO
     LIGHT_RHEOSTAT 10
-    BUS_SRC 3
+    BUS_SRC 2
     KEY_FRAME 0.000000 0.000000 1.000000
     KEY_FRAME 1.000000 6.000000
     DIGITS 1
@@ -117986,7 +117986,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -118015,7 +118015,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 -52.000000 1.000000
             KEY_FRAME 113.000000 52.000000
 
@@ -118028,7 +118028,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 -52.000000 1.000000
             KEY_FRAME 113.000000 52.000000
 
@@ -118041,7 +118041,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 -52.000000 1.000000
             KEY_FRAME 113.000000 52.000000
 
@@ -118054,7 +118054,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 -52.000000 1.000000
             KEY_FRAME 113.000000 52.000000
 
@@ -118071,7 +118071,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 -52.000000 1.000000
             KEY_FRAME 113.000000 52.000000
 
@@ -118084,7 +118084,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 -52.000000 1.000000
             KEY_FRAME 113.000000 52.000000
 
@@ -118097,7 +118097,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 -52.000000 1.000000
             KEY_FRAME 113.000000 52.000000
 
@@ -118110,7 +118110,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 -52.000000 1.000000
             KEY_FRAME 113.000000 52.000000
 
@@ -118127,7 +118127,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -118150,7 +118150,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -118173,7 +118173,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -118196,7 +118196,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -118222,7 +118222,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -118244,7 +118244,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -118266,7 +118266,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -118288,7 +118288,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -118319,7 +118319,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 100.000000 100.000000
             DIGITS 3
@@ -118336,7 +118336,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 100.000000 100.000000
             DIGITS 3
@@ -118353,7 +118353,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 100.000000 100.000000
             DIGITS 3
@@ -118370,7 +118370,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 100.000000 100.000000
             DIGITS 3
@@ -118387,7 +118387,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -118410,7 +118410,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -118433,7 +118433,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -118456,7 +118456,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -118483,7 +118483,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 100.000000 100.000000
             DIGITS 3
@@ -118500,7 +118500,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 100.000000 100.000000
             DIGITS 3
@@ -118517,7 +118517,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 100.000000 100.000000
             DIGITS 3
@@ -118534,7 +118534,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 100.000000 100.000000
             DIGITS 3
@@ -118551,7 +118551,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -118574,7 +118574,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -118597,7 +118597,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -118620,7 +118620,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -118648,7 +118648,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -118673,7 +118673,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 3.600000
           DIGITS 3
@@ -118689,7 +118689,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 3.600000
           DIGITS 3
@@ -118705,7 +118705,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 3.600000
           DIGITS 3
@@ -118721,7 +118721,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 3.600000
           DIGITS 3
@@ -118738,7 +118738,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -118761,7 +118761,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -118784,7 +118784,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -118807,7 +118807,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -118835,7 +118835,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -118867,7 +118867,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 1.000000
             DIGITS 3
@@ -118885,7 +118885,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 1.000000
             DIGITS 3
@@ -118903,7 +118903,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 1.000000
             DIGITS 3
@@ -118921,7 +118921,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 1.000000
             DIGITS 3
@@ -118944,7 +118944,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 1.000000
             DIGITS 3
@@ -118962,7 +118962,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 1.000000
             DIGITS 3
@@ -118980,7 +118980,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 1.000000
             DIGITS 3
@@ -118998,7 +118998,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 1.000000
             DIGITS 3
@@ -119024,7 +119024,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -119054,7 +119054,7 @@ GROUP Lower EICAS
                 HIDE
                 LIGHT_MODE GLASS_AUTO
                 LIGHT_RHEOSTAT 10
-                BUS_SRC 3
+                BUS_SRC 2
                 KEY_FRAME 0.000000 -39.000000 1.000000
                 KEY_FRAME 70.000000 -39.000000 1.000000
                 KEY_FRAME 300.000000 39.000000 1.000000
@@ -119072,7 +119072,7 @@ GROUP Lower EICAS
                 HIDE
                 LIGHT_MODE GLASS_AUTO
                 LIGHT_RHEOSTAT 10
-                BUS_SRC 3
+                BUS_SRC 2
                 KEY_FRAME 0.000000 -39.000000 1.000000
                 KEY_FRAME 70.000000 -39.000000 1.000000
                 KEY_FRAME 300.000000 39.000000 1.000000
@@ -119094,7 +119094,7 @@ GROUP Lower EICAS
                 HIDE
                 LIGHT_MODE GLASS_AUTO
                 LIGHT_RHEOSTAT 10
-                BUS_SRC 3
+                BUS_SRC 2
                 KEY_FRAME 0.000000 -39.000000 1.000000
                 KEY_FRAME 70.000000 -39.000000 1.000000
                 KEY_FRAME 300.000000 39.000000 1.000000
@@ -119112,7 +119112,7 @@ GROUP Lower EICAS
                 HIDE
                 LIGHT_MODE GLASS_AUTO
                 LIGHT_RHEOSTAT 10
-                BUS_SRC 3
+                BUS_SRC 2
                 KEY_FRAME 0.000000 -39.000000 1.000000
                 KEY_FRAME 70.000000 -39.000000 1.000000
                 KEY_FRAME 300.000000 39.000000 1.000000
@@ -119136,7 +119136,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 4
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -119167,7 +119167,7 @@ GROUP Lower EICAS
                 HIDE
                 LIGHT_MODE GLASS_AUTO
                 LIGHT_RHEOSTAT 10
-                BUS_SRC 4
+                BUS_SRC 2
                 KEY_FRAME 0.000000 -39.000000 1.000000
                 KEY_FRAME 70.000000 -39.000000 1.000000
                 KEY_FRAME 300.000000 39.000000 1.000000
@@ -119185,7 +119185,7 @@ GROUP Lower EICAS
                 HIDE
                 LIGHT_MODE GLASS_AUTO
                 LIGHT_RHEOSTAT 10
-                BUS_SRC 4
+                BUS_SRC 2
                 KEY_FRAME 0.000000 -39.000000 1.000000
                 KEY_FRAME 70.000000 -39.000000 1.000000
                 KEY_FRAME 300.000000 39.000000 1.000000
@@ -119208,7 +119208,7 @@ GROUP Lower EICAS
                 HIDE
                 LIGHT_MODE GLASS_AUTO
                 LIGHT_RHEOSTAT 10
-                BUS_SRC 4
+                BUS_SRC 2
                 KEY_FRAME 0.000000 -39.000000 1.000000
                 KEY_FRAME 70.000000 -39.000000 1.000000
                 KEY_FRAME 300.000000 39.000000 1.000000
@@ -119226,7 +119226,7 @@ GROUP Lower EICAS
                 HIDE
                 LIGHT_MODE GLASS_AUTO
                 LIGHT_RHEOSTAT 10
-                BUS_SRC 4
+                BUS_SRC 2
                 KEY_FRAME 0.000000 -39.000000 1.000000
                 KEY_FRAME 70.000000 -39.000000 1.000000
                 KEY_FRAME 300.000000 39.000000 1.000000
@@ -119251,7 +119251,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -119280,7 +119280,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 1.000000
             DIGITS 3
@@ -119297,7 +119297,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 1.000000
             DIGITS 3
@@ -119314,7 +119314,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 1.000000
             DIGITS 3
@@ -119331,7 +119331,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 1.000000
             DIGITS 3
@@ -119353,7 +119353,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 1.000000
             DIGITS 3
@@ -119371,7 +119371,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 1.000000
             DIGITS 3
@@ -119389,7 +119389,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 1.000000
             DIGITS 3
@@ -119407,7 +119407,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 1.000000
             DIGITS 3
@@ -119429,7 +119429,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 1.000000
             DIGITS 3
@@ -119447,7 +119447,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 1.000000
             DIGITS 3
@@ -119465,7 +119465,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 1.000000
             DIGITS 3
@@ -119483,7 +119483,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 1.000000
             DIGITS 3
@@ -119504,7 +119504,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 1.000000
             DIGITS 3
@@ -119521,7 +119521,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 1.000000
             DIGITS 3
@@ -119538,7 +119538,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 1.000000
             DIGITS 3
@@ -119555,7 +119555,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 1.000000
             DIGITS 3
@@ -119579,7 +119579,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -119603,7 +119603,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 -40.000000 1.000000
             KEY_FRAME 50.000000 -16.000000 1.000000
             KEY_FRAME 160.000000 26.000000 1.000000
@@ -119623,7 +119623,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 -40.000000 1.000000
             KEY_FRAME 50.000000 -16.000000 1.000000
             KEY_FRAME 160.000000 26.000000 1.000000
@@ -119642,7 +119642,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 -40.000000 1.000000
             KEY_FRAME 50.000000 -16.000000 1.000000
             KEY_FRAME 160.000000 26.000000 1.000000
@@ -119662,7 +119662,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 -40.000000 1.000000
             KEY_FRAME 50.000000 -16.000000 1.000000
             KEY_FRAME 160.000000 26.000000 1.000000
@@ -119682,7 +119682,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 -40.000000 1.000000
             KEY_FRAME 50.000000 -16.000000 1.000000
             KEY_FRAME 160.000000 26.000000 1.000000
@@ -119702,7 +119702,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 -40.000000 1.000000
             KEY_FRAME 50.000000 -16.000000 1.000000
             KEY_FRAME 160.000000 26.000000 1.000000
@@ -119721,7 +119721,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 -40.000000 1.000000
             KEY_FRAME 50.000000 -16.000000 1.000000
             KEY_FRAME 160.000000 26.000000 1.000000
@@ -119741,7 +119741,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 -40.000000 1.000000
             KEY_FRAME 50.000000 -16.000000 1.000000
             KEY_FRAME 160.000000 26.000000 1.000000
@@ -119763,7 +119763,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -119787,7 +119787,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 -40.000000 1.000000
             KEY_FRAME 50.000000 -16.000000 1.000000
             KEY_FRAME 160.000000 26.000000 1.000000
@@ -119807,7 +119807,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 -40.000000 1.000000
             KEY_FRAME 50.000000 -16.000000 1.000000
             KEY_FRAME 160.000000 26.000000 1.000000
@@ -119826,7 +119826,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 -40.000000 1.000000
             KEY_FRAME 50.000000 -16.000000 1.000000
             KEY_FRAME 160.000000 26.000000 1.000000
@@ -119846,7 +119846,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 -40.000000 1.000000
             KEY_FRAME 50.000000 -16.000000 1.000000
             KEY_FRAME 160.000000 26.000000 1.000000
@@ -119866,7 +119866,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 -40.000000 1.000000
             KEY_FRAME 50.000000 -16.000000 1.000000
             KEY_FRAME 160.000000 26.000000 1.000000
@@ -119886,7 +119886,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 -40.000000 1.000000
             KEY_FRAME 50.000000 -16.000000 1.000000
             KEY_FRAME 160.000000 26.000000 1.000000
@@ -119905,7 +119905,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 -40.000000 1.000000
             KEY_FRAME 50.000000 -16.000000 1.000000
             KEY_FRAME 160.000000 26.000000 1.000000
@@ -119925,7 +119925,7 @@ GROUP Lower EICAS
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 -40.000000 1.000000
             KEY_FRAME 50.000000 -16.000000 1.000000
             KEY_FRAME 160.000000 26.000000 1.000000
@@ -119952,7 +119952,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -119974,7 +119974,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 2
@@ -119990,7 +119990,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 2
@@ -120006,7 +120006,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 2
@@ -120022,7 +120022,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 2
@@ -120048,7 +120048,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -120072,7 +120072,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -120096,7 +120096,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -120120,7 +120120,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -120146,7 +120146,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 5.000000 5.000000
           DIGITS 2
@@ -120162,7 +120162,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 5.000000 5.000000
           DIGITS 2
@@ -120178,7 +120178,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 5.000000 5.000000
           DIGITS 2
@@ -120194,7 +120194,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 5.000000 5.000000
           DIGITS 2
@@ -120214,7 +120214,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -120242,7 +120242,7 @@ GROUP Lower EICAS
               HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -120264,7 +120264,7 @@ GROUP Lower EICAS
               HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 -39.000000 1.000000
               KEY_FRAME 5.000000 38.000000
               IS_DRAGGABLE 0
@@ -120279,7 +120279,7 @@ GROUP Lower EICAS
               HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 -39.000000 1.000000
               KEY_FRAME 5.000000 38.000000
               IS_DRAGGABLE 0
@@ -120298,7 +120298,7 @@ GROUP Lower EICAS
               HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -120320,7 +120320,7 @@ GROUP Lower EICAS
               HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 -39.000000 1.000000
               KEY_FRAME 5.000000 38.000000
               IS_DRAGGABLE 0
@@ -120335,7 +120335,7 @@ GROUP Lower EICAS
               HIDE
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 -39.000000 1.000000
               KEY_FRAME 5.000000 38.000000
               IS_DRAGGABLE 0
@@ -120359,7 +120359,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -120386,7 +120386,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 3
@@ -120404,7 +120404,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 3
@@ -120422,7 +120422,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 3
@@ -120440,7 +120440,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 3
@@ -120458,7 +120458,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 4
@@ -120476,7 +120476,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 4
@@ -120494,7 +120494,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 4
@@ -120512,7 +120512,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 4
@@ -120530,7 +120530,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 3
@@ -120548,7 +120548,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 3
@@ -120566,7 +120566,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 3
@@ -120584,7 +120584,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 3
@@ -120606,7 +120606,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 4
@@ -120622,7 +120622,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 4
@@ -120638,7 +120638,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 4
@@ -120656,7 +120656,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 3
@@ -120678,7 +120678,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 3
@@ -120696,7 +120696,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 3
@@ -120718,7 +120718,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 3
@@ -120736,7 +120736,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 3
@@ -120758,7 +120758,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 3
@@ -120776,7 +120776,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 3
@@ -120796,7 +120796,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -120818,7 +120818,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME -25.000000 -82.000000 1.000000
         KEY_FRAME 25.000000 82.000000
         IS_DRAGGABLE 0
@@ -120833,7 +120833,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 4
+        BUS_SRC 2
         KEY_FRAME -25.000000 -82.000000 1.000000
         KEY_FRAME 25.000000 82.000000
         IS_DRAGGABLE 0
@@ -120848,7 +120848,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 -36.000000 1.000000
         KEY_FRAME 45.000000 36.000000
         IS_DRAGGABLE 0
@@ -120862,7 +120862,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 -36.000000 1.000000
         KEY_FRAME 45.000000 36.000000
         IS_DRAGGABLE 0
@@ -120876,7 +120876,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 -36.000000 1.000000
         KEY_FRAME 45.000000 36.000000
         IS_DRAGGABLE 0
@@ -120890,7 +120890,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 -36.000000 1.000000
         KEY_FRAME 45.000000 36.000000
         IS_DRAGGABLE 0
@@ -120904,7 +120904,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 17.000000 -73.000000 1.000000
         KEY_FRAME 0.000000 -0.500000 1.000000
         KEY_FRAME -20.000000 72.000000
@@ -120920,7 +120920,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 17.000000 -73.000000 1.000000
         KEY_FRAME 0.000000 -0.500000 1.000000
         KEY_FRAME -20.000000 72.000000
@@ -120936,7 +120936,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 20.000000 -73.000000 1.000000
         KEY_FRAME 0.000000 -0.500000 1.000000
         KEY_FRAME 20.000000 72.000000
@@ -120952,7 +120952,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 20.000000 -73.000000 1.000000
         KEY_FRAME 0.000000 -0.500000 1.000000
         KEY_FRAME -20.000000 72.000000
@@ -120968,7 +120968,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 20.000000 -73.000000 1.000000
         KEY_FRAME 0.000000 -0.500000 1.000000
         KEY_FRAME 20.000000 72.000000
@@ -120984,7 +120984,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 20.000000 -73.000000 1.000000
         KEY_FRAME 0.000000 -0.500000 1.000000
         KEY_FRAME -20.000000 72.000000
@@ -121006,7 +121006,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121028,7 +121028,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121050,7 +121050,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121072,7 +121072,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121094,7 +121094,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121116,7 +121116,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121138,7 +121138,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121160,7 +121160,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121182,7 +121182,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121204,7 +121204,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121226,7 +121226,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121248,7 +121248,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121270,7 +121270,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121292,7 +121292,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121314,7 +121314,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121335,7 +121335,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 35.000000 1.000000
       KEY_FRAME 1.000000 0.000000
       IS_DRAGGABLE 0
@@ -121350,7 +121350,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121372,7 +121372,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121394,7 +121394,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121416,7 +121416,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121438,7 +121438,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121460,7 +121460,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121482,7 +121482,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121504,7 +121504,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121526,7 +121526,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121548,7 +121548,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121570,7 +121570,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121592,7 +121592,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121614,7 +121614,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121636,7 +121636,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121658,7 +121658,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121680,7 +121680,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121702,7 +121702,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121724,7 +121724,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121746,7 +121746,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121768,7 +121768,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121790,7 +121790,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121812,7 +121812,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121834,7 +121834,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121856,7 +121856,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121878,7 +121878,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -121905,7 +121905,7 @@ GROUP Lower EICAS
 		SHOW_EQUAL 0 laminar/B747/fuel/fuel_display_units_eicas
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -121926,7 +121926,7 @@ GROUP Lower EICAS
         SHOW_EQUAL 1 laminar/B747/fuel/fuel_display_units_eicas
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -121946,7 +121946,7 @@ GROUP Lower EICAS
         DATAREF laminar/B747/fuel/fuel_total_display_qty
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1000.000000 1.000000
         DIGITS 4
@@ -121961,7 +121961,7 @@ GROUP Lower EICAS
         SHOW_GREATER 1.000000 laminar/B747/fuel/refuel
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -121982,7 +121982,7 @@ GROUP Lower EICAS
         SHOW_GREATER 1.000000 laminar/B747/fuel/refuel
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1000.000000 1.000000
         DIGITS 4
@@ -122001,7 +122001,7 @@ GROUP Lower EICAS
             DATAREF 
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -122021,7 +122021,7 @@ GROUP Lower EICAS
             DATAREF 
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -122041,7 +122041,7 @@ GROUP Lower EICAS
             DATAREF 
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -122064,7 +122064,7 @@ GROUP Lower EICAS
             DATAREF 
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -122087,7 +122087,7 @@ GROUP Lower EICAS
             DATAREF 
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -122111,7 +122111,7 @@ GROUP Lower EICAS
               DATAREF 
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -122134,7 +122134,7 @@ GROUP Lower EICAS
               DATAREF 
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -122157,7 +122157,7 @@ GROUP Lower EICAS
               DATAREF 
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -122180,7 +122180,7 @@ GROUP Lower EICAS
               DATAREF 
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -122205,7 +122205,7 @@ GROUP Lower EICAS
               DATAREF 
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -122228,7 +122228,7 @@ GROUP Lower EICAS
               DATAREF 
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -122251,7 +122251,7 @@ GROUP Lower EICAS
               DATAREF 
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -122274,7 +122274,7 @@ GROUP Lower EICAS
               DATAREF 
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -122298,7 +122298,7 @@ GROUP Lower EICAS
             DATAREF 
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -122321,7 +122321,7 @@ GROUP Lower EICAS
             DATAREF 
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -122348,7 +122348,7 @@ GROUP Lower EICAS
                 DATAREF 
                 LIGHT_MODE GLASS_AUTO
                 LIGHT_RHEOSTAT 10
-                BUS_SRC 3
+                BUS_SRC 2
                 KEY_FRAME 0.000000 0.000000 1.000000
                 KEY_FRAME 1.000000 6.000000
                 DIGITS 1
@@ -122377,7 +122377,7 @@ GROUP Lower EICAS
                 DATAREF 
                 LIGHT_MODE GLASS_AUTO
                 LIGHT_RHEOSTAT 10
-                BUS_SRC 3
+                BUS_SRC 2
                 KEY_FRAME 0.000000 0.000000 1.000000
                 KEY_FRAME 1.000000 6.000000
                 DIGITS 1
@@ -122402,7 +122402,7 @@ GROUP Lower EICAS
             DATAREF 
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -122425,7 +122425,7 @@ GROUP Lower EICAS
             DATAREF 
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -122448,7 +122448,7 @@ GROUP Lower EICAS
             DATAREF 
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -122471,7 +122471,7 @@ GROUP Lower EICAS
             DATAREF 
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -122492,7 +122492,7 @@ GROUP Lower EICAS
           DATAREF 
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -122516,7 +122516,7 @@ GROUP Lower EICAS
             SHOW_GREATER 2.000000 laminar/B747/fuel/ctr_scvg_L_status[0]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -122537,7 +122537,7 @@ GROUP Lower EICAS
             SHOW_GREATER 1.000000 laminar/B747/fuel/ctr_scvg_L_status
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -122560,7 +122560,7 @@ GROUP Lower EICAS
             SHOW_GREATER 2.000000 laminar/B747/fuel/ctr_scvg_R_status[0]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -122581,7 +122581,7 @@ GROUP Lower EICAS
             SHOW_GREATER 1.000000 laminar/B747/fuel/ctr_scvg_R_status
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -122605,7 +122605,7 @@ GROUP Lower EICAS
             SHOW_GREATER 0.010000 sim/flightmodel/weight/m_fuel[1]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -122625,7 +122625,7 @@ GROUP Lower EICAS
             DATAREF 
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -122649,7 +122649,7 @@ GROUP Lower EICAS
             SHOW_GREATER 0.010000 sim/flightmodel/weight/m_fuel[4]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -122669,7 +122669,7 @@ GROUP Lower EICAS
             DATAREF 
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -122692,7 +122692,7 @@ GROUP Lower EICAS
             SHOW_GREATER 2.000000 laminar/B747/fuel/res3_xfr_status
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -122713,7 +122713,7 @@ GROUP Lower EICAS
             SHOW_GREATER 1.000000 laminar/B747/fuel/res3_xfr_status
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -122736,7 +122736,7 @@ GROUP Lower EICAS
             SHOW_GREATER 2.000000 laminar/B747/fuel/res2_xfr_status
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -122757,7 +122757,7 @@ GROUP Lower EICAS
             SHOW_GREATER 1.000000 laminar/B747/fuel/res2_xfr_status
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -122780,7 +122780,7 @@ GROUP Lower EICAS
             SHOW_GREATER 2.000000 laminar/B747/fuel/stab_xfr_status[7]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -122801,7 +122801,7 @@ GROUP Lower EICAS
             SHOW_GREATER 1.000000 laminar/B747/fuel/stab_xfr_status
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -122827,7 +122827,7 @@ GROUP Lower EICAS
           DATAREF 
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -122847,7 +122847,7 @@ GROUP Lower EICAS
           DATAREF laminar/B747/fuel/jettison_time
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 9999.000000 9999.000000
           DIGITS 3
@@ -122862,7 +122862,7 @@ GROUP Lower EICAS
         DATAREF 
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -122882,7 +122882,7 @@ GROUP Lower EICAS
         DATAREF 
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -122902,7 +122902,7 @@ GROUP Lower EICAS
         DATAREF 
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -122924,7 +122924,7 @@ GROUP Lower EICAS
           SHOW_EQUAL 1.000000 laminar/B747/fuel/jett/OJctrL_status
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -122945,7 +122945,7 @@ GROUP Lower EICAS
           SHOW_EQUAL 1.000000 laminar/B747/fuel/jett/OJctrR_status
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -122966,7 +122966,7 @@ GROUP Lower EICAS
           SHOW_EQUAL 1.000000 laminar/B747/fuel/jett/OJmain2_status
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -122987,7 +122987,7 @@ GROUP Lower EICAS
           SHOW_EQUAL 1.000000 laminar/B747/fuel/jett/OJmain3_status
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -123008,7 +123008,7 @@ GROUP Lower EICAS
           SHOW_EQUAL 1.000000 laminar/B747/fuel/jett/mfldL1_status
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -123029,7 +123029,7 @@ GROUP Lower EICAS
           SHOW_EQUAL 1.000000 laminar/B747/fuel/jett/mfldR1_status
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -123050,7 +123050,7 @@ GROUP Lower EICAS
           SHOW_EQUAL 1.000000 laminar/B747/fuel/jett/mXmfld_status
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -123071,7 +123071,7 @@ GROUP Lower EICAS
           SHOW_EQUAL 1.000000 laminar/B747/fuel/jett/OJstab_status
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -123092,7 +123092,7 @@ GROUP Lower EICAS
           SHOW_EQUAL 1.000000 laminar/B747/fuel/jett/mfldL2_status
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -123113,7 +123113,7 @@ GROUP Lower EICAS
           SHOW_EQUAL 1.000000 laminar/B747/fuel/jett/mfldR2_status
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -123134,7 +123134,7 @@ GROUP Lower EICAS
           SHOW_EQUAL 1.000000 laminar/B747/fuel/jett/mfldL3_status
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -123155,7 +123155,7 @@ GROUP Lower EICAS
           SHOW_EQUAL 1.000000 laminar/B747/fuel/jett/mfldR3_status
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -123179,7 +123179,7 @@ GROUP Lower EICAS
               DATAREF 
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -123205,7 +123205,7 @@ GROUP Lower EICAS
               DATAREF 
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -123227,7 +123227,7 @@ GROUP Lower EICAS
           DATAREF 
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -123251,7 +123251,7 @@ GROUP Lower EICAS
         SHOW_EQUAL 2.000000 laminar/B747/fuel/gen/xfeed_vlv1_status
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -123272,7 +123272,7 @@ GROUP Lower EICAS
         SHOW_EQUAL 2.000000 laminar/B747/fuel/gen/xfeed_vlv2_status
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -123293,7 +123293,7 @@ GROUP Lower EICAS
         SHOW_EQUAL 2.000000 laminar/B747/fuel/gen/xfeed_vlv3_status
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -123314,7 +123314,7 @@ GROUP Lower EICAS
         SHOW_EQUAL 2.000000 laminar/B747/fuel/gen/xfeed_vlv4_status
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -123335,7 +123335,7 @@ GROUP Lower EICAS
         SHOW_EQUAL 3.000000 laminar/B747/fuel/gen/xfeed_vlv1_status
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -123356,7 +123356,7 @@ GROUP Lower EICAS
         SHOW_EQUAL 3.000000 laminar/B747/fuel/gen/xfeed_vlv2_status
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -123377,7 +123377,7 @@ GROUP Lower EICAS
         SHOW_EQUAL 3.000000 laminar/B747/fuel/gen/xfeed_vlv3_status
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -123398,7 +123398,7 @@ GROUP Lower EICAS
         SHOW_EQUAL 3.000000 laminar/B747/fuel/gen/xfeed_vlv4_status
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -123421,7 +123421,7 @@ GROUP Lower EICAS
         SHOW_EQUAL 0.000000 laminar/B747/fuel/gen/xfeed_vlv1_status
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -123442,7 +123442,7 @@ GROUP Lower EICAS
         SHOW_EQUAL 0.000000 laminar/B747/fuel/gen/xfeed_vlv2_status
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -123463,7 +123463,7 @@ GROUP Lower EICAS
         SHOW_EQUAL 0.000000 laminar/B747/fuel/gen/xfeed_vlv3_status
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -123484,7 +123484,7 @@ GROUP Lower EICAS
         SHOW_EQUAL 0.000000 laminar/B747/fuel/gen/xfeed_vlv4_status
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -123505,7 +123505,7 @@ GROUP Lower EICAS
         SHOW_EQUAL 1.000000 laminar/B747/fuel/gen/xfeed_vlv1_status
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -123526,7 +123526,7 @@ GROUP Lower EICAS
         SHOW_EQUAL 1.000000 laminar/B747/fuel/gen/xfeed_vlv2_status
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -123547,7 +123547,7 @@ GROUP Lower EICAS
         SHOW_EQUAL 1.000000 laminar/B747/fuel/gen/xfeed_vlv3_status
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -123568,7 +123568,7 @@ GROUP Lower EICAS
         SHOW_EQUAL 1.000000 laminar/B747/fuel/gen/xfeed_vlv4_status
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -123591,7 +123591,7 @@ GROUP Lower EICAS
           DATAREF 
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -123611,7 +123611,7 @@ GROUP Lower EICAS
           DATAREF 
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -123631,7 +123631,7 @@ GROUP Lower EICAS
           DATAREF 
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -123651,7 +123651,7 @@ GROUP Lower EICAS
           DATAREF 
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -123671,7 +123671,7 @@ GROUP Lower EICAS
           DATAREF 
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -123691,7 +123691,7 @@ GROUP Lower EICAS
           DATAREF 
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -123711,7 +123711,7 @@ GROUP Lower EICAS
           DATAREF 
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -123731,7 +123731,7 @@ GROUP Lower EICAS
           DATAREF 
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -123753,7 +123753,7 @@ GROUP Lower EICAS
           DATAREF laminar/B747/fuel/fuel_tank_display_qty[0]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1000.000000 1.000000
           DIGITS 4
@@ -123767,7 +123767,7 @@ GROUP Lower EICAS
           DATAREF laminar/B747/fuel/fuel_tank_display_qty[1]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1000.000000 1.000000
           DIGITS 3
@@ -123781,7 +123781,7 @@ GROUP Lower EICAS
           DATAREF laminar/B747/fuel/fuel_tank_display_qty[2]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1000.000000 1.000000
           DIGITS 3
@@ -123795,7 +123795,7 @@ GROUP Lower EICAS
           DATAREF laminar/B747/fuel/fuel_tank_display_qty[3]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1000.000000 1.000000
           DIGITS 3
@@ -123809,7 +123809,7 @@ GROUP Lower EICAS
           DATAREF laminar/B747/fuel/fuel_tank_display_qty[4]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1000.000000 1.000000
           DIGITS 3
@@ -123823,7 +123823,7 @@ GROUP Lower EICAS
           DATAREF laminar/B747/fuel/fuel_tank_display_qty[5]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1000.000000 1.000000
           DIGITS 2
@@ -123837,7 +123837,7 @@ GROUP Lower EICAS
           DATAREF laminar/B747/fuel/fuel_tank_display_qty[6]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1000.000000 1.000000
           DIGITS 2
@@ -123851,7 +123851,7 @@ GROUP Lower EICAS
           DATAREF laminar/B747/fuel/fuel_tank_display_qty[7]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1000.000000 1.000000
           DIGITS 3
@@ -123866,7 +123866,7 @@ GROUP Lower EICAS
         DATAREF 
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -123888,7 +123888,7 @@ GROUP Lower EICAS
           SHOW_LESS 900.000000 sim/flightmodel/weight/m_fuel[1]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -123909,7 +123909,7 @@ GROUP Lower EICAS
           SHOW_GREATER 900.010010 sim/flightmodel/weight/m_fuel[1]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -123932,7 +123932,7 @@ GROUP Lower EICAS
           SHOW_LESS 900.000000 sim/flightmodel/weight/m_fuel[2]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -123953,7 +123953,7 @@ GROUP Lower EICAS
           SHOW_GREATER 900.010010 sim/flightmodel/weight/m_fuel[2]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -123976,7 +123976,7 @@ GROUP Lower EICAS
           SHOW_LESS 900.000000 sim/flightmodel/weight/m_fuel[3]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -123997,7 +123997,7 @@ GROUP Lower EICAS
           SHOW_GREATER 900.010010 sim/flightmodel/weight/m_fuel[3]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -124020,7 +124020,7 @@ GROUP Lower EICAS
           SHOW_LESS 900.000000 sim/flightmodel/weight/m_fuel[4]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -124041,7 +124041,7 @@ GROUP Lower EICAS
           SHOW_GREATER 900.010010 sim/flightmodel/weight/m_fuel[4]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -124062,7 +124062,7 @@ GROUP Lower EICAS
         DATAREF 
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -124082,7 +124082,7 @@ GROUP Lower EICAS
         DATAREF 
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -124102,7 +124102,7 @@ GROUP Lower EICAS
         DATAREF 
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -124129,7 +124129,7 @@ GROUP Lower EICAS
             SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[1]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -124150,7 +124150,7 @@ GROUP Lower EICAS
             SHOW_LESS 10.000000 sim/flightmodel/weight/m_fuel[1]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -124172,7 +124172,7 @@ GROUP Lower EICAS
           SHOW_EQUAL 0.000000 laminar/B747/fuel/main1_tank/main_pump_fwd_on
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -124197,7 +124197,7 @@ GROUP Lower EICAS
             SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[1]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -124218,7 +124218,7 @@ GROUP Lower EICAS
             SHOW_LESS 10.000000 sim/flightmodel/weight/m_fuel[1]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -124240,7 +124240,7 @@ GROUP Lower EICAS
           SHOW_EQUAL 0.000000 laminar/B747/fuel/main1_tank/main_pump_aft_on
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -124267,7 +124267,7 @@ GROUP Lower EICAS
               SHOW_LESS 3200.000000 sim/flightmodel/weight/m_fuel[2]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -124288,7 +124288,7 @@ GROUP Lower EICAS
               SHOW_GREATER 3200.010010 sim/flightmodel/weight/m_fuel[2]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -124312,7 +124312,7 @@ GROUP Lower EICAS
               SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[2]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -124333,7 +124333,7 @@ GROUP Lower EICAS
               SHOW_LESS 10.000000 sim/flightmodel/weight/m_fuel[2]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -124359,7 +124359,7 @@ GROUP Lower EICAS
             SHOW_GREATER 0.500000 laminar/B747/button_switch/position[64]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -124380,7 +124380,7 @@ GROUP Lower EICAS
             SHOW_LESS 0.490000 laminar/B747/button_switch/position[64]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -124408,7 +124408,7 @@ GROUP Lower EICAS
               SHOW_LESS 3200.000000 sim/flightmodel/weight/m_fuel[2]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -124429,7 +124429,7 @@ GROUP Lower EICAS
               SHOW_GREATER 3200.010010 sim/flightmodel/weight/m_fuel[2]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -124453,7 +124453,7 @@ GROUP Lower EICAS
               SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[2]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -124474,7 +124474,7 @@ GROUP Lower EICAS
               SHOW_LESS -10.010000 sim/flightmodel/weight/m_fuel[2]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -124499,7 +124499,7 @@ GROUP Lower EICAS
             SHOW_GREATER 0.500000 laminar/B747/button_switch/position[66]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -124520,7 +124520,7 @@ GROUP Lower EICAS
             SHOW_LESS 0.490000 laminar/B747/button_switch/position[66]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -124546,7 +124546,7 @@ GROUP Lower EICAS
             SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[2]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -124567,7 +124567,7 @@ GROUP Lower EICAS
             SHOW_LESS 10.000000 sim/flightmodel/weight/m_fuel[2]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -124589,7 +124589,7 @@ GROUP Lower EICAS
           SHOW_EQUAL 0.000000 laminar/B747/fuel/main2_tank/main_pump_fwd_on
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -124614,7 +124614,7 @@ GROUP Lower EICAS
             SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[2]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -124635,7 +124635,7 @@ GROUP Lower EICAS
             SHOW_LESS 10.000000 sim/flightmodel/weight/m_fuel[2]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -124657,7 +124657,7 @@ GROUP Lower EICAS
           SHOW_EQUAL 0.000000 laminar/B747/fuel/main2_tank/main_pump_aft_on
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -124684,7 +124684,7 @@ GROUP Lower EICAS
               SHOW_LESS 3200.000000 sim/flightmodel/weight/m_fuel[0]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -124705,7 +124705,7 @@ GROUP Lower EICAS
               SHOW_GREATER 3200.010010 sim/flightmodel/weight/m_fuel[0]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -124729,7 +124729,7 @@ GROUP Lower EICAS
               SHOW_GREATER 900.010010 sim/flightmodel/weight/m_fuel[0]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -124750,7 +124750,7 @@ GROUP Lower EICAS
               SHOW_LESS 900.000000 sim/flightmodel/weight/m_fuel[0]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -124773,7 +124773,7 @@ GROUP Lower EICAS
           SHOW_EQUAL 0.000000 laminar/B747/fuel/center_tank/ovrd_jett_pump_L_on
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -124800,7 +124800,7 @@ GROUP Lower EICAS
               SHOW_LESS 3200.000000 sim/flightmodel/weight/m_fuel[0]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -124821,7 +124821,7 @@ GROUP Lower EICAS
               SHOW_GREATER 3200.010010 sim/flightmodel/weight/m_fuel[0]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -124845,7 +124845,7 @@ GROUP Lower EICAS
               SHOW_GREATER 900.010010 sim/flightmodel/weight/m_fuel[0]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -124866,7 +124866,7 @@ GROUP Lower EICAS
               SHOW_LESS 900.000000 sim/flightmodel/weight/m_fuel[0]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -124889,7 +124889,7 @@ GROUP Lower EICAS
           SHOW_EQUAL 0.000000 laminar/B747/fuel/center_tank/ovrd_jett_pump_R_on
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -124914,7 +124914,7 @@ GROUP Lower EICAS
             SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[3]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -124935,7 +124935,7 @@ GROUP Lower EICAS
             SHOW_LESS 10.000000 sim/flightmodel/weight/m_fuel[3]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -124957,7 +124957,7 @@ GROUP Lower EICAS
           SHOW_EQUAL 0.000000 laminar/B747/fuel/main3_tank/main_pump_fwd_on
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -124982,7 +124982,7 @@ GROUP Lower EICAS
             SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[3]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -125003,7 +125003,7 @@ GROUP Lower EICAS
             SHOW_LESS 10.000000 sim/flightmodel/weight/m_fuel[3]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -125025,7 +125025,7 @@ GROUP Lower EICAS
           SHOW_EQUAL 0.000000 laminar/B747/fuel/main3_tank/main_pump_aft_on
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -125052,7 +125052,7 @@ GROUP Lower EICAS
               SHOW_LESS 3200.000000 sim/flightmodel/weight/m_fuel[3]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -125073,7 +125073,7 @@ GROUP Lower EICAS
               SHOW_GREATER 3200.010010 sim/flightmodel/weight/m_fuel[3]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -125097,7 +125097,7 @@ GROUP Lower EICAS
               SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[3]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -125118,7 +125118,7 @@ GROUP Lower EICAS
               SHOW_LESS 10.000000 sim/flightmodel/weight/m_fuel[3]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -125143,7 +125143,7 @@ GROUP Lower EICAS
             SHOW_GREATER 0.500000 laminar/B747/button_switch/position[65]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -125164,7 +125164,7 @@ GROUP Lower EICAS
             SHOW_LESS 0.490000 laminar/B747/button_switch/position[65]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -125192,7 +125192,7 @@ GROUP Lower EICAS
               SHOW_LESS 3200.000000 sim/flightmodel/weight/m_fuel[3]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -125213,7 +125213,7 @@ GROUP Lower EICAS
               SHOW_GREATER 3200.010010 sim/flightmodel/weight/m_fuel[3]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -125237,7 +125237,7 @@ GROUP Lower EICAS
               SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[3]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -125258,7 +125258,7 @@ GROUP Lower EICAS
               SHOW_LESS 10.000000 sim/flightmodel/weight/m_fuel[3]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -125283,7 +125283,7 @@ GROUP Lower EICAS
             SHOW_GREATER 0.500000 laminar/B747/button_switch/position[67]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -125304,7 +125304,7 @@ GROUP Lower EICAS
             SHOW_LESS 0.490000 laminar/B747/button_switch/position[67]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -125330,7 +125330,7 @@ GROUP Lower EICAS
             SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[4]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -125351,7 +125351,7 @@ GROUP Lower EICAS
             SHOW_LESS 10.000000 sim/flightmodel/weight/m_fuel[4]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -125373,7 +125373,7 @@ GROUP Lower EICAS
           SHOW_EQUAL 0.000000 laminar/B747/fuel/main4_tank/main_pump_fwd_on
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -125398,7 +125398,7 @@ GROUP Lower EICAS
             SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[4]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -125419,7 +125419,7 @@ GROUP Lower EICAS
             SHOW_LESS 10.000000 sim/flightmodel/weight/m_fuel[4]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -125441,7 +125441,7 @@ GROUP Lower EICAS
           SHOW_EQUAL 0.000000 laminar/B747/fuel/main4_tank/main_pump_aft_on
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -125468,7 +125468,7 @@ GROUP Lower EICAS
               SHOW_LESS 10.000000 sim/flightmodel/weight/m_fuel[7]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -125489,7 +125489,7 @@ GROUP Lower EICAS
               SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[7]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -125513,7 +125513,7 @@ GROUP Lower EICAS
               SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[7]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -125534,7 +125534,7 @@ GROUP Lower EICAS
               SHOW_LESS 10.000000 sim/flightmodel/weight/m_fuel[7]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -125559,7 +125559,7 @@ GROUP Lower EICAS
             SHOW_GREATER 0.500000 laminar/B747/button_switch/position[54]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -125580,7 +125580,7 @@ GROUP Lower EICAS
             SHOW_LESS 0.490000 laminar/B747/button_switch/position[54]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -125608,7 +125608,7 @@ GROUP Lower EICAS
               SHOW_LESS 10.000000 sim/flightmodel/weight/m_fuel[7]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -125629,7 +125629,7 @@ GROUP Lower EICAS
               SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[7]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -125653,7 +125653,7 @@ GROUP Lower EICAS
               SHOW_GREATER 10.010000 sim/flightmodel/weight/m_fuel[7]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -125674,7 +125674,7 @@ GROUP Lower EICAS
               SHOW_LESS 10.000000 sim/flightmodel/weight/m_fuel[7]
               LIGHT_MODE GLASS_AUTO
               LIGHT_RHEOSTAT 10
-              BUS_SRC 3
+              BUS_SRC 2
               KEY_FRAME 0.000000 0.000000 1.000000
               KEY_FRAME 1.000000 6.000000
               DIGITS 1
@@ -125699,7 +125699,7 @@ GROUP Lower EICAS
             SHOW_GREATER 0.500000 laminar/B747/button_switch/position[55]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -125720,7 +125720,7 @@ GROUP Lower EICAS
             SHOW_LESS 0.490000 laminar/B747/button_switch/position[55]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
-            BUS_SRC 3
+            BUS_SRC 2
             KEY_FRAME 0.000000 0.000000 1.000000
             KEY_FRAME 1.000000 6.000000
             DIGITS 1
@@ -125744,7 +125744,7 @@ GROUP Lower EICAS
         DATAREF 
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -125764,7 +125764,7 @@ GROUP Lower EICAS
         DATAREF 
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -125784,7 +125784,7 @@ GROUP Lower EICAS
         DATAREF 
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -125804,7 +125804,7 @@ GROUP Lower EICAS
         DATAREF 
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -125824,7 +125824,7 @@ GROUP Lower EICAS
         DATAREF 
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -125844,7 +125844,7 @@ GROUP Lower EICAS
         DATAREF 
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -125864,7 +125864,7 @@ GROUP Lower EICAS
         DATAREF 
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -125884,7 +125884,7 @@ GROUP Lower EICAS
         DATAREF 
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -125917,7 +125917,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -125939,7 +125939,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -125961,7 +125961,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -125983,7 +125983,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -126008,7 +126008,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126030,7 +126030,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126052,7 +126052,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126074,7 +126074,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126096,7 +126096,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126118,7 +126118,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126140,7 +126140,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126162,7 +126162,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126184,7 +126184,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126218,7 +126218,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126252,7 +126252,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126286,7 +126286,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126320,7 +126320,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126346,7 +126346,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126368,7 +126368,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126390,7 +126390,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126412,7 +126412,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126434,7 +126434,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126456,7 +126456,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126478,7 +126478,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126500,7 +126500,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126526,7 +126526,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126548,7 +126548,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126570,7 +126570,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126592,7 +126592,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126614,7 +126614,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126636,7 +126636,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126658,7 +126658,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126680,7 +126680,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126702,7 +126702,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126724,7 +126724,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126746,7 +126746,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126768,7 +126768,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -126796,7 +126796,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 3
@@ -126813,7 +126813,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 3
@@ -126830,7 +126830,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 3
@@ -126847,7 +126847,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 3
@@ -126864,7 +126864,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 4
@@ -126881,7 +126881,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 4
@@ -126898,7 +126898,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 4
@@ -126915,7 +126915,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 4
@@ -126932,7 +126932,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 3
@@ -126949,7 +126949,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 3
@@ -126966,7 +126966,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 3
@@ -126983,7 +126983,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 3
@@ -127000,7 +127000,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -127022,7 +127022,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -127044,7 +127044,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -127067,7 +127067,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -127089,7 +127089,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -127112,7 +127112,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -127135,7 +127135,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -127157,7 +127157,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -127179,7 +127179,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -127206,7 +127206,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -127229,7 +127229,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -127252,7 +127252,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -127279,7 +127279,7 @@ GROUP Lower EICAS
       HIDE
       LIGHT_MODE GLASS_AUTO
       LIGHT_RHEOSTAT 10
-      BUS_SRC 3
+      BUS_SRC 2
       KEY_FRAME 0.000000 0.000000 1.000000
       KEY_FRAME 1.000000 6.000000
       DIGITS 1
@@ -127305,7 +127305,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 1
@@ -127322,7 +127322,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 1
@@ -127339,7 +127339,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 1
@@ -127356,7 +127356,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 1
@@ -127373,7 +127373,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 3
@@ -127390,7 +127390,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 3
@@ -127408,7 +127408,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 3
@@ -127426,7 +127426,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 3
@@ -127443,7 +127443,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
         DIGITS 3
@@ -127460,7 +127460,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 999.000000 999.000000
         DIGITS 3
@@ -127477,7 +127477,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -127500,7 +127500,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -127530,7 +127530,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -127547,7 +127547,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -127564,7 +127564,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -127581,7 +127581,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -127602,7 +127602,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -127619,7 +127619,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -127636,7 +127636,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -127653,7 +127653,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -127674,7 +127674,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -127691,7 +127691,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -127709,7 +127709,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -127727,7 +127727,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -127744,7 +127744,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -127761,7 +127761,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 999.000000 999.000000
           DIGITS 3
@@ -127782,7 +127782,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -127799,7 +127799,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -127817,7 +127817,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -127835,7 +127835,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -127852,7 +127852,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -127869,7 +127869,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 999.000000 999.000000
           DIGITS 3
@@ -127887,7 +127887,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -127910,7 +127910,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -127940,7 +127940,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -127957,7 +127957,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -127974,7 +127974,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -127991,7 +127991,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -128012,7 +128012,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -128029,7 +128029,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -128046,7 +128046,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -128063,7 +128063,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -128084,7 +128084,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -128101,7 +128101,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -128119,7 +128119,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -128137,7 +128137,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -128154,7 +128154,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -128171,7 +128171,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 999.000000 999.000000
           DIGITS 3
@@ -128192,7 +128192,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -128209,7 +128209,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -128227,7 +128227,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -128243,7 +128243,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -128260,7 +128260,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -128277,7 +128277,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 999.000000 999.000000
           DIGITS 3
@@ -128295,7 +128295,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -128318,7 +128318,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -128348,7 +128348,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -128365,7 +128365,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -128382,7 +128382,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -128399,7 +128399,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -128420,7 +128420,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -128437,7 +128437,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -128454,7 +128454,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -128471,7 +128471,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -128492,7 +128492,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -128509,7 +128509,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -128527,7 +128527,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -128545,7 +128545,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -128562,7 +128562,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -128579,7 +128579,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 999.000000 999.000000
           DIGITS 3
@@ -128600,7 +128600,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -128617,7 +128617,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -128635,7 +128635,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -128651,7 +128651,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -128668,7 +128668,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -128685,7 +128685,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 999.000000 999.000000
           DIGITS 3
@@ -128702,7 +128702,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -128725,7 +128725,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 6.000000
           DIGITS 1
@@ -128756,7 +128756,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -128773,7 +128773,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -128790,7 +128790,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -128807,7 +128807,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -128828,7 +128828,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -128845,7 +128845,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -128862,7 +128862,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -128879,7 +128879,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 4
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 1
@@ -128900,7 +128900,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -128917,7 +128917,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -128935,7 +128935,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -128953,7 +128953,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -128970,7 +128970,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -128987,7 +128987,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 999.000000 999.000000
           DIGITS 3
@@ -129008,7 +129008,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -129025,7 +129025,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -129043,7 +129043,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -129061,7 +129061,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -129078,7 +129078,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
           DIGITS 3
@@ -129095,7 +129095,7 @@ GROUP Lower EICAS
           HIDE
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 10
-          BUS_SRC 3
+          BUS_SRC 2
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 999.000000 999.000000
           DIGITS 3
@@ -129113,7 +129113,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
@@ -129136,7 +129136,7 @@ GROUP Lower EICAS
         HIDE
         LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 10
-        BUS_SRC 3
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 6.000000
         DIGITS 1
