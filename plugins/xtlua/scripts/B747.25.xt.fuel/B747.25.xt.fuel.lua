@@ -2950,12 +2950,12 @@ function B747_fuel_EICAS_msg()
             and
             ((simDR_fuel_tank_weight_kg[2] + simDR_fuel_tank_weight_kg[3]) > (simDR_fuel_tank_weight_kg[1] + simDR_fuel_tank_weight_kg[4])))
         then
-            B747DR_CAS_advisory_status[172] = 1
+            B747DR_CAS_advisory_status[179] = 1
 	else
-	  B747DR_CAS_advisory_status[172] = 0
+	  B747DR_CAS_advisory_status[179] = 0
         end
     else
-      B747DR_CAS_advisory_status[172] = 0
+      B747DR_CAS_advisory_status[179] = 0
     end
 
     -- >JETT NOZ ON
@@ -3245,6 +3245,9 @@ function before_physics()
 end
 
 function after_physics()
+--     print("before" .. simDR_fuel_tank_weight_kg[0] .. " " .. simDR_fuel_tank_weight_kg[1].. " " .. simDR_fuel_tank_weight_kg[2].. " " .. 
+--       simDR_fuel_tank_weight_kg[3].. " " .. simDR_fuel_tank_weight_kg[4].. " " .. simDR_fuel_tank_weight_kg[5].. " " .. 
+--       simDR_fuel_tank_weight_kg[6].. " " .. simDR_fuel_tank_weight_kg[7])
     if debug_fuel>11 then return end
     B747_fuel_pump_control()
     if debug_fuel>10 then return end
@@ -3270,7 +3273,12 @@ function after_physics()
     if debug_fuel>0 then return end
     B747_fuel_monitor_AI()
     B747_refueling()
-
+    
+    
+   --print(simDR_eng_fuel_flow_kg_sec[0] .. " " .. simDR_eng_fuel_flow_kg_sec[1] .. " " .. simDR_eng_fuel_flow_kg_sec[2] .. " " .. simDR_eng_fuel_flow_kg_sec[3])
+--   print("after" .. simDR_fuel_tank_weight_kg[0] .. " " .. simDR_fuel_tank_weight_kg[1].. " " .. simDR_fuel_tank_weight_kg[2].. " " .. 
+--       simDR_fuel_tank_weight_kg[3].. " " .. simDR_fuel_tank_weight_kg[4].. " " .. simDR_fuel_tank_weight_kg[5].. " " .. 
+--       simDR_fuel_tank_weight_kg[6].. " " .. simDR_fuel_tank_weight_kg[7])
 end
 
 --function after_replay() end

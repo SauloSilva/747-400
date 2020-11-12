@@ -1177,12 +1177,14 @@ function B747_secondary_EICAS2_oil_press_status()
     B747DR_engine_oil_press_psi[3] = simDR_engine_oil_pressure[3] + B747_rescale(0.0, 0.0, 100.0, B747_eng4oilPressVariance, simDR_engine_N1_pct[3])
 
     for i = 0, 3 do
-        B747DR_EICAS2_oil_press_status[i] = 0
+        
         if B747DR_engine_oil_press_psi[i] < 70.0                                            -- PRESURE IS BELOW MINIMUM
             and (simDR_engine_starter_status[i] == 0                                        -- ENGINE STARTER IS NOT ENGAGED
                 or B747DR_fuel_control_toggle_switch_pos[i] > 0.95)                         -- ENGINE IS NOT SHUTDOWN
         then
             B747DR_EICAS2_oil_press_status[i] = 1                                           -- SHOW REDLINE OBJECTS
+	else
+	  B747DR_EICAS2_oil_press_status[i] = 0
         end
     end
 

@@ -198,7 +198,9 @@ fmsPages={}
 --fmsPagesmall={}
 fmsFunctionsDefs={}
 fmsModules={} --set later
-fmsModules["data"]={
+
+function defaultFMSData()
+  return {
   acarsInitString="{}",
   fltno="*******",
   fltdate="********",
@@ -256,10 +258,24 @@ fmsModules["data"]={
   preselectRight="******",
   fuelUnits="KGS",   --Set initial fuel weight units
 }
+end
+
+
+fmsModules["data"]=defaultFMSData()
 B747DR_FMSdata=json.encode(fmsModules["data"]["values"])--make the fms data available to other modules
 fmsModules["setData"]=function(self,id,value)
     --always retain the same length
-    if value=="" then value="***********" end
+    if value=="" then 
+      local initData=defaultFMSData()
+      if initData[id]~=nil then
+	print("default for " .. id .. " is " .. initData[id])
+	value=initData[id]
+      else
+	print("default for " .. id .. " is nil")
+	self["data"][id]=nil
+	return
+      end
+    end
     len=string.len(self["data"][id])
     if len < string.len(value) then 
       value=string.sub(value,1,len)
