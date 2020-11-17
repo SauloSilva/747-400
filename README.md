@@ -58,7 +58,7 @@ In order to use this aircraft
 
 **What is the black console window that opens when I start the plane** Don't close it. The console window is part of the systems monitoring and will give important information needed to report issues for example if the plane crashes to desktop. This and the X-Plane Log.txt are the two primary tools for investigating issues.
 
-**All my cockpit is black and I can't click anything** Windows users: Please install the installers linked above.
+**All my cockpit is black and I can't click anything** Windows users: Please install the installers linked above. Also check that the plugins/xtlua/64/win.xpl extracted correctly. Some users have reported their antivirus blocking it from being extracted. Please send an angry email to your antivirus provider along with a copy of the file if you have your time wasted by this.
 
 **Why is my FMC blank** certain controllers have their switches automatically bound to avionics power, if these are off it turns off the avionics needed by the FMC, either switch on the switch on your controller, or bind a key to "avionics on" and use that to bring the FMC to life
 

@@ -99104,7 +99104,7 @@ P acf/_truck_lon_sep 3.0
 P acf/_tvec_hdng 0.0
 P acf/_tvec_ptch 0.0
 P acf/_tvec_roll 0.0
-P acf/_use_1140_fm 0
+P acf/_use_1140_fm 1
 P acf/_use_cus_gear_damping 1
 P acf/_use_cus_gear_defs 1
 P acf/_use_manual_prop_inc 0
