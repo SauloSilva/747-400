@@ -165,13 +165,19 @@ B747DR_refuel				= find_dataref("laminar/B747/fuel/refuel")
 B747DR_fuel_add				= find_dataref("laminar/B747/fuel/add_fuel")
 
 --Used in ND DISPLAY
-simDR_ND_speed				= find_dataref("sim/cockpit2/radios/indicators/gps_dme_speed_kts")
 simDR_latitude				= find_dataref("sim/flightmodel/position/latitude")
 simDR_longitude				= find_dataref("sim/flightmodel/position/longitude")
 simDR_navID					= find_dataref("sim/cockpit2/radios/indicators/gps_nav_id")
 simDR_range_dial_capt		= find_dataref("laminar/B747/nd/range/capt/sel_dial_pos")
 simDR_range_dial_fo			= find_dataref("laminar/B747/nd/range/fo/sel_dial_pos")
-
+simDR_groundspeed			= find_dataref("sim/flightmodel2/position/groundspeed")
+simDR_ias_pilot				= find_dataref("sim/cockpit2/gauges/indicators/airspeed_kts_pilot")
+simDR_wind_degrees			= find_dataref("sim/cockpit2/gauges/indicators/wind_heading_deg_mag")
+simDR_wind_speed			= find_dataref("sim/cockpit2/gauges/indicators/wind_speed_kts")
+simDR_mach_pilot			= find_dataref("sim/cockpit2/gauges/indicators/mach_pilot")
+simDR_mach_copilot			= find_dataref("sim/cockpit2/gauges/indicators/mach_copilot")
+simDR_total_air_temp		= find_dataref("sim/cockpit2/temperature/outside_air_LE_temp_degc")
+simDR_aircraft_hdg		 	= find_dataref("sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_pilot")
 
 --*************************************************************************************--
 --** 				        CREATE READ-WRITE CUSTOM DATAREFS                        **--
@@ -193,6 +199,13 @@ B747DR_ND_waypoint_distance				= deferred_dataref("laminar/B747/nd/waypoint_dist
 --ND Range DISPLAY
 B747DR_ND_range_display_capt			= deferred_dataref("laminar/B747/nd/range_display_capt", "number")
 B747DR_ND_range_display_fo				= deferred_dataref("laminar/B747/nd/range_display_fo", "number")
+
+--SPEED ND DISPLAY
+B747DR_ND_GS_TAS_Line					= deferred_dataref("laminar/B747/nd/gs_tas_line", "string")
+B747DR_ND_GS_TAS_Line_Pilot				= deferred_dataref("laminar/B747/nd/gs_tas_line_pilot", "string")
+B747DR_ND_GS_TAS_Line_CoPilot			= deferred_dataref("laminar/B747/nd/gs_tas_line_copilot", "string")
+B747DR_ND_Wind_Line						= deferred_dataref("laminar/B747/nd/wind_line", "string")
+B747DR_ND_Wind_Bearing					= deferred_dataref("laminar/B747/nd/wind_bearing", "number")
 
 fmsPages={}
 --fmsPagesmall={}
@@ -411,11 +424,12 @@ function getCurrentWayPoint(fms)
 end
 
 function waypoint_eta_display()
+	local meters_per_second_to_kts = 1.94384449
 	local hours = 0
 	local mins = 0
 	local secs = 0
 	local default_speed = 275
-	local actual_speed = simDR_ND_speed
+	local actual_speed = simDR_groundspeed * meters_per_second_to_kts
 	local time_to_waypoint = 0
 	local fms = {}
 	local fms_current_waypoint = ""
@@ -479,6 +493,48 @@ function nd_range_display ()
 			
 	B747DR_ND_range_display_capt	= range[simDR_range_dial_capt + 1]
 	B747DR_ND_range_display_fo		= range[simDR_range_dial_fo + 1]
+end
+
+function round(value_in)
+	return value_in % 1 >= 0.5 and math.ceil(value_in) or math.floor(value_in)
+end
+
+function nd_speed_wind_display()
+	local meters_per_second_to_kts = 1.94384449  --Convert meters per second to KTS
+	local a0 = 661.47  --Speed of sound at sea level
+	local K0 = 273.15  --Kelvin temperature at sea level
+	local M_pilot = simDR_mach_pilot  --Current Mach number
+	local M_copilot = simDR_mach_copilot  --Current Mach number
+	local T0 = 288.15  --Standard air temperature at sea level in Kelvin
+	local Tt = K0 + simDR_total_air_temp  --Total air temperature in Kelvin
+	local T_pilot = Tt / (1 + (0.2 * math.pow(M_pilot, 2)))  --Static air temperature in Kelvin	
+	local T_copilot = Tt / (1 + (0.2 * math.pow(M_copilot, 2)))  --Static air temperature in Kelvin	
+	local TAS_pilot = round(a0 * M_pilot * math.sqrt(T_pilot/T0))
+	local TAS_copilot = round(a0 * M_copilot * math.sqrt(T_copilot/T0))
+	
+	local groundspeed = simDR_groundspeed * meters_per_second_to_kts
+	local wind_hdg = round(simDR_wind_degrees)
+	local wind_hdg_deviation = 360 - wind_hdg + simDR_aircraft_hdg
+	local wind_bearing = 360 - wind_hdg_deviation
+	local wind_spd = tostring(round(simDR_wind_speed))
+	local wind_line_tmp = string.format("%03.0f`/%s", wind_hdg, wind_spd)
+	
+	if simDR_ias_pilot < 100 then
+		B747DR_ND_GS_TAS_Line = "GS"
+		B747DR_ND_GS_TAS_Line_Pilot = string.format("%d", groundspeed)
+		B747DR_ND_GS_TAS_Line_CoPilot = string.format("%d", groundspeed)
+		B747DR_ND_Wind_Line = ""
+	else
+		B747DR_ND_GS_TAS_Line = "GS     TAS"
+		B747DR_ND_GS_TAS_Line_Pilot = string.format("%3.0f    %3.0f", groundspeed, TAS_pilot)
+		B747DR_ND_GS_TAS_Line_CoPilot = string.format("%3.0f    %3.0f", groundspeed, TAS_copilot)
+		B747DR_ND_Wind_Line = wind_line_tmp:gsub("°", "`")
+		if wind_bearing < 0 then
+			B747DR_ND_Wind_Bearing = wind_bearing + 180
+		else
+			B747DR_ND_Wind_Bearing = wind_bearing - 180
+		end
+	end
 end
 
 function flight_start()
@@ -571,4 +627,7 @@ function after_physics()
 
 	--Display range NM on ND
 	nd_range_display ()
+	
+	--Display speed and wind info on ND
+	nd_speed_wind_display()
 end
