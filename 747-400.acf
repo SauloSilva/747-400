@@ -109616,19 +109616,78 @@ GROUP First Officer ND
     GROUP FO IRS ON
       SHOW_GREATER 0.100000 laminar/B747/pfd/fo/irs
       HIDE
-      
-      EFIS_TAS_GS_wind el_TAS_GS_wind.png
-        POS 772.000000 370.000000
-        DATAREF [0]
-        SIZE 3.200000
-        
+      		
+      gen_needle wind_copilot
+        POS 734.000000 330.000000
+        IMAGE CRT Displays/ND/wind_arrow
+        DATAREF laminar/B747/nd/wind_bearing
+		SHOW_LESS 2.90 laminar/B747/nd/mode/fo/sel_dial_pos
+		SHOW_GREATER 99 sim/cockpit2/gauges/indicators/airspeed_kts_copilot
         HIDE
-        LIGHT_MODE MECHANICAL
+		SIZE 0.5
+        LIGHT_MODE GLASS_AUTO
+        LIGHT_RHEOSTAT 2
+        BUS_SRC 2
+        KEY_FRAME 0.000000 0.000000 1.000000
+        KEY_FRAME 359.000000 359.000000
+        IS_DRAGGABLE 0
+        OFFSET 0
+
+	  gen_rotary tas_gs_wind_overlay
+		POS 794.000000 403.000000
+		IMAGE CRT Displays/ND/tas_gs_wind_overlay
+        HIDE
+        LIGHT_MODE GLASS_AUTO
         LIGHT_RHEOSTAT 3
-        BUS_SRC 4
+        BUS_SRC 2
+        KEY_FRAME 0.000000 0.000000 1.000000
+        KEY_FRAME 1.000000 6.000000
+        DIGITS 1
+        ROTARY_TYPE NO_CLICK
+        CLICK_RADIUS 0.000000
+        CLICK_RADIUS_DY 0.000000
+        OFFSET 0.000000
+        STEP1 1.000000
+        STEP2 1.000000
+        CURSOR DEFAULT
+        CLICK_DX 0
+        CLICK_DY 0
+
+      gen_text tas_gs_line_fo
+        POS 697.000000 395.000000
+        IMAGE CRT Displays/TEXT/TXT.1.24.white
+        DATAREF laminar/B747/nd/gs_tas_line
+        SIZE 1.25
+        HIDE
+        LIGHT_MODE GLASS_AUTO
+        LIGHT_RHEOSTAT 2
+        BUS_SRC 2
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
 
+      gen_text tas_gs_line2_fo
+        POS 724.000000 392.000000
+        IMAGE CRT Displays/TEXT/TXT.2.28.white
+        DATAREF laminar/B747/nd/gs_tas_line_copilot
+        SIZE 1.00
+        HIDE
+        LIGHT_MODE GLASS_AUTO
+        LIGHT_RHEOSTAT 2
+        BUS_SRC 2
+        KEY_FRAME 0.000000 0.000000 1.000000
+        KEY_FRAME 1.000000 1.000000
+
+      gen_text wind_line_fo
+        POS 699.000000 365.000000
+        IMAGE CRT Displays/TEXT/TXT.2.28.white
+        DATAREF laminar/B747/nd/wind_line
+        SIZE 1.00
+        HIDE
+        LIGHT_MODE GLASS_AUTO
+        LIGHT_RHEOSTAT 2
+        BUS_SRC 2
+        KEY_FRAME 0.000000 0.000000 1.000000
+        KEY_FRAME 1.000000 1.000000
 
 		gen_LED Range Display ND FO
 		  POS 989.000000 138.000000
@@ -109638,7 +109697,7 @@ GROUP First Officer ND
 		  HIDE
 		  LIGHT_MODE GLASS_AUTO
 		  LIGHT_RHEOSTAT 3
-		  BUS_SRC 4
+		  BUS_SRC 2
 		  KEY_FRAME 0.000000 0.000000 1.000000
 		  KEY_FRAME 999.000000 999.000000
 		  DIGITS 3
@@ -112912,15 +112971,75 @@ GROUP Captain ND
       SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
       HIDE
       
-      EFIS_TAS_GS_wind el_TAS_GS_wind.png
-        POS 95.000000 370.000000
-        DATAREF 
-        SIZE 3.200000
-        
+      gen_needle wind_pilot
+        POS 55.000000 330.000000
+        IMAGE CRT Displays/ND/wind_arrow
+        DATAREF laminar/B747/nd/wind_bearing
+		SHOW_LESS 2.90 laminar/B747/nd/mode/capt/sel_dial_pos
+		SHOW_GREATER 99 sim/cockpit2/gauges/indicators/airspeed_kts_pilot
         HIDE
-        LIGHT_MODE MECHANICAL
-        LIGHT_RHEOSTAT 0
-        BUS_SRC 2
+		SIZE 0.5
+        LIGHT_MODE GLASS_AUTO
+        LIGHT_RHEOSTAT 2
+        BUS_SRC 3
+        KEY_FRAME 0.000000 0.000000 1.000000
+        KEY_FRAME 359.000000 359.000000
+        IS_DRAGGABLE 0
+        OFFSET 0
+
+	  gen_rotary tas_gs_wind_overlay
+		POS 115.000000 403.000000
+		IMAGE CRT Displays/ND/tas_gs_wind_overlay
+        HIDE
+        LIGHT_MODE GLASS_AUTO
+        LIGHT_RHEOSTAT 3
+        BUS_SRC 3
+        KEY_FRAME 0.000000 0.000000 1.000000
+        KEY_FRAME 1.000000 6.000000
+        DIGITS 1
+        ROTARY_TYPE NO_CLICK
+        CLICK_RADIUS 0.000000
+        CLICK_RADIUS_DY 0.000000
+        OFFSET 0.000000
+        STEP1 1.000000
+        STEP2 1.000000
+        CURSOR DEFAULT
+        CLICK_DX 0
+        CLICK_DY 0
+
+      gen_text tas_gs_line_capt
+        POS 18.000000 395.000000
+        IMAGE CRT Displays/TEXT/TXT.1.24.white
+        DATAREF laminar/B747/nd/gs_tas_line
+        SIZE 1.25
+        HIDE
+        LIGHT_MODE GLASS_AUTO
+        LIGHT_RHEOSTAT 2
+        BUS_SRC 3
+        KEY_FRAME 0.000000 0.000000 1.000000
+        KEY_FRAME 1.000000 1.000000
+
+      gen_text tas_gs_line2_capt
+        POS 45.000000 392.000000
+        IMAGE CRT Displays/TEXT/TXT.2.28.white
+        DATAREF laminar/B747/nd/gs_tas_line_pilot
+        SIZE 1.00
+        HIDE
+        LIGHT_MODE GLASS_AUTO
+        LIGHT_RHEOSTAT 2
+        BUS_SRC 3
+        KEY_FRAME 0.000000 0.000000 1.000000
+        KEY_FRAME 1.000000 1.000000
+
+      gen_text wind_line_capt
+        POS 20.000000 365.000000
+        IMAGE CRT Displays/TEXT/TXT.2.28.white
+        DATAREF laminar/B747/nd/wind_line
+        SIZE 1.00
+        HIDE
+        LIGHT_MODE GLASS_AUTO
+        LIGHT_RHEOSTAT 2
+        BUS_SRC 3
         KEY_FRAME 0.000000 0.000000 1.000000
         KEY_FRAME 1.000000 1.000000
 
@@ -112932,7 +113051,7 @@ GROUP Captain ND
 		  HIDE
 		  LIGHT_MODE GLASS_AUTO
 		  LIGHT_RHEOSTAT 0
-		  BUS_SRC 2
+		  BUS_SRC 3
 		  KEY_FRAME 0.000000 0.000000 1.000000
 		  KEY_FRAME 999.000000 999.000000
 		  DIGITS 3
@@ -113008,7 +113127,7 @@ GROUP Captain ND
 	  HIDE
 	  LIGHT_MODE GLASS_AUTO
 	  LIGHT_RHEOSTAT 3
-	  BUS_SRC 2
+	  BUS_SRC 3
 	  KEY_FRAME 0.000000 0.000000 1.000000
 	  KEY_FRAME 1.000000 6.000000
 	  DIGITS 1
@@ -113030,7 +113149,7 @@ GROUP Captain ND
 	  HIDE
 	  LIGHT_MODE GLASS_AUTO
 	  LIGHT_RHEOSTAT 3
-	  BUS_SRC 2
+	  BUS_SRC 3
 	  KEY_FRAME 0.000000 0.000000 1.000000
 	  KEY_FRAME 1.000000 6.000000
 	  DIGITS 1
@@ -113052,7 +113171,7 @@ GROUP Captain ND
 	  HIDE
 	  LIGHT_MODE GLASS_AUTO
 	  LIGHT_RHEOSTAT 3
-	  BUS_SRC 2
+	  BUS_SRC 3
 	  KEY_FRAME 0.000000 0.000000 1.000000
 	  KEY_FRAME 1.000000 6.000000
 	  DIGITS 1
@@ -113074,7 +113193,7 @@ GROUP Captain ND
 	  HIDE
 	  LIGHT_MODE GLASS_AUTO
 	  LIGHT_RHEOSTAT 3
-	  BUS_SRC 2
+	  BUS_SRC 3
 	  KEY_FRAME 0.000000 0.000000 1.000000
 	  KEY_FRAME 1.000000 6.000000
 	  DIGITS 1
@@ -113097,7 +113216,7 @@ GROUP Captain ND
 		  SHOW_EQUAL 2 laminar/B747/nd/mode/capt/sel_dial_pos
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 2
+          BUS_SRC 3
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
 
@@ -113108,7 +113227,7 @@ GROUP Captain ND
 		  SHOW_EQUAL 2 laminar/B747/nd/mode/capt/sel_dial_pos
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
-          BUS_SRC 2
+          BUS_SRC 3
           KEY_FRAME 0.000000 0.000000 1.000000
           KEY_FRAME 1.000000 1.000000
 	
@@ -113124,7 +113243,7 @@ GROUP Captain ND
 	  HIDE
 	  LIGHT_MODE GLASS_AUTO
 	  LIGHT_RHEOSTAT 3
-	  BUS_SRC 2
+	  BUS_SRC 3
 	  KEY_FRAME 0.000000 0.000000 1.000000
 	  KEY_FRAME 1.000000 6.000000
 	  DIGITS 1
