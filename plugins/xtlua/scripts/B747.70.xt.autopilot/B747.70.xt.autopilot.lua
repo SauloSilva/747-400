@@ -1458,17 +1458,18 @@ function B747_ap_appr_mode_beforeCMDhandler(phase, duration)
 	  
 	  
 	  
-	  if simDR_autopilot_nav_status == 1 
- 			and simDR_autopilot_gs_status == 1
+	  if (simDR_autopilot_nav_status == 1)
 			and B747DR_ap_approach_mode < 2
  		then
 		B747DR_ap_approach_mode=0
 		simCMD_autopilot_appr_mode:once()
-		
+		print("approach mod command")
 	  elseif B747DR_ap_approach_mode>0 then
 	    B747DR_ap_approach_mode=0
+	    print("del approach")
 	  else
 	    B747DR_ap_approach_mode=1
+	     print("arm approach")
 	  end
 	  
 -- 		if simDR_autopilot_nav_status == 1 
@@ -2365,8 +2366,8 @@ end
 
 
 function B747_ap_appr_mode()
-	if simDR_autopilot_nav_status == 0 
-	    and simDR_autopilot_gs_status == 0	
+	if (simDR_autopilot_nav_status == 0 
+	    or simDR_autopilot_gs_status == 0)	
 	    and B747DR_ap_approach_mode == 1
 	    then
 	    local diffap=getHeadingDifference(simDR_nav1_radio_course_deg,simDR_AHARS_heading_deg_pilot)
