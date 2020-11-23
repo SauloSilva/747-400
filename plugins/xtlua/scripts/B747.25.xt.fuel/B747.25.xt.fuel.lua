@@ -37,9 +37,6 @@ IN_REPLAY - evaluates to 0 if replay is off, 1 if replay mode is on
 
 NUM_FUEL_TOGGLE_SW = 4
 
--- FUEL DISPLAY CONVERSION FACTOR
-KGS_TO_LBS = 2.2046226218488
-
 --replace create_command
 function deferred_command(name,desc,realFunc)
 	return replace_command(name,realFunc)
@@ -79,7 +76,7 @@ B747.fuel.main1_tank.capacity 			= 13622.0   -- XP Tank DR Index: 1
 B747.fuel.main2_tank.capacity 			= 38132.0   -- XP Tank DR Index: 2
 B747.fuel.main3_tank.capacity 			= 38132.0   -- XP Tank DR Index: 3
 B747.fuel.main4_tank.capacity 			= 13622.0   -- XP Tank DR Index: 4
-B747.fuel.res2_tank.capacity 	        	=  4018.0   -- XP Tank DR Index: 5
+B747.fuel.res2_tank.capacity 	       	=  4018.0   -- XP Tank DR Index: 5
 B747.fuel.res3_tank.capacity 			=  4018.0   -- XP Tank DR Index: 6
 B747.fuel.stab_tank.capacity 			= 10030.0   -- XP Tank DR Index: 7
 
@@ -489,9 +486,9 @@ B747DR_gen_xfeed_vlv1_status            = deferred_dataref("laminar/B747/fuel/ge
 B747DR_gen_xfeed_vlv2_status            = deferred_dataref("laminar/B747/fuel/gen/xfeed_vlv2_status", "number")
 B747DR_gen_xfeed_vlv3_status            = deferred_dataref("laminar/B747/fuel/gen/xfeed_vlv3_status", "number")
 B747DR_gen_xfeed_vlv4_status            = deferred_dataref("laminar/B747/fuel/gen/xfeed_vlv4_status", "number")
-B747DR_refuel				= deferred_dataref("laminar/B747/fuel/refuel", "number")
-B747DR_fuel_preselect			= deferred_dataref("laminar/B747/fuel/preselect", "number")
-B747DR_fuel_add				= deferred_dataref("laminar/B747/fuel/add_fuel", "number")
+B747DR_refuel							= deferred_dataref("laminar/B747/fuel/refuel", "number")
+B747DR_fuel_preselect					= deferred_dataref("laminar/B747/fuel/preselect", "number")
+B747DR_fuel_add							= deferred_dataref("laminar/B747/fuel/add_fuel", "number")
 B747DR_init_fuel_CD                     = deferred_dataref("laminar/B747/fuel/init_CD", "number")
 
 
@@ -506,8 +503,13 @@ function B747DR_fuel_to_remain_rheo_DRhandler()
 
 end
 
--- FUEL WEIGHT DISPLAY UNITS (KGS/LBS)
-B747DR_fuel_display_units				= deferred_dataref("laminar/B747/fuel/fuel_display_units", "string")
+
+--*************************************************************************************--
+--** 				       CREATE READ-WRITE CUSTOM DATAREFS                         **--
+--*************************************************************************************--
+
+-- FUEL TO REMAIN
+B747DR_fuel_to_remain_rheo      = deferred_dataref("laminar/B747/fuel/fuel_to_remain/rheostat", "number", B747DR_fuel_to_remain_rheo_DRhandler)
 
 -- FUEL TANK WEIGHT DISPLAY QTY (8 TANKS)
 B747DR_fuel_tank_display_qty			= deferred_dataref("laminar/B747/fuel/fuel_tank_display_qty", "array[8]")
@@ -518,17 +520,14 @@ B747DR_fuel_total_display_qty			= deferred_dataref("laminar/B747/fuel/fuel_total
 -- FUEL FLOW PER SECOND
 B747DR_fuel_flow_sec_display			= deferred_dataref("laminar/B747/fuel/fuel_flow_sec_display", "array[4]")
 
+-- FUEL DISPLAY TOGGLE (EICAS)
+B747DR_fuel_display_units_eicas			= deferred_dataref("laminar/B747/fuel/fuel_display_units_eicas", "number")
+
 -- Temp location for fuel preselect for displaying in correct units
 B747DR_fuel_preselect_temp				= deferred_dataref("laminar/B747/fuel/fuel_preselect_temp", "number")
 
---*************************************************************************************--
---** 				       CREATE READ-WRITE CUSTOM DATAREFS                         **--
---*************************************************************************************--
-
--- FUEL TO REMAIN
-B747DR_fuel_to_remain_rheo      = deferred_dataref("laminar/B747/fuel/fuel_to_remain/rheostat", "number", B747DR_fuel_to_remain_rheo_DRhandler)
-
-
+-- Holds all SimConfig options
+B747DR_simconfig_data					= deferred_dataref("laminar/B747/simconfig", "string")
 
 --*************************************************************************************--
 --** 				             X-PLANE COMMAND HANDLERS               	    	 **--
@@ -3137,6 +3136,16 @@ function B747_set_fuel_ER()
 	
 end
 
+dofile("json/json.lua")
+
+--Simulator Config Options
+simConfigData = {}
+if string.len(B747DR_simconfig_data) > 1 then
+	simConfigData["data"] = json.decode(B747DR_simconfig_data)
+else
+	simConfigData["data"] = json.decode("[]")
+end
+
 -- FUEL DISPLAY UNITS CALCULATION
 --[[
 *	Determine the current selected display units (from the Maintenance page of the FMC)
@@ -3148,14 +3157,14 @@ function B747_calculate_fuel_display_units ()
 	local fuel_calculation_factor = 1 -- Initially set to 1 (i.e. KGS) unless LBS is selected
 	local x = 0
 	
-	if B747DR_fuel_display_units == "LBS" then
-		fuel_calculation_factor = KGS_TO_LBS
+	if simConfigData["data"].weight_display_units == "LBS" then
+		fuel_calculation_factor = simConfigData["data"].kgs_to_lbs
 	end
 	
 	B747DR_fuel_total_display_qty = simDR_fueL_tank_weight_total_kg * fuel_calculation_factor
 	
 	B747DR_fuel_preselect = B747DR_fuel_preselect_temp * fuel_calculation_factor
-	
+
 	for x = 0, 7 do
 		B747DR_fuel_tank_display_qty[x] = simDR_fuel_tank_weight_kg[x] * fuel_calculation_factor
 	end
@@ -3164,6 +3173,14 @@ function B747_calculate_fuel_display_units ()
 	for x = 0, 3 do
 		B747DR_fuel_flow_sec_display[x] = simDR_eng_fuel_flow_kg_sec[x] * fuel_calculation_factor
 	end
+
+	-- Set correct fuel units displayed on EICAS
+	if simConfigData["data"].weight_display_units == "LBS" then
+		B747DR_fuel_display_units_eicas = 1
+	else
+		B747DR_fuel_display_units_eicas = 0
+	end
+
 end
 
 
@@ -3178,9 +3195,6 @@ function B747_flight_start_fuel()
 	
     B747_set_fuel_all_modes()
 
-
-	-- FUEL DISPLAY CALCULATION
-	run_at_interval(B747_calculate_fuel_display_units, fuel_calc_rate)
 
     -- COLD & DARK ----------------------------------------------------------------------
     if simDR_startup_running == 0 then
@@ -3279,6 +3293,15 @@ function after_physics()
 --   print("after" .. simDR_fuel_tank_weight_kg[0] .. " " .. simDR_fuel_tank_weight_kg[1].. " " .. simDR_fuel_tank_weight_kg[2].. " " .. 
 --       simDR_fuel_tank_weight_kg[3].. " " .. simDR_fuel_tank_weight_kg[4].. " " .. simDR_fuel_tank_weight_kg[5].. " " .. 
 --       simDR_fuel_tank_weight_kg[6].. " " .. simDR_fuel_tank_weight_kg[7])
+
+	if string.len(B747DR_simconfig_data) > 1 then
+		simConfigData["data"] = json.decode(B747DR_simconfig_data)
+	else
+		simConfigData["data"] = json.decode("[]")
+	end
+
+	--Display Fuel Units
+	B747_calculate_fuel_display_units()
 end
 
 --function after_replay() end

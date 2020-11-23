@@ -469,7 +469,7 @@ function validateMachSpeed(value)
   return ""..val
 end
 
--- VALIDATE ENTRY OF FUEL WEIGHT UNITS
+-- VALIDATE ENTRY OF WEIGHT UNITS
 function validate_weight_units(value)
 	local val=tostring(value)
 	print(value)
@@ -483,14 +483,15 @@ end
 function preselect_fuel()
 	-- DETERMINE FUEL WEIGHT DISPLAY UNITS
 	local fuel_calculation_factor = 1
-	local KGS_TO_LBS = 2.2046226218488
-	if B747DR_fuel_display_units == "LBS" then
-		fuel_calculation_factor = KGS_TO_LBS
+	
+	if simConfigData["data"].weight_display_units == "LBS" then
+		fuel_calculation_factor = simConfigData["data"].kgs_to_lbs
 	end
-	B747DR_refuel=B747DR_fuel_add*1000 / fuel_calculation_factor  --(always add fuel in KGS behind the scenes)
+	
+	B747DR_refuel=B747DR_fuel_add * 1000 / fuel_calculation_factor  --(always add fuel in KGS behind the scenes)
 	B747DR_fuel_preselect=simDR_fueL_tank_weight_total_kg + B747DR_refuel
-						
-	-- Used in calculation for displaying Preselect Fuel Qty in correct weight units (actual display done in B747.25.fuel)
+	
+	-- Used in calculation for displaying Preselect Fuel Qty in correct weight units (actual display done in B747.25.xt.fuel)
 	B747DR_fuel_preselect_temp = B747DR_fuel_preselect
 	B747DR_fuel_add=0
 	simDR_m_jettison=simDR_acf_m_jettison
@@ -683,19 +684,23 @@ function fmsFunctions.setdata(fmsO,value)
     setFMSData("irsLon",lon)
     setFMSData(value,fmsO["scratchpad"])
 
---VALIDATE ENTERED FUEL UNITS
-   elseif value=="fuelUnits" then
+--VALIDATE ENTERED WEIGHT UNITS
+   elseif value=="weightUnits" then
 	if string.len(fmsO["scratchpad"])>0 and validate_weight_units(fmsO["scratchpad"]) == false then 
       fmsO["notify"]="INVALID ENTRY"
 	elseif is_timer_scheduled(preselect_fuel) == true then
-	  fmsO["notify"]="NA - WAITING FOR FUEL TRUCK"	
+	  fmsO["notify"]="NA - WAITING FOR FUEL TRUCK"
+	elseif string.len(fmsO["scratchpad"]) > 0 then
+		simConfigData["data"].weight_display_units = fmsO.scratchpad
+		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
     else
-		if fmsModules["data"]["fuelUnits"] == "KGS" then
+		if simConfigData["data"].weight_display_units == "KGS" then
 			fmsO["scratchpad"] = "LBS"
 		else
 			fmsO["scratchpad"] = "KGS"
 		end
-		setFMSData("fuelUnits",fmsO["scratchpad"])
+		simConfigData["data"].weight_display_units = fmsO.scratchpad
+		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
 	end
   elseif fmsO["scratchpad"]=="" and del==false then
       cVal=getFMSData(value)
