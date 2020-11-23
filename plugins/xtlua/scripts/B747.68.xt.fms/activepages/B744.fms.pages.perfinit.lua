@@ -2,7 +2,8 @@ simDR_GRWT=find_dataref("sim/flightmodel/weight/m_total")
 simDR_fuel=find_dataref("sim/flightmodel/weight/m_fuel_total")
 simDR_payload=find_dataref("sim/flightmodel/weight/fixed")
 simDR_fuel_tanks=find_dataref("sim/flightmodel/weight/m_fuel") --res on 5 and 6
-simDR_cg=find_dataref("sim/flightmodel/misc/cgz_ref_to_default") 
+simDR_cg=find_dataref("sim/flightmodel/misc/cgz_ref_to_default")
+
 fmsPages["PERFINIT"]=createPage("PERFINIT")
 fmsPages["PERFINIT"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be this way
     local grwtV=simDR_GRWT/1000
@@ -10,12 +11,12 @@ fmsPages["PERFINIT"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be
     local zfwV=(simDR_GRWT-simDR_fuel)/1000
     local reservesV=(simDR_fuel_tanks[5]+simDR_fuel_tanks[6])/1000
     local jet_weightV=simDR_m_jettison/1000
-    if B747DR_fuel_display_units == "LBS" then
-      grwtV=grwtV*2.2046226218488
-      grfuelV=grfuelV*2.2046226218488
-      zfwV=zfwV*2.2046226218488
-      reservesV=reservesV*2.2046226218488
-      jet_weightV=jet_weightV*2.2046226218488
+	if simConfigData["data"].weight_display_units == "LBS" then
+      grwtV=grwtV * simConfigData["data"].kgs_to_lbs
+      grfuelV=grfuelV * simConfigData["data"].kgs_to_lbs
+      zfwV=zfwV * simConfigData["data"].kgs_to_lbs
+      reservesV=reservesV * simConfigData["data"].kgs_to_lbs
+      jet_weightV=jet_weightV * simConfigData["data"].kgs_to_lbs
     end
     local grwt=string.format("%05.1f",grwtV)
     local grfuel=string.format("%05.1f",grfuelV)

@@ -30,7 +30,6 @@ simDR_autopilot_vs_fpm         			= find_dataref("sim/cockpit2/autopilot/vvi_dia
 B747DR_fmc_notifications            = find_dataref("laminar/B747/fms/notification")
 --Workaround for stack overflow in init.lua namespace_read
 
-KGS_TO_LBS = 2.2046226218488
 
 function replace_char(pos, str, r)
     return str:sub(1, pos-1) .. r .. str:sub(pos+1)
@@ -186,12 +185,13 @@ simDR_aircraft_hdg		 	= find_dataref("sim/cockpit2/gauges/indicators/heading_AHA
 -- CRT BRIGHTNESS DIAL ------------------------------------------------------------------
 B747DR_fms1_display_brightness      = deferred_dataref("laminar/B747/fms1/display_brightness", "number", B747_fms1_display_brightness_DRhandler)
 
--- FUEL WEIGHT DISPLAY UNITS (KGS/LBS)
-B747DR_fuel_display_units				= deferred_dataref("laminar/B747/fuel/fuel_display_units", "string")
-B747DR_fuel_display_units_eicas			= deferred_dataref("laminar/B747/fuel/fuel_display_units_eicas", "number")
+-- Holds all SimConfig options
+B747DR_simconfig_data					= deferred_dataref("laminar/B747/simconfig", "string")
+
+-- Temp location for fuel preselect for displaying in correct units
 B747DR_fuel_preselect_temp				= deferred_dataref("laminar/B747/fuel/fuel_preselect_temp", "number")
 
---ETA for ND DISPLAY
+--Waypoint info for ND DISPLAY
 B747DR_ND_waypoint_eta					= deferred_dataref("laminar/B747/nd/waypoint_eta", "string")
 B747DR_ND_current_waypoint				= deferred_dataref("laminar/B747/nd/current_waypoint", "string")
 B747DR_ND_waypoint_distance				= deferred_dataref("laminar/B747/nd/waypoint_distance", "string")
@@ -200,12 +200,24 @@ B747DR_ND_waypoint_distance				= deferred_dataref("laminar/B747/nd/waypoint_dist
 B747DR_ND_range_display_capt			= deferred_dataref("laminar/B747/nd/range_display_capt", "number")
 B747DR_ND_range_display_fo				= deferred_dataref("laminar/B747/nd/range_display_fo", "number")
 
+--IRS ND DISPLAY
+B747DR_ND_GPS_Line						= deferred_dataref("laminar/B747/irs/gps_display_line", "string")
+B747DR_ND_IRS_Line						= deferred_dataref("laminar/B747/irs/irs_display_line", "string")
+
 --SPEED ND DISPLAY
 B747DR_ND_GS_TAS_Line					= deferred_dataref("laminar/B747/nd/gs_tas_line", "string")
 B747DR_ND_GS_TAS_Line_Pilot				= deferred_dataref("laminar/B747/nd/gs_tas_line_pilot", "string")
 B747DR_ND_GS_TAS_Line_CoPilot			= deferred_dataref("laminar/B747/nd/gs_tas_line_copilot", "string")
 B747DR_ND_Wind_Line						= deferred_dataref("laminar/B747/nd/wind_line", "string")
 B747DR_ND_Wind_Bearing					= deferred_dataref("laminar/B747/nd/wind_bearing", "number")
+
+--Simulator Config Options
+simConfigData = {}
+if string.len(B747DR_simconfig_data) > 1 then
+	simConfigData["data"] = json.decode(B747DR_simconfig_data)
+else
+	simConfigData["data"] = json.decode("[]")
+end
 
 fmsPages={}
 --fmsPagesmall={}
@@ -269,7 +281,6 @@ function defaultFMSData()
   airportgate="*****",
   preselectLeft="******",
   preselectRight="******",
-  fuelUnits="KGS",   --Set initial fuel weight units
 }
 end
 
@@ -551,10 +562,7 @@ function flight_start()
   
       irsSystem.align("irsR",true)
       
-    end
- 
-	--Display Waypoint ETA on ND
-	run_at_interval(waypoint_eta_display, 0.5)
+    end 
 end
 
 debug_fms     = deferred_dataref("laminar/B747/debug/fms", "number")
@@ -586,6 +594,10 @@ function after_physics()
 --     for i =1,24,1 do
 --       print(string.byte(fms_style,i))
 --     end
+
+	--Get Current WEIGHT UNITS stored in FMC
+	--B747DR_weight_display_units = getFMSData("weightUnits")
+
     setNotifications()
     B747DR_FMSdata=json.encode(fmsModules["data"]["values"])--make the fms data available to other modules
     --print(B747DR_FMSdata)
@@ -616,18 +628,17 @@ function after_physics()
       end
       acars=0 --for radio
     end
-	
-	--SET FUEL WEIGHT UNITS
-	B747DR_fuel_display_units = getFMSData("fuelUnits")
-	if B747DR_fuel_display_units == "LBS" then
-		B747DR_fuel_display_units_eicas = 1
-	else
-		B747DR_fuel_display_units_eicas = 0
-	end
+
+	--Display Waypoint ETA on ND
+	waypoint_eta_display()
 
 	--Display range NM on ND
 	nd_range_display ()
 	
 	--Display speed and wind info on ND
 	nd_speed_wind_display()
+
+	--Make simConfig data available to other modules
+	simConfigData["data"] = json.decode(B747DR_simconfig_data)
+
 end
