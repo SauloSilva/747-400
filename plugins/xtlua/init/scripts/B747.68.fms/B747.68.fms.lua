@@ -67,6 +67,12 @@ createFMSDatarefs("fms3")
 -- CRT BRIGHTNESS DIAL ------------------------------------------------------------------
 B747DR_fms1_display_brightness      = create_dataref("laminar/B747/fms1/display_brightness", "number", B747_fms1_display_brightness_DRhandler)
 
+--pos data
+B747DR_waypoint_ata					= deferred_dataref("laminar/B747/nd/waypoint_ata", "string")
+B747DR_last_waypoint				= deferred_dataref("laminar/B747/nd/last_waypoint", "string")
+B747DR_next_waypoint_eta					= deferred_dataref("laminar/B747/nd/next_waypoint_eta", "string")
+B747DR_next_waypoint				= deferred_dataref("laminar/B747/nd/next_waypoint", "string")
+
 --Waypoint info for ND DISPLAY
 B747DR_ND_waypoint_eta					= deferred_dataref("laminar/B747/nd/waypoint_eta", "string")
 B747DR_ND_current_waypoint				= deferred_dataref("laminar/B747/nd/current_waypoint", "string")

@@ -28,6 +28,8 @@ B747DR_ap_fpa	    = find_dataref("laminar/B747/autopilot/navadata/fpa")
 B747DR_ap_vb	    = find_dataref("laminar/B747/autopilot/navadata/vb")
 simDR_autopilot_vs_fpm         			= find_dataref("sim/cockpit2/autopilot/vvi_dial_fpm")
 B747DR_fmc_notifications            = find_dataref("laminar/B747/fms/notification")
+
+B747DR_altimter_ft_adjusted                     = find_dataref("laminar/B747/altimeter/ft_adjusted")
 --Workaround for stack overflow in init.lua namespace_read
 
 
@@ -51,6 +53,9 @@ function split(s, delimiter)
         table.insert(result, match);
     end
     return result;
+end
+function round(value_in)
+	return value_in % 1 >= 0.5 and math.ceil(value_in) or math.floor(value_in)
 end
 function cleanFMSLine(line)
     local retval=line:gsub("☐","*")
@@ -176,6 +181,7 @@ simDR_wind_speed			= find_dataref("sim/cockpit2/gauges/indicators/wind_speed_kts
 simDR_mach_pilot			= find_dataref("sim/cockpit2/gauges/indicators/mach_pilot")
 simDR_mach_copilot			= find_dataref("sim/cockpit2/gauges/indicators/mach_copilot")
 simDR_total_air_temp		= find_dataref("sim/cockpit2/temperature/outside_air_LE_temp_degc")
+simDR_air_temp		= find_dataref("sim/cockpit2/temperature/outside_air_temp_degc")
 simDR_aircraft_hdg		 	= find_dataref("sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_pilot")
 
 --*************************************************************************************--
@@ -190,6 +196,12 @@ B747DR_simconfig_data					= deferred_dataref("laminar/B747/simconfig", "string")
 
 -- Temp location for fuel preselect for displaying in correct units
 B747DR_fuel_preselect_temp				= deferred_dataref("laminar/B747/fuel/fuel_preselect_temp", "number")
+
+--pos data
+B747DR_waypoint_ata					= deferred_dataref("laminar/B747/nd/waypoint_ata", "string")
+B747DR_last_waypoint				= deferred_dataref("laminar/B747/nd/last_waypoint", "string")
+B747DR_next_waypoint_eta					= deferred_dataref("laminar/B747/nd/next_waypoint_eta", "string")
+B747DR_next_waypoint				= deferred_dataref("laminar/B747/nd/next_waypoint", "string")
 
 --Waypoint info for ND DISPLAY
 B747DR_ND_waypoint_eta					= deferred_dataref("laminar/B747/nd/waypoint_eta", "string")
@@ -417,75 +429,102 @@ fmsModules.fmsR=fmsR;
 
 B747DR_CAS_memo_status          = find_dataref("laminar/B747/CAS/memo_status")
 
-function getCurrentWayPoint(fms)
+function getCurrentWayPoint(fms,usenext)
 
 	for i=1,table.getn(fms),1 do
     --print("FMS j="..fmsJSON)
 
 		if fms[i][10] == true then
 				--print("Found TRUE = "..fms[i][1].." "..fms[i][2].." "..fms[i][8])
+				if usenext==false then
 				if fms[i][8] == "latlon" then
 					return simDR_navID, fms[i][5], fms[i][6]
 				else
 					return fms[i][8], fms[i][5], fms[i][6]
 				end
+				elseif i+1<table.getn(fms) then
+				  if fms[i+1][8] == "latlon" then
+					return "------", fms[i+1][5], fms[i+1][6]
+				else
+					return fms[i+1][8], fms[i+1][5], fms[i+1][6]
+				end
+				end
 		end		
 	end
 	return ""  --NOT FOUND
 end
-
+function get_waypoint_estimate(latitude,longitude,fms_waypoint, fms_latitude, fms_longitude,additionalTime)
+  local meters_per_second_to_kts = 1.94384449
+  local hours = 0
+  local mins = 0
+  local secs = 0
+  local default_speed = 275
+  local actual_speed = simDR_groundspeed * meters_per_second_to_kts
+  local time_to_waypoint = 0
+  local fms_distance_to_waypoint = 0
+  if fms_waypoint ~= "" and fms_waypoint ~= "VECTOR" and not string.match(fms_waypoint, "%(") then
+	--print("Checking distance for waypoint = "..fms_current_waypoint)
+	fms_distance_to_waypoint = getDistance(latitude, longitude, fms_latitude, fms_longitude)
+	
+	time_to_waypoint = additionalTime + (fms_distance_to_waypoint / math.max(default_speed, actual_speed)) * 3600
+	
+	hours = math.floor((time_to_waypoint % 86400) / 3600)
+	mins = math.floor((time_to_waypoint % 3600) / 60)
+	secs = (time_to_waypoint % 60) / 60
+	--Add to current Zulu time
+	hours = hours + hh
+	mins = mins + mm
+	secs = secs + (ss / 60)
+	
+	if hours >= 24 then
+		hours = hours - 24
+	end
+		
+	if mins >= 60 then
+		mins = mins - 60
+		hours = hours + 1
+	end
+	
+	if secs >= 1 then
+		secs = secs - 1
+		mins = mins + 1
+	end
+  end
+  
+  return fms_distance_to_waypoint,time_to_waypoint,hours,mins,secs
+end
 function waypoint_eta_display()
-	local meters_per_second_to_kts = 1.94384449
 	local hours = 0
 	local mins = 0
 	local secs = 0
-	local default_speed = 275
-	local actual_speed = simDR_groundspeed * meters_per_second_to_kts
-	local time_to_waypoint = 0
+	local nhours = 0
+	local nmins = 0
+	local nsecs = 0
 	local fms = {}
 	local fms_current_waypoint = ""
+	local fms_next_waypoint = ""
 	local fms_latitude = ""
 	local fms_longitude = ""
+	local fms_next_latitude = ""
+	local fms_next_longitude = ""
+	local time_to_waypoint = 0
 	local fms_distance_to_waypoint = 0
-	
+	local fms_distance_to_next_waypoint = 0
 	if simDR_onGround ~= 1 and string.len(fmsJSON) > 2 then
 		--print(fmsJSON)
 		fms = json.decode(fmsJSON)	
-		fms_current_waypoint, fms_latitude, fms_longitude = getCurrentWayPoint(fms)
+		fms_current_waypoint, fms_latitude, fms_longitude = getCurrentWayPoint(fms,false)
 		--print(string.match(fms_current_waypoint, "%("))
-		if fms_current_waypoint ~= "" and fms_current_waypoint ~= "VECTOR" and not string.match(fms_current_waypoint, "%(") then
-			--print("Checking distance for waypoint = "..fms_current_waypoint)
-			fms_distance_to_waypoint = getDistance(simDR_latitude, simDR_longitude, fms_latitude, fms_longitude)
-	
-			time_to_waypoint = (fms_distance_to_waypoint / math.max(default_speed, actual_speed)) * 3600
-			
-			hours = math.floor((time_to_waypoint % 86400) / 3600)
-			mins = math.floor((time_to_waypoint % 3600) / 60)
-			secs = (time_to_waypoint % 60) / 60
-
-			--Add to current Zulu time
-			hours = hours + hh
-			mins = mins + mm
-			secs = secs + (ss / 60)
-			
-			if hours >= 24 then
-				hours = hours - 24
-			end
-				
-			if mins >= 60 then
-				mins = mins - 60
-				hours = hours + 1
-			end
-			
-			if secs >= 1 then
-				secs = secs - 1
-				mins = mins + 1
-			end
-		end
+		fms_distance_to_waypoint,time_to_waypoint,hours,mins,secs = get_waypoint_estimate(simDR_latitude, simDR_longitude,fms_current_waypoint, fms_latitude, fms_longitude,0)
+		
+		fms_next_waypoint, fms_next_latitude, fms_next_longitude = getCurrentWayPoint(fms,true)
+		--print(string.match(fms_current_waypoint, "%("))
+		fms_distance_to_next_waypoint,time_to_waypoint,nhours,nmins,nsecs = get_waypoint_estimate(fms_latitude, fms_longitude,fms_next_waypoint, fms_next_latitude, fms_next_longitude,time_to_waypoint)
+		
 	end
 	
 	if fms_current_waypoint == "" or string.match(fms_current_waypoint, "%(") then
-		B747DR_ND_current_waypoint = ""
+		B747DR_ND_current_waypoint = "-----"
 		B747DR_ND_waypoint_distance = "------NM"
 		B747DR_ND_waypoint_eta = "------Z"	
 	elseif fms_current_waypoint == "VECTOR" then
@@ -493,9 +532,27 @@ function waypoint_eta_display()
 		B747DR_ND_waypoint_distance = "------NM"
 		B747DR_ND_waypoint_eta = "------Z"
 	else
+	        if B747DR_ND_current_waypoint ~= fms_current_waypoint then
+		  B747DR_waypoint_ata = B747DR_ND_waypoint_eta
+		  B747DR_last_waypoint = B747DR_ND_current_waypoint
+		end
 		B747DR_ND_current_waypoint = fms_current_waypoint
 		B747DR_ND_waypoint_distance = string.format("%5.1f".."nm", fms_distance_to_waypoint)
 		B747DR_ND_waypoint_eta = string.format("%02d%02d.%d".."z", hours, mins, secs * 10)			
+	end
+	if B747DR_last_waypoint=="" then
+	  B747DR_last_waypoint="-----"
+	  B747DR_waypoint_ata="------Z"
+	end
+	if fms_next_waypoint == "" or string.match(fms_next_waypoint, "%(") then
+		B747DR_next_waypoint = "------"
+		B747DR_next_waypoint_eta = "------Z"	
+	elseif fms_next_waypoint == "VECTOR" then
+		B747DR_next_waypoint = fms_next_waypoint
+		B747DR_next_waypoint_eta = "------Z"
+	else
+		B747DR_next_waypoint = fms_next_waypoint
+		B747DR_next_waypoint_eta = string.format("%02d%02d.%d".."z", nhours, nmins, nsecs * 10)			
 	end
 end
 
@@ -506,9 +563,7 @@ function nd_range_display ()
 	B747DR_ND_range_display_fo		= range[simDR_range_dial_fo + 1]
 end
 
-function round(value_in)
-	return value_in % 1 >= 0.5 and math.ceil(value_in) or math.floor(value_in)
-end
+
 
 function nd_speed_wind_display()
 	local meters_per_second_to_kts = 1.94384449  --Convert meters per second to KTS

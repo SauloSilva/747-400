@@ -564,7 +564,9 @@ function B747_engine_TOGA_power_CMDhandler(phase, duration)
 	if phase == 0 then
         if B747DR_toggle_switch_position[29] == 1 then
             --if simDR_allThrottle>0.25 then
-		    B747DR_ap_autoland=-2
+		    if simDR_all_wheels_on_ground==0 then
+		      B747DR_ap_autoland=-2
+		    end
 		    simCMD_autopilot_autothrottle_off:once()
 	            if B747DR_engine_TOGA_mode == 0 then
                 	--[[simDR_engine_throttle_input[0] = 0.95

@@ -2443,7 +2443,7 @@ function B747_ap_fma()
         B747DR_ap_FMA_autothrottle_mode = 5 --THR REF
     elseif (B747DR_engine_TOGA_mode == 1 and simDR_radarAlt1<50)  then                                        
         B747DR_ap_FMA_autothrottle_mode = 1 --HOLD
-    elseif (simDR_autopilot_fms_vnav == 1 or B747DR_ap_vnav_state > 0)
+    elseif (simDR_autopilot_fms_vnav == 1 or B747DR_ap_vnav_state ==2)
       and (simDR_autopilot_flch_status > 0 or B747DR_engine_TOGA_mode==1) then
 	--if simDR_autopilot_autothrottle_enabled == 1 then 
 	  B747DR_ap_FMA_autothrottle_mode = 5  --THR REF
