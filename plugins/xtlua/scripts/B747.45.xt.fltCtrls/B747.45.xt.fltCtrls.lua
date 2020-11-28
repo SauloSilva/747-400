@@ -100,6 +100,9 @@ B747CMD_yaw_damper_lwr = find_command("laminar/B747/button_switch/yaw_damper_lwr
 
 simDR_startup_running           = find_dataref("sim/operation/prefs/startup_running")
 
+simDR_innerslats_ratio  	= find_dataref("sim/flightmodel2/controls/slat1_deploy_ratio")
+simDR_autoslats_ratio  		= find_dataref("sim/aircraft/parts/acf_slatEQ")
+simDR_prop_mode                 = find_dataref("sim/cockpit2/engine/actuators/prop_mode")
 simDR_all_wheels_on_ground      = find_dataref("sim/flightmodel/failures/onground_all")
 simDR_speedbrake_ratio_control  = find_dataref("sim/cockpit2/controls/speedbrake_ratio")
 simDR_flap_handle_deploy_ratio  = find_dataref("sim/cockpit2/controls/flap_handle_deploy_ratio")
@@ -559,7 +562,7 @@ B747CMD_parking_brake_toggle            = deferred_command("laminar/B747/flt_ctr
 ----- ANIMATION UTILITY -----------------------------------------------------------------
 function B747_set_animation_position(current_value, target, min, max, speed)
 
-    local fps_factor = math.min(1.0, speed * SIM_PERIOD)
+    local fps_factor = math.min(0.1, speed * SIM_PERIOD)
 
     if target >= (max - 0.001) and current_value >= (max - 0.01) then
         return max
@@ -765,8 +768,27 @@ function B747_flap_transition_status()
     end
     
 end
+local slatsRetract=false
 
+function B747_landing_slats()
 
+   if (B747DR_speedbrake_lever >0.5 and (simDR_prop_mode[0] == 3 or simDR_prop_mode[1] == 3 or simDR_prop_mode[2] == 3 or simDR_prop_mode[3] == 3)) 
+       or (slatsRetract==true and B747DR_speedbrake_lever >0.5) then	
+     simDR_innerslats_ratio = B747_set_animation_position(simDR_innerslats_ratio, 0.0, 0.0, 1.0, 0.5)
+     simDR_autoslats_ratio=0
+     slatsRetract=true
+   elseif B747DR_speedbrake_lever <0.5 then 
+     slatsRetract=false
+     if simDR_flap_ratio_control>0 and simDR_autoslats_ratio==0 then
+	simDR_innerslats_ratio = B747_set_animation_position(simDR_innerslats_ratio, 1.0, 0.0, 1.0, 0.5)
+	if simDR_innerslats_ratio==1 then simDR_autoslats_ratio=1 end
+     else 
+       simDR_autoslats_ratio=1
+     end
+     
+   end
+  
+end
 
 
 ----- PRIMARY EICAS FLAP DISPLAY STATUS -------------------------------------------------
@@ -1146,6 +1168,7 @@ if debug_fltctrls>0 then return end
     B747_fltCtrols_EICAS_msg()
 
     B747_fltctrls_monitor_AI()
+     B747_landing_slats()
     --print(collectgarbage("count")*1024)
 end
 
