@@ -1,5 +1,6 @@
 fmsPages["CMC"]=createPage("CMC")
-fmsPages["CMC"]["template"]={
+fmsPages [“CMC”].getPage=function(self,pgNo,fmsID)
+
   if pgNo==1 then return {
             
 "     CMC-L MENU      1/2",
