@@ -59,6 +59,7 @@ end
 fmsFunctionsDefs["INDEX"]={}
 fmsFunctionsDefs["INDEX"]["L1"]={"setpage","FMC"}
 fmsFunctionsDefs["INDEX"]["L2"]={"setpage","ACARS"}
+fmsFunctionsDefs["INDEX"]["L6"]={"setpage","CMC"}
 fmsFunctionsDefs["INDEX"]["R4"]={"setpage","GNDHNDL"}
 fmsPages["RTE1"]=createPage("RTE1")
 fmsPages["RTE1"].getPage=function(self,pgNo,fmsID)
@@ -128,6 +129,7 @@ dofile("activepages/atc/B744.fms.pages.atcreport.lua")
 dofile("activepages/atc/B744.fms.pages.posreport.lua")
 dofile("activepages/atc/B744.fms.pages.request.lua")
 dofile("activepages/atc/B744.fms.pages.whencanwe.lua")
+dofile("activepages/B744.fms.pages.cmc.lua")
 --[[
 dofile("B744.fms.pages.actclb.lua")
 dofile("B744.fms.pages.actcrz.lua")
