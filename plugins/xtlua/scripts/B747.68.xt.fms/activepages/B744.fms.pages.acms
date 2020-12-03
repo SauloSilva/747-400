@@ -28,7 +28,7 @@ fmsPages [“ACMS”].getPage=function(self,pgNo,fmsID)
       
 fmsPages["REPORTS"]=createPage("REPORTS")
 fmsPages [“REPORTS”].getPage=function(self,pgNo,fmsID)
-
+  if pgNo==1 then
   return {
             
 "      ACMS REPORTS   1/2",
@@ -42,6 +42,25 @@ fmsPages [“REPORTS”].getPage=function(self,pgNo,fmsID)
 " 11 ENG RUN UP        00",
 " -----------------------",
 "--:RPT LOG    TRIGGER:--", 
-"                        ",
+" RETURN TO              ",
 "<ACMS INDEX       PRINT>"
     }
+    
+  elseif pgNo==2 then
+    return {
+"      ACMS REPORTS   2/2",
+" RPT   STORED THIS FLT  ",
+" 13 APU MES/IDL       00",
+" 14 APU SHTDWN        00",
+" 15 LOAD              00",
+" 19 ECS PERF          00",
+" 20 AUTOLAND          00",
+" 23 ECS EXCEED        00",
+" 41 CREW PRF STAT     00",
+" -----------------------",
+"--:RPT LOG    TRIGGER:--", 
+" RETURN TO              ",
+"<ACMS INDEX       PRINT>"
+    }
+end
+end
