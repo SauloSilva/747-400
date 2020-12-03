@@ -29,6 +29,7 @@ fmsPages [“ACMS”].getPage=function(self,pgNo,fmsID)
 fmsPages["REPORTS"]=createPage("REPORTS")
 fmsPages [“REPORTS”].getPage=function(self,pgNo,fmsID)
   if pgNo==1 then
+      fmsFunctionsDefs["REPORTS"]["L6"]={"setpage","ACMS"}
   return {
             
 "      ACMS REPORTS   1/2",
@@ -47,6 +48,7 @@ fmsPages [“REPORTS”].getPage=function(self,pgNo,fmsID)
     }
     
   elseif pgNo==2 then
+      fmsFunctionsDefs["DOCDATA"]["L6"]={"setpage","ACMS"}
     return {
 "      ACMS REPORTS   2/2",
 " RPT   STORED THIS FLT  ",
@@ -68,6 +70,7 @@ end
 fmsPages["DOCDATA"]=createPage("DOCDATA")
 fmsPages [“DOCDATA”].getPage=function(self,pgNo,fmsID)
   if pgNo==1 then
+      fmsFunctionsDefs["DOCDATA"]["L6"]={"setpage","ACMS"}
   return {
             
 "   ACMS DOC DATA     1/2",
@@ -86,8 +89,9 @@ fmsPages [“DOCDATA”].getPage=function(self,pgNo,fmsID)
     }
     
   elseif pgNo==2 then
+      fmsFunctionsDefs["DOCDATA"]["L6"]={"setpage","ACMS"}
     return {
-"   ACMS DOC DATA     1/2",
+"   ACMS DOC DATA     2/2",
 "                        ",
 "ECYC.2 000535           ",
 "                        ",
