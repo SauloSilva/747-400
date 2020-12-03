@@ -45,6 +45,30 @@ fmsPages ["CMC"].getPage=function(self,pgNo,fmsID)
 end
 end
 
+fmsPages["CONFTEST"]=createPage("CONFTEST")
+fmsPages ["CONFTEST"].getPage=function(self,pgNo,fmsID) 
+    return {
+            
+"  CONFIDENCE TEST    1/1",
+"                        ",
+"<STALL LEFT             ",
+"                        ",
+"<STALL RIGHT            ",
+"                        ",
+"<T/O CONFIG WARNING     ",
+"                        ",
+"<GPWC                   ",
+"                        ",
+"                        ", 
+"------------------------",
+"<RETURN            HELP>"
+    }
+  
+      fmsFunctionsDefs["CONFTEST"]["L1"]={"setpage","CTSTALL"}
+      fmsFunctionsDefs["CONFTEST"]["L2"]={"setpage","CTSTALR"}
+      fmsFunctionsDefs["CONFTEST"]["L3"]={"setpage","CTTOCONFIG"}
+      fmsFunctionsDefs["CONFTEST"]["L4"]={"setpage","CTGPWC"}
+
 fmsPages["GRDTEST"]=createPage("GRDTEST")
 fmsPages ["GRDTEST"].getPage=function(self,pgNo,fmsID)
 
