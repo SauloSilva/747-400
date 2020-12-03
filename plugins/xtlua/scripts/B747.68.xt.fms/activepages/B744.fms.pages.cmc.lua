@@ -44,3 +44,28 @@ fmsPages ["CMC"].getPage=function(self,pgNo,fmsID)
     }
 end
 end
+
+fmsPages["GRDTEST"]=createPage("GRDTEST")
+fmsPages ["GRDTEST"].getPage=function(self,pgNo,fmsID)
+
+  if pgNo==1 then 
+      fmsFunctionsDefs["GRDTEST"]["L1"]={"setpage","GTAC"}
+      fmsFunctionsDefs["GRDTEST"]["L2"]={"setpage","GTCABPSI"}
+      fmsFunctionsDefs["GRDTEST"]["L3"]={"setpage","GTECS"}
+      fmsFunctionsDefs["GRDTEST"]["L4"]={"setpage","GTYAW"}
+    return {
+            
+"    GROUND TESTS     1/6",
+"                        ",
+"<21 AIR CONDITIONING    ",
+"                        ",
+"<21 CABIN PRESURE       ",
+"                        ",
+"<21 EQUIPMENT COOLING   ",
+"                        ",
+"<22 AUTOPILOT FLT DIR   ",
+"                        ",
+"<YAW DAMPER             ", 
+"------------------------",
+"                   HELP>"
+    }
