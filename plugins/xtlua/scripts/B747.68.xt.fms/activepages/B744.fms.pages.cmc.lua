@@ -49,7 +49,7 @@ fmsPages["CONFTEST"]=createPage("CONFTEST")
 fmsPages ["CONFTEST"].getPage=function(self,pgNo,fmsID) 
     return {
             
-"  CONFIDENCE TEST    1/1",
+"  CONFIDENCE TESTS   1/1",
 "                        ",
 "<STALL LEFT             ",
 "                        ",
