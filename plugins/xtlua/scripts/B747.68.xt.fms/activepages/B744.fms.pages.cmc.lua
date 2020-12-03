@@ -80,3 +80,18 @@ fmsPages ["GRDTEST"].getPage=function(self,pgNo,fmsID)
       fmsFunctionsDefs["GRDTEST"]["L5"]={"setpage","GTRUDR"}
       fmsFunctionsDefs["GRDTEST"]["L6"]={"setpage","CMC"}
     return {
+      
+"    GROUND TESTS     2/6",
+"                        ",
+"<23 COMMUNICATIONS      ",
+"                        ",
+"<24 ELECTRICAL POWER    ",
+"                        ",
+"<26 FIRE PROTECTION     ",
+"                        ",
+"<27 AILERON LOCKOUT     ",
+"                        ",
+"<27 RUDDER RATIO        ", 
+"------------------------",
+"<RETURN            HELP>"
+    }
