@@ -255,7 +255,10 @@ B747DR_nd_data_capt_switch_pos                  = deferred_dataref("laminar/B747
 B747DR_nd_pos_capt_switch_pos                   = deferred_dataref("laminar/B747/nd/pos/capt/switch_pos", "number")
 B747DR_nd_terr_capt_switch_pos                  = deferred_dataref("laminar/B747/nd/terr/capt/switch_pos", "number")
 
-B747DR_nd_data_vor_ndb                          = deferred_dataref("laminar/B747/nd/data/capt/vor_ndb", "number")
+B747DR_nd_capt_vor_ndb                          = deferred_dataref("laminar/B747/nd/data/capt/vor_ndb", "number")
+B747DR_nd_fo_vor_ndb                          	= deferred_dataref("laminar/B747/nd/data/fo/vor_ndb", "number")
+B747DR_nd_capt_apt	                        = deferred_dataref("laminar/B747/nd/data/capt/apt", "number")
+B747DR_nd_fo_apt	                        = deferred_dataref("laminar/B747/nd/data/fo/apt", "number")
 
 B747_nd_vorL_ID_flag_capt                       = deferred_dataref("laminar/B747/nd/vorL_id_flag/capt", "number")
 B747_nd_vorR_ID_flag_capt                       = deferred_dataref("laminar/B747/nd/vorR_id_flag/capt", "number")
@@ -430,12 +433,16 @@ simCMD_clock_is_gmt             = find_command("sim/instruments/timer_is_GMT")
 
 simCMD_EFIS_wxr                 = find_command("sim/instruments/EFIS_wxr")
 simCMD_EFIS_tcas                = find_command("sim/instruments/EFIS_tcas")
-simCMD_EFIS_apt                 = find_command("sim/instruments/EFIS_apt")
+
+-- simCMD_EFIS_apt                 = find_command("sim/instruments/EFIS_apt")
+-- simCMD_EFIS_vor                 = find_command("sim/instruments/EFIS_vor")
+-- simCMD_EFIS_ndb                 = find_command("sim/instruments/EFIS_ndb")
 simCMD_EFIS_fix                 = find_command("sim/instruments/EFIS_fix")
-simCMD_EFIS_vor                 = find_command("sim/instruments/EFIS_vor")
-simCMD_EFIS_ndb                 = find_command("sim/instruments/EFIS_ndb")
 
-
+simDR_EFIS_apt			= find_dataref("sim/cockpit2/EFIS/EFIS_airport_on")
+simDR_EFIS_fix 			= find_dataref("sim/cockpit2/EFIS/EFIS_fix_on")
+simDR_EFIS_vor 			= find_dataref("sim/cockpit2/EFIS/EFIS_vor_on")
+simDR_EFIS_ndb 			= find_dataref("sim/cockpit2/EFIS/EFIS_ndb_on")
 
 
 --*************************************************************************************--
@@ -1009,9 +1016,9 @@ end
 function B747_nd_sta_capt_switch_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_nd_sta_capt_switch_pos = 1
-        simCMD_EFIS_vor:once()
-        simCMD_EFIS_ndb:once()
-        B747DR_nd_data_vor_ndb = 1.0 - B747DR_nd_data_vor_ndb
+        --simCMD_EFIS_vor:once()
+        --simCMD_EFIS_ndb:once()
+        B747DR_nd_capt_vor_ndb = 1.0 - B747DR_nd_capt_vor_ndb
     elseif phase == 2 then
         B747DR_nd_sta_capt_switch_pos = 0
     end
@@ -1029,7 +1036,8 @@ end
 function B747_nd_arpt_capt_switch_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_nd_arpt_capt_switch_pos = 1
-        simCMD_EFIS_apt:once()
+        --simCMD_EFIS_apt:once()
+	B747DR_nd_capt_apt = 1.0 - B747DR_nd_capt_apt
     elseif phase == 2 then
         B747DR_nd_arpt_capt_switch_pos = 0
     end
@@ -1155,9 +1163,10 @@ end
 function B747_nd_sta_fo_switch_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_nd_sta_fo_switch_pos = 1
-        simCMD_EFIS_vor:once()
-        simCMD_EFIS_ndb:once()
-        B747DR_nd_data_vor_ndb = 1.0 - B747DR_nd_data_vor_ndb
+        --simCMD_EFIS_vor:once()
+        --simCMD_EFIS_ndb:once()
+        B747DR_nd_fo_vor_ndb = 1.0 - B747DR_nd_fo_vor_ndb
+	
     elseif phase == 2 then
         B747DR_nd_sta_fo_switch_pos = 0
     end
@@ -1175,7 +1184,8 @@ end
 function B747_nd_arpt_fo_switch_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_nd_arpt_fo_switch_pos = 1
-        simCMD_EFIS_apt:once()
+        --simCMD_EFIS_apt:once()
+	B747DR_nd_fo_apt = 1.0 - B747DR_nd_fo_apt
     elseif phase == 2 then
         B747DR_nd_arpt_fo_switch_pos = 0
     end
@@ -2966,7 +2976,14 @@ function B747_set_inst_all_modes()
     simDR_EFIS_1_sel_fo = 1
     simDR_EFIS_2_sel_fo = 1
 
-    B747DR_nd_data_vor_ndb = 1
+    B747DR_nd_capt_vor_ndb = 0
+    B747DR_nd_fo_vor_ndb = 0
+    B747DR_nd_capt_apt = 0
+    B747DR_nd_fo_apt = 0
+    simDR_EFIS_apt = 0
+    simDR_EFIS_fix = 0
+    simDR_EFIS_vor = 0
+    simDR_EFIS_ndb = 0
 
 end
 
