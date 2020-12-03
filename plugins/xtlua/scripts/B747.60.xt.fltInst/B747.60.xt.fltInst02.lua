@@ -130,7 +130,8 @@ simDR_vvi_fpm_pilot                 = find_dataref("sim/cockpit2/gauges/indicato
 
 simDR_EFIS_wxr_on                   = find_dataref("sim/cockpit2/EFIS/EFIS_weather_on")
 simDR_EFIS_tcas_on                  = find_dataref("sim/cockpit2/EFIS/EFIS_tcas_on")
-
+B747DR_nd_capt_tfc	            = find_dataref("laminar/B747/nd/data/tfc")
+B747DR_xpdr_sel_pos                 = find_dataref("laminar/B747/flt_mgmt/txpdr/mode_sel_pos")
 --simDR_acf_weight_payload_kg         = find_dataref("sim/flightmodel/weight/m_fixed")
 simDR_acf_weight_total_kg           = find_dataref("sim/flightmodel/weight/m_total")
 simDR_wing_flap1_deg                = find_dataref("sim/flightmodel2/wing/flap1_deg")
@@ -995,7 +996,13 @@ end
 function B747_nd_traffic_capt_switch_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_nd_traffic_capt_switch_pos = 1
-        simCMD_EFIS_tcas:once()
+        --simCMD_EFIS_tcas:once()
+	B747DR_nd_capt_tfc=1-B747DR_nd_capt_tfc
+	if B747DR_xpdr_sel_pos>2 then
+	  simDR_EFIS_tcas_on=B747DR_nd_capt_tfc
+	else
+	  simDR_EFIS_tcas_on=0
+	end
     elseif phase == 2 then
         B747DR_nd_traffic_capt_switch_pos = 0
     end
@@ -1143,7 +1150,14 @@ end
 function B747_nd_traffic_fo_switch_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_nd_traffic_fo_switch_pos = 1
-        simCMD_EFIS_tcas:once()
+        --simCMD_EFIS_tcas:once()
+	B747DR_nd_capt_tfc=1-B747DR_nd_capt_tfc
+	
+	if B747DR_xpdr_sel_pos>2 then
+	  simDR_EFIS_tcas_on=B747DR_nd_capt_tfc
+	else
+	  simDR_EFIS_tcas_on=0
+	end
     elseif phase == 2 then
         B747DR_nd_traffic_fo_switch_pos = 0
     end
@@ -2356,13 +2370,15 @@ end
 ----- ND TRACK LINE ---------------------------------------------------------------------
 function B747_nd_track_line()
 
-    B747_exp_nd_track_line_on = 0
+    
 
     if (B747DR_nd_mode_capt_sel_dial_pos <= 1 and B747DR_nd_center_capt_switch_pos == 0 and (simDR_EFIS_wxr_on > 0.5 or simDR_EFIS_tcas_on > 0.5))
         or
         (B747DR_nd_mode_capt_sel_dial_pos == 2 and B747DR_nd_center_capt_switch_pos == 0)
     then
         B747_exp_nd_track_line_on = 1
+    else
+      B747_exp_nd_track_line_on = 0
     end
 
 end
@@ -2993,7 +3009,8 @@ end
 
 ----- SET STATE TO COLD & DARK ----------------------------------------------------------
 function B747_set_inst_CD()
-
+  simDR_EFIS_tcas_on=0
+  B747DR_nd_capt_tfc=0
 
 
 end
@@ -3004,7 +3021,8 @@ end
 
 ----- SET STATE TO ENGINES RUNNING ------------------------------------------------------
 function B747_set_inst_ER()
-	
+    simDR_EFIS_tcas_on=0
+    B747DR_nd_capt_tfc=0
 
 	
 end
