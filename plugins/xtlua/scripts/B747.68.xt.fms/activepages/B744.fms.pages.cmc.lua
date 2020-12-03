@@ -52,7 +52,9 @@ fmsPages ["GRDTEST"].getPage=function(self,pgNo,fmsID)
       fmsFunctionsDefs["GRDTEST"]["L1"]={"setpage","GTAC"}
       fmsFunctionsDefs["GRDTEST"]["L2"]={"setpage","GTCABPSI"}
       fmsFunctionsDefs["GRDTEST"]["L3"]={"setpage","GTECS"}
-      fmsFunctionsDefs["GRDTEST"]["L4"]={"setpage","GTYAW"}
+      fmsFunctionsDefs["GRDTEST"]["L4"]={"setpage","GTAPFD"}
+      fmsFunctionsDefs["GRDTEST"]["L5"]={"setpage","GTYAW"}
+      fmsFunctionsDefs["GRDTEST"]["L6"]={"setpage","CMC"}
     return {
             
 "    GROUND TESTS     1/6",
@@ -65,7 +67,7 @@ fmsPages ["GRDTEST"].getPage=function(self,pgNo,fmsID)
 "                        ",
 "<22 AUTOPILOT FLT DIR   ",
 "                        ",
-"<YAW DAMPER             ", 
+"<22 YAW DAMPER          ", 
 "------------------------",
-"                   HELP>"
+"<RETURN            HELP>"
     }
