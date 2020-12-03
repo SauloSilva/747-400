@@ -87,8 +87,8 @@ fmsPages["RTE1"].getPage=function(self,pgNo,fmsID)
   }
   return page 
 end
---fmsFunctionsDefs["RTE1"]["L1"]={"custom2fmc","L1"}
-fmsFunctionsDefs["RTE1"]["L1"]={"setdata","origin"}
+fmsFunctionsDefs["RTE1"]["L1"]={"custom2fmc","L1"}
+--fmsFunctionsDefs["RTE1"]["L1"]={"setdata","origin"}
 fmsFunctionsDefs["RTE1"]["L2"]={"custom2fmc","L2"}
 fmsFunctionsDefs["RTE1"]["L3"]={"custom2fmc","L3"}
 fmsFunctionsDefs["RTE1"]["L4"]={"custom2fmc","L4"}
@@ -677,7 +677,7 @@ function fmsFunctions.setdata(fmsO,value)
      end
    elseif value=="origin" and string.len(fmsO["scratchpad"])>0 then
      fmsFunctions["custom2fmc"](fmsO,"L1")
-     fmsModules:setData("crzalt","*****") -- clear cruise alt /crzalt when entering a new source airport
+     fmsModules:setData("crzalt","*****") -- clear cruise alt /crzalt when entering a new source airport (this is broken and currently disabled)
    elseif value=="airportgate" and string.len(fmsO["scratchpad"])>0 then
     local lat=toDMS(simDR_latitude,true)
     local lon=toDMS(simDR_longitude,false)
