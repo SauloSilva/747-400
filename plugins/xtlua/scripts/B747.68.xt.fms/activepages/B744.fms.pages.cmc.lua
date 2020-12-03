@@ -1,5 +1,5 @@
 fmsPages["CMC"]=createPage("CMC")
-fmsPages [“CMC”].getPage=function(self,pgNo,fmsID)
+fmsPages ["CMC"].getPage=function(self,pgNo,fmsID)
 
   if pgNo==1 then 
       fmsFunctionsDefs["CMC"]["L1"]={"setpage","PLFAULTS"}
