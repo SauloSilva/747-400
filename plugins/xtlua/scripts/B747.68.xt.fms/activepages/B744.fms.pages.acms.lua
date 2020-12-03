@@ -64,3 +64,42 @@ fmsPages [“REPORTS”].getPage=function(self,pgNo,fmsID)
     }
 end
 end
+  
+fmsPages["DOCDATA"]=createPage("DOCDATA")
+fmsPages [“DOCDATA”].getPage=function(self,pgNo,fmsID)
+  if pgNo==1 then
+  return {
+            
+"   ACMS DOC DATA     1/2",
+"                        ",
+"EHRS.1 000111           ",
+"                        ",
+"EHRS.2 000111           ",
+"                        ",
+"EHRS.3 000111           ",
+"                        ",
+"EHRS.4 000111           ",
+"                        ",
+"ECYC.1 000042           ",
+" RETURN TO              ",
+"<ACMS INDEX       PRINT>"
+    }
+    
+  elseif pgNo==2 then
+    return {
+"   ACMS DOC DATA     1/2",
+"                        ",
+"ECYC.2 000535           ",
+"                        ",
+"ECYC.3 000513           ",
+"                        ",
+"ECYC.4 000522           ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+" RETURN TO              ",
+"<ACMS INDEX       PRINT>"
+    }
+end
+end
