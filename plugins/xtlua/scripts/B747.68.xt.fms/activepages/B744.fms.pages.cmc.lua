@@ -95,3 +95,27 @@ fmsPages ["GRDTEST"].getPage=function(self,pgNo,fmsID)
 "------------------------",
 "<RETURN            HELP>"
     }
+    
+  elseif pgNo==3 then
+      fmsFunctionsDefs["GRDTEST"]["L1"]={"setpage","GTFLAP"}
+      fmsFunctionsDefs["GRDTEST"]["L2"]={"setpage","GTSTALL"}
+      fmsFunctionsDefs["GRDTEST"]["L3"]={"setpage","GTFUEL"}
+      fmsFunctionsDefs["GRDTEST"]["L4"]={"setpage","GTHYD"}
+      fmsFunctionsDefs["GRDTEST"]["L5"]={"setpage","GTICE"}
+      fmsFunctionsDefs["GRDTEST"]["L6"]={"setpage","CMC"}
+    return {
+      
+"    GROUND TESTS     3/6",
+"                        ",
+"<27 FLAP CONTROL        ",
+"                        ",
+"<27 STALL WARNING       ",
+"                        ",
+"<28 FUEL                ",
+"                        ",
+"<29 HYDRAULIC POWER     ",
+"                        ",
+"<30 ICE AND RAIN        ", 
+"------------------------",
+"<RETURN            HELP>"
+    }
