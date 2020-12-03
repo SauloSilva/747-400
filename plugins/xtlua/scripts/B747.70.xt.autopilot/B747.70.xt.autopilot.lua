@@ -1848,7 +1848,7 @@ function B747_ap_speed()
       
       if B747DR_ap_inVNAVdescent ==0 and spdval~=nil and altval~=nil and simDR_pressureAlt1>=altval and (B747DR_efis_baro_std_capt_switch_pos==0 or B747DR_efis_baro_std_fo_switch_pos==0)  then 
 	if simDR_pressureAlt1<=spdtransalt then above=spdtransalt end
-	vnavSPD_conditions["above"]=above
+	vnavSPD_conditions["above"]=simDR_pressureAlt1+500
 	if simDR_pressureAlt1<=altval3 then 
 	  vnavSPD_conditions["below"]=simDR_pressureAlt1-1000
 	else
@@ -1907,12 +1907,12 @@ function B747_ap_speed()
 	vnavSPD_conditions["name"]="crzspd"
 	vnavSPD_conditions["crzAlt"]=B747BR_cruiseAlt
 	vnavSPD_conditions["crzSpd"]=fmsData["crzspd"]
-	switchingIASMode=1
-	simDR_autopilot_airspeed_is_mach = 1
-	B747DR_ap_ias_dial_value = spdval/10
-	lastap_dial_airspeed=B747DR_ap_ias_dial_value*0.01
-	run_after_time(B747_updateIASSpeed, 0.25)
-	print("Now in cruise speed")
+-- 	switchingIASMode=1
+-- 	simDR_autopilot_airspeed_is_mach = 1
+-- 	B747DR_ap_ias_dial_value = spdval/10
+-- 	lastap_dial_airspeed=B747DR_ap_ias_dial_value*0.01
+-- 	run_after_time(B747_updateIASSpeed, 0.25)
+	print("approaching cruise speed")
 	--[[if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 then							-- AUTOTHROTTLE IS "OFF"
 	  simDR_autopilot_autothrottle_enabled = 1									-- ACTIVATE THE AUTOTHROTTLE  
 	end]]	
