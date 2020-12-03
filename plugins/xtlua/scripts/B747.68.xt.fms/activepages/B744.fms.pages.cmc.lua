@@ -119,3 +119,27 @@ fmsPages ["GRDTEST"].getPage=function(self,pgNo,fmsID)
 "------------------------",
 "<RETURN            HELP>"
     }
+    
+  elseif pgNo==4 then
+      fmsFunctionsDefs["GRDTEST"]["L1"]={"setpage","GTWARN"}
+      fmsFunctionsDefs["GRDTEST"]["L2"]={"setpage","GTREC"}
+      fmsFunctionsDefs["GRDTEST"]["L3"]={"setpage","GTBRAKE"}
+      fmsFunctionsDefs["GRDTEST"]["L4"]={"setpage","GTPSEU"}
+      fmsFunctionsDefs["GRDTEST"]["L5"]={"setpage","GTBRKTEMP"}
+      fmsFunctionsDefs["GRDTEST"]["L6"]={"setpage","CMC"}
+    return {
+      
+"    GROUND TESTS     4/6",
+"                        ",
+"<31 INDICATING/WARNING  ",
+"                        ",
+"<31 RECORDING           ",
+"                        ",
+"<32 BRAKE CONTROL       ",
+"                        ",
+"<32 PSEU SYSTEM         ",
+"                        ",
+"<32 BRAKE TEMPERATURE   ", 
+"------------------------",
+"<RETURN            HELP>"
+    }
