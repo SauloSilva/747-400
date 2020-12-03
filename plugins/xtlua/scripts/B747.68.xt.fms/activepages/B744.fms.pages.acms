@@ -25,3 +25,23 @@ fmsPages [“ACMS”].getPage=function(self,pgNo,fmsID)
       fmsFunctionsDefs["ACMS"]["R1"]={"setpage","MANIT"}
       fmsFunctionsDefs["ACMS"]["R2"]={"setpage","STATUS"}
       fmsFunctionsDefs["ACMS"]["R3"]={"setpage","RTPRINT"}
+      
+fmsPages["REPORTS"]=createPage("REPORTS")
+fmsPages [“REPORTS”].getPage=function(self,pgNo,fmsID)
+
+  return {
+            
+"      ACMS REPORTS   1/2",
+" RPT   STORED THIS FLT  ",
+" 01 ENG CRUISE        00",
+" 02 CRUSE PERF        00",
+" 04 ENG TAKEOFF       00",
+" 06 ENG GAS PT AD     00",
+" 07 ENG MECH ADV      00",
+" 09 ENG DIVERG        00",
+" 11 ENG RUN UP        00",
+" -----------------------",
+"--:RPT LOG    TRIGGER:--", 
+"                        ",
+"<ACMS INDEX       PRINT>"
+    }
