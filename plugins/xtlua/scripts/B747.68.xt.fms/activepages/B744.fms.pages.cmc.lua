@@ -71,3 +71,12 @@ fmsPages ["GRDTEST"].getPage=function(self,pgNo,fmsID)
 "------------------------",
 "<RETURN            HELP>"
     }
+    
+  elseif pgNo==2 then
+      fmsFunctionsDefs["GRDTEST"]["L1"]={"setpage","GTCOMM"}
+      fmsFunctionsDefs["GRDTEST"]["L2"]={"setpage","GTELEC"}
+      fmsFunctionsDefs["GRDTEST"]["L3"]={"setpage","GTFIRE"}
+      fmsFunctionsDefs["GRDTEST"]["L4"]={"setpage","GTAIL"}
+      fmsFunctionsDefs["GRDTEST"]["L5"]={"setpage","GTRUDR"}
+      fmsFunctionsDefs["GRDTEST"]["L6"]={"setpage","CMC"}
+    return {
