@@ -11,9 +11,17 @@ fmsPages [“ACMS”].getPage=function(self,pgNo,fmsID)
 "                        ",
 "<DATA DISPLAY  RT PRINT>",
 "                        ",
-"<GROUND TESTS           ",
+"                        ",
 "                        ",
 "                        ", 
 "------------------------",
 "                  PRINT>"
     }
+    
+      fmsFunctionsDefs["ACMS"]["L1"]={"setpage","REPORTS"}
+      fmsFunctionsDefs["ACMS"]["L2"]={"setpage","DOCDATA"}
+      fmsFunctionsDefs["ACMS"]["L3"]={"setpage","DATDISP"}
+      
+      fmsFunctionsDefs["ACMS"]["R1"]={"setpage","MANIT"}
+      fmsFunctionsDefs["ACMS"]["R2"]={"setpage","STATUS"}
+      fmsFunctionsDefs["ACMS"]["R3"]={"setpage","RTPRINT"}
