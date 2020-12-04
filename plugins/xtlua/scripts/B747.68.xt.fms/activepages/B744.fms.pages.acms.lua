@@ -23,8 +23,6 @@ fmsPages ["ACMS"].getPage=function(self,pgNo,fmsID)
       fmsFunctionsDefs["ACMS"]["L3"]={"setpage","DATDISP"}
       
       fmsFunctionsDefs["ACMS"]["R1"]={"setpage","MANIT"}
-      fmsFunctionsDefs["ACMS"]["R2"]={"setpage","STATUS"}
-      fmsFunctionsDefs["ACMS"]["R3"]={"setpage","RTPRINT"}
       
 fmsPages["REPORTS"]=createPage("REPORTS")
 fmsPages ["REPORTS"].getPage=function(self,pgNo,fmsID)
