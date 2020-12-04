@@ -131,7 +131,7 @@ function makeIcon(iconTextData,navtype,text,latitude,longitude,distance)
   else
     
     if (heading_diff < -110 or heading_diff > 110) and distance> 5 and B747_nd_map_center_capt<1 then return end
-     displayDistance=distance*(640/ranges[simDR_range_dial_capt + 1])
+     displayDistance=distance*(640/ranges[simDR_range_dial_fo + 1])
      if displayDistance> 200 and B747_nd_map_center_capt>0 then return end
     lastNavaid=lastFONavaid
     apt=B747DR_nd_fo_apt
@@ -178,6 +178,8 @@ function makeIcon(iconTextData,navtype,text,latitude,longitude,distance)
   else
     return
   end
+  iconTextData[lastNavaid].latitude=latitude
+  iconTextData[lastNavaid].longitude=longitude
   if iconTextData==iconTextDataCapt then
     B747DR_text_capt_show[lastNavaid]=1
     B747DR_text_capt_heading[lastNavaid]=heading_diff
@@ -191,7 +193,40 @@ function makeIcon(iconTextData,navtype,text,latitude,longitude,distance)
   end
   usedNaviadsTable[text]=true;
 end
+
+function updateIcon(iconData,n,isCaptain)
+   local distance = getDistance(simDR_latitude,simDR_longitude,iconData[n].latitude,iconData[n].longitude)
+  local abs_heading=getHeading(simDR_latitude,simDR_longitude,iconData[n].latitude,iconData[n].longitude)
+  local heading_diff=0
+  if simDR_map_mode==2 then
+    mag_diff=getHeadingDifference(simDR_true_heading,simDR_mag_heading)
+    heading_diff=getHeadingDifference(simDR_ground_track-mag_diff,abs_heading)
+  else
+    heading_diff=getHeadingDifference(simDR_true_heading,abs_heading)
+  end
+  if isCaptain==1 then
+    displayDistance=distance*(640/ranges[simDR_range_dial_capt + 1])
+    B747DR_text_capt_heading[n]=heading_diff
+    B747DR_text_capt_distance[n]=displayDistance
+  else
+     displayDistance=distance*(640/ranges[simDR_range_dial_fo + 1])
+     B747DR_text_fo_heading[n]=heading_diff
+     B747DR_text_fo_distance[n]=displayDistance
+
+  end
+end
 function updateIcons()
+  for n=0,lastCaptNavaid,1 do
+    if B747DR_text_capt_show[n]==0 then break end
+    updateIcon(iconTextDataCapt,n,1)
+  end
+  for n=0,lastFONavaid,1 do
+    if B747DR_text_fo_show[n]==0 then break end
+    updateIcon(iconTextDataFO,n,0)
+  end
+end
+
+function newIcons()
   local inRange=0
   lastCaptNavaid=0
   lastFONavaid=0
@@ -254,6 +289,7 @@ function after_physics()
   lastUpdate=simDRTime
   decodeNAVAIDS()
   decodeFlightPlan()
+  newIcons()
   print("navaids size="..table.getn(currentNaviadsTable))
   print("fms size="..table.getn(fmsTable))
   
