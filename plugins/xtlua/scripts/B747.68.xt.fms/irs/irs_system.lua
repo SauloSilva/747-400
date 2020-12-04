@@ -131,7 +131,9 @@ end
 irsSystem.update=function()
   --GPS/IRS DISPLAY
   B747DR_ND_GPS_Line = "GPS"
-  
+  if B747DR_iru_status[0]==0 then irsSystem["irsL"]["aligned"] = false end
+  if B747DR_iru_status[1]==0 then irsSystem["irsC"]["aligned"] = false end
+  if B747DR_iru_status[2]==0 then irsSystem["irsR"]["aligned"] = false end
   if irsSystem["irsL"]["aligned"] == true then
 	B747DR_ND_IRS_Line = "IRS (L)"
   elseif irsSystem["irsC"]["aligned"] == true then
@@ -142,7 +144,7 @@ irsSystem.update=function()
   if irsSystem["irsL"]["aligned"] == true and irsSystem["irsC"]["aligned"] == true and irsSystem["irsR"]["aligned"] == true then
 	B747DR_ND_IRS_Line = "IRS (3)"
   end
-
+    
     if irsSystem["setPos"]==true and irsSystem[irsFromNum(B747DR_irs_src_capt)]["aligned"]==true then B747DR_pfd_mode_capt=1 else B747DR_pfd_mode_capt=0 end
     if irsSystem["setPos"]==true and irsSystem[irsFromNum(B747DR_irs_src_fo)]["aligned"]==true then B747DR_pfd_mode_fo=1 else B747DR_pfd_mode_fo=0 end
     

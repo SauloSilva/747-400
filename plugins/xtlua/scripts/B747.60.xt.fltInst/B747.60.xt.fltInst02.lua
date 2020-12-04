@@ -130,7 +130,13 @@ simDR_vvi_fpm_pilot                 = find_dataref("sim/cockpit2/gauges/indicato
 
 simDR_EFIS_wxr_on                   = find_dataref("sim/cockpit2/EFIS/EFIS_weather_on")
 simDR_EFIS_tcas_on                  = find_dataref("sim/cockpit2/EFIS/EFIS_tcas_on")
-B747DR_nd_capt_tfc	            = find_dataref("laminar/B747/nd/data/tfc")
+B747DR_nd_capt_tfc	            = find_dataref("laminar/B747/nd/capt/tfc")
+B747DR_nd_fo_tfc	            = find_dataref("laminar/B747/nd/fo/tfc")
+B747DR_nd_capt_tcas_off             = find_dataref("laminar/B747/nd/capt/tcas_off")
+B747DR_nd_fo_tcas_off         	    = find_dataref("laminar/B747/nd/fo/tcas_off")
+B747DR_pfd_mode_capt		    = find_dataref("laminar/B747/pfd/capt/irs")
+B747DR_pfd_mode_fo		    = find_dataref("laminar/B747/pfd/fo/irs")
+
 B747DR_xpdr_sel_pos                 = find_dataref("laminar/B747/flt_mgmt/txpdr/mode_sel_pos")
 --simDR_acf_weight_payload_kg         = find_dataref("sim/flightmodel/weight/m_fixed")
 simDR_acf_weight_total_kg           = find_dataref("sim/flightmodel/weight/m_total")
@@ -993,18 +999,14 @@ function B747_nd_center_capt_switch_CMDhandler(phase, duration)
     end
 end
 
+
+local traffic_Selected=0
 function B747_nd_traffic_capt_switch_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_nd_traffic_capt_switch_pos = 1
         --simCMD_EFIS_tcas:once()
+	traffic_Selected=1-traffic_Selected
 	
-	if B747DR_xpdr_sel_pos>2 then
-	  B747DR_nd_capt_tfc=1-B747DR_nd_capt_tfc
-	  simDR_EFIS_tcas_on=B747DR_nd_capt_tfc
-	else
-	  simDR_EFIS_tcas_on=0
-	  B747DR_nd_capt_tfc=0
-	end
     elseif phase == 2 then
         B747DR_nd_traffic_capt_switch_pos = 0
     end
@@ -1154,14 +1156,8 @@ function B747_nd_traffic_fo_switch_CMDhandler(phase, duration)
         B747DR_nd_traffic_fo_switch_pos = 1
         --simCMD_EFIS_tcas:once()
 	
+	traffic_Selected=1-traffic_Selected
 	
-	if B747DR_xpdr_sel_pos>2 then
-	  B747DR_nd_capt_tfc=1-B747DR_nd_capt_tfc
-	  simDR_EFIS_tcas_on=B747DR_nd_capt_tfc
-	else
-	  simDR_EFIS_tcas_on=0
-	  B747DR_nd_capt_tfc=0
-	end
     elseif phase == 2 then
         B747DR_nd_traffic_fo_switch_pos = 0
     end
@@ -2356,6 +2352,7 @@ end
 
 
 ----- ND MODES --------------------------------------------------------------------------
+local seenRASet=0
 function B747_nd_EFIS_map_modes()
 
     local mapCenter=simDR_EFIS_map_is_center--force read state
@@ -2364,7 +2361,39 @@ function B747_nd_EFIS_map_modes()
     else
         simDR_EFIS_map_is_center = 1
     end
-
+    local capttfc=0
+    local fotfc=0
+    local capttcas_off=0
+    local fotcas_off=0
+    if seenRASet==0 and B747DR_xpdr_sel_pos==4 then
+      seenRASet=1
+    end
+    if seenRASet==0 and B747DR_pfd_mode_capt==1 then --TA/RA never selected, ND IRS aligned, TCAS OFF ND Messages
+      capttcas_off=1
+    elseif B747DR_xpdr_sel_pos<=2 and B747DR_pfd_mode_capt==1 and traffic_Selected==1 then
+      capttcas_off=1
+    elseif B747DR_xpdr_sel_pos>2 and B747DR_pfd_mode_capt==1 and traffic_Selected==1 then
+      capttfc=1
+    end
+    
+    if seenRASet==0 and B747DR_pfd_mode_fo==1 then --TA/RA never selected, ND IRS aligned, TCAS OFF ND Messages
+      fotcas_off=1
+    elseif B747DR_xpdr_sel_pos<=2 and B747DR_pfd_mode_fo==1 and traffic_Selected==1 then
+      fotcas_off=1
+    elseif B747DR_xpdr_sel_pos>2 and B747DR_pfd_mode_fo==1 and traffic_Selected==1 then
+      fotfc=1
+    end
+    
+    if capttfc==1 or fotfc==1 then
+      simDR_EFIS_tcas_on=1
+    else
+      simDR_EFIS_tcas_on=0
+    end
+    
+    B747DR_nd_capt_tfc=capttfc
+    B747DR_nd_fo_tfc=fotfc
+    B747DR_nd_capt_tcas_off=capttcas_off
+    B747DR_nd_fo_tcas_off=fotcas_off
 end
 
 

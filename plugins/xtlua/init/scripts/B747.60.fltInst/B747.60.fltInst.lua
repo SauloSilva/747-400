@@ -114,8 +114,8 @@ B747DR_nd_capt_vor_ndb                          = deferred_dataref("laminar/B747
 B747DR_nd_fo_vor_ndb                          	= deferred_dataref("laminar/B747/nd/data/fo/vor_ndb", "number")
 B747DR_nd_capt_apt	                        = deferred_dataref("laminar/B747/nd/data/capt/apt", "number")
 B747DR_nd_fo_apt	                        = deferred_dataref("laminar/B747/nd/data/fo/apt", "number")
-B747DR_nd_capt_tfc	                        = deferred_dataref("laminar/B747/nd/data/tfc", "number")
-
+B747DR_nd_capt_tfc	                        = deferred_dataref("laminar/B747/nd/capt/tfc", "number")
+B747DR_nd_fo_tfc	                        = deferred_dataref("laminar/B747/nd/fo/tfc", "number")
 
 B747_nd_vorL_ID_flag_capt                       = deferred_dataref("laminar/B747/nd/vorL_id_flag/capt", "number")
 B747_nd_vorR_ID_flag_capt                       = deferred_dataref("laminar/B747/nd/vorR_id_flag/capt", "number")
