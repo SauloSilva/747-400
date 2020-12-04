@@ -115,7 +115,7 @@ fmsPages ["DATDISP"].getPage=function(self,pgNo,fmsID)
             
 "   ACMS DATA DISPLAY    ",
 "                        ",
-"<ALPHA CALLUOS          ",
+"<ALPHA CALLUPS          ",
 "                        ",
 "<DISCRETE INPUTS        ",
 "                        ",
@@ -127,3 +127,7 @@ fmsPages ["DATDISP"].getPage=function(self,pgNo,fmsID)
 "------------------------",
 "<RETURN           PRINT>"
     }
+      fmsFunctionsDefs["DATDISP"]["L1"]={"setpage","ALPHACALL"}
+      fmsFunctionsDefs["DATDISP"]["L2"]={"setpage","DISCINP"}
+      fmsFunctionsDefs["DATDISP"]["L3"]={"setpage","DITS"}
+      fmsFunctionsDefs["DATDISP"]["L6"]={"setpage","ACMS"}
