@@ -131,3 +131,24 @@ fmsPages ["DATDISP"].getPage=function(self,pgNo,fmsID)
       fmsFunctionsDefs["DATDISP"]["L2"]={"setpage","DISCINP"}
       fmsFunctionsDefs["DATDISP"]["L3"]={"setpage","DITS"}
       fmsFunctionsDefs["DATDISP"]["L6"]={"setpage","ACMS"}
+    
+fmsPages["ALPHACALL"]=createPage("ALPHACALL")
+fmsPages ["ALPHACALL"].getPage=function(self,pgNo,fmsID)
+
+  return {
+            
+"ACMS ALPHA CALLUP       ",
+"                        ",
+"----   SELECTED DATA    ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+" UNFROZEN NOT RECORDING ",
+"<FREEZE    START RECORD>",
+"RETURN TO               ",
+"<DATA DISPLAY     PRINT>"
+    }
+      fmsFunctionsDefs["ALPHACALL"]["L6"]={"setpage","ACMS"}
