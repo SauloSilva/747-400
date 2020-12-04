@@ -27,7 +27,7 @@ fmsPages ["ACMS"].getPage=function(self,pgNo,fmsID)
       fmsFunctionsDefs["ACMS"]["R3"]={"setpage","RTPRINT"}
       
 fmsPages["REPORTS"]=createPage("REPORTS")
-fmsPages [“REPORTS”].getPage=function(self,pgNo,fmsID)
+fmsPages ["REPORTS"].getPage=function(self,pgNo,fmsID)
   if pgNo==1 then
       fmsFunctionsDefs["REPORTS"]["L6"]={"setpage","ACMS"}
   return {
