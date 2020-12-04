@@ -206,14 +206,14 @@ end
 function B747_flt_xpdr_mode_sel_dial_up_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_xpdrMode_sel_pos = math.min(B747DR_xpdrMode_sel_pos+1, 4)
-	if B747DR_xpdrMode_sel_pos>2 and B747DR_nd_capt_tfc >0 then simDR_EFIS_tcas_on =1 else simDR_EFIS_tcas_on =0 end
+	if B747DR_xpdrMode_sel_pos<=2 then simDR_EFIS_tcas_on =0 B747DR_nd_capt_tfc = 0 end
         simDR_xpdr_mode = math.min(B747DR_xpdrMode_sel_pos+1,2)
     end
 end
 function B747_flt_xpdr_mode_sel_dial_dn_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_xpdrMode_sel_pos = math.max(B747DR_xpdrMode_sel_pos-1, 0)
-	if B747DR_xpdrMode_sel_pos>2 and B747DR_nd_capt_tfc >0 then simDR_EFIS_tcas_on =1 else simDR_EFIS_tcas_on =0 end
+	if B747DR_xpdrMode_sel_pos<=2 then simDR_EFIS_tcas_on =0 B747DR_nd_capt_tfc = 0 end
         simDR_xpdr_mode = math.min(B747DR_xpdrMode_sel_pos+1,2)
     end
 end
