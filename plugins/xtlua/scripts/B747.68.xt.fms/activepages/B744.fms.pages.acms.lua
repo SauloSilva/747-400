@@ -107,3 +107,23 @@ fmsPages [“DOCDATA”].getPage=function(self,pgNo,fmsID)
     }
 end
 end
+  
+fmsPages["DATDISP"]=createPage("DATDISP")
+fmsPages ["DATDISP"].getPage=function(self,pgNo,fmsID)
+
+  return {
+            
+"   ACMS DATA DISPLAY    ",
+"                        ",
+"<ALPHA CALLUOS          ",
+"                        ",
+"<DISCRETE INPUTS        ",
+"                        ",
+"<DITS DATA              ",
+"                        ",
+"                        ",
+"                        ",
+"                        ", 
+"------------------------",
+"<RETURN           PRINT>"
+    }
