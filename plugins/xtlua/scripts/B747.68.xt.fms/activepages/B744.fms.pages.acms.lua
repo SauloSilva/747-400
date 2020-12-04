@@ -152,3 +152,24 @@ fmsPages ["ALPHACALL"].getPage=function(self,pgNo,fmsID)
 "<DATA DISPLAY     PRINT>"
     }
       fmsFunctionsDefs["ALPHACALL"]["L6"]={"setpage","ACMS"}
+      
+fmsPages["DITS"]=createPage("DITS")
+fmsPages ["DITS"].getPage=function(self,pgNo,fmsID)
+        
+  return {
+        
+"     ACMS DITS DATA     ",
+" PORT/LABEL/SDI         ",
+"--/---/--               ",
+"                        ",
+" P:- SSM:-- SDI:--      ",
+" 2        21             ",
+"                        ",
+"                        ",
+"+.       NOT SCALED     ",
+" UNFROZEN NOT RECORDING ",
+"<FREEZE    START RECORD>",
+"RETURN TO               ",
+"<DATA DISPLAY     PRINT>"
+    }
+      fmsFunctionsDefs["DITS"]["L6"]={"setpage","ACMS"}
