@@ -148,11 +148,32 @@ fmsPages ["ALPHACALL"].getPage=function(self,pgNo,fmsID)
 "                        ",
 " UNFROZEN NOT RECORDING ",
 "<FREEZE    START RECORD>",
-"RETURN TO               ",
+" RETURN TO              ",
 "<DATA DISPLAY     PRINT>"
     }
       fmsFunctionsDefs["ALPHACALL"]["L6"]={"setpage","ACMS"}
-      
+
+fmsPages["DISCINP"]=createPage("DISCINP")
+fmsPages ["DISCINP"].getPage=function(self,pgNo,fmsID)
+
+  return {
+            
+"  ACMS DISCRETE INPUTS  ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+" RETURN TO              ",
+"<DATA DISPLAY     PRINT>"
+    }
+      fmsFunctionsDefs["DISCINP"]["L6"]={"setpage","ACMS"}
+        
 fmsPages["DITS"]=createPage("DITS")
 fmsPages ["DITS"].getPage=function(self,pgNo,fmsID)
         
@@ -169,7 +190,7 @@ fmsPages ["DITS"].getPage=function(self,pgNo,fmsID)
 "+.       NOT SCALED     ",
 " UNFROZEN NOT RECORDING ",
 "<FREEZE    START RECORD>",
-"RETURN TO               ",
+" RETURN TO              ",
 "<DATA DISPLAY     PRINT>"
     }
       fmsFunctionsDefs["DITS"]["L6"]={"setpage","ACMS"}
