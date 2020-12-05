@@ -52,13 +52,14 @@ B747DR_nd_capt_apt	                = find_dataref("laminar/B747/nd/data/capt/apt
 B747DR_nd_fo_apt	                = find_dataref("laminar/B747/nd/data/fo/apt")
 
 local ranges = {10, 20, 40, 80, 160, 320, 640}
-local usedNaviadsTable={}
+local usedNaviadsTableFO={}
+local usedNaviadsTableCapt={}
 local currentNaviadsTable={}
 local fmsTable={}
 local lastCaptNavaid=0
 local lastFONavaid=0
 local lastUpdate=0
-
+local lastUpdateIcon=0
 local nLength=0
 
 dofile("json/json.lua")
@@ -105,7 +106,8 @@ function getDistance(lat1,lon1,lat2,lon2)
   return retVal
 end
 function makeIcon(iconTextData,navtype,text,latitude,longitude,distance)
-  if text~="LATLON" and usedNaviadsTable[text]~=nil then return end
+  if text~="LATLON" and iconTextData==iconTextDataCapt and usedNaviadsTableCapt[text]~=nil then return end
+  if text~="LATLON" and iconTextData==iconTextDataFO and usedNaviadsTableFO[text]~=nil then return end
   local abs_heading=getHeading(simDR_latitude,simDR_longitude,latitude,longitude)
   local heading_diff=0
   if simDR_map_mode==2 then
@@ -122,23 +124,28 @@ function makeIcon(iconTextData,navtype,text,latitude,longitude,distance)
   local displayDistance=0
   if iconTextData==iconTextDataCapt then
     
-    if (heading_diff < -110 or heading_diff > 110) and distance> 5 and B747_nd_map_center_capt<1 then return end
+    
     displayDistance=distance*(640/ranges[simDR_range_dial_capt + 1])
-    if displayDistance> 200 and B747_nd_map_center_capt>0 then return end
+    if (heading_diff < -135 or heading_diff > 135) and displayDistance> 160 and B747_nd_map_center_capt<1 then return end
+    if displayDistance> 250 and B747_nd_map_center_capt>0 then return end
+    if (heading_diff < -45 or heading_diff > 45) and displayDistance> 480 and B747_nd_map_center_capt<1 then return end
+    if (heading_diff < -55 or heading_diff > 55) and displayDistance> 400 and B747_nd_map_center_capt<1 then return end
     lastNavaid=lastCaptNavaid
     apt=B747DR_nd_capt_apt
     vor_ndb=B747DR_nd_capt_vor_ndb
   else
-    
-    if (heading_diff < -110 or heading_diff > 110) and distance> 5 and B747_nd_map_center_capt<1 then return end
-     displayDistance=distance*(640/ranges[simDR_range_dial_fo + 1])
-     if displayDistance> 200 and B747_nd_map_center_capt>0 then return end
+    displayDistance=distance*(640/ranges[simDR_range_dial_fo + 1])
+    if (heading_diff < -135 or heading_diff > 135) and displayDistance> 160 and B747_nd_map_center_fo<1 then return end 
+     if displayDistance> 250 and B747_nd_map_center_fo>0 then return end
+     if (heading_diff < -45 or heading_diff > 45) and displayDistance> 480 and B747_nd_map_center_fo<1 then return end
+     if (heading_diff < -55 or heading_diff > 55) and displayDistance> 400 and B747_nd_map_center_fo<1 then return end
     lastNavaid=lastFONavaid
     apt=B747DR_nd_fo_apt
     vor_ndb=B747DR_nd_fo_vor_ndb
   end
   
   if lastNavaid > 59 then return end
+  
   if navtype==1 and apt>0 then --airport
     iconTextData.icons[lastNavaid]=2
     iconTextData[lastNavaid].whitetext=text
@@ -185,13 +192,15 @@ function makeIcon(iconTextData,navtype,text,latitude,longitude,distance)
     B747DR_text_capt_heading[lastNavaid]=heading_diff
     B747DR_text_capt_distance[lastNavaid]=displayDistance
     lastCaptNavaid=lastCaptNavaid+1
+    usedNaviadsTableCapt[text]=true;
   else
      B747DR_text_fo_show[lastNavaid]=1
      B747DR_text_fo_heading[lastNavaid]=heading_diff
      B747DR_text_fo_distance[lastNavaid]=displayDistance
      lastFONavaid=lastFONavaid+1
+     usedNaviadsTableFO[text]=true;
   end
-  usedNaviadsTable[text]=true;
+  
 end
 
 function updateIcon(iconData,n,isCaptain)
@@ -227,7 +236,7 @@ function updateIcons()
 end
 
 function newIcons()
-  local inRange=0
+
   lastCaptNavaid=0
   lastFONavaid=0
   
@@ -238,11 +247,12 @@ function newIcons()
     end
     return
   end
-  usedNaviadsTable={}
+  usedNaviadsTableCapt={}
+  usedNaviadsTableFO={}
   for n=1,table.getn(fmsTable),1 do
     local distance = getDistance(simDR_latitude,simDR_longitude,fmsTable[n][5],fmsTable[n][6])
     if distance < ranges[simDR_range_dial_capt + 1] then 
-      inRange=inRange+1 
+
       if fmsTable[n][10]==true then
 	makeIcon(iconTextDataCapt,3,fmsTable[n][8],fmsTable[n][5],fmsTable[n][6],distance)
       else
@@ -250,7 +260,7 @@ function newIcons()
       end
     end
     if distance < ranges[simDR_range_dial_fo + 1] then 
-      inRange=inRange+1 
+
       if fmsTable[n][10]==true then
 	makeIcon(iconTextDataFO,3,fmsTable[n][8],fmsTable[n][5],fmsTable[n][6],distance)
       else
@@ -261,11 +271,9 @@ function newIcons()
   for n=table.getn(currentNaviadsTable),1,-1 do
     local distance = getDistance(simDR_latitude,simDR_longitude,currentNaviadsTable[n][5],currentNaviadsTable[n][6])
     if distance < ranges[simDR_range_dial_capt + 1] then 
-      inRange=inRange+1 
       makeIcon(iconTextDataCapt,currentNaviadsTable[n][2],currentNaviadsTable[n][8],currentNaviadsTable[n][5],currentNaviadsTable[n][6],distance)
     end
     if distance < ranges[simDR_range_dial_fo + 1] then 
-      inRange=inRange+1 
       makeIcon(iconTextDataFO,currentNaviadsTable[n][2],currentNaviadsTable[n][8],currentNaviadsTable[n][5],currentNaviadsTable[n][6],distance)
     end
   end
@@ -275,7 +283,7 @@ function newIcons()
   for n=lastFONavaid,59,1 do
     B747DR_text_fo_show[n]=0
   end
-  --print("inrange="..inRange)
+  --print(lastCaptNavaid.." ".. lastFONavaid)
 end
 
 
@@ -285,6 +293,11 @@ function after_physics()
   if debug_nd>0 then return end
   local diff=simDRTime-lastUpdate
   updateIcons()
+  local diff2=simDRTime-lastUpdateIcon
+  if diff>2 then 
+    newIcons()
+    lastUpdateIcon=simDRTime
+  end
   if diff<10 then return end
   lastUpdate=simDRTime
   decodeNAVAIDS()
