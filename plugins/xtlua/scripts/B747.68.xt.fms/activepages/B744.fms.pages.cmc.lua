@@ -14,7 +14,7 @@ fmsPages ["CMC"].getPage=function(self,pgNo,fmsID)
 "                        ",
 "<CONFIDENCE TESTS       ",
 "                        ",
-"<EICAS MANIT PAGES      ",
+"<EICAS MAINT PAGES      ",
 "                        ",
 "<GROUND TESTS           ",
 "                        ",
