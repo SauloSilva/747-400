@@ -5,7 +5,7 @@ fmsPages ["ACMS"].getPage=function(self,pgNo,fmsID)
             
 "       ACMS INDEX       ",
 "                        ",
-"<REPORTS          MANIT>",
+"<REPORTS          MAINT>",
 "                        ",
 "<DOC DATA        STATUS>",
 "                        ",
@@ -22,7 +22,7 @@ fmsPages ["ACMS"].getPage=function(self,pgNo,fmsID)
       fmsFunctionsDefs["ACMS"]["L2"]={"setpage","DOCDATA"}
       fmsFunctionsDefs["ACMS"]["L3"]={"setpage","DATDISP"}
       
-      fmsFunctionsDefs["ACMS"]["R1"]={"setpage","MANIT"}
+      fmsFunctionsDefs["ACMS"]["R1"]={"setpage","MAINT"}
       
 fmsPages["REPORTS"]=createPage("REPORTS")
 fmsPages ["REPORTS"].getPage=function(self,pgNo,fmsID)
