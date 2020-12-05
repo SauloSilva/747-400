@@ -65,10 +65,6 @@ fmsPages ["CONFTEST"].getPage=function(self,pgNo,fmsID)
     }
   
 end
-      fmsFunctionsDefs["CONFTEST"]["L1"]={"setpage","CTSTALL"}
-      fmsFunctionsDefs["CONFTEST"]["L2"]={"setpage","CTSTALR"}
-      fmsFunctionsDefs["CONFTEST"]["L3"]={"setpage","CTTOCONFIG"}
-      fmsFunctionsDefs["CONFTEST"]["L4"]={"setpage","CTGPWC"}
 
 fmsPages["GRDTEST"]=createPage("GRDTEST")
 
