@@ -116,7 +116,16 @@ simDR_esys3              = find_dataref("sim/operation/failures/rel_esys4")
 --*************************************************************************************--
 --** 				              FIND CUSTOM DATAREFS             			    	 **--
 --*************************************************************************************--
-
+B747DR_elec_display_power   = find_dataref("laminar/B747/electrical/display_has_power")
+-- Captain PFD
+-- First Officer PFD
+-- First Officer ND
+-- Captain ND
+-- Upper EIACAS
+-- Lower EICAS
+-- FMS L
+-- FMS R
+-- FMS C
 B747DR_button_switch_position       = find_dataref("laminar/B747/button_switch/position")
 B747DR_elec_ext_pwr_1_switch_mode   = find_dataref("laminar/B747/elec_ext_pwr_1/switch_mode")
 B747DR_elec_ext_pwr_2_switch_mode   = find_dataref("laminar/B747/elec_ext_pwr_2/switch_mode")
@@ -131,7 +140,8 @@ B747DR_simDR_esys0              = find_dataref("laminar/B747/rel_esys")
 B747DR_simDR_esys1              = find_dataref("laminar/B747/rel_esys2")
 B747DR_simDR_esys2              = find_dataref("laminar/B747/rel_esys3")
 B747DR_simDR_esys3              = find_dataref("laminar/B747/rel_esys4")
-
+B747DR_simDR_captain_display              = find_dataref("laminar/B747/electrical/capt_display_power")
+B747DR_simDR_fo_display             = find_dataref("laminar/B747/electrical/fo_display_power")
 
 --*************************************************************************************--
 --** 				        CREATE READ-ONLY CUSTOM DATAREFS               	         **--
@@ -494,12 +504,17 @@ function B747_bus_tie()
     B747DR_simDR_esys2=B747_ternary((B747DR_elec_bus3hot ==1 or simDR_generator_off[2] ==0),0,1)
     B747DR_simDR_esys3=B747_ternary((B747DR_elec_bus4hot ==1 or simDR_generator_off[3] ==0),0,1)
     
-    --Captain Transfer Bus
-    simDR_esys2=B747_ternary((B747DR_simDR_esys1 < 0.05 or (B747DR_simDR_esys0 < 0.05 and B747DR_elec_standby_power_sel_pos>0)),0,6)
-    --FO Transfer Bus
-    simDR_esys1=B747_ternary((B747DR_simDR_esys2 < 0.05 or (B747DR_simDR_esys0 < 0.05 and B747DR_elec_standby_power_sel_pos>0)),0,6)
-    
-    
+    --Captain Transfer Bus simDR_esys2
+    B747DR_simDR_fo_display=B747_ternary((B747DR_simDR_esys1 < 0.05 or (B747DR_simDR_esys0 < 0.05 and B747DR_elec_standby_power_sel_pos>0)),0,6)
+    --FO Transfer Bus simDR_esys1
+    B747DR_simDR_captain_display=B747_ternary((B747DR_simDR_esys2 < 0.05 or (B747DR_simDR_esys0 < 0.05 and B747DR_elec_standby_power_sel_pos>0)),0,6)
+    if failCapt==6 and failFO==6 then --turn off individual displays later
+       simDR_esys1=6
+       simDR_esys2=6
+    else
+       simDR_esys1=0
+       simDR_esys2=0
+    end
 --     B747DR_elec_ext_pwr1_on     
 --     B747DR_elec_ext_pwr2_on      
 --     B747DR_elec_apu_pwr1_on      	
@@ -529,9 +544,22 @@ function B747_bus_tie()
     
     B747DR_elec_bus1hot = B747_ternary((B747DR_button_switch_position[18] > 0.95 and (simDR_generator_off[0] ==0 or B747DR_elec_topleftbus ==1)),1,0)
     B747DR_elec_bus2hot = B747_ternary((B747DR_button_switch_position[19] > 0.95 and (simDR_generator_off[1] ==0 or B747DR_elec_topleftbus ==1)),1,0)
-    B747DR_elec_bus3hot = B747_ternary((B747DR_button_switch_position[20] > 0.95 and (simDR_generator_off[2] ==0 or B747DR_elec_toprightbus ==1)),1,0)
+    B747DR_elec_bus3hot = B747_ternary(((B747DR_button_switch_position[20] > 0.95 and (simDR_generator_off[2] ==0 or B747DR_elec_toprightbus ==1)) or (simDR_battery_on[0] == 1 and B747DR_elec_standby_power_sel_pos>0)),1,0)
     B747DR_elec_bus4hot = B747_ternary((B747DR_button_switch_position[21] > 0.95 and (simDR_generator_off[3] ==0 or B747DR_elec_toprightbus ==1)),1,0)
---[[B747DR_elec_toprightbus      	
+-- Captain PFD
+-- First Officer PFD
+-- First Officer ND
+-- Captain ND
+-- Upper EIACAS
+-- Lower EICAS
+-- FMS C    
+-- FMS R
+-- FMS L
+    B747DR_elec_display_power[6]=6-B747DR_simDR_fo_display
+    B747DR_elec_display_power[7]=6-B747DR_simDR_fo_display
+    B747DR_elec_display_power[8]=6-B747DR_simDR_captain_display
+    
+    --[[B747DR_elec_toprightbus      	
 B747DR_elec_bus1hot      	
 B747DR_elec_bus2hot      	
 B747DR_elec_bus3hot      	

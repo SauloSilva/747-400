@@ -245,6 +245,8 @@ B747DR_FMSdata				= deferred_dataref("laminar/B747/fms/data", "string")
 B747DR_efis_baro_std_capt_switch_pos            = deferred_dataref("laminar/B747/efis/baro_std/capt/switch_pos", "number")
 B747DR_efis_baro_capt_preselect                 = deferred_dataref("laminar/B747/efis/baro/capt/preselect", "number")
 B747DR_efis_baro_std_fo_switch_pos              = deferred_dataref("laminar/B747/efis/baro_std/fo/switch_pos", "number")
+simDR_altimeter_baro_inHg           = find_dataref("sim/cockpit2/gauges/actuators/barometer_setting_in_hg_pilot")
+simDR_altimeter_baro_inHg_fo        = find_dataref("sim/cockpit2/gauges/actuators/barometer_setting_in_hg_copilot")
 --B747DR_efis_baro_fo_set_dial_pos                = deferred_dataref("laminar/B747/efis/baro/fo/set_dial_pos", "number")
 B747DR_efis_baro_fo_preselect                   = deferred_dataref("laminar/B747/efis/baro/fo/preselect", "number")
 B747DR_ap_button_switch_position    	= deferred_dataref("laminar/B747/autopilot/button_switch/position", "array[" .. tostring(NUM_AUTOPILOT_BUTTONS) .. "]")
@@ -1860,9 +1862,11 @@ function B747_ap_speed()
 	vnavSPD_conditions["crzAlt"]=B747BR_cruiseAlt
 	vnavSPD_conditions["crzSpd"]=fmsData["crzspd"]
 	B747DR_efis_baro_std_capt_switch_pos = 1
-	B747DR_efis_baro_capt_preselect  = 29.92
+	--B747DR_efis_baro_capt_preselect  = 29.92
+	simDR_altimeter_baro_inHg = 29.92
 	B747DR_efis_baro_std_fo_switch_pos = 1
-	B747DR_efis_baro_fo_preselect = 29.92
+	--B747DR_efis_baro_fo_preselect = 29.92
+	simDR_altimeter_baro_inHg_fo = 29.92
 	print("standard baro")
 
 	gotVNAVSpeed=true

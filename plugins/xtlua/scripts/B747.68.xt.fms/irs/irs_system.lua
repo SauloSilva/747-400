@@ -128,6 +128,14 @@ function cancelAlign(func)
     stop_timer(func)
   end
 end
+irsSystem.off=function()
+    irs_L_status=irsSystem.getStatus("irsL")
+    irs_C_status=irsSystem.getStatus("irsC")
+    irs_R_status=irsSystem.getStatus("irsR")
+    irsSystem["irsL"]["aligned"] = false
+    irsSystem["irsC"]["aligned"] = false
+    irsSystem["irsR"]["aligned"] = false
+end
 irsSystem.update=function()
   --GPS/IRS DISPLAY
   B747DR_ND_GPS_Line = "GPS"
