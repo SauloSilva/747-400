@@ -44,7 +44,9 @@ fmsPages ["CMC"].getPage=function(self,pgNo,fmsID)
     }
 end
 end
-
+fmsPages["CMC"].getNumPages=function(self)
+  return 2
+end
 fmsPages["CONFTEST"]=createPage("CONFTEST")
 fmsPages ["CONFTEST"].getPage=function(self,pgNo,fmsID) 
     return {
@@ -65,7 +67,7 @@ fmsPages ["CONFTEST"].getPage=function(self,pgNo,fmsID)
     }
   
 end
-
+fmsFunctionsDefs["CONFTEST"]["L6"]={"setpage","CMC"}
 fmsPages["GRDTEST"]=createPage("GRDTEST")
 
 fmsPages ["GRDTEST"].getPage=function(self,pgNo,fmsID)

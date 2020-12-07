@@ -2633,7 +2633,7 @@ function setVmc(weight,flaps)
       flap_Vmc      =B747_rescale(10.0, 137, 30.0, 118, flaps) + weight_factor --0.95/1
     end
     B747DR_airspeed_Vmc = flap_Vmc 
-    print(" " ..weight/1000 .. "t, " .. flaps .. "=" .. math.floor(B747DR_airspeed_Vmc))
+    --print(" " ..weight/1000 .. "t, " .. flaps .. "=" .. math.floor(B747DR_airspeed_Vmc))
 end
 
 -- MISC V-SPEEDS
