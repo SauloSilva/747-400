@@ -2621,7 +2621,20 @@ end
 
 
 
+function setVmc(weight,flaps)
 
+    local weight_factor =  B747_rescale(179000.0, 0, 396000.0, 61.0, weight) 
+    local flap_Vmc      = 0
+    if flaps<1 then
+      flap_Vmc      =B747_rescale(0.0, (179), 1.0, 166, flaps) + weight_factor --13/1
+    elseif flaps<10 then
+      flap_Vmc      =B747_rescale(1.0, 166, 10.0, 137, flaps) + weight_factor --3/1
+    else
+      flap_Vmc      =B747_rescale(10.0, 137, 30.0, 118, flaps) + weight_factor --0.95/1
+    end
+    B747DR_airspeed_Vmc = flap_Vmc 
+    print(" " ..weight/1000 .. "t, " .. flaps .. "=" .. math.floor(B747DR_airspeed_Vmc))
+end
 
 -- MISC V-SPEEDS
 function B747_Vspeeds()
@@ -2665,23 +2678,8 @@ function B747_Vspeeds()
 
 
     -- Vmc (MINIMIMUM OPERATING (CONTROL) MANEUVERING SPEED) (AMBER RANGE)
---     local weight_factor = B747_rescale(178381.0, 0.0, 395991.0, 10.0, simDR_acf_weight_total_kg)
---     local flap_Vmc      = B747_rescale(0.0, 210.0, 30.0, 130.0, simDR_wing_flap1_deg[0])
---     GW 179t Flaps 0 FL100 180
---     GW 179t Flaps 30 Gear Down FL050 118 -62 (flaps)
---     GW 396t Flaps 0 FL100 240 
---     GW 396t Flaps 30 Gear Down FL050 190 -50 (flaps)
-    -- flaps 0 - 30 = -52, -50
-    -- 179 - 396 = +60, +62
-    local weight_factor = B747_rescale(179000.0, -3, 396000.0,59.0, simDR_acf_weight_total_kg)
-    local load_factor = B747_rescale(179000.0, 0, 396000.0, 10.0,simDR_acf_weight_total_kg)
-    local flap_Vmc      = 0
-    if simDR_wing_flap1_deg[0]<20 then
-      flap_Vmc      =B747_rescale(0.0, 182.0, 20.0, 127.0+(load_factor/2), simDR_wing_flap1_deg[0])
-    else
-      flap_Vmc      =B747_rescale(20.0, 127.0+(load_factor/2), 30.0, 121.0+load_factor, simDR_wing_flap1_deg[0])
-    end
-    B747DR_airspeed_Vmc = flap_Vmc + weight_factor
+    setVmc(simDR_acf_weight_total_kg,simDR_wing_flap1_deg[0])
+    
     B747DR_airspeed_window_min = 0
     if simDR_airspeed < B747DR_airspeed_Vmc then B747DR_airspeed_window_min = 1 end
 
