@@ -50,7 +50,11 @@ B747DR_nd_capt_vor_ndb                  = find_dataref("laminar/B747/nd/data/cap
 B747DR_nd_fo_vor_ndb                    = find_dataref("laminar/B747/nd/data/fo/vor_ndb")
 B747DR_nd_capt_apt	                = find_dataref("laminar/B747/nd/data/capt/apt")
 B747DR_nd_fo_apt	                = find_dataref("laminar/B747/nd/data/fo/apt")
+B747DR_pfd_mode_capt		 = find_dataref("laminar/B747/pfd/capt/irs")
+B747DR_pfd_mode_fo		 = find_dataref("laminar/B747/pfd/fo/irs")
 
+local captIRS=0
+local foIRS=0
 local ranges = {10, 20, 40, 80, 160, 320, 640}
 local usedNaviadsTableFO={}
 local usedNaviadsTableCapt={}
@@ -123,7 +127,7 @@ function makeIcon(iconTextData,navtype,text,latitude,longitude,distance)
   local apt=0
   local displayDistance=0
   if iconTextData==iconTextDataCapt then
-    
+    if captIRS==0 then return end
     
     displayDistance=distance*(640/ranges[simDR_range_dial_capt + 1])
     if (heading_diff < -135 or heading_diff > 135) and displayDistance> 160 and B747_nd_map_center_capt<1 then return end
@@ -134,6 +138,7 @@ function makeIcon(iconTextData,navtype,text,latitude,longitude,distance)
     apt=B747DR_nd_capt_apt
     vor_ndb=B747DR_nd_capt_vor_ndb
   else
+    if foIRS==0 then return end
     displayDistance=distance*(640/ranges[simDR_range_dial_fo + 1])
     if (heading_diff < -135 or heading_diff > 135) and displayDistance> 160 and B747_nd_map_center_fo<1 then return end 
      if displayDistance> 250 and B747_nd_map_center_fo>0 then return end
@@ -239,7 +244,8 @@ function newIcons()
 
   lastCaptNavaid=0
   lastFONavaid=0
-  
+  captIRS=B747DR_pfd_mode_capt
+  foIRS=B747DR_pfd_mode_fo
   if simDR_map_mode==3 then
     for n=0,59,1 do
     B747DR_text_capt_show[n]=0
