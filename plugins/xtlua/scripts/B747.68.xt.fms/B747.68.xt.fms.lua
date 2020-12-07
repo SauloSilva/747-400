@@ -261,7 +261,7 @@ function defaultFMSData()
   crzspd="810",
   desspdmach="805",
   desspd="270",
-  destranspd="240",
+  destranspd="250",
   desspdtransalt="10000",
   desrestspd="180",
   desrestalt="5000 ",
