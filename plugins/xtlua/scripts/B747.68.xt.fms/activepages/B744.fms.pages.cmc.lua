@@ -1,5 +1,5 @@
 fmsPages["CMC"]=createPage("CMC")
-fmsPages ["CMC"].getPage=function(self,pgNo,fmsID)
+fmsPages["CMC"].getPage=function(self,pgNo,fmsID)
 
   if pgNo==1 then 
       --fmsFunctionsDefs["CMC"]["L1"]={"setpage","PLFAULTS"}
@@ -48,7 +48,7 @@ fmsPages["CMC"].getNumPages=function(self)
   return 2
 end
 fmsPages["CONFTEST"]=createPage("CONFTEST")
-fmsPages ["CONFTEST"].getPage=function(self,pgNo,fmsID) 
+fmsPages["CONFTEST"].getPage=function(self,pgNo,fmsID) 
     return {
             
 "  CONFIDENCE TESTS   1/1",
@@ -70,7 +70,7 @@ end
 fmsFunctionsDefs["CONFTEST"]["L6"]={"setpage","CMC"}
 fmsPages["GRDTEST"]=createPage("GRDTEST")
 
-fmsPages ["GRDTEST"].getPage=function(self,pgNo,fmsID)
+fmsPages["GRDTEST"].getPage=function(self,pgNo,fmsID)
 
   if pgNo==1 then 
       --fmsFunctionsDefs["GRDTEST"]["L1"]={"setpage","GTAC"}
