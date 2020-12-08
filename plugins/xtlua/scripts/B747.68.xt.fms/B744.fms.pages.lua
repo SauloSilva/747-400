@@ -669,6 +669,7 @@ function fmsFunctions.setdata(fmsO,value)
      B747DR_payload_weight=numPassengers*120
    elseif value=="services" then
      if simDR_acf_m_jettison==0 then
+        fmsModules["cmds"]["laminar/B747/electrical/connect_power"]:once() 
 	fmsModules["cmds"]["sim/ground_ops/service_plane"]:once() 
      end
      fmsModules["lastcmd"]=fmsModules["cmdstrings"]["sim/ground_ops/service_plane"]

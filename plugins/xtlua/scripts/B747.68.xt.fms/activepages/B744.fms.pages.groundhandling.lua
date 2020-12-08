@@ -1,5 +1,5 @@
 
-
+registerFMCCommand("laminar/B747/electrical/connect_power","GRND POWER")
 registerFMCCommand("sim/ground_ops/service_plane","GROUND SERVICES")
 registerFMCCommand("sim/ground_ops/pushback_stop","STOP PUSHBACK")
 registerFMCCommand("sim/ground_ops/pushback_left","PUSHBACK LEFT")
@@ -76,7 +76,7 @@ fmsPages["GNDSRV"].getPage=function(self,pgNo,fmsID)
   "                        ",
   "<REQUEST GROUND SERVICES",
   "                        ",
-  "                        ",
+  "<GROUND POWER           ",
   "                        ",
   " "..lineA,
   "                        ",
@@ -128,6 +128,7 @@ fmsPages["GNDSRV"].getSmallPage=function(self,pgNo,fmsID)
   }
 end
 fmsFunctionsDefs["GNDSRV"]["L1"]={"setdata","services"}
+fmsFunctionsDefs["GNDSRV"]["L2"]={"doCMD","laminar/B747/electrical/connect_power"}
 fmsFunctionsDefs["GNDSRV"]["L3"]={"setdata","fuelpreselect"}
 fmsFunctionsDefs["GNDSRV"]["L6"]={"setpage","GNDHNDL"}
 
