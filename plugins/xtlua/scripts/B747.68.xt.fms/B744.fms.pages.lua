@@ -3,6 +3,14 @@
 *        COPYRIGHT � 2020 Mark Parker/mSparks CC-BY-NC4
 *****************************************************************************************
 ]]
+--Marauder28
+--V Speeds
+B747DR_airspeed_V1			= deferred_dataref("laminar/B747/airspeed/V1", "number")
+B747DR_airspeed_Vr			= deferred_dataref("laminar/B747/airspeed/Vr", "number")
+B747DR_airspeed_V2			= deferred_dataref("laminar/B747/airspeed/V2", "number")
+B747DR_airspeed_flapsRef	= deferred_dataref("laminar/B747/airspeed/flapsRef", "number")
+--Marauder28
+
 fmsFunctions={}
 dofile("acars/acars.lua")
 
@@ -234,7 +242,7 @@ function findILS(value)
 	 if (value==navAids[n][8] or (val~=nil and val==navAids[n][3])) and (direction==nil or getHeadingDifferenceM(direction,navAids[n][4])<bestDist) then
 	    found=true
 	    ilsData=json.encode(navAids[n])
-	    print("Tuning ILS".. ilsData)
+	    print("68 - Tuning ILS".. ilsData)
 	    if direction ~=nil then
 	      bestDist=getHeadingDifferenceM(direction,navAids[n][4])
 	    end
@@ -243,8 +251,8 @@ function findILS(value)
 	    local course=(navAids[n][4]+simDR_variation)
 	    simDR_radio_nav_obs_deg[0]=course
 	    simDR_radio_nav_obs_deg[1]=course
-	    print("Tuned ILS "..course)
-	    print("useThis"..bestDist)
+	    print("68 - Tuned ILS "..course)
+	    print("68 - useThis"..bestDist)
 	  end
       end
    end
@@ -255,14 +263,35 @@ end
 simDR_variation=find_dataref("sim/flightmodel/position/magnetic_variation")
 fmsPages["NAVRAD"]=createPage("NAVRAD")
 
+ils_line1 = ""
+ils_line2 = ""
+park = "PARK"
+original_distance = -1
 fmsPages["NAVRAD"].getPage=function(self,pgNo,fmsID)
   local ils1="                        "
   local ils2="                        "
   local modes=B747DR_radioModes
+  local dist_to_TOD = B747BR_totalDistance - B747BR_tod
   if string.len(ilsData)>1 then
     local ilsNav=json.decode(ilsData)
-    ils1= ilsNav[7]
-    ils2= string.format("%6.2f/%03d%s             ", ilsNav[3]*0.01,(ilsNav[4]+simDR_variation), "˚")
+    ils2= ilsNav[7]
+	ils_line2 = "   "..ils2
+    if original_distance == -1 then
+		original_distance = B747BR_totalDistance  --capture original flightplan distance
+	end
+	--print("Dist to TOD = "..dist_to_tod)	
+    if (dist_to_TOD >= 50 and dist_to_TOD < 200) then
+		--ils2= string.format("%6.2f/%03d%s %4s          .", ilsNav[3]*0.01,(ilsNav[4]+simDR_variation), "˚", park)
+		ils1 = "            "..park
+		ils_line1 = string.format("<%6.2f/%03d%s           ", ilsNav[3]*0.01,(ilsNav[4]+simDR_variation), "˚")
+	elseif (dist_to_TOD < 50) then
+		ils1= string.format("%6.2f/%03d%s          ", ilsNav[3]*0.01,(ilsNav[4]+simDR_variation), "`"..modes:sub(1, 1))
+		ils_line1 = ""
+	end
+  else
+    ils1 = park
+	ils_line1 = ""
+	ils_line2 = ""
   end
   local modes=B747DR_radioModes
   local vorL_radial="---"
@@ -280,12 +309,14 @@ fmsPages["NAVRAD"].getPage=function(self,pgNo,fmsID)
     string.format("                        ", ""),
     string.format("%3s      %3s  %3s    %3s", vorL_obs, vorL_radial,vorR_radial, vorR_obs),
     "                        ",
-    string.format("%06.1f         %06.1f   ", simDR_radio_adf1_freq_hz, simDR_radio_adf2_freq_hz),
+    string.format("%06.1f           %06.1f ", simDR_radio_adf1_freq_hz, simDR_radio_adf2_freq_hz),
     "                        ",
     ils1,
-    ils2,
+--    ils2,
+    "                        ",	
     "                        ", 
-    "--------         -------",
+--    "--------         -------",
+    "                        ", 
     fmsModules["data"]["preselectLeft"].."            "..fmsModules["data"]["preselectRight"],
     }
   return page
@@ -299,12 +330,16 @@ fmsPages["NAVRAD"].getSmallPage=function(self,pgNo,fmsID)
   " CRS      RADIAL     CRS",
   "                        ",
   " ADF L             ADF R",
-  "      M              M  ",
-  " ILS ".. modes:sub(1, 1) .."                  ",
-  "                        ",
+  "      M                M",
+--  " ILS ".. modes:sub(1, 1) .."                  ",
+  " ILS - MLS              ",  
+--  "                        ",
+  ils_line1,
+  ils_line2,
+--  ,
+--  "                        ",
   "                        ",
   "        PRESELECT       ",
-  "                        ",
   "                        ",
   }
 end
@@ -471,9 +506,19 @@ end
 
 -- VALIDATE ENTRY OF WEIGHT UNITS
 function validate_weight_units(value)
-	local val=tostring(value)
+	--local val=tostring(value)
 	print(value)
-	if val == "KGS" or value == "LBS" then
+	if value == "KGS" or value == "LBS" then
+		return true
+	else
+		return false
+	end
+end
+
+-- VALIDATE ENTRY OF SETHDG
+function validate_sethdg(value)
+	print(value)
+	if tonumber(value) >= 0 and tonumber(value) <= 360 then
 		return true
 	else
 		return false
@@ -496,7 +541,9 @@ function preselect_fuel()
 	B747DR_fuel_add=0
 	simDR_m_jettison=simDR_acf_m_jettison
 end
-
+--RS
+--simDR_GRWT=find_dataref("sim/flightmodel/weight/m_total")
+--RS
 function fmsFunctions.setdata(fmsO,value)
   local del=false  
   if fmsO["scratchpad"]=="DELETE" then fmsO["scratchpad"]="" del=true end
@@ -593,26 +640,33 @@ function fmsFunctions.setdata(fmsO,value)
 	setFMSData("desrestalt",validAlt(alt))
       end
     end
-  elseif value=="airportpos" and string.len(fmsO["scratchpad"])>3 then
+  elseif value=="airportpos" then --and string.len(fmsO["scratchpad"])>3 then
     
-    local navAids=json.decode(navAidsJSON)
-    print(table.getn(navAids).." navaids")
-    --print(navAidsJSON)
-    for n=table.getn(navAids),1,-1 do
-      if navAids[n][2] == 1 and navAids[n][8]==fmsO["scratchpad"] then
-	print("navaid "..n.."->".. navAids[n][1].." ".. navAids[n][2].." ".. navAids[n][3].." ".. navAids[n][4].." ".. navAids[n][5].." ".. navAids[n][6].." ".. navAids[n][7].." ".. navAids[n][8])
-	local lat=toDMS(navAids[n][5],true)
-	local lon=toDMS(navAids[n][6],false)
-	
-	setFMSData("irsLat",lat)
-	setFMSData("irsLon",lon)
-	--irsSystem["irsLat"]=lat
-	--irsSystem["irsLon"]=lon
-      end
-      
-      setFMSData("airportpos",fmsO["scratchpad"])
-      setFMSData("airportgate","*****")
-    end
+	if string.len(navAidsJSON) > 1 and string.len(fmsO["scratchpad"])>3 then
+		local navAids=json.decode(navAidsJSON)
+		print(table.getn(navAids).." navaids")
+		--print(navAidsJSON)
+		for n=table.getn(navAids),1,-1 do
+		  if navAids[n][2] == 1 and navAids[n][8]==fmsO["scratchpad"] then
+			print("navaid "..n.."->".. navAids[n][1].." ".. navAids[n][2].." ".. navAids[n][3].." ".. navAids[n][4].." ".. navAids[n][5].." ".. navAids[n][6].." ".. navAids[n][7].." ".. navAids[n][8])
+			local lat=toDMS(navAids[n][5],true)
+			local lon=toDMS(navAids[n][6],false)
+		
+			setFMSData("irsLat",lat)
+			setFMSData("irsLon",lon)
+			--irsSystem["irsLat"]=lat
+			--irsSystem["irsLon"]=lon
+		  end
+		end
+		setFMSData("airportpos",fmsO["scratchpad"])
+		setFMSData("airportgate","----")
+	elseif del == true then
+		setFMSData("airportpos",defaultFMSData().airportpos)
+		setFMSData("airportpos",defaultFMSData().airportgate)
+		setFMSData("irsLat",defaultFMSData().irsLat)
+		setFMSData("irsLon",defaultFMSData().irsLon)		
+	end
+
   elseif value=="flttime" then 
     hhV=string.sub(fmsO["scratchpad"],1,2)
     mmV=string.sub(fmsO["scratchpad"],-2)
@@ -702,6 +756,109 @@ function fmsFunctions.setdata(fmsO,value)
 		simConfigData["data"].weight_display_units = fmsO.scratchpad
 		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
 	end
+
+  elseif value == "codata" and string.len(fmsO["scratchpad"]) > 0 then
+		setFMSData(value, fmsO["scratchpad"])
+  
+  elseif value == "sethdg" then
+	if validate_sethdg(fmsO["scratchpad"]) == false then
+		fmsO["notify"]="INVALID ENTRY"
+	else
+		if fmsModules["data"] ~= "---`" then
+			if (fmsO["scratchpad"] == "0" or fmsO["scratchpad"] == "00" or fmsO["scratchpad"] == "000") then
+				fmsO["scratchpad"] = "360`"
+			end
+			setFMSData(value, fmsO["scratchpad"].."`")
+		end
+	end
+
+  elseif value == "grwt" then
+	if string.len(fmsO["scratchpad"]) > 5 then
+		fmsO["notify"]="INVALID ENTRY"
+		return
+	end
+	local grwt
+	if string.len(fmsO["scratchpad"]) > 0 then
+		if simConfigData["data"].weight_display_units == "LBS" then
+			grwt = fmsO["scratchpad"] / simConfigData["data"].kgs_to_lbs  --store LBS in KGS
+		else
+			grwt = fmsO["scratchpad"]
+		end
+	else
+		grwt = (simDR_GRWT / 1000)
+	end
+	setFMSData(value, grwt)
+	setFMSData("zfw", tonumber(grwt) - (simDR_fuel/1000))
+	calc_CGMAC()  --Recalc CG %MAC and TRIM units
+	if (B747DR_airspeed_V1 < 999 or B747DR_airspeed_Vr < 999 or B747DR_airspeed_V2 < 999) and simDR_onground == 1 then
+		B747DR_airspeed_flapsRef = 0
+		--B747DR_airspeed_V1 = 999
+		--B747DR_airspeed_Vr = 999
+		--B747DR_airspeed_V2 = 999
+		fmsO["notify"] = "TAKEOFF SPEEDS DELETED"
+	end
+
+  elseif value == "zfw" then
+	if string.len(fmsO["scratchpad"]) > 5 then
+		fmsO["notify"]="INVALID ENTRY"
+		return
+	end
+	local zfw
+	if string.len(fmsO["scratchpad"]) > 0 then
+		if simConfigData["data"].weight_display_units == "LBS" then
+			zfw = fmsO["scratchpad"] / simConfigData["data"].kgs_to_lbs  --store LBS in KGS
+		else
+			zfw = fmsO["scratchpad"]
+		end
+	else
+		zfw = (simDR_GRWT-simDR_fuel) / 1000
+	end
+	setFMSData(value, zfw)
+	setFMSData("grwt", tonumber(zfw) + simDR_fuel / 1000)
+	calc_CGMAC()  --Recalc CG %MAC and TRIM units
+	if (B747DR_airspeed_V1 < 999 or B747DR_airspeed_Vr < 999 or B747DR_airspeed_V2 < 999) and simDR_onground == 1 then
+		B747DR_airspeed_flapsRef = 0
+		--B747DR_airspeed_V1 = 999
+		--B747DR_airspeed_Vr = 999
+		--B747DR_airspeed_V2 = 999
+		fmsO["notify"] = "TAKEOFF SPEEDS DELETED"
+	end
+  elseif value == "crzcg" then
+	if string.len(fmsO["scratchpad"]) > 0 and not string.find(fmsO["scratchpad"], " ") then
+		setFMSData(value, fmsO["scratchpad"])
+	end
+	if string.len(fmsModules["data"].crzcg) > 0 then
+		crzcg_lineLg = string.format("%4.1f%%", tonumber(fmsModules["data"].crzcg))
+	end
+  elseif value == "stepsize" then
+	if fmsO["scratchpad"] == "ICAO" then
+		setFMSData(value, fmsO["scratchpad"])
+	elseif tonumber(fmsO["scratchpad"]) == nil then
+		fmsO["notify"] = "INVALID ENTRY"
+	elseif tonumber(fmsO["scratchpad"]) < 0 or tonumber(fmsO["scratchpad"]) > 9000 or math.fmod(tonumber(fmsO["scratchpad"]), 1000) > 0 then  --ensure increments of 1000
+		fmsO["notify"] = "INVALID ENTRY"
+	else
+		setFMSData(value, fmsO["scratchpad"])
+	end
+  elseif value == "cg_mac" then
+	if string.match(fmsO["scratchpad"], "%a") or string.match(fmsO["scratchpad"], "%s") or fmsModules["data"].cg_mac == "--" then
+		fmsO["notify"] = "INVALID ENTRY"
+	elseif string.len(fmsO["scratchpad"]) > 0 then 
+		calc_stab_trim(fmsModules["data"].grwt, fmsO["scratchpad"])
+		setFMSData(value, fmsO["scratchpad"])
+	else
+		calc_stab_trim(fmsModules["data"].grwt, fmsModules["data"].cg_mac)
+	end
+	cg_lineLg = string.format("%2.0f%%", tonumber(fmsModules["data"].cg_mac))
+
+  --[[elseif value == "irsAlignTime" and string.len(fmsO["scratchpad"]) > 0 then
+	if not string.match(fmsO["scratchpad"], "%d") then
+		fmsO["notify"] = "INVALID ENTRY"
+	else
+		setFMSData(value, tonumber(fmsO["scratchpad"]) * 60)
+		simConfigData["data"].irs_align_time = tonumber(fmsO["scratchpad"]) * 60
+		print("FMC IRS = "..fmsO["scratchpad"] * 60)
+	end]]
   elseif fmsO["scratchpad"]=="" and del==false then
       cVal=getFMSData(value)
     

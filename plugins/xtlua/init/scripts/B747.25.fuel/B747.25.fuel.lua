@@ -355,7 +355,7 @@ B747DR_fuel_display_units_eicas			= deferred_dataref("laminar/B747/fuel/fuel_dis
 B747DR_fuel_preselect_temp				= deferred_dataref("laminar/B747/fuel/fuel_preselect_temp", "number")
 
 -- Holds all SimConfig options
-B747DR_simconfig_data					= deferred_dataref("laminar/B747/simconfig", "string")
+--B747DR_simconfig_data					= deferred_dataref("laminar/B747/simconfig", "string")
 
 --*************************************************************************************--
 --** 				              CREATE CUSTOM COMMANDS              			     **--
