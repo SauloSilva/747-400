@@ -2,7 +2,7 @@ simDR_latitude=find_dataref("sim/flightmodel/position/latitude")
 simDR_longitude=find_dataref("sim/flightmodel/position/longitude")
 simDR_groundspeed=find_dataref("sim/flightmodel/position/groundspeed")
 B747DR_iru_mode_sel_pos         = find_dataref("laminar/B747/flt_mgmt/iru/mode_sel_dial_pos")
-local timeToAlign=600
+local timeToAlign=600  --simConfigData["data"].irs_align_time
 irs_L_status=find_dataref("laminar/B747/irs/line2") 
 irs_C_status=find_dataref("laminar/B747/irs/line3") 
 irs_R_status=find_dataref("laminar/B747/irs/line4") 
@@ -10,7 +10,6 @@ startLat=0
 startLon=0
 
 --IRS ND DISPLAY
-B747DR_ND_GPS_Line	= deferred_dataref("laminar/B747/irs/gps_display_line", "string")
 B747DR_ND_IRS_Line	= deferred_dataref("laminar/B747/irs/irs_display_line", "string")
 
 
@@ -137,6 +136,7 @@ irsSystem.off=function()
     irsSystem["irsR"]["aligned"] = false
 end
 irsSystem.update=function()
+  --Marauder28
   --GPS/IRS DISPLAY
   B747DR_ND_GPS_Line = "GPS"
   if B747DR_iru_status[0]==0 then irsSystem["irsL"]["aligned"] = false end
@@ -149,6 +149,20 @@ irsSystem.update=function()
   elseif irsSystem["irsR"]["aligned"] == true then
 	B747DR_ND_IRS_Line = "IRS (R)"
   end
+
+  --Update Set Hdg on FMC
+  if (B747DR_iru_mode_sel_pos[0] == 3 or B747DR_iru_mode_sel_pos[1] == 3 or B747DR_iru_mode_sel_pos[2] == 3) then
+	if tonumber(string.sub(fmsModules["data"].sethdg,1,3)) ~= nil then
+		--sleep(2)
+		fmsModules["data"].sethdg = "---`"
+	else
+		fmsModules["data"].sethdg = "---`"
+	end
+  else
+	fmsModules["data"].sethdg = defaultFMSData().sethdg
+  end
+  --Marauder28
+  
   if irsSystem["irsL"]["aligned"] == true and irsSystem["irsC"]["aligned"] == true and irsSystem["irsR"]["aligned"] == true then
 	B747DR_ND_IRS_Line = "IRS (3)"
   end
