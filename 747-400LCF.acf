@@ -95693,6 +95693,7 @@ GROUP Captain PFD
       OFFSET 151.500000
 
     GROUP Slip/Skid Offset
+        SHOW_EQUAL 1.000000 laminar/B747/pfd/capt/irs
       
       HIDE
       GROUP_ANIMATE_MODE ROTATE
@@ -99240,6 +99241,7 @@ GROUP First Officer PFD
       OFFSET 151.500000
 
     GROUP Slip/Skid Offset 2
+        SHOW_EQUAL 1.000000 laminar/B747/pfd/fo/irs
       
       HIDE
       GROUP_ANIMATE_MODE ROTATE
