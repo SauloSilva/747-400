@@ -310,6 +310,12 @@ function calc_stab_trim(GW, CG_MAC)
 	end
 
 	stab_trim = (0.000000717 * GW^2 - 0.001217 * GW + 0.24) * CG_MAC + (-0.0000309 * GW^2 + 0.05558 * GW - 12.24)  --GW must be in 1000s of LBS
+	
+	--Stab Trim can never be less than zero
+	if stab_trim < 0 then
+		stab_trim = 0
+	end
+	
 	wb.stab_trim	= stab_trim
 	fmsModules["data"].stab_trim 	= string.format("%4.1f", wb.stab_trim)
 	--print("Trim = "..fmsModules["data"].stab_trim)
