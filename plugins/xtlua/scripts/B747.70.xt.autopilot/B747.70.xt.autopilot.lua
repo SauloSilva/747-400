@@ -1333,6 +1333,7 @@ function getDistance(lat1,lon1,lat2,lon2)
   return retVal
 end
 local lastILSUpdate=0
+original_distance = -1
 function B747_fltmgmt_setILS()
   local modes=B747DR_radioModes
   local fmsSTR=fmsJSON
@@ -1372,12 +1373,28 @@ function B747_fltmgmt_setILS()
       --we have an airport as our dst
       local apdistance = getDistance(simDR_latitude,simDR_longitude,fms[table.getn(fms)][5],fms[table.getn(fms)][6])
       if apdistance>50 then return end
-      
+	  
+	  --Marauder28
+	  if original_distance == -1 then
+		original_distance = B747BR_totalDistance  --capture original flightplan distance
+	  end
+	  local pct_remaining = 100 - (((original_distance - B747BR_totalDistance) / original_distance) * 100)
+	  local dist_to_TOD = B747BR_totalDistance - B747BR_tod
+	  --print("Orig Dist = "..original_distance)
+	  --print("Dist Remain = "..B747BR_totalDistance)
+	  --if dist_to_TOD > 0 then print("Dist TOD = "..dist_to_TOD) end
+	  --print("Pct Remain = "..pct_remaining)
+	  --if (apdistance>=200) or (pct_remaining > 50) then
+	  --if dist_to_TOD >= 200 then --or pct_remaining > 50 then
+		--return    --more than 200nm away from TOD or less than half-way to DEST (used in NAV RAD auto-tune scenario #2)
+	  --end
+      --Marauder28
+	  
       found =false
      for i=table.getn(fms)-1,2,-1 do --last is the airport, before that go-around [may] be dup
 	--we have a fix coming in to the airport
        --if fms[i][2] == 512 then
-          local ap1Heading=getHeading(fms[i][5],fms[i][6],fms[table.getn(fms)][5],fms[table.getn(fms)][6])
+      local ap1Heading=getHeading(fms[i][5],fms[i][6],fms[table.getn(fms)][5],fms[table.getn(fms)][6])
 	  local ap2Heading=getHeading(fms[i-1][5],fms[i-1][6],fms[table.getn(fms)][5],fms[table.getn(fms)][6])
 	  local diffap=getHeadingDifference(ap1Heading,ap2Heading)
 	  local distance = getDistance(fms[i][5],fms[i][6],fms[table.getn(fms)][5],fms[table.getn(fms)][6])
@@ -1389,12 +1406,14 @@ function B747_fltmgmt_setILS()
 	      if diff<0 then diff=diff*-1 end
 	      local distance2 = getDistance(fms[table.getn(fms)][5],fms[table.getn(fms)][6],navAids[n][5],navAids[n][6])
 	      if diff<1 and diff<=bestDiff and distance2<10 then
-	      --print("navaid "..n.."->"..fms[i][8].."="..diff.." ".. navAids[n][1].." ".. navAids[n][2].." ".. navAids[n][3].." ".. navAids[n][4].." ".. navAids[n][5].." ".. navAids[n][6].." ".. navAids[n][7].." ".. navAids[n][8])
-	      bestDiff=diff
-	      --if targetFix == newTargetFix then 
-	      found=true
-	      newTargetFix=n
-	      hitI=i
+			  --print("navaid "..n.."->"..fms[i][8].."="..diff.." ".. navAids[n][1].." ".. navAids[n][2].." ".. navAids[n][3].." ".. navAids[n][4].." ".. navAids[n][5].." ".. navAids[n][6].." ".. navAids[n][7].." ".. navAids[n][8])
+			  bestDiff=diff
+			  print("bestdiff = "..bestDiff)
+			  --if targetFix == newTargetFix then 
+			  found=true
+			  newTargetFix=n
+			  print("newTargetFix = "..newTargetFix)
+			  hitI=i
 	      end
 	    end
 	  end
