@@ -796,14 +796,14 @@ function aircraft_las_pos(phase)
 
 	if phase == "LOAD" then
 		--Load FMC last position
-		local file = assert(io.open(file_location, "r"))
+		local file = io.open(file_location, "r")
 		if file ~= nil then
 			io.input(file)
 			fmsModules["data"].lastpos = io.read()
 			io.close(file)
 		end
 	else  --UNLOAD
-		local file = assert(io.open(file_location, "w+"))
+		local file = io.open(file_location, "w+")
 		if file ~= nil then
 			io.output(file)
 			io.write(irsSystem.getLat("gpsL") .." " .. irsSystem.getLon("gpsL"))
