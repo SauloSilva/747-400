@@ -135,6 +135,7 @@ irsSystem.off=function()
     irsSystem["irsC"]["aligned"] = false
     irsSystem["irsR"]["aligned"] = false
 end
+
 irsSystem.update=function()
   --Marauder28
   --GPS/IRS DISPLAY
@@ -153,11 +154,13 @@ irsSystem.update=function()
   --Update Set Hdg on FMC
   if (B747DR_iru_mode_sel_pos[0] == 3 or B747DR_iru_mode_sel_pos[1] == 3 or B747DR_iru_mode_sel_pos[2] == 3) then
 	if tonumber(string.sub(fmsModules["data"].sethdg,1,3)) ~= nil then
-		--sleep(2)
-		fmsModules["data"].sethdg = "---`"
-	else
-		fmsModules["data"].sethdg = "---`"
+		local diff = simDRTime - timer_start
+		if diff < 2 then  --Display for 2 seconds
+			return
+		end	
+		timer_start = simDRTime
 	end
+	fmsModules["data"].sethdg = "---`"
   else
 	fmsModules["data"].sethdg = defaultFMSData().sethdg
   end
