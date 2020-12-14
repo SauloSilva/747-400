@@ -851,12 +851,14 @@ function fmsFunctions.setdata(fmsO,value)
   elseif value == "cg_mac" then
 	if string.match(fmsO["scratchpad"], "%a") or string.match(fmsO["scratchpad"], "%s") or fmsModules["data"].cg_mac == "--" then
 		fmsO["notify"] = "INVALID ENTRY"
+		return
 	elseif string.len(fmsO["scratchpad"]) > 0 then 
 		calc_stab_trim(fmsModules["data"].grwt, fmsO["scratchpad"])
 		setFMSData(value, fmsO["scratchpad"])
 	else
 		calc_stab_trim(fmsModules["data"].grwt, fmsModules["data"].cg_mac)
 	end
+	
 	cg_lineLg = string.format("%2.0f%%", tonumber(fmsModules["data"].cg_mac))
 
   --[[elseif value == "irsAlignTime" and string.len(fmsO["scratchpad"]) > 0 then
