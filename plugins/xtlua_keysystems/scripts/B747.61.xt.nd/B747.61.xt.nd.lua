@@ -246,7 +246,7 @@ function newIcons()
   lastFONavaid=0
   captIRS=B747DR_pfd_mode_capt
   foIRS=B747DR_pfd_mode_fo
-  if simDR_map_mode==3 then
+  if simDR_map_mode==4 then
     for n=0,59,1 do
     B747DR_text_capt_show[n]=0
     B747DR_text_fo_show[n]=0
