@@ -1806,7 +1806,7 @@ function B747_ap_speed()
     local spdval=tonumber(fmsData["clbrestspd"])
     --print("updating speed simDR_onGround=0 "..fmsData["spdtransalt"].. " " ..fmsData["clbspd"])
     if B747DR_ap_inVNAVdescent ==0 and altval~=nil and spdval~=nil and simDR_pressureAlt1<=altval  then 
-      vnavSPD_conditions["above"]=altval
+      vnavSPD_conditions["above"]=altval+500
       vnavSPD_conditions["below"]=-1
       vnavSPD_conditions["descent"]=true
       vnavSPD_conditions["onground"]=simDR_onGround
