@@ -548,9 +548,11 @@ function preselect_fuel()
 	B747DR_fuel_add=0
 	simDR_m_jettison=simDR_acf_m_jettison
 end
---RS
---simDR_GRWT=find_dataref("sim/flightmodel/weight/m_total")
---RS
+
+--Marauder28
+timer_start = 0
+--Marauder28
+
 function fmsFunctions.setdata(fmsO,value)
   local del=false  
   if fmsO["scratchpad"]=="DELETE" then fmsO["scratchpad"]="" del=true end
@@ -777,6 +779,7 @@ function fmsFunctions.setdata(fmsO,value)
 				fmsO["scratchpad"] = "360`"
 			end
 			setFMSData(value, fmsO["scratchpad"].."`")
+			timer_start = simDRTime
 		end
 	end
 
