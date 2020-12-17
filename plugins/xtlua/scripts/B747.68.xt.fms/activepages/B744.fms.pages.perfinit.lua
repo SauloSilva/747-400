@@ -1,6 +1,6 @@
 simDR_GRWT=find_dataref("sim/flightmodel/weight/m_total")
 simDR_fuel=find_dataref("sim/flightmodel/weight/m_fuel_total")
-simDR_payload=find_dataref("sim/flightmodel/weight/fixed")
+--simDR_payload=find_dataref("sim/flightmodel/weight/m_fixed")
 simDR_fuel_tanks=find_dataref("sim/flightmodel/weight/m_fuel") --res on 5 and 6
 --simDR_cg=find_dataref("sim/flightmodel/misc/cgz_ref_to_default")
 

@@ -194,6 +194,7 @@ simDR_fuel_qty				= find_dataref("sim/flightmodel/weight/m_fuel")
 simDR_cg_adjust				= find_dataref("sim/flightmodel/misc/cgz_ref_to_default")
 simDR_livery_path			= find_dataref("sim/aircraft/view/acf_livery_path")
 simDR_onground				= find_dataref("sim/flightmodel/failures/onground_any")
+simDR_payload_weight		= find_dataref("sim/flightmodel/weight/m_fixed")
 --Marauder28
 
 --*************************************************************************************--
@@ -289,7 +290,7 @@ wb = {
 		passenger_zoneE_distance	= 1700.00, --141.67 feet (132 Economy Class seats)
 		
 		--Payload/Cargo Zone moment arm distances are an approximation using the middle of the Zone as a reference
-		fwd_cargo_distance			= 450,  --37.50 feet (5 pallets or 16 LD1/LD3 containers or combination totalling 26,490 KGS).  Approximation of Pax A + Pax B / 2.
+		fwd_cargo_distance			= 450,  --37.50 feet (5 pallets [5035 KGS] or 16 LD1/LD3 [1588 KGS] containers or combination totalling 26,490 KGS).  Approximation of Pax A + Pax B / 2.
 		aft_cargo_distance			= 1450.00,  --120.93 feet (4 pallets or 14 LD1/LD3 containers or combination totalling 22,938 KGS).  Approximation of Pax D + Pax E / 2.
 		bulk_cargo_distance			= 1900.00,  --158.33 feet (6,749 KGS).  In the tail of the aircraft beneath the rear galley.
 
@@ -335,7 +336,6 @@ function calc_CGMAC()
 	wb.fuel_L_rsv5_weight		= simDR_fuel_qty[5]
 	wb.fuel_R_rsv6_weight		= simDR_fuel_qty[6]
 	wb.fuel_stab7_weight		= simDR_fuel_qty[7]
-	wb.passenger_zoneD_weight	= B747DR_payload_weight  --Temporarily place all the passenger and payload weight close to the default XP CG until passenger & cargo loading is implemented
 
 	--CG variables (in inches from reference point)
 	local GW				= wb.OEW_weight + wb.fuel_CTR_0_weight + wb.fuel_L_main1_weight + wb.fuel_L_main2_weight + wb.fuel_R_main3_weight + wb.fuel_R_main4_weight
@@ -486,6 +486,22 @@ function defaultFMSData()
   stepsize = "ICAO",
   cg_mac = string.rep("-", 2),
   stab_trim = string.rep(" ", 4),
+  paxFirstClassA = string.rep("0", 2),
+  paxBusClassB = string.rep("0", 2),
+  paxEconClassC = string.rep("0", 2),
+  paxEconClassD = string.rep("0", 3),
+  paxEconClassE = string.rep("0", 3),
+  paxTotal = string.rep("0", 3),
+  paxWeightA = string.rep("0", 4),
+  paxWeightB = string.rep("0", 5),
+  paxWeightC = string.rep("0", 5),
+  paxWeightD = string.rep("0", 5),
+  paxWeightE = string.rep("0", 5),
+  paxWeightTotal = string.rep("0", 6),
+  cargoFwd = string.rep("0", 6),
+  cargoAft = string.rep("0", 6),
+  cargoBulk = string.rep("0", 5),
+  cargoTotal = string.rep("0", 6),
 }
 end
 
@@ -916,7 +932,11 @@ function after_physics()
 	local payload_weight = B747DR_payload_weight
 	local fuel_qty = simDR_fuel_qty
 	local simconfig = B747DR_simconfig_data
-	
+		
+end
+
+function aircraft_load()
+	simDR_cg_adjust = 0 --reset CG slider to begin current flight
 end
 
 function aircraft_unload()
