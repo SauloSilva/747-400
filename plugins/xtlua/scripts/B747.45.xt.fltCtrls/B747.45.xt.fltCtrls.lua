@@ -990,7 +990,8 @@ function B747_fltCtrols_EICAS_msg()
     -- >CONFIG STAB
     local midIndTop = B747_rescale(0.0, 1.5, 1.0, 6.0, B747DR_elevator_trim_mid_ind)
     local midIndBtm = midIndTop + 4.5
-    local curTrim   = B747_rescale(-1.0, 15, 1.0, 0.0, simDR_elevator_trim)
+    --local curTrim   = B747_rescale(-1.0, 15, 1.0, 0.0, simDR_elevator_trim)
+	local curTrim   = B747_rescale(-1.0, 0.0, 1.0, 15.0, simDR_elevator_trim)  --Swapped top and bottom of range for better comparisons
 	--print("midIndTop = "..midIndTop)
 	--print("midIndBtm = "..midIndBtm)
 	--print("curTrim = "..curTrim)

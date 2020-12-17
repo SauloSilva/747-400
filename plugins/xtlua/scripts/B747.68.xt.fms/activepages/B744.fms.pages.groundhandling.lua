@@ -24,7 +24,7 @@ fmsPages["GNDHNDL"].getPage=function(self,pgNo,fmsID)
   "                        ",
   lineA,
   "                        ",
-  "<PUSH BACK              ",
+  "<PUSH BACK     PAX/CARGO>",
   "                        ",
   "                        ",
   "                        ",
@@ -55,6 +55,7 @@ fmsFunctionsDefs["GNDHNDL"]["L1"]={"setpage","GNDSRV"}
 fmsFunctionsDefs["GNDHNDL"]["L2"]={"setDref","CHOCKS"}
 fmsFunctionsDefs["GNDHNDL"]["L3"]={"setpage","PUSHBACK"} 
 fmsFunctionsDefs["GNDHNDL"]["L6"]={"setpage","INDEX"}
+fmsFunctionsDefs["GNDHNDL"]["R3"]={"setpage","PAXCARGO"}
 
 fmsPages["GNDSRV"]=createPage("GNDSRV")
 fmsPages["GNDSRV"].getPage=function(self,pgNo,fmsID)
@@ -80,7 +81,8 @@ fmsPages["GNDSRV"].getPage=function(self,pgNo,fmsID)
   "                        ",
   " "..lineA,
   "                        ",
-  lineC,
+  "                        ",
+  --lineC,
   "                        ",
   "  "..fmsModules["lastcmd"], 
   "                        ",
@@ -100,14 +102,14 @@ fmsPages["GNDSRV"].getSmallPage=function(self,pgNo,fmsID)
 	  else
 	    lineC = "                     KGS"
 	  end
-	else
-	    lineB = "Passengers              "
-	    lineC = "      x120kgs           "
-	    fmsFunctionsDefs["GNDSRV"]["L4"]={"setdata","passengers"}
+--	else
+--	    lineB = "Passengers              "
+--	    lineC = "      x120kgs           "
+--	    fmsFunctionsDefs["GNDSRV"]["L4"]={"setdata","passengers"}
 	end
 	if simConfigData["data"].weight_display_units == "LBS" then
 		lineA = "x1000LBS"
-		lineC = "      x265LBS           "
+--		lineC = "      x265LBS           "
 		
 	end
 	
