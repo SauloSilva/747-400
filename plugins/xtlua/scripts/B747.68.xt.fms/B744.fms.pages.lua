@@ -275,6 +275,7 @@ ils_line1 = ""
 ils_line2 = ""
 park = "PARK"
 original_distance = -1
+
 fmsPages["NAVRAD"].getPage=function(self,pgNo,fmsID)
   local ils1="                        "
   local ils2="                        "
@@ -291,9 +292,9 @@ fmsPages["NAVRAD"].getPage=function(self,pgNo,fmsID)
     if (dist_to_TOD >= 50 and dist_to_TOD < 200) then
 		--ils2= string.format("%6.2f/%03d%s %4s          .", ilsNav[3]*0.01,(ilsNav[4]+simDR_variation), "˚", park)
 		ils1 = "            "..park
-		ils_line1 = string.format("<%6.2f/%03d%s           ", ilsNav[3]*0.01,(ilsNav[4]+simDR_variation), "˚")
+		ils_line1 = string.format("<%6.2f/%03d%s           ", ilsNav[3]*0.01,(round((ilsNav[4]+round(simDR_variation)))), "˚")
 	elseif (dist_to_TOD < 50) then
-		ils1= string.format("%6.2f/%03d%s          ", ilsNav[3]*0.01,(ilsNav[4]+simDR_variation), "`"..modes:sub(1, 1))
+		ils1= string.format("%6.2f/%03d%s          ", ilsNav[3]*0.01,(round((ilsNav[4]+round(simDR_variation)))), "`"..modes:sub(1, 1))
 		ils_line1 = ""
 	end
   else

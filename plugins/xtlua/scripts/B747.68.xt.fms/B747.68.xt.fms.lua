@@ -54,9 +54,9 @@ function split(s, delimiter)
     end
     return result;
 end
-function round(value_in)
-	return value_in % 1 >= 0.5 and math.ceil(value_in) or math.floor(value_in)
-end
+function round(x)
+	return x>=0 and math.floor(x+0.5) or math.ceil(x-0.5)
+  end
 function cleanFMSLine(line)
     local retval=line:gsub("☐","*")
     retval=retval:gsub("°","`")

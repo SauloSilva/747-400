@@ -396,7 +396,7 @@ function B747_ap_switch_speed_mode_CMDhandler(phase, duration)
 	if phase == 0 then
 		B747_ap_button_switch_position_target[1] = 1									-- SET THE SPEED SWITCH ANIMATION TO "IN"
 		if B747DR_toggle_switch_position[29] == 1 then									-- AUTOTHROTTLE ""ARM" SWITCH IS "ON"
-			--B747DR_ap_ias_mach_window_open = 1											-- OPEN THE IAS/MACH WINDOW
+		
 			if simDR_autopilot_autothrottle_enabled == 0 then							-- AUTOTHROTTLE IS "OFF"
 				simCMD_autopilot_autothrottle_on:once()									-- ACTIVATE THE AUTOTHROTTLE
 				if B747DR_engine_TOGA_mode >0 then B747DR_engine_TOGA_mode = 0 end	-- CANX ENGINE TOGA IF ACTIVE
@@ -455,7 +455,8 @@ function B747_ap_switch_vnavalt_mode_CMDhandler(phase, duration)
 		  elseif simDR_autopilot_flch_status==0 and simDR_pressureAlt1<simDR_autopilot_altitude_ft-1000 then
 		    if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 then							-- AUTOTHROTTLE IS "OFF"
 		      simCMD_autopilot_autothrottle_on:once()
-		    end
+			end
+			--print("B747_ap_switch_vnavalt_mode_CMDhandler badness")
 		    simCMD_autopilot_flch_mode:once()
 		    
 		    --B747CMD_ap_switch_flch_mode:once()
@@ -491,10 +492,7 @@ function B747_ap_switch_flch_mode_CMDhandler(phase, duration)
 		simDR_autopilot_altitude_ft=B747DR_autopilot_altitude_ft
 		simCMD_autopilot_flch_mode:once()
 		B747DR_ap_vnav_state=0
-		B747DR_ap_inVNAVdescent =0
-		--if simDR_autopilot_flch_status == 0 then
-		--	B747DR_ap_ias_mach_window_open = 1	
-		--end	
+		B747DR_ap_inVNAVdescent =0	
 	elseif phase == 2 then
 		B747_ap_button_switch_position_target[4] = 0		
 	end	
@@ -520,11 +518,8 @@ function B747_ap_switch_vs_mode_CMDhandler(phase, duration)
 		B747DR_ap_vnav_state=0
 		B747DR_ap_inVNAVdescent =0
 		B747DR_autopilot_vs_fpm=B744_fpm
-		--print("to VS mode")
 		simCMD_autopilot_vert_speed_mode:once()
-		--if simDR_autopilot_vs_status < 1 then
-		--	B747DR_ap_ias_mach_window_open = 1											-- OPEN THE IAS/MACH WINDOW
-		--end
+
 	elseif phase ==2 then
 	  --for autpilot
 		  
@@ -537,7 +532,7 @@ end
 
 function B747_ap_alt_hold_mode_CMDhandler(phase, duration)
 	if phase == 0 then
-		--B747DR_ap_ias_mach_window_open = 1	
+	
 		B747_ap_button_switch_position_target[7] = 1
 		if simDR_autopilot_autothrottle_enabled == 0  and B747DR_toggle_switch_position[29] == 1 then							-- AUTOTHROTTLE IS "OFF"
 		  simCMD_autopilot_autothrottle_on:once()									-- ACTIVATE THE AUTOTHROTTLE
@@ -582,7 +577,7 @@ end
 function B747_ap_switch_loc_mode_CMDhandler(phase, duration)
 	if phase == 0 then
 		B747_ap_button_switch_position_target[8] = 1									-- SET THE LOC SWITCH ANIMATION TO "IN"
-		
+		B747DR_ap_approach_mode=0
 		----- APPROACH MODE IS ARMED
 		if simDR_autopilot_nav_status == 1 
 			and simDR_autopilot_gs_status == 1
@@ -1334,6 +1329,12 @@ function getDistance(lat1,lon1,lat2,lon2)
 end
 local lastILSUpdate=0
 original_distance = -1
+function round(x)
+	return x>=0 and math.floor(x+0.5) or math.ceil(x-0.5)
+end
+function int(x)
+	return x>=0 and math.floor(x) or math.ceil(x)
+end
 function B747_fltmgmt_setILS()
   local modes=B747DR_radioModes
   local fmsSTR=fmsJSON
@@ -1437,7 +1438,7 @@ function B747_fltmgmt_setILS()
 	    local ilsNav=json.decode(targetILSS)
 	    simDR_nav1Freq=ilsNav[3]
 	    simDR_nav2Freq=ilsNav[3]
-	    local course=(ilsNav[4]+simDR_variation)
+	    local course=round((ilsNav[4]+int(simDR_variation)))
 	    simDR_radio_nav_obs_deg[0]=course
 	    simDR_radio_nav_obs_deg[1]=course
 	    print("Tuned ILS "..course)
@@ -1456,7 +1457,7 @@ function B747_fltmgmt_setILS()
 	    local ilsNav=json.decode(targetILSS)
 	    simDR_nav1Freq=ilsNav[3]
 	    simDR_nav2Freq=ilsNav[3]
-	    local course=(ilsNav[4]+simDR_variation)
+	    local course=round((ilsNav[4]+int(simDR_variation)))
 	    simDR_radio_nav_obs_deg[0]=course
 	    simDR_radio_nav_obs_deg[1]=course
 	    --print("Tuned ILS "..course)
@@ -1508,14 +1509,6 @@ function B747_ap_appr_mode_beforeCMDhandler(phase, duration)
 	
 	end
 end
--- function B747_ap_appr_mode_afterCMDhandler(phase, duration)
--- 	if phase == 0 then
--- 		B747DR_ap_ias_mach_window_open = 1
--- 		B747_ap_button_switch_position_target[9] = 1
--- 	elseif phase == 2 then
--- 		B747_ap_button_switch_position_target[9] = 0									
--- 	end
--- end
 
 
 
@@ -1633,6 +1626,7 @@ function B747_ap_ias_mach_mode()
 	and (simDR_radarAlt1>400 or simDR_ind_airspeed_kts_pilot>simDR_autopilot_airspeed_kts) then							-- AUTOTHROTTLE IS "OFF"
 	  if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 then simCMD_autopilot_autothrottle_on:once()	end								-- ACTIVATE THE AUTOTHROTTLE
 	  --B747CMD_ap_switch_flch_mode:once()
+	  --print("B747_ap_ias_mach_mode badness")
 	  simCMD_autopilot_flch_mode:once()
 	  B747DR_engine_TOGA_mode = 0 
 	  B747DR_ap_autoland=-1
@@ -1643,15 +1637,17 @@ function B747_ap_ias_mach_mode()
 	    print("IAS end Go Around")
 	  end
 	----- SET THE IAS/MACH WINDOW STATUS
-	if (simDR_autopilot_autothrottle_enabled > 0
+	if ((simDR_autopilot_autothrottle_enabled > 0
 		or simDR_autopilot_flch_status > 1
 		or simDR_autopilot_vs_status > 1
 		or B747DR_engine_TOGA_mode > 0
 		or simDR_autopilot_TOGA_vert_status > 0
 		or simDR_autopilot_alt_hold_status > 1
-		or simDR_autopilot_gs_status > 0) 
+		or simDR_autopilot_gs_status > 0)
+		or B747DR_ap_autothrottle_armed == 1) 
 		and switchingIASMode==0 
 		and (B747DR_ap_vnav_state<2 or manualVNAVspd==1) --inop until we know speed!
+		and B747DR_ap_autothrottle_armed == 1
 	then	
 		B747DR_ap_ias_mach_window_open = 1
 	else
@@ -1726,7 +1722,7 @@ function B747_ap_ias_mach_mode()
 	  end
 	end
 	local maxmach=B747DR_airspeed_Mmo
-	--if B747DR_ap_ias_mach_window_open == 1 and switchingIASMode==0 then
+
 	if switchingIASMode==0 then  
 	if simDR_autopilot_airspeed_is_mach == 0 then
 	    B747DR_ap_ias_bug_value=B747DR_ap_ias_dial_value
@@ -2099,6 +2095,8 @@ function getCurrentWayPoint(fms)
       
 end
 function computeVNAVAlt(fms)
+
+
   local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
   local dist_to_TOD=(B747BR_totalDistance-B747BR_tod)
   for i=1,table.getn(fms),1 do
@@ -2176,6 +2174,7 @@ function computeVNAVAlt(fms)
 	
 	if simDR_autopilot_flch_status==0 and B747DR_engine_TOGA_mode == 0 and B747DR_ap_inVNAVdescent > 0 then
 	  simCMD_autopilot_flch_mode:once()
+	  --print("computeVNAVAlt badness")
 	end
 	B747DR_ap_inVNAVdescent =0
       elseif targetAlt<simDR_pressureAlt1-300 then
@@ -2285,6 +2284,7 @@ end
 function vnavCruise()
   --if simDR_autopilot_alt_hold_status == 2 then return end
   if switchingIASMode==1 then return end -- if we are in an airspeed mode switch just go away
+  if B747DR_ap_vnav_state<2 then return end -- not in VNAV just go away
   --not called in descent anyway
   local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
   local diff2 = simDR_autopilot_altitude_ft - simDR_pressureAlt1
