@@ -870,7 +870,7 @@ function B747_speedbrake_warn()
   if B747DR_speedbrake_lever >0.125 
   and simDR_all_wheels_on_ground == 0 
         and numClimb>=2 then  
-        B747DR_CAS_caution_status[59] = 1
+        B747DR_CAS_warning_status[6] = 1
     end
     
 end
