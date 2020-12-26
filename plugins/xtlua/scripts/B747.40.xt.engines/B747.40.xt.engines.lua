@@ -109,7 +109,7 @@ throttlederate=find_dataref("sim/aircraft/engine/acf_throtmax_FWD")
 --*************************************************************************************--
 
 simDR_startup_running           = find_dataref("sim/operation/prefs/startup_running")
-simDR_all_wheels_on_ground      = find_dataref("sim/flightmodel/failures/onground_all")
+simDR_all_wheels_on_ground      = find_dataref("sim/flightmodel/failures/onground_any")
 
 simDR_thrust_rev_deploy_ratio   = find_dataref("sim/flightmodel2/engines/thrust_reverser_deploy_ratio")
 

@@ -80,7 +80,7 @@ end
 
 simDR_startup_running               = find_dataref("sim/operation/prefs/startup_running")
 
-simDR_all_wheels_on_ground          = find_dataref("sim/flightmodel/failures/onground_all")
+simDR_all_wheels_on_ground          = find_dataref("sim/flightmodel/failures/onground_any")
 
 --simDR_HSI_source_sel                = find_dataref("sim/cockpit2/radios/actuators/HSI_source_select_pilot")
 simDR_autopilot_source              = find_dataref("sim/cockpit2/autopilot/autopilot_source")

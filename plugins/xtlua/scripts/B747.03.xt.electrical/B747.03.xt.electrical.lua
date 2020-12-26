@@ -90,7 +90,7 @@ simDR_startup_running           = find_dataref("sim/operation/prefs/startup_runn
 
 simDR_engine_running            = find_dataref("sim/flightmodel/engine/ENGN_running")
 
-simDR_aircraft_on_ground        = find_dataref("sim/flightmodel/failures/onground_all")
+simDR_aircraft_on_ground        = find_dataref("sim/flightmodel/failures/onground_any")
 simDR_aircraft_groundspeed      = find_dataref("sim/flightmodel/position/groundspeed")
 
 simDR_battery_on                = find_dataref("sim/cockpit2/electrical/battery_on")

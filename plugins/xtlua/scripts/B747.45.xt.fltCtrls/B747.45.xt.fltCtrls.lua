@@ -1020,7 +1020,7 @@ function B747_fltCtrols_EICAS_msg()
     -- >SPEEDBRAKES EXT
     
     if simDR_speedbrake_ratio_control > 0.15
-        and
+        and 
         ((simDR_radio_alt_height_capt > 15.0 and simDR_radio_alt_height_capt < 800.0)
         or
         (simDR_wing_flap1_deg[0] > 24.0 and simDR_wing_flap1_deg[0] < 31.0)
