@@ -441,14 +441,14 @@ function B747_external_power()
 -- 	B747DR_elec_ext_pwr2_available = 0
 --     end
     if simDR_aircraft_on_ground == 0
-        or simDR_aircraft_groundspeed > 0.05
+        or simDR_aircraft_groundspeed > 0.10
         or simDR_engine_running[0] == 1
         or simDR_engine_running[1] == 1
         or simDR_engine_running[2] == 1
         or simDR_engine_running[3] == 1
     then
         B747DR_elec_ext_pwr1_available = 0
-	B747DR_elec_ext_pwr2_available =0
+	    B747DR_elec_ext_pwr2_available =0
     end
     -- EXTERNAL POWER ON/OFF
     if (B747DR_elec_ext_pwr1_available == 1
