@@ -23,11 +23,14 @@ irs_line1=deferred_dataref("laminar/B747/irs/line1", "string")
 irs_line2=deferred_dataref("laminar/B747/irs/line2", "string") 
 irs_line3=deferred_dataref("laminar/B747/irs/line3", "string") 
 irs_line4=deferred_dataref("laminar/B747/irs/line4", "string") 
-irs_line1="TIME TO ALIGN"
+--[[irs_line1="TIME TO ALIGN"
 irs_line2="L OFF"
 irs_line3="C OFF"
-irs_line4="R OFF"
-
+irs_line4="R OFF"]]
+irs_line1=" "
+irs_line2=" "
+irs_line3=" "
+irs_line4=" "
 function createFMSDatarefs(fmsid)
 create_dataref("laminar/B747/"..fmsid.."/Line01_L", "string")
 create_dataref("laminar/B747/"..fmsid.."/Line02_L", "string")
