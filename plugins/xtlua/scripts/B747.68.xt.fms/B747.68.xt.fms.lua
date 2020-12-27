@@ -195,6 +195,7 @@ simDR_cg_adjust				= find_dataref("sim/flightmodel/misc/cgz_ref_to_default")
 simDR_livery_path			= find_dataref("sim/aircraft/view/acf_livery_path")
 simDR_onground				= find_dataref("sim/flightmodel/failures/onground_any")
 simDR_payload_weight		= find_dataref("sim/flightmodel/weight/m_fixed")
+simDR_fuel_totalizer_kg		= find_dataref("sim/cockpit2/fuel/fuel_totalizer_init_kg")
 --Marauder28
 
 --*************************************************************************************--
@@ -236,6 +237,9 @@ B747DR_ND_GS_TAS_Line_Pilot				= deferred_dataref("laminar/B747/nd/gs_tas_line_p
 B747DR_ND_GS_TAS_Line_CoPilot			= deferred_dataref("laminar/B747/nd/gs_tas_line_copilot", "string")
 B747DR_ND_Wind_Line						= deferred_dataref("laminar/B747/nd/wind_line", "string")
 B747DR_ND_Wind_Bearing					= deferred_dataref("laminar/B747/nd/wind_bearing", "number")
+
+--STAB TRIM setting
+B747DR_elevator_trim				    = deferred_dataref("laminar/B747/fmc/elevator_trim", "number")
 
 --Simulator Config Options
 simConfigData = {}
@@ -319,6 +323,8 @@ function calc_stab_trim(GW, CG_MAC)
 	
 	wb.stab_trim	= stab_trim
 	fmsModules["data"].stab_trim 	= string.format("%4.1f", wb.stab_trim)
+	B747DR_elevator_trim = fmsModules["data"].stab_trim  --Set STAB TRIM for green band calculation
+	--print("Setting trim_mid = "..B747DR_elevator_trim)
 	--print("Trim = "..fmsModules["data"].stab_trim)
 end
 

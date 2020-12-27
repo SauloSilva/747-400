@@ -549,6 +549,11 @@ function preselect_fuel()
 	B747DR_fuel_preselect_temp = B747DR_fuel_preselect
 	B747DR_fuel_add=0
 	simDR_m_jettison=simDR_acf_m_jettison
+	
+	--Marauder28
+	--Set the totalizer to the current fuel amount before refueling
+	simDR_fuel_totalizer_kg = simDR_fueL_tank_weight_total_kg
+	--Marauder28
 end
 
 --Marauder28
@@ -855,22 +860,28 @@ function fmsFunctions.setdata(fmsO,value)
 	end
 
   elseif value == "grwt" then
-	if string.len(fmsO["scratchpad"]) > 5 then
-		fmsO["notify"]="INVALID ENTRY"
-		return
-	end
+--	if string.len(fmsO["scratchpad"]) > 5 then
+--		fmsO["notify"]="INVALID ENTRY"
+--		return
+--	end
 	local grwt
-	if string.len(fmsO["scratchpad"]) > 0 then
+	if string.len(fmsO["scratchpad"]) > 0 and string.len(fmsO["scratchpad"]) <= 5 and string.match(fmsO["scratchpad"], "%d") then
 		if simConfigData["data"].weight_display_units == "LBS" then
 			grwt = fmsO["scratchpad"] / simConfigData["data"].kgs_to_lbs  --store LBS in KGS
 		else
 			grwt = fmsO["scratchpad"]
 		end
+	elseif fmsO["scratchpad"] == "" then
+		grwt = simDR_GRWT / 1000
 	else
-		grwt = (simDR_GRWT / 1000)
+		fmsO["notify"]="INVALID ENTRY"
+		fmsO["scratchpad"] = ""
+		return
 	end
+	grwt = string.format("%5.1f", grwt)
+	zfw = string.format("%5.1f", tonumber(grwt) - (simDR_fuel / 1000))
 	setFMSData(value, grwt)
-	setFMSData("zfw", tonumber(grwt) - (simDR_fuel/1000))
+	setFMSData("zfw", zfw)
 	calc_CGMAC()  --Recalc CG %MAC and TRIM units
 	if (B747DR_airspeed_V1 < 999 or B747DR_airspeed_Vr < 999 or B747DR_airspeed_V2 < 999) and simDR_onground == 1 then
 		B747DR_airspeed_flapsRef = 0
@@ -880,23 +891,25 @@ function fmsFunctions.setdata(fmsO,value)
 		fmsO["notify"] = "TAKEOFF SPEEDS DELETED"
 	end
 
-  elseif value == "zfw" then
-	if string.len(fmsO["scratchpad"]) > 5 then
-		fmsO["notify"]="INVALID ENTRY"
-		return
-	end
+  elseif value == "zfw" and not del then
 	local zfw
-	if string.len(fmsO["scratchpad"]) > 0 then
+	if string.len(fmsO["scratchpad"]) > 0 and string.len(fmsO["scratchpad"]) <= 5 and string.match(fmsO["scratchpad"], "%d") then
 		if simConfigData["data"].weight_display_units == "LBS" then
 			zfw = fmsO["scratchpad"] / simConfigData["data"].kgs_to_lbs  --store LBS in KGS
 		else
 			zfw = fmsO["scratchpad"]
 		end
-	else
+	elseif fmsO["scratchpad"] == "" then
 		zfw = (simDR_GRWT-simDR_fuel) / 1000
+	else
+		fmsO["notify"]="INVALID ENTRY"
+		fmsO["scratchpad"] = ""
+		return
 	end
+	zfw = string.format("%5.1f", zfw)
+	grwt = string.format("%5.1f", tonumber(zfw) + (simDR_fuel / 1000))
 	setFMSData(value, zfw)
-	setFMSData("grwt", tonumber(zfw) + simDR_fuel / 1000)
+	setFMSData("grwt", grwt)
 	calc_CGMAC()  --Recalc CG %MAC and TRIM units
 	if (B747DR_airspeed_V1 < 999 or B747DR_airspeed_Vr < 999 or B747DR_airspeed_V2 < 999) and simDR_onground == 1 then
 		B747DR_airspeed_flapsRef = 0
@@ -904,6 +917,20 @@ function fmsFunctions.setdata(fmsO,value)
 		--B747DR_airspeed_Vr = 999
 		--B747DR_airspeed_V2 = 999
 		fmsO["notify"] = "TAKEOFF SPEEDS DELETED"
+	end
+  elseif value == "reserves" then
+	local rsv = 0
+	if not string.match(fmsO["scratchpad"], "%d") or string.len(fmsO["scratchpad"]) > 5 then
+		fmsO["notify"] = "INVALID ENTRY"
+		fmsO["scratchpad"] = ""
+		return
+	else
+		if simConfigData["data"].weight_display_units == "LBS" then
+			rsv = string.format("%5.1f", fmsO["scratchpad"] / simConfigData["data"].kgs_to_lbs)  --store LBS in KGS
+		else
+			rsv = string.format("%5.1f", fmsO["scratchpad"])
+		end
+		setFMSData(value, rsv)
 	end
   elseif value == "crzcg" then
 	if string.len(fmsO["scratchpad"]) > 0 and not string.find(fmsO["scratchpad"], " ") then
