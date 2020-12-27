@@ -94,6 +94,9 @@ B747DR_ND_GS_TAS_Line_CoPilot			= deferred_dataref("laminar/B747/nd/gs_tas_line_
 B747DR_ND_Wind_Line						= deferred_dataref("laminar/B747/nd/wind_line", "string")
 B747DR_ND_Wind_Bearing					= deferred_dataref("laminar/B747/nd/wind_bearing", "number")
 
+--STAB TRIM setting
+B747DR_elevator_trim				    = deferred_dataref("laminar/B747/fmc/elevator_trim", "number")
+
 function createFMSCommands(fmsO,cduid,fmsid,keyid,fmskeyid)
 B747CMD_fms1_ls_key_L1              = XLuaCreateCommand("laminar/B747/".. fmskeyid .. "/ls_key/L1", fmsO.." Line Select Key 1-Left")
 B747CMD_fms1_ls_key_L2              = XLuaCreateCommand("laminar/B747/".. fmskeyid .. "/ls_key/L2", fmsO.." Line Select Key 2-Left")
