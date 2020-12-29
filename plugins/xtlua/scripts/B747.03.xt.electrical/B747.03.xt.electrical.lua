@@ -451,7 +451,7 @@ function B747_external_power()
         or simDR_engine_running[2] == 1
         or simDR_engine_running[3] == 1
     then
-        print("disabled ground power at ".. simDR_aircraft_groundspeed .. " "..simDR_aircraft_on_ground)
+        --print("disabled ground power at ".. simDR_aircraft_groundspeed .. " "..simDR_aircraft_on_ground)
         B747DR_elec_ext_pwr1_available = 0
 	    B747DR_elec_ext_pwr2_available =0
     end
