@@ -3151,7 +3151,8 @@ function B747_refueling()
 	return
   end
   
-  local fuelIn=math.min(10.5*fuel_calc_rate,B747DR_refuel)
+  --local fuelIn=math.min(10.5*fuel_calc_rate,B747DR_refuel)
+  local fuelIn=math.min(100*fuel_calc_rate,B747DR_refuel)
   --print("sending fuel "..fuelIn)
   
 	--Marauder28
