@@ -9,6 +9,9 @@ B747DR_airspeed_V1			= deferred_dataref("laminar/B747/airspeed/V1", "number")
 B747DR_airspeed_Vr			= deferred_dataref("laminar/B747/airspeed/Vr", "number")
 B747DR_airspeed_V2			= deferred_dataref("laminar/B747/airspeed/V2", "number")
 B747DR_airspeed_flapsRef	= deferred_dataref("laminar/B747/airspeed/flapsRef", "number")
+
+--Refuel DR
+B747DR_refuel							= deferred_dataref("laminar/B747/fuel/refuel", "number")
 --Marauder28
 
 fmsFunctions={}
@@ -1227,7 +1230,14 @@ function fmsFunctions.setDref(fmsO,value)
   if value=="VNAVS1" and B747DR_ap_vnav_system ~=1.0 then B747DR_ap_vnav_system=1 return elseif value=="VNAVS1" then B747DR_ap_vnav_system=0 return end 
   if value=="VNAVS2" and B747DR_ap_vnav_system ~=2.0 then B747DR_ap_vnav_system=2 return elseif value=="VNAVS2" then B747DR_ap_vnav_system=0 return end 
   if value=="VNAVSPAUSE" then B747DR_ap_vnav_pause=1-B747DR_ap_vnav_pause return end 
-  if value=="CHOCKS" then B747DR__gear_chocked=1-B747DR__gear_chocked return  end
+  if value=="CHOCKS" then
+	B747DR__gear_chocked = 1 - B747DR__gear_chocked
+	--Stop refueling operation if CHOCKS are removed
+	if B747DR__gear_chocked == 0 then
+		B747DR_refuel=0.0
+	end
+	return
+  end
   if value=="TO" then toderate=0 clbderate=0 return  end
   if value=="TO1" then toderate=1 clbderate=1 return  end
   if value=="TO2" then toderate=2 clbderate=2 return  end
