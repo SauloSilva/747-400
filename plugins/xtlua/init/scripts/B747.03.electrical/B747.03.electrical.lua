@@ -80,6 +80,7 @@ B747DR_elec_ext_pwr1_on      	= deferred_dataref("laminar/B747/electrical/ext_pw
 B747DR_elec_ext_pwr2_on      	= deferred_dataref("laminar/B747/electrical/ext_pwr2_on", "number")
 B747DR_elec_apu_pwr1_on      	= deferred_dataref("laminar/B747/electrical/apu_pwr1_on", "number")
 B747DR_elec_apu_pwr2_on      	= deferred_dataref("laminar/B747/electrical/apu_pwr2_on", "number")
+
 B747DR_elec_ssb      		= deferred_dataref("laminar/B747/electrical/ssb", "number")
 B747DR_elec_topleftbus      	= deferred_dataref("laminar/B747/electrical/topleftbus", "number")
 B747DR_elec_toprightbus      	= deferred_dataref("laminar/B747/electrical/toprightbus", "number")

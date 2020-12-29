@@ -102,6 +102,8 @@ simDR_apu_gen_on                = find_dataref("sim/cockpit2/electrical/APU_gene
 simDR_apu_start_switch_mode     = find_dataref("sim/cockpit2/electrical/APU_starter_switch")
 simDR_apu_N1_pct                = find_dataref("sim/cockpit2/electrical/APU_N1_percent")
 simDR_apu_running               = find_dataref("sim/cockpit2/electrical/APU_running")
+B747DR_elec_apu_oil      	= deferred_dataref("laminar/B747/electrical/oil", "number")
+
 
 simDR_generator_on              = find_dataref("sim/cockpit2/electrical/generator_on")
 simDR_generator_off              = find_dataref("sim/cockpit2/annunciators/generator_off")
@@ -441,12 +443,13 @@ function B747_external_power()
 -- 	B747DR_elec_ext_pwr2_available = 0
 --     end
     if simDR_aircraft_on_ground == 0
-        or simDR_aircraft_groundspeed > 0.10
+        or simDR_aircraft_groundspeed > 1.00
         or simDR_engine_running[0] == 1
         or simDR_engine_running[1] == 1
         or simDR_engine_running[2] == 1
         or simDR_engine_running[3] == 1
     then
+        print("disabled ground power at ".. simDR_aircraft_groundspeed .. " "..simDR_aircraft_on_ground)
         B747DR_elec_ext_pwr1_available = 0
 	    B747DR_elec_ext_pwr2_available =0
     end
