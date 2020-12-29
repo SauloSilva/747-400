@@ -155,7 +155,7 @@ B747DR_elec_stby_ignit_sel_pos      = deferred_dataref("laminar/B747/electrical/
 B747DR_elec_auto_ignit_sel_pos      = deferred_dataref("laminar/B747/electrical/auto_ignit/sel_dial_pos", "number")
 
 B747DR_elec_apu_inlet_door_pos      = deferred_dataref("laminar/B747/electrical/apu_inlet_door", "number")
-
+B747DR_elec_apu_volts      = deferred_dataref("laminar/B747/electrical/apu_volts", "number")
 B747DR_elec_ext_pwr1_available      = deferred_dataref("laminar/B747/electrical/ext_pwr1_avail", "number")
 B747DR_elec_ext_pwr2_available      = deferred_dataref("laminar/B747/electrical/ext_pwr2_avail", "number")
 B747DR_elec_apu_pwr1_available      = deferred_dataref("laminar/B747/electrical/apu_pwr1_avail", "number")
@@ -411,12 +411,14 @@ function B747_battery()
         and simDR_battery_on[0] == 1
     then
         simDR_battery_on[0] = 0
+        B747DR_elec_apu_volts = 0
     end
 
     if B747DR_button_switch_position[13] > 0.95
         and simDR_battery_on[0] == 0
     then
         simDR_battery_on[0] = 1
+        B747DR_elec_apu_volts = 28
     end
 
 end
