@@ -1031,8 +1031,8 @@ function B747_fltCtrols_EICAS_msg()
         ((simDR_radio_alt_height_capt > 15.0 and simDR_radio_alt_height_capt < 800.0)
         or
         (simDR_wing_flap1_deg[0] > 24.0 and simDR_wing_flap1_deg[0] < 31.0)
-        or
-        num_thrust_levers_open >= 2)
+        and
+        num_thrust_levers_open >= 1)
     then
         B747DR_CAS_caution_status[59] = 1
     else

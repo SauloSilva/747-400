@@ -256,9 +256,10 @@ function findILS(value)
 	    end
 	    simDR_nav1Freq=navAids[n][3]
 	    simDR_nav2Freq=navAids[n][3]
-	    local course=(navAids[n][4]+simDR_variation)
-	    simDR_radio_nav_obs_deg[0]=course
-	    simDR_radio_nav_obs_deg[1]=course
+      --local course=(navAids[n][4]+simDR_variation)
+      local course=(navAids[n][4]+simDR_variation)
+	    simDR_radio_nav1_obs_deg=course
+	    simDR_radio_nav2_obs_deg=course
 	    print("68 - Tuned ILS "..course)
 	    print("68 - useThis"..bestDist)
 	  end
@@ -288,13 +289,18 @@ fmsPages["NAVRAD"].getPage=function(self,pgNo,fmsID)
     if original_distance == -1 then
 		original_distance = B747BR_totalDistance  --capture original flightplan distance
 	end
-	--print("Dist to TOD = "..dist_to_tod)	
+  --print("Dist to TOD = "..dist_to_tod)	
+  local course = ilsNav[4]+simDR_variation
+  if course<0 then
+    course=course+360
+  end
+
     if (dist_to_TOD >= 50 and dist_to_TOD < 200) then
 		--ils2= string.format("%6.2f/%03d%s %4s          .", ilsNav[3]*0.01,(ilsNav[4]+simDR_variation), "˚", park)
 		ils1 = "            "..park
-		ils_line1 = string.format("<%6.2f/%03d%s           ", ilsNav[3]*0.01,(round((ilsNav[4]+round(simDR_variation)))), "˚")
+		ils_line1 = string.format("<%6.2f/%03d%s           ", ilsNav[3]*0.01,((simDR_radio_nav_obs_deg[0])), "˚")
 	elseif (dist_to_TOD < 50) then
-		ils1= string.format("%6.2f/%03d%s          ", ilsNav[3]*0.01,(round((ilsNav[4]+round(simDR_variation)))), "`"..modes:sub(1, 1))
+		ils1= string.format("%6.2f/%03d%s          ", ilsNav[3]*0.01,((simDR_radio_nav_obs_deg[0])), "`"..modes:sub(1, 1))
 		ils_line1 = ""
 	end
   else
