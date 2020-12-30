@@ -2727,10 +2727,12 @@ function B747_ap_afds()
 		
 	elseif simDR_autopilot_servos_on == 1 and (switching_servos_on-simDRTime)>1 then
 		if numAPengaged == 0 then
-			B747CMD_ap_reset:once()
+			--[[B747CMD_ap_reset:once()
 			B747DR_ap_cmd_L_mode = 0
 			B747DR_ap_cmd_C_mode = 0 
-			B747DR_ap_cmd_R_mode = 0
+			B747DR_ap_cmd_R_mode = 0]]
+			B747DR_ap_cmd_L_mode = 1
+
 		end
 	end		
     
