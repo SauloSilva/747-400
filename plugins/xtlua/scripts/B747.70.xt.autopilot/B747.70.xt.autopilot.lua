@@ -2718,7 +2718,7 @@ function B747_ap_afds()
 	local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
 	if simDR_autopilot_servos_on == 0 then
 		if numAPengaged > 0 and (switching_servos_on-simDRTime)>1 then
-			print("reset AP in B747_ap_afds")	
+			--print("reset AP in B747_ap_afds")	
 			B747CMD_ap_reset:once()
 			B747DR_ap_cmd_L_mode = 0
 			B747DR_ap_cmd_C_mode = 0 

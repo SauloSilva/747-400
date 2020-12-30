@@ -127,9 +127,9 @@ function B747DR_gear_handle_DRhandler()
         end
 
     end
-    print("gear handler")
+    --print("gear handler")
     if B747DR_gear_handle>0 then 
-        print("parking brake 0")
+        --print("parking brake 0")
         B747DR_parking_brake_ratio=0
     end
 end    
