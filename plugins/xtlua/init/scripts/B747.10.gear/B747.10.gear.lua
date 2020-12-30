@@ -93,13 +93,15 @@ B747DR_brake_temp               = deferred_dataref("laminar/B747/gear/brake_temp
 B747DR_brake_temp_ind               = deferred_dataref("laminar/B747/gear/brake_temp_ind", "array[18]")
 B747DR_init_gear_CD             = deferred_dataref("laminar/B747/gear/init_CD", "number")
 B747DR__gear_chocked           = deferred_dataref("laminar/B747/gear/chocked", "number")
+B747DR_parking_brake_ratio = find_dataref("laminar/B747/flt_ctrls/parking_brake_ratio")
+simDR_parking_brake_ratio       = find_dataref("sim/cockpit2/controls/parking_brake_ratio")
 ----- GEAR HANDLE DATAREF HANDLER -------------------------------------------------------
 
 local B747_gear_handle_lock_override = 0
 local B747_gear_handle_lock = 0
 simDR_gear_handle_down      = find_dataref("sim/cockpit2/controls/gear_handle_down")
 function B747DR_gear_handle_DRhandler()
-
+    
     -- GEAR HANDLE LOCK IS DISENGAGED
     if B747_gear_handle_lock == 0 then
 
@@ -125,7 +127,11 @@ function B747DR_gear_handle_DRhandler()
         end
 
     end
-    
+    print("gear handler")
+    if B747DR_gear_handle>0 then 
+        print("parking brake 0")
+        B747DR_parking_brake_ratio=0
+    end
 end    
 
 

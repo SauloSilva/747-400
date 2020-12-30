@@ -613,7 +613,7 @@ function B747_ap_switch_loc_mode_CMDhandler(phase, duration)
 end	
 
 
-
+local switching_servos_on=simDRTime
 function B747_ap_switch_cmd_L_CMDhandler(phase, duration)
 	if phase == 0 then
 		B747_ap_button_switch_position_target[10] = 1									-- SET THE BUTTON ANIMATION TO "DOWN"
@@ -630,8 +630,9 @@ function B747_ap_switch_cmd_L_CMDhandler(phase, duration)
 							B747CMD_ap_att_mode:once()									-- ACTIVATE "ATT" MODE		
 						end
 					end
-				simCMD_autopilot_servos_on:once()										-- TURN THE AP SERVOS "ON"	
-				simDR_autopilot_servos_on=1
+				simCMD_autopilot_servos_on:once()
+				switching_servos_on=simDRTime										-- TURN THE AP SERVOS "ON"	
+				--simDR_autopilot_servos_on=1
 				end
 			B747DR_ap_cmd_L_mode = 1													-- SET AP CMD L MODE TO "ON"	
 			end
@@ -662,7 +663,7 @@ function B747_ap_switch_cmd_C_CMDhandler(phase, duration)
 					end
 				simCMD_autopilot_servos_on:once()										-- TURN THE AP SERVOS "ON"	
 				simCMD_autopilot_servos2_on:once()	
-				simDR_autopilot_servos_on=1
+				switching_servos_on=simDRTime
 				end
 			B747DR_ap_cmd_C_mode = 1													-- SET AP CMD C MODE TO "ON"	
 			end
@@ -693,7 +694,7 @@ function B747_ap_switch_cmd_R_CMDhandler(phase, duration)
 					end
 				simCMD_autopilot_servos_on:once()										-- TURN THE AP SERVOS "ON"	
 				simCMD_autopilot_servos3_on:once()
-				simDR_autopilot_servos_on=1
+				switching_servos_on=simDRTime
 				end
 			B747DR_ap_cmd_R_mode = 1													-- SET AP CMD R MODE TO "ON"	
 			end
@@ -715,6 +716,7 @@ function B747_ap_switch_disengage_bar_CMDhandler(phase, duration)
 			then				
 				if simDR_autopilot_flight_dir_mode > 0 then								-- FLIGHT DIRECTOR IS ON OR F/D AND SERVOS ARE "ON"
 					B747CMD_ap_reset:once()												-- TURN FLIGHT DIRECTOR AND SERVOS "OFF"	
+					B747_ap_all_cmd_modes_off()	
 				end
 			else																		-- ONE OF THE FLIGHT DIRECTOR SWITCHES IS "ON"
 				if simDR_autopilot_flight_dir_mode == 2 then							-- FLIGHT DIRECTOR AND SERVOS ARE "ON"
@@ -756,7 +758,7 @@ function B747_ap_switch_yoke_disengage_capt_CMDhandler(phase, duration)
 			end								
 		end
 		B747CMD_ap_reset:once()
-		simCMD_autopilot_fdir_servos_down_one:once()							-- TURN ONLY THE SERVOS OFF, LEAVE FLIGHT DIRECTOR ON	
+		--simCMD_autopilot_fdir_servos_down_one:once()							-- TURN ONLY THE SERVOS OFF, LEAVE FLIGHT DIRECTOR ON	
 		B747_ap_all_cmd_modes_off()
 	end
 end	
@@ -2714,15 +2716,21 @@ end
 function B747_ap_afds()
 
 	local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
-	
 	if simDR_autopilot_servos_on == 0 then
-		if numAPengaged > 0 then	
+		if numAPengaged > 0 and (switching_servos_on-simDRTime)>1 then
+			print("reset AP in B747_ap_afds")	
 			B747CMD_ap_reset:once()
+			B747DR_ap_cmd_L_mode = 0
+			B747DR_ap_cmd_C_mode = 0 
+			B747DR_ap_cmd_R_mode = 0
 		end	
 		
-	elseif simDR_autopilot_servos_on == 1 then
+	elseif simDR_autopilot_servos_on == 1 and (switching_servos_on-simDRTime)>1 then
 		if numAPengaged == 0 then
-			B747DR_ap_cmd_L_mode = 1
+			B747CMD_ap_reset:once()
+			B747DR_ap_cmd_L_mode = 0
+			B747DR_ap_cmd_C_mode = 0 
+			B747DR_ap_cmd_R_mode = 0
 		end
 	end		
     
@@ -2737,7 +2745,7 @@ function B747_ap_afds()
             B747DR_ap_AFDS_status_annun = 5                                              	-- AFDS MODE = "NO AUTOLAND" (NOT MODELED)
 	else
 	    B747DR_ap_AFDS_status_annun = 2   -- AFDS MODE = "CMD"
-        end
+    end
 
     -- TODO: IF LOC OR APP CAPTURED ? THEN...
     elseif numAPengaged == 2  and landAssist==true  then
@@ -2897,7 +2905,7 @@ function B747_ap_all_cmd_modes_off()
 	B747DR_ap_cmd_L_mode = 0	
 	B747DR_ap_cmd_C_mode = 0	
 	B747DR_ap_cmd_R_mode = 0	
-
+	switching_servos_on=simDRTime
 end
 
 

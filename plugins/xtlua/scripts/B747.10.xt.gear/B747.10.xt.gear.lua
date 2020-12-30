@@ -128,7 +128,7 @@ B747DR__gear_chocked           = deferred_dataref("laminar/B747/gear/chocked", "
 
 ----- GEAR HANDLE DATAREF HANDLER -------------------------------------------------------
 function B747DR_gear_handle_DRhandler()
-
+    print("gear DR handler")
     -- GEAR HANDLE LOCK IS DISENGAGED
     if B747_gear_handle_lock == 0 then
 
@@ -223,6 +223,7 @@ B747CMD_gear_down_full    = deferred_command("laminar/B747/gear/overrideDown", "
 
 function sim_landing_gear_up_CMDhandler(phase, duration)
     if phase == 0 then
+        --B747DR_parking_brake_ratio = 0.0
         -- GEAR HANDLE LOCK IS DISENGAGED
         if B747_gear_handle_lock == 0 then
             B747DR_gear_handle = 2.0
@@ -236,7 +237,7 @@ end
 
 function sim_landing_gear_down_CMDhandler(phase, duration)
      if phase == 0 then
-            B747DR_parking_brake_ratio = 0.0
+            --B747DR_parking_brake_ratio = 0.0
  	    simDR_gear_handle_down = 1
      end
 end
