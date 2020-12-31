@@ -610,6 +610,7 @@ B747DR_CAS_caut_adv_display     = deferred_dataref("laminar/B747/CAS/caut_adv_di
 
 B747DR_master_warning           = find_dataref("laminar/B747/warning/master_warning")
 B747DR_master_caution           = find_dataref("laminar/B747/warning/master_caution")
+B747DR_master_caution_audio     = find_dataref("laminar/B747/warning/master_caution_audio")
 B747DR_fire_ovht_button_pos     = deferred_dataref("laminar/B747/fire/fire_ovht/button_pos", "number")
 B747DR_init_warning_CD          = deferred_dataref("laminar/B747/warning/init_CD", "number")
 
@@ -760,9 +761,15 @@ function cleanAllWhenOff()
      B747_removeMemo(B747_CASmemoMsg[i].name)
      B747_CASmemoMsg[i].status = 0
   end
+
+    B747DR_master_caution = 0                                                   -- SET THE MASTER CAUTION
+    B747DR_master_caution_audio     = 0
+    B747DR_master_warning = 0
 end
 
-
+function stop_caution_audio()
+    B747DR_master_caution_audio     = 0
+end
 ----- BUILD THE ALERT QUEUE -------------------------------------------------------------
 function B747_CAS_queue() 
 
@@ -796,6 +803,8 @@ function B747_CAS_queue()
             if B747DR_CAS_caution_status[B747_CAScautionMsg[i].DRindex] == 1 then                 -- CAUTION IS ACTIVE
                 table.insert(B747_CAScaution, B747_CAScautionMsg[i].name)                  -- ADD TO THE CAUTION QUEUE
                 B747DR_master_caution = 1                                                   -- SET THE MASTER CAUTION
+                B747DR_master_caution_audio     = 1
+                run_after_time(stop_caution_audio,1)
             elseif B747DR_CAS_caution_status[B747_CAScautionMsg[i].DRindex] == 0 then             -- CAUTION IS INACTIVE
                 B747_removeCaution(B747_CAScautionMsg[i].name)                             -- REMOVE FROM THE CAUTION QUEUE
             end
@@ -1094,6 +1103,7 @@ function after_physics()
     if simDR_bus_volts[0]<5 or simDR_esys1==6 then
       powered = false
       cleanAllWhenOff()
+
       lastUpdate=simDRTime
     elseif diff>2 and powered == true then
       B747_CAS_queue()
@@ -1106,6 +1116,7 @@ function after_physics()
     elseif diff>4 then
       powered = true
       lastUpdate=simDRTime
+
     end
 end
 

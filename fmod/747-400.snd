@@ -26,6 +26,7 @@ REQUIRES_BANK Weather.bank
 REQUIRES_BANK Warning.bank
 REQUIRES_BANK 744BYNC4.bank
 
+DISABLE_LEGACY_ALERT_SOUNDS
 # Sound Mixer ###################################
 
 BEGIN_SOUND_ATTACHMENT
@@ -1935,8 +1936,8 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /master_caution
 	VEH_XYZ 0 4.2 -26.8
-	EVENT_START_COND laminar/B747/warning/master_caution > 0.5
-	EVENT_END_COND laminar/B747/warning/master_caution < 0.5
+	EVENT_START_COND laminar/B747/warning/master_caution_audio > 0.5
+	EVENT_END_COND laminar/B747/warning/master_caution_audio < 0.5
 END_SOUND_ATTACHMENT
 
 # Weather ################################################################
@@ -1975,43 +1976,43 @@ END_SOUND_ATTACHMENT
 # YESAVIATION 747-400 FMOD BY WOLFAIR_737 *SOUNDS PROVIDED BY K-AKAI, ADAM'S WORLD, AND HARRY876; THANK YOU!!! #
 ################################################################################################################
 
-REQUIRES_BANK GE.bank
+#REQUIRES_BANK GE.bank
 
 
 ###########ENGINE###########
 
-BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /aircraft/engine/GE/GE_1
-	#EVENT_NAME /aircraft/engine/GE_master
-	VEH_PART engine 0
-	PARAM_DREF_IDX 0
-	EVENT_START_COND sim/flightmodel2/engines/N1_percent[0] > 0
-	EVENT_END_COND sim/flightmodel2/engines/N1_percent[0] <= 0
-END_SOUND_ATTACHMENT
+#BEGIN_SOUND_ATTACHMENT
+#	EVENT_NAME /aircraft/engine/GE/GE_1
+#	#EVENT_NAME /aircraft/engine/GE_master
+#	VEH_PART engine 0
+#	PARAM_DREF_IDX 0
+#	EVENT_START_COND sim/flightmodel2/engines/N1_percent[0] > 0
+#	EVENT_END_COND sim/flightmodel2/engines/N1_percent[0] <= 0
+#END_SOUND_ATTACHMENT
 
-BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /aircraft/engine/GE/GE_2
-	#EVENT_NAME /aircraft/engine/GE_master
-	VEH_PART engine 1
-	PARAM_DREF_IDX 1
-	EVENT_START_COND sim/flightmodel2/engines/N1_percent[1] > 0
-	EVENT_END_COND sim/flightmodel2/engines/N1_percent[1] <= 0
-END_SOUND_ATTACHMENT
+#BEGIN_SOUND_ATTACHMENT
+#	EVENT_NAME /aircraft/engine/GE/GE_2
+#	#EVENT_NAME /aircraft/engine/GE_master
+#	VEH_PART engine 1
+#	PARAM_DREF_IDX 1
+#	EVENT_START_COND sim/flightmodel2/engines/N1_percent[1] > 0
+#	EVENT_END_COND sim/flightmodel2/engines/N1_percent[1] <= 0
+#END_SOUND_ATTACHMENT
 
-BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /aircraft/engine/GE/GE_3
-	#EVENT_NAME /aircraft/engine/GE_master
-	VEH_PART engine 2
-	PARAM_DREF_IDX 2
-	EVENT_START_COND sim/flightmodel2/engines/N1_percent[2] > 0
-	EVENT_END_COND sim/flightmodel2/engines/N1_percent[2] <= 0
-END_SOUND_ATTACHMENT
+#BEGIN_SOUND_ATTACHMENT
+#	EVENT_NAME /aircraft/engine/GE/GE_3
+#	#EVENT_NAME /aircraft/engine/GE_master
+#	VEH_PART engine 2
+#	PARAM_DREF_IDX 2
+#	EVENT_START_COND sim/flightmodel2/engines/N1_percent[2] > 0
+#	EVENT_END_COND sim/flightmodel2/engines/N1_percent[2] <= 0
+#END_SOUND_ATTACHMENT
 
-BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /aircraft/engine/GE/GE_4
-	#EVENT_NAME /aircraft/engine/GE_master
-	VEH_PART engine 3
-	PARAM_DREF_IDX 3
-	EVENT_START_COND sim/flightmodel2/engines/N1_percent[3] > 0
-	EVENT_END_COND sim/flightmodel2/engines/N1_percent[3] <= 0
-END_SOUND_ATTACHMENT
+#BEGIN_SOUND_ATTACHMENT
+#	EVENT_NAME /aircraft/engine/GE/GE_4
+#	#EVENT_NAME /aircraft/engine/GE_master
+#	VEH_PART engine 3
+#	PARAM_DREF_IDX 3
+#	EVENT_START_COND sim/flightmodel2/engines/N1_percent[3] > 0
+#	EVENT_END_COND sim/flightmodel2/engines/N1_percent[3] <= 0
+#END_SOUND_ATTACHMENT
