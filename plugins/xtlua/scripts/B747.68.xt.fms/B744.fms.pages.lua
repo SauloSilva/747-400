@@ -26,7 +26,12 @@ fmsPages["INDEX"].getPage=function(self,pgNo,fmsID)
     gs1="                 SELECT>"
 
   end
-  if acars==1 and B747DR_rtp_C_off==0 then acarsS="<ACARS" end
+  if acars==1 and B747DR_rtp_C_off==0 then 
+	acarsS="<ACARS" 
+	fmsFunctionsDefs["INDEX"]["L2"]={"setpage","ACARS"}
+  else
+	fmsFunctionsDefs["INDEX"]["L2"]=nil
+	end
 return {
 
 "          MENU          ",
@@ -69,7 +74,7 @@ fmsPages["INDEX"].getSmallPage=function(self,pgNo,fmsID)
 end
 fmsFunctionsDefs["INDEX"]={}
 fmsFunctionsDefs["INDEX"]["L1"]={"setpage","FMC"}
-fmsFunctionsDefs["INDEX"]["L2"]={"setpage","ACARS"}
+
 fmsFunctionsDefs["INDEX"]["L5"]={"setpage","ACMS"}
 fmsFunctionsDefs["INDEX"]["L6"]={"setpage","CMC"}
 fmsFunctionsDefs["INDEX"]["R4"]={"setpage","GNDHNDL"}
