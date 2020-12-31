@@ -274,9 +274,14 @@ wb = {
 		passenger_zoneE_weight	= 0,  --defined via FMC passenger loading function
 		
 		--Payload/Cargo Zones
-		fwd_cargo_weight		= 0,  --defined via FMC cargo loading function
-		aft_cargo_weight		= 0,  --defined via FMC cargo loading function
-		bulk_cargo_weight		= 0,  --defined via FMC cargo loading function
+		fwd_lower_cargo_weight	= 0,  --defined via FMC cargo loading function
+		aft_lower_cargo_weight	= 0,  --defined via FMC cargo loading function
+		bulk_lower_cargo_weight	= 0,  --defined via FMC cargo loading function
+		freight_zoneA_weight	= 0,  --defined via FMC cargo loading function
+		freight_zoneB_weight	= 0,  --defined via FMC cargo loading function
+		freight_zoneC_weight	= 0,  --defined via FMC cargo loading function
+		freight_zoneD_weight	= 0,  --defined via FMC cargo loading function
+		freight_zoneE_weight	= 0,  --defined via FMC cargo loading function
 		
 		--Moment Arm Distances (inches from reference point [aircraft nose] stored in feet in aircraft .acf file)
 		OEW_distance				= 1243.32, --103.61 feet
@@ -289,16 +294,21 @@ wb = {
 		fuel_R_rsv6_distance		= 1596.00, --133.00 feet
 		fuel_stab7_distance			= 2412.00, --201.00 feet
 		-- Passenger Zone moment arm distances are an approximation using the middle of the Zone as a reference
-		passenger_zoneA_distance	= 260.00, --21.67 feet (23 First Class seats in the nose)
-		passenger_zoneB_distance	= 640.00, --53.33 feet (80 Business Class seats behind First Class, including the Upper Deck Business Class seats)
-		passenger_zoneC_distance	= 920.00, --76.67 feet (77 Economy Class seats)
-		passenger_zoneD_distance	= 1200.00, --100.00 feet (104 Economy Class seats)
-		passenger_zoneE_distance	= 1700.00, --141.67 feet (132 Economy Class seats)
+		passenger_zoneA_distance	= 285.00, --23.75 feet (23 First Class seats in the nose)
+		passenger_zoneB_distance	= 735.00, --61.25 feet (80 Business Class seats behind First Class, including the Upper Deck Business Class seats)
+		passenger_zoneC_distance	= 1060.00, --88.33 feet (77 Economy Class seats)
+		passenger_zoneD_distance	= 1405.00, --117.08 feet (104 Economy Class seats)
+		passenger_zoneE_distance	= 1950.00, --162.5 feet (132 Economy Class seats)
 		
 		--Payload/Cargo Zone moment arm distances are an approximation using the middle of the Zone as a reference
-		fwd_cargo_distance			= 450,  --37.50 feet (5 pallets [5035 KGS] or 16 LD1/LD3 [1588 KGS] containers or combination totalling 26,490 KGS).  Approximation of Pax A + Pax B / 2.
-		aft_cargo_distance			= 1450.00,  --120.93 feet (4 pallets or 14 LD1/LD3 containers or combination totalling 22,938 KGS).  Approximation of Pax D + Pax E / 2.
-		bulk_cargo_distance			= 1900.00,  --158.33 feet (6,749 KGS).  In the tail of the aircraft beneath the rear galley.
+		fwd_lower_cargo_distance	= 650.00,  --54.16 feet (5 pallets [5035 KGS] or 16 LD1/LD3 [1588 KGS] containers or combination totalling 26,490 KGS).
+		aft_lower_cargo_distance	= 1675.00,  --139.58 feet (4 pallets or 14 LD1/LD3 containers or combination totalling 22,938 KGS).
+		bulk_lower_cargo_distance	= 1935.00,  --161.25 feet (6,749 KGS).  In the tail of the aircraft beneath the rear galley.
+		freight_zoneA_distance		= 290.00,  --24.16 feet (3 pallets [3763 KGS] or equivalent totalling 11,289 KGS).
+		freight_zoneB_distance		= 690.00,  --57.50 feet (8 pallets [3763 KGS] or equivalent totalling 30,104 KGS).
+		freight_zoneC_distance		= 1135.00,  --94.58 feet (6 pallets [3763 KGS] or equivalent totalling 22,578 KGS).
+		freight_zoneD_distance		= 1750.00,  --145.83 feet (12 pallets [3763 KGS] or equivalent totalling 45,156 KGS).
+		freight_zoneE_distance		= 2220.00,  --185.00 feet (1 pallet [3763 KGS] or equivalent totalling 3763 KGS).
 
 		--Calculated Results
 		stab_trim = 0,
@@ -349,14 +359,20 @@ function calc_CGMAC()
 	local GW				= wb.OEW_weight + wb.fuel_CTR_0_weight + wb.fuel_L_main1_weight + wb.fuel_L_main2_weight + wb.fuel_R_main3_weight + wb.fuel_R_main4_weight
 								+ wb.fuel_L_rsv5_weight + wb.fuel_R_rsv6_weight + wb.fuel_stab7_weight + wb.passenger_zoneA_weight + wb.passenger_zoneB_weight
 								+ wb.passenger_zoneC_weight + wb.passenger_zoneD_weight + wb.passenger_zoneE_weight
+								+ wb.fwd_lower_cargo_weight + wb.aft_lower_cargo_weight + wb.bulk_lower_cargo_weight
+								+ wb.freight_zoneA_weight + wb.freight_zoneB_weight + wb.freight_zoneC_weight
+								+ wb.freight_zoneD_weight + wb.freight_zoneE_weight
 	local total_moment		= (wb.OEW_weight * wb.OEW_distance) + (wb.fuel_CTR_0_weight * wb.fuel_CTR_0_distance) + (wb.fuel_L_main1_weight * wb.fuel_L_main1_distance)
 								+ (wb.fuel_L_main2_weight * wb.fuel_L_main2_distance) + (wb.fuel_R_main3_weight * wb.fuel_R_main3_distance)
 								+ (wb.fuel_R_main4_weight * wb.fuel_R_main4_distance) + (wb.fuel_L_rsv5_weight * wb.fuel_L_rsv5_distance)
 								+ (wb.fuel_R_rsv6_weight * wb.fuel_R_rsv6_distance) + (wb.fuel_stab7_weight * wb.fuel_stab7_distance)
 								+ (wb.passenger_zoneA_weight * wb.passenger_zoneA_distance) + (wb.passenger_zoneB_weight * wb.passenger_zoneB_distance)
 								+ (wb.passenger_zoneC_weight * wb.passenger_zoneC_distance) + (wb.passenger_zoneD_weight * wb.passenger_zoneD_distance)
-								+ (wb.passenger_zoneE_weight * wb.passenger_zoneE_distance) + (wb.fwd_cargo_weight * wb.fwd_cargo_distance)
-								+ (wb.aft_cargo_weight * wb.aft_cargo_distance) + (wb.bulk_cargo_weight * wb.bulk_cargo_distance)
+								+ (wb.passenger_zoneE_weight * wb.passenger_zoneE_distance) + (wb.fwd_lower_cargo_weight * wb.fwd_lower_cargo_distance)
+								+ (wb.aft_lower_cargo_weight * wb.aft_lower_cargo_distance) + (wb.bulk_lower_cargo_weight * wb.bulk_lower_cargo_distance)
+								+ (wb.freight_zoneA_weight * wb.freight_zoneA_distance) + (wb.freight_zoneB_weight * wb.freight_zoneB_distance)
+								+ (wb.freight_zoneC_weight * wb.freight_zoneC_distance) + (wb.freight_zoneD_weight * wb.freight_zoneD_distance)
+								+ (wb.freight_zoneE_weight * wb.freight_zoneE_distance)
 	local CG				= total_moment / GW
 	local wing_root_chord	= 648.99996  --54.10 feet (from the aircraft .acf file)
 	local wing_tip_chord	= 159.99996  --13.40 feet (from the aircraft .acf file)
@@ -401,20 +417,26 @@ function inflight_update_CG()
 	wb.fuel_L_rsv5_weight		= simDR_fuel_qty[5]
 	wb.fuel_R_rsv6_weight		= simDR_fuel_qty[6]
 	wb.fuel_stab7_weight		= simDR_fuel_qty[7]
-	wb.passenger_zoneD_weight	= B747DR_payload_weight  --Temporarily place all the passenger and payload weight close to the default XP CG until passenger & cargo loading is implemented
 
 	--CG variables (in inches from reference point)
 	local GW				= wb.OEW_weight + wb.fuel_CTR_0_weight + wb.fuel_L_main1_weight + wb.fuel_L_main2_weight + wb.fuel_R_main3_weight + wb.fuel_R_main4_weight
 								+ wb.fuel_L_rsv5_weight + wb.fuel_R_rsv6_weight + wb.fuel_stab7_weight + wb.passenger_zoneA_weight + wb.passenger_zoneB_weight
 								+ wb.passenger_zoneC_weight + wb.passenger_zoneD_weight + wb.passenger_zoneE_weight
+								+ wb.fwd_lower_cargo_weight + wb.aft_lower_cargo_weight + wb.bulk_lower_cargo_weight
+								+ wb.freight_zoneA_weight + wb.freight_zoneB_weight + wb.freight_zoneC_weight
+								+ wb.freight_zoneD_weight + wb.freight_zoneE_weight
 	local total_moment		= (wb.OEW_weight * wb.OEW_distance) + (wb.fuel_CTR_0_weight * wb.fuel_CTR_0_distance) + (wb.fuel_L_main1_weight * wb.fuel_L_main1_distance)
 								+ (wb.fuel_L_main2_weight * wb.fuel_L_main2_distance) + (wb.fuel_R_main3_weight * wb.fuel_R_main3_distance)
 								+ (wb.fuel_R_main4_weight * wb.fuel_R_main4_distance) + (wb.fuel_L_rsv5_weight * wb.fuel_L_rsv5_distance)
 								+ (wb.fuel_R_rsv6_weight * wb.fuel_R_rsv6_distance) + (wb.fuel_stab7_weight * wb.fuel_stab7_distance)
 								+ (wb.passenger_zoneA_weight * wb.passenger_zoneA_distance) + (wb.passenger_zoneB_weight * wb.passenger_zoneB_distance)
 								+ (wb.passenger_zoneC_weight * wb.passenger_zoneC_distance) + (wb.passenger_zoneD_weight * wb.passenger_zoneD_distance)
-								+ (wb.passenger_zoneE_weight * wb.passenger_zoneE_distance) + (wb.fwd_cargo_weight * wb.fwd_cargo_distance)
-								+ (wb.aft_cargo_weight * wb.aft_cargo_distance) + (wb.bulk_cargo_weight * wb.bulk_cargo_distance)
+								+ (wb.passenger_zoneE_weight * wb.passenger_zoneE_distance) + (wb.fwd_lower_cargo_weight * wb.fwd_lower_cargo_distance)
+								+ (wb.aft_lower_cargo_weight * wb.aft_lower_cargo_distance) + (wb.bulk_lower_cargo_weight * wb.bulk_lower_cargo_distance)
+								+ (wb.freight_zoneA_weight * wb.freight_zoneA_distance) + (wb.freight_zoneB_weight * wb.freight_zoneB_distance)
+								+ (wb.freight_zoneC_weight * wb.freight_zoneC_distance) + (wb.freight_zoneD_weight * wb.freight_zoneD_distance)
+								+ (wb.freight_zoneE_weight * wb.freight_zoneE_distance)
+
 	local CG				= total_moment / GW
 	local dist_default_CG	= 1243.32  --103.61 feet (from the aircraft .acf file)
 	local cg_shift			= (dist_default_CG - CG) / inch_to_meters  --determine how far ahead or behind the OEW CG we are
@@ -510,6 +532,12 @@ function defaultFMSData()
   cargoAft = string.rep("0", 6),
   cargoBulk = string.rep("0", 5),
   cargoTotal = string.rep("0", 6),
+  freightZoneA = string.rep("0", 6),
+  freightZoneB = string.rep("0", 6),
+  freightZoneC = string.rep("0", 6),
+  freightZoneD = string.rep("0", 6),
+  freightZoneE = string.rep("0", 6),
+  freightTotal = string.rep("0", 7),
 }
 end
 
@@ -859,6 +887,8 @@ function flight_start()
       
     end
 
+	simDR_cg_adjust = 0  --reset CG slider to begin current flight
+	
 	--Ensure that CG location gets updated periodically so that the CG slider repositions automatically as fuel is burned during flight
 	run_at_interval(inflight_update_CG, 120)
 end

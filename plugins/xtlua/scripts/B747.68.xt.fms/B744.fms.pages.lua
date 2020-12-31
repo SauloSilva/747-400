@@ -567,17 +567,22 @@ end
 
 --Marauder28
 function calc_pax_cargo()
-	local pax_total			= 0
-	local pax_weightA		= 0
-	local pax_weightB		= 0
-	local pax_weightC		= 0
-	local pax_weightD		= 0
-	local pax_weightE		= 0
-	local pax_weight_Tot	= 0
-	local cargo_weight_fwd	= 0
-	local cargo_weight_aft	= 0
-	local cargo_weight_bulk	= 0
-	local cargo_weight_tot	= 0
+	local pax_total				= 0
+	local pax_weightA			= 0
+	local pax_weightB			= 0
+	local pax_weightC			= 0
+	local pax_weightD			= 0
+	local pax_weightE			= 0
+	local pax_weight_Tot		= 0
+	local cargo_weight_fwd		= 0
+	local cargo_weight_aft		= 0
+	local cargo_weight_bulk		= 0
+	local cargo_weight_tot		= 0
+	local freight_weightA		= 0
+	local freight_weightB		= 0
+	local freight_weightC		= 0
+	local freight_weightD		= 0
+	local freight_weight_tot	= 0
 
 	pax_total		= 	tonumber(fmsModules["data"].paxFirstClassA) + tonumber(fmsModules["data"].paxBusClassB)
 						+ tonumber(fmsModules["data"].paxEconClassC) + tonumber(fmsModules["data"].paxEconClassD)
@@ -594,6 +599,13 @@ function calc_pax_cargo()
 	cargo_weight_bulk	= tonumber(fmsModules["data"].cargoBulk)
 	cargo_weight_tot	= cargo_weight_fwd + cargo_weight_aft + cargo_weight_bulk
 	
+	freight_weightA		= tonumber(fmsModules["data"].freightZoneA)
+	freight_weightB		= tonumber(fmsModules["data"].freightZoneB)
+	freight_weightC		= tonumber(fmsModules["data"].freightZoneC)
+	freight_weightD		= tonumber(fmsModules["data"].freightZoneD)
+	freight_weightE		= tonumber(fmsModules["data"].freightZoneE)
+	freight_weight_tot	= freight_weightA + freight_weightB + freight_weightC + freight_weightD + freight_weightE
+	
 	--Assign values to FMC
 	fmsModules["data"].paxTotal 		= pax_total
 	fmsModules["data"].paxWeightA		= pax_weightA
@@ -603,6 +615,7 @@ function calc_pax_cargo()
 	fmsModules["data"].paxWeightE		= pax_weightE
 	fmsModules["data"].paxWeightTotal	= pax_weight_Tot
 	fmsModules["data"].cargoTotal		= cargo_weight_tot
+	fmsModules["data"].freightTotal		= freight_weight_tot
 	
 	--Assign values to WB
 	wb.passenger_zoneA_weight		= pax_weightA	
@@ -610,12 +623,17 @@ function calc_pax_cargo()
 	wb.passenger_zoneC_weight		= pax_weightC
 	wb.passenger_zoneD_weight		= pax_weightD
 	wb.passenger_zoneE_weight		= pax_weightE
-	wb.fwd_cargo_weight				= cargo_weight_fwd
-	wb.aft_cargo_weight				= cargo_weight_aft
-	wb.bulk_cargo_weight			= cargo_weight_bulk
+	wb.fwd_lower_cargo_weight		= cargo_weight_fwd
+	wb.aft_lower_cargo_weight		= cargo_weight_aft
+	wb.bulk_lower_cargo_weight		= cargo_weight_bulk
+	wb.freight_zoneA_weight			= freight_weightA
+	wb.freight_zoneB_weight			= freight_weightB
+	wb.freight_zoneC_weight			= freight_weightC
+	wb.freight_zoneD_weight			= freight_weightD
+	wb.freight_zoneE_weight			= freight_weightE
 	
 	--Update Sim Payload weight with PAX & Cargo entries
-	simDR_payload_weight = pax_weight_Tot + cargo_weight_tot
+	simDR_payload_weight = pax_weight_Tot + cargo_weight_tot + freight_weight_tot
 	
 	--print("PAX A Wgt = "..pax_weightA)
 	--print("PAX A = "..tonumber(fmsModules["data"].paxFirstClassA))
@@ -631,6 +649,13 @@ function calc_pax_cargo()
 	--print("Cargo Fwd = "..cargo_weight_fwd)
 	--print("Cargo Aft = "..cargo_weight_aft)
 	--print("Cargo Bulk = "..cargo_weight_bulk)
+	--print("Cargo Tot = "..cargo_weight_tot)
+	--print("FREIGHT A = "..freight_weightA)
+	--print("FREIGHT B = "..freight_weightB)
+	--print("FREIGHT C = "..freight_weightC)
+	--print("FREIGHT D = "..freight_weightD)
+	--print("FREIGHT E = "..freight_weightE)
+	--print("Freight Tot = "..freight_weight_tot)
 end
 --Marauder28
 
@@ -982,6 +1007,11 @@ function fmsFunctions.setdata(fmsO,value)
 		setFMSData("paxEconClassC", "77")
 		setFMSData("paxEconClassD", "104")
 		setFMSData("paxEconClassE", "132")
+		setFMSData("freightZoneA", "")
+		setFMSData("freightZoneB", "")
+		setFMSData("freightZoneC", "")
+		setFMSData("freightZoneD", "")
+		setFMSData("freightZoneE", "")
 		calc_pax_cargo()
 	elseif fmsO["scratchpad"] == "C" then  --Clear PAX / CARGO entries
 		setFMSData("paxFirstClassA", "")
@@ -992,6 +1022,11 @@ function fmsFunctions.setdata(fmsO,value)
 		setFMSData("cargoFwd", "")
 		setFMSData("cargoAft", "")
 		setFMSData("cargoBulk", "")
+		setFMSData("freightZoneA", "")
+		setFMSData("freightZoneB", "")
+		setFMSData("freightZoneC", "")
+		setFMSData("freightZoneD", "")
+		setFMSData("freightZoneE", "")
 		calc_pax_cargo()
 	elseif string.len(fmsO["scratchpad"]) < 1 then
 		setFMSData(value, "23")
@@ -1121,7 +1156,7 @@ function fmsFunctions.setdata(fmsO,value)
 			if digits > 5 then
 				digits = 5
 			end
-		else
+		elseif chars == "C" then
 			weight_per_unit = 1588 * weight_factor
 			if digits > 16 then
 				digits = 16
@@ -1163,7 +1198,7 @@ function fmsFunctions.setdata(fmsO,value)
 			if digits > 4 then
 				digits = 4
 			end
-		else
+		elseif chars == "C" then
 			weight_per_unit = 1588 * weight_factor
 			if digits > 14 then
 				digits = 14
@@ -1205,6 +1240,275 @@ function fmsFunctions.setdata(fmsO,value)
 		end
 
 		setFMSData(value, string.format("%5d", cwt))
+		calc_pax_cargo()
+	else
+		fmsO["notify"] = "INVALID ENTRY"
+	end
+--FREIGHT Page
+  elseif value == "freightZoneA" then
+	local weight_factor = 1
+
+	if simConfigData["data"].weight_display_units == "LBS" then
+		weight_factor = simConfigData["data"].kgs_to_lbs
+	else
+		weight_factor = 1
+	end
+
+	if string.match(fmsO["scratchpad"], "%d") and not string.match(fmsO["scratchpad"], "%u") and math.abs(tonumber(fmsO["scratchpad"])) <= (11160 * weight_factor) then
+		setFMSData(value, math.abs(string.format("%5d", fmsO["scratchpad"])) / weight_factor)
+		calc_pax_cargo()
+	elseif fmsO["scratchpad"] == "F" then  --Add FULL FREIGHT
+		setFMSData("freightZoneA", "11289")
+		setFMSData("freightZoneB", "30104")
+		setFMSData("freightZoneC", "22578")
+		setFMSData("freightZoneD", "45156")
+		setFMSData("freightZoneE", "3763")
+		setFMSData("paxFirstClassA", "")
+		setFMSData("paxBusClassB", "")
+		setFMSData("paxEconClassC", "")
+		setFMSData("paxEconClassD", "")
+		setFMSData("paxEconClassE", "")
+		calc_pax_cargo()
+	elseif fmsO["scratchpad"] == "C" then  --Clear FREIGHT entries
+		setFMSData("freightZoneA", "")
+		setFMSData("freightZoneB", "")
+		setFMSData("freightZoneC", "")
+		setFMSData("freightZoneD", "")
+		setFMSData("freightZoneE", "")
+		setFMSData("cargoFwd", "")
+		setFMSData("cargoAft", "")
+		setFMSData("cargoBulk", "")
+		setFMSData("paxFirstClassA", "")
+		setFMSData("paxBusClassB", "")
+		setFMSData("paxEconClassC", "")
+		setFMSData("paxEconClassD", "")
+		setFMSData("paxEconClassE", "")
+		calc_pax_cargo()
+	elseif string.len(fmsO["scratchpad"]) < 1 then
+		setFMSData(value, "11160")
+		calc_pax_cargo()
+	elseif string.match(fmsO["scratchpad"], "%d") and not string.match(fmsO["scratchpad"], "%u") and tonumber(fmsO["scratchpad"]) > (11289 * weight_factor) then  --Add FREIGHT by round-robin through all zones
+		setFMSData("freightZoneA", "")
+		setFMSData("freightZoneB", "")
+		setFMSData("freightZoneC", "")
+		setFMSData("freightZoneD", "")
+		setFMSData("freightZoneE", "")
+
+		local x = tonumber(string.format("%6d", fmsO["scratchpad"] / weight_factor)) --convert to base units of KGS
+		local zoneA = 0
+		local zoneB = 0
+		local zoneC = 0
+		local zoneD = 0
+		local zoneE = 0
+		
+		if x > (112900 * weight_factor) then  --112,900 KGS is the MAX Revenue Payload
+			x = 112900 * weight_factor
+		end
+		repeat
+			if x > 0 and zoneA < 11289 then
+				zoneA = zoneA + 1
+				x = x - 1
+			end
+			if x > 0 and zoneB < 30104 then
+				zoneB = zoneB + 1
+				x = x - 1
+			end
+			if x > 0 and zoneC < 22578 then
+				zoneC = zoneC + 1
+				x = x - 1
+			end
+			if x > 0 and zoneD < 45156 then
+				zoneD = zoneD + 1
+				x = x - 1
+			end
+			if x > 0 and zoneE < 3763 then
+				zoneE = zoneE + 1
+				x = x - 1
+			end
+			print("X = "..x.." ZoneA = "..zoneA.." ZoneB = "..zoneB.." ZoneC = "..zoneC.." ZoneD = "..zoneD.." ZoneE = "..zoneE)
+		until (x == 0)
+		
+		fmsModules["data"].freightZoneA = string.format("%5d", zoneA)
+		fmsModules["data"].freightZoneB = string.format("%5d", zoneB)
+		fmsModules["data"].freightZoneC = string.format("%5d", zoneC)
+		fmsModules["data"].freightZoneD = string.format("%5d", zoneD)
+		fmsModules["data"].freightZoneE = string.format("%4d", zoneE)
+		
+		fmsO["scratchpad"] = ""
+		
+		calc_pax_cargo()
+	elseif string.match(fmsO["scratchpad"], "%d") and string.match(fmsO["scratchpad"], "P") then
+		local digits = math.abs(tonumber(string.match(fmsO["scratchpad"], "%d+")))
+		local chars = string.match(fmsO["scratchpad"], "%u")
+		local weight_per_unit = 0
+
+		if chars == "P" then
+			weight_per_unit = 3763 * weight_factor
+			if digits > 3 then
+				digits = 3
+			end
+		end
+		
+		fmsO["scratchpad"] = string.format("%5d", digits * weight_per_unit)
+	else
+		fmsO["notify"] = "INVALID ENTRY"
+	end
+	if string.match(fmsO["scratchpad"], "%d") and not string.match(fmsO["scratchpad"], "%u") then
+		local fwt = 0
+
+		fwt = math.abs(tonumber(fmsO["scratchpad"])) / weight_factor  --store LBS in KGS
+		
+		if fwt > 11289 then
+			fwt = 11289
+		end
+		
+		setFMSData(value, string.format("%5d", fwt))
+		calc_pax_cargo()
+	end
+  elseif value == "freightZoneB" then
+	local weight_factor = 1
+
+	if simConfigData["data"].weight_display_units == "LBS" then
+		weight_factor = simConfigData["data"].kgs_to_lbs
+	else
+		weight_factor = 1
+	end
+
+	if string.match(fmsO["scratchpad"], "%d") and string.match(fmsO["scratchpad"], "P") then
+		local digits = math.abs(tonumber(string.match(fmsO["scratchpad"], "%d+")))
+		local chars = string.match(fmsO["scratchpad"], "%u")
+		local weight_per_unit = 0
+
+		if chars == "P" then
+			weight_per_unit = 3763 * weight_factor
+			if digits > 8 then
+				digits = 8
+			end
+		end
+		
+		fmsO["scratchpad"] = string.format("%5d", digits * weight_per_unit)
+	end
+	if string.match(fmsO["scratchpad"], "%d") and not string.match(fmsO["scratchpad"], "%u") then
+		local fwt = 0
+
+		fwt = math.abs(tonumber(fmsO["scratchpad"])) / weight_factor  --store LBS in KGS
+		
+		if fwt > 30104 then
+			fwt = 30104
+		end
+		
+		setFMSData(value, string.format("%5d", fwt))
+		calc_pax_cargo()
+	else
+		fmsO["notify"] = "INVALID ENTRY"
+	end
+  elseif value == "freightZoneC" then
+	local weight_factor = 1
+
+	if simConfigData["data"].weight_display_units == "LBS" then
+		weight_factor = simConfigData["data"].kgs_to_lbs
+	else
+		weight_factor = 1
+	end
+
+	if string.match(fmsO["scratchpad"], "%d") and string.match(fmsO["scratchpad"], "P") then
+		local digits = math.abs(tonumber(string.match(fmsO["scratchpad"], "%d+")))
+		local chars = string.match(fmsO["scratchpad"], "%u")
+		local weight_per_unit = 0
+
+		if chars == "P" then
+			weight_per_unit = 3763 * weight_factor
+			if digits > 6 then
+				digits = 6
+			end
+		end
+		
+		fmsO["scratchpad"] = string.format("%5d", digits * weight_per_unit)
+	end
+	if string.match(fmsO["scratchpad"], "%d") and not string.match(fmsO["scratchpad"], "%u") then
+		local fwt = 0
+
+		fwt = math.abs(tonumber(fmsO["scratchpad"])) / weight_factor  --store LBS in KGS
+		
+		if fwt > 22578 then
+			fwt = 22578
+		end
+		
+		setFMSData(value, string.format("%5d", fwt))
+		calc_pax_cargo()
+	else
+		fmsO["notify"] = "INVALID ENTRY"
+	end
+  elseif value == "freightZoneD" then
+	local weight_factor = 1
+
+	if simConfigData["data"].weight_display_units == "LBS" then
+		weight_factor = simConfigData["data"].kgs_to_lbs
+	else
+		weight_factor = 1
+	end
+
+	if string.match(fmsO["scratchpad"], "%d") and string.match(fmsO["scratchpad"], "P") then
+		local digits = math.abs(tonumber(string.match(fmsO["scratchpad"], "%d+")))
+		local chars = string.match(fmsO["scratchpad"], "%u")
+		local weight_per_unit = 0
+
+		if chars == "P" then
+			weight_per_unit = 3763 * weight_factor
+			if digits > 12 then
+				digits = 12
+			end
+		end
+		
+		fmsO["scratchpad"] = string.format("%6d", digits * weight_per_unit)
+	end
+	if string.match(fmsO["scratchpad"], "%d") and not string.match(fmsO["scratchpad"], "%u") then
+		local fwt = 0
+
+		fwt = math.abs(tonumber(fmsO["scratchpad"])) / weight_factor  --store LBS in KGS
+		
+		if fwt > 45156 then
+			fwt = 45156
+		end
+		
+		setFMSData(value, string.format("%6d", fwt))
+		calc_pax_cargo()
+	else
+		fmsO["notify"] = "INVALID ENTRY"
+	end
+  elseif value == "freightZoneE" then
+	local weight_factor = 1
+
+	if simConfigData["data"].weight_display_units == "LBS" then
+		weight_factor = simConfigData["data"].kgs_to_lbs
+	else
+		weight_factor = 1
+	end
+
+	if string.match(fmsO["scratchpad"], "%d") and string.match(fmsO["scratchpad"], "P") then
+		local digits = math.abs(tonumber(string.match(fmsO["scratchpad"], "%d+")))
+		local chars = string.match(fmsO["scratchpad"], "%u")
+		local weight_per_unit = 0
+
+		if chars == "P" then
+			weight_per_unit = 3763 * weight_factor
+			if digits > 1 then
+				digits = 1
+			end
+		end
+		
+		fmsO["scratchpad"] = string.format("%4d", digits * weight_per_unit)
+	end
+	if string.match(fmsO["scratchpad"], "%d") and not string.match(fmsO["scratchpad"], "%u") then
+		local fwt = 0
+
+		fwt = math.abs(tonumber(fmsO["scratchpad"])) / weight_factor  --store LBS in KGS
+		
+		if fwt > 3763 then
+			fwt = 3763
+		end
+		
+		setFMSData(value, string.format("%4d", fwt))
 		calc_pax_cargo()
 	else
 		fmsO["notify"] = "INVALID ENTRY"
