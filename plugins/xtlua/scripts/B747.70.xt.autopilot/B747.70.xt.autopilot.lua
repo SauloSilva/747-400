@@ -104,7 +104,7 @@ simDR_autopilot_hold_altitude_ft    		= find_dataref("sim/cockpit2/autopilot/alt
 simDR_autopilot_tod_index    		= find_dataref("sim/cockpit2/radios/indicators/fms_tod_before_index_pilot")
 simDR_autopilot_tod_distance    	= find_dataref("sim/cockpit2/radios/indicators/fms_distance_to_tod_pilot")
 B747DR_fmc_notifications            = find_dataref("laminar/B747/fms/notification")
-
+B747DR_ils_dots           	= deferred_dataref("laminar/B747/autopilot/ils_dots", "number") --display only
 B747BR_totalDistance 			= find_dataref("laminar/B747/autopilot/dist/remaining_distance")
 B747BR_nextDistanceInFeet 		= find_dataref("laminar/B747/autopilot/dist/next_distance_feet")
 B747BR_cruiseAlt 			= find_dataref("laminar/B747/autopilot/dist/cruise_alt")
@@ -1463,7 +1463,8 @@ function B747_fltmgmt_setILS()
   		end
 	    simDR_radio_nav_obs_deg[0]=course
 	    simDR_radio_nav_obs_deg[1]=course
-	    print("Tuned ILS "..course)
+		print("Tuned ILS "..course)
+		B747DR_ils_dots = 1 -- make PFD loc and GS dots visible
 	  end
 	--print("set targetILS")
 	else
@@ -1475,7 +1476,7 @@ function B747_fltmgmt_setILS()
     
     end
   elseif string.len(targetILSS)>1 then
-	    print("Tuning ILS".. targetILSS)
+	    --print("Tuning ILS".. targetILSS)
 	    local ilsNav=json.decode(targetILSS)
 	    simDR_nav1Freq=ilsNav[3]
 	    simDR_nav2Freq=ilsNav[3]
@@ -1487,8 +1488,11 @@ function B747_fltmgmt_setILS()
   		end
 		--course=round(course)	
 	    simDR_radio_nav_obs_deg[0]=course
-	    simDR_radio_nav_obs_deg[1]=course
-	    print("Tuned ILS "..course)
+		simDR_radio_nav_obs_deg[1]=course
+		B747DR_ils_dots = 1 -- make PFD loc and GS dots visible
+		--print("Tuned ILS "..course)
+	else
+		B747DR_ils_dots = 0
   end
   
   --print("target="..targetILS.."= "..targetILSS.."= "..targetFix.. " "..nSize.. " "..table.getn(navAids))
