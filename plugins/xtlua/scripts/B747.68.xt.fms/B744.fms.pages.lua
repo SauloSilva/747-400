@@ -1301,8 +1301,8 @@ function fmsFunctions.setdata(fmsO,value)
 		local zoneD = 0
 		local zoneE = 0
 		
-		if x > (112900 * weight_factor) then  --112,900 KGS is the MAX Revenue Payload
-			x = 112900 * weight_factor
+		if x > (112890 * weight_factor) then  --112,900 KGS is the MAX Revenue Payload.  112,890 KGS is the defined average pallet weight (3763) * 30 pallets
+			x = 112890 * weight_factor
 		end
 		repeat
 			if x > 0 and zoneA < 11289 then
@@ -1325,7 +1325,7 @@ function fmsFunctions.setdata(fmsO,value)
 				zoneE = zoneE + 1
 				x = x - 1
 			end
-			print("X = "..x.." ZoneA = "..zoneA.." ZoneB = "..zoneB.." ZoneC = "..zoneC.." ZoneD = "..zoneD.." ZoneE = "..zoneE)
+			--print("X = "..x.." ZoneA = "..zoneA.." ZoneB = "..zoneB.." ZoneC = "..zoneC.." ZoneD = "..zoneD.." ZoneE = "..zoneE)
 		until (x == 0)
 		
 		fmsModules["data"].freightZoneA = string.format("%5d", zoneA)
