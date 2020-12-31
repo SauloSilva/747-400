@@ -762,59 +762,91 @@ end
 function B747_electrical_EICAS_msg()
 
     -- APU
-    B747DR_CAS_advisory_status[13] = 0
+    
     if (B747DR_elec_apu_sel_pos > 0.95 and simDR_apu_N1_pct < 0.1)
         or
         (B747DR_elec_apu_sel_pos < 0.05 and simDR_apu_N1_pct > 95.0)
     then
         B747DR_CAS_advisory_status[13] = 1
+    else
+        B747DR_CAS_advisory_status[13] = 0
     end
 
     -- APU DOOR
-    B747DR_CAS_advisory_status[14] = 0
+    
     if (B747DR_elec_apu_inlet_door_pos > 0.95 and simDR_apu_running == 0)
         or
         (B747DR_elec_apu_inlet_door_pos < 0.05 and simDR_apu_running == 1)
     then
         B747DR_CAS_advisory_status[14] = 1
+    else
+        B747DR_CAS_advisory_status[14] = 0
     end
 
     -- >DRIVE DISC 1
-    B747DR_CAS_advisory_status[83] = 0
-    if B747DR_gen_drive_disc_status[0] == 1 then B747DR_CAS_advisory_status[83] = 1 end
+    
+    if B747DR_gen_drive_disc_status[0] == 1 then 
+        B747DR_CAS_advisory_status[83] = 1 
+    else
+        B747DR_CAS_advisory_status[83] = 0
+    end
 
     -- >DRIVE DISC 2
-    B747DR_CAS_advisory_status[84] = 0
-    if B747DR_gen_drive_disc_status[1] == 1 then B747DR_CAS_advisory_status[84] = 1 end
+    
+    if B747DR_gen_drive_disc_status[1] == 1 then 
+        B747DR_CAS_advisory_status[84] = 1 
+    else
+        B747DR_CAS_advisory_status[84] = 0
+    end
 
     -- >DRIVE DISC 3
-    B747DR_CAS_advisory_status[85] = 0
-    if B747DR_gen_drive_disc_status[2] == 1 then B747DR_CAS_advisory_status[85] = 1 end
+    
+    if B747DR_gen_drive_disc_status[2] == 1 then 
+        B747DR_CAS_advisory_status[85] = 1 
+    else
+        B747DR_CAS_advisory_status[85] = 0
+    end
 
     -- >DRIVE DISC 4
-    B747DR_CAS_advisory_status[86] = 0
-    if B747DR_gen_drive_disc_status[3] == 1 then B747DR_CAS_advisory_status[86] = 1 end
+    
+    if B747DR_gen_drive_disc_status[3] == 1 then 
+        B747DR_CAS_advisory_status[86] = 1 
+    else
+        B747DR_CAS_advisory_status[86] = 0
+    end
 
     -- ELEC UTIL BUS L
-    B747DR_CAS_advisory_status[105] = 0
-    if B747DR_button_switch_position[11] < 0.05 then B747DR_CAS_advisory_status[105] = 1 end
+    
+    if B747DR_button_switch_position[11] < 0.05 then 
+        B747DR_CAS_advisory_status[105] = 1 
+    else
+        B747DR_CAS_advisory_status[105] = 0
+    end
 
     -- ELEC UTIL BUS R
-    B747DR_CAS_advisory_status[106] = 0
-    if B747DR_button_switch_position[12] < 0.05 then B747DR_CAS_advisory_status[106] = 1 end
+    
+    if B747DR_button_switch_position[12] < 0.05 then 
+        B747DR_CAS_advisory_status[106] = 1 
+    else
+        B747DR_CAS_advisory_status[106] = 0
+    end
 
     -- APU RUNNING
-    B747DR_CAS_memo_status[1] = 0
-    if B747DR_elec_apu_sel_pos == 1 and simDR_apu_N1_pct > 95.0 then
+    
+    if simDR_apu_N1_pct > 95.0 then
         B747DR_CAS_memo_status[1] = 1
+    else
+        B747DR_CAS_memo_status[1] = 0
     end
 
     -- STBY IGNITION ON
-    B747DR_CAS_memo_status[34] = 0
+    
     if B747DR_elec_stby_ignit_sel_pos == 0
         or B747DR_elec_stby_ignit_sel_pos == 2
     then
         B747DR_CAS_memo_status[34] = 1
+    else
+        B747DR_CAS_memo_status[34] = 0
     end
 
 end
@@ -931,7 +963,7 @@ function after_physics()
     B747_apu()
     B747_bus_tie()
     B747_generator()
-
+    B747_electrical_EICAS_msg()
     B747_elec_monitor_AI()
 
 end

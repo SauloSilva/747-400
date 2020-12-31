@@ -422,7 +422,7 @@ function fmsFunctions.setpage_no(fmsO,valueA)
  
   end
   print("setpage " .. value)
-  run_after_time(switchCustomMode, 0.25)
+  run_after_time(switchCustomMode, 0.5)
 end
 function fmsFunctions.setpage(fmsO,value)
   value=value.."_1"
@@ -443,10 +443,10 @@ function fmsFunctions.custom2fmc(fmsO,value)
     end
   elseif value=="next" then
     fmsO["targetpgNo"]=fmsO["pgNo"]+1
-    run_after_time(switchCustomMode, 0.25)
+    run_after_time(switchCustomMode, 0.5)
   elseif value=="prev" then 
     fmsO["targetpgNo"]=fmsO["pgNo"]-1
-    run_after_time(switchCustomMode, 0.25)
+    run_after_time(switchCustomMode, 0.5)
   end
   simCMD_FMS_key[fmsO["id"]][value]:once()
   fmsO["scratchpad"]=""
@@ -1586,7 +1586,7 @@ function fmsFunctions.showmessage(fmsO,value)
   acarsSystem.currentMessage=value
   fmsO["inCustomFMC"]=true
   fmsO["targetPage"]="VIEWACARSMSG" 
-  run_after_time(switchCustomMode, 0.25)
+  run_after_time(switchCustomMode, 0.5)
 end
 
 function fmsFunctions.doCMD(fmsO,value)

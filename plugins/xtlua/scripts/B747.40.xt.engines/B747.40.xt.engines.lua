@@ -1495,8 +1495,7 @@ function B747_engines_EICAS_msg()
       B747DR_CAS_memo_status[8] = 0
     end
 
-    --APU RUNNING
-    if simDR_apu_running==1 then B747DR_CAS_memo_status[1]=1 else B747DR_CAS_memo_status[1] = 0 end
+    
 end
 
 

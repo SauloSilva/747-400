@@ -32,7 +32,7 @@ function fmsClearNotify(notification)
   end
 end
 function keyDown(fmsModule,key)
-  run_after_time(switchCustomMode, 0.10)
+  run_after_time(switchCustomMode, 0.5)
   print(fmsModule.. " do " .. key)
   if key=="index" then
       fmsModules[fmsModule].targetCustomFMC=true
@@ -50,6 +50,7 @@ function keyDown(fmsModule,key)
   elseif key=="clb" then
       fmsModules[fmsModule].targetCustomFMC=false
       simCMD_FMS_key[fmsModule]["dep_arr"]:once()
+      fmsModules[fmsModule].targetPage="DEPARR"
       fmsModules[fmsModule].targetpgNo=1
       return
   elseif key=="crz" then
@@ -65,6 +66,7 @@ function keyDown(fmsModule,key)
       return
   elseif key=="dir_intc" then
       fmsModules[fmsModule].targetCustomFMC=false
+      fmsModules[fmsModule].targetPage="FIX"
       simCMD_FMS_key[fmsModule]["fix"]:once()
       fmsModules[fmsModule].targetpgNo=1
       return
@@ -84,6 +86,7 @@ function keyDown(fmsModule,key)
       return
   elseif key=="dep_arr" then
       fmsModules[fmsModule].targetCustomFMC=false
+      fmsModules[fmsModule].targetPage="HOLD"
       simCMD_FMS_key[fmsModule]["hold"]:once()
       fmsModules[fmsModule].targetpgNo=1
       return
@@ -490,15 +493,14 @@ end
 function fms:B747_fms_display()
     local thisID=self.id
     if self.inCustomFMC~=self.targetCustomFMC or self.currentPage~=self.targetPage or self.pgNo~=self.targetpgNo then 
-      B747DR_fms[thisID][self.swipeOut]="                        "
-      B747DR_fms_s[thisID][self.swipeOut]="                        "
-      B747DR_fms[thisID][self.swipeOut+1]="                        "
-      B747DR_fms_s[thisID][self.swipeOut+1]="                        "
-      if self.swipeOut<13 then self.swipeOut=self.swipeOut+2 end
+      for i=1,14,1 do
+      B747DR_fms[thisID][i]="                        "
+      B747DR_fms_s[thisID][i]="                        "
+      end
       return 
     end
     
-    self.swipeOut=1
+    --self.swipeOut=1
     
     local inCustomFMC=self.inCustomFMC
     local page=self.currentPage

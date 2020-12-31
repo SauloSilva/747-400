@@ -2,7 +2,7 @@ fmsPages["LEGS"]=createPage("LEGS")
 fmsPages["LEGS"].getPage=function(self,pgNo,fmsID)
   local l1=cleanFMSLine(B747DR_srcfms[fmsID][1])
   local pageNo=tonumber(string.sub(l1,21,22))
-  local l1="     RTE LEGS           "
+  local l1=" ACT RTE 1 LEGS     "..string.sub(l1,21,24)
   local l2="                        "
   local l3="POS                     "
   if pageNo~=nil and pageNo~=1 then
