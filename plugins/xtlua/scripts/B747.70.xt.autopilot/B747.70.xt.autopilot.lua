@@ -1491,7 +1491,7 @@ function B747_fltmgmt_setILS()
 	    simDR_radio_nav_obs_deg[0]=course
 		simDR_radio_nav_obs_deg[1]=course
 		B747DR_ils_dots = 1 -- make PFD loc and GS dots visible
-		print("Tuned ILS "..course)
+		--print("Tuned ILS "..course)
 	else
 		if string.len(targetILS)<2 then
 			B747DR_ils_dots = 0
