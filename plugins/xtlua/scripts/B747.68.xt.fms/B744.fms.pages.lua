@@ -223,14 +223,16 @@ fmsFunctionsDefs["INITREF"]["L6"]={"setpage","APPROACH"}
 
 fmsFunctionsDefs["INITREF"]["R1"]={"setpage","DATABASE"}
 local navAids
-
+simDR_variation=find_dataref("sim/flightmodel/position/magnetic_variation")
+B747DR_ils_dots           	= deferred_dataref("laminar/B747/autopilot/ils_dots", "number")
 function findILS(value)
   
   local modes=B747DR_radioModes
   if navAidsJSON==nil or string.len(navAidsJSON)<5 then return false end
   if value=="DELETE" then 
     B747DR_radioModes=replace_char(1,modes," ")
-    ilsData=""
+	ilsData=""
+	B747DR_ils_dots=0
     return true
   end
   B747DR_radioModes=replace_char(1,modes,"M")
@@ -257,27 +259,37 @@ function findILS(value)
 	  
 	 if (value==navAids[n][8] or (val~=nil and val==navAids[n][3])) and (direction==nil or getHeadingDifferenceM(direction,navAids[n][4])<bestDist) then
 	    found=true
-	    ilsData=json.encode(navAids[n])
-	    print("68 - Tuning ILS".. ilsData)
+		ilsData=json.encode(navAids[n])
+		local course=(navAids[n][4]+simDR_variation)
+	    print("68 - Tuning ILSs ".. ilsData)
 	    if direction ~=nil then
-	      bestDist=getHeadingDifferenceM(direction,navAids[n][4])
-	    end
+		  bestDist=getHeadingDifferenceM(direction,navAids[n][4])
+		  --course=direction
+		end
+		if course<0 then
+			course=course+360
+		elseif course>360 then
+			course=course-360
+  		end
 	    simDR_nav1Freq=navAids[n][3]
-	    simDR_nav2Freq=navAids[n][3]
-      --local course=(navAids[n][4]+simDR_variation)
-      local course=(navAids[n][4]+simDR_variation)
-	    simDR_radio_nav1_obs_deg=course
-	    simDR_radio_nav2_obs_deg=course
+	    simDR_nav2Freq=navAids[n][3] 	
+	    simDR_radio_nav_obs_deg[0]=course
+		simDR_radio_nav_obs_deg[1]=course
 	    print("68 - Tuned ILS "..course)
-	    print("68 - useThis"..bestDist)
+	    print("68 - useThis "..bestDist)
 	  end
       end
+   end
+   if found==true then
+	B747DR_ils_dots=1
+   else
+	B747DR_ils_dots=0
    end
    return found
 end
 
 
-simDR_variation=find_dataref("sim/flightmodel/position/magnetic_variation")
+
 fmsPages["NAVRAD"]=createPage("NAVRAD")
 
 ils_line1 = ""

@@ -1342,6 +1342,7 @@ end
 function B747_fltmgmt_setILS()
   local modes=B747DR_radioModes
   local fmsSTR=fmsJSON
+  --print("B747_fltmgmt_setILS")
   if modes:sub(1, 1)==" " then
     targetFMSnum=-1
     B747DR_radioModes=replace_char(1,modes,"A")
@@ -1475,7 +1476,7 @@ function B747_fltmgmt_setILS()
 	end
     
     end
-  elseif string.len(targetILSS)>1 then
+  elseif string.len(targetILSS)>1 and string.len(targetILS)>2 then
 	    --print("Tuning ILS".. targetILSS)
 	    local ilsNav=json.decode(targetILSS)
 	    simDR_nav1Freq=ilsNav[3]
@@ -1490,9 +1491,11 @@ function B747_fltmgmt_setILS()
 	    simDR_radio_nav_obs_deg[0]=course
 		simDR_radio_nav_obs_deg[1]=course
 		B747DR_ils_dots = 1 -- make PFD loc and GS dots visible
-		--print("Tuned ILS "..course)
+		print("Tuned ILS "..course)
 	else
-		B747DR_ils_dots = 0
+		if string.len(targetILS)<2 then
+			B747DR_ils_dots = 0
+		end
   end
   
   --print("target="..targetILS.."= "..targetILSS.."= "..targetFix.. " "..nSize.. " "..table.getn(navAids))
