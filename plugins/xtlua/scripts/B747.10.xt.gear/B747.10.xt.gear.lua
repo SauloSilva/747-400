@@ -95,6 +95,18 @@ simDR_right_brake_ratio     = find_dataref("sim/cockpit2/controls/right_brake_ra
 
 simDR_left_brake_fail     = find_dataref("sim/operation/failures/rel_lbrakes")--6 = inoperative
 simDR_right_brake_fail     = find_dataref("sim/operation/failures/rel_rbrakes")--6 = inoperative
+
+--Marauder28
+--Autobrake OFF/DISARM logic
+simDR_speedbrake_lever	 		= find_dataref("laminar/B747/flt_ctrls/speedbrake_lever")
+simDR_reverser_deployed			= find_dataref("sim/cockpit2/annunciators/reverser_deployed")
+simDR_throttle_ratio_all		= find_dataref("sim/cockpit2/engine/actuators/throttle_ratio_all")
+simDR_left_brake_add			= find_dataref("sim/flightmodel/controls/l_brake_add")
+simDR_right_brake_add			= find_dataref("sim/flightmodel/controls/r_brake_add")
+simDR_speedbrake_ratio			= find_dataref("sim/flightmodel2/controls/speedbrake_ratio")
+B747DR_speedbrake_lever_changed	= find_dataref("laminar/B747/flt_ctrls/speedbrake_lever_changed", "number")
+--Marauder28
+
 --*************************************************************************************--
 --** 				              FIND CUSTOM DATAREFS             			    	 **--
 --*************************************************************************************--
@@ -119,8 +131,6 @@ B747DR_brake_temp               = deferred_dataref("laminar/B747/gear/brake_temp
 B747DR_brake_temp_ind               = deferred_dataref("laminar/B747/gear/brake_temp_ind", "array[18]")
 B747DR_init_gear_CD             = deferred_dataref("laminar/B747/gear/init_CD", "number")
 B747DR__gear_chocked           = deferred_dataref("laminar/B747/gear/chocked", "number")
-
-
 
 --*************************************************************************************--
 --** 				       READ-WRITE CUSTOM DATAREF HANDLERS     	        	     **--
@@ -352,7 +362,41 @@ function B747_autobrakes_sel_dial_dn_CMDhandler(phase, duration)
     end
 end
 
-
+--Marauder28
+function autobrake_check()
+	
+	--TAKEOFF
+	if simDR_aircraft_on_ground == 0 and B747DR_autobrakes_sel_dial_pos == 0 then
+		print("TAKEOFF - Autobrakes OFF")
+		B747DR_autobrakes_sel_dial_pos = 1  --OFF
+	end
+	
+	--LANDING
+	if simDR_aircraft_on_ground == 1 and B747DR_autobrakes_sel_dial_pos > 2 then
+		--Braking
+		if (simDR_left_brake_add > 0 or simDR_right_brake_add > 0)  then
+			print("LANDING - Autobrakes DISARM - BRAKING")
+			print("Manual Brakes = "..simDR_left_brake_add.." / "..simDR_right_brake_add)
+			B747DR_autobrakes_sel_dial_pos = 2  --DISARM
+		--Thrust Advance
+		elseif (simDR_throttle_ratio_all > 0.5 and simDR_reverser_deployed == 0) then
+			print("LANDING - Autobrakes DISARM - THROTTLE")
+			print("Manual Throttle = "..simDR_throttle_ratio_all.." / "..simDR_reverser_deployed)
+			B747DR_autobrakes_sel_dial_pos = 2  --DISARM
+		--Speedbrake DOWN
+		elseif (B747DR_speedbrake_lever_changed == 1 and simDR_speedbrake_lever == 0) then
+			print("LANDING - Autobrakes DISARM - SPEEDBRAKE")
+			print("Manual Speedbrake = "..B747DR_speedbrake_lever_changed.." / "..simDR_speedbrake_lever)
+			B747DR_autobrakes_sel_dial_pos = 2  --DISARM
+		--Brake Failure
+		elseif (simDR_left_brake_fail > 0 or simDR_right_brake_fail > 0) then
+			print("LANDING - Autobrakes DISARM - BRAKE FAILURE")
+			print("Brake Failure = "..simDR_left_brake_fail.." / "..simDR_right_brake_fail)
+			B747DR_autobrakes_sel_dial_pos = 2  --DISARM
+		end
+	end
+end
+--Marauder28
 
 -- AI
 function B747_ai_gear_quick_start_CMDhandler(phase, duration)
@@ -847,6 +891,10 @@ function after_physics()
     B747_brake_temp()
     runGear()
     B747_gear_monitor_AI()
+	
+	--Marauder28
+	--Set Autobrake status after takeoff & landing
+	autobrake_check()
     
 end
 
