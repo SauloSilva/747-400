@@ -95,13 +95,13 @@ function toDMS(value,isLat)
    end
   minutes=(value-math.floor(value))*60
   seconds=minutes-math.floor(minutes)
-  local p="N"
+  local p="E"
   if isLat==true and value<0 then 
-    p="W"
-  elseif isLat==true then  
-    p="E"
-  elseif value<0 then
     p="S"
+  elseif isLat==true then  
+    p="N"
+  elseif value<0 then
+    p="W"
   end
   retVal=string.format(p .. "%03d`%02d.%1d",degrees,minutes,seconds*10)
   return retVal
