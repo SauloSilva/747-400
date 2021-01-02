@@ -92,7 +92,7 @@ B747DR_parking_brake_ratio  = find_dataref("laminar/B747/flt_ctrls/parking_brake
 simDR_parking_brake_ratio   = find_dataref("sim/cockpit2/controls/parking_brake_ratio")
 simDR_left_brake_ratio      = find_dataref("sim/cockpit2/controls/left_brake_ratio")
 simDR_right_brake_ratio     = find_dataref("sim/cockpit2/controls/right_brake_ratio")
-
+simDR_prop_mode                 = find_dataref("sim/cockpit2/engine/actuators/prop_mode")
 simDR_left_brake_fail     = find_dataref("sim/operation/failures/rel_lbrakes")--6 = inoperative
 simDR_right_brake_fail     = find_dataref("sim/operation/failures/rel_rbrakes")--6 = inoperative
 
@@ -372,16 +372,17 @@ function autobrake_check()
 	end
 	
 	--LANDING
-	if simDR_aircraft_on_ground == 1 and B747DR_autobrakes_sel_dial_pos > 2 then
+    if simDR_aircraft_on_ground == 1 and B747DR_autobrakes_sel_dial_pos > 2 then
+        print("simDR_autobrakes_switch is " .. simDR_autobrakes_switch .. "B747DR_autobrakes_sel_dial_pos is " ..B747DR_autobrakes_sel_dial_pos)
 		--Braking
 		if (simDR_left_brake_add > 0 or simDR_right_brake_add > 0)  then
 			print("LANDING - Autobrakes DISARM - BRAKING")
 			print("Manual Brakes = "..simDR_left_brake_add.." / "..simDR_right_brake_add)
 			B747DR_autobrakes_sel_dial_pos = 2  --DISARM
 		--Thrust Advance
-		elseif (math.max(simDR_throttle_ratio_all,simDR_joy_axis[4]) > lastThrottle and simDR_reverser_deployed == 0) then
+		elseif (math.max(simDR_throttle_ratio_all,simDR_joy_axis[4]) > lastThrottle and (simDR_prop_mode[0] ~= 3 and simDR_prop_mode[1] ~= 3 and simDR_prop_mode[2] ~= 3 and simDR_prop_mode[3] ~= 3)) then
 			print("LANDING - Autobrakes DISARM - THROTTLE")
-			print("Manual Throttle = "..simDR_throttle_ratio_all.." / "..simDR_reverser_deployed)
+			print("Manual Throttle = "..simDR_throttle_ratio_all.." / ".. simDR_reverser_deployed)
 			B747DR_autobrakes_sel_dial_pos = 2  --DISARM
 		--Speedbrake DOWN
 		elseif (B747DR_speedbrake_lever_changed == 1 and simDR_speedbrake_lever == 0) then
