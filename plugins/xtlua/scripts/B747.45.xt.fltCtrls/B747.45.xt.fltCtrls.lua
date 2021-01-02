@@ -65,7 +65,7 @@ local B747_speedbrake_lever_pos_target = 0
 local B747_wheels_on_ground = 1
 local B747_last_sim_sb_handle_pos = 0
 B747_sb_manip_changed = deferred_dataref("laminar/B747/flt_ctrls/speedbrake_lever_changed", "number")
-
+simDR_radarAlt1           	= find_dataref("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot")
 B747DR_fmc_notifications            = find_dataref("laminar/B747/fms/notification")
 
 
@@ -169,7 +169,8 @@ function B747_speedbrake_manip_timeout()
 end
 
 function B747_speedbrake_lever_DRhandler()
-	
+    -- Done in init/scripts
+--[[	
     -- DOWN DETENT
 	if B747DR_speedbrake_lever < 0.01 then
 		B747DR_speedbrake_lever = 0.0
@@ -196,7 +197,7 @@ function B747_speedbrake_lever_DRhandler()
 		stop_timer(B747_speedbrake_manip_timeout)    
 	end	
 	run_after_time(B747_speedbrake_manip_timeout, 2.0)
-
+]]
 end
 
 
@@ -634,7 +635,7 @@ end--]]
 ----- SPEEDBRAKE LEVER STOP -------------------------------------------------------------
 function B747_speedbrake_lever_stop()
 
-    if simDR_all_wheels_on_ground < 1 then
+    if simDR_all_wheels_on_ground < 1 and simDR_radarAlt1>15 then
         B747_speedbrake_stop = 1
     else
 		B747_speedbrake_stop = 0	        

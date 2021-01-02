@@ -356,12 +356,12 @@ function B747_autobrakes_sel_dial_dn_CMDhandler(phase, duration)
 	  simDR_autobrakes_switch = simSwPos
 	end
 	
-	if B747DR_autobrakes_sel_dial_pos == 2 or B747DR_autobrakes_sel_dial_pos == 1 then
+	--[[if B747DR_autobrakes_sel_dial_pos == 2 or B747DR_autobrakes_sel_dial_pos == 1 then
 	  simDR_parking_brake_ratio   = B747DR_parking_brake_ratio
-	end
+	end]]
     end
 end
-
+local lastThrottle=0.0
 --Marauder28
 function autobrake_check()
 	
@@ -379,7 +379,7 @@ function autobrake_check()
 			print("Manual Brakes = "..simDR_left_brake_add.." / "..simDR_right_brake_add)
 			B747DR_autobrakes_sel_dial_pos = 2  --DISARM
 		--Thrust Advance
-		elseif (simDR_throttle_ratio_all > 0.5 and simDR_reverser_deployed == 0) then
+		elseif (math.max(simDR_throttle_ratio_all,simDR_joy_axis[4]) > lastThrottle and simDR_reverser_deployed == 0) then
 			print("LANDING - Autobrakes DISARM - THROTTLE")
 			print("Manual Throttle = "..simDR_throttle_ratio_all.." / "..simDR_reverser_deployed)
 			B747DR_autobrakes_sel_dial_pos = 2  --DISARM
@@ -394,7 +394,8 @@ function autobrake_check()
 			print("Brake Failure = "..simDR_left_brake_fail.." / "..simDR_right_brake_fail)
 			B747DR_autobrakes_sel_dial_pos = 2  --DISARM
 		end
-	end
+    end
+    lastThrottle=math.max(simDR_throttle_ratio_all,simDR_joy_axis[4])
 end
 --Marauder28
 
