@@ -3073,7 +3073,8 @@ function after_physics()
     local longitude=simDR_longitude--constant refresh of dat
     local vsi=B744_fpm
     local isMachSpd=simDR_autopilot_airspeed_is_mach
-    local machSpd=simDR_autopilot_airspeed_kts_mach
+	local machSpd=simDR_autopilot_airspeed_kts_mach
+	local onGround=simDR_onGround
     --print(B747DR_FMSdata)
     if string.len(B747DR_FMSdata)>0 then
       fmsData=json.decode(B747DR_FMSdata)
