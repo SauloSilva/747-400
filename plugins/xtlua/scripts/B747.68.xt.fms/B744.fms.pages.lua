@@ -80,6 +80,9 @@ fmsFunctionsDefs["INDEX"]["L6"]={"setpage","CMC"}
 fmsFunctionsDefs["INDEX"]["R4"]={"setpage","GNDHNDL"}
 fmsPages["RTE1"]=createPage("RTE1")
 fmsPages["RTE1"].getPage=function(self,pgNo,fmsID)
+  local l1=cleanFMSLine(B747DR_srcfms[fmsID][1])
+  local pageNo=tonumber(string.sub(l1,21,22))
+  
   local lastLine="<RTE 2             PERF>"
   if simDR_onGround ==1 then
     fmsFunctionsDefs["RTE1"]["L6"]=nil
@@ -88,14 +91,41 @@ fmsPages["RTE1"].getPage=function(self,pgNo,fmsID)
     --fmsFunctionsDefs["RTE1"]["L6"]={"setpage","RTE2"}
     fmsFunctionsDefs["RTE1"]["L6"]={"setpage","LEGS"}
   end
+
+  if pageNo~=1 then
+	fmsFunctionsDefs["RTE1"]["L2"]={"custom2fmc","L2"}
+	fmsFunctionsDefs["RTE1"]["R2"]={"custom2fmc","R2"}
+	fmsFunctionsDefs["RTE1"]["R3"]={"custom2fmc","R3"}
+	return {
+		"      ACT RTE 1     " .. string.sub(cleanFMSLine(B747DR_srcfms[fmsID][1]),-4,-1) ,
+		cleanFMSLine(B747DR_srcfms[fmsID][2]),
+		cleanFMSLine(B747DR_srcfms[fmsID][3]),
+		cleanFMSLine(B747DR_srcfms[fmsID][4]),
+		cleanFMSLine(B747DR_srcfms[fmsID][5]),
+		cleanFMSLine(B747DR_srcfms[fmsID][6]),
+		cleanFMSLine(B747DR_srcfms[fmsID][7]),
+		cleanFMSLine(B747DR_srcfms[fmsID][8]),
+		cleanFMSLine(B747DR_srcfms[fmsID][9]),
+		cleanFMSLine(B747DR_srcfms[fmsID][10]),
+		cleanFMSLine(B747DR_srcfms[fmsID][11]),
+		cleanFMSLine(B747DR_srcfms[fmsID][12]),
+		lastLine,
+		}
+  end
+  fmsFunctionsDefs["RTE1"]["L2"]={"setdata","runway"}
+  fmsFunctionsDefs["RTE1"]["R2"]={"custom2fmc","R3"}
+  fmsFunctionsDefs["RTE1"]["R3"]={"custom2fmc","L2"}
+  
+  local line5="                "..string.sub(cleanFMSLine(B747DR_srcfms[fmsID][5]),1,8)
+  if acarsSystem.provider.online() then line5=" <SEND          "..string.sub(cleanFMSLine(B747DR_srcfms[fmsID][5]),1,8) end
   local page={
   "      ACT RTE 1     " .. string.sub(cleanFMSLine(B747DR_srcfms[fmsID][1]),-4,-1) ,
-  cleanFMSLine(B747DR_srcfms[fmsID][2]),
+  "                        ",
   cleanFMSLine(B747DR_srcfms[fmsID][3]),
-  cleanFMSLine(B747DR_srcfms[fmsID][4]),
-  cleanFMSLine(B747DR_srcfms[fmsID][5]),
-  cleanFMSLine(B747DR_srcfms[fmsID][6]),
-  cleanFMSLine(B747DR_srcfms[fmsID][7]),
+  "                        ",
+  fmsModules["data"]["runway"] .."            ".. string.sub(cleanFMSLine(B747DR_srcfms[fmsID][7]),-7,-1), 
+  "                        ",
+  line5,
   cleanFMSLine(B747DR_srcfms[fmsID][8]),
   cleanFMSLine(B747DR_srcfms[fmsID][9]),
   cleanFMSLine(B747DR_srcfms[fmsID][10]),
@@ -105,16 +135,57 @@ fmsPages["RTE1"].getPage=function(self,pgNo,fmsID)
   }
   return page 
 end
+fmsPages["RTE1"].getSmallPage=function(self,pgNo,fmsID)
+	local l1=cleanFMSLine(B747DR_srcfms[fmsID][1])
+  local pageNo=tonumber(string.sub(l1,21,22))
+  if pageNo~=1 then
+	return {
+		"                        ",
+		"                        ",
+		"                        ",
+		"                        ",
+		"                        ",
+		"                        ",
+		"                        ",
+		"                        ",
+		"                        ",
+		"                        ",
+		"                        ",
+		"                        ",
+		"                        ",
+		}
+  end
+	local line4 = "               CO ROUTE "
+	if acarsSystem.provider.online() then line4=" REQUEST       CO ROUTE " end
+	local page={
+		"                        ",
+		cleanFMSLine(B747DR_srcfms[fmsID][2]),
+		"                        ",
+		" RUNWAY          FLT NO ",
+		"                        ",
+		line4,
+		"                        ",
+		"                        ",
+		"                        ",
+		"                        ",
+		"                        ",
+		"                        ",
+		"                        ",
+		"                        ",
+		}
+	return page 
+end
 fmsFunctionsDefs["RTE1"]["L1"]={"custom2fmc","L1"}
 --fmsFunctionsDefs["RTE1"]["L1"]={"setdata","origin"}
-fmsFunctionsDefs["RTE1"]["L2"]={"custom2fmc","L2"}
+fmsFunctionsDefs["RTE1"]["L2"]={"setdata","runway"}
+
 fmsFunctionsDefs["RTE1"]["L3"]={"custom2fmc","L3"}
 fmsFunctionsDefs["RTE1"]["L4"]={"custom2fmc","L4"}
 fmsFunctionsDefs["RTE1"]["L5"]={"custom2fmc","L5"}
 
 fmsFunctionsDefs["RTE1"]["R1"]={"custom2fmc","R1"}
-fmsFunctionsDefs["RTE1"]["R2"]={"custom2fmc","R2"}
-fmsFunctionsDefs["RTE1"]["R3"]={"custom2fmc","R3"}
+fmsFunctionsDefs["RTE1"]["R2"]={"custom2fmc","R3"}
+fmsFunctionsDefs["RTE1"]["R3"]={"custom2fmc","L2"}
 fmsFunctionsDefs["RTE1"]["R4"]={"custom2fmc","R4"}
 fmsFunctionsDefs["RTE1"]["R5"]={"custom2fmc","R5"}
 fmsFunctionsDefs["RTE1"]["R6"]={"setpage","PERFINIT"}
