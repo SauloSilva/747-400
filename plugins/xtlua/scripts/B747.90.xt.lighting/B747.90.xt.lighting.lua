@@ -1449,10 +1449,10 @@ function B747_annunciators()
     -- SAFETY
     annun.a.no_smoking = B747_ternary(
         (
-
+            (B747DR_sfty_no_smoke_sel_dial_pos == 2)            -- "ON" POSITION
+            or
         (
-        (B747DR_sfty_no_smoke_sel_dial_pos == 2)            -- "ON" POSITION
-        or
+       
         (B747DR_sfty_no_smoke_sel_dial_pos == 1)            -- "AUTO" POSITION
         )
 
@@ -1474,10 +1474,10 @@ function B747_annunciators()
 
     annun.a.seat_belts = B747_ternary(
         (
-
+            (B747DR_sfty_seat_belts_sel_dial_pos == 2)          -- "ON" POSITION
+            or
         (
-        (B747DR_sfty_seat_belts_sel_dial_pos == 2)          -- "ON" POSITION
-        or
+        
         (B747DR_sfty_seat_belts_sel_dial_pos == 1)          -- "AUTO" POSITION
         )
 

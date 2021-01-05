@@ -217,33 +217,47 @@ B747CMD_ai_safety_quick_start			= deferred_command("laminar/B747/ai/safety_quick
 function B747_safety_EICAS_msg()
 
     -- DOOR ENTRY L1
-    B747DR_CAS_advisory_status[66] = 0
-    if simDR_door_open_ratio[1] > 0.01 then B747DR_CAS_advisory_status[66] = 1 end
+    
+    if simDR_door_open_ratio[1] > 0.01 then 
+        B747DR_CAS_advisory_status[66] = 1
+    else
+        B747DR_CAS_advisory_status[66] = 0     
+    end
 
     -- DOOR L UPPER DK
-    B747DR_CAS_advisory_status[76] = 0
-    if simDR_door_open_ratio[0] > 0.01 then B747DR_CAS_advisory_status[76] = 1 end
+    
+    if simDR_door_open_ratio[0] > 0.01 then 
+        B747DR_CAS_advisory_status[76] = 1 
+    else
+        B747DR_CAS_advisory_status[76] = 0
+    end
 
     -- NO SMOKING ON
-    B747DR_CAS_memo_status[17] = 0
+    
     if simDR_cockpit2_no_smoking_switch == 1
         and simDR_cockpit2_seat_belt_switch == 0
     then
         B747DR_CAS_memo_status[17] = 1
+    else
+        B747DR_CAS_memo_status[17] = 0
     end
 
     -- PASS SIGNS ON
-    B747DR_CAS_memo_status[27] = 0
+   
     if simDR_cockpit2_no_smoking_switch == 1 and simDR_cockpit2_seat_belt_switch == 1 then
         B747DR_CAS_memo_status[27] = 1
+    else
+        B747DR_CAS_memo_status[27] = 0
     end
 
     -- SEATBELTS ON
-    B747DR_CAS_memo_status[33] = 0
+    
     if simDR_cockpit2_seat_belt_switch == 1
         and simDR_cockpit2_no_smoking_switch == 0
     then
         B747DR_CAS_memo_status[33] = 1
+    else
+        B747DR_CAS_memo_status[33] = 0
     end
 
 
