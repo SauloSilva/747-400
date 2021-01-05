@@ -178,7 +178,7 @@ B747DR_CAS_warning_status       = find_dataref("laminar/B747/CAS/warning_status"
 B747DR_CAS_caution_status       = find_dataref("laminar/B747/CAS/caution_status")
 B747DR_CAS_advisory_status      = find_dataref("laminar/B747/CAS/advisory_status")
 
-
+B747DR_elec_standby_power_sel_pos   = find_dataref("laminar/B747/electrical/standby_power/sel_dial_pos")
 
 --*************************************************************************************--
 --** 				        CREATE READ-ONLY CUSTOM DATAREFS               	         **--
@@ -2871,15 +2871,21 @@ function B747_fltInst_EICAS_msg()
     end
 
     -- >BAT DISCH MAIN
-    B747DR_CAS_advisory_status[20] = 0
-    if simDR_battery_chg_watt_hr[0] < last_batt_chg_watt_hr then
+    
+    if simDR_battery_chg_watt_hr[0] < last_batt_chg_watt_hr  then
+        B747DR_CAS_advisory_status[20] = 1
+    elseif B747DR_elec_standby_power_sel_pos<2 then  
         B747DR_CAS_advisory_status[20] = 0
     end    
 
 
     -- >BATTERY OFF
-    B747DR_CAS_advisory_status[21] = 0
-    if B747DR_button_switch_position[13] < 0.05 then B747DR_CAS_advisory_status[21] = 1 end
+    
+    if B747DR_button_switch_position[13] < 0.05 then 
+        B747DR_CAS_advisory_status[21] = 1 
+    else
+        B747DR_CAS_advisory_status[21] = 0
+    end
 
 
     last_batt_chg_watt_hr = simDR_battery_chg_watt_hr[0]

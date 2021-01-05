@@ -334,7 +334,7 @@ function after_physics()
   decodeNAVAIDS()
   decodeFlightPlan()
   newIcons()
-  print("navaids size="..table.getn(currentNaviadsTable))
-  print("fms size="..table.getn(fmsTable))
+  --print("navaids size="..table.getn(currentNaviadsTable))
+  --print("fms size="..table.getn(fmsTable))
   
 end 

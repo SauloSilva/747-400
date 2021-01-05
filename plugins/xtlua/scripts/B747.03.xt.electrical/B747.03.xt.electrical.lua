@@ -756,13 +756,21 @@ end
 
 
 
-
+function batteryDrain()
+    B747DR_CAS_advisory_status[19] = 1
+    B747DR_CAS_advisory_status[20] = 1
+end
 
 ----- ELECTRICAL EICAS MESSAGES ---------------------------------------------------------
 function B747_electrical_EICAS_msg()
 
     -- APU
-    
+    if B747DR_elec_standby_power_sel_pos==2 and is_timer_scheduled(batteryDrain) == false then
+        run_after_time(batteryDrain,10)
+    elseif B747DR_elec_standby_power_sel_pos<2 then
+        B747DR_CAS_advisory_status[19] = 0
+       --Main set in fltInst02.lua
+    end
     if (B747DR_elec_apu_sel_pos > 0.95 and simDR_apu_N1_pct < 0.1)
         or
         (B747DR_elec_apu_sel_pos < 0.05 and simDR_apu_N1_pct > 95.0)
