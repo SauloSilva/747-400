@@ -112,7 +112,7 @@ B747DR_speedbrake_lever_changed	= find_dataref("laminar/B747/flt_ctrls/speedbrak
 --*************************************************************************************--
 
 B747DR_CAS_memo_status          = find_dataref("laminar/B747/CAS/memo_status")
-
+B747DR_CAS_advisory_status          = find_dataref("laminar/B747/CAS/advisory_status")
 
 
 --*************************************************************************************--
@@ -746,28 +746,57 @@ end
 function B747_gear_EICAS_msg()
 
     -- AUTOBRAKES 1
-    B747DR_CAS_memo_status[2] = 0
-    if B747DR_autobrakes_sel_dial_pos == 3 then B747DR_CAS_memo_status[2] = 1 end
+    if B747DR_autobrakes_sel_dial_pos == 2 then 
+        B747DR_CAS_advisory_status[17] = 1 
+    else
+        B747DR_CAS_advisory_status[17] = 0
+    end
+
+    if B747DR_autobrakes_sel_dial_pos == 3 then 
+        B747DR_CAS_memo_status[2] = 1 
+    else
+        B747DR_CAS_memo_status[2] = 0
+    end
 
     -- AUTOBRAKES 2
-    B747DR_CAS_memo_status[3] = 0
-    if B747DR_autobrakes_sel_dial_pos == 4 then B747DR_CAS_memo_status[3] = 1 end
+    
+    if B747DR_autobrakes_sel_dial_pos == 4 then 
+        B747DR_CAS_memo_status[3] = 1
+    else
+        B747DR_CAS_memo_status[3] = 0
+    end
 
     -- AUTOBRAKES 3
-    B747DR_CAS_memo_status[4] = 0
-    if B747DR_autobrakes_sel_dial_pos == 5 then B747DR_CAS_memo_status[4] = 1 end
+   
+    if B747DR_autobrakes_sel_dial_pos == 5 then 
+        B747DR_CAS_memo_status[4] = 1 
+    else
+        B747DR_CAS_memo_status[4] = 0
+    end
 
     -- AUTOBRAKES 4
-    B747DR_CAS_memo_status[5] = 0
-    if B747DR_autobrakes_sel_dial_pos == 6 then B747DR_CAS_memo_status[5] = 1 end
+    
+    if B747DR_autobrakes_sel_dial_pos == 6 then 
+        B747DR_CAS_memo_status[5] = 1 
+    else
+        B747DR_CAS_memo_status[5] = 0
+    end
 
     -- AUTOBRAKES MAX
-    B747DR_CAS_memo_status[6] = 0
-    if B747DR_autobrakes_sel_dial_pos == 7 then B747DR_CAS_memo_status[6] = 1 end
+    
+    if B747DR_autobrakes_sel_dial_pos == 7 then 
+        B747DR_CAS_memo_status[6] = 1
+    else
+        B747DR_CAS_memo_status[6] = 0
+    end
 
     -- AUTOBRAKES RTO
-    B747DR_CAS_memo_status[7] = 0
-    if B747DR_autobrakes_sel_dial_pos == 0 then B747DR_CAS_memo_status[7] = 1 end
+    
+    if B747DR_autobrakes_sel_dial_pos == 0 then 
+        B747DR_CAS_memo_status[7] = 1
+    else
+        B747DR_CAS_memo_status[7] = 0
+    end
 
 end
 
