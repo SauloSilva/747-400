@@ -1,23 +1,23 @@
 --[[
 *****************************************************************************************
-* Program Script Name	:	B747.25.fuel
-* Author Name			:	Jim Gregory
+* Program Script Name : B747.25.fuel
+* Author Name     : Jim Gregory
 *
 *   Revisions:
-*   -- DATE --	--- REV NO ---		--- DESCRIPTION ---
-*   2016-04-26	0.01a				Start of Dev
+*   -- DATE --  --- REV NO ---    --- DESCRIPTION ---
+*   2016-04-26  0.01a       Start of Dev
 *
 *
 *
 *
 *****************************************************************************************
-*        COPYRIGHT � 2016 JIM GREGORY / LAMINAR RESEARCH - ALL RIGHTS RESERVED	        *
+*        COPYRIGHT � 2016 JIM GREGORY / LAMINAR RESEARCH - ALL RIGHTS RESERVED          *
 *****************************************************************************************
 --]]
 
 
 --*************************************************************************************--
---** 					              XLUA GLOBALS              				     **--
+--**                        XLUA GLOBALS                           **--
 --*************************************************************************************--
 
 --[[
@@ -32,14 +32,14 @@ IN_REPLAY - evaluates to 0 if replay is off, 1 if replay mode is on
 
 
 --*************************************************************************************--
---** 					               CONSTANTS                    				 **--
+--**                         CONSTANTS                             **--
 --*************************************************************************************--
 
 NUM_FUEL_TOGGLE_SW = 4
 
 --replace create_command
 function deferred_command(name,desc,realFunc)
-	return replace_command(name,realFunc)
+  return replace_command(name,realFunc)
 end
 --replace deferred_dataref
 function deferred_dataref(name,nilType,callFunction)
@@ -51,7 +51,7 @@ end
 
 
 --*************************************************************************************--
---** 					            GLOBAL VARIABLES                				 **--
+--**                      GLOBAL VARIABLES                         **--
 --*************************************************************************************--
 
 B747 = {}
@@ -71,237 +71,237 @@ B747.fuel.engine4 = {}
 ----- FUEL TANK PROPERTIES --------------------------------------------------------------
 
 -- FUEL TANK CAPACITY (KILOGRAMS)
-B747.fuel.center_tank.capacity			= 52167.0   -- XP Tank DR Index: 0
-B747.fuel.main1_tank.capacity 			= 13622.0   -- XP Tank DR Index: 1
-B747.fuel.main2_tank.capacity 			= 38132.0   -- XP Tank DR Index: 2
-B747.fuel.main3_tank.capacity 			= 38132.0   -- XP Tank DR Index: 3
-B747.fuel.main4_tank.capacity 			= 13622.0   -- XP Tank DR Index: 4
-B747.fuel.res2_tank.capacity 	       	=  4018.0   -- XP Tank DR Index: 5
-B747.fuel.res3_tank.capacity 			=  4018.0   -- XP Tank DR Index: 6
-B747.fuel.stab_tank.capacity 			= 10030.0   -- XP Tank DR Index: 7
+B747.fuel.center_tank.capacity      = 52167.0   -- XP Tank DR Index: 0
+B747.fuel.main1_tank.capacity       = 13622.0   -- XP Tank DR Index: 1
+B747.fuel.main2_tank.capacity       = 38132.0   -- XP Tank DR Index: 2
+B747.fuel.main3_tank.capacity       = 38132.0   -- XP Tank DR Index: 3
+B747.fuel.main4_tank.capacity       = 13622.0   -- XP Tank DR Index: 4
+B747.fuel.res2_tank.capacity          =  4018.0   -- XP Tank DR Index: 5
+B747.fuel.res3_tank.capacity      =  4018.0   -- XP Tank DR Index: 6
+B747.fuel.stab_tank.capacity      = 10030.0   -- XP Tank DR Index: 7
 
 -- FUEL TANK MIN LIMIT (KILOGRAMS)
-B747.fuel.center_tank.min			    =   0.0   -- XP Tank DR Index: 0
-B747.fuel.main1_tank.min 			    =   0.0   -- XP Tank DR Index: 1
-B747.fuel.main2_tank.min 			    =   0.0   -- XP Tank DR Index: 2
-B747.fuel.main3_tank.min 			    =   0.0   -- XP Tank DR Index: 3
-B747.fuel.main4_tank.min 			    =   0.0   -- XP Tank DR Index: 4
-B747.fuel.res2_tank.min 				=   0.0   -- XP Tank DR Index: 5
-B747.fuel.res3_tank.min 				=   0.0   -- XP Tank DR Index: 6
-B747.fuel.stab_tank.min 				=   0.0   -- XP Tank DR Index
+B747.fuel.center_tank.min         =   0.0   -- XP Tank DR Index: 0
+B747.fuel.main1_tank.min          =   0.0   -- XP Tank DR Index: 1
+B747.fuel.main2_tank.min          =   0.0   -- XP Tank DR Index: 2
+B747.fuel.main3_tank.min          =   0.0   -- XP Tank DR Index: 3
+B747.fuel.main4_tank.min          =   0.0   -- XP Tank DR Index: 4
+B747.fuel.res2_tank.min         =   0.0   -- XP Tank DR Index: 5
+B747.fuel.res3_tank.min         =   0.0   -- XP Tank DR Index: 6
+B747.fuel.stab_tank.min         =   0.0   -- XP Tank DR Index
 
 -- PUMPS
-B747.fuel.center_tank.ovrd_jett_pump_L 	= {}
-B747.fuel.center_tank.ovrd_jett_pump_R 	= {}
-B747.fuel.center_tank.scvg_pump_L1		= {}
-B747.fuel.center_tank.scvg_pump_L2		= {}
-B747.fuel.center_tank.scvg_pump_R1		= {}
-B747.fuel.center_tank.scvg_pump_R2		= {}
+B747.fuel.center_tank.ovrd_jett_pump_L  = {}
+B747.fuel.center_tank.ovrd_jett_pump_R  = {}
+B747.fuel.center_tank.scvg_pump_L1    = {}
+B747.fuel.center_tank.scvg_pump_L2    = {}
+B747.fuel.center_tank.scvg_pump_R1    = {}
+B747.fuel.center_tank.scvg_pump_R2    = {}
 
-B747.fuel.main1_tank.main_pump_fwd		= {}
-B747.fuel.main1_tank.main_pump_aft		= {}
+B747.fuel.main1_tank.main_pump_fwd    = {}
+B747.fuel.main1_tank.main_pump_aft    = {}
 
-B747.fuel.main2_tank.main_pump_fwd		= {}
-B747.fuel.main2_tank.main_pump_aft		= {}
-B747.fuel.main2_tank.ovrd_jett_pump_fwd	= {}
-B747.fuel.main2_tank.ovrd_jett_pump_aft	= {}
-B747.fuel.main2_tank.apu_dc_pump		= {}
+B747.fuel.main2_tank.main_pump_fwd    = {}
+B747.fuel.main2_tank.main_pump_aft    = {}
+B747.fuel.main2_tank.ovrd_jett_pump_fwd = {}
+B747.fuel.main2_tank.ovrd_jett_pump_aft = {}
+B747.fuel.main2_tank.apu_dc_pump    = {}
 
-B747.fuel.main3_tank.main_pump_fwd		= {}
-B747.fuel.main3_tank.main_pump_aft		= {}
-B747.fuel.main3_tank.ovrd_jett_pump_fwd	= {}
-B747.fuel.main3_tank.ovrd_jett_pump_aft	= {}
+B747.fuel.main3_tank.main_pump_fwd    = {}
+B747.fuel.main3_tank.main_pump_aft    = {}
+B747.fuel.main3_tank.ovrd_jett_pump_fwd = {}
+B747.fuel.main3_tank.ovrd_jett_pump_aft = {}
 
-B747.fuel.main4_tank.main_pump_fwd		= {}
-B747.fuel.main4_tank.main_pump_aft		= {}
+B747.fuel.main4_tank.main_pump_fwd    = {}
+B747.fuel.main4_tank.main_pump_aft    = {}
 
-B747.fuel.stab_tank.xfr_jett_pump_L		= {}
-B747.fuel.stab_tank.xfr_jett_pump_R		= {}
+B747.fuel.stab_tank.xfr_jett_pump_L   = {}
+B747.fuel.stab_tank.xfr_jett_pump_R   = {}
 
-    B747.fuel.center_tank.ovrd_jett_pump_L.on		= deferred_dataref("laminar/B747/fuel/center_tank/ovrd_jett_pump_L_on", "number")
-    B747.fuel.center_tank.ovrd_jett_pump_R.on		= deferred_dataref("laminar/B747/fuel/center_tank/ovrd_jett_pump_R_on", "number")
-    B747.fuel.center_tank.scvg_pump_L1.on			= deferred_dataref("laminar/B747/fuel/center_tank/scvg_pump_L1_on", "number")
-    B747.fuel.center_tank.scvg_pump_L2.on			= deferred_dataref("laminar/B747/fuel/center_tank/scvg_pump_L2_on", "number")
-    B747.fuel.center_tank.scvg_pump_R1.on			= deferred_dataref("laminar/B747/fuel/center_tank/scvg_pump_R1_on", "number")
-    B747.fuel.center_tank.scvg_pump_R2.on			= deferred_dataref("laminar/B747/fuel/center_tank/scvg_pump_R2_on", "number")
+    B747.fuel.center_tank.ovrd_jett_pump_L.on   = deferred_dataref("laminar/B747/fuel/center_tank/ovrd_jett_pump_L_on", "number")
+    B747.fuel.center_tank.ovrd_jett_pump_R.on   = deferred_dataref("laminar/B747/fuel/center_tank/ovrd_jett_pump_R_on", "number")
+    B747.fuel.center_tank.scvg_pump_L1.on     = deferred_dataref("laminar/B747/fuel/center_tank/scvg_pump_L1_on", "number")
+    B747.fuel.center_tank.scvg_pump_L2.on     = deferred_dataref("laminar/B747/fuel/center_tank/scvg_pump_L2_on", "number")
+    B747.fuel.center_tank.scvg_pump_R1.on     = deferred_dataref("laminar/B747/fuel/center_tank/scvg_pump_R1_on", "number")
+    B747.fuel.center_tank.scvg_pump_R2.on     = deferred_dataref("laminar/B747/fuel/center_tank/scvg_pump_R2_on", "number")
 
-    B747.fuel.main1_tank.main_pump_fwd.on			= deferred_dataref("laminar/B747/fuel/main1_tank/main_pump_fwd_on", "number")
-    B747.fuel.main1_tank.main_pump_aft.on			= deferred_dataref("laminar/B747/fuel/main1_tank/main_pump_aft_on", "number")
+    B747.fuel.main1_tank.main_pump_fwd.on     = deferred_dataref("laminar/B747/fuel/main1_tank/main_pump_fwd_on", "number")
+    B747.fuel.main1_tank.main_pump_aft.on     = deferred_dataref("laminar/B747/fuel/main1_tank/main_pump_aft_on", "number")
 
-    B747.fuel.main2_tank.main_pump_fwd.on			= deferred_dataref("laminar/B747/fuel/main2_tank/main_pump_fwd_on", "number")
-    B747.fuel.main2_tank.main_pump_aft.on			= deferred_dataref("laminar/B747/fuel/main2_tank/main_pump_aft_on", "number")
-    B747.fuel.main2_tank.ovrd_jett_pump_fwd.on	    = deferred_dataref("laminar/B747/fuel/main2_tank/ovrd_jett_pump_fwd_on", "number")
-    B747.fuel.main2_tank.ovrd_jett_pump_aft.on	    = deferred_dataref("laminar/B747/fuel/main2_tank/ovrd_jett_pump_aft_on", "number")
-    B747.fuel.main2_tank.apu_dc_pump.on			    = deferred_dataref("laminar/B747/fuel/main2_tank/apu_dc_pump_on", "number")
+    B747.fuel.main2_tank.main_pump_fwd.on     = deferred_dataref("laminar/B747/fuel/main2_tank/main_pump_fwd_on", "number")
+    B747.fuel.main2_tank.main_pump_aft.on     = deferred_dataref("laminar/B747/fuel/main2_tank/main_pump_aft_on", "number")
+    B747.fuel.main2_tank.ovrd_jett_pump_fwd.on      = deferred_dataref("laminar/B747/fuel/main2_tank/ovrd_jett_pump_fwd_on", "number")
+    B747.fuel.main2_tank.ovrd_jett_pump_aft.on      = deferred_dataref("laminar/B747/fuel/main2_tank/ovrd_jett_pump_aft_on", "number")
+    B747.fuel.main2_tank.apu_dc_pump.on         = deferred_dataref("laminar/B747/fuel/main2_tank/apu_dc_pump_on", "number")
 
-    B747.fuel.main3_tank.main_pump_fwd.on			= deferred_dataref("laminar/B747/fuel/main3_tank/main_pump_fwd_on", "number")
-    B747.fuel.main3_tank.main_pump_aft.on			= deferred_dataref("laminar/B747/fuel/main3_tank/main_pump_aft_on", "number")
-    B747.fuel.main3_tank.ovrd_jett_pump_fwd.on	    = deferred_dataref("laminar/B747/fuel/main3_tank/ovrd_jett_pump_fwd_on", "number")
-    B747.fuel.main3_tank.ovrd_jett_pump_aft.on	    = deferred_dataref("laminar/B747/fuel/main3_tank/ovrd_jett_pump_aft_on", "number")
+    B747.fuel.main3_tank.main_pump_fwd.on     = deferred_dataref("laminar/B747/fuel/main3_tank/main_pump_fwd_on", "number")
+    B747.fuel.main3_tank.main_pump_aft.on     = deferred_dataref("laminar/B747/fuel/main3_tank/main_pump_aft_on", "number")
+    B747.fuel.main3_tank.ovrd_jett_pump_fwd.on      = deferred_dataref("laminar/B747/fuel/main3_tank/ovrd_jett_pump_fwd_on", "number")
+    B747.fuel.main3_tank.ovrd_jett_pump_aft.on      = deferred_dataref("laminar/B747/fuel/main3_tank/ovrd_jett_pump_aft_on", "number")
 
-    B747.fuel.main4_tank.main_pump_fwd.on			= deferred_dataref("laminar/B747/fuel/main4_tank/main_pump_fwd_on", "number")
-    B747.fuel.main4_tank.main_pump_aft.on			= deferred_dataref("laminar/B747/fuel/main4_tank/main_pump_aft_on", "number")
+    B747.fuel.main4_tank.main_pump_fwd.on     = deferred_dataref("laminar/B747/fuel/main4_tank/main_pump_fwd_on", "number")
+    B747.fuel.main4_tank.main_pump_aft.on     = deferred_dataref("laminar/B747/fuel/main4_tank/main_pump_aft_on", "number")
 
-    B747.fuel.stab_tank.xfr_jett_pump_L.on		    = deferred_dataref("laminar/B747/fuel/stab_tank/xfr_jett_pump_L_on", "number")
-    B747.fuel.stab_tank.xfr_jett_pump_R.on		    = deferred_dataref("laminar/B747/fuel/stab_tank/xfr_jett_pump_R_on", "number")
+    B747.fuel.stab_tank.xfr_jett_pump_L.on        = deferred_dataref("laminar/B747/fuel/stab_tank/xfr_jett_pump_L_on", "number")
+    B747.fuel.stab_tank.xfr_jett_pump_R.on        = deferred_dataref("laminar/B747/fuel/stab_tank/xfr_jett_pump_R_on", "number")
 
 -- VALVES
-B747.fuel.center_tank.refuel_vlv_L		= {}
-B747.fuel.center_tank.refuel_vlv_R		= {}
-B747.fuel.center_tank.jett_vlv_L		= {}
-B747.fuel.center_tank.jett_vlv_R		= {}
-B747.fuel.center_tank.stab_xfr_vlv_L	= {}
-B747.fuel.center_tank.stab_xfr_vlv_R	= {}
-B747.fuel.center_tank.flow_eq_vlv		= {}
+B747.fuel.center_tank.refuel_vlv_L    = {}
+B747.fuel.center_tank.refuel_vlv_R    = {}
+B747.fuel.center_tank.jett_vlv_L    = {}
+B747.fuel.center_tank.jett_vlv_R    = {}
+B747.fuel.center_tank.stab_xfr_vlv_L  = {}
+B747.fuel.center_tank.stab_xfr_vlv_R  = {}
+B747.fuel.center_tank.flow_eq_vlv   = {}
 
-B747.fuel.main1_tank.refuel_vlv			= {}
-B747.fuel.main1_tank.main_xfr_vlv		= {}
+B747.fuel.main1_tank.refuel_vlv     = {}
+B747.fuel.main1_tank.main_xfr_vlv   = {}
 
-B747.fuel.main2_tank.refuel_vlv_L		= {}
-B747.fuel.main2_tank.refuel_vlv_R		= {}
-B747.fuel.main2_tank.jett_vlv			= {}
-B747.fuel.main2_tank.apu_vlv			= {}
+B747.fuel.main2_tank.refuel_vlv_L   = {}
+B747.fuel.main2_tank.refuel_vlv_R   = {}
+B747.fuel.main2_tank.jett_vlv     = {}
+B747.fuel.main2_tank.apu_vlv      = {}
 
-B747.fuel.main3_tank.refuel_vlv_L		= {}
-B747.fuel.main3_tank.refuel_vlv_R		= {}
-B747.fuel.main3_tank.jett_vlv			= {}
+B747.fuel.main3_tank.refuel_vlv_L   = {}
+B747.fuel.main3_tank.refuel_vlv_R   = {}
+B747.fuel.main3_tank.jett_vlv     = {}
 
-B747.fuel.main4_tank.refuel_vlv			= {}
-B747.fuel.main4_tank.main_xfr_vlv		= {}
+B747.fuel.main4_tank.refuel_vlv     = {}
+B747.fuel.main4_tank.main_xfr_vlv   = {}
 
-B747.fuel.stab_tank.refuel_vlv			= {}
-B747.fuel.stab_tank.isolation_vlv_L		= {}
-B747.fuel.stab_tank.xfr_jett_vlv_L		= {}
-B747.fuel.stab_tank.isolation_vlv_R		= {}
-B747.fuel.stab_tank.xfr_jett_vlv_R		= {}
+B747.fuel.stab_tank.refuel_vlv      = {}
+B747.fuel.stab_tank.isolation_vlv_L   = {}
+B747.fuel.stab_tank.xfr_jett_vlv_L    = {}
+B747.fuel.stab_tank.isolation_vlv_R   = {}
+B747.fuel.stab_tank.xfr_jett_vlv_R    = {}
 
-B747.fuel.res2_tank.refuel_vlv			= {}
-B747.fuel.res2_tank.xfr_vlv_A			= {}
-B747.fuel.res2_tank.xfr_vlv_B			= {}
+B747.fuel.res2_tank.refuel_vlv      = {}
+B747.fuel.res2_tank.xfr_vlv_A     = {}
+B747.fuel.res2_tank.xfr_vlv_B     = {}
 
-B747.fuel.res3_tank.refuel_vlv			= {}
-B747.fuel.res3_tank.xfr_vlv_A			= {}
-B747.fuel.res3_tank.xfr_vlv_B			= {}
+B747.fuel.res3_tank.refuel_vlv      = {}
+B747.fuel.res3_tank.xfr_vlv_A     = {}
+B747.fuel.res3_tank.xfr_vlv_B     = {}
 
-B747.fuel.engine1.xfeed_vlv			    = {}
-B747.fuel.engine2.xfeed_vlv			    = {}
-B747.fuel.engine3.xfeed_vlv			    = {}
-B747.fuel.engine4.xfeed_vlv			    = {}
+B747.fuel.engine1.xfeed_vlv         = {}
+B747.fuel.engine2.xfeed_vlv         = {}
+B747.fuel.engine3.xfeed_vlv         = {}
+B747.fuel.engine4.xfeed_vlv         = {}
 
-B747.fuel.spar_vlv1						= {}
-B747.fuel.spar_vlv2						= {}
-B747.fuel.spar_vlv3						= {}
-B747.fuel.spar_vlv4						= {}
+B747.fuel.spar_vlv1           = {}
+B747.fuel.spar_vlv2           = {}
+B747.fuel.spar_vlv3           = {}
+B747.fuel.spar_vlv4           = {}
 
-B747.fuel.jett_nozzle_vlv_L				= {}
-B747.fuel.jett_nozzle_vlv_R				= {}
+B747.fuel.jett_nozzle_vlv_L       = {}
+B747.fuel.jett_nozzle_vlv_R       = {}
 
     -- VALVE TARGET POS
-    B747.fuel.center_tank.refuel_vlv_L.target_pos	= 0
-    B747.fuel.center_tank.refuel_vlv_R.target_pos	= 0
-    B747.fuel.center_tank.jett_vlv_L.target_pos		= 0
-    B747.fuel.center_tank.jett_vlv_R.target_pos		= 0
+    B747.fuel.center_tank.refuel_vlv_L.target_pos = 0
+    B747.fuel.center_tank.refuel_vlv_R.target_pos = 0
+    B747.fuel.center_tank.jett_vlv_L.target_pos   = 0
+    B747.fuel.center_tank.jett_vlv_R.target_pos   = 0
     B747.fuel.center_tank.stab_xfr_vlv_L.target_pos = 0
-    B747.fuel.center_tank.stab_xfr_vlv_R.target_pos	= 0
+    B747.fuel.center_tank.stab_xfr_vlv_R.target_pos = 0
     B747.fuel.center_tank.flow_eq_vlv.target_pos    = 0
 
-    B747.fuel.main1_tank.refuel_vlv.target_pos		= 0
-    B747.fuel.engine1.xfeed_vlv.target_pos		    = 0
+    B747.fuel.main1_tank.refuel_vlv.target_pos    = 0
+    B747.fuel.engine1.xfeed_vlv.target_pos        = 0
     B747.fuel.main1_tank.main_xfr_vlv.target_pos    = 0
 
-    B747.fuel.main2_tank.refuel_vlv_L.target_pos	= 0
-    B747.fuel.main2_tank.refuel_vlv_R.target_pos	= 0
-    B747.fuel.engine2.xfeed_vlv.target_pos		    = 0
-    B747.fuel.main2_tank.jett_vlv.target_pos		= 0
-    B747.fuel.main2_tank.apu_vlv.target_pos			= 0
+    B747.fuel.main2_tank.refuel_vlv_L.target_pos  = 0
+    B747.fuel.main2_tank.refuel_vlv_R.target_pos  = 0
+    B747.fuel.engine2.xfeed_vlv.target_pos        = 0
+    B747.fuel.main2_tank.jett_vlv.target_pos    = 0
+    B747.fuel.main2_tank.apu_vlv.target_pos     = 0
 
-    B747.fuel.main3_tank.refuel_vlv_L.target_pos	= 0
-    B747.fuel.main3_tank.refuel_vlv_R.target_pos	= 0
-    B747.fuel.engine3.xfeed_vlv.target_pos		    = 0
-    B747.fuel.main3_tank.jett_vlv.target_pos	    = 0
+    B747.fuel.main3_tank.refuel_vlv_L.target_pos  = 0
+    B747.fuel.main3_tank.refuel_vlv_R.target_pos  = 0
+    B747.fuel.engine3.xfeed_vlv.target_pos        = 0
+    B747.fuel.main3_tank.jett_vlv.target_pos      = 0
 
-    B747.fuel.main4_tank.refuel_vlv.target_pos		= 0
-    B747.fuel.engine4.xfeed_vlv.target_pos		    = 0
-    B747.fuel.main4_tank.main_xfr_vlv.target_pos	= 0
+    B747.fuel.main4_tank.refuel_vlv.target_pos    = 0
+    B747.fuel.engine4.xfeed_vlv.target_pos        = 0
+    B747.fuel.main4_tank.main_xfr_vlv.target_pos  = 0
 
-    B747.fuel.stab_tank.refuel_vlv.target_pos		= 0
-    B747.fuel.stab_tank.isolation_vlv_L.target_pos	= 0
-    B747.fuel.stab_tank.xfr_jett_vlv_L.target_pos	= 0
-    B747.fuel.stab_tank.isolation_vlv_R.target_pos	= 0
-    B747.fuel.stab_tank.xfr_jett_vlv_R.target_pos	= 0
+    B747.fuel.stab_tank.refuel_vlv.target_pos   = 0
+    B747.fuel.stab_tank.isolation_vlv_L.target_pos  = 0
+    B747.fuel.stab_tank.xfr_jett_vlv_L.target_pos = 0
+    B747.fuel.stab_tank.isolation_vlv_R.target_pos  = 0
+    B747.fuel.stab_tank.xfr_jett_vlv_R.target_pos = 0
 
-    B747.fuel.res2_tank.refuel_vlv.target_pos		= 0
+    B747.fuel.res2_tank.refuel_vlv.target_pos   = 0
     B747.fuel.res2_tank.xfr_vlv_A.target_pos        = 0
-    B747.fuel.res2_tank.xfr_vlv_B.target_pos		= 0
+    B747.fuel.res2_tank.xfr_vlv_B.target_pos    = 0
 
-    B747.fuel.res3_tank.refuel_vlv.target_pos		= 0
-    B747.fuel.res3_tank.xfr_vlv_A.target_pos		= 0
-    B747.fuel.res3_tank.xfr_vlv_B.target_pos		= 0
+    B747.fuel.res3_tank.refuel_vlv.target_pos   = 0
+    B747.fuel.res3_tank.xfr_vlv_A.target_pos    = 0
+    B747.fuel.res3_tank.xfr_vlv_B.target_pos    = 0
 
-    B747.fuel.spar_vlv1.target_pos					= 0
-    B747.fuel.spar_vlv2.target_pos					= 0
-    B747.fuel.spar_vlv3.target_pos					= 0
-    B747.fuel.spar_vlv4.target_pos					= 0
+    B747.fuel.spar_vlv1.target_pos          = 0
+    B747.fuel.spar_vlv2.target_pos          = 0
+    B747.fuel.spar_vlv3.target_pos          = 0
+    B747.fuel.spar_vlv4.target_pos          = 0
 
-    B747.fuel.jett_nozzle_vlv_L.target_pos			= 0
-    B747.fuel.jett_nozzle_vlv_R.target_pos			= 0
+    B747.fuel.jett_nozzle_vlv_L.target_pos      = 0
+    B747.fuel.jett_nozzle_vlv_R.target_pos      = 0
 
 
     -- VALVE POS
-    B747.fuel.center_tank.refuel_vlv_L.pos	    = deferred_dataref("laminar/B747/fuel/center_tank/refuel_vlv_L_pos", "number")
-    B747.fuel.center_tank.refuel_vlv_R.pos	    = deferred_dataref("laminar/B747/fuel/center_tank/refuel_vlv_R_pos", "number")
-    B747.fuel.center_tank.jett_vlv_L.pos	    = deferred_dataref("laminar/B747/fuel/center_tank/jett_vlv_L_pos", "number")
-    B747.fuel.center_tank.jett_vlv_R.pos	    = deferred_dataref("laminar/B747/fuel/center_tank/jett_vlv_R_pos", "number")
+    B747.fuel.center_tank.refuel_vlv_L.pos      = deferred_dataref("laminar/B747/fuel/center_tank/refuel_vlv_L_pos", "number")
+    B747.fuel.center_tank.refuel_vlv_R.pos      = deferred_dataref("laminar/B747/fuel/center_tank/refuel_vlv_R_pos", "number")
+    B747.fuel.center_tank.jett_vlv_L.pos      = deferred_dataref("laminar/B747/fuel/center_tank/jett_vlv_L_pos", "number")
+    B747.fuel.center_tank.jett_vlv_R.pos      = deferred_dataref("laminar/B747/fuel/center_tank/jett_vlv_R_pos", "number")
     B747.fuel.center_tank.stab_xfr_vlv_L.pos    = deferred_dataref("laminar/B747/fuel/center_tank/stab_xfr_vlv_L_pos", "number")
     B747.fuel.center_tank.stab_xfr_vlv_R.pos    = deferred_dataref("laminar/B747/fuel/center_tank/stab_xfr_vlv_R_pos", "number")
-    B747.fuel.center_tank.flow_eq_vlv.pos	    = deferred_dataref("laminar/B747/fuel/center_tank/flow_eq_vlv_pos", "number")
+    B747.fuel.center_tank.flow_eq_vlv.pos     = deferred_dataref("laminar/B747/fuel/center_tank/flow_eq_vlv_pos", "number")
 
-    B747.fuel.main1_tank.refuel_vlv.pos		    = deferred_dataref("laminar/B747/fuel/main1_tank/refuel_vlv_pos", "number")
-    B747.fuel.main1_tank.main_xfr_vlv.pos	    = deferred_dataref("laminar/B747/fuel/main1_tank/main_xfr_vlv_pos", "number")
+    B747.fuel.main1_tank.refuel_vlv.pos       = deferred_dataref("laminar/B747/fuel/main1_tank/refuel_vlv_pos", "number")
+    B747.fuel.main1_tank.main_xfr_vlv.pos     = deferred_dataref("laminar/B747/fuel/main1_tank/main_xfr_vlv_pos", "number")
 
-    B747.fuel.main2_tank.refuel_vlv_L.pos	    = deferred_dataref("laminar/B747/fuel/main2_tank/refuel_vlv_L_pos", "number")
-    B747.fuel.main2_tank.refuel_vlv_R.pos	    = deferred_dataref("laminar/B747/fuel/main2_tank/refuel_vlv_R_pos", "number")
-    B747.fuel.main2_tank.jett_vlv.pos		    = deferred_dataref("laminar/B747/fuel/main2_tank/jett_vlv_pos", "number")
-    B747.fuel.main2_tank.apu_vlv.pos		    = deferred_dataref("laminar/B747/fuel/main2_tank/apu_vlv_pos", "number")
+    B747.fuel.main2_tank.refuel_vlv_L.pos     = deferred_dataref("laminar/B747/fuel/main2_tank/refuel_vlv_L_pos", "number")
+    B747.fuel.main2_tank.refuel_vlv_R.pos     = deferred_dataref("laminar/B747/fuel/main2_tank/refuel_vlv_R_pos", "number")
+    B747.fuel.main2_tank.jett_vlv.pos       = deferred_dataref("laminar/B747/fuel/main2_tank/jett_vlv_pos", "number")
+    B747.fuel.main2_tank.apu_vlv.pos        = deferred_dataref("laminar/B747/fuel/main2_tank/apu_vlv_pos", "number")
 
-    B747.fuel.main3_tank.refuel_vlv_L.pos	    = deferred_dataref("laminar/B747/fuel/main3_tank/refuel_vlv_L_pos", "number")
-    B747.fuel.main3_tank.refuel_vlv_R.pos	    = deferred_dataref("laminar/B747/fuel/main3_tank/refuel_vlv_R_pos", "number")
-    B747.fuel.main3_tank.jett_vlv.pos		    = deferred_dataref("laminar/B747/fuel/main3_tank/jett_vlv_pos", "number")
+    B747.fuel.main3_tank.refuel_vlv_L.pos     = deferred_dataref("laminar/B747/fuel/main3_tank/refuel_vlv_L_pos", "number")
+    B747.fuel.main3_tank.refuel_vlv_R.pos     = deferred_dataref("laminar/B747/fuel/main3_tank/refuel_vlv_R_pos", "number")
+    B747.fuel.main3_tank.jett_vlv.pos       = deferred_dataref("laminar/B747/fuel/main3_tank/jett_vlv_pos", "number")
 
-    B747.fuel.main4_tank.refuel_vlv.pos	        = deferred_dataref("laminar/B747/fuel/main4_tank/refuel_vlv_pos", "number")
-    B747.fuel.main4_tank.main_xfr_vlv.pos	    = deferred_dataref("laminar/B747/fuel/main4_tank/main_xfr_vlv_pos", "number")
+    B747.fuel.main4_tank.refuel_vlv.pos         = deferred_dataref("laminar/B747/fuel/main4_tank/refuel_vlv_pos", "number")
+    B747.fuel.main4_tank.main_xfr_vlv.pos     = deferred_dataref("laminar/B747/fuel/main4_tank/main_xfr_vlv_pos", "number")
 
-    B747.fuel.stab_tank.refuel_vlv.pos		    = deferred_dataref("laminar/B747/fuel/stab_tank/refuel_vlv_pos", "number")
-    B747.fuel.stab_tank.isolation_vlv_L.pos	    = deferred_dataref("laminar/B747/fuel/stab_tank/isolation_vlv_L_pos", "number")
-    B747.fuel.stab_tank.xfr_jett_vlv_L.pos	    = deferred_dataref("laminar/B747/fuel/stab_tank/xfr_jett_vlv_L_pos", "number")
-    B747.fuel.stab_tank.isolation_vlv_R.pos	    = deferred_dataref("laminar/B747/fuel/stab_tank/isolation_vlv_R_pos", "number")
-    B747.fuel.stab_tank.xfr_jett_vlv_R.pos	    = deferred_dataref("laminar/B747/fuel/stab_tank/xfr_jett_vlv_R_pos", "number")
+    B747.fuel.stab_tank.refuel_vlv.pos        = deferred_dataref("laminar/B747/fuel/stab_tank/refuel_vlv_pos", "number")
+    B747.fuel.stab_tank.isolation_vlv_L.pos     = deferred_dataref("laminar/B747/fuel/stab_tank/isolation_vlv_L_pos", "number")
+    B747.fuel.stab_tank.xfr_jett_vlv_L.pos      = deferred_dataref("laminar/B747/fuel/stab_tank/xfr_jett_vlv_L_pos", "number")
+    B747.fuel.stab_tank.isolation_vlv_R.pos     = deferred_dataref("laminar/B747/fuel/stab_tank/isolation_vlv_R_pos", "number")
+    B747.fuel.stab_tank.xfr_jett_vlv_R.pos      = deferred_dataref("laminar/B747/fuel/stab_tank/xfr_jett_vlv_R_pos", "number")
 
-    B747.fuel.res2_tank.refuel_vlv.pos		    = deferred_dataref("laminar/B747/fuel/res2_tank/refuel_vlv_pos", "number")
-    B747.fuel.res2_tank.xfr_vlv_A.pos		    = deferred_dataref("laminar/B747/fuel/res2_tank/xfr_vlv_A_pos", "number")
-    B747.fuel.res2_tank.xfr_vlv_B.pos		    = deferred_dataref("laminar/B747/fuel/res2_tank/xfr_vlv_B_pos", "number")
+    B747.fuel.res2_tank.refuel_vlv.pos        = deferred_dataref("laminar/B747/fuel/res2_tank/refuel_vlv_pos", "number")
+    B747.fuel.res2_tank.xfr_vlv_A.pos       = deferred_dataref("laminar/B747/fuel/res2_tank/xfr_vlv_A_pos", "number")
+    B747.fuel.res2_tank.xfr_vlv_B.pos       = deferred_dataref("laminar/B747/fuel/res2_tank/xfr_vlv_B_pos", "number")
 
-    B747.fuel.res3_tank.refuel_vlv.pos		    = deferred_dataref("laminar/B747/fuel/res3_tank/refuel_vlv_pos", "number")
-    B747.fuel.res3_tank.xfr_vlv_A.pos		    = deferred_dataref("laminar/B747/fuel/res3_tank/xfr_vlv_A_pos", "number")
-    B747.fuel.res3_tank.xfr_vlv_B.pos		    = deferred_dataref("laminar/B747/fuel/res3_tank/xfr_vlv_B_pos", "number")
+    B747.fuel.res3_tank.refuel_vlv.pos        = deferred_dataref("laminar/B747/fuel/res3_tank/refuel_vlv_pos", "number")
+    B747.fuel.res3_tank.xfr_vlv_A.pos       = deferred_dataref("laminar/B747/fuel/res3_tank/xfr_vlv_A_pos", "number")
+    B747.fuel.res3_tank.xfr_vlv_B.pos       = deferred_dataref("laminar/B747/fuel/res3_tank/xfr_vlv_B_pos", "number")
 
-    B747.fuel.engine1.xfeed_vlv.pos		        = deferred_dataref("laminar/B747/fuel/engine1/xfeed_vlv_pos", "number")
-    B747.fuel.engine2.xfeed_vlv.pos		        = deferred_dataref("laminar/B747/fuel/engine2/xfeed_vlv_pos", "number")
-    B747.fuel.engine3.xfeed_vlv.pos		        = deferred_dataref("laminar/B747/fuel/engine3/xfeed_vlv_pos", "number")
-    B747.fuel.engine4.xfeed_vlv.pos		        = deferred_dataref("laminar/B747/fuel/engine4/xfeed_vlv_pos", "number")
+    B747.fuel.engine1.xfeed_vlv.pos           = deferred_dataref("laminar/B747/fuel/engine1/xfeed_vlv_pos", "number")
+    B747.fuel.engine2.xfeed_vlv.pos           = deferred_dataref("laminar/B747/fuel/engine2/xfeed_vlv_pos", "number")
+    B747.fuel.engine3.xfeed_vlv.pos           = deferred_dataref("laminar/B747/fuel/engine3/xfeed_vlv_pos", "number")
+    B747.fuel.engine4.xfeed_vlv.pos           = deferred_dataref("laminar/B747/fuel/engine4/xfeed_vlv_pos", "number")
 
-    B747.fuel.spar_vlv1.pos					    = deferred_dataref("laminar/B747/fuel/spar_vlv1_pos", "number")
-    B747.fuel.spar_vlv2.pos					    = deferred_dataref("laminar/B747/fuel/spar_vlv2_pos", "number")
-    B747.fuel.spar_vlv3.pos				        = deferred_dataref("laminar/B747/fuel/spar_vlv3_pos", "number")
-    B747.fuel.spar_vlv4.pos				        = deferred_dataref("laminar/B747/fuel/spar_vlv4_pos", "number")
+    B747.fuel.spar_vlv1.pos             = deferred_dataref("laminar/B747/fuel/spar_vlv1_pos", "number")
+    B747.fuel.spar_vlv2.pos             = deferred_dataref("laminar/B747/fuel/spar_vlv2_pos", "number")
+    B747.fuel.spar_vlv3.pos               = deferred_dataref("laminar/B747/fuel/spar_vlv3_pos", "number")
+    B747.fuel.spar_vlv4.pos               = deferred_dataref("laminar/B747/fuel/spar_vlv4_pos", "number")
 
-    B747.fuel.jett_nozzle_vlv_L.pos			    = deferred_dataref("laminar/B747/fuel/jett_nozzle_vlv_L_pos", "number")
-    B747.fuel.jett_nozzle_vlv_R.pos			    = deferred_dataref("laminar/B747/fuel/jett_nozzle_vlv_R_pos", "number")
+    B747.fuel.jett_nozzle_vlv_L.pos         = deferred_dataref("laminar/B747/fuel/jett_nozzle_vlv_L_pos", "number")
+    B747.fuel.jett_nozzle_vlv_R.pos         = deferred_dataref("laminar/B747/fuel/jett_nozzle_vlv_R_pos", "number")
 
 
 
 --*************************************************************************************--
---** 					            LOCAL VARIABLES                 				 **--
+--**                      LOCAL VARIABLES                          **--
 --*************************************************************************************--
 
 local B747_fuel_control_toggle_sw_pos_target = {}
@@ -357,7 +357,7 @@ local fuel_tankToEngine = 0
 
 
 --*************************************************************************************--
---** 				                X-PLANE DATAREFS            			    	 **--
+--**                        X-PLANE DATAREFS                         **--
 --*************************************************************************************--
 
 simDR_startup_running               = find_dataref("sim/operation/prefs/startup_running")
@@ -390,16 +390,16 @@ simDR_fuel_filter_block_02          = find_dataref("sim/operation/failures/rel_f
 simDR_fuel_filter_block_03          = find_dataref("sim/operation/failures/rel_fuel_block2")
 simDR_fuel_filter_block_04          = find_dataref("sim/operation/failures/rel_fuel_block3")
 
-simDR_fuel_totalizer_kg				= find_dataref("sim/cockpit2/fuel/fuel_totalizer_init_kg")
+simDR_fuel_totalizer_kg       = find_dataref("sim/cockpit2/fuel/fuel_totalizer_init_kg")
 
 
 --*************************************************************************************--
---** 				              FIND CUSTOM DATAREFS             			    	 **--
+--**                      FIND CUSTOM DATAREFS                         **--
 --*************************************************************************************--
 
 B747DR_button_switch_position       = find_dataref("laminar/B747/button_switch/position")
 --[[
-	
+  
 BUTTON SWITCH INDEXES:
 
     misc_fuel_xfr_1_4           = 43
@@ -438,7 +438,7 @@ B747DR_CAS_advisory_status          = find_dataref("laminar/B747/CAS/advisory_st
 
 
 --*************************************************************************************--
---** 				        CREATE READ-ONLY CUSTOM DATAREFS               	         **--
+--**                CREATE READ-ONLY CUSTOM DATAREFS                         **--
 --*************************************************************************************--
 
 B747DR_fuel_jettison_sel_dial_pos       = deferred_dataref("laminar/B747/fuel/fuel_jettison/sel_dial_pos", "number")
@@ -486,14 +486,14 @@ B747DR_gen_xfeed_vlv1_status            = deferred_dataref("laminar/B747/fuel/ge
 B747DR_gen_xfeed_vlv2_status            = deferred_dataref("laminar/B747/fuel/gen/xfeed_vlv2_status", "number")
 B747DR_gen_xfeed_vlv3_status            = deferred_dataref("laminar/B747/fuel/gen/xfeed_vlv3_status", "number")
 B747DR_gen_xfeed_vlv4_status            = deferred_dataref("laminar/B747/fuel/gen/xfeed_vlv4_status", "number")
-B747DR_refuel							= deferred_dataref("laminar/B747/fuel/refuel", "number")
-B747DR_fuel_preselect					= deferred_dataref("laminar/B747/fuel/preselect", "number")
-B747DR_fuel_add							= deferred_dataref("laminar/B747/fuel/add_fuel", "number")
+B747DR_refuel             = deferred_dataref("laminar/B747/fuel/refuel", "number")
+B747DR_fuel_preselect         = deferred_dataref("laminar/B747/fuel/preselect", "number")
+B747DR_fuel_add             = deferred_dataref("laminar/B747/fuel/add_fuel", "number")
 B747DR_init_fuel_CD                     = deferred_dataref("laminar/B747/fuel/init_CD", "number")
 
 
 --*************************************************************************************--
---** 				       READ-WRITE CUSTOM DATAREF HANDLERS     	        	     **--
+--**               READ-WRITE CUSTOM DATAREF HANDLERS                      **--
 --*************************************************************************************--
 
 -- FUEL TO REMAIN
@@ -505,44 +505,44 @@ end
 
 
 --*************************************************************************************--
---** 				       CREATE READ-WRITE CUSTOM DATAREFS                         **--
+--**               CREATE READ-WRITE CUSTOM DATAREFS                         **--
 --*************************************************************************************--
 
 -- FUEL TO REMAIN
 B747DR_fuel_to_remain_rheo      = deferred_dataref("laminar/B747/fuel/fuel_to_remain/rheostat", "number", B747DR_fuel_to_remain_rheo_DRhandler)
 
 -- FUEL TANK WEIGHT DISPLAY QTY (8 TANKS)
-B747DR_fuel_tank_display_qty			= deferred_dataref("laminar/B747/fuel/fuel_tank_display_qty", "array[8]")
+B747DR_fuel_tank_display_qty      = deferred_dataref("laminar/B747/fuel/fuel_tank_display_qty", "array[8]")
 
 -- FUEL TOTAL WEIGHT DISPLAY QTY
-B747DR_fuel_total_display_qty			= deferred_dataref("laminar/B747/fuel/fuel_total_display_qty", "number")
+B747DR_fuel_total_display_qty     = deferred_dataref("laminar/B747/fuel/fuel_total_display_qty", "number")
 
 -- FUEL FLOW PER SECOND
-B747DR_fuel_flow_sec_display			= deferred_dataref("laminar/B747/fuel/fuel_flow_sec_display", "array[4]")
+B747DR_fuel_flow_sec_display      = deferred_dataref("laminar/B747/fuel/fuel_flow_sec_display", "array[4]")
 
 -- FUEL DISPLAY TOGGLE (EICAS)
-B747DR_fuel_display_units_eicas			= deferred_dataref("laminar/B747/fuel/fuel_display_units_eicas", "number")
+B747DR_fuel_display_units_eicas     = deferred_dataref("laminar/B747/fuel/fuel_display_units_eicas", "number")
 
 -- Temp location for fuel preselect for displaying in correct units
-B747DR_fuel_preselect_temp				= deferred_dataref("laminar/B747/fuel/fuel_preselect_temp", "number")
+B747DR_fuel_preselect_temp        = deferred_dataref("laminar/B747/fuel/fuel_preselect_temp", "number")
 
 -- Holds all SimConfig options
-B747DR_simconfig_data					= deferred_dataref("laminar/B747/simconfig", "string")
+B747DR_simconfig_data         = deferred_dataref("laminar/B747/simconfig", "string")
 
 --*************************************************************************************--
---** 				             X-PLANE COMMAND HANDLERS               	    	 **--
---*************************************************************************************--
-
-
-
---*************************************************************************************--
---** 				                 X-PLANE COMMANDS                   	    	 **--
+--**                     X-PLANE COMMAND HANDLERS                        **--
 --*************************************************************************************--
 
 
 
 --*************************************************************************************--
---** 				              CUSTOM COMMAND HANDLERS            			     **--
+--**                         X-PLANE COMMANDS                            **--
+--*************************************************************************************--
+
+
+
+--*************************************************************************************--
+--**                      CUSTOM COMMAND HANDLERS                      **--
 --*************************************************************************************--
 
 -- AUTO IGNITION
@@ -595,50 +595,50 @@ end
 
 function B747_ai_fuek_quick_start_CMDhandler(phase, duration)
     if phase == 0 then
-	 	B747_set_fuel_all_modes() 
-	 	B747_set_fuel_CD()
-	 	B747_set_fuel_ER()  
-	end 	
-end	
+    B747_set_fuel_all_modes() 
+    B747_set_fuel_CD()
+    B747_set_fuel_ER()  
+  end   
+end 
 
 
 
 --*************************************************************************************--
---** 				              CREATE CUSTOM COMMANDS              			     **--
+--**                      CREATE CUSTOM COMMANDS                         **--
 --*************************************************************************************--
 
 -- FUEL JETTISON SELECTOR
-B747CMD_fuel_jettison_sel_up 	= deferred_command("laminar/B747/fuel/fuel_jett/el_dial_up", "Fuel Jettison Selector Dial Up", B747_fuel_jettison_sel_up_CMDhandler)
-B747CMD_fuel_jettison_sel_dn 	= deferred_command("laminar/B747/fuel/fuel_jett/sel_dial_dn", "Fuel Jettison Selector Dial Down", B747_fuel_jettison_sel_dn_CMDhandler)
+B747CMD_fuel_jettison_sel_up  = deferred_command("laminar/B747/fuel/fuel_jett/el_dial_up", "Fuel Jettison Selector Dial Up", B747_fuel_jettison_sel_up_CMDhandler)
+B747CMD_fuel_jettison_sel_dn  = deferred_command("laminar/B747/fuel/fuel_jett/sel_dial_dn", "Fuel Jettison Selector Dial Down", B747_fuel_jettison_sel_dn_CMDhandler)
 
 
 
 -- TQ FUEL CONTROL SWITCHES
-B747CMD_fuel_control_switch1 	= deferred_command("laminar/B747/fuel/fuel_control_1/toggle_switch", "Fuel Control Switch 1", B747_fuel_control_switch1_CMDhandler)
-B747CMD_fuel_control_switch2 	= deferred_command("laminar/B747/fuel/fuel_control_2/toggle_switch", "Fuel Control Switch 2", B747_fuel_control_switch2_CMDhandler)
-B747CMD_fuel_control_switch3 	= deferred_command("laminar/B747/fuel/fuel_control_3/toggle_switch", "Fuel Control Switch 3", B747_fuel_control_switch3_CMDhandler)
-B747CMD_fuel_control_switch4 	= deferred_command("laminar/B747/fuel/fuel_control_4/toggle_switch", "Fuel Control Switch 4", B747_fuel_control_switch4_CMDhandler)
+B747CMD_fuel_control_switch1  = deferred_command("laminar/B747/fuel/fuel_control_1/toggle_switch", "Fuel Control Switch 1", B747_fuel_control_switch1_CMDhandler)
+B747CMD_fuel_control_switch2  = deferred_command("laminar/B747/fuel/fuel_control_2/toggle_switch", "Fuel Control Switch 2", B747_fuel_control_switch2_CMDhandler)
+B747CMD_fuel_control_switch3  = deferred_command("laminar/B747/fuel/fuel_control_3/toggle_switch", "Fuel Control Switch 3", B747_fuel_control_switch3_CMDhandler)
+B747CMD_fuel_control_switch4  = deferred_command("laminar/B747/fuel/fuel_control_4/toggle_switch", "Fuel Control Switch 4", B747_fuel_control_switch4_CMDhandler)
 
 
 -- AI
-B747CMD_ai_fuel_quick_start		= deferred_command("laminar/B747/ai/fuel_quick_start", "number", B747_ai_fuek_quick_start_CMDhandler)
+B747CMD_ai_fuel_quick_start   = deferred_command("laminar/B747/ai/fuel_quick_start", "number", B747_ai_fuek_quick_start_CMDhandler)
 
 
 
 --*************************************************************************************--
---** 					            OBJECT CONSTRUCTORS         		    		 **--
---*************************************************************************************--
-
-
-
---*************************************************************************************--
---** 				               CREATE SYSTEM OBJECTS            				 **--
+--**                      OBJECT CONSTRUCTORS                      **--
 --*************************************************************************************--
 
 
 
 --*************************************************************************************--
---** 				                  SYSTEM FUNCTIONS           	    			 **--
+--**                       CREATE SYSTEM OBJECTS                     **--
+--*************************************************************************************--
+
+
+
+--*************************************************************************************--
+--**                          SYSTEM FUNCTIONS                       **--
 --*************************************************************************************--
 
 ----- TERNARY CONDITIONAL ---------------------------------------------------------------
@@ -710,19 +710,19 @@ function B747_fuel_pump_control()
            
             if simDR_fueL_tank_weight_total_kg <= (B747DR_fuel_to_remain_rheo * 1000) then       -- JETTISON GOAL HAS BEEN MET
                 B747.fuel.center_tank.ovrd_jett_pump_L.on = 0                           -- TURN PUMP OFF
-	    else
-	      B747.fuel.center_tank.ovrd_jett_pump_L.on = 1 * power                       -- TURN THE PUMP ON
+      else
+        B747.fuel.center_tank.ovrd_jett_pump_L.on = 1 * power                       -- TURN THE PUMP ON
             end
-	else
-	  B747.fuel.center_tank.ovrd_jett_pump_L.on = 0 
+  else
+    B747.fuel.center_tank.ovrd_jett_pump_L.on = 0 
         end
 
     --- STANDARD MODE ---
     else
         if B747DR_button_switch_position[52] > 0.95 then                                -- PUMP SWITCH DEPRESSED
             B747.fuel.center_tank.ovrd_jett_pump_L.on = 1 * power                       -- TURN THE PUMP ON
-	else
-	    B747.fuel.center_tank.ovrd_jett_pump_L.on = 0 
+  else
+      B747.fuel.center_tank.ovrd_jett_pump_L.on = 0 
         end
     end
 
@@ -735,19 +735,19 @@ function B747_fuel_pump_control()
             
             if simDR_fueL_tank_weight_total_kg <= (B747DR_fuel_to_remain_rheo * 1000) then       -- JETTISON GOAL HAS BEEN MET - TURN PUMP OFF
                 B747.fuel.center_tank.ovrd_jett_pump_R.on = 0
-	    else
-		B747.fuel.center_tank.ovrd_jett_pump_R.on = 1 * power                       -- TURN THE PUMP ON
+      else
+    B747.fuel.center_tank.ovrd_jett_pump_R.on = 1 * power                       -- TURN THE PUMP ON
             end
-	else
-	    B747.fuel.center_tank.ovrd_jett_pump_R.on = 0                                       -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+  else
+      B747.fuel.center_tank.ovrd_jett_pump_R.on = 0                                       -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
         end
 
     --- STANDARD MODE ---
     else
         if B747DR_button_switch_position[53] > 0.95 then                                -- PUMP SWITCH DEPRESSED
             B747.fuel.center_tank.ovrd_jett_pump_R.on = 1 * power                       -- TURN THE PUMP ON
-	 else
-	    B747.fuel.center_tank.ovrd_jett_pump_R.on = 0                                       -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+   else
+      B747.fuel.center_tank.ovrd_jett_pump_R.on = 0                                       -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
         end
     end
 
@@ -781,7 +781,7 @@ function B747_fuel_pump_control()
     then
         B747.fuel.center_tank.scvg_pump_L2.on = 1                                       -- TURN THE SCAVENGE PUMP ON
     else
-	B747.fuel.center_tank.scvg_pump_L2.on = 0                                           -- DEFAULT TO PUMP OFF
+  B747.fuel.center_tank.scvg_pump_L2.on = 0                                           -- DEFAULT TO PUMP OFF
     end
 
 
@@ -797,7 +797,7 @@ function B747_fuel_pump_control()
     then
         B747.fuel.center_tank.scvg_pump_R1.on = 1                                       -- TURN THE SCAVENGE PUMP ON
     else
-	B747.fuel.center_tank.scvg_pump_R1.on = 0                                           -- DEFAULT TO PUMP OFF
+  B747.fuel.center_tank.scvg_pump_R1.on = 0                                           -- DEFAULT TO PUMP OFF
     end
 
 
@@ -814,7 +814,7 @@ function B747_fuel_pump_control()
     then
         B747.fuel.center_tank.scvg_pump_R2.on = 1                                       -- TURN THE SCAVENGE PUMP ON
     else
-	B747.fuel.center_tank.scvg_pump_R2.on = 0                                           -- DEFAULT TO PUMP OFF
+  B747.fuel.center_tank.scvg_pump_R2.on = 0                                           -- DEFAULT TO PUMP OFF
     end
 
 
@@ -829,7 +829,7 @@ function B747_fuel_pump_control()
     if B747DR_button_switch_position[56] > 0.95 then                                    -- PUMP SWITCH DEPRESSED
         B747.fuel.main1_tank.main_pump_fwd.on = 1 * power                               -- TURN THE PUMP ON
     else
-	B747.fuel.main1_tank.main_pump_fwd.on = 0                                           -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+  B747.fuel.main1_tank.main_pump_fwd.on = 0                                           -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
     end
 
 
@@ -838,7 +838,7 @@ function B747_fuel_pump_control()
     if B747DR_button_switch_position[60] > 0.95 then                                    -- PUMP SWITCH DEPRESSED
         B747.fuel.main1_tank.main_pump_aft.on = 1 * power                               -- TURN THE PUMP ON
     else
-	B747.fuel.main1_tank.main_pump_aft.on = 0                                           -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+  B747.fuel.main1_tank.main_pump_aft.on = 0                                           -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
     end
 
 
@@ -852,7 +852,7 @@ function B747_fuel_pump_control()
     if B747DR_button_switch_position[57] > 0.95 then                                    -- PUMP SWITCH DEPRESSED
         B747.fuel.main2_tank.main_pump_fwd.on = 1 * power                               -- TURN THE PUMP ON
     else
-	B747.fuel.main2_tank.main_pump_fwd.on = 0                                           -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+  B747.fuel.main2_tank.main_pump_fwd.on = 0                                           -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
     end
 
 
@@ -863,7 +863,7 @@ function B747_fuel_pump_control()
     then
         B747.fuel.main2_tank.main_pump_aft.on = 1 * power                               -- TURN THE PUMP ON
     else
-	B747.fuel.main2_tank.main_pump_aft.on = 0                                           -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+  B747.fuel.main2_tank.main_pump_aft.on = 0                                           -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
     end
 
 
@@ -875,11 +875,11 @@ function B747_fuel_pump_control()
             
             if simDR_fueL_tank_weight_total_kg <= (B747DR_fuel_to_remain_rheo * 1000) then       -- JETTISON GOAL HAS BEEN MET
                 B747.fuel.main2_tank.ovrd_jett_pump_fwd.on = 0                          -- TURN PUMP OFF
-	    else
-		B747.fuel.main2_tank.ovrd_jett_pump_fwd.on = 1 * power                      -- TURN THE PUMP ON
+      else
+    B747.fuel.main2_tank.ovrd_jett_pump_fwd.on = 1 * power                      -- TURN THE PUMP ON
             end
-	else
-	  B747.fuel.main2_tank.ovrd_jett_pump_fwd.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+  else
+    B747.fuel.main2_tank.ovrd_jett_pump_fwd.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
         end
 
     --- STANDARD MODE ---
@@ -893,11 +893,11 @@ function B747_fuel_pump_control()
                 and B747.fuel.center_tank.ovrd_jett_pump_R.on == 0))                    -- CENTER TANK O/J PUMP RIGHT IS OFF
             then
                 B747.fuel.main2_tank.ovrd_jett_pump_fwd.on = 1                          -- TURN THE PUMP ON
-	    else
-	        B747.fuel.main2_tank.ovrd_jett_pump_fwd.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+      else
+          B747.fuel.main2_tank.ovrd_jett_pump_fwd.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
             end
-	else
-	  B747.fuel.main2_tank.ovrd_jett_pump_fwd.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+  else
+    B747.fuel.main2_tank.ovrd_jett_pump_fwd.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
         end
     end
 
@@ -910,11 +910,11 @@ function B747_fuel_pump_control()
            
             if simDR_fueL_tank_weight_total_kg <= (B747DR_fuel_to_remain_rheo * 1000) then       -- JETTISON GOAL HAS BEEN MET
                 B747.fuel.main2_tank.ovrd_jett_pump_aft.on = 0                          -- TURN PUMP OFF
-	    else
-		B747.fuel.main2_tank.ovrd_jett_pump_aft.on = 1 * power                      -- TURN THE PUMP ON
+      else
+    B747.fuel.main2_tank.ovrd_jett_pump_aft.on = 1 * power                      -- TURN THE PUMP ON
             end
-	else
-	    B747.fuel.main2_tank.ovrd_jett_pump_aft.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+  else
+      B747.fuel.main2_tank.ovrd_jett_pump_aft.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
         end
 
     --- STANDARD MODE ---
@@ -928,11 +928,11 @@ function B747_fuel_pump_control()
                 and B747.fuel.center_tank.ovrd_jett_pump_R.on == 0))                    -- CENTER TANK O/J PUMP RIGHT IS OFF
             then
                 B747.fuel.main2_tank.ovrd_jett_pump_aft.on = 1                          -- TURN THE PUMP ON
-	    else
-	       B747.fuel.main2_tank.ovrd_jett_pump_aft.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+      else
+         B747.fuel.main2_tank.ovrd_jett_pump_aft.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
             end
-	else
-	  B747.fuel.main2_tank.ovrd_jett_pump_aft.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+  else
+    B747.fuel.main2_tank.ovrd_jett_pump_aft.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
         end
     end
 
@@ -944,7 +944,7 @@ function B747_fuel_pump_control()
     then
         B747.fuel.main2_tank.apu_dc_pump.on = 1                                         -- TURN THE DC PUMP ON (APU BATTERY POWER ALWAYS AVAILABLE)
     else
-	B747.fuel.main2_tank.apu_dc_pump.on = 0                                             -- DEFAULT TO PUMP OFF
+  B747.fuel.main2_tank.apu_dc_pump.on = 0                                             -- DEFAULT TO PUMP OFF
     end
 
 
@@ -958,7 +958,7 @@ function B747_fuel_pump_control()
     if B747DR_button_switch_position[58] > 0.95 then                                    -- PUMP SWITCH DEPRESSED
         B747.fuel.main3_tank.main_pump_fwd.on = 1 * power                               -- TURN THE PUMP ON
     else
-	B747.fuel.main3_tank.main_pump_fwd.on = 0                                           -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+  B747.fuel.main3_tank.main_pump_fwd.on = 0                                           -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
     end
 
 
@@ -981,11 +981,11 @@ function B747_fuel_pump_control()
             
             if simDR_fueL_tank_weight_total_kg <= (B747DR_fuel_to_remain_rheo * 1000) then       -- JETTISON GOAL HAS BEEN MET
                 B747.fuel.main3_tank.ovrd_jett_pump_fwd.on = 0                          -- TURN PUMP OFF
-	    else
-		B747.fuel.main3_tank.ovrd_jett_pump_fwd.on = 1 * power                      -- TURN THE PUMP ON
+      else
+    B747.fuel.main3_tank.ovrd_jett_pump_fwd.on = 1 * power                      -- TURN THE PUMP ON
             end
-	else
-	      B747.fuel.main3_tank.ovrd_jett_pump_fwd.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+  else
+        B747.fuel.main3_tank.ovrd_jett_pump_fwd.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
         end
 
     --- STANDARD MODE ---
@@ -999,11 +999,11 @@ function B747_fuel_pump_control()
                 and B747.fuel.center_tank.ovrd_jett_pump_R.on == 0))                    -- CENTER TANK O/J PUMP RIGHT IS OFF
             then
                 B747.fuel.main3_tank.ovrd_jett_pump_fwd.on = 1                          -- TURN THE PUMP ON
-	    else
-		B747.fuel.main3_tank.ovrd_jett_pump_fwd.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+      else
+    B747.fuel.main3_tank.ovrd_jett_pump_fwd.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
             end
-	else
-	  B747.fuel.main3_tank.ovrd_jett_pump_fwd.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+  else
+    B747.fuel.main3_tank.ovrd_jett_pump_fwd.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
         end
     end
 
@@ -1016,11 +1016,11 @@ function B747_fuel_pump_control()
            
             if simDR_fueL_tank_weight_total_kg <= (B747DR_fuel_to_remain_rheo * 1000) then       -- JETTISON GOAL HAS BEEN MET
                 B747.fuel.main3_tank.ovrd_jett_pump_aft.on = 0                          -- TURN PUMP OFF
-	    else
-		B747.fuel.main3_tank.ovrd_jett_pump_aft.on = 1 * power                      -- TURN THE PUMP ON
+      else
+    B747.fuel.main3_tank.ovrd_jett_pump_aft.on = 1 * power                      -- TURN THE PUMP ON
             end
-	else
-	    B747.fuel.main3_tank.ovrd_jett_pump_aft.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+  else
+      B747.fuel.main3_tank.ovrd_jett_pump_aft.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
         end
 
     --- STANDARD MODE ---
@@ -1034,11 +1034,11 @@ function B747_fuel_pump_control()
                 and B747.fuel.center_tank.ovrd_jett_pump_R.on == 0))                    -- CENTER TANK O/J PUMP RIGHT IS OFF
             then
                 B747.fuel.main3_tank.ovrd_jett_pump_aft.on = 1                          -- TURN THE PUMP ON
-	    else
-	      B747.fuel.main3_tank.ovrd_jett_pump_aft.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+      else
+        B747.fuel.main3_tank.ovrd_jett_pump_aft.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
             end
-	else
-	  B747.fuel.main3_tank.ovrd_jett_pump_aft.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+  else
+    B747.fuel.main3_tank.ovrd_jett_pump_aft.on = 0                                      -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
         end
     end
 
@@ -1053,7 +1053,7 @@ function B747_fuel_pump_control()
     if B747DR_button_switch_position[59] > 0.95 then                                    -- PUMP SWITCH DEPRESSED
         B747.fuel.main4_tank.main_pump_fwd.on = 1 * power                               -- TURN THE PUMP ON
     else
-	B747.fuel.main4_tank.main_pump_fwd.on = 0                                           -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+  B747.fuel.main4_tank.main_pump_fwd.on = 0                                           -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
     end
 
 
@@ -1062,7 +1062,7 @@ function B747_fuel_pump_control()
     if B747DR_button_switch_position[63] > 0.95 then                                    -- PUMP SWITCH DEPRESSED
         B747.fuel.main4_tank.main_pump_aft.on = 1 * power                               -- TURN THE PUMP ON
     else
-	B747.fuel.main4_tank.main_pump_aft.on = 0                                           -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
+  B747.fuel.main4_tank.main_pump_aft.on = 0                                           -- DEFAULT TO PUMP OFF - PUMP SWITCH NOT DEPRESSED
     end
 
 
@@ -1226,11 +1226,11 @@ function B747_fuel_valve_control()
     if ((B747DR_button_switch_position[46] > 0.95 or B747DR_button_switch_position[47] > 0.95) and B747DR_fuel_jettison_sel_dial_pos > 0) then
         if simDR_fueL_tank_weight_total_kg > (B747DR_fuel_to_remain_rheo * 1000) then   -- JETTISON GOAL HAS NOT BEEN MET
             B747.fuel.center_tank.jett_vlv_L.target_pos = 1 * power                     -- OPEN THE VALVE
-	else
-	    B747.fuel.center_tank.jett_vlv_L.target_pos = 0                                     -- DEFAULT TO VALVE CLOSED
+  else
+      B747.fuel.center_tank.jett_vlv_L.target_pos = 0                                     -- DEFAULT TO VALVE CLOSED
         end
     else
-	B747.fuel.center_tank.jett_vlv_L.target_pos = 0                                     -- DEFAULT TO VALVE CLOSED
+  B747.fuel.center_tank.jett_vlv_L.target_pos = 0                                     -- DEFAULT TO VALVE CLOSED
     end
 
 
@@ -1239,8 +1239,8 @@ function B747_fuel_valve_control()
     if ((B747DR_button_switch_position[46] > 0.95 or B747DR_button_switch_position[47] > 0.95) and B747DR_fuel_jettison_sel_dial_pos > 0) then
         if simDR_fueL_tank_weight_total_kg > (B747DR_fuel_to_remain_rheo * 1000) then   -- JETTISON GOAL HAS NOT BEEN MET
             B747.fuel.center_tank.jett_vlv_R.target_pos = 1 * power                     -- OPEN THE VALVE
-	else
-	   B747.fuel.center_tank.jett_vlv_R.target_pos = 0                                     -- DEFAULT TO VALVE CLOSED
+  else
+     B747.fuel.center_tank.jett_vlv_R.target_pos = 0                                     -- DEFAULT TO VALVE CLOSED
         end
     else
        B747.fuel.center_tank.jett_vlv_R.target_pos = 0                                     -- DEFAULT TO VALVE CLOSED
@@ -1252,7 +1252,7 @@ function B747_fuel_valve_control()
     if B747_stab_fuel_xfr_L == 1 then                                                   -- LEFT STABILIZER FUEL TRANSFER COMMANDED
         B747.fuel.center_tank.stab_xfr_vlv_L.target_pos = 1 * power                     -- OPEN THE VALVE
     else
-	B747.fuel.center_tank.stab_xfr_vlv_L.target_pos = 0                                 -- DEFAULT TO VALVE CLOSED
+  B747.fuel.center_tank.stab_xfr_vlv_L.target_pos = 0                                 -- DEFAULT TO VALVE CLOSED
     end
 
 
@@ -1261,12 +1261,12 @@ function B747_fuel_valve_control()
     if B747_stab_fuel_xfr_R == 1 then                                                   -- RIGHT STABILIZER FUEL TRANSFER COMMANDED
         B747.fuel.center_tank.stab_xfr_vlv_R.target_pos = 1 * power                     -- OPEN THE VALVE
     else
-	B747.fuel.center_tank.stab_xfr_vlv_R.target_pos = 0                                 -- DEFAULT TO VALVE CLOSED
+  B747.fuel.center_tank.stab_xfr_vlv_R.target_pos = 0                                 -- DEFAULT TO VALVE CLOSED
     end
 
 
     -- FUEL FLOW EQUALIZATION VALVE -------------------------------------------------
-    B747.fuel.center_tank.flow_eq_vlv.target_pos	= 0.5                               -- PROPORTIONAL BASED ON LEFT/RIGHT FUEL FLOW (NOT MODELED)
+    B747.fuel.center_tank.flow_eq_vlv.target_pos  = 0.5                               -- PROPORTIONAL BASED ON LEFT/RIGHT FUEL FLOW (NOT MODELED)
 
 
 
@@ -1279,8 +1279,8 @@ function B747_fuel_valve_control()
     
     if B747DR_button_switch_position[48] > 0.95 then                                 -- VALVE SWITCH DEPRESSED
         B747.fuel.engine1.xfeed_vlv.target_pos = 1 * power                           -- OPEN THE VALVE
-	else
-	  B747.fuel.engine1.xfeed_vlv.target_pos = 0                                       -- DEFAULT TO VALVE CLOSED
+  else
+    B747.fuel.engine1.xfeed_vlv.target_pos = 0                                       -- DEFAULT TO VALVE CLOSED
     end
 
 
@@ -1296,11 +1296,11 @@ function B747_fuel_valve_control()
             then
                 B747.fuel.main1_tank.main_xfr_vlv.target_pos = 1 * power                -- OPEN THE VALVE
                 B747_main1_jett_fuel_xfr = 1                                            -- SET THE JETTISON TRANSFER FLAG
-	    else
-	      B747.fuel.main1_tank.main_xfr_vlv.target_pos = 0                                    -- DEFAULT TO VALVE CLOSED
+      else
+        B747.fuel.main1_tank.main_xfr_vlv.target_pos = 0                                    -- DEFAULT TO VALVE CLOSED
             end
-	    else
-	      B747.fuel.main1_tank.main_xfr_vlv.target_pos = 0                                    -- DEFAULT TO VALVE CLOSED
+      else
+        B747.fuel.main1_tank.main_xfr_vlv.target_pos = 0                                    -- DEFAULT TO VALVE CLOSED
         end
 
     --- MANUAL TRANSFER MODE ---
@@ -1310,9 +1310,9 @@ function B747_fuel_valve_control()
             and simDR_fuel_tank_weight_kg[1] > 0.0                                      -- DON'T OPEN VALVE IF NO FUEL TO TRANSFER
         then
             B747.fuel.main1_tank.main_xfr_vlv.target_pos = 1 * power                    -- OPEN THE VALVE
-	else
-	   
-	   B747.fuel.main1_tank.main_xfr_vlv.target_pos = 0
+  else
+     
+     B747.fuel.main1_tank.main_xfr_vlv.target_pos = 0
         end
     end
 
@@ -1332,8 +1332,8 @@ function B747_fuel_valve_control()
     ---------------------------------------------------------------------------------
     -----                        M A I N   T A N K   #2                         -----
     ---------------------------------------------------------------------------------
-    B747.fuel.main2_tank.refuel_vlv_L.target_pos	= 0                                 -- (NOT MODELED)
-    B747.fuel.main2_tank.refuel_vlv_R.target_pos	= 0                                 -- (NOT MODELED)
+    B747.fuel.main2_tank.refuel_vlv_L.target_pos  = 0                                 -- (NOT MODELED)
+    B747.fuel.main2_tank.refuel_vlv_R.target_pos  = 0                                 -- (NOT MODELED)
 
 
     -- CROSSFEED VALVE --------------------------------------------------------------
@@ -1353,11 +1353,11 @@ function B747_fuel_valve_control()
     if ((B747DR_button_switch_position[46] > 0.95 or B747DR_button_switch_position[47] > 0.95) and B747DR_fuel_jettison_sel_dial_pos > 0) then
         if simDR_fueL_tank_weight_total_kg > (B747DR_fuel_to_remain_rheo * 1000) then            -- JETTISON GOAL HAS NOT BEEN MET
             B747.fuel.main2_tank.jett_vlv.target_pos = 1 * power                        -- OPEN THE VALVE
-	else
-	  B747.fuel.main2_tank.jett_vlv.target_pos = 0                                        -- DEFAULT TO VALVE CLOSED
+  else
+    B747.fuel.main2_tank.jett_vlv.target_pos = 0                                        -- DEFAULT TO VALVE CLOSED
         end
     else
-	B747.fuel.main2_tank.jett_vlv.target_pos = 0                                        -- DEFAULT TO VALVE CLOSED
+  B747.fuel.main2_tank.jett_vlv.target_pos = 0                                        -- DEFAULT TO VALVE CLOSED
     end
 
 
@@ -1397,11 +1397,11 @@ function B747_fuel_valve_control()
             and (simDR_flap_deploy_ratio >= 0.500 and simDR_flap_deploy_ratio <= 0.667) -- FLAPS ARE IN THE TAKEOFF POSITION (FLAPS 10 TO FLAPS 20)
         then
             B747.fuel.engine3.xfeed_vlv.target_pos = 0
-	else
-	    B747.fuel.engine3.xfeed_vlv.target_pos = 1 * power                              -- OPEN THE VALVE
+  else
+      B747.fuel.engine3.xfeed_vlv.target_pos = 1 * power                              -- OPEN THE VALVE
         end
     else
-	B747.fuel.engine3.xfeed_vlv.target_pos = 0
+  B747.fuel.engine3.xfeed_vlv.target_pos = 0
     end
 
 
@@ -1413,8 +1413,8 @@ function B747_fuel_valve_control()
     else
       B747.fuel.main3_tank.jett_vlv.target_pos = 0                                        -- DEFAULT TO VALVE CLOSED
         end
-	else
-	  B747.fuel.main3_tank.jett_vlv.target_pos = 0                                        -- DEFAULT TO VALVE CLOSED
+  else
+    B747.fuel.main3_tank.jett_vlv.target_pos = 0                                        -- DEFAULT TO VALVE CLOSED
     end
 
 
@@ -1440,8 +1440,8 @@ function B747_fuel_valve_control()
     
     if B747DR_button_switch_position[51] > 0.95 then                                    -- VALVE SWITCH DEPRESSED
         B747.fuel.engine4.xfeed_vlv.target_pos = 1 * power                              -- OPEN THE VALVE
-	else
-	  B747.fuel.engine4.xfeed_vlv.target_pos = 0                                          -- DEFAULT TO VALVE CLOSED
+  else
+    B747.fuel.engine4.xfeed_vlv.target_pos = 0                                          -- DEFAULT TO VALVE CLOSED
     end
 
 
@@ -1457,11 +1457,11 @@ function B747_fuel_valve_control()
             then
                 B747.fuel.main4_tank.main_xfr_vlv.target_pos = 1 * power                -- OPEN THE VALVE
                 B747_main4_jett_fuel_xfr = 1                                            -- SET THE JETTISON TRANSFER FLAG
-	    else
-	       B747.fuel.main4_tank.main_xfr_vlv.target_pos = 0                                    -- DEFAULT TO VALVE CLOSED
+      else
+         B747.fuel.main4_tank.main_xfr_vlv.target_pos = 0                                    -- DEFAULT TO VALVE CLOSED
             end
-	else 
-	   B747.fuel.main4_tank.main_xfr_vlv.target_pos = 0                                    -- DEFAULT TO VALVE CLOSED
+  else 
+     B747.fuel.main4_tank.main_xfr_vlv.target_pos = 0                                    -- DEFAULT TO VALVE CLOSED
         end
 
     --- MANUAL TRANSFER MODE ---
@@ -1471,9 +1471,9 @@ function B747_fuel_valve_control()
             and simDR_fuel_tank_weight_kg[4] > 0.0                                      -- DON'T OPEN VALVE IF NO FUEL TO TRANSFER
         then
             B747.fuel.main4_tank.main_xfr_vlv.target_pos = 1 * power                    -- OPEN THE VALVE
-	else
-	   B747.fuel.main4_tank.main_xfr_vlv.target_pos = 0                                    -- DEFAULT TO VALVE CLOSED
-	   
+  else
+     B747.fuel.main4_tank.main_xfr_vlv.target_pos = 0                                    -- DEFAULT TO VALVE CLOSED
+     
         end
     end
 
@@ -1493,9 +1493,9 @@ function B747_fuel_valve_control()
     ---------------------------------------------------------------------------------
     -----                     S T A B I L I Z E R   T A N K                     -----
     ---------------------------------------------------------------------------------
-    B747.fuel.stab_tank.refuel_vlv.target_pos		= 0                                 -- (NOT MODELED)
-    B747.fuel.stab_tank.isolation_vlv_L.target_pos	= 0                                 -- (NOT MODELED)
-    B747.fuel.stab_tank.isolation_vlv_R.target_pos	= 0                                 -- (NOT MODELED)
+    B747.fuel.stab_tank.refuel_vlv.target_pos   = 0                                 -- (NOT MODELED)
+    B747.fuel.stab_tank.isolation_vlv_L.target_pos  = 0                                 -- (NOT MODELED)
+    B747.fuel.stab_tank.isolation_vlv_R.target_pos  = 0                                 -- (NOT MODELED)
 
     -- TRANSFER/JETTISON VALVE (LEFT) -----------------------------------------------
     
@@ -1504,16 +1504,16 @@ function B747_fuel_valve_control()
     if ((B747DR_button_switch_position[46] > 0.95 or B747DR_button_switch_position[47] > 0.95) and B747DR_fuel_jettison_sel_dial_pos > 0) then
         if simDR_fueL_tank_weight_total_kg <= (B747DR_fuel_to_remain_rheo * 1000) then           -- JETTISON GOAL HAS NOT BEEN MET
             B747.fuel.stab_tank.xfr_jett_vlv_L.target_pos = 1 * power                   -- OPEN THE VALVE
-	else
-	    B747.fuel.stab_tank.xfr_jett_vlv_L.target_pos = 0                                   -- DEFAULT TO VALVE CLOSED
+  else
+      B747.fuel.stab_tank.xfr_jett_vlv_L.target_pos = 0                                   -- DEFAULT TO VALVE CLOSED
         end
 
     --- TRANSFER MODE ---
     else
         if B747_stab_fuel_xfr_L == 1 then                                               -- LEFT STABILIZER FUEL TRANSFER/JETTISON COMMANDED
             B747.fuel.stab_tank.xfr_jett_vlv_L.target_pos = 1 * power                   -- OPEN THE VALVE
-	    else
-	      B747.fuel.stab_tank.xfr_jett_vlv_L.target_pos = 0                                   -- DEFAULT TO VALVE CLOSED
+      else
+        B747.fuel.stab_tank.xfr_jett_vlv_L.target_pos = 0                                   -- DEFAULT TO VALVE CLOSED
         end
     end
 
@@ -1533,8 +1533,8 @@ function B747_fuel_valve_control()
     else
         if B747_stab_fuel_xfr_R == 1 then                                               -- RIGHT STABILIZER FUEL TRANSFER/JETTISON COMMANDED
             B747.fuel.stab_tank.xfr_jett_vlv_R.target_pos = 1 * power                   -- OPEN THE VALVE
-	    else
-	      B747.fuel.stab_tank.xfr_jett_vlv_R.target_pos = 0                                   -- DEFAULT TO VALVE CLOSED
+      else
+        B747.fuel.stab_tank.xfr_jett_vlv_R.target_pos = 0                                   -- DEFAULT TO VALVE CLOSED
         end
     end
 
@@ -1556,7 +1556,7 @@ function B747_fuel_valve_control()
         B747.fuel.res2_tank.xfr_vlv_A.target_pos = 1 * power                            -- OPEN THE VALVE
         B747_res2A_fuel_xfr = 1                                                         -- SET THE TRANSFER FLAG
     else
-	B747.fuel.res2_tank.xfr_vlv_A.target_pos = 0                                        -- DEFAULT TO VALVE CLOSED
+  B747.fuel.res2_tank.xfr_vlv_A.target_pos = 0                                        -- DEFAULT TO VALVE CLOSED
     end
 
 
@@ -1661,54 +1661,54 @@ function B747_fuel_valve_animation()
 
     local valve_anm_speed = 10.0
 
-    B747.fuel.center_tank.refuel_vlv_L.pos	    = B747_set_anim_value(B747.fuel.center_tank.refuel_vlv_L.pos, B747.fuel.center_tank.refuel_vlv_L.target_pos, 0.0, 1.0, valve_anm_speed)
-    B747.fuel.center_tank.refuel_vlv_R.pos	    = B747_set_anim_value(B747.fuel.center_tank.refuel_vlv_R.pos, B747.fuel.center_tank.refuel_vlv_R.target_pos, 0.0, 1.0, valve_anm_speed)
-    B747.fuel.center_tank.jett_vlv_L.pos		= B747_set_anim_value(B747.fuel.center_tank.jett_vlv_L.pos, B747.fuel.center_tank.jett_vlv_L.target_pos, 0.0, 1.0, valve_anm_speed)
-    B747.fuel.center_tank.jett_vlv_R.pos		= B747_set_anim_value(B747.fuel.center_tank.jett_vlv_R.pos, B747.fuel.center_tank.jett_vlv_R.target_pos, 0.0, 1.0, valve_anm_speed)
-    B747.fuel.center_tank.stab_xfr_vlv_L.pos	= B747_set_anim_value(B747.fuel.center_tank.stab_xfr_vlv_L.pos, B747.fuel.center_tank.stab_xfr_vlv_L.target_pos, 0.0, 1.0, valve_anm_speed)
-    B747.fuel.center_tank.stab_xfr_vlv_R.pos	= B747_set_anim_value(B747.fuel.center_tank.stab_xfr_vlv_R.pos, B747.fuel.center_tank.stab_xfr_vlv_R.target_pos, 0.0, 1.0, valve_anm_speed)
-    B747.fuel.center_tank.flow_eq_vlv.pos		= B747_set_anim_value(B747.fuel.center_tank.flow_eq_vlv.pos, B747.fuel.center_tank.flow_eq_vlv.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.center_tank.refuel_vlv_L.pos      = B747_set_anim_value(B747.fuel.center_tank.refuel_vlv_L.pos, B747.fuel.center_tank.refuel_vlv_L.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.center_tank.refuel_vlv_R.pos      = B747_set_anim_value(B747.fuel.center_tank.refuel_vlv_R.pos, B747.fuel.center_tank.refuel_vlv_R.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.center_tank.jett_vlv_L.pos    = B747_set_anim_value(B747.fuel.center_tank.jett_vlv_L.pos, B747.fuel.center_tank.jett_vlv_L.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.center_tank.jett_vlv_R.pos    = B747_set_anim_value(B747.fuel.center_tank.jett_vlv_R.pos, B747.fuel.center_tank.jett_vlv_R.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.center_tank.stab_xfr_vlv_L.pos  = B747_set_anim_value(B747.fuel.center_tank.stab_xfr_vlv_L.pos, B747.fuel.center_tank.stab_xfr_vlv_L.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.center_tank.stab_xfr_vlv_R.pos  = B747_set_anim_value(B747.fuel.center_tank.stab_xfr_vlv_R.pos, B747.fuel.center_tank.stab_xfr_vlv_R.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.center_tank.flow_eq_vlv.pos   = B747_set_anim_value(B747.fuel.center_tank.flow_eq_vlv.pos, B747.fuel.center_tank.flow_eq_vlv.target_pos, 0.0, 1.0, valve_anm_speed)
 
-    B747.fuel.main1_tank.refuel_vlv.pos		    = B747_set_anim_value(B747.fuel.main1_tank.refuel_vlv.pos, B747.fuel.main1_tank.refuel_vlv.target_pos, 0.0, 1.0, valve_anm_speed)
-    B747.fuel.engine1.xfeed_vlv.pos		        = B747_set_anim_value(B747.fuel.engine1.xfeed_vlv.pos, B747.fuel.engine1.xfeed_vlv.target_pos, 0.0, 1.0, valve_anm_speed)
-    B747.fuel.main1_tank.main_xfr_vlv.pos		= B747_set_anim_value(B747.fuel.main1_tank.main_xfr_vlv.pos, B747.fuel.main1_tank.main_xfr_vlv.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.main1_tank.refuel_vlv.pos       = B747_set_anim_value(B747.fuel.main1_tank.refuel_vlv.pos, B747.fuel.main1_tank.refuel_vlv.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.engine1.xfeed_vlv.pos           = B747_set_anim_value(B747.fuel.engine1.xfeed_vlv.pos, B747.fuel.engine1.xfeed_vlv.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.main1_tank.main_xfr_vlv.pos   = B747_set_anim_value(B747.fuel.main1_tank.main_xfr_vlv.pos, B747.fuel.main1_tank.main_xfr_vlv.target_pos, 0.0, 1.0, valve_anm_speed)
 
-    B747.fuel.main2_tank.refuel_vlv_L.pos		= B747_set_anim_value(B747.fuel.main2_tank.refuel_vlv_L.pos, B747.fuel.main2_tank.refuel_vlv_L.target_pos, 0.0, 1.0, valve_anm_speed)
-    B747.fuel.main2_tank.refuel_vlv_R.pos		= B747_set_anim_value(B747.fuel.main2_tank.refuel_vlv_R.pos, B747.fuel.main2_tank.refuel_vlv_R.target_pos, 0.0, 1.0, valve_anm_speed)
-    B747.fuel.engine2.xfeed_vlv.pos		        = B747_set_anim_value(B747.fuel.engine2.xfeed_vlv.pos, B747.fuel.engine2.xfeed_vlv.target_pos, 0.0, 1.0, valve_anm_speed)
-    B747.fuel.main2_tank.jett_vlv.pos			= B747_set_anim_value(B747.fuel.main2_tank.jett_vlv.pos, B747.fuel.main2_tank.jett_vlv.target_pos, 0.0, 1.0, valve_anm_speed)
-    B747.fuel.main2_tank.apu_vlv.pos			= B747_set_anim_value(B747.fuel.main2_tank.apu_vlv.pos, B747.fuel.main2_tank.apu_vlv.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.main2_tank.refuel_vlv_L.pos   = B747_set_anim_value(B747.fuel.main2_tank.refuel_vlv_L.pos, B747.fuel.main2_tank.refuel_vlv_L.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.main2_tank.refuel_vlv_R.pos   = B747_set_anim_value(B747.fuel.main2_tank.refuel_vlv_R.pos, B747.fuel.main2_tank.refuel_vlv_R.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.engine2.xfeed_vlv.pos           = B747_set_anim_value(B747.fuel.engine2.xfeed_vlv.pos, B747.fuel.engine2.xfeed_vlv.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.main2_tank.jett_vlv.pos     = B747_set_anim_value(B747.fuel.main2_tank.jett_vlv.pos, B747.fuel.main2_tank.jett_vlv.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.main2_tank.apu_vlv.pos      = B747_set_anim_value(B747.fuel.main2_tank.apu_vlv.pos, B747.fuel.main2_tank.apu_vlv.target_pos, 0.0, 1.0, valve_anm_speed)
 
-    B747.fuel.main3_tank.refuel_vlv_L.pos		= B747_set_anim_value(B747.fuel.main3_tank.refuel_vlv_L.pos, B747.fuel.main3_tank.refuel_vlv_L.target_pos, 0.0, 1.0, valve_anm_speed)
-    B747.fuel.main3_tank.refuel_vlv_R.pos		= B747_set_anim_value(B747.fuel.main3_tank.refuel_vlv_R.pos, B747.fuel.main3_tank.refuel_vlv_R.target_pos, 0.0, 1.0, valve_anm_speed)
-    B747.fuel.engine3.xfeed_vlv.pos		        = B747_set_anim_value(B747.fuel.engine3.xfeed_vlv.pos, B747.fuel.engine3.xfeed_vlv.target_pos, 0.0, 1.0, valve_anm_speed)
-    B747.fuel.main3_tank.jett_vlv.pos			= B747_set_anim_value(B747.fuel.main3_tank.jett_vlv.pos, B747.fuel.main3_tank.jett_vlv.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.main3_tank.refuel_vlv_L.pos   = B747_set_anim_value(B747.fuel.main3_tank.refuel_vlv_L.pos, B747.fuel.main3_tank.refuel_vlv_L.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.main3_tank.refuel_vlv_R.pos   = B747_set_anim_value(B747.fuel.main3_tank.refuel_vlv_R.pos, B747.fuel.main3_tank.refuel_vlv_R.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.engine3.xfeed_vlv.pos           = B747_set_anim_value(B747.fuel.engine3.xfeed_vlv.pos, B747.fuel.engine3.xfeed_vlv.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.main3_tank.jett_vlv.pos     = B747_set_anim_value(B747.fuel.main3_tank.jett_vlv.pos, B747.fuel.main3_tank.jett_vlv.target_pos, 0.0, 1.0, valve_anm_speed)
 
-    B747.fuel.main4_tank.refuel_vlv.pos		    = B747_set_anim_value(B747.fuel.main4_tank.refuel_vlv.pos, B747.fuel.main4_tank.refuel_vlv.target_pos, 0.0, 1.0, valve_anm_speed)
-    B747.fuel.engine4.xfeed_vlv.pos		        = B747_set_anim_value(B747.fuel.engine4.xfeed_vlv.pos, B747.fuel.engine4.xfeed_vlv.target_pos, 0.0, 1.0, valve_anm_speed)
-    B747.fuel.main4_tank.main_xfr_vlv.pos		= B747_set_anim_value(B747.fuel.main4_tank.main_xfr_vlv.pos, B747.fuel.main4_tank.main_xfr_vlv.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.main4_tank.refuel_vlv.pos       = B747_set_anim_value(B747.fuel.main4_tank.refuel_vlv.pos, B747.fuel.main4_tank.refuel_vlv.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.engine4.xfeed_vlv.pos           = B747_set_anim_value(B747.fuel.engine4.xfeed_vlv.pos, B747.fuel.engine4.xfeed_vlv.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.main4_tank.main_xfr_vlv.pos   = B747_set_anim_value(B747.fuel.main4_tank.main_xfr_vlv.pos, B747.fuel.main4_tank.main_xfr_vlv.target_pos, 0.0, 1.0, valve_anm_speed)
 
-    B747.fuel.stab_tank.refuel_vlv.pos		    = B747_set_anim_value(B747.fuel.stab_tank.refuel_vlv.pos, B747.fuel.stab_tank.refuel_vlv.target_pos, 0.0, 1.0, valve_anm_speed)
-    B747.fuel.stab_tank.isolation_vlv_L.pos	    = B747_set_anim_value(B747.fuel.stab_tank.isolation_vlv_L.pos, B747.fuel.stab_tank.isolation_vlv_L.target_pos, 0.0, 1.0, valve_anm_speed)
-    B747.fuel.stab_tank.xfr_jett_vlv_L.pos	    = B747_set_anim_value(B747.fuel.stab_tank.xfr_jett_vlv_L.pos, B747.fuel.stab_tank.xfr_jett_vlv_L.target_pos, 0.0, 1.0, valve_anm_speed)
-    B747.fuel.stab_tank.isolation_vlv_R.pos	    = B747_set_anim_value(B747.fuel.stab_tank.isolation_vlv_R.pos, B747.fuel.stab_tank.isolation_vlv_R.target_pos, 0.0, 1.0, valve_anm_speed)
-    B747.fuel.stab_tank.xfr_jett_vlv_R.pos	    = B747_set_anim_value(B747.fuel.stab_tank.xfr_jett_vlv_R.pos, B747.fuel.stab_tank.xfr_jett_vlv_R.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.stab_tank.refuel_vlv.pos        = B747_set_anim_value(B747.fuel.stab_tank.refuel_vlv.pos, B747.fuel.stab_tank.refuel_vlv.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.stab_tank.isolation_vlv_L.pos     = B747_set_anim_value(B747.fuel.stab_tank.isolation_vlv_L.pos, B747.fuel.stab_tank.isolation_vlv_L.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.stab_tank.xfr_jett_vlv_L.pos      = B747_set_anim_value(B747.fuel.stab_tank.xfr_jett_vlv_L.pos, B747.fuel.stab_tank.xfr_jett_vlv_L.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.stab_tank.isolation_vlv_R.pos     = B747_set_anim_value(B747.fuel.stab_tank.isolation_vlv_R.pos, B747.fuel.stab_tank.isolation_vlv_R.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.stab_tank.xfr_jett_vlv_R.pos      = B747_set_anim_value(B747.fuel.stab_tank.xfr_jett_vlv_R.pos, B747.fuel.stab_tank.xfr_jett_vlv_R.target_pos, 0.0, 1.0, valve_anm_speed)
 
-    B747.fuel.res2_tank.refuel_vlv.pos		    = B747_set_anim_value(B747.fuel.res2_tank.refuel_vlv.pos, B747.fuel.res2_tank.refuel_vlv.target_pos, 0.0, 1.0, valve_anm_speed)
-    B747.fuel.res2_tank.xfr_vlv_A.pos			= B747_set_anim_value(B747.fuel.res2_tank.xfr_vlv_A.pos, B747.fuel.res2_tank.xfr_vlv_A.target_pos, 0.0, 1.0, valve_anm_speed)
-    B747.fuel.res2_tank.xfr_vlv_B.pos			= B747_set_anim_value(B747.fuel.res2_tank.xfr_vlv_B.pos, B747.fuel.res2_tank.xfr_vlv_B.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.res2_tank.refuel_vlv.pos        = B747_set_anim_value(B747.fuel.res2_tank.refuel_vlv.pos, B747.fuel.res2_tank.refuel_vlv.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.res2_tank.xfr_vlv_A.pos     = B747_set_anim_value(B747.fuel.res2_tank.xfr_vlv_A.pos, B747.fuel.res2_tank.xfr_vlv_A.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.res2_tank.xfr_vlv_B.pos     = B747_set_anim_value(B747.fuel.res2_tank.xfr_vlv_B.pos, B747.fuel.res2_tank.xfr_vlv_B.target_pos, 0.0, 1.0, valve_anm_speed)
 
-    B747.fuel.res3_tank.refuel_vlv.pos		    = B747_set_anim_value(B747.fuel.res3_tank.refuel_vlv.pos, B747.fuel.res3_tank.refuel_vlv.target_pos, 0.0, 1.0, valve_anm_speed)
-    B747.fuel.res3_tank.xfr_vlv_A.pos			= B747_set_anim_value(B747.fuel.res3_tank.xfr_vlv_A.pos, B747.fuel.res3_tank.xfr_vlv_A.target_pos, 0.0, 1.0, valve_anm_speed)
-    B747.fuel.res3_tank.xfr_vlv_B.pos			= B747_set_anim_value(B747.fuel.res3_tank.xfr_vlv_B.pos, B747.fuel.res3_tank.xfr_vlv_B.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.res3_tank.refuel_vlv.pos        = B747_set_anim_value(B747.fuel.res3_tank.refuel_vlv.pos, B747.fuel.res3_tank.refuel_vlv.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.res3_tank.xfr_vlv_A.pos     = B747_set_anim_value(B747.fuel.res3_tank.xfr_vlv_A.pos, B747.fuel.res3_tank.xfr_vlv_A.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.res3_tank.xfr_vlv_B.pos     = B747_set_anim_value(B747.fuel.res3_tank.xfr_vlv_B.pos, B747.fuel.res3_tank.xfr_vlv_B.target_pos, 0.0, 1.0, valve_anm_speed)
 
-    B747.fuel.spar_vlv1.pos					    = B747_set_anim_value(B747.fuel.spar_vlv1.pos, B747.fuel.spar_vlv1.target_pos, 0.0, 1.0, valve_anm_speed)
-    B747.fuel.spar_vlv2.pos					    = B747_set_anim_value(B747.fuel.spar_vlv2.pos, B747.fuel.spar_vlv2.target_pos, 0.0, 1.0, valve_anm_speed)
-    B747.fuel.spar_vlv3.pos					    = B747_set_anim_value(B747.fuel.spar_vlv3.pos, B747.fuel.spar_vlv3.target_pos, 0.0, 1.0, valve_anm_speed)
-    B747.fuel.spar_vlv4.pos					    = B747_set_anim_value(B747.fuel.spar_vlv4.pos, B747.fuel.spar_vlv4.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.spar_vlv1.pos             = B747_set_anim_value(B747.fuel.spar_vlv1.pos, B747.fuel.spar_vlv1.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.spar_vlv2.pos             = B747_set_anim_value(B747.fuel.spar_vlv2.pos, B747.fuel.spar_vlv2.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.spar_vlv3.pos             = B747_set_anim_value(B747.fuel.spar_vlv3.pos, B747.fuel.spar_vlv3.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.spar_vlv4.pos             = B747_set_anim_value(B747.fuel.spar_vlv4.pos, B747.fuel.spar_vlv4.target_pos, 0.0, 1.0, valve_anm_speed)
 
-    B747.fuel.jett_nozzle_vlv_L.pos			    = B747_set_anim_value(B747.fuel.jett_nozzle_vlv_L.pos, B747.fuel.jett_nozzle_vlv_L.target_pos, 0.0, 1.0, valve_anm_speed)
-    B747.fuel.jett_nozzle_vlv_R.pos			    = B747_set_anim_value(B747.fuel.jett_nozzle_vlv_R.pos, B747.fuel.jett_nozzle_vlv_R.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.jett_nozzle_vlv_L.pos         = B747_set_anim_value(B747.fuel.jett_nozzle_vlv_L.pos, B747.fuel.jett_nozzle_vlv_L.target_pos, 0.0, 1.0, valve_anm_speed)
+    B747.fuel.jett_nozzle_vlv_R.pos         = B747_set_anim_value(B747.fuel.jett_nozzle_vlv_R.pos, B747.fuel.jett_nozzle_vlv_R.target_pos, 0.0, 1.0, valve_anm_speed)
 
 end
 
@@ -2679,8 +2679,10 @@ function B747_fuel_EICAS_msg()
 
     -- FUEL TANK-TO-ENGINE
     if B747.fuel.engine1.xfeed_vlv.pos < 0.05
-        and B747.fuel.engine2.xfeed_vlv.pos < 0.05
-        and B747.fuel.engine3.xfeed_vlv.pos < 0.05
+        and B747DR_button_switch_position[64] < 0.05
+        and B747DR_button_switch_position[65] < 0.05
+        and B747DR_button_switch_position[66] < 0.05
+        and B747DR_button_switch_position[67] < 0.05
         and B747.fuel.engine4.xfeed_vlv.pos < 0.05
     then
         fuel_tankToEngine = 1
@@ -2707,7 +2709,7 @@ function B747_fuel_EICAS_msg()
     then
         B747DR_CAS_caution_status[36] = 1
     else
-	B747DR_CAS_caution_status[36] = 0
+  B747DR_CAS_caution_status[36] = 0
     end
 
     -- APU FUEL
@@ -2771,9 +2773,11 @@ function B747_fuel_EICAS_msg()
     end
 
     -- FUEL IMBAL 1-4
-    B747DR_CAS_advisory_status[149] = 0
+    
     if math.abs(simDR_fuel_tank_weight_kg[1] - simDR_fuel_tank_weight_kg[4]) > 1360.0 then
         B747DR_CAS_advisory_status[149] = 1
+    else
+        B747DR_CAS_advisory_status[149] = 0
     end
 
     if B747DR_CAS_advisory_status[149] == 1
@@ -2784,9 +2788,11 @@ function B747_fuel_EICAS_msg()
     end
 
     -- FUEL IMBAL 2-3
-    B747DR_CAS_advisory_status[150] = 0
+    
     if math.abs(simDR_fuel_tank_weight_kg[2] - simDR_fuel_tank_weight_kg[3]) > 1360.0 then
         B747DR_CAS_advisory_status[150] = 1
+    else
+        B747DR_CAS_advisory_status[150] = 0
     end
 
     if B747DR_CAS_advisory_status[150] == 1
@@ -2797,20 +2803,24 @@ function B747_fuel_EICAS_msg()
     end
 
     -- FUEL OVRD CTR L
-    B747DR_CAS_advisory_status[153] = 0
+    
     if (simDR_fuel_tank_weight_kg[0] < 7700.0 and simDR_all_wheels_on_ground == 1 and B747DR_button_switch_position[52] < 0.05)
         or
         (simDR_fuel_tank_weight_kg[0] > 1800.0 and simDR_all_wheels_on_ground == 0 and B747DR_button_switch_position[52] < 0.05)
     then
+        B747DR_CAS_advisory_status[153] = 1
+    else
         B747DR_CAS_advisory_status[153] = 0
     end
 
     -- FUEL OVRD CTR R
-    B747DR_CAS_advisory_status[154] = 0
+    
     if (simDR_fuel_tank_weight_kg[0] < 7700.0 and simDR_all_wheels_on_ground == 1 and B747DR_button_switch_position[53] < 0.05)
         or
         (simDR_fuel_tank_weight_kg[0] > 1800.0 and simDR_all_wheels_on_ground == 0 and B747DR_button_switch_position[53] < 0.05)
     then
+        B747DR_CAS_advisory_status[154] = 1
+    else
         B747DR_CAS_advisory_status[154] = 0
     end
 
@@ -2853,8 +2863,8 @@ function B747_fuel_EICAS_msg()
             or (B747DR_button_switch_position[54] < 0.05 and simDR_fuel_tank_weight_kg[7] > 500.0 and simDR_all_wheels_on_ground == 0)
         then
             B747DR_CAS_advisory_status[159] = 1
-	else
-	  B747DR_CAS_advisory_status[159] = 0
+  else
+    B747DR_CAS_advisory_status[159] = 0
         end
     else
       B747DR_CAS_advisory_status[159] = 0
@@ -2867,8 +2877,8 @@ function B747_fuel_EICAS_msg()
             or (B747DR_button_switch_position[55] < 0.05 and simDR_fuel_tank_weight_kg[7] > 500.0 and simDR_all_wheels_on_ground == 0)
         then
             B747DR_CAS_advisory_status[160] = 1
-	else
-	  B747DR_CAS_advisory_status[160] = 0
+  else
+    B747DR_CAS_advisory_status[160] = 0
         end
     else
       B747DR_CAS_advisory_status[160] = 0
@@ -2878,10 +2888,10 @@ function B747_fuel_EICAS_msg()
    
     if B747DR_CAS_caution_status[32] == 0 then
         if B747.fuel.main1_tank.main_pump_aft.on > 0 and simDR_fuel_tank_weight_kg[1] <= 10.0 then 
-	  B747DR_CAS_advisory_status[161] = 1 
-	else
-	   B747DR_CAS_advisory_status[161] = 0
-	end
+    B747DR_CAS_advisory_status[161] = 1 
+  else
+     B747DR_CAS_advisory_status[161] = 0
+  end
     else
        B747DR_CAS_advisory_status[161] = 0
     end
@@ -2890,10 +2900,10 @@ function B747_fuel_EICAS_msg()
     
     if B747DR_CAS_caution_status[33] == 0 then
         if B747.fuel.main1_tank.main_pump_aft.on > 0 and simDR_fuel_tank_weight_kg[2] <= 10.0 then 
-	  B747DR_CAS_advisory_status[162] = 1 
-	else
-	  B747DR_CAS_advisory_status[162] = 0
-	end
+    B747DR_CAS_advisory_status[162] = 1 
+  else
+    B747DR_CAS_advisory_status[162] = 0
+  end
     else
       B747DR_CAS_advisory_status[162] = 0
     end
@@ -2902,10 +2912,10 @@ function B747_fuel_EICAS_msg()
     
     if B747DR_CAS_caution_status[34] == 0 then
         if B747.fuel.main1_tank.main_pump_aft.on > 0 and simDR_fuel_tank_weight_kg[3] <= 10.0 then 
-	  B747DR_CAS_advisory_status[163] = 1
-	else
-	  B747DR_CAS_advisory_status[163] = 0
-	end
+    B747DR_CAS_advisory_status[163] = 1
+  else
+    B747DR_CAS_advisory_status[163] = 0
+  end
     else
       B747DR_CAS_advisory_status[163] = 0
     end
@@ -2914,10 +2924,10 @@ function B747_fuel_EICAS_msg()
     
     if B747DR_CAS_caution_status[35] == 0 then
         if B747.fuel.main1_tank.main_pump_aft.on > 0 and simDR_fuel_tank_weight_kg[4] <= 10.0 then 
-	  B747DR_CAS_advisory_status[164] = 1 
-	else
-	  B747DR_CAS_advisory_status[164] = 0
-	end
+    B747DR_CAS_advisory_status[164] = 1 
+  else
+    B747DR_CAS_advisory_status[164] = 0
+  end
     else
       B747DR_CAS_advisory_status[164] = 0
     end
@@ -2926,10 +2936,10 @@ function B747_fuel_EICAS_msg()
     
     if B747DR_CAS_caution_status[32] == 0 then
         if B747.fuel.main1_tank.main_pump_fwd.on > 0 and simDR_fuel_tank_weight_kg[1] <= 10.0 then 
-	  B747DR_CAS_advisory_status[165] = 1 
-	else
-	  B747DR_CAS_advisory_status[165] = 0
-	end
+    B747DR_CAS_advisory_status[165] = 1 
+  else
+    B747DR_CAS_advisory_status[165] = 0
+  end
     else
       B747DR_CAS_advisory_status[165] = 0
     end
@@ -2938,10 +2948,10 @@ function B747_fuel_EICAS_msg()
     
     if B747DR_CAS_caution_status[33] == 0 then
         if B747.fuel.main1_tank.main_pump_fwd.on > 0 and simDR_fuel_tank_weight_kg[2] <= 10.0 then 
-	  B747DR_CAS_advisory_status[166] = 1
-	else
-	  B747DR_CAS_advisory_status[166] = 0
-	end
+    B747DR_CAS_advisory_status[166] = 1
+  else
+    B747DR_CAS_advisory_status[166] = 0
+  end
     else
       B747DR_CAS_advisory_status[166] = 0
     end
@@ -2950,10 +2960,10 @@ function B747_fuel_EICAS_msg()
     
     if B747DR_CAS_caution_status[34] == 0 then
         if B747.fuel.main1_tank.main_pump_fwd.on > 0 and simDR_fuel_tank_weight_kg[3] <= 10.0 then 
-	  B747DR_CAS_advisory_status[167] = 1 
-	else
-	  B747DR_CAS_advisory_status[167] = 0
-	end
+    B747DR_CAS_advisory_status[167] = 1 
+  else
+    B747DR_CAS_advisory_status[167] = 0
+  end
     else
       B747DR_CAS_advisory_status[167] = 0
     end
@@ -2962,16 +2972,16 @@ function B747_fuel_EICAS_msg()
     
     if B747DR_CAS_caution_status[35] == 0 then
         if B747.fuel.main1_tank.main_pump_fwd.on > 0 and simDR_fuel_tank_weight_kg[4] <= 10.0 then 
-	  B747DR_CAS_advisory_status[168] = 1
-	else
-	  B747DR_CAS_advisory_status[168] = 0
-	end
+    B747DR_CAS_advisory_status[168] = 1
+  else
+    B747DR_CAS_advisory_status[168] = 0
+  end
     else
       B747DR_CAS_advisory_status[168] = 0
     end
 
     -- >FUEL TANK/ENG
-    if ((B747DR_button_switch_position[46] > 0.95 or B747DR_button_switch_position[47] > 0.95) and B747DR_fuel_jettison_sel_dial_pos > 0) then
+    if fuel_tankToEngine==1 or B747DR_fuel_jettison_sel_dial_pos > 0 then
         B747DR_CAS_advisory_status[171] = 0
     else
         
@@ -2979,8 +2989,8 @@ function B747_fuel_EICAS_msg()
             and (B747.fuel.engine1.xfeed_vlv.pos > 0.95 or B747.fuel.engine4.xfeed_vlv.pos > 0.95)
         then
             B747DR_CAS_advisory_status[171] = 1
-	else
-	    B747DR_CAS_advisory_status[171] = 0
+  else
+      B747DR_CAS_advisory_status[171] = 0
         end
     end
 
@@ -3002,8 +3012,8 @@ function B747_fuel_EICAS_msg()
             ((simDR_fuel_tank_weight_kg[2] + simDR_fuel_tank_weight_kg[3]) > (simDR_fuel_tank_weight_kg[1] + simDR_fuel_tank_weight_kg[4])))
         then
             B747DR_CAS_advisory_status[179] = 1
-	else
-	  B747DR_CAS_advisory_status[179] = 0
+  else
+    B747DR_CAS_advisory_status[179] = 0
         end
     else
       B747DR_CAS_advisory_status[179] = 0
@@ -3021,10 +3031,10 @@ function B747_fuel_EICAS_msg()
     
     if B747DR_CAS_advisory_status[235] == 0 then
         if B747.fuel.jett_nozzle_vlv_L.pos > 0.0 then 
-	  B747DR_CAS_advisory_status[236] = 1 
-	else
-	  B747DR_CAS_advisory_status[236] = 0
-	end
+    B747DR_CAS_advisory_status[236] = 1 
+  else
+    B747DR_CAS_advisory_status[236] = 0
+  end
     else
       B747DR_CAS_advisory_status[236] = 0
     end
@@ -3033,10 +3043,10 @@ function B747_fuel_EICAS_msg()
     
     if B747DR_CAS_advisory_status[235] == 0 then
         if B747.fuel.jett_nozzle_vlv_R.pos > 0.0 then 
-	  B747DR_CAS_advisory_status[237] = 1
-	else
-	  B747DR_CAS_advisory_status[237] = 0
-	end
+    B747DR_CAS_advisory_status[237] = 1
+  else
+    B747DR_CAS_advisory_status[237] = 0
+  end
     else
       B747DR_CAS_advisory_status[237] = 0
     end
@@ -3050,8 +3060,8 @@ function B747_fuel_EICAS_msg()
             or B747.fuel.center_tank.scvg_pump_R2.on > 0.0
         then
             B747DR_CAS_advisory_status[263] = 1
-	else
-	  B747DR_CAS_advisory_status[263] = 0
+  else
+    B747DR_CAS_advisory_status[263] = 0
         end
     else
       B747DR_CAS_advisory_status[263] = 0
@@ -3061,13 +3071,13 @@ function B747_fuel_EICAS_msg()
     
     if ((B747.fuel.engine1.xfeed_vlv.pos < 0.05 or B747.fuel.engine4.xfeed_vlv.pos < 0.05)
         and
-        (math.abs(simDR_fuel_tank_weight_kg[1] - simDR_fuel_tank_weight_kg[1]) > 100.0
+        ((simDR_fuel_tank_weight_kg[3] - simDR_fuel_tank_weight_kg[4]) > 100.0
         or
-        math.abs(simDR_fuel_tank_weight_kg[2] - simDR_fuel_tank_weight_kg[3]) > 100.0))
+        simDR_fuel_tank_weight_kg[2] - simDR_fuel_tank_weight_kg[1] > 100.0))
 
         or
 
-        ((B747.fuel.engine2.xfeed_vlv.pos < 0.05 or B747.fuel.engine2.xfeed_vlv.pos < 0.05)
+        ((B747.fuel.engine2.xfeed_vlv.pos < 0.05 or B747.fuel.engine3.xfeed_vlv.pos < 0.05)
         and
         (simDR_wing_flap1_deg[0] < 9.9 or simDR_wing_flap1_deg[0] > 21.0))
     then
@@ -3080,11 +3090,11 @@ end
 
 --Marauder28
 function B747_fuel_balance_check()
-	--Initial check to ensure that this balance function only runs once
-	if simDR_fuel_totalizer_kg ~= simDR_fueL_tank_weight_total_kg then
-		return
-	end
-	
+  --Initial check to ensure that this balance function only runs once
+  if simDR_fuel_totalizer_kg ~= simDR_fueL_tank_weight_total_kg then
+    return
+  end
+  
   --Determine amount for each tank based on existing fuel and load order.
   --Load order is:
   --1) Even distribution in Main1, Main2, Main3, Main4 (Wing)
@@ -3092,186 +3102,186 @@ function B747_fuel_balance_check()
   --4) Center 0
   --5) Horizontal Stabilizer 7
 
-	local overage = 0
+  local overage = 0
   
-	--Use and rebalance any existing fuel into their proper tanks before starting the refueling process
-	--Start by placing all fuel into the first 2 main tanks and then take overages and place it in tanks in the order above
-	simDR_fuel_tank_weight_kg[1] = simDR_fueL_tank_weight_total_kg / 4
-	simDR_fuel_tank_weight_kg[4] = simDR_fueL_tank_weight_total_kg / 4
-	simDR_fuel_tank_weight_kg[2] = simDR_fueL_tank_weight_total_kg / 4
-	simDR_fuel_tank_weight_kg[3] = simDR_fueL_tank_weight_total_kg / 4
+  --Use and rebalance any existing fuel into their proper tanks before starting the refueling process
+  --Start by placing all fuel into the first 2 main tanks and then take overages and place it in tanks in the order above
+  simDR_fuel_tank_weight_kg[1] = simDR_fueL_tank_weight_total_kg / 4
+  simDR_fuel_tank_weight_kg[4] = simDR_fueL_tank_weight_total_kg / 4
+  simDR_fuel_tank_weight_kg[2] = simDR_fueL_tank_weight_total_kg / 4
+  simDR_fuel_tank_weight_kg[3] = simDR_fueL_tank_weight_total_kg / 4
 
-	--print("Initial Split Main1 = "..simDR_fuel_tank_weight_kg[1])
-	--print("Initial Split Main4 = "..simDR_fuel_tank_weight_kg[4])
-	--print("Initial Split Main2 = "..simDR_fuel_tank_weight_kg[2])
-	--print("Initial Split Main3 = "..simDR_fuel_tank_weight_kg[3])
-	
-	simDR_fuel_tank_weight_kg[5] = 0
-	simDR_fuel_tank_weight_kg[6] = 0
-	simDR_fuel_tank_weight_kg[7] = 0
-	simDR_fuel_tank_weight_kg[0] = 0
-	
-	--Move overages from Main1 to Main2
-	if simDR_fuel_tank_weight_kg[1] > B747.fuel.main1_tank.capacity then
-		overage = simDR_fuel_tank_weight_kg[1] - B747.fuel.main1_tank.capacity
-		simDR_fuel_tank_weight_kg[1] = B747.fuel.main1_tank.capacity
-		simDR_fuel_tank_weight_kg[2] = simDR_fuel_tank_weight_kg[2] + overage
-		--print("Main1 OVERAGE --> Main2 = "..overage)
-		overage = 0
-		--print("Bal Main1 = "..simDR_fuel_tank_weight_kg[1])
-	end
-	
-	--Move overages from Main4 to Main3
-	if simDR_fuel_tank_weight_kg[4] > B747.fuel.main4_tank.capacity then
-		overage = simDR_fuel_tank_weight_kg[4] - B747.fuel.main4_tank.capacity
-		simDR_fuel_tank_weight_kg[4] = B747.fuel.main4_tank.capacity
-		simDR_fuel_tank_weight_kg[3] = simDR_fuel_tank_weight_kg[3] + overage
-		--print("Main4 OVERAGE --> Main3 = "..overage)
-		overage = 0
-		--print("Bal Main4 = "..simDR_fuel_tank_weight_kg[4])
-	end
+  --print("Initial Split Main1 = "..simDR_fuel_tank_weight_kg[1])
+  --print("Initial Split Main4 = "..simDR_fuel_tank_weight_kg[4])
+  --print("Initial Split Main2 = "..simDR_fuel_tank_weight_kg[2])
+  --print("Initial Split Main3 = "..simDR_fuel_tank_weight_kg[3])
+  
+  simDR_fuel_tank_weight_kg[5] = 0
+  simDR_fuel_tank_weight_kg[6] = 0
+  simDR_fuel_tank_weight_kg[7] = 0
+  simDR_fuel_tank_weight_kg[0] = 0
+  
+  --Move overages from Main1 to Main2
+  if simDR_fuel_tank_weight_kg[1] > B747.fuel.main1_tank.capacity then
+    overage = simDR_fuel_tank_weight_kg[1] - B747.fuel.main1_tank.capacity
+    simDR_fuel_tank_weight_kg[1] = B747.fuel.main1_tank.capacity
+    simDR_fuel_tank_weight_kg[2] = simDR_fuel_tank_weight_kg[2] + overage
+    --print("Main1 OVERAGE --> Main2 = "..overage)
+    overage = 0
+    --print("Bal Main1 = "..simDR_fuel_tank_weight_kg[1])
+  end
+  
+  --Move overages from Main4 to Main3
+  if simDR_fuel_tank_weight_kg[4] > B747.fuel.main4_tank.capacity then
+    overage = simDR_fuel_tank_weight_kg[4] - B747.fuel.main4_tank.capacity
+    simDR_fuel_tank_weight_kg[4] = B747.fuel.main4_tank.capacity
+    simDR_fuel_tank_weight_kg[3] = simDR_fuel_tank_weight_kg[3] + overage
+    --print("Main4 OVERAGE --> Main3 = "..overage)
+    overage = 0
+    --print("Bal Main4 = "..simDR_fuel_tank_weight_kg[4])
+  end
 
-	--Move overages from Main2 to Reserve5
-	if simDR_fuel_tank_weight_kg[2] > B747.fuel.main2_tank.capacity then
-		overage = simDR_fuel_tank_weight_kg[2] - B747.fuel.main2_tank.capacity
-		simDR_fuel_tank_weight_kg[2] = B747.fuel.main2_tank.capacity
-		simDR_fuel_tank_weight_kg[5] = overage
-		--print("Main2 OVERAGE --> Rsv5 = "..overage)
-		overage = 0
-		--print("Bal Main2 = "..simDR_fuel_tank_weight_kg[2])
-	end
+  --Move overages from Main2 to Reserve5
+  if simDR_fuel_tank_weight_kg[2] > B747.fuel.main2_tank.capacity then
+    overage = simDR_fuel_tank_weight_kg[2] - B747.fuel.main2_tank.capacity
+    simDR_fuel_tank_weight_kg[2] = B747.fuel.main2_tank.capacity
+    simDR_fuel_tank_weight_kg[5] = overage
+    --print("Main2 OVERAGE --> Rsv5 = "..overage)
+    overage = 0
+    --print("Bal Main2 = "..simDR_fuel_tank_weight_kg[2])
+  end
 
-	--Move overages from Main3 to Reserve6
-	if simDR_fuel_tank_weight_kg[3] > B747.fuel.main3_tank.capacity then
-		overage = simDR_fuel_tank_weight_kg[3] - B747.fuel.main3_tank.capacity
-		simDR_fuel_tank_weight_kg[3] = B747.fuel.main3_tank.capacity
-		simDR_fuel_tank_weight_kg[6] = overage
-		--print("Main3 OVERAGE --> Rsv6 = "..overage)
-		overage = 0
-		--print("Bal Main3 = "..simDR_fuel_tank_weight_kg[3])
-	end
+  --Move overages from Main3 to Reserve6
+  if simDR_fuel_tank_weight_kg[3] > B747.fuel.main3_tank.capacity then
+    overage = simDR_fuel_tank_weight_kg[3] - B747.fuel.main3_tank.capacity
+    simDR_fuel_tank_weight_kg[3] = B747.fuel.main3_tank.capacity
+    simDR_fuel_tank_weight_kg[6] = overage
+    --print("Main3 OVERAGE --> Rsv6 = "..overage)
+    overage = 0
+    --print("Bal Main3 = "..simDR_fuel_tank_weight_kg[3])
+  end
 
-	--Move overages from Reserve5 to Center0 (Reserve5 is also known as res2 in previous code)
-	if simDR_fuel_tank_weight_kg[5] > B747.fuel.res2_tank.capacity then
-		overage = simDR_fuel_tank_weight_kg[5] - B747.fuel.res2_tank.capacity
-		simDR_fuel_tank_weight_kg[5] = B747.fuel.res2_tank.capacity
-		simDR_fuel_tank_weight_kg[0] = overage
-		--print("Rsv5 OVERAGE --> Center0 = "..overage)
-		overage = 0
-		--print("Bal RSV5 = "..simDR_fuel_tank_weight_kg[5])
-	end
+  --Move overages from Reserve5 to Center0 (Reserve5 is also known as res2 in previous code)
+  if simDR_fuel_tank_weight_kg[5] > B747.fuel.res2_tank.capacity then
+    overage = simDR_fuel_tank_weight_kg[5] - B747.fuel.res2_tank.capacity
+    simDR_fuel_tank_weight_kg[5] = B747.fuel.res2_tank.capacity
+    simDR_fuel_tank_weight_kg[0] = overage
+    --print("Rsv5 OVERAGE --> Center0 = "..overage)
+    overage = 0
+    --print("Bal RSV5 = "..simDR_fuel_tank_weight_kg[5])
+  end
 
-	--Move overages from Reserve6 to Center0 (Reserve6 is also known as res3 in previous code)
-	if simDR_fuel_tank_weight_kg[6] > B747.fuel.res3_tank.capacity then
-		overage = simDR_fuel_tank_weight_kg[6] - B747.fuel.res3_tank.capacity
-		simDR_fuel_tank_weight_kg[6] = B747.fuel.res3_tank.capacity
-		simDR_fuel_tank_weight_kg[0] = simDR_fuel_tank_weight_kg[0] + overage
-		--print("Rsv6 OVERAGE --> Center0 = "..overage)
-		overage = 0
-		--print("Bal RSV6 = "..simDR_fuel_tank_weight_kg[6])
-	end
+  --Move overages from Reserve6 to Center0 (Reserve6 is also known as res3 in previous code)
+  if simDR_fuel_tank_weight_kg[6] > B747.fuel.res3_tank.capacity then
+    overage = simDR_fuel_tank_weight_kg[6] - B747.fuel.res3_tank.capacity
+    simDR_fuel_tank_weight_kg[6] = B747.fuel.res3_tank.capacity
+    simDR_fuel_tank_weight_kg[0] = simDR_fuel_tank_weight_kg[0] + overage
+    --print("Rsv6 OVERAGE --> Center0 = "..overage)
+    overage = 0
+    --print("Bal RSV6 = "..simDR_fuel_tank_weight_kg[6])
+  end
 
-	--Move overages from Center0 to Stab7
-	if simDR_fuel_tank_weight_kg[0] > B747.fuel.center_tank.capacity then
-		overage = simDR_fuel_tank_weight_kg[0] - B747.fuel.center_tank.capacity
-		simDR_fuel_tank_weight_kg[0] = B747.fuel.center_tank.capacity
-		simDR_fuel_tank_weight_kg[7] = overage
-		--print("Center0 OVERAGE --> Stab7 = "..overage)
-		overage = 0
-		--print("Bal CENTER0 = "..simDR_fuel_tank_weight_kg[0])
-	end
+  --Move overages from Center0 to Stab7
+  if simDR_fuel_tank_weight_kg[0] > B747.fuel.center_tank.capacity then
+    overage = simDR_fuel_tank_weight_kg[0] - B747.fuel.center_tank.capacity
+    simDR_fuel_tank_weight_kg[0] = B747.fuel.center_tank.capacity
+    simDR_fuel_tank_weight_kg[7] = overage
+    --print("Center0 OVERAGE --> Stab7 = "..overage)
+    overage = 0
+    --print("Bal CENTER0 = "..simDR_fuel_tank_weight_kg[0])
+  end
 
-	--print("Main1 = "..simDR_fuel_tank_weight_kg[1])
-	--print("Main4 = "..simDR_fuel_tank_weight_kg[4])
-	--print("Main2 = "..simDR_fuel_tank_weight_kg[2])
-	--print("Main3 = "..simDR_fuel_tank_weight_kg[3])
-	--print("Rsv5 = "..simDR_fuel_tank_weight_kg[5])
-	--print("Rsv6 = "..simDR_fuel_tank_weight_kg[6])
-	--print("Center0 = "..simDR_fuel_tank_weight_kg[0])
-	--print("Stab7 = "..simDR_fuel_tank_weight_kg[7])
+  --print("Main1 = "..simDR_fuel_tank_weight_kg[1])
+  --print("Main4 = "..simDR_fuel_tank_weight_kg[4])
+  --print("Main2 = "..simDR_fuel_tank_weight_kg[2])
+  --print("Main3 = "..simDR_fuel_tank_weight_kg[3])
+  --print("Rsv5 = "..simDR_fuel_tank_weight_kg[5])
+  --print("Rsv6 = "..simDR_fuel_tank_weight_kg[6])
+  --print("Center0 = "..simDR_fuel_tank_weight_kg[0])
+  --print("Stab7 = "..simDR_fuel_tank_weight_kg[7])
 
 end
 --Marauder28
 
 function B747_refueling()
   if B747DR_refuel<=0.0 then
-	--Marauder28
-	--Set the totalizer to the current fuel amount after refueling
-	simDR_fuel_totalizer_kg = simDR_fueL_tank_weight_total_kg
-	--Marauder28
+  --Marauder28
+  --Set the totalizer to the current fuel amount after refueling
+  simDR_fuel_totalizer_kg = simDR_fueL_tank_weight_total_kg
+  --Marauder28
 
-	return
+  return
   end
   
   --local fuelIn=math.min(10.5*fuel_calc_rate,B747DR_refuel)
   local fuelIn=math.min(100*fuel_calc_rate,B747DR_refuel)
   --print("sending fuel "..fuelIn)
   
-	--Marauder28
-	B747_fuel_balance_check()  --Ensure existing fuel is ordered in the tanks correctly before refueling
+  --Marauder28
+  B747_fuel_balance_check()  --Ensure existing fuel is ordered in the tanks correctly before refueling
 
-	--Now start adding fuel
-	--Load order is:
-	--1) Even distribution in Main1, Main2, Main3, Main4 (Wing)  e.g. BLOCK FUEL / 4
-	--3) Reserve 5 & Reserve 6 (Wing)
-	--4) Center 0
-	--5) Horizontal Stabilizer 7
-	
-	--Finish filling Main1 - Main4 First
-	if simDR_fuel_tank_weight_kg[1] < B747.fuel.main1_tank.capacity then
-		B747DR_refuel = B747DR_refuel - fuelIn
-		simDR_fuel_tank_weight_kg[1] = simDR_fuel_tank_weight_kg[1] + fuelIn
-	end
-	if simDR_fuel_tank_weight_kg[4] < B747.fuel.main4_tank.capacity then
-		B747DR_refuel = B747DR_refuel - fuelIn
-		simDR_fuel_tank_weight_kg[4] = simDR_fuel_tank_weight_kg[4] + fuelIn
-	end
-	if simDR_fuel_tank_weight_kg[2] < B747.fuel.main2_tank.capacity then
-		B747DR_refuel = B747DR_refuel - fuelIn
-		simDR_fuel_tank_weight_kg[2] = simDR_fuel_tank_weight_kg[2] + fuelIn
-	end
-	if simDR_fuel_tank_weight_kg[3] < B747.fuel.main3_tank.capacity then
-		B747DR_refuel = B747DR_refuel - fuelIn
-		simDR_fuel_tank_weight_kg[3] = simDR_fuel_tank_weight_kg[3] + fuelIn
-	end
-	
-	--Now deal with overflows in Main1 - Main4 using Reserve5 & Reserve6 (known as Res2 & Res3 in other code)
-	if simDR_fuel_tank_weight_kg[1] == B747.fuel.main1_tank.capacity and 
-		simDR_fuel_tank_weight_kg[4] == B747.fuel.main4_tank.capacity then
-		if simDR_fuel_tank_weight_kg[2] < B747.fuel.main2_tank.capacity then
-			B747DR_refuel = B747DR_refuel - fuelIn
-			simDR_fuel_tank_weight_kg[2] = simDR_fuel_tank_weight_kg[2] + fuelIn
-		elseif simDR_fuel_tank_weight_kg[5] < B747.fuel.res2_tank.capacity then
-			B747DR_refuel = B747DR_refuel - fuelIn
-			simDR_fuel_tank_weight_kg[5] = simDR_fuel_tank_weight_kg[5] + fuelIn
-		end
-		if simDR_fuel_tank_weight_kg[3] < B747.fuel.main3_tank.capacity then
-			B747DR_refuel = B747DR_refuel - fuelIn
-			simDR_fuel_tank_weight_kg[3] = simDR_fuel_tank_weight_kg[3] + fuelIn
-		elseif simDR_fuel_tank_weight_kg[6] < B747.fuel.res3_tank.capacity then
-			B747DR_refuel = B747DR_refuel - fuelIn
-			simDR_fuel_tank_weight_kg[6] = simDR_fuel_tank_weight_kg[6] + fuelIn
-		end		
-	end
-	
-	--Reserve5 & Reserve6 are full so move on to Center 0
-	if simDR_fuel_tank_weight_kg[5] == B747.fuel.res2_tank.capacity and 
-		simDR_fuel_tank_weight_kg[6] == B747.fuel.res3_tank.capacity then
-		if simDR_fuel_tank_weight_kg[0] < B747.fuel.center_tank.capacity then
-			B747DR_refuel = B747DR_refuel - fuelIn
-			simDR_fuel_tank_weight_kg[0] = simDR_fuel_tank_weight_kg[0] + fuelIn
-		elseif simDR_fuel_tank_weight_kg[7] < B747.fuel.stab_tank.capacity then
-			B747DR_refuel = B747DR_refuel - fuelIn
-			simDR_fuel_tank_weight_kg[7] = simDR_fuel_tank_weight_kg[7] + fuelIn
-		end
-	end
-	
-	-- Don't overfill
-	if simDR_fuel_tank_weight_kg[7] == B747.fuel.stab_tank.capacity then
-		B747DR_refuel = 0
-	end
-	--Marauder28
-	
+  --Now start adding fuel
+  --Load order is:
+  --1) Even distribution in Main1, Main2, Main3, Main4 (Wing)  e.g. BLOCK FUEL / 4
+  --3) Reserve 5 & Reserve 6 (Wing)
+  --4) Center 0
+  --5) Horizontal Stabilizer 7
+  
+  --Finish filling Main1 - Main4 First
+  if simDR_fuel_tank_weight_kg[1] < B747.fuel.main1_tank.capacity then
+    B747DR_refuel = B747DR_refuel - fuelIn
+    simDR_fuel_tank_weight_kg[1] = simDR_fuel_tank_weight_kg[1] + fuelIn
+  end
+  if simDR_fuel_tank_weight_kg[4] < B747.fuel.main4_tank.capacity then
+    B747DR_refuel = B747DR_refuel - fuelIn
+    simDR_fuel_tank_weight_kg[4] = simDR_fuel_tank_weight_kg[4] + fuelIn
+  end
+  if simDR_fuel_tank_weight_kg[2] < B747.fuel.main2_tank.capacity then
+    B747DR_refuel = B747DR_refuel - fuelIn
+    simDR_fuel_tank_weight_kg[2] = simDR_fuel_tank_weight_kg[2] + fuelIn
+  end
+  if simDR_fuel_tank_weight_kg[3] < B747.fuel.main3_tank.capacity then
+    B747DR_refuel = B747DR_refuel - fuelIn
+    simDR_fuel_tank_weight_kg[3] = simDR_fuel_tank_weight_kg[3] + fuelIn
+  end
+  
+  --Now deal with overflows in Main1 - Main4 using Reserve5 & Reserve6 (known as Res2 & Res3 in other code)
+  if simDR_fuel_tank_weight_kg[1] == B747.fuel.main1_tank.capacity and 
+    simDR_fuel_tank_weight_kg[4] == B747.fuel.main4_tank.capacity then
+    if simDR_fuel_tank_weight_kg[2] < B747.fuel.main2_tank.capacity then
+      B747DR_refuel = B747DR_refuel - fuelIn
+      simDR_fuel_tank_weight_kg[2] = simDR_fuel_tank_weight_kg[2] + fuelIn
+    elseif simDR_fuel_tank_weight_kg[5] < B747.fuel.res2_tank.capacity then
+      B747DR_refuel = B747DR_refuel - fuelIn
+      simDR_fuel_tank_weight_kg[5] = simDR_fuel_tank_weight_kg[5] + fuelIn
+    end
+    if simDR_fuel_tank_weight_kg[3] < B747.fuel.main3_tank.capacity then
+      B747DR_refuel = B747DR_refuel - fuelIn
+      simDR_fuel_tank_weight_kg[3] = simDR_fuel_tank_weight_kg[3] + fuelIn
+    elseif simDR_fuel_tank_weight_kg[6] < B747.fuel.res3_tank.capacity then
+      B747DR_refuel = B747DR_refuel - fuelIn
+      simDR_fuel_tank_weight_kg[6] = simDR_fuel_tank_weight_kg[6] + fuelIn
+    end   
+  end
+  
+  --Reserve5 & Reserve6 are full so move on to Center 0
+  if simDR_fuel_tank_weight_kg[5] == B747.fuel.res2_tank.capacity and 
+    simDR_fuel_tank_weight_kg[6] == B747.fuel.res3_tank.capacity then
+    if simDR_fuel_tank_weight_kg[0] < B747.fuel.center_tank.capacity then
+      B747DR_refuel = B747DR_refuel - fuelIn
+      simDR_fuel_tank_weight_kg[0] = simDR_fuel_tank_weight_kg[0] + fuelIn
+    elseif simDR_fuel_tank_weight_kg[7] < B747.fuel.stab_tank.capacity then
+      B747DR_refuel = B747DR_refuel - fuelIn
+      simDR_fuel_tank_weight_kg[7] = simDR_fuel_tank_weight_kg[7] + fuelIn
+    end
+  end
+  
+  -- Don't overfill
+  if simDR_fuel_tank_weight_kg[7] == B747.fuel.stab_tank.capacity then
+    B747DR_refuel = 0
+  end
+  --Marauder28
+  
 --[[  if simDR_fuel_tank_weight_kg[1] < B747.fuel.main1_tank.capacity then
     B747DR_refuel=B747DR_refuel-fuelIn
     simDR_fuel_tank_weight_kg[1]=simDR_fuel_tank_weight_kg[1]+fuelIn
@@ -3325,7 +3335,7 @@ end
 ----- SET STATE FOR ALL MODES -----------------------------------------------------------
 function B747_set_fuel_all_modes()
 
-	B747DR_init_fuel_CD = 0
+  B747DR_init_fuel_CD = 0
     B747DR_fuel_to_remain_rheo = 9.6
     B747DR_fuel_jettison_sel_dial_pos = 0
 
@@ -3354,11 +3364,11 @@ end
 
 ----- SET STATE TO ENGINES RUNNING ------------------------------------------------------
 function B747_set_fuel_ER()
-	
+  
     -- MANUALLY SET FUEL PROCESSING TO ALLOW FOR UI "ENGINES RUNNING" OPTION
     engineHasFuelProcessing = 0                                                     -- DO NOT ALLOW FUEL PROCESSING
     for i = 0, 3 do
-	--print("engine has fuel "..i)
+  --print("engine has fuel "..i)
         simDR_engine_has_fuel[i] = 1                                                -- FORCE "HAS FUEL" TO "ON"
     end
     run_after_time(startFuelProcessing, 10.0)                                        -- DELAYED FUEL PROCESSING
@@ -3374,7 +3384,7 @@ function B747_set_fuel_ER()
 
     B747_fuel_control_toggle_sw_pos_target[3] = 1.0
     B747DR_fuel_control_toggle_switch_pos[3] = 1.0
-	
+  
 end
 
 dofile("json/json.lua")
@@ -3382,45 +3392,45 @@ dofile("json/json.lua")
 --Simulator Config Options
 simConfigData = {}
 if string.len(B747DR_simconfig_data) > 1 then
-	simConfigData["data"] = json.decode(B747DR_simconfig_data)
+  simConfigData["data"] = json.decode(B747DR_simconfig_data)
 else
-	simConfigData["data"] = json.decode("[]")
+  simConfigData["data"] = json.decode("[]")
 end
 
 -- FUEL DISPLAY UNITS CALCULATION
 --[[
-*	Determine the current selected display units (from the Maintenance page of the FMC)
-*	and use a multiplication factor to convert KGS to LBS if needed.  This will be stored
-*	in a dataref that is used on the 3D display panel for the upper and lower EICAS to
-*	display the fuel quantities in the correct units.
+* Determine the current selected display units (from the Maintenance page of the FMC)
+* and use a multiplication factor to convert KGS to LBS if needed.  This will be stored
+* in a dataref that is used on the 3D display panel for the upper and lower EICAS to
+* display the fuel quantities in the correct units.
 --]]
 function B747_calculate_fuel_display_units ()
-	local fuel_calculation_factor = 1 -- Initially set to 1 (i.e. KGS) unless LBS is selected
-	local x = 0
-	
-	if simConfigData["data"].weight_display_units == "LBS" then
-		fuel_calculation_factor = simConfigData["data"].kgs_to_lbs
-	end
-	
-	B747DR_fuel_total_display_qty = simDR_fueL_tank_weight_total_kg * fuel_calculation_factor
-	
-	B747DR_fuel_preselect = B747DR_fuel_preselect_temp * fuel_calculation_factor
+  local fuel_calculation_factor = 1 -- Initially set to 1 (i.e. KGS) unless LBS is selected
+  local x = 0
+  
+  if simConfigData["data"].weight_display_units == "LBS" then
+    fuel_calculation_factor = simConfigData["data"].kgs_to_lbs
+  end
+  
+  B747DR_fuel_total_display_qty = simDR_fueL_tank_weight_total_kg * fuel_calculation_factor
+  
+  B747DR_fuel_preselect = B747DR_fuel_preselect_temp * fuel_calculation_factor
 
-	for x = 0, 7 do
-		B747DR_fuel_tank_display_qty[x] = simDR_fuel_tank_weight_kg[x] * fuel_calculation_factor
-	end
-	
-	-- Determine fuel flow rate for display on EICAS based on fuel calculation factor
-	for x = 0, 3 do
-		B747DR_fuel_flow_sec_display[x] = simDR_eng_fuel_flow_kg_sec[x] * fuel_calculation_factor
-	end
+  for x = 0, 7 do
+    B747DR_fuel_tank_display_qty[x] = simDR_fuel_tank_weight_kg[x] * fuel_calculation_factor
+  end
+  
+  -- Determine fuel flow rate for display on EICAS based on fuel calculation factor
+  for x = 0, 3 do
+    B747DR_fuel_flow_sec_display[x] = simDR_eng_fuel_flow_kg_sec[x] * fuel_calculation_factor
+  end
 
-	-- Set correct fuel units displayed on EICAS
-	if simConfigData["data"].weight_display_units == "LBS" then
-		B747DR_fuel_display_units_eicas = 1
-	else
-		B747DR_fuel_display_units_eicas = 0
-	end
+  -- Set correct fuel units displayed on EICAS
+  if simConfigData["data"].weight_display_units == "LBS" then
+    B747DR_fuel_display_units_eicas = 1
+  else
+    B747DR_fuel_display_units_eicas = 0
+  end
 
 end
 
@@ -3437,7 +3447,7 @@ function B747_flight_start_fuel()
     end
     -- ALL MODES ------------------------------------------------------------------------
     run_at_interval(B747_fuel_tank_levels, fuel_calc_rate)
-	
+  
     B747_set_fuel_all_modes()
 
 
@@ -3450,10 +3460,10 @@ function B747_flight_start_fuel()
     -- ENGINES RUNNING ------------------------------------------------------------------
     elseif simDR_startup_running == 1 then
 
-		B747_set_fuel_ER()
+    B747_set_fuel_ER()
 
     end
-	
+  
 end
 
 
@@ -3461,7 +3471,7 @@ end
 
 
 --*************************************************************************************--
---** 				                  EVENT CALLBACKS           	    			 **--
+--**                          EVENT CALLBACKS                        **--
 --*************************************************************************************--
 
 function aircraft_load()
@@ -3538,14 +3548,14 @@ function after_physics()
 --       simDR_fuel_tank_weight_kg[3].. " " .. simDR_fuel_tank_weight_kg[4].. " " .. simDR_fuel_tank_weight_kg[5].. " " .. 
 --       simDR_fuel_tank_weight_kg[6].. " " .. simDR_fuel_tank_weight_kg[7])
 
-	if string.len(B747DR_simconfig_data) > 1 then
-		simConfigData["data"] = json.decode(B747DR_simconfig_data)
-	else
-		simConfigData["data"] = json.decode("[]")
-	end
+  if string.len(B747DR_simconfig_data) > 1 then
+    simConfigData["data"] = json.decode(B747DR_simconfig_data)
+  else
+    simConfigData["data"] = json.decode("[]")
+  end
 
-	--Display Fuel Units
-	B747_calculate_fuel_display_units()
+  --Display Fuel Units
+  B747_calculate_fuel_display_units()
 end
 
 --function after_replay() end

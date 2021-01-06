@@ -472,20 +472,35 @@ end
 function B747_fire_EICAS_msg()
 
     -- FIRE ENG 1
-    B747DR_CAS_warning_status[11] = 0
-    if simDR_engine_fire[0] > 0 then B747DR_CAS_warning_status[11] = 1 end
+    
+    if simDR_engine_fire[0] > 0 then 
+        B747DR_CAS_warning_status[11] = 1 
+    else
+        B747DR_CAS_warning_status[11] = 0
+    end
 
     -- FIRE ENG 2
-    B747DR_CAS_warning_status[12] = 0
-    if simDR_engine_fire[1] > 0 then B747DR_CAS_warning_status[12] = 1 end
+    
+    if simDR_engine_fire[1] > 0 then 
+        B747DR_CAS_warning_status[12] = 1 
+    else B747DR_CAS_warning_status[12] = 0
+    end
 
     -- FIRE ENG 3
-    B747DR_CAS_warning_status[13] = 0
-    if simDR_engine_fire[2] > 0 then B747DR_CAS_warning_status[13] = 1 end
+    
+    if simDR_engine_fire[2] > 0 then 
+        B747DR_CAS_warning_status[13] = 1 
+    else
+        B747DR_CAS_warning_status[13] = 0
+    end
 
     -- FIRE ENG 4
-    B747DR_CAS_warning_status[14] = 0
-    if simDR_engine_fire[3] > 0 then B747DR_CAS_warning_status[14] = 1 end
+    
+    if simDR_engine_fire[3] > 0 then 
+        B747DR_CAS_warning_status[14] = 1 
+    else
+        B747DR_CAS_warning_status[14] = 0
+    end
 
 end
 
