@@ -3346,8 +3346,8 @@ function B747_calculate_fuel_display_units ()
 	local fuel_calculation_factor = 1 -- Initially set to 1 (i.e. KGS) unless LBS is selected
 	local x = 0
 	
-	if simConfigData["data"].weight_display_units == "LBS" then
-		fuel_calculation_factor = simConfigData["data"].kgs_to_lbs
+	if simConfigData["data"].SIM.weight_display_units == "LBS" then
+		fuel_calculation_factor = simConfigData["data"].SIM.kgs_to_lbs
 	end
 	
 	B747DR_fuel_total_display_qty = simDR_fueL_tank_weight_total_kg * fuel_calculation_factor
@@ -3364,7 +3364,7 @@ function B747_calculate_fuel_display_units ()
 	end
 
 	-- Set correct fuel units displayed on EICAS
-	if simConfigData["data"].weight_display_units == "LBS" then
+	if simConfigData["data"].SIM.weight_display_units == "LBS" then
 		B747DR_fuel_display_units_eicas = 1
 	else
 		B747DR_fuel_display_units_eicas = 0

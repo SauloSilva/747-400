@@ -319,7 +319,7 @@ wb = {
 function calc_stab_trim(GW, CG_MAC)
 	local stab_trim = 0
 	
-	GW = GW * simConfigData["data"].kgs_to_lbs  --Formula uses LBS to calculate Stab TRIM.  GW passed in should always be in KGS.
+	GW = GW * simConfigData["data"].SIM.kgs_to_lbs  --Formula uses LBS to calculate Stab TRIM.  GW passed in should always be in KGS.
 	--print("GWin = "..GW.." MACin = "..CG_MAC)
 
 	if GW > 1000 then
@@ -964,7 +964,7 @@ function after_physics()
 	--Display speed and wind info on ND
 	nd_speed_wind_display()
 
-	--Make simConfig data available to other modules
+	--Ensure simConfig data is fresh
 	simConfigData["data"] = json.decode(B747DR_simconfig_data)
 	
 	--Ensure DR's are updated in time for use in calc_CGMAC()

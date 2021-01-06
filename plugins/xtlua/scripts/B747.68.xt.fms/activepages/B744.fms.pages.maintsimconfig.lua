@@ -2,10 +2,10 @@ fmsPages["MAINTSIMCONFIG"]=createPage("MAINTSIMCONFIG")
 fmsPages["MAINTSIMCONFIG"].getPage=function(self,pgNo,fmsID)
 	local display_weight_units
 
-	if simConfigData["data"].weight_display_units == "KGS" then
-		display_weight_units = simConfigData["data"].weight_display_units.."/"
+	if simConfigData["data"].SIM.weight_display_units == "KGS" then
+		display_weight_units = simConfigData["data"].SIM.weight_display_units.."/"
 	else
-		display_weight_units = "   /"..simConfigData["data"].weight_display_units
+		display_weight_units = "   /"..simConfigData["data"].SIM.weight_display_units
 	end
 	
   return {
@@ -28,7 +28,7 @@ end
 fmsPages["MAINTSIMCONFIG"].getSmallPage=function(self,pgNo,fmsID)
 	local display_weight_units = "KGS"
 	
-	if simConfigData["data"].weight_display_units == "KGS" then
+	if simConfigData["data"].SIM.weight_display_units == "KGS" then
 		display_weight_units = "    LBS"
 	else
 		display_weight_units = "KGS"

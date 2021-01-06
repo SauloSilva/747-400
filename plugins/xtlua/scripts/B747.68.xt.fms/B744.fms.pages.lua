@@ -564,8 +564,8 @@ function preselect_fuel()
 	-- DETERMINE FUEL WEIGHT DISPLAY UNITS
 	local fuel_calculation_factor = 1
 	
-	if simConfigData["data"].weight_display_units == "LBS" then
-		fuel_calculation_factor = simConfigData["data"].kgs_to_lbs
+	if simConfigData["data"].SIM.weight_display_units == "LBS" then
+		fuel_calculation_factor = simConfigData["data"].SIM.kgs_to_lbs
 	end
 	
 	B747DR_refuel=B747DR_fuel_add * 1000 / fuel_calculation_factor  --(always add fuel in KGS behind the scenes)
@@ -604,11 +604,11 @@ function calc_pax_cargo()
 	pax_total		= 	tonumber(fmsModules["data"].paxFirstClassA) + tonumber(fmsModules["data"].paxBusClassB)
 						+ tonumber(fmsModules["data"].paxEconClassC) + tonumber(fmsModules["data"].paxEconClassD)
 						+ tonumber(fmsModules["data"].paxEconClassE)
-	pax_weightA		=	tonumber(fmsModules["data"].paxFirstClassA) * simConfigData["data"].stdPaxWeight
-	pax_weightB		= 	tonumber(fmsModules["data"].paxBusClassB) * simConfigData["data"].stdPaxWeight
-	pax_weightC		=	tonumber(fmsModules["data"].paxEconClassC) * simConfigData["data"].stdPaxWeight
-	pax_weightD		=	tonumber(fmsModules["data"].paxEconClassD) * simConfigData["data"].stdPaxWeight
-	pax_weightE		=	tonumber(fmsModules["data"].paxEconClassE) * simConfigData["data"].stdPaxWeight
+	pax_weightA		=	tonumber(fmsModules["data"].paxFirstClassA) * simConfigData["data"].SIM.std_pax_weight
+	pax_weightB		= 	tonumber(fmsModules["data"].paxBusClassB) * simConfigData["data"].SIM.std_pax_weight
+	pax_weightC		=	tonumber(fmsModules["data"].paxEconClassC) * simConfigData["data"].SIM.std_pax_weight
+	pax_weightD		=	tonumber(fmsModules["data"].paxEconClassD) * simConfigData["data"].SIM.std_pax_weight
+	pax_weightE		=	tonumber(fmsModules["data"].paxEconClassE) * simConfigData["data"].SIM.std_pax_weight
 	pax_weight_Tot	=	pax_weightA + pax_weightB + pax_weightC + pax_weightD + pax_weightE
 
 	cargo_weight_fwd	= tonumber(fmsModules["data"].cargoFwd)
@@ -882,15 +882,15 @@ function fmsFunctions.setdata(fmsO,value)
 	elseif is_timer_scheduled(preselect_fuel) == true then
 	  fmsO["notify"]="NA - WAITING FOR FUEL TRUCK"
 	elseif string.len(fmsO["scratchpad"]) > 0 then
-		simConfigData["data"].weight_display_units = fmsO.scratchpad
+		simConfigData["data"].SIM.weight_display_units = fmsO.scratchpad
 		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
     else
-		if simConfigData["data"].weight_display_units == "KGS" then
+		if simConfigData["data"].SIM.weight_display_units == "KGS" then
 			fmsO["scratchpad"] = "LBS"
 		else
 			fmsO["scratchpad"] = "KGS"
 		end
-		simConfigData["data"].weight_display_units = fmsO.scratchpad
+		simConfigData["data"].SIM.weight_display_units = fmsO.scratchpad
 		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
 	end
 
@@ -917,8 +917,8 @@ function fmsFunctions.setdata(fmsO,value)
 --	end
 	local grwt
 	if string.len(fmsO["scratchpad"]) > 0 and string.len(fmsO["scratchpad"]) <= 5 and string.match(fmsO["scratchpad"], "%d") then
-		if simConfigData["data"].weight_display_units == "LBS" then
-			grwt = fmsO["scratchpad"] / simConfigData["data"].kgs_to_lbs  --store LBS in KGS
+		if simConfigData["data"].SIM.weight_display_units == "LBS" then
+			grwt = fmsO["scratchpad"] / simConfigData["data"].SIM.kgs_to_lbs  --store LBS in KGS
 		else
 			grwt = fmsO["scratchpad"]
 		end
@@ -945,8 +945,8 @@ function fmsFunctions.setdata(fmsO,value)
   elseif value == "zfw" and not del then
 	local zfw
 	if string.len(fmsO["scratchpad"]) > 0 and string.len(fmsO["scratchpad"]) <= 5 and string.match(fmsO["scratchpad"], "%d") then
-		if simConfigData["data"].weight_display_units == "LBS" then
-			zfw = fmsO["scratchpad"] / simConfigData["data"].kgs_to_lbs  --store LBS in KGS
+		if simConfigData["data"].SIM.weight_display_units == "LBS" then
+			zfw = fmsO["scratchpad"] / simConfigData["data"].SIM.kgs_to_lbs  --store LBS in KGS
 		else
 			zfw = fmsO["scratchpad"]
 		end
@@ -976,8 +976,8 @@ function fmsFunctions.setdata(fmsO,value)
 		fmsO["scratchpad"] = ""
 		return
 	else
-		if simConfigData["data"].weight_display_units == "LBS" then
-			rsv = string.format("%5.1f", fmsO["scratchpad"] / simConfigData["data"].kgs_to_lbs)  --store LBS in KGS
+		if simConfigData["data"].SIM.weight_display_units == "LBS" then
+			rsv = string.format("%5.1f", fmsO["scratchpad"] / simConfigData["data"].SIM.kgs_to_lbs)  --store LBS in KGS
 		else
 			rsv = string.format("%5.1f", fmsO["scratchpad"])
 		end
@@ -1157,8 +1157,8 @@ function fmsFunctions.setdata(fmsO,value)
   elseif value == "cargoFwd" then
 	local weight_factor = 1
 
-	if simConfigData["data"].weight_display_units == "LBS" then
-		weight_factor = simConfigData["data"].kgs_to_lbs
+	if simConfigData["data"].SIM.weight_display_units == "LBS" then
+		weight_factor = simConfigData["data"].SIM.kgs_to_lbs
 	else
 		weight_factor = 1
 	end
@@ -1199,8 +1199,8 @@ function fmsFunctions.setdata(fmsO,value)
   elseif value == "cargoAft" then
 	local weight_factor = 1
 
-	if simConfigData["data"].weight_display_units == "LBS" then
-		weight_factor = simConfigData["data"].kgs_to_lbs
+	if simConfigData["data"].SIM.weight_display_units == "LBS" then
+		weight_factor = simConfigData["data"].SIM.kgs_to_lbs
 	else
 		weight_factor = 1
 	end
@@ -1241,8 +1241,8 @@ function fmsFunctions.setdata(fmsO,value)
   elseif value == "cargoBulk" then
 	local weight_factor = 1
 
-	if simConfigData["data"].weight_display_units == "LBS" then
-		weight_factor = simConfigData["data"].kgs_to_lbs
+	if simConfigData["data"].SIM.weight_display_units == "LBS" then
+		weight_factor = simConfigData["data"].SIM.kgs_to_lbs
 	else
 		weight_factor = 1
 	end
@@ -1265,8 +1265,8 @@ function fmsFunctions.setdata(fmsO,value)
   elseif value == "freightZoneA" then
 	local weight_factor = 1
 
-	if simConfigData["data"].weight_display_units == "LBS" then
-		weight_factor = simConfigData["data"].kgs_to_lbs
+	if simConfigData["data"].SIM.weight_display_units == "LBS" then
+		weight_factor = simConfigData["data"].SIM.kgs_to_lbs
 	else
 		weight_factor = 1
 	end
@@ -1385,8 +1385,8 @@ function fmsFunctions.setdata(fmsO,value)
   elseif value == "freightZoneB" then
 	local weight_factor = 1
 
-	if simConfigData["data"].weight_display_units == "LBS" then
-		weight_factor = simConfigData["data"].kgs_to_lbs
+	if simConfigData["data"].SIM.weight_display_units == "LBS" then
+		weight_factor = simConfigData["data"].SIM.kgs_to_lbs
 	else
 		weight_factor = 1
 	end
@@ -1422,8 +1422,8 @@ function fmsFunctions.setdata(fmsO,value)
   elseif value == "freightZoneC" then
 	local weight_factor = 1
 
-	if simConfigData["data"].weight_display_units == "LBS" then
-		weight_factor = simConfigData["data"].kgs_to_lbs
+	if simConfigData["data"].SIM.weight_display_units == "LBS" then
+		weight_factor = simConfigData["data"].SIM.kgs_to_lbs
 	else
 		weight_factor = 1
 	end
@@ -1459,8 +1459,8 @@ function fmsFunctions.setdata(fmsO,value)
   elseif value == "freightZoneD" then
 	local weight_factor = 1
 
-	if simConfigData["data"].weight_display_units == "LBS" then
-		weight_factor = simConfigData["data"].kgs_to_lbs
+	if simConfigData["data"].SIM.weight_display_units == "LBS" then
+		weight_factor = simConfigData["data"].SIM.kgs_to_lbs
 	else
 		weight_factor = 1
 	end
@@ -1496,8 +1496,8 @@ function fmsFunctions.setdata(fmsO,value)
   elseif value == "freightZoneE" then
 	local weight_factor = 1
 
-	if simConfigData["data"].weight_display_units == "LBS" then
-		weight_factor = simConfigData["data"].kgs_to_lbs
+	if simConfigData["data"].SIM.weight_display_units == "LBS" then
+		weight_factor = simConfigData["data"].SIM.kgs_to_lbs
 	else
 		weight_factor = 1
 	end
