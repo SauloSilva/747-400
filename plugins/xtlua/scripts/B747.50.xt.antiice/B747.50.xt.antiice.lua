@@ -283,39 +283,47 @@ function B747_nacelle_antiice()
     ----- OPEN/CLOSE THE VALVES ---------------------------------------------------------
 
     -- ENGINE #1
-    B747DR_nacelle_ai_valve_target_pos[0] = 0.0
+    
     if B747DR_button_switch_position[68] >= 0.95
         and B747DR_engine1_bleed_air_psi > 12.0
         and B747DR_engine1_bleed_air_start_valve_pos < 0.01
     then
         B747DR_nacelle_ai_valve_target_pos[0] = 1.0
+    else
+        B747DR_nacelle_ai_valve_target_pos[0] = 0.0
     end
 
     -- ENGINE #2
-    B747DR_nacelle_ai_valve_target_pos[1] = 0.0
+    
     if B747DR_button_switch_position[69] >= 0.95
         and B747DR_engine2_bleed_air_psi > 12.0
         and B747DR_engine2_bleed_air_start_valve_pos < 0.01
     then
         B747DR_nacelle_ai_valve_target_pos[1] = 1.0
+    else
+        B747DR_nacelle_ai_valve_target_pos[1] = 0.0
     end
 
      -- ENGINE #3
-    B747DR_nacelle_ai_valve_target_pos[2] = 0.0
+    
     if B747DR_button_switch_position[70] >= 0.95
         and B747DR_engine3_bleed_air_psi > 12.0
         and B747DR_engine3_bleed_air_start_valve_pos < 0.01
     then
         B747DR_nacelle_ai_valve_target_pos[2] = 1.0
+    else
+        B747DR_nacelle_ai_valve_target_pos[2] = 0.0
     end
 
      -- ENGINE #4
-    B747DR_nacelle_ai_valve_target_pos[3] = 0.0
+    
     if B747DR_button_switch_position[71] >= 0.95
         and B747DR_engine4_bleed_air_psi > 12.0
         and B747DR_engine4_bleed_air_start_valve_pos < 0.01
     then
         B747DR_nacelle_ai_valve_target_pos[3] = 1.0
+    else
+        B747DR_nacelle_ai_valve_target_pos[3] = 0.0
     end
 
 
@@ -367,24 +375,28 @@ function B747_wing_antiice()
     ----- OPEN/CLOSE THE VALVES ---------------------------------------------------------
 
     -- LEFT WING
-    B747DR_wing_ai_valve_target_pos[0] = 0.0
+    
     if B747DR_button_switch_position[72] >= 0.95
         and simDR_all_wheels_on_ground == 0
         and B747DR_duct_pressure_L > 12.0
         and simDR_flap_deploy_ratio < 0.01
     then
         B747DR_wing_ai_valve_target_pos[0] = 1.0
+    else
+        B747DR_wing_ai_valve_target_pos[0] = 0.0
     end
 
 
     -- RIGHT WING
-    B747DR_wing_ai_valve_target_pos[1] = 0.0
+    
     if B747DR_button_switch_position[72] >= 0.95
         and simDR_all_wheels_on_ground == 0
         and B747DR_duct_pressure_R > 12.0
         and simDR_flap_deploy_ratio < 0.01
     then
         B747DR_wing_ai_valve_target_pos[1] = 1.0
+    else
+        B747DR_wing_ai_valve_target_pos[1] = 0.0
     end
 
 
@@ -444,11 +456,15 @@ end
 function B747_antiice_EICAS_msg()
 
     -- >ICING
-    B747DR_CAS_caution_status[45] = 0
-    if simDR_ice_detected == 1 then B747DR_CAS_caution_status[45] = 1 end
+    
+    if simDR_ice_detected == 1 then 
+        B747DR_CAS_caution_status[45] = 1
+    else
+        B747DR_CAS_caution_status[45] = 0
+    end
 
     -- >ANTI_ICE
-    B747DR_CAS_advisory_status[7] = 0
+    
     if ((simDR_engine_nacelle_heat_on[0] > 0
         or simDR_engine_nacelle_heat_on[1] > 0
         or simDR_engine_nacelle_heat_on[2] > 0
@@ -461,26 +477,40 @@ function B747_antiice_EICAS_msg()
         simDR_ice_detected == 0
     then
         B747DR_CAS_advisory_status[7] = 0
+    else
+        B747DR_CAS_advisory_status[7] = 0
     end
 
     -- HEAT L AOA
-    B747DR_CAS_advisory_status[186] = 0
-    if simDR_AOA_heat_fail_L == 6 then B747DR_CAS_advisory_status[186] = 1 end
+    
+    if simDR_AOA_heat_fail_L == 6 then 
+        B747DR_CAS_advisory_status[186] = 1 
+    else
+        B747DR_CAS_advisory_status[186] = 0
+    end
 
     -- HEAT R AOA
-    B747DR_CAS_advisory_status[192] = 0
-    if simDR_AOA_heat_fail_R == 6 then B747DR_CAS_advisory_status[192] = 1 end
+    
+    if simDR_AOA_heat_fail_R == 6 then 
+        B747DR_CAS_advisory_status[192] = 1 
+    else 
+        B747DR_CAS_advisory_status[192] = 0
+    end
 
     -- HEAT P/S CAPT
-    B747DR_CAS_advisory_status[188] = 0
+    
     if simDR_pitot_heat_fail_capt == 6 or simDR_static_heat_fail_capt == 6 then
         B747DR_CAS_advisory_status[188] = 1
+    else
+        B747DR_CAS_advisory_status[188] = 0
     end
 
     -- HEAT P/S F/O
-    B747DR_CAS_advisory_status[189] = 0
+   
     if simDR_pitot_heat_fail_fo == 6 or simDR_static_heat_fail_fo == 6 then
         B747DR_CAS_advisory_status[189] = 1
+    else
+        B747DR_CAS_advisory_status[189] = 0
     end
 
 
