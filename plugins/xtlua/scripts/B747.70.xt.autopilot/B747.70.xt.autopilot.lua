@@ -2925,9 +2925,11 @@ end
 function B747_ap_EICAS_msg()
 
     -- >AUTOPILOT
-    B747DR_CAS_caution_status[4] = 0
+    
     if simDR_autopilot_fail == 6 then
-        B747DR_CAS_caution_status[4] = 1
+		B747DR_CAS_caution_status[4] = 1
+	else
+		B747DR_CAS_caution_status[4] = 0
     end
     --print("test drag required".. B747DR_speedbrake_lever .. " " .. simDR_all_wheels_on_ground .. " " .. simDR_autopilot_vs_fpm .. " " .. simDR_autopilot_vs_status .. " " )
     -- >AUTOTHROT DISC 

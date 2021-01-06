@@ -3548,30 +3548,31 @@ end
 function B747_radio_audio_status()
 
     -- COM1
-    simDR_audio_on_com1 = 0
+    
     if B747DR_ap_L_vhf_L_audio_status == 1 or
         B747DR_ap_C_vhf_L_audio_status == 1 or
         B747DR_ap_R_vhf_L_audio_status == 1
     then
         simDR_audio_on_com1 = 1
+    else
+        simDR_audio_on_com1 = 0
     end
 
 
     -- COM2
-    simDR_audio_on_com2 = 0
+    
     if B747DR_ap_L_vhf_R_audio_status == 1 or
         B747DR_ap_C_vhf_R_audio_status == 1 or
         B747DR_ap_R_vhf_R_audio_status == 1
     then
         simDR_audio_on_com2 = 1
+    else
+        simDR_audio_on_com2 = 0
     end
 
 
     -- NAV/ADF
-    simDR_audio_on_nav1 = 0
-    simDR_audio_on_nav2 = 0
-    simDR_audio_on_adf1 = 0
-    simDR_audio_on_adf2 = 0
+    
     if B747DR_ap_L_vor_adf_audio_status == 1
         or B747DR_ap_C_vor_adf_audio_status == 1
         or B747DR_ap_R_vor_adf_audio_status == 1
@@ -3586,11 +3587,16 @@ function B747_radio_audio_status()
         elseif B747DR_ap_L_vor_adf_rcvr_sel_dial_pos == 3 then
             simDR_audio_on_adf2 = 1
         end
+    else
+        simDR_audio_on_nav1 = 0
+        simDR_audio_on_nav2 = 0
+        simDR_audio_on_adf1 = 0
+        simDR_audio_on_adf2 = 0
     end
 
 
     -- MARKER
-    simDR_audio_on_mrkr = 0
+    
     if B747DR_ap_L_app_mkr_audio_status == 1
         or B747DR_ap_C_app_mkr_audio_status == 1
         or B747DR_ap_R_app_mkr_audio_status == 1
@@ -3599,6 +3605,8 @@ function B747_radio_audio_status()
         if B747DR_ap_L_app_rcvr_sel_dial_pos == 3 then
             simDR_audio_on_mrkr = 1
         end
+    else
+        simDR_audio_on_mrkr = 0
     end
 
 end

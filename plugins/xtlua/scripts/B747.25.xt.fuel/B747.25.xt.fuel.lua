@@ -2094,11 +2094,13 @@ function B747_fuel_flow_rate()
     ----- APU FUEL BURN -------------------------------------------------------------
 
     -- APU  (RATE = 500 KG/HR)
-    apuFuelBurn_KgSec = 0
+    
     if B747.fuel.main2_tank.main_pump_aft.on > 0.95
         or B747.fuel.main2_tank.apu_dc_pump.on > 0.95
     then
         apuFuelBurn_KgSec = B747.fuel.main2_tank.apu_vlv.pos * 0.13888888888889
+    else
+        apuFuelBurn_KgSec = 0
     end
 
 
@@ -2320,7 +2322,7 @@ end
 function B747_fuel_xfr_synoptic()
 
     -- STAB TO CENTER TRANSFER
-    B747DR_stab_xfr_status = 0
+    
     if (B747.fuel.stab_tank.xfr_jett_pump_L.on == 1 or B747.fuel.stab_tank.xfr_jett_pump_R.on == 1)
         and
         (B747.fuel.center_tank.stab_xfr_vlv_L.pos > 0.05 or B747.fuel.center_tank.stab_xfr_vlv_R.pos > 0.05)
@@ -2329,45 +2331,55 @@ function B747_fuel_xfr_synoptic()
         if simDR_fuel_tank_weight_kg[7] > 0.0 then
             B747DR_stab_xfr_status = 2
         end
+    else
+        B747DR_stab_xfr_status = 0
     end
 
 
     -- RES2 TO MAIN2 TRANSFER
-    B747DR_res2_xfr_status = 0
+    
     if B747.fuel.res2_tank.xfr_vlv_A.pos > 0.05 or B747.fuel.res2_tank.xfr_vlv_B.pos > 0.05 then
          B747DR_res2_xfr_status = 1
          if simDR_fuel_tank_weight_kg[5] > 0.0 then
             B747DR_res2_xfr_status = 2
          end
+    else
+        B747DR_res2_xfr_status = 0
     end
 
 
     -- RES3 TO MAIN3 TRANSFER
-    B747DR_res3_xfr_status = 0
+    
     if B747.fuel.res3_tank.xfr_vlv_A.pos > 0.05 or B747.fuel.res3_tank.xfr_vlv_B.pos > 0.05 then
          B747DR_res3_xfr_status = 1
          if simDR_fuel_tank_weight_kg[6] > 0.0 then
             B747DR_res3_xfr_status = 2
          end
+    else
+        B747DR_res3_xfr_status = 0
     end
 
 
     -- CENTER TO MAIN 2
-    B747DR_ctr_scvg_L_status = 0
+    
     if B747.fuel.center_tank.scvg_pump_L1.on == 1 or B747.fuel.center_tank.scvg_pump_L2.on == 1 then
         B747DR_ctr_scvg_L_status = 1
         if simDR_fuel_tank_weight_kg[0] > 0.0 then
             B747DR_ctr_scvg_L_status = 2
         end
+    else
+        B747DR_ctr_scvg_L_status = 0
     end
 
     -- CENTER TO MAIN 3
-    B747DR_ctr_scvg_R_status = 0
+    
     if B747.fuel.center_tank.scvg_pump_R1.on == 1 or B747.fuel.center_tank.scvg_pump_R2.on == 1 then
         B747DR_ctr_scvg_R_status = 1
         if simDR_fuel_tank_weight_kg[0] > 0.0 then
             B747DR_ctr_scvg_R_status = 2
         end
+    else
+        B747DR_ctr_scvg_R_status = 0    
     end
 
 end
@@ -2380,57 +2392,69 @@ end
 function B747_fuel_jett_synoptic()
 
     -- CENTER OJ
-    B747DR_gen_jett_OJctrL_status = 0
+    
     if B747.fuel.center_tank.ovrd_jett_pump_L.on == 1
         and B747DR_gen_jett_valve_status == 1
     then
         B747DR_gen_jett_OJctrL_status = 1
+    else
+        B747DR_gen_jett_OJctrL_status = 0
     end
 
-    B747DR_gen_jett_OJctrR_status = 0
+    
     if B747.fuel.center_tank.ovrd_jett_pump_R.on == 1
         and B747DR_gen_jett_valve_status == 1
     then
         B747DR_gen_jett_OJctrR_status = 1
+    else
+        B747DR_gen_jett_OJctrR_status = 0
     end
 
     -- MAIN2 OJ
-    B747DR_gen_jett_OJmain2_status = 0
+    
     if (B747.fuel.main2_tank.ovrd_jett_pump_fwd.on == 1 or B747.fuel.main2_tank.ovrd_jett_pump_aft.on == 1)
         and B747DR_gen_jett_valve_status == 1
     then
         B747DR_gen_jett_OJmain2_status = 1
+    else
+        B747DR_gen_jett_OJmain2_status = 0
     end
 
      -- MAIN3 OJ
-    B747DR_gen_jett_OJmain3_status = 0
+    
     if (B747.fuel.main3_tank.ovrd_jett_pump_fwd.on == 1 or B747.fuel.main3_tank.ovrd_jett_pump_aft.on == 1)
         and B747DR_gen_jett_valve_status == 1
     then
         B747DR_gen_jett_OJmain3_status = 1
+    else
+        B747DR_gen_jett_OJmain3_status = 0
     end
 
     -- STABILIZER
-    B747DR_gen_jett_OJstab_status = 0
+    
     if (B747.fuel.stab_tank.xfr_jett_pump_L.on == 1 or B747.fuel.stab_tank.xfr_jett_pump_R.on == 1)
         and B747DR_gen_jett_valve_status == 1
     then
         B747DR_gen_jett_OJstab_status = 1
+    else
+        B747DR_gen_jett_OJstab_status = 0
     end
 
 
 
 
     -- MANIFOLD 1 LEFT
-    B747DR_gen_jett_mfldL1_status = 0
+    
     if B747DR_gen_jett_OJctrL_status == 1
         or B747DR_gen_jett_OJmain2_status == 1
     then
         B747DR_gen_jett_mfldL1_status = 1
+    else
+        B747DR_gen_jett_mfldL1_status = 0
     end
 
     -- MANIFOLD 2LEFT
-    B747DR_gen_jett_mfldL2_status = 0
+    
     if B747DR_gen_jett_OJctrL_status == 1
         or B747DR_gen_jett_OJctrR_status == 1
         or B747DR_gen_jett_OJmain2_status == 1
@@ -2438,25 +2462,31 @@ function B747_fuel_jett_synoptic()
         or B747DR_gen_jett_OJstab_status == 1
     then
         B747DR_gen_jett_mfldL2_status = 1
+    else
+        B747DR_gen_jett_mfldL2_status = 0
     end
 
     -- MANIFOLD 3 LEFT
-    B747DR_gen_jett_mfldL3_status = 0
+    
     if B747DR_gen_jett_mfldL2_status == 1 or B747DR_gen_jett_Xmfld_status == 1
     then
         B747DR_gen_jett_mfldL3_status = 1
+    else
+        B747DR_gen_jett_mfldL3_status = 0
     end
 
     -- MANIFOLD 1 RIGHT
-    B747DR_gen_jett_mfldR1_status = 0
+    
     if B747DR_gen_jett_OJctrR_status == 1
         or B747DR_gen_jett_OJmain3_status == 1
     then
         B747DR_gen_jett_mfldR1_status = 1
+    else
+        B747DR_gen_jett_mfldR1_status = 0
     end
 
      -- MANIFOLD 2 RIGHT
-    B747DR_gen_jett_mfldR2_status = 0
+    
     if B747DR_gen_jett_OJctrL_status == 1
         or B747DR_gen_jett_OJctrR_status == 1
         or B747DR_gen_jett_OJmain2_status == 1
@@ -2464,22 +2494,28 @@ function B747_fuel_jett_synoptic()
         or B747DR_gen_jett_OJstab_status == 1
     then
         B747DR_gen_jett_mfldR2_status = 1
+    else
+        B747DR_gen_jett_mfldR2_status = 0
     end
 
     -- MANIFOLD 3 RIGHT
-    B747DR_gen_jett_mfldR3_status = 0
+    
     if B747DR_gen_jett_mfldR2_status == 1 or B747DR_gen_jett_Xmfld_status == 1
     then
         B747DR_gen_jett_mfldR3_status = 1
+    else
+        B747DR_gen_jett_mfldR3_status = 0
     end
 
     -- CROSS MANIFOLD
-    B747DR_gen_jett_Xmfld_status = 0
+    
     if B747DR_gen_jett_mfldL2_status == 1
         or B747DR_gen_jett_mfldR2_status == 1
         or B747DR_gen_jett_OJstab_status == 1
     then
         B747DR_gen_jett_Xmfld_status = 1
+    else
+        B747DR_gen_jett_Xmfld_status = 0
     end
 
 end

@@ -343,40 +343,48 @@ function B747_hyd_EICAS_msg()
       B747DR_CAS_caution_status[9] = 0
     end
 
-    -- HYD PRESS SYS 1-4
-    B747DR_CAS_caution_status[40] = 0
-    B747DR_CAS_caution_status[41] = 0
-    B747DR_CAS_caution_status[42] = 0
-    B747DR_CAS_caution_status[43] = 0
+    -- HYD PRESS SYS 1-4   
     if B747DR_hyd_sys_pressure_1 < 1000.0 then
         B747DR_CAS_caution_status[40] = 1
+    else
+        B747DR_CAS_caution_status[40] = 0
     end
     if B747DR_hyd_sys_pressure_2 < 1000.0 then
         B747DR_CAS_caution_status[41] = 1
+    else
+        B747DR_CAS_caution_status[41] = 0
     end
     if B747DR_hyd_sys_pressure_3 < 1000.0 then
         B747DR_CAS_caution_status[42] = 1
+    else
+        B747DR_CAS_caution_status[42] = 0
     end
     if B747DR_hyd_sys_pressure_4 < 1000.0 then
         B747DR_CAS_caution_status[43] = 1
+    else
+        B747DR_CAS_caution_status[43] = 0
     end
     
     
 
     -- >HYD QTY LOW 1 / >HYD QTY LOW 2
-    B747DR_CAS_advisory_status[218] = 0
-    B747DR_CAS_advisory_status[219] = 0
+    
     if simDR_hyd_fluid_level < 0.10 then
         B747DR_CAS_advisory_status[218] = 1
         B747DR_CAS_advisory_status[219] = 1
+    else
+        B747DR_CAS_advisory_status[218] = 0
+        B747DR_CAS_advisory_status[219] = 0
     end
 
     -- >HYD QTY LOW 3 / >HYD QTY LOW 4
-    B747DR_CAS_advisory_status[220] = 0
-    B747DR_CAS_advisory_status[221] = 0
+    
     if simDR_hyd_fluid_level2 < 0.10 then
         B747DR_CAS_advisory_status[220] = 1
         B747DR_CAS_advisory_status[221] = 1
+    else
+        B747DR_CAS_advisory_status[220] = 0
+        B747DR_CAS_advisory_status[221] = 0
     end
 
     -- PARK BRAKE SET

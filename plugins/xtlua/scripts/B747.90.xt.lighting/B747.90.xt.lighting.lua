@@ -746,11 +746,13 @@ end
 ----- BEACON LIGHTS ---------------------------------------------------------------------
 function B747_beacon_lights()
 
-    simDR_beacon_lights_switch = 0
+   
     if B747DR_toggle_switch_position[8] > 0.95
         or B747DR_toggle_switch_position[8] < -0.95
     then
         simDR_beacon_lights_switch = 1
+    else
+        simDR_beacon_lights_switch = 0
     end	 
 
 end
@@ -1033,136 +1035,176 @@ function B747_annunciators()
     annun.b.fuel_xfeed_03 = 0
     annun.b.fuel_xfeed_04 = B747_ternary((B747DR_fuel_engine4_xfeed_vlv_pos ~= B747DR_button_switch_position[51]), 1, 0)
 
-    annun.b.fuel_pump_center_L = 0
+    
     if B747DR_button_switch_position[52] > 0.95
         and B747_fuel_center_tank_ovrd_jett_pump_L_on > 0 and simDR_fuel_tank_weight_kg[0] <= 900.0
     then
         annun.b.fuel_pump_center_L = 1
+    else
+        annun.b.fuel_pump_center_L = 0
     end
 
-    annun.b.fuel_pump_center_R = 0
+    
     if B747DR_button_switch_position[53] > 0.95
         and B747_fuel_center_tank_ovrd_jett_pump_R_on > 0 and simDR_fuel_tank_weight_kg[0] <= 900.0
     then
         annun.b.fuel_pump_center_R = 1
+    else
+        annun.b.fuel_pump_center_R = 0
     end
 
-    annun.b.fuel_pump_stab_L = 0
+    
     if B747_fuel_stab_tank_xfr_jett_pump_L_on > 0 and simDR_fuel_tank_weight_kg[7] <= 10.0 then
         annun.b.fuel_pump_stab_L = 1
+    else
+        annun.b.fuel_pump_stab_L = 0
     end
 
-    annun.b.fuel_pump_stab_R = 0
+    
     if B747_fuel_stab_tank_xfr_jett_pump_R_on > 0 and simDR_fuel_tank_weight_kg[7] <= 10.0 then
         annun.b.fuel_pump_stab_R = 1
+    else
+        annun.b.fuel_pump_stab_R = 0
     end
 
-    annun.b.fuel_pump_main_fwd_01 = 0
+    
     if (B747_fuel_main1_tank_main_pump_fwd_on == 0 and simDR_engine_running[0] == 0)
         or (B747_fuel_main1_tank_main_pump_fwd_on > 0 and simDR_fuel_tank_weight_kg[1] <= 10.0)
     then
         annun.b.fuel_pump_main_fwd_01 = 1
+    else
+        annun.b.fuel_pump_main_fwd_01 = 0
     end
 
-    annun.b.fuel_pump_main_fwd_02 = 0
+    
     if (B747_fuel_main2_tank_main_pump_fwd_on == 0 and simDR_engine_running[1] == 0)
         or (B747_fuel_main2_tank_main_pump_fwd_on > 0 and simDR_fuel_tank_weight_kg[2] <= 10.0)
     then
         annun.b.fuel_pump_main_fwd_02 = 1
+    else
+        annun.b.fuel_pump_main_fwd_02 = 0
     end
 
-    annun.b.fuel_pump_main_fwd_03 = 0
+    
     if (B747_fuel_main3_tank_main_pump_fwd_on == 0 and simDR_engine_running[2] == 0)
         or (B747_fuel_main3_tank_main_pump_fwd_on > 0 and simDR_fuel_tank_weight_kg[3] <= 10.0)
     then
         annun.b.fuel_pump_main_fwd_03 = 1
+    else
+        annun.b.fuel_pump_main_fwd_03 = 0
     end
 
-    annun.b.fuel_pump_main_fwd_04 = 0
+    
     if (B747_fuel_main4_tank_main_pump_fwd_on == 0 and simDR_engine_running[3] == 0)
         or (B747_fuel_main4_tank_main_pump_fwd_on > 0 and simDR_fuel_tank_weight_kg[4] <= 10.0)
     then
         annun.b.fuel_pump_main_fwd_04 = 1
+    else
+        annun.b.fuel_pump_main_fwd_04 = 0
     end
 
-    annun.b.fuel_pump_main_aft_01 = 0
+    
     if (B747_fuel_main1_tank_main_pump_aft_on == 0 and simDR_engine_running[0] == 0)
         or (B747_fuel_main1_tank_main_pump_aft_on > 0 and simDR_fuel_tank_weight_kg[1] <= 10.0)
     then
         annun.b.fuel_pump_main_aft_01 = 1
+    else
+        annun.b.fuel_pump_main_aft_01 = 0
     end
 
-    annun.b.fuel_pump_main_aft_02 = 0
+    
     if (B747_fuel_main2_tank_main_pump_aft_on == 0 and simDR_engine_running[1] == 0)
         or (B747_fuel_main2_tank_main_pump_aft_on > 0 and simDR_fuel_tank_weight_kg[2] <= 10.0)
     then
         annun.b.fuel_pump_main_aft_02 = 1
+    else
+        annun.b.fuel_pump_main_aft_02 = 0
     end
 
-    annun.b.fuel_pump_main_aft_03 = 0
+    
     if (B747_fuel_main3_tank_main_pump_aft_on == 0 and simDR_engine_running[2] == 0)
         or (B747_fuel_main3_tank_main_pump_aft_on > 0 and simDR_fuel_tank_weight_kg[3] <= 10.0)
     then
         annun.b.fuel_pump_main_aft_03 = 1
+    else
+        annun.b.fuel_pump_main_aft_03 = 0
     end
 
-    annun.b.fuel_pump_main_aft_04 = 0
+    
     if (B747_fuel_main4_tank_main_pump_aft_on == 0 and simDR_engine_running[3] == 0)
         or (B747_fuel_main4_tank_main_pump_aft_on > 0 and simDR_fuel_tank_weight_kg[4] <= 10.0)
     then
         annun.b.fuel_pump_main_aft_04 = 1
+    else
+        annun.b.fuel_pump_main_aft_04 = 0
     end
 
-    annun.b.fuel_pump_main_ovrd_fwd_02 = 0
+    
     if B747_fuel_main2_tank_ovrd_jett_pump_fwd_on > 0 and simDR_fuel_tank_weight_kg[2] <= 3200.0 then
         annun.b.fuel_pump_main_ovrd_fwd_02 = 1
+    else
+        annun.b.fuel_pump_main_ovrd_fwd_02 = 0
     end
     
-    annun.b.fuel_pump_main_ovrd_fwd_03 = 0
+    
     if B747_fuel_main3_tank_ovrd_jett_pump_fwd_on > 0 and simDR_fuel_tank_weight_kg[3] <= 3200.0 then
         annun.b.fuel_pump_main_ovrd_fwd_03 = 1
+    else
+        annun.b.fuel_pump_main_ovrd_fwd_03 = 0
     end
 
-    annun.b.fuel_pump_main_ovrd_aft_02 = 0
+   
     if B747_fuel_main2_tank_ovrd_jett_pump_aft_on > 0 and simDR_fuel_tank_weight_kg[2] <= 3200.0 then
         annun.b.fuel_pump_main_ovrd_aft_02 = 1
+    else
+        annun.b.fuel_pump_main_ovrd_aft_02 = 0
     end
 
-    annun.b.fuel_pump_main_ovrd_aft_03 = 0
+    
     if B747_fuel_main3_tank_ovrd_jett_pump_aft_on > 0 and simDR_fuel_tank_weight_kg[3] <= 3200.0 then
         annun.b.fuel_pump_main_ovrd_aft_03 = 1
+    else
+        annun.b.fuel_pump_main_ovrd_aft_03 = 0
     end
 
     -- ANTI-ICE
-    annun.b.anti_ice_nacelle_heat_01 = 0
+    
     if (B747DR_button_switch_position[68] > 0.95) and (B747DR_nacelle_ai_valve_pos[0] < 1.0)
         or (B747DR_button_switch_position[68]< 0.05) and (B747DR_nacelle_ai_valve_pos[0] > 0.0)
     then
         annun.b.anti_ice_nacelle_heat_01 = 1
+    else
+        annun.b.anti_ice_nacelle_heat_01 = 0
     end
 
-    annun.b.anti_ice_nacelle_heat_02 = 0
+    
     if (B747DR_button_switch_position[69] > 0.95) and (B747DR_nacelle_ai_valve_pos[1] < 1.0)
         or (B747DR_button_switch_position[69]< 0.05) and (B747DR_nacelle_ai_valve_pos[1] > 0.0)
     then
         annun.b.anti_ice_nacelle_heat_02 = 1
+    else
+        annun.b.anti_ice_nacelle_heat_02 = 0
     end
 
-    annun.b.anti_ice_nacelle_heat_03 = 0
+    
     if (B747DR_button_switch_position[70] > 0.95) and (B747DR_nacelle_ai_valve_pos[2] < 1.0)
         or (B747DR_button_switch_position[70]< 0.05) and (B747DR_nacelle_ai_valve_pos[2] > 0.0)
     then
         annun.b.anti_ice_nacelle_heat_03 = 1
+    else
+        annun.b.anti_ice_nacelle_heat_03 = 0
     end
 
-    annun.b.anti_ice_nacelle_heat_04 = 0
+    
     if (B747DR_button_switch_position[71] > 0.95) and (B747DR_nacelle_ai_valve_pos[3] < 1.0)
         or (B747DR_button_switch_position[71]< 0.05) and (B747DR_nacelle_ai_valve_pos[3] > 0.0)
     then
         annun.b.anti_ice_nacelle_heat_04 = 1
+    else
+        annun.b.anti_ice_nacelle_heat_04 = 0
     end
 
-    annun.b.anti_ice_wing_heat = 0
+    
     if (B747DR_button_switch_position[72] > 0.95
         and
         (B747DR_wing_ai_valve_pos[0] < 1.0 or B747DR_wing_ai_valve_pos[1] < 1.0))
@@ -1172,6 +1214,8 @@ function B747_annunciators()
         (B747DR_wing_ai_valve_pos[0] > 0.0 or B747DR_wing_ai_valve_pos[1] > 0.0))
     then
         annun.b.anti_ice_wing_heat = 1
+    else
+        annun.b.anti_ice_wing_heat = 0
     end
 
     annun.b.anti_ice_window_heat_L = B747_ternary(((B747DR_button_switch_position[73] > 0.95) and (simDR_window_heat_fail == 6)), 1, 0)
@@ -1953,8 +1997,10 @@ end
 function B747_lighting_EICAS_msg()
 
     -- STROBE LIGHT OFF
-    B747DR_CAS_memo_status[35] = 0
+    
     if simDR_strobe_lights_switch < 0.05 and simDR_aircraft_on_ground == 1 then
+        B747DR_CAS_memo_status[35] = 0
+    else
         B747DR_CAS_memo_status[35] = 0
     end
 

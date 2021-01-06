@@ -2210,16 +2210,18 @@ end
 function B747_loc_gs_vis_flags()
 
     -- CAPTAIN LOCALIZER SCALE
-    B747DR_loc_scale_vis_capt = 0
+    
     if simDR_hsi_hdef_dots_pilot < -0.50 or simDR_hsi_hdef_dots_pilot > 0.50 then
         B747DR_loc_scale_vis_capt = 1
     elseif simDR_hsi_hdef_dots_pilot >= -0.50 and simDR_hsi_hdef_dots_pilot <= 0.50 then
         B747DR_loc_scale_vis_capt = 2
+    else
+        B747DR_loc_scale_vis_capt = 0
     end
 
 
     -- CAPTAIN LOCALIZER POINTER
-    B747DR_loc_ptr_vis_capt = 0
+    
     if simDR_hsi_hdef_dots_pilot < -2.3 or simDR_hsi_hdef_dots_pilot > 2.3
     then
         B747DR_loc_ptr_vis_capt = 1
@@ -2230,29 +2232,35 @@ function B747_loc_gs_vis_flags()
     elseif simDR_hsi_hdef_dots_pilot >= -0.5 and simDR_hsi_hdef_dots_pilot <= 0.5
     then
         B747DR_loc_ptr_vis_capt = 3
+    else
+        B747DR_loc_ptr_vis_capt = 0
     end
 
 
     -- CAPTAIN GLIDESLOPE POINTER
-    B747DR_glideslope_ptr_vis_capt = 0
+    
     if simDR_hsi_vdef_dots_pilot < -2.3 or simDR_hsi_vdef_dots_pilot > 2.3 then
         B747DR_glideslope_ptr_vis_capt = 1
     elseif simDR_hsi_vdef_dots_pilot >= -2.3 and simDR_hsi_vdef_dots_pilot <= 2.3 then
         B747DR_glideslope_ptr_vis_capt = 2
+    else
+        B747DR_glideslope_ptr_vis_capt = 0
     end
 
 
     -- FIRST OFFICER LOCALIZER SCALE
-    B747DR_loc_scale_vis_fo = 0
+    
     if simDR_hsi_hdef_dots_copilot < -0.50 or simDR_hsi_hdef_dots_copilot > 0.50 then
         B747DR_loc_scale_vis_fo = 1
     elseif simDR_hsi_hdef_dots_copilot >= -0.50 and simDR_hsi_hdef_dots_copilot <= 0.50 then
         B747DR_loc_scale_vis_fo = 2
+    else
+        B747DR_loc_scale_vis_fo = 0
     end
 
 
     -- FIRST OFFICER LOCALIZER POINTER
-    B747DR_loc_ptr_vis_fo = 0
+    
     if simDR_hsi_hdef_dots_copilot < -2.3 or simDR_hsi_hdef_dots_copilot > 2.3
     then
         B747DR_loc_ptr_vis_fo = 1
@@ -2263,15 +2271,19 @@ function B747_loc_gs_vis_flags()
     elseif simDR_hsi_hdef_dots_copilot >= -0.5 and simDR_hsi_hdef_dots_copilot <= 0.5
     then
         B747DR_loc_ptr_vis_fo = 3
+    else
+        B747DR_loc_ptr_vis_fo = 0
     end
 
 
     -- FIRST OFFICER GLIDESLOPE POIUNTER
-    B747DR_glideslope_ptr_vis_fo = 0
+    
     if simDR_hsi_vdef_dots_copilot < -2.3 or simDR_hsi_vdef_dots_copilot > 2.3 then
         B747DR_glideslope_ptr_vis_fo = 1
     elseif simDR_hsi_vdef_dots_copilot >= -2.3 and simDR_hsi_vdef_dots_copilot <= 2.3 then
         B747DR_glideslope_ptr_vis_fo = 2
+    else
+        B747DR_glideslope_ptr_vis_fo = 0
     end
 
 end
@@ -2681,13 +2693,21 @@ function B747_Vspeeds()
     -- Vmc (MINIMIMUM OPERATING (CONTROL) MANEUVERING SPEED) (AMBER RANGE)
     setVmc(simDR_acf_weight_total_kg,simDR_wing_flap1_deg[0])
     
-    B747DR_airspeed_window_min = 0
-    if simDR_airspeed < B747DR_airspeed_Vmc then B747DR_airspeed_window_min = 1 end
+    
+    if simDR_airspeed < B747DR_airspeed_Vmc then 
+        B747DR_airspeed_window_min = 1 
+    else 
+        B747DR_airspeed_window_min = 0
+    end
 
 
     -- Vmo / Mmo (MAXIMUM OPERATING LIMIT SPEED)
-    B747DR_airspeed_Vmo = 365.0
-    if simDR_altitude_ft_pilot > 28620.0 then B747DR_airspeed_Vmo = B747_rescale(28620.0, 365.0, 45000.0, 252.35, simDR_altitude_ft_pilot) end
+   
+    if simDR_altitude_ft_pilot > 28620.0 then 
+        B747DR_airspeed_Vmo = B747_rescale(28620.0, 365.0, 45000.0, 252.35, simDR_altitude_ft_pilot) 
+    else
+        B747DR_airspeed_Vmo = 365.0
+    end
 
     if simDR_altitude_ft_pilot <= 28620.0 then B747DR_airspeed_Mmo = 0.880 end
     if simDR_altitude_ft_pilot > 28620.0 then B747DR_airspeed_Mmo = 0.920 end
@@ -2838,24 +2858,32 @@ local last_batt_chg_watt_hr = 0
 function B747_fltInst_EICAS_msg()
 
     -- OVERSPEED
-    B747DR_CAS_warning_status[22] = 0
+    
     if simDR_airspeed > B747DR_airspeed_Vmo
         or simDR_airspeed_mach > B747DR_airspeed_Mmo
     then
         B747DR_CAS_warning_status[22] = 1
+    else
+        B747DR_CAS_warning_status[22] = 0
     end
 
     -- >AIRSPEED LOW
-    B747DR_CAS_caution_status[0] = 0
+    
     if simDR_airspeed < B747DR_airspeed_Vmc
         and simDR_radio_alt_height_capt > 100.0
     then
         B747DR_CAS_caution_status[0] = 1
+    else
+        B747DR_CAS_caution_status[0] = 0
     end
 
     -- >AOA RIGHT
-    B747DR_CAS_advisory_status[12] = 0
-    if simDR_AOA_fail == 6 then B747DR_CAS_advisory_status[12] = 1 end
+    
+    if simDR_AOA_fail == 6 then 
+        B747DR_CAS_advisory_status[12] = 1 
+    else
+        B747DR_CAS_advisory_status[12] = 0
+    end
 
     -- >BARO DISAGREE
     --if math.abs(B747DR_efis_baro_capt_set_dial_pos - B747DR_efis_baro_fo_set_dial_pos) > 0.01 then
