@@ -2113,13 +2113,24 @@ end
 
 
 
-
-
-
+local lastFuelLevels={}
+local lastTotalFuel=0
+simDR_fuel_tank_weight_total_kg     = find_dataref("sim/flightmodel/weight/m_fuel_total")
 
 ------ FUEL TANK LEVELS --------------------------------------------------------------
 function B747_fuel_tank_levels()
-
+    if lastTotalFuel==0 then 
+        lastTotalFuel=simDR_fuel_tank_weight_total_kg 
+        for i=0,7,1 do
+            lastFuelLevels[i]=simDR_fuel_tank_weight_kg[i]
+        end
+    end
+    if simDR_all_wheels_on_ground == 0 and lastTotalFuel<simDR_fuel_tank_weight_total_kg then
+        print("reverted fuel levels")
+        for i=0,7,1 do
+            simDR_fuel_tank_weight_kg[i]=lastFuelLevels[i]
+        end
+    end
     ----- FUEL TRANSFER ---------------------------------------------------------
 
     -- FROM STABILIZER TANK TO CENTER TANK
@@ -2265,6 +2276,11 @@ function B747_fuel_tank_levels()
         simDR_fuel_tank_weight_kg[tankID] = simDR_fuel_tank_weight_kg[tankID] - (engine4_source_fuel_flow_KgSec * fuel_calc_rate)
     end
 
+    lastTotalFuel=simDR_fuel_tank_weight_total_kg 
+    for i=0,7,1 do
+        --print(i .. " " ..lastFuelLevels[i] .. " ".. simDR_fuel_tank_weight_kg[i])
+        lastFuelLevels[i]=simDR_fuel_tank_weight_kg[i]
+    end
 end
 
 
@@ -3379,6 +3395,10 @@ end
 ----- FLIGHT START ----------------------------------------------------------------------
 function B747_flight_start_fuel()
     print("B747_flight_start_fuel")
+    lastTotalFuel=simDR_fuel_tank_weight_total_kg
+    for i=0,7,1 do
+        lastFuelLevels[i]=simDR_fuel_tank_weight_kg[i]
+    end
     -- ALL MODES ------------------------------------------------------------------------
     run_at_interval(B747_fuel_tank_levels, fuel_calc_rate)
 	
