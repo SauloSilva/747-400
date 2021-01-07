@@ -2804,7 +2804,7 @@ function B747_fuel_EICAS_msg()
 
     -- FUEL OVRD CTR L
     
-    if (simDR_fuel_tank_weight_kg[0] < 7700.0 and simDR_all_wheels_on_ground == 1 and B747DR_button_switch_position[52] < 0.05)
+    if (simDR_fuel_tank_weight_kg[0] > 7700.0 and simDR_all_wheels_on_ground == 1 and B747DR_button_switch_position[52] < 0.05)
         or
         (simDR_fuel_tank_weight_kg[0] > 1800.0 and simDR_all_wheels_on_ground == 0 and B747DR_button_switch_position[52] < 0.05)
     then
@@ -2815,7 +2815,7 @@ function B747_fuel_EICAS_msg()
 
     -- FUEL OVRD CTR R
     
-    if (simDR_fuel_tank_weight_kg[0] < 7700.0 and simDR_all_wheels_on_ground == 1 and B747DR_button_switch_position[53] < 0.05)
+    if (simDR_fuel_tank_weight_kg[0] > 7700.0 and simDR_all_wheels_on_ground == 1 and B747DR_button_switch_position[53] < 0.05)
         or
         (simDR_fuel_tank_weight_kg[0] > 1800.0 and simDR_all_wheels_on_ground == 0 and B747DR_button_switch_position[53] < 0.05)
     then

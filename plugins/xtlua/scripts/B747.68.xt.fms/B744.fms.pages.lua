@@ -78,6 +78,7 @@ fmsFunctionsDefs["INDEX"]["L1"]={"setpage","FMC"}
 fmsFunctionsDefs["INDEX"]["L5"]={"setpage","ACMS"}
 fmsFunctionsDefs["INDEX"]["L6"]={"setpage","CMC"}
 fmsFunctionsDefs["INDEX"]["R4"]={"setpage","GNDHNDL"}
+
 fmsPages["RTE1"]=createPage("RTE1")
 fmsPages["RTE1"].getPage=function(self,pgNo,fmsID)
   local l1=cleanFMSLine(B747DR_srcfms[fmsID][1])
@@ -1627,7 +1628,14 @@ function fmsFunctions.setDref(fmsO,value)
    local val=tonumber(fmsO["scratchpad"])
   if value=="VNAVS1" and B747DR_ap_vnav_system ~=1.0 then B747DR_ap_vnav_system=1 return elseif value=="VNAVS1" then B747DR_ap_vnav_system=0 return end 
   if value=="VNAVS2" and B747DR_ap_vnav_system ~=2.0 then B747DR_ap_vnav_system=2 return elseif value=="VNAVS2" then B747DR_ap_vnav_system=0 return end 
-  if value=="VNAVSPAUSE" then B747DR_ap_vnav_pause=1-B747DR_ap_vnav_pause return end 
+  if value=="VNAVSPAUSE" then 
+	if B747DR_ap_vnav_pause>0 then 
+		B747DR_ap_vnav_pause=0
+	else
+		B747DR_ap_vnav_pause=1 
+	end 
+	return 
+	end 
   if value=="CHOCKS" then
 	B747DR__gear_chocked = 1 - B747DR__gear_chocked
 	--Stop refueling operation if CHOCKS are removed
@@ -1636,6 +1644,15 @@ function fmsFunctions.setDref(fmsO,value)
 	end
 	return
   end
+  if value=="PAUSEVAL" then
+	local numVal=tonumber(fmsO["scratchpad"])
+	fmsO["scratchpad"]="" 
+	if numVal==nil then fmsO["notify"]="INVALID ENTRY" return end
+	if numVal>999 then numVal=999 end
+	if numVal<=1 then numVal=1 end
+	B747DR_ap_vnav_pause=numVal
+	return 
+  end 
   if value=="TO" then toderate=0 clbderate=0 return  end
   if value=="TO1" then toderate=1 clbderate=1 return  end
   if value=="TO2" then toderate=2 clbderate=2 return  end

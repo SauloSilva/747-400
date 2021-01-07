@@ -2279,8 +2279,12 @@ function vnavDescent()
 		--simDR_autopilot_autothrottle_enabled=0
 		--simCMD_autopilot_autothrottle_off:once()									-- DEACTIVATE THE AUTOTHROTTLE
 	     --end
-	     if B747DR_ap_vnav_pause==1 then simCMD_pause:once() end
+		 if B747DR_ap_vnav_pause==1 then
+			B747DR_ap_vnav_pause=0 
+			simCMD_pause:once() 
+		end
 	  end
+	  
 	  if B747DR_ap_inVNAVdescent ==1 and diff<5 and diff2<-200 and simDR_autopilot_vs_status == 0 and simDR_radarAlt1>1000 then
 	    if simDR_autopilot_gs_status < 1 then 
 	      simCMD_autopilot_vert_speed_mode:once()
@@ -2410,6 +2414,10 @@ function B747_ap_altitude()
 	    vnavDescent()
 	  else
 	    vnavCruise()
+	  end
+	  if B747DR_ap_vnav_pause>1 and B747BR_totalDistance<=B747DR_ap_vnav_pause then 
+		B747DR_ap_vnav_pause=0
+		simCMD_pause:once() 
 	  end  
 	else
 	  getCurrentWayPoint(fms)
