@@ -1,8 +1,8 @@
 fmsPages["POSREPORT"]=createPage("POSREPORT")
 fmsPages["POSREPORT"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be this way
    local grfuelV=simDR_fuel/1000
-   if simConfigData["data"].weight_display_units == "LBS" then
-     grfuelV=grfuelV * simConfigData["data"].kgs_to_lbs
+   if simConfigData["data"].SIM.weight_display_units == "LBS" then
+     grfuelV=grfuelV * simConfigData["data"].SIM.kgs_to_lbs
    end
    local grfuel=string.format("%05.1f",grfuelV)
    local air_temp=string.format("%02d",simDR_air_temp)

@@ -64,8 +64,8 @@ fmsPages["GNDSRV"].getPage=function(self,pgNo,fmsID)
   local lineC = " ".. string.format("%03d",B747DR_payload_weight/120)
   if simDR_acf_m_jettison>0 then
 	local jet_weight=simDR_m_jettison
-	if simConfigData["data"].weight_display_units == "LBS" then
-	   jet_weight=simDR_m_jettison * simConfigData["data"].kgs_to_lbs
+	if simConfigData["data"].SIM.weight_display_units == "LBS" then
+	   jet_weight=simDR_m_jettison * simConfigData["data"].SIM.kgs_to_lbs
 	end
 	lineC = "               ".. string.format("%06d",jet_weight) .."         "
   end	  
@@ -97,7 +97,7 @@ fmsPages["GNDSRV"].getSmallPage=function(self,pgNo,fmsID)
 	if simDR_acf_m_jettison>0 then
 	  lineB = "     FIRE RETARDANT LOAD"
 	  fmsFunctionsDefs["GNDSRV"]["L4"]=nil
-	  if simConfigData["data"].weight_display_units == "LBS" then
+	  if simConfigData["data"].SIM.weight_display_units == "LBS" then
 	    lineC = "                     LBS"
 	  else
 	    lineC = "                     KGS"
@@ -107,7 +107,7 @@ fmsPages["GNDSRV"].getSmallPage=function(self,pgNo,fmsID)
 --	    lineC = "      x120kgs           "
 --	    fmsFunctionsDefs["GNDSRV"]["L4"]={"setdata","passengers"}
 	end
-	if simConfigData["data"].weight_display_units == "LBS" then
+	if simConfigData["data"].SIM.weight_display_units == "LBS" then
 		lineA = "x1000LBS"
 --		lineC = "      x265LBS           "
 		

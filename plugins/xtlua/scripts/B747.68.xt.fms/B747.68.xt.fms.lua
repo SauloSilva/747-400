@@ -319,7 +319,7 @@ wb = {
 function calc_stab_trim(GW, CG_MAC)
 	local stab_trim = 0
 	
-	GW = GW * simConfigData["data"].kgs_to_lbs  --Formula uses LBS to calculate Stab TRIM.  GW passed in should always be in KGS.
+	GW = GW * simConfigData["data"].SIM.kgs_to_lbs  --Formula uses LBS to calculate Stab TRIM.  GW passed in should always be in KGS.
 	--print("GWin = "..GW.." MACin = "..CG_MAC)
 
 	if GW > 1000 then
@@ -538,6 +538,7 @@ function defaultFMSData()
   freightZoneD = string.rep("0", 6),
   freightZoneE = string.rep("0", 6),
   freightTotal = string.rep("0", 7),
+  --irsAlignTime = string.rep("0", 3),
 }
 end
 
@@ -675,6 +676,7 @@ fmsModules.fmsR=fmsR;
 
 B747DR_CAS_memo_status          = find_dataref("laminar/B747/CAS/memo_status")
 
+--Marauder28
 function getCurrentWayPoint(fms,usenext)
 
 	for i=1,table.getn(fms),1 do
@@ -849,7 +851,7 @@ function nd_speed_wind_display()
 	end
 end
 
-function aircraft_las_pos(phase)
+function aircraft_last_pos(phase)
 	file_location = simDR_livery_path.."B747-400_lastpos.dat"
 	--print("File = "..file_location)
 
@@ -891,7 +893,7 @@ function flight_start()
 	simDR_cg_adjust = 0  --reset CG slider to begin current flight
 	
 	--Ensure that CG location gets updated periodically so that the CG slider repositions automatically as fuel is burned during flight
-	run_at_interval(inflight_update_CG, 120)
+	run_at_interval(inflight_update_CG, 60)	
 end
 
 debug_fms     = deferred_dataref("laminar/B747/debug/fms", "number")
@@ -964,7 +966,7 @@ function after_physics()
 	--Display speed and wind info on ND
 	nd_speed_wind_display()
 
-	--Make simConfig data available to other modules
+	--Ensure simConfig data is fresh
 	simConfigData["data"] = json.decode(B747DR_simconfig_data)
 	
 	--Ensure DR's are updated in time for use in calc_CGMAC()
@@ -979,6 +981,6 @@ function aircraft_load()
 end
 
 function aircraft_unload()
-	aircraft_las_pos("UNLOAD")
+	aircraft_last_pos("UNLOAD")
 	simDR_cg_adjust = 0 --reset CG slider to neutral for future flights
 end
