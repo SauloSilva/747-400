@@ -2058,16 +2058,21 @@ function setDistances(fmsO)
   local totalDistance=getDistance(simDR_latitude,simDR_longitude,fmsO[start][5],fmsO[start][6])
   local nextDistanceInFeet=totalDistance*6076.12
   local endI =table.getn(fmsO)
+  local eod=endI
   for i=start,endI-1,1 do
     totalDistance=totalDistance+getDistance(fmsO[i][5],fmsO[i][6],fmsO[i+1][5],fmsO[i+1][6])
     dtoAirport=getDistance(fmsO[i][5],fmsO[i][6],fmsO[endI][5],fmsO[endI][6])
     --print("i=".. i .." speed="..simDR_groundspeed .. " distance="..totalDistance.." dtoAirport="..dtoAirport)
-    if dtoAirport<5 then break end
+	if dtoAirport<5 then 
+		eod=i
+		--print("end fms"..i.."=at alt "..fms[i][3])
+		break 
+	end
   end
   
   B747BR_totalDistance=totalDistance
   B747BR_nextDistanceInFeet=nextDistanceInFeet
-  B747BR_tod=((B747BR_cruiseAlt)/100)/2.9
+  B747BR_tod=(((B747BR_cruiseAlt-fms[eod][3])/100))/2.9
 end
 function setDescentVSpeed(fmsO)
   if simDR_autopilot_altitude_ft+600 > simDR_pressureAlt1 then return end --dont set fpm near hold alt
@@ -2275,14 +2280,6 @@ function vnavDescent()
 	    B747DR_ap_inVNAVdescent =1
 	    print("Begin descent")
 	    getDescentTarget()
-	     --if simDR_autopilot_autothrottle_enabled == 1 then							-- AUTOTHROTTLE IS "ON"
-		--simDR_autopilot_autothrottle_enabled=0
-		--simCMD_autopilot_autothrottle_off:once()									-- DEACTIVATE THE AUTOTHROTTLE
-	     --end
-		 if B747DR_ap_vnav_pause==1 then
-			B747DR_ap_vnav_pause=0 
-			simCMD_pause:once() 
-		end
 	  end
 	  
 	  if B747DR_ap_inVNAVdescent ==1 and diff<5 and diff2<-200 and simDR_autopilot_vs_status == 0 and simDR_radarAlt1>1000 then
@@ -2415,7 +2412,7 @@ function B747_ap_altitude()
 	  else
 	    vnavCruise()
 	  end
-	  if B747DR_ap_vnav_pause>1 and B747BR_totalDistance<=B747DR_ap_vnav_pause then 
+	  if (B747DR_ap_vnav_pause>1 and B747BR_totalDistance<=B747DR_ap_vnav_pause) or (B747DR_ap_vnav_pause==1 and B747BR_totalDistance-B747BR_tod<=1) then 
 		B747DR_ap_vnav_pause=0
 		simCMD_pause:once() 
 	  end  
