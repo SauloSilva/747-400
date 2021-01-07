@@ -11,7 +11,7 @@ fmsPages["MAINTSIMCONFIG"].getPage=function(self,pgNo,fmsID)
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["R3"]={"setdata","captLwr"}
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["R4"]={"setdata","foInbd"}
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["R5"]={"setdata","foLwr"}
-
+    fmsFunctionsDefs["MAINTSIMCONFIG"]["R6"]={"setdata","simConfigSave"}
 		local weight_factor = 1
 		local display_weight_units = string.format("%-3s", simConfigData["data"].SIM.weight_display_units)
 		local irs_align_time = string.format("%-2d", simConfigData["data"].SIM.irs_align_time / 60)  --Mins
@@ -55,7 +55,8 @@ fmsPages["MAINTSIMCONFIG"].getPage=function(self,pgNo,fmsID)
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["R2"]=nil
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["R3"]=nil
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["R4"]=nil
-		fmsFunctionsDefs["MAINTSIMCONFIG"]["R5"]=nil
+    fmsFunctionsDefs["MAINTSIMCONFIG"]["R5"]=nil
+    fmsFunctionsDefs["MAINTSIMCONFIG"]["R6"]=nil
     local LineA="<ENABLE PAUSE AT T/D    "	
     local LineB="<PAUSE AT ***NM TO DEST "	
     if B747DR_ap_vnav_pause ==1.0 then 
@@ -95,7 +96,7 @@ fmsPages["MAINTSIMCONFIG"].getPage=function(self,pgNo,fmsID)
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["R3"]={"setdata","finNbr"}
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["R4"]={"setdata","pfdStyle"}
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["R5"]={"setdata","ndStyle"}
-
+    fmsFunctionsDefs["MAINTSIMCONFIG"]["R6"]={"setdata","simConfigSave"}
 		local model = string.format("%-10s", string.sub(simConfigData["data"].PLANE.model, 1, 10))
 		local aircraft_type = string.format("%-10s", simConfigData["data"].PLANE.aircraft_type)
 		local engines = string.format("%-15s", simConfigData["data"].PLANE.engines)
