@@ -44,12 +44,52 @@ fmsPages["MAINTSIMCONFIG"].getPage=function(self,pgNo,fmsID)
 		" "..baro_sync.."            "..fo_lwr_display,
 		"                        ",
 		"<MAINT               SAVE>"
-		}
-	elseif pgNo == 2 then
+    }
+  elseif pgNo == 2 then
+    fmsFunctionsDefs["MAINTSIMCONFIG"]["L1"]={"setDref","VNAVSPAUSE"}
+    fmsFunctionsDefs["MAINTSIMCONFIG"]["L2"]={"setDref","PAUSEVAL"}
+    fmsFunctionsDefs["MAINTSIMCONFIG"]["L3"]=nil
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["L4"]=nil
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["L5"]=nil
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["R1"]=nil
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["R2"]=nil
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["R3"]=nil
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["R4"]=nil
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["R5"]=nil
+    local LineA="<ENABLE PAUSE AT T/D    "	
+    local LineB="<PAUSE AT ***NM TO DEST "	
+    if B747DR_ap_vnav_pause ==1.0 then 
+        LineA="<DISABLE PAUSE AT T/D   "
+        if B747BR_tod>0 then 
+          LineB="<PAUSE AT ".. string.format("%03d",B747BR_tod) .."NM TO DEST "
+        end
+  
+    elseif B747DR_ap_vnav_pause >1.0 then 
+        LineA="<DISABLE PAUSE          "
+        LineB="<PAUSE AT ".. string.format("%03d",B747DR_ap_vnav_pause) .."NM TO DEST "    
+    end
+    return {
+  
+    "     CONFIG PAUSE       ",
+    "                        ",
+    LineA,
+    "                        ",
+    LineB,
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ", 
+    "                        ",
+    "<MAINT                  "
+    }
+	elseif pgNo == 3 then
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["L1"]={"setdata","model"}
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["L2"]={"setdata","aircraftType"}
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["L3"]={"setdata","engines"}
-		fmsFunctionsDefs["MAINTSIMCONFIG"]["L4"]={"setdata","thrustRef"}
+    fmsFunctionsDefs["MAINTSIMCONFIG"]["L4"]={"setdata","thrustRef"}
+    fmsFunctionsDefs["MAINTSIMCONFIG"]["L5"]=nil
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["R1"]={"setdata","airline"}
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["R2"]={"setdata","civilRegistration"}
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["R3"]={"setdata","finNbr"}
@@ -116,7 +156,7 @@ fmsPages["MAINTSIMCONFIG"].getSmallPage=function(self,pgNo,fmsID)
 		end
 
 		return {
-		"                     1/2",
+		"                     1/3",
 		" WGT UNITS    STD PAX WGT",
 		"<    "..display_weight_units,
 		" IRS ALIGN      CAPT INBD",
@@ -129,8 +169,24 @@ fmsPages["MAINTSIMCONFIG"].getSmallPage=function(self,pgNo,fmsID)
 		"<    "..baro_sync.."                >",
 		"                        ",
 		"                        "
-		}
-	elseif pgNo == 2 then
+    }
+  elseif pgNo == 2 then 
+    return {
+      "                     2/3",
+      "                        ",
+      "                        ",
+      "                        ",
+      "                        ",
+      "                        ",
+      "                        ",
+      "                        ",
+      "                        ",
+      "                        ",
+      "                        ",
+      "                        ",
+      "                        "
+      }
+	elseif pgNo == 3 then
 		local thrust_ref = "EPR"
 		
 		if simConfigData["data"].PLANE.thrust_ref == "EPR" then
@@ -140,7 +196,7 @@ fmsPages["MAINTSIMCONFIG"].getSmallPage=function(self,pgNo,fmsID)
 		end
 		
 		return {
-		"                     2/2",
+		"                     3/3",
 		" MODEL            AIRLINE",
 		"                        ",
 		" TYPE           CIVIL REG",
@@ -158,42 +214,6 @@ fmsPages["MAINTSIMCONFIG"].getSmallPage=function(self,pgNo,fmsID)
 end
 
 fmsPages["MAINTSIMCONFIG"].getNumPages=function(self)
-  return 2
+  return 3
 end
---fmsFunctionsDefs["MAINTSIMCONFIG"]["L2"]={"setpage","VNAVCONFIG"}
-
-fmsPages["VNAVCONFIG"]=createPage("VNAVCONFIG")
-fmsPages["VNAVCONFIG"].getPage=function(self,pgNo,fmsID)
-  local LineA="<ENABLE PAUSE AT T/D    "	
-  local LineB="<PAUSE AT ***NM TO DEST "	
-  if B747DR_ap_vnav_pause ==1.0 then 
-      LineA="<DISABLE PAUSE AT T/D   "
-      if B747BR_tod>0 then 
-        LineB="<PAUSE AT ".. string.format("%03d",B747BR_tod) .."NM TO DEST "
-      end
-
-  elseif B747DR_ap_vnav_pause >1.0 then 
-      LineA="<DISABLE PAUSE          "
-      LineB="<PAUSE AT ".. string.format("%03d",B747DR_ap_vnav_pause) .."NM TO DEST "    
-  end
-  return {
-
-  "      CONFIG PAUSE      ",
-  "                        ",
-  LineA,
-  "                        ",
-  LineB,
-  "                        ",
-  "                        ",
-  "                        ",
-  "                        ",
-  "                        ",
-  "                        ", 
-  "                        ",
-  "                        "
-  }
-end
-
-
-fmsFunctionsDefs["VNAVCONFIG"]["L1"]={"setDref","VNAVSPAUSE"}
-fmsFunctionsDefs["VNAVCONFIG"]["L2"]={"setDref","PAUSEVAL"}
+fmsFunctionsDefs["MAINTSIMCONFIG"]["L6"]={"setpage","MAINT"}
