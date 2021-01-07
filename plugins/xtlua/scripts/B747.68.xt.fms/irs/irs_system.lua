@@ -2,7 +2,7 @@ simDR_latitude=find_dataref("sim/flightmodel/position/latitude")
 simDR_longitude=find_dataref("sim/flightmodel/position/longitude")
 simDR_groundspeed=find_dataref("sim/flightmodel/position/groundspeed")
 B747DR_iru_mode_sel_pos         = find_dataref("laminar/B747/flt_mgmt/iru/mode_sel_dial_pos")
-local timeToAlign=600  --simConfigData["data"].irs_align_time
+local timeToAlign=600
 irs_A_status=find_dataref("laminar/B747/irs/line1") 
 irs_L_status=find_dataref("laminar/B747/irs/line2") 
 irs_C_status=find_dataref("laminar/B747/irs/line3") 
@@ -322,6 +322,15 @@ irsSystem.getLine=function(systemID)
 end
 
 irsSystem.align=function(systemID,instant)
+	--Simulator Config Options
+	simConfigData = {}
+	if string.len(B747DR_simconfig_data) > 1 then
+		simConfigData["data"] = json.decode(B747DR_simconfig_data)
+	else
+		simConfigData["data"] = json.decode("[]")
+	end
+	timeToAlign=simConfigData["data"].SIM.irs_align_time
+
   startLat=simDR_latitude
   startLon=simDR_longitude
   irsSystem[systemID]["aligned"]=false

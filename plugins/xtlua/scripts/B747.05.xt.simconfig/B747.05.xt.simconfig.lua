@@ -32,16 +32,26 @@ end
 
 dofile("json/json.lua")
 
+simDR_livery_path			= find_dataref("sim/aircraft/view/acf_livery_path")
+simDR_acf_tailnum			= find_dataref("sim/aircraft/view/acf_tailnum")
+
 --*************************************************************************************--
 --** 				        CREATE READ-WRITE CUSTOM DATAREFS                        **--
 --*************************************************************************************--
 -- Holds all SimConfig options
 B747DR_simconfig_data					= deferred_dataref("laminar/B747/simconfig", "string")
 
+B747DR_efis_baro_ref_capt_sel_dial_pos		= find_dataref("laminar/B747/efis/baro_ref/capt/sel_dial_pos", "number")
+B747DR_efis_baro_ref_fo_sel_dial_pos		= deferred_dataref("laminar/B747/efis/baro_ref/fo/sel_dial_pos", "number")
+B747DR_flt_inst_inbd_disp_capt_sel_dial_pos	= deferred_dataref("laminar/B747/flt_inst/capt_inbd_display/sel_dial_pos", "number")
+B747DR_flt_inst_lwr_disp_capt_sel_dial_pos	= deferred_dataref("laminar/B747/flt_inst/capt_lwr_display/sel_dial_pos", "number")
+B747DR_flt_inst_inbd_disp_fo_sel_dial_pos	= deferred_dataref("laminar/B747/flt_inst/fo_inbd_display/sel_dial_pos", "number")
+B747DR_flt_inst_lwr_disp_fo_sel_dial_pos	= deferred_dataref("laminar/B747/flt_inst/fo_lwr_display/sel_dial_pos", "number")
+
 --*************************************************************************************--
 --** 				        MAIN PROGRAM LOGIC                                       **--
 --*************************************************************************************--
-simConfig = {}
+simConfigData = {}
 
 function simconfig_values()
 	return {
@@ -51,21 +61,24 @@ function simconfig_values()
 					 weight_display_units = "KGS",  --KGS, LBS
 					 irs_align_time = 600,  --Seconds
 					 std_pax_weight = 120.0,  --KGS
-					 barometric_indicator = 0,  --0 = IN, 1 = HPA
-					 barometric_sync = "NO",  --Sync to CAPT
+					 baro_indicator = "IN",  --IN = 0, HPA = 1
+					 baro_sync = "NO",  --Sync to CAPT
 					 auto_fuel_mgmt = "NO",
-					 capt_inbd_crt = 1,  --0 = EICAS, 1 = NORM, 2 = PFD
-					 capt_lwr_crt = 1,  --0 = EICAS PRI, 1 = NORM, 2 = ND
-					 fo_inbd_crt = 1,  --0 = PFD, 1 = NORM, 2 = EICAS
-					 fo_lwr_crt = 1,  --0 = ND, 1 = NORM, 2 = EICAS PRI
+					 capt_inbd = "NORM",  --EICAS = 0, NORM = 1, PFD = 2
+					 capt_lwr = "NORM",  --EICAS PRI = 0, NORM = 1, ND = 2
+					 fo_inbd = "NORM",  --PFD = 0, NORM = 1, EICAS = 2
+					 fo_lwr = "NORM",  --ND = 0, NORM = 1, EICAS PRI = 2
 			},
 			PLANE = {
 						model = "747-400",  --747-400, 747-400ER, 747-400F
-						aircraft_type = "Passenger", --Passenger, Freighter
+						aircraft_type = "PASSENGER", --Passenger, Freighter
 						engines = "CF6-80C2-B5F",  --PW4056, PW4060, PW4062, CF6-80C2-B1F, CF6-80C2-B5F, CF6-80C2-B1F1, RB211-524G, RB211-524H, RB211-524H8T
-						engine_epr = "YES",  --Should be NO for GE engines which use N1 for thrust reference
+						thrust_ref = "EPR",  --EPR, N1  Should be N1 for GE engines
+						pfd_style = "CRT",  --CRT, LCD  (used in Passenger & Combi Aircraft)
+						nd_style = "CRT",  --CRT, LCD  (used in Freighter Aircraft)
 						airline = "",
-						tail_nbr = "",
+						civil_registration = "",
+						fin_nbr = "",
 			},
 			FMC = {
 					  INIT = {				
@@ -78,9 +91,77 @@ function simconfig_values()
 	}
 end
 
---simConfig=simconfig_values()
-simConfig["data"]=simconfig_values()
+function set_loaded_configs()
+	simConfigData["data"] = json.decode(B747DR_simconfig_data)
+
+	--Baro
+	if simConfigData["data"].SIM.baro_indicator == "IN" then
+		B747DR_efis_baro_ref_capt_sel_dial_pos = 0
+	elseif simConfigData["data"].SIM.baro_indicator == "HPA" then
+		B747DR_efis_baro_ref_capt_sel_dial_pos = 1
+	end
+	
+	if simConfigData["data"].SIM.baro_sync == "YES" then
+		B747DR_efis_baro_ref_fo_sel_dial_pos = B747DR_efis_baro_ref_capt_sel_dial_pos
+	end
+	
+	--Capt Displays
+	if simConfigData["data"].SIM.capt_inbd == "EICAS" then
+		B747DR_flt_inst_inbd_disp_capt_sel_dial_pos = 0
+	elseif simConfigData["data"].SIM.capt_inbd == "NORM" then
+		B747DR_flt_inst_inbd_disp_capt_sel_dial_pos = 1
+	elseif simConfigData["data"].SIM.capt_inbd == "PFD" then
+		B747DR_flt_inst_inbd_disp_capt_sel_dial_pos = 2
+	end
+
+	if simConfigData["data"].SIM.capt_lwr == "EICAS PRI" then
+		B747DR_flt_inst_lwr_disp_capt_sel_dial_pos = 0
+	elseif simConfigData["data"].SIM.capt_lwr == "NORM" then
+		B747DR_flt_inst_lwr_disp_capt_sel_dial_pos = 1
+	elseif simConfigData["data"].SIM.capt_lwr == "ND" then
+		B747DR_flt_inst_lwr_disp_capt_sel_dial_pos = 2
+	end
+
+	--FO Displays
+	if simConfigData["data"].SIM.fo_inbd == "PFD" then
+		B747DR_flt_inst_inbd_disp_fo_sel_dial_pos = 0
+	elseif simConfigData["data"].SIM.capt_inbd == "NORM" then
+		B747DR_flt_inst_inbd_disp_fo_sel_dial_pos = 1
+	elseif simConfigData["data"].SIM.capt_inbd == "EICAS" then
+		B747DR_flt_inst_inbd_disp_fo_sel_dial_pos = 2
+	end
+
+	if simConfigData["data"].SIM.fo_lwr == "ND" then
+		B747DR_flt_inst_lwr_disp_fo_sel_dial_pos = 0
+	elseif simConfigData["data"].SIM.fo_lwr == "NORM" then
+		B747DR_flt_inst_lwr_disp_fo_sel_dial_pos = 1
+	elseif simConfigData["data"].SIM.fo_lwr == "EICAS PRI" then
+		B747DR_flt_inst_lwr_disp_fo_sel_dial_pos = 2
+	end
+
+end
+
+function aircraft_simConfig()
+	local file_location = simDR_livery_path.."B747-400_simconfig.dat"
+	--print("File = "..file_location)
+	local file = io.open(file_location, "r")
+
+	if file ~= nil then
+		io.input(file)
+		B747DR_simconfig_data = io.read()
+		io.close(file)	
+		
+		set_loaded_configs()  --Apply loaded configs
+	end
+end
+
+simConfigData["data"]=simconfig_values()
+
+if simDR_acf_tailnum ~= nil then
+	simConfigData["data"].PLANE.fin_nbr = simDR_acf_tailnum
+end
 
 function flight_start()
-	B747DR_simconfig_data=json.encode(simConfig["data"]["values"]) --make the simConfig data available to other modules
+	B747DR_simconfig_data=json.encode(simConfigData["data"]["values"]) --make the simConfig data available to other modules
+	run_after_time(aircraft_simConfig, 3)  --Load specific simConfig data for current livery
 end

@@ -5,7 +5,7 @@ fmsPages["POSINIT"].getPage=function(self,pgNo,fmsID)
 
 	--Marauder28
 	--Load last aircraft position (for this livery)
-	aircraft_las_pos("LOAD")
+	aircraft_last_pos("LOAD")
 
     fmsFunctionsDefs["POSINIT"]["R1"]={"getdata","lastpos"}
     
