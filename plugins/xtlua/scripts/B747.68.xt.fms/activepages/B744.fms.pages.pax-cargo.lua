@@ -37,8 +37,8 @@ fmsPages["PAXCARGO"].getPage=function(self,pgNo,fmsID)
 		local cargo_bulk = 0
 		local payload_weight = 0
 
-		if simConfigData["data"].weight_display_units == "LBS" then
-			weight_factor = simConfigData["data"].kgs_to_lbs
+		if simConfigData["data"].SIM.weight_display_units == "LBS" then
+			weight_factor = simConfigData["data"].SIM.kgs_to_lbs
 		else
 			weight_factor = 1
 		end
@@ -74,7 +74,7 @@ fmsPages["PAXCARGO"].getPage=function(self,pgNo,fmsID)
 		end
 		
 	  return {
-	  "   PAX / CARGO ("..simConfigData["data"].weight_display_units..")",
+	  "   PAX / CARGO ("..simConfigData["data"].SIM.weight_display_units..")",
 	  "                         ",
 	  paxA.."                 "..cargo_fwd,
 	  "                         ",
@@ -110,8 +110,8 @@ fmsPages["PAXCARGO"].getPage=function(self,pgNo,fmsID)
 		local cargo_bulk = 0
 		local payload_weight = 0
 
-		if simConfigData["data"].weight_display_units == "LBS" then
-			weight_factor = simConfigData["data"].kgs_to_lbs
+		if simConfigData["data"].SIM.weight_display_units == "LBS" then
+			weight_factor = simConfigData["data"].SIM.kgs_to_lbs
 		else
 			weight_factor = 1
 		end
@@ -147,7 +147,7 @@ fmsPages["PAXCARGO"].getPage=function(self,pgNo,fmsID)
 		end
 		
 	  return {
-	  "     FREIGHT ("..simConfigData["data"].weight_display_units..")",
+	  "     FREIGHT ("..simConfigData["data"].SIM.weight_display_units..")",
 	  "                         ",
 	  freightZoneA.."              "..cargo_fwd,
 	  "                         ",
@@ -170,8 +170,8 @@ fmsPages["PAXCARGO"].getSmallPage=function(self,pgNo,fmsID)
 		local weight_factor = 0
 		local cargo_total = 0
 
-		if simConfigData["data"].weight_display_units == "LBS" then
-			weight_factor = simConfigData["data"].kgs_to_lbs
+		if simConfigData["data"].SIM.weight_display_units == "LBS" then
+			weight_factor = simConfigData["data"].SIM.kgs_to_lbs
 		else
 			weight_factor = 1
 		end
@@ -198,8 +198,8 @@ fmsPages["PAXCARGO"].getSmallPage=function(self,pgNo,fmsID)
 		local weight_factor = 0
 		local cargo_total = 0
 
-		if simConfigData["data"].weight_display_units == "LBS" then
-			weight_factor = simConfigData["data"].kgs_to_lbs
+		if simConfigData["data"].SIM.weight_display_units == "LBS" then
+			weight_factor = simConfigData["data"].SIM.kgs_to_lbs
 		else
 			weight_factor = 1
 		end

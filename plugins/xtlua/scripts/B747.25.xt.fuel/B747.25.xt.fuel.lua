@@ -3405,32 +3405,32 @@ end
 * display the fuel quantities in the correct units.
 --]]
 function B747_calculate_fuel_display_units ()
-  local fuel_calculation_factor = 1 -- Initially set to 1 (i.e. KGS) unless LBS is selected
-  local x = 0
-  
-  if simConfigData["data"].weight_display_units == "LBS" then
-    fuel_calculation_factor = simConfigData["data"].kgs_to_lbs
-  end
-  
-  B747DR_fuel_total_display_qty = simDR_fueL_tank_weight_total_kg * fuel_calculation_factor
-  
-  B747DR_fuel_preselect = B747DR_fuel_preselect_temp * fuel_calculation_factor
+	local fuel_calculation_factor = 1 -- Initially set to 1 (i.e. KGS) unless LBS is selected
+	local x = 0
+	
+	if simConfigData["data"].SIM.weight_display_units == "LBS" then
+		fuel_calculation_factor = simConfigData["data"].SIM.kgs_to_lbs
+	end
+	
+	B747DR_fuel_total_display_qty = simDR_fueL_tank_weight_total_kg * fuel_calculation_factor
+	
+	B747DR_fuel_preselect = B747DR_fuel_preselect_temp * fuel_calculation_factor
 
-  for x = 0, 7 do
-    B747DR_fuel_tank_display_qty[x] = simDR_fuel_tank_weight_kg[x] * fuel_calculation_factor
-  end
-  
-  -- Determine fuel flow rate for display on EICAS based on fuel calculation factor
-  for x = 0, 3 do
-    B747DR_fuel_flow_sec_display[x] = simDR_eng_fuel_flow_kg_sec[x] * fuel_calculation_factor
-  end
+	for x = 0, 7 do
+		B747DR_fuel_tank_display_qty[x] = simDR_fuel_tank_weight_kg[x] * fuel_calculation_factor
+	end
+	
+	-- Determine fuel flow rate for display on EICAS based on fuel calculation factor
+	for x = 0, 3 do
+		B747DR_fuel_flow_sec_display[x] = simDR_eng_fuel_flow_kg_sec[x] * fuel_calculation_factor
+	end
 
-  -- Set correct fuel units displayed on EICAS
-  if simConfigData["data"].weight_display_units == "LBS" then
-    B747DR_fuel_display_units_eicas = 1
-  else
-    B747DR_fuel_display_units_eicas = 0
-  end
+	-- Set correct fuel units displayed on EICAS
+	if simConfigData["data"].SIM.weight_display_units == "LBS" then
+		B747DR_fuel_display_units_eicas = 1
+	else
+		B747DR_fuel_display_units_eicas = 0
+	end
 
 end
 
