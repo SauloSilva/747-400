@@ -2396,6 +2396,10 @@ function B747_ap_altitude()
 -- 	  B747DR_ap_vnav_state=0 
 -- 	  return 
 -- 	end --no nav
+	if (B747DR_ap_vnav_pause>1 and B747BR_totalDistance<=B747DR_ap_vnav_pause) or (B747DR_ap_vnav_pause==1 and B747BR_totalDistance-B747BR_tod<=1) then 
+		B747DR_ap_vnav_pause=0
+		simCMD_pause:once() 
+  	end  
 	if B747DR_ap_vnav_state>0 then
 	  
 	  
@@ -2412,10 +2416,7 @@ function B747_ap_altitude()
 	  else
 	    vnavCruise()
 	  end
-	  if (B747DR_ap_vnav_pause>1 and B747BR_totalDistance<=B747DR_ap_vnav_pause) or (B747DR_ap_vnav_pause==1 and B747BR_totalDistance-B747BR_tod<=1) then 
-		B747DR_ap_vnav_pause=0
-		simCMD_pause:once() 
-	  end  
+	  
 	else
 	  getCurrentWayPoint(fms)
 	end
