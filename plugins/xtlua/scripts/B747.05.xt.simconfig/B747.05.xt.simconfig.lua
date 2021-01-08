@@ -102,6 +102,8 @@ function simconfig_values()
 end
 
 function baro_sync()
+	simConfigData["data"] = json.decode(B747DR_simconfig_data)
+	
 	if simConfigData["data"].SIM.baro_sync == "YES" then
 		simDR_baro_fo = simDR_baro_capt
 		B747DR_efis_baro_ref_fo_sel_dial_pos = B747DR_efis_baro_ref_capt_sel_dial_pos
