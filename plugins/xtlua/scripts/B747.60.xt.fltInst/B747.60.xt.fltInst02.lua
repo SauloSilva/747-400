@@ -2855,6 +2855,7 @@ function B747_baro_disagree()
 end
 
 local last_batt_chg_watt_hr = 0
+local last_chg_watt_hr = 0
 function B747_fltInst_EICAS_msg()
 
     -- OVERSPEED
@@ -2901,9 +2902,12 @@ function B747_fltInst_EICAS_msg()
     -- >BAT DISCH MAIN
     
     if simDR_battery_chg_watt_hr[0] < last_batt_chg_watt_hr  then
-        B747DR_CAS_advisory_status[20] = 1
+        if simDR_battery_chg_watt_hr[0]+2 < last_chg_watt_hr  then
+            B747DR_CAS_advisory_status[20] = 1
+        end
     elseif B747DR_elec_standby_power_sel_pos<2 then  
         B747DR_CAS_advisory_status[20] = 0
+        last_chg_watt_hr=simDR_battery_chg_watt_hr[0]
     end    
 
 
@@ -2915,8 +2919,8 @@ function B747_fltInst_EICAS_msg()
         B747DR_CAS_advisory_status[21] = 0
     end
 
-
     last_batt_chg_watt_hr = simDR_battery_chg_watt_hr[0]
+    
 
 end
 
