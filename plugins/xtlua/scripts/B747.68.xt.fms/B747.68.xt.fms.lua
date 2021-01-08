@@ -968,7 +968,7 @@ function after_physics()
 
 	--Ensure simConfig data is fresh
 	simConfigData["data"] = json.decode(B747DR_simconfig_data)
-	
+		
 	--Ensure DR's are updated in time for use in calc_CGMAC()
 	local payload_weight = B747DR_payload_weight
 	local fuel_qty = simDR_fuel_qty

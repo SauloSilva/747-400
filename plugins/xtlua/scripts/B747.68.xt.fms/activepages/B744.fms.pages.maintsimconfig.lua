@@ -164,7 +164,7 @@ fmsPages["MAINTSIMCONFIG"].getSmallPage=function(self,pgNo,fmsID)
 		"    MINS                 >",
 		" FUEL MGMT(X)   CAPT  LWR",
 		"<    "..fuel_mgmt.."                >",
-		" BARO IND         FO INBD",
+		" BARO INDICATOR   FO INBD",
 		"<    "..baro_indicator.."                >",
 		" BARO SYNC        FO  LWR",
 		"<    "..baro_sync.."                >",
