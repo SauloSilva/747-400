@@ -9,7 +9,7 @@ ACF_SOUNDS
 #                                                                                    #
 #     E n g i n e s : P W 4 0 6 2                                                    #
 #                                                                                    #
-#     V e r s i o n : v0.3.1b                                                        #
+#     V e r s i o n : v0.4b                                                          #
 #                                                                                    #
 #     B y :  M a t t 7 2 6                                                           #
 #                                                                                    #
@@ -827,6 +827,62 @@ BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/button4_release
 	VEH_XYZ 0 5.1 -26
 	EVENT_CMND_UP laminar/B747/autopilot/button_switch/vs_mode
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/FD
+	VEH_XYZ 0 5.1 -26
+	EVENT_START_COND DELTA=laminar/B747/toggle_switch/flight_dir_L
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/FD
+	VEH_XYZ 0 5.1 -26
+	EVENT_START_COND DELTA=laminar/B747/toggle_switch/flight_dir_R
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/autothrottle
+	VEH_XYZ 0 5.1 -26
+	EVENT_START_COND DELTA=laminar/B747/toggle_switch/autothrottle
+END_SOUND_ATTACHMENT
+
+#####################
+#EFIS
+#####################
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button7
+	VEH_XYZ 0.25 5.3 -25.84
+    EVENT_START_COND DELTA=laminar/B747/nd/wxr/capt/switch_pos
+    EVENT_START_COND DELTA=laminar/B747/nd/sta/capt/switch_pos
+    EVENT_START_COND DELTA=laminar/B747/nd/wpt/capt/switch_pos
+    EVENT_START_COND DELTA=laminar/B747/nd/arpt/capt/switch_pos
+    EVENT_START_COND DELTA=laminar/B747/nd/data/capt/switch_pos
+    EVENT_START_COND DELTA=laminar/B747/nd/pos/capt/switch_pos
+    EVENT_START_COND DELTA=laminar/B747/nd/terr/capt/switch_pos
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button7
+	VEH_XYZ 0.25 4.8 -26.5
+    EVENT_START_COND DELTA=laminar/B747/nd/wxr/fo/switch_pos
+    EVENT_START_COND DELTA=laminar/B747/nd/sta/fo/switch_pos
+    EVENT_START_COND DELTA=laminar/B747/nd/wpt/fo/switch_pos
+    EVENT_START_COND DELTA=laminar/B747/nd/arpt/fo/switch_pos
+    EVENT_START_COND DELTA=laminar/B747/nd/data/fo/switch_pos
+    EVENT_START_COND DELTA=laminar/B747/nd/pos/fo/switch_pos
+    EVENT_START_COND DELTA=laminar/B747/nd/terr/fo/switch_pos
+    EVENT_START_COND DELTA=laminar/B747/dsp/drs/switch_pos
+    EVENT_START_COND DELTA=laminar/B747/dsp/ecs/switch_pos
+    EVENT_START_COND DELTA=laminar/B747/dsp/elec/switch_pos
+    EVENT_START_COND DELTA=laminar/B747/dsp/eng/switch_pos
+    EVENT_START_COND DELTA=laminar/B747/dsp/fuel/switch_pos
+    EVENT_START_COND DELTA=laminar/B747/dsp/gear/switch_pos
+    EVENT_START_COND DELTA=laminar/B747/dsp/hyd/switch_pos
+    EVENT_START_COND DELTA=laminar/B747/dsp/stat/switch_pos
+    EVENT_START_COND DELTA=laminar/B747/dsp/rcl/switch_pos
+    EVENT_START_COND DELTA=laminar/B747/dsp/canc/switch_pos
 END_SOUND_ATTACHMENT
 
 ##################
@@ -3668,6 +3724,20 @@ BEGIN_SOUND_ATTACHMENT
 	VEH_XYZ 0 4.9 -26
     	EVENT_START_COND laminar/B747/fire/snoke_evac/handle == 1
     	EVENT_START_COND laminar/B747/fire/snoke_evac/handle == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Warnings/ding_cockpit
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/fire/snoke_evac/handle == 1
+    	EVENT_END_COND laminar/B747/fire/snoke_evac/handle == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Warnings/ding_cockpit
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND sim/cockpit2/radios/indicators/fms_exec_light_pilot == 1
+    	EVENT_END_COND sim/cockpit2/radios/indicators/fms_exec_light_pilot == 0
 END_SOUND_ATTACHMENT
 
 ##################
