@@ -38,6 +38,9 @@ end
 --*************************************************************************************--
 -- Holds all SimConfig options
 B747DR_simconfig_data					= deferred_dataref("laminar/B747/simconfig", "string")
+B747DR_pfd_style						= deferred_dataref("laminar/B747/pfd/style", "number")
+B747DR_nd_style							= deferred_dataref("laminar/B747/nd/style", "number")
+B747DR_thrust_ref						= deferred_dataref("laminar/B747/engines/thrust_ref", "number")
 
 --[[B747DR_efis_baro_ref_capt_sel_dial_pos		= deferred_dataref("laminar/B747/efis/baro_ref/capt/sel_dial_pos", "number")
 B747DR_efis_baro_ref_fo_sel_dial_pos		= deferred_dataref("laminar/B747/efis/baro_ref/fo/sel_dial_pos", "number")
