@@ -5,7 +5,7 @@ by Matt726
 
 Available for: Default Laminar Research or mSparks 747 mod
 
-Version: v0.3b
+Version: v0.4b
 
 Email: mfahrenheit135@gmail.com
 
@@ -25,6 +25,11 @@ Email: mfahrenheit135@gmail.com
 
 ---
 ## CHANGELOG:
+
+### v0.4:
+
+-added EFIS button sounds
+-added EICAS synoptic button sounds
 
 ### v0.3:
 
