@@ -53,6 +53,7 @@ B747DR_flt_inst_inbd_disp_fo_sel_dial_pos	= deferred_dataref("laminar/B747/flt_i
 B747DR_flt_inst_lwr_disp_fo_sel_dial_pos	= deferred_dataref("laminar/B747/flt_inst/fo_lwr_display/sel_dial_pos", "number")
 B747DR_pfd_style							= deferred_dataref("laminar/B747/pfd/style", "number")
 B747DR_nd_style								= deferred_dataref("laminar/B747/nd/style", "number")
+B747DR_thrust_ref							= deferred_dataref("laminar/B747/engines/thrust_ref", "number")
 
 --Baro Sync
 B747DR_efis_baro_ref_capt_sel_dial_pos		= deferred_dataref("laminar/B747/efis/baro_ref/capt/sel_dial_pos", "number")
@@ -122,6 +123,14 @@ function check_pfd_nd_style()
 		B747DR_nd_style = 0
 	elseif simConfigData["data"].PLANE.nd_style == "LCD" then
 		B747DR_nd_style = 1
+	end
+end
+
+function check_thrust_ref()
+	if simConfigData["data"].PLANE.thrust_ref == "EPR" then
+		B747DR_thrust_ref = 0
+	elseif simConfigData["data"].PLANE.thrust_ref == "N1" then
+		B747DR_thrust_ref = 1
 	end
 end
 
@@ -208,5 +217,8 @@ function after_physics()
 	
 	--PFD/ND Styles
 	check_pfd_nd_style()
+	
+	--Thrust Ref Setting
+	check_thrust_ref()
 
 end
