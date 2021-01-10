@@ -9,7 +9,7 @@ ACF_SOUNDS
 #                                                                                    #
 #     E n g i n e s : P W 4 0 6 2                                                    #
 #                                                                                    #
-#     V e r s i o n : v0.5b                                                          #
+#     V e r s i o n : v0.5.1b                                                        #
 #                                                                                    #
 #     B y :  M a t t 7 2 6                                                           #
 #                                                                                    #
@@ -36,23 +36,6 @@ DISABLE_LEGACY_ALERT_SOUNDS
 
 BEGIN_SOUND_ATTACHMENT
 	SNAPSHOT_NAME /in_mute
-	EVENT_ALWAYS 
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-	SNAPSHOT_NAME /cockpit_mute
-	EVENT_START_COND sim/graphics/view/pilots_head_z > -23.292681
-	EVENT_END_COND sim/graphics/view/pilots_head_z < -23.292681
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-	SNAPSHOT_NAME /cabin_mute
-	EVENT_START_COND sim/graphics/view/pilots_head_z < -23.292681
-	EVENT_END_COND sim/graphics/view/pilots_head_z > -23.292681
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-	SNAPSHOT_NAME /cockpit_mute
 	EVENT_ALWAYS 
 END_SOUND_ATTACHMENT
 

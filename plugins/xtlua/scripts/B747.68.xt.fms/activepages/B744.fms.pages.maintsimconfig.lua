@@ -204,7 +204,7 @@ fmsPages["MAINTSIMCONFIG"].getSmallPage=function(self,pgNo,fmsID)
 		"<                        ",
 		" ENGINES(X)       FIN NBR",
 		"<                        ",
-		" THRUST REF (X) PFD STYLE",
+		" THRUST REF(X)  PFD STYLE",
 		"<    "..thrust_ref       .."                >",
 		"              (X)ND STYLE",
 		"                         >",
