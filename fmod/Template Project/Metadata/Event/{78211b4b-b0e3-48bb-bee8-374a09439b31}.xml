@@ -163,7 +163,7 @@
             <value>0</value>
         </property>
         <property name="value">
-            <value>0</value>
+            <value>5</value>
         </property>
     </object>
     <object class="AutomationPoint" id="{489fe0c8-1635-491f-8b1b-d8cc66417310}">
@@ -171,7 +171,7 @@
             <value>20</value>
         </property>
         <property name="value">
-            <value>-80</value>
+            <value>-53.3333321</value>
         </property>
     </object>
     <object class="MixerBusFader" id="{000aa0f9-f1ba-4ffb-a1ee-c4cb9122185d}"/>

@@ -51,6 +51,9 @@ B747DR_flt_inst_inbd_disp_capt_sel_dial_pos	= deferred_dataref("laminar/B747/flt
 B747DR_flt_inst_lwr_disp_capt_sel_dial_pos	= deferred_dataref("laminar/B747/flt_inst/capt_lwr_display/sel_dial_pos", "number")
 B747DR_flt_inst_inbd_disp_fo_sel_dial_pos	= deferred_dataref("laminar/B747/flt_inst/fo_inbd_display/sel_dial_pos", "number")
 B747DR_flt_inst_lwr_disp_fo_sel_dial_pos	= deferred_dataref("laminar/B747/flt_inst/fo_lwr_display/sel_dial_pos", "number")
+B747DR_pfd_style							= deferred_dataref("laminar/B747/pfd/style", "number")
+B747DR_nd_style								= deferred_dataref("laminar/B747/nd/style", "number")
+B747DR_thrust_ref							= deferred_dataref("laminar/B747/engines/thrust_ref", "number")
 
 --Baro Sync
 B747DR_efis_baro_ref_capt_sel_dial_pos		= deferred_dataref("laminar/B747/efis/baro_ref/capt/sel_dial_pos", "number")
@@ -102,8 +105,6 @@ function simconfig_values()
 end
 
 function baro_sync()
-	simConfigData["data"] = json.decode(B747DR_simconfig_data)
-	
 	if simConfigData["data"].SIM.baro_sync == "YES" then
 		simDR_baro_fo = simDR_baro_capt
 		B747DR_efis_baro_ref_fo_sel_dial_pos = B747DR_efis_baro_ref_capt_sel_dial_pos
@@ -111,8 +112,29 @@ function baro_sync()
 	end
 end
 
+function check_pfd_nd_style()
+	if simConfigData["data"].PLANE.pfd_style == "CRT" then
+		B747DR_pfd_style = 0
+	elseif simConfigData["data"].PLANE.pfd_style == "LCD" then
+		B747DR_pfd_style = 1
+	end
+	
+	if simConfigData["data"].PLANE.nd_style == "CRT" then
+		B747DR_nd_style = 0
+	elseif simConfigData["data"].PLANE.nd_style == "LCD" then
+		B747DR_nd_style = 1
+	end
+end
+
+function check_thrust_ref()
+	if simConfigData["data"].PLANE.thrust_ref == "EPR" then
+		B747DR_thrust_ref = 0
+	elseif simConfigData["data"].PLANE.thrust_ref == "N1" then
+		B747DR_thrust_ref = 1
+	end
+end
+
 function set_loaded_configs()
-	simConfigData["data"] = json.decode(B747DR_simconfig_data)
 
 	--Baro
 	if simConfigData["data"].SIM.baro_indicator == "IN" then
@@ -187,6 +209,16 @@ function flight_start()
 end
 
 function after_physics()
+	--Keep the structure fresh
+	simConfigData["data"] = json.decode(B747DR_simconfig_data)
+
 	--See if Baro's should be sync'd
 	baro_sync()
+	
+	--PFD/ND Styles
+	check_pfd_nd_style()
+	
+	--Thrust Ref Setting
+	check_thrust_ref()
+
 end

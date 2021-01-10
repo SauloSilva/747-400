@@ -28,6 +28,9 @@
         <relationship name="timeline">
             <destination>{5fda3d23-6003-42f9-9ca5-6bac2f833c3a}</destination>
         </relationship>
+        <relationship name="parameters">
+            <destination>{ed077b0c-3917-4de3-8d1c-2b6808f68ba3}</destination>
+        </relationship>
         <relationship name="banks">
             <destination>{b8ef1611-04fc-43af-a47b-72e10f7ff39a}</destination>
         </relationship>
@@ -59,6 +62,9 @@
     <object class="EventAutomatableProperties" id="{ae46e5be-b639-4a9e-921c-ac58faac4240}"/>
     <object class="MarkerTrack" id="{ff1c6ca0-3c83-41e8-b22c-38e971752c50}"/>
     <object class="GroupTrack" id="{b2a09302-8ab2-4dcc-8ffe-55b92d0e14ba}">
+        <relationship name="automationTracks">
+            <destination>{bf4e1538-8be7-4e1f-be8e-20afa2dde8c8}</destination>
+        </relationship>
         <relationship name="modules">
             <destination>{45e1121b-aa3d-45ee-a334-485f86196301}</destination>
         </relationship>
@@ -69,6 +75,14 @@
     <object class="Timeline" id="{5fda3d23-6003-42f9-9ca5-6bac2f833c3a}">
         <relationship name="modules">
             <destination>{45e1121b-aa3d-45ee-a334-485f86196301}</destination>
+        </relationship>
+    </object>
+    <object class="DistanceParameter" id="{ed077b0c-3917-4de3-8d1c-2b6808f68ba3}">
+        <property name="maximum">
+            <value>20</value>
+        </property>
+        <relationship name="automationCurves">
+            <destination>{e343f9ad-f744-4699-975a-e7fb25cdcb18}</destination>
         </relationship>
     </object>
     <object class="EventMixerMaster" id="{3d0feb5d-8592-456a-b3e7-c9fac48bfb14}">
@@ -88,6 +102,17 @@
         </relationship>
     </object>
     <object class="MixerBusPanner" id="{2163cae9-6f00-4bfb-a161-6f2f705b62b8}"/>
+    <object class="AutomationTrack" id="{bf4e1538-8be7-4e1f-be8e-20afa2dde8c8}">
+        <property name="nameOfPropertyBeingAutomated">
+            <value>volume</value>
+        </property>
+        <relationship name="automationCurves">
+            <destination>{e343f9ad-f744-4699-975a-e7fb25cdcb18}</destination>
+        </relationship>
+        <relationship name="objectBeingAutomated">
+            <destination>{208d8c37-07c7-4bd5-abf4-ab25edc82c5a}</destination>
+        </relationship>
+    </object>
     <object class="SingleSound" id="{45e1121b-aa3d-45ee-a334-485f86196301}">
         <property name="start">
             <value>0</value>
@@ -113,6 +138,12 @@
             <destination>{3d0feb5d-8592-456a-b3e7-c9fac48bfb14}</destination>
         </relationship>
     </object>
+    <object class="AutomationCurve" id="{e343f9ad-f744-4699-975a-e7fb25cdcb18}">
+        <relationship name="automationPoints">
+            <destination>{5d1d7967-1c7f-4a9e-a17a-dff776d727b5}</destination>
+            <destination>{5b03bce6-4c07-48e9-983e-fc786208295d}</destination>
+        </relationship>
+    </object>
     <object class="MixerBusEffectChain" id="{e82b7e28-cea5-4d3b-9975-a1e72e42d96f}">
         <relationship name="effects">
             <destination>{985e15c7-05cb-4ee2-92ff-05dcd9461e41}</destination>
@@ -127,6 +158,22 @@
         </relationship>
     </object>
     <object class="MixerBusPanner" id="{6d79afb7-7b73-457d-a06e-5d794d6e506e}"/>
+    <object class="AutomationPoint" id="{5d1d7967-1c7f-4a9e-a17a-dff776d727b5}">
+        <property name="position">
+            <value>0</value>
+        </property>
+        <property name="value">
+            <value>0</value>
+        </property>
+    </object>
+    <object class="AutomationPoint" id="{5b03bce6-4c07-48e9-983e-fc786208295d}">
+        <property name="position">
+            <value>11.005917159763312</value>
+        </property>
+        <property name="value">
+            <value>-80</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{985e15c7-05cb-4ee2-92ff-05dcd9461e41}"/>
     <object class="SpatialiserEffect" id="{8f528e5b-20e3-4e5f-8761-4d9f71d2f2b8}"/>
     <object class="MixerBusFader" id="{1d9a27c3-3d09-4b04-b927-922085bd7972}"/>
