@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.01.08.00">
     <object class="Event" id="{86eaac51-c74a-4239-bffd-8f6e01e66ef1}">
-        <relationship name="selectables">
-            <destination>{eb11ec5e-c04f-43ff-b2cf-b062a7792729}</destination>
-        </relationship>
         <relationship name="uiLastParameterSelection">
             <destination>{e063896e-3188-40a5-b712-c52c1eb3c333}</destination>
         </relationship>

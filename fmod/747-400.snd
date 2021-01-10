@@ -9,7 +9,7 @@ ACF_SOUNDS
 #                                                                                    #
 #     E n g i n e s : P W 4 0 6 2                                                    #
 #                                                                                    #
-#     V e r s i o n : v0.4b                                                          #
+#     V e r s i o n : v0.5b                                                          #
 #                                                                                    #
 #     B y :  M a t t 7 2 6                                                           #
 #                                                                                    #
@@ -3609,6 +3609,45 @@ BEGIN_SOUND_ATTACHMENT
     EVENT_CMND_DOWN laminar/B747/toggle_switch/outflow_valve_open
 END_SOUND_ATTACHMENT
 
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/flap1
+	VEH_XYZ 0.14 4.4 -26.35 
+    EVENT_START_COND laminar/B747/flt_ctrls/flap_lever_detent >= 0.004
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/flap2
+	VEH_XYZ 0.14 4.4 -26.35 
+    EVENT_START_COND laminar/B747/flt_ctrls/flap_lever_detent == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/auto_spoiler
+	VEH_XYZ 0.14 4.4 -26.35 
+	EVENT_START_COND laminar/B747/flt_ctrls/speedbrake_lever == 1
+    	EVENT_START_COND laminar/B747/flt_ctrls/speedbrake_lever != 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/gear1
+	VEH_XYZ 0.15 4.5 -26.7
+    EVENT_START_COND laminar/B747/actuator/gear_handle_detent > 0.02
+END_SOUND_ATTACHMENT	
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/gear1
+	VEH_XYZ 0.15 4.5 -26.7
+	EVENT_START_COND laminar/B747/actuator/gear_handle_detent == 0
+    EVENT_START_COND laminar/B747/actuator/gear_handle == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/gear1
+	VEH_XYZ 0.15 4.5 -26.7
+	EVENT_START_COND laminar/B747/actuator/gear_handle_detent == 0
+	EVENT_START_COND laminar/B747/actuator/gear_handle == 1
+END_SOUND_ATTACHMENT
+
 ############################
 #Avionics
 ############################
@@ -3941,7 +3980,7 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 ######################
-#WIND
+#Ambience
 ######################
 
 BEGIN_SOUND_ATTACHMENT
@@ -3975,6 +4014,27 @@ BEGIN_SOUND_ATTACHMENT
 	VEH_XYZ 12 1 5
 	EVENT_START_COND sim/flightmodel2/wing/spoiler1_deg[0] > 0
 	EVENT_END_COND sim/flightmodel2/wing/spoiler1_deg[0] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/ground effect/roll
+	VEH_XYZ 0 1 -25
+	EVENT_START_COND  sim/flightmodel2/gear/tire_rotation_speed_rad_sec[0] > 2
+	EVENT_END_COND  sim/flightmodel2/gear/tire_rotation_speed_rad_sec[0] < 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/ground effect/roll
+	VEH_XYZ 0 4 -26.5
+	EVENT_START_COND  sim/flightmodel2/gear/tire_rotation_speed_rad_sec[1] > 2
+	EVENT_END_COND  sim/flightmodel2/gear/tire_rotation_speed_rad_sec[1] < 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/ground effect/roll
+	VEH_XYZ 0 1 2
+	EVENT_START_COND  sim/flightmodel2/gear/tire_rotation_speed_rad_sec[1] > 2
+	EVENT_END_COND  sim/flightmodel2/gear/tire_rotation_speed_rad_sec[1] < 1
 END_SOUND_ATTACHMENT
 
 ###########################

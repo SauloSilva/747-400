@@ -5,7 +5,7 @@ by Matt726
 
 Available for: Default Laminar Research or mSparks 747 mod
 
-Version: v0.4b
+Version: v0.5b
 
 Email: mfahrenheit135@gmail.com
 
@@ -26,12 +26,19 @@ Email: mfahrenheit135@gmail.com
 ---
 ## CHANGELOG:
 
-### v0.4:
+### v0.5b:
+
+-added ground roll effect
+-new avionics fans sounds
+-gear lever sound
+-flap lever sound
+
+### v0.4b:
 
 -added EFIS button sounds
 -added EICAS synoptic button sounds
 
-### v0.3:
+### v0.3b:
 
 - added hydraulic sounds
 - switches sounds added
@@ -39,16 +46,16 @@ Email: mfahrenheit135@gmail.com
 - added throttle clicks 
 - cockpit bus added
 
-### v0.2:
+### v0.2b:
 
 - imrpoved engine sounds
 - fixed exterior sounds bug
 - better apu sounds
 
-### v0.1.1:
+### v0.1.1b:
 - new engine sounds due to copyright reasons
 
-### v0.1:
+### v0.1b:
 - better button sounds
 - avionics fans
 - master caution
