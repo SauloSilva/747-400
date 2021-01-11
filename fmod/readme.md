@@ -26,11 +26,18 @@ Email: mfahrenheit135@gmail.com
 ---
 ## CHANGELOG:
 
+### v0.6b:
+
+-added engine start effects
+-better engines
+-better gear sound
+-sounds quieter so you can hear atc
+-added auto spoiler noise
+-redid fmc buttons
+
 ### v0.5.1b:
 
 -fixed broken snd file
-
-### v0.5b:
 
 -added ground roll effect
 -new avionics fans sounds
