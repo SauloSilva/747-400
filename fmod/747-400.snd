@@ -9,7 +9,7 @@ ACF_SOUNDS
 #                                                                                    #
 #     E n g i n e s : P W 4 0 6 2                                                    #
 #                                                                                    #
-#     V e r s i o n : v0.5.1b                                                        #
+#     V e r s i o n : v0.6b                                                          #
 #                                                                                    #
 #     B y :  M a t t 7 2 6                                                           #
 #                                                                                    #
@@ -37,6 +37,17 @@ DISABLE_LEGACY_ALERT_SOUNDS
 BEGIN_SOUND_ATTACHMENT
 	SNAPSHOT_NAME /in_mute
 	EVENT_ALWAYS 
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	SNAPSHOT_NAME /cockpit_mute
+	EVENT_ALWAYS 
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	SNAPSHOT_NAME /init
+	EVENT_START_COND sim/time/total_flight_time_sec > 0
+	EVENT_END_COND sim/time/total_flight_time_sec > 5
 END_SOUND_ATTACHMENT
 
 ###########################
@@ -3608,7 +3619,7 @@ BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/auto_spoiler
 	VEH_XYZ 0.14 4.4 -26.35 
 	EVENT_START_COND laminar/B747/flt_ctrls/speedbrake_lever == 1
-    	EVENT_START_COND laminar/B747/flt_ctrls/speedbrake_lever != 1
+    	EVENT_END_COND laminar/B747/flt_ctrls/speedbrake_lever != 1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -3745,13 +3756,6 @@ BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Warnings/evac_signal
 	VEH_XYZ 0 4.9 -26
     	EVENT_START_COND laminar/B747/fire/snoke_evac/handle == 1
-    	EVENT_START_COND laminar/B747/fire/snoke_evac/handle == 0
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Warnings/ding_cockpit
-	VEH_XYZ 0 4.9 -26
-    	EVENT_START_COND laminar/B747/fire/snoke_evac/handle == 1
     	EVENT_END_COND laminar/B747/fire/snoke_evac/handle == 0
 END_SOUND_ATTACHMENT
 
@@ -3760,6 +3764,18 @@ BEGIN_SOUND_ATTACHMENT
 	VEH_XYZ 0 4.9 -26
     	EVENT_START_COND sim/cockpit2/radios/indicators/fms_exec_light_pilot == 1
     	EVENT_END_COND sim/cockpit2/radios/indicators/fms_exec_light_pilot == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Warnings/ding
+	VEH_XYZ 0 5.1 -25.5
+	EVENT_START_COND sim/cockpit2/annunciators/no_smoking
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Warnings/ding
+	VEH_XYZ 0 5.1 -25.5
+	EVENT_START_COND sim/cockpit2/annunciators/fasten_seatbelt
 END_SOUND_ATTACHMENT
 
 ##################
@@ -4002,22 +4018,22 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Ambience/ground effect/roll
 	VEH_XYZ 0 1 -25
-	EVENT_START_COND  sim/flightmodel2/gear/tire_rotation_speed_rad_sec[0] > 2
-	EVENT_END_COND  sim/flightmodel2/gear/tire_rotation_speed_rad_sec[0] < 1
+	EVENT_START_COND sim/flightmodel2/gear/tire_rotation_speed_rad_sec[0] > 2
+	EVENT_END_COND sim/flightmodel2/gear/tire_rotation_speed_rad_sec[0] < 1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Ambience/ground effect/roll
 	VEH_XYZ 0 4 -26.5
-	EVENT_START_COND  sim/flightmodel2/gear/tire_rotation_speed_rad_sec[1] > 2
-	EVENT_END_COND  sim/flightmodel2/gear/tire_rotation_speed_rad_sec[1] < 1
+	EVENT_START_COND sim/flightmodel2/gear/tire_rotation_speed_rad_sec[1] > 2
+	EVENT_END_COND sim/flightmodel2/gear/tire_rotation_speed_rad_sec[1] < 1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Ambience/ground effect/roll
 	VEH_XYZ 0 1 2
-	EVENT_START_COND  sim/flightmodel2/gear/tire_rotation_speed_rad_sec[1] > 2
-	EVENT_END_COND  sim/flightmodel2/gear/tire_rotation_speed_rad_sec[1] < 1
+	EVENT_START_COND sim/flightmodel2/gear/tire_rotation_speed_rad_sec[1] > 2
+	EVENT_END_COND sim/flightmodel2/gear/tire_rotation_speed_rad_sec[1] < 1
 END_SOUND_ATTACHMENT
 
 ###########################
@@ -4038,32 +4054,86 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Engines/PW/engine1
 	VEH_XYZ -20 -1.5 2
+	EVENT_START_COND sim/flightmodel2/engines/N1_percent[0] > 0
+	EVENT_END_COND sim/flightmodel2/engines/N1_percent[0] <= 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Engines/PW/engine2
+	VEH_XYZ -12 -1.5 -2
 	EVENT_START_COND sim/flightmodel2/engines/N1_percent[1] > 0
 	EVENT_END_COND sim/flightmodel2/engines/N1_percent[1] <= 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Engines/PW/engine2
-	VEH_XYZ -20 -1.5 2
+	EVENT_NAME /Engines/PW/engine3
+	VEH_XYZ 12 -1.5 -2
 	EVENT_START_COND sim/flightmodel2/engines/N1_percent[2] > 0
 	EVENT_END_COND sim/flightmodel2/engines/N1_percent[2] <= 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Engines/PW/engine3
-	VEH_XYZ -20 -1.5 2
+	EVENT_NAME /Engines/PW/engine4
+	VEH_XYZ 20 1.5 2
 	EVENT_START_COND sim/flightmodel2/engines/N1_percent[3] > 0
 	EVENT_END_COND sim/flightmodel2/engines/N1_percent[3] <= 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Engines/PW/engine4
+	EVENT_NAME /Engines/PW/start/start1
 	VEH_XYZ -20 -1.5 2
-	EVENT_START_COND sim/flightmodel2/engines/N1_percent[4] > 0
-	EVENT_END_COND sim/flightmodel2/engines/N1_percent[4] <= 0
+	EVENT_START_COND sim/cockpit2/engine/indicators/N2_percent[0] > 2
+	EVENT_END_COND sim/cockpit2/engine/indicators/N2_percent[0] > 65
 END_SOUND_ATTACHMENT
 
-#INTERIOR
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Engines/PW/start/start1
+	VEH_XYZ -12 -1.5 -2
+	EVENT_START_COND sim/cockpit2/engine/indicators/N2_percent[1] > 2
+	EVENT_END_COND sim/cockpit2/engine/indicators/N2_percent[1] > 65
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Engines/PW/start/start1
+	VEH_XYZ 12 -1.5 -2
+	EVENT_START_COND sim/cockpit2/engine/indicators/N2_percent[2] > 2
+	EVENT_END_COND sim/cockpit2/engine/indicators/N2_percent[2] > 65
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Engines/PW/start/start1
+	VEH_XYZ 20 -1.5 2
+	EVENT_START_COND sim/cockpit2/engine/indicators/N2_percent[3] > 2
+	EVENT_END_COND sim/cockpit2/engine/indicators/N2_percent[3] > 65
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Engines/PW/start/start2
+	VEH_XYZ -20 -1.5 2
+	EVENT_START_COND sim/flightmodel2/engines/engine_is_burning_fuel[0] == 1
+	EVENT_END_COND sim/flightmodel2/engines/engine_is_burning_fuel[0] != 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Engines/PW/start/start2
+	VEH_XYZ -12 -1.5 -2
+	EVENT_START_COND sim/flightmodel2/engines/engine_is_burning_fuel[1] == 1
+	EVENT_END_COND sim/flightmodel2/engines/engine_is_burning_fuel[1] != 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Engines/PW/start/start2
+	VEH_XYZ 12 -1.5 -2
+	EVENT_START_COND sim/flightmodel2/engines/engine_is_burning_fuel[2] == 1
+	EVENT_END_COND sim/flightmodel2/engines/engine_is_burning_fuel[2] != 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Engines/PW/start/start2
+	VEH_XYZ 20 -1.5 2
+	EVENT_START_COND sim/flightmodel2/engines/engine_is_burning_fuel[3] == 1
+	EVENT_END_COND sim/flightmodel2/engines/engine_is_burning_fuel[3] != 1
+END_SOUND_ATTACHMENT
 
 #########################
 #APU
