@@ -145,7 +145,7 @@
     </object>
     <object class="EventMixerGroup" id="{a1ae61be-39ec-473a-90f3-4f3a7dcedfa9}">
         <property name="volume">
-            <value>-10</value>
+            <value>-30</value>
         </property>
         <property name="name">
             <value>fan1</value>
@@ -185,7 +185,7 @@
     </object>
     <object class="EventMixerGroup" id="{e7aac0cc-7b31-4c8c-b6f6-239aed6e9961}">
         <property name="volume">
-            <value>-10</value>
+            <value>-30</value>
         </property>
         <property name="name">
             <value>fan2</value>

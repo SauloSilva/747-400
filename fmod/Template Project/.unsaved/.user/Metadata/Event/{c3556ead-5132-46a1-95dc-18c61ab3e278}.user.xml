@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.01.08.00">
     <object class="Event" id="{c3556ead-5132-46a1-95dc-18c61ab3e278}">
-        <relationship name="uiLastParameterSelection">
+        <relationship name="selectables">
             <destination>{8a453f26-5351-4ddd-98e6-b844256a5182}</destination>
+        </relationship>
+        <relationship name="uiLastParameterSelection">
+            <destination>{a40ca681-c52e-4068-b6d4-49c4f461bad1}</destination>
         </relationship>
     </object>
     <object class="MasterTrack" id="{2ebc036f-1703-4469-b178-3e50c6ff420e}"/>
@@ -37,7 +40,7 @@
     </object>
     <object class="GameParameter" id="{a40ca681-c52e-4068-b6d4-49c4f461bad1}">
         <property name="cursorPosition">
-            <value>0</value>
+            <value>1</value>
         </property>
         <property name="uiLastRulerScaleRatio">
             <value>0.00053792361484669173</value>
@@ -50,7 +53,6 @@
     </object>
     <object class="MixerBusEffectChain" id="{b293823e-64d0-46d9-9fe1-4b1f16b34149}"/>
     <object class="MixerBusPanner" id="{1de4c753-6d2f-4d4b-8b28-0073506f7329}"/>
-    <object class="AutomationTrack" id="{1cc0176e-81a5-48d7-9d7c-32ce4ab61d44}"/>
     <object class="AutomationTrack" id="{c94d150f-463a-425d-970b-78f1dfaa50cf}"/>
     <object class="AutomationTrack" id="{57882c20-bf6a-41e9-9aa2-e93b041c4b2c}"/>
     <object class="AutomationTrack" id="{f8cadb8f-3eb8-455d-b468-50194aacabf7}"/>

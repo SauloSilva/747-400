@@ -73,6 +73,9 @@
         <relationship name="modules">
             <destination>{370bf84a-97b5-4a01-ad26-a738e8a3bb73}</destination>
         </relationship>
+        <relationship name="automationCurves">
+            <destination>{82d3f14f-91cb-453f-a5ad-881d7a6b0ee0}</destination>
+        </relationship>
     </object>
     <object class="EventMixerMaster" id="{397cdd8b-ab22-488b-b95d-9a61bcdd0307}">
         <relationship name="effectChain">
@@ -95,6 +98,9 @@
         <property name="nameOfPropertyBeingAutomated">
             <value>volume</value>
         </property>
+        <relationship name="automationCurves">
+            <destination>{82d3f14f-91cb-453f-a5ad-881d7a6b0ee0}</destination>
+        </relationship>
         <relationship name="objectBeingAutomated">
             <destination>{370bf84a-97b5-4a01-ad26-a738e8a3bb73}</destination>
         </relationship>
@@ -112,7 +118,7 @@
     </object>
     <object class="EventMixerGroup" id="{8e116fff-c36f-4aa9-b3b4-54f8ed3fd692}">
         <property name="volume">
-            <value>5</value>
+            <value>-5.5</value>
         </property>
         <property name="name">
             <value>Audio 1</value>
@@ -125,6 +131,12 @@
         </relationship>
         <relationship name="output">
             <destination>{397cdd8b-ab22-488b-b95d-9a61bcdd0307}</destination>
+        </relationship>
+    </object>
+    <object class="AutomationCurve" id="{82d3f14f-91cb-453f-a5ad-881d7a6b0ee0}">
+        <relationship name="automationPoints">
+            <destination>{6ac5982b-5ef6-47dd-82d5-b0536f4aef4e}</destination>
+            <destination>{f8dc3f6e-4c2d-40f9-b891-b4c7c10679d1}</destination>
         </relationship>
     </object>
     <object class="MixerBusEffectChain" id="{76c6fc48-8bc7-4525-962e-214cd2eaca84}">
@@ -141,6 +153,22 @@
         </relationship>
     </object>
     <object class="MixerBusPanner" id="{095f7d5a-18f3-4628-ba9f-9c9be828b602}"/>
+    <object class="AutomationPoint" id="{6ac5982b-5ef6-47dd-82d5-b0536f4aef4e}">
+        <property name="position">
+            <value>0</value>
+        </property>
+        <property name="value">
+            <value>0</value>
+        </property>
+    </object>
+    <object class="AutomationPoint" id="{f8dc3f6e-4c2d-40f9-b891-b4c7c10679d1}">
+        <property name="position">
+            <value>1.1715038563390212</value>
+        </property>
+        <property name="value">
+            <value>-80</value>
+        </property>
+    </object>
     <object class="MixerBusFader" id="{d2c6a59d-7bd5-49ad-b21a-708db7c73ef7}"/>
     <object class="SpatialiserEffect" id="{e0759f2e-07e9-4af4-8e70-392cde530568}">
         <property name="maximumDistance">

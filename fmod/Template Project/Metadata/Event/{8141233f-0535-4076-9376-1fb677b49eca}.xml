@@ -195,6 +195,9 @@
         </relationship>
     </object>
     <object class="EventMixerGroup" id="{ade2f4be-abc1-4256-a635-8bf765bcdc42}">
+        <property name="volume">
+            <value>-9</value>
+        </property>
         <property name="name">
             <value>hyd_hi</value>
         </property>
@@ -255,6 +258,9 @@
         </relationship>
     </object>
     <object class="EventMixerGroup" id="{274494a7-db70-4fdb-b5dd-edfd6b8f5e5c}">
+        <property name="volume">
+            <value>-9.5</value>
+        </property>
         <property name="name">
             <value>hyd_lo</value>
         </property>

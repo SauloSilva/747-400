@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.08.00">
+    <object class="Event" id="{9accdba2-51a0-4557-8932-cd414415e45d}"/>
+    <object class="MasterTrack" id="{4bdd8986-8cb0-4916-89b6-bbc7e54ac99e}"/>
+    <object class="MixerInput" id="{d98e9e11-2654-4a12-8c08-467c05f4f982}"/>
+    <object class="EventAutomatableProperties" id="{f4f3fa46-142d-41d1-af29-48701a91f317}"/>
+    <object class="MarkerTrack" id="{f2ed2b50-1925-498d-aba0-0fee8e4eec41}"/>
+    <object class="GroupTrack" id="{9fd7a0a2-85a1-4690-ad6d-22b5cf47c474}"/>
+    <object class="GroupTrack" id="{0622aade-136c-40c6-89d3-83598b98ea77}"/>
+    <object class="GroupTrack" id="{58caf400-7064-4a22-a961-6fc278a1cc7f}">
+        <property name="uiAutomationTracksVisible">
+            <value>true</value>
+        </property>
+    </object>
+    <object class="GroupTrack" id="{bcfae186-b029-44ae-868c-c73f3afcc1a4}"/>
+    <object class="GroupTrack" id="{0d7f1f98-bceb-475e-a401-e6c2b5c5661f}"/>
+    <object class="GroupTrack" id="{9d8e68b8-5364-42ba-a61f-110f0c790f55}"/>
+    <object class="GroupTrack" id="{7fff1da6-0a6a-4c40-ab1a-d1a93b2d9766}"/>
+    <object class="Timeline" id="{9f649ae2-a0f3-416e-9540-70f6e2963d4c}">
+        <property name="cursorPosition">
+            <value>0</value>
+        </property>
+        <property name="uiLastRulerScaleRatio">
+            <value>0.016137708445400752</value>
+        </property>
+    </object>
+    <object class="GameParameter" id="{3a19ac42-8109-4fff-b6ce-fabfc00f2d8a}">
+        <property name="cursorPosition">
+            <value>98.92415277030662</value>
+        </property>
+        <property name="uiLastRulerScaleRatio">
+            <value>0.054112554112554112</value>
+        </property>
+    </object>
+    <object class="DistanceParameter" id="{3bb8d241-826f-4fd8-8aa4-c515a92670b2}">
+        <property name="cursorPosition">
+            <value>0.0099999997764825821</value>
+        </property>
+        <property name="uiLastRulerScaleRatio">
+            <value>0.54112554112554112</value>
+        </property>
+    </object>
+    <object class="AngleParameter" id="{06554eef-9cb8-4e34-b822-7bbd04c50d29}">
+        <property name="cursorPosition">
+            <value>5.0089556680177338e-06</value>
+        </property>
+        <property name="uiLastRulerScaleRatio">
+            <value>0.097402597402597407</value>
+        </property>
+    </object>
+    <object class="GameParameter" id="{579542f9-5418-4484-95df-b0044623b4c7}">
+        <property name="cursorPosition">
+            <value>1</value>
+        </property>
+        <property name="uiLastRulerScaleRatio">
+            <value>0.00054112554112554113</value>
+        </property>
+    </object>
+    <object class="EventMixerMaster" id="{69691eca-e45d-4229-9fe5-ac53ec8ba9e6}">
+        <relationship name="input">
+            <destination>{72c2f921-c790-435e-b781-ebe839335ee0}</destination>
+            <destination>{675ecdc3-5306-41a2-a9ab-b1efbf846122}</destination>
+            <destination>{01ca77ac-caa3-467a-ad95-a9a7a2d5d449}</destination>
+            <destination>{55ef8c7b-ee69-42fb-8e7b-0a3a40138b33}</destination>
+            <destination>{f1d1c8ab-7e51-4188-a606-754e6b9bba11}</destination>
+            <destination>{1acfe799-4604-4575-9a3f-e2835cf88636}</destination>
+            <destination>{bb94a13c-1d22-4625-958c-0f2084ee0e81}</destination>
+        </relationship>
+    </object>
+    <object class="MixerBusEffectChain" id="{0a803615-4ea7-4182-a8bb-4b9561580f3a}"/>
+    <object class="MixerBusPanner" id="{e502c461-34ce-4f43-aca6-ddbba57b3617}"/>
+    <object class="AutomationTrack" id="{e821c575-0240-46f8-8480-ad86a3af511e}"/>
+    <object class="AutomationTrack" id="{e1d25405-2428-4986-be86-36fd79081064}"/>
+    <object class="AutomationTrack" id="{6c7f5fd7-abe6-446b-9d4a-53914cf9e82f}"/>
+    <object class="SingleSound" id="{ca8adcde-113e-45ff-a279-f5b9d00b104d}"/>
+    <object class="EventMixerGroup" id="{72c2f921-c790-435e-b781-ebe839335ee0}"/>
+    <object class="AutomationTrack" id="{89b1f2e7-f48f-4410-a014-3a82ed577312}"/>
+    <object class="AutomationTrack" id="{5ab1b309-168f-4c06-a614-3c1da2ee5289}"/>
+    <object class="AutomationTrack" id="{f29ed93a-5ab5-48e5-8f7e-f5c024006580}"/>
+    <object class="SingleSound" id="{924c2b53-b613-4820-ac6a-cd986d93872f}"/>
+    <object class="EventMixerGroup" id="{675ecdc3-5306-41a2-a9ab-b1efbf846122}"/>
+    <object class="AutomationTrack" id="{d42fb01f-32a7-4906-86e9-6a17e5883d6a}"/>
+    <object class="AutomationTrack" id="{0c840bb2-2bbc-45bc-bbf8-4c230724413d}"/>
+    <object class="SingleSound" id="{ee0de3f4-96eb-4cdd-9639-4a7f0730a1da}"/>
+    <object class="EventMixerGroup" id="{01ca77ac-caa3-467a-ad95-a9a7a2d5d449}"/>
+    <object class="AutomationTrack" id="{275f144b-1a56-4451-ab81-4c4259f03be7}"/>
+    <object class="AutomationTrack" id="{014523d8-e75e-460e-9a0a-cd38d594684c}"/>
+    <object class="AutomationTrack" id="{41ecb796-52c3-4be5-bed1-e37cab67ff91}"/>
+    <object class="SingleSound" id="{e04d0854-bef3-4b81-b70b-55509a293794}"/>
+    <object class="EventMixerGroup" id="{55ef8c7b-ee69-42fb-8e7b-0a3a40138b33}"/>
+    <object class="AutomationTrack" id="{ff14eae5-0410-4d08-a5b1-a18e8153091f}"/>
+    <object class="AutomationTrack" id="{6465935e-1fb1-4d54-85c9-70ab250b3cc0}"/>
+    <object class="AutomationTrack" id="{11b27ce4-c5c5-415e-966a-e34ed7992092}"/>
+    <object class="SingleSound" id="{2b5d0daf-08b9-4152-8236-5352bbe8bb60}"/>
+    <object class="EventMixerGroup" id="{f1d1c8ab-7e51-4188-a606-754e6b9bba11}"/>
+    <object class="AutomationTrack" id="{98059ff3-5c9d-4752-af3c-a349348ca291}"/>
+    <object class="AutomationTrack" id="{8cdd3f40-2120-4e16-8a59-2ae72bf89696}"/>
+    <object class="AutomationTrack" id="{78ebf554-6584-4c0d-82a3-b4fbcdccb7b0}"/>
+    <object class="SingleSound" id="{5a38fbf3-e376-4377-9d58-f02fe15f08db}"/>
+    <object class="EventMixerGroup" id="{1acfe799-4604-4575-9a3f-e2835cf88636}"/>
+    <object class="AutomationTrack" id="{ad7d5620-a97e-40a0-8d00-2b5fd34fe7b1}"/>
+    <object class="AutomationTrack" id="{9afd6b7a-ce04-499f-8d6f-d325cae424f0}"/>
+    <object class="AutomationTrack" id="{a78f334b-56cf-4128-aed0-91cfbf9c58b0}"/>
+    <object class="SingleSound" id="{b6503efa-08c8-4312-a2c0-efb1edbb41ba}"/>
+    <object class="EventMixerGroup" id="{bb94a13c-1d22-4625-958c-0f2084ee0e81}"/>
+    <object class="MixerBusEffectChain" id="{d1dc3e78-ce51-4c3f-abbf-8dd136eff618}"/>
+    <object class="MixerBusPanner" id="{e15a7673-e1ef-494f-8647-14ffc81411ce}"/>
+    <object class="MixerBusFader" id="{5a5219a3-5027-41d4-8d71-b45dc12bd142}"/>
+    <object class="MixerBusEffectChain" id="{c51588cf-2dcb-4791-8964-39cfd35e47fc}"/>
+    <object class="MixerBusPanner" id="{ce2fd254-6fe4-44e8-a09c-8afa3f430ba1}"/>
+    <object class="MixerBusEffectChain" id="{f48fce95-e67b-48a5-9299-6b3403a7c45c}"/>
+    <object class="MixerBusPanner" id="{4c0e53bc-acbb-4dc6-9a71-f18095219716}"/>
+    <object class="MixerBusEffectChain" id="{c5e09867-919c-40b5-a118-290d7441c3c3}"/>
+    <object class="MixerBusPanner" id="{f82d2aca-cbde-4e53-be40-5f0b4f3eca5f}"/>
+    <object class="MixerBusEffectChain" id="{83a07b16-84eb-4dca-830d-34adb88d48bc}"/>
+    <object class="MixerBusPanner" id="{11304cff-7f2e-4c83-8b31-7927a2628c30}"/>
+    <object class="MixerBusEffectChain" id="{33c060d4-cd7f-4787-9730-49cca78f0a75}"/>
+    <object class="MixerBusPanner" id="{b12e5f38-b093-4b9d-8dd1-91c7378b4823}"/>
+    <object class="MixerBusEffectChain" id="{739674f6-b7f3-4e40-b219-76e4f0bef987}"/>
+    <object class="MixerBusPanner" id="{91bdf1bb-124a-4e54-a280-e4d45485d30c}"/>
+    <object class="MixerBusEffectChain" id="{a4835467-4343-4a43-b99b-02df92344069}"/>
+    <object class="MixerBusPanner" id="{5bd35ef8-963d-4361-9dd6-83aac4149c50}"/>
+    <object class="MixerBusFader" id="{4ca291f1-d9a9-4a75-b935-a3cb86f80291}"/>
+    <object class="SpatialiserEffect" id="{4e6d62c7-2873-4022-b2d1-cf3a4d600e68}"/>
+    <object class="PluginEffect" id="{5b0fd2dc-3887-4ce9-bae6-1ff04e376089}"/>
+    <object class="MixerBusFader" id="{af3e28b0-4396-4414-a0f8-de184539b09d}"/>
+    <object class="PluginEffect" id="{a035af35-1e17-44cd-903d-8874c3ae588c}"/>
+    <object class="MixerBusFader" id="{d420533f-798a-4b6e-ab53-67c644d3be6d}"/>
+    <object class="PluginEffect" id="{d1987047-601e-4567-a3a6-7b35442e7b1e}"/>
+    <object class="MixerBusFader" id="{3e3542a0-b610-4cbf-81a1-e0a3da2d6aff}"/>
+    <object class="PluginEffect" id="{9fb065f8-fa56-4eae-9498-de63cdf7fc90}"/>
+    <object class="MixerBusFader" id="{29dea9dc-60a8-4461-aa66-32e4ba6049f1}"/>
+    <object class="PluginEffect" id="{0be8f2b1-1407-4bb3-8801-d6d05e4c9e9e}"/>
+    <object class="MixerBusFader" id="{478c29e9-7e1a-4271-81dc-8efd488193a7}"/>
+    <object class="PluginEffect" id="{7cc3de73-a23c-4d5f-92c1-2da1778f2cac}"/>
+    <object class="MixerBusFader" id="{613fe0fa-7c5b-4070-9914-a75305a083f2}"/>
+    <object class="PluginEffect" id="{511f2f6f-28e7-45d7-a6c1-dc55fae3a4a6}"/>
+    <object class="MixerBusFader" id="{a6bc6ae9-0e3d-4db3-ac3a-cf8ef1ebc0d6}"/>
+    <object class="FloatPluginParameter" id="{9e299531-8287-4431-af00-65cae18b8a7f}"/>
+    <object class="FloatPluginParameter" id="{b1fce493-02d0-468c-b8fe-2c2906d182eb}"/>
+    <object class="FloatPluginParameter" id="{f496981f-608e-48b5-877a-b04d30d3d344}"/>
+    <object class="FloatPluginParameter" id="{91a0547d-81e8-42a4-af47-48f8d68812ee}"/>
+    <object class="FloatPluginParameter" id="{95f19f59-8189-475e-9a7d-051db91ad070}"/>
+    <object class="FloatPluginParameter" id="{cebf6523-7ab4-4c88-89ed-45527ccb832c}"/>
+    <object class="FloatPluginParameter" id="{7721ecb9-244c-4c44-b1bb-2fff2c95d370}"/>
+</objects>

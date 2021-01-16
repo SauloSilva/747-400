@@ -334,30 +334,6 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/button1
 	VEH_XYZ 0 5.3 -25.8
-	EVENT_CMND_HOLD_CUE laminar/B747/button_switch/elec_deng_ctrl_1
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cockpit/Switches/button1
-	VEH_XYZ 0 5.3 -25.8
-	EVENT_CMND_HOLD_CUE laminar/B747/button_switch/elec_deng_ctrl_2
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cockpit/Switches/button1
-	VEH_XYZ 0 5.3 -25.8
-	EVENT_CMND_HOLD_CUE laminar/B747/button_switch/elec_deng_ctrl_3
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cockpit/Switches/button1
-	VEH_XYZ 0 5.3 -25.8
-	EVENT_CMND_HOLD_CUE laminar/B747/button_switch/elec_deng_ctrl_4
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cockpit/Switches/button1
-	VEH_XYZ 0 5.3 -25.8
 	EVENT_CMND_HOLD_CUE laminar/B747/button_switch/elec_ext_pwr_1
 END_SOUND_ATTACHMENT
 
@@ -826,19 +802,19 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/FD
 	VEH_XYZ 0 5.1 -26
-	EVENT_START_COND DELTA=laminar/B747/toggle_switch/flight_dir_L
+	EVENT_CMND_HOLD_CUE laminar/B747/toggle_switch/flight_dir_L
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/FD
 	VEH_XYZ 0 5.1 -26
-	EVENT_START_COND DELTA=laminar/B747/toggle_switch/flight_dir_R
+	EVENT_CMND_HOLD_CUE laminar/B747/toggle_switch/flight_dir_R
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/autothrottle
 	VEH_XYZ 0 5.1 -26
-	EVENT_START_COND DELTA=laminar/B747/toggle_switch/autothrottle
+	EVENT_CMND_HOLD_CUE laminar/B747/toggle_switch/autothrottle
 END_SOUND_ATTACHMENT
 
 #####################
@@ -3610,9 +3586,33 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cockpit/Switches/flap2
+	EVENT_NAME /Cockpit/Switches/flap1
 	VEH_XYZ 0.14 4.4 -26.35 
-    EVENT_START_COND laminar/B747/flt_ctrls/flap_lever_detent == 0
+    	EVENT_START_COND laminar/B747/flt_ctrls/flap_lever_detent == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/flap1
+	VEH_XYZ 0.14 4.4 -26.35 
+    	EVENT_CMND_UP sim/flight_controls/flaps_up
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/flap1
+	VEH_XYZ 0.14 4.4 -26.35 
+    	EVENT_CMND_DOWN sim/flight_controls/flaps_up
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/flap1
+	VEH_XYZ 0.14 4.4 -26.35 
+    	EVENT_CMND_UP sim/flight_controls/flaps_down
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/flap1
+	VEH_XYZ 0.14 4.4 -26.35 
+    	EVENT_CMND_DOWN sim/flight_controls/flaps_down
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -3666,6 +3666,19 @@ BEGIN_SOUND_ATTACHMENT
 	EVENT_START_COND sim/cockpit2/electrical/bus_volts[0] != 28
 END_SOUND_ATTACHMENT
 
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Avionics/avionics fans2
+	VEH_XYZ 0 5 -26.45
+	EVENT_START_COND sim/cockpit2/electrical/bus_volts[0] == 28
+	EVENT_END_COND sim/cockpit2/electrical/bus_volts[0] != 28
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Avionics/avionics fans2 shutdown
+	VEH_XYZ 0 5 -26.45
+	EVENT_START_COND sim/cockpit2/electrical/bus_volts[0] != 28
+END_SOUND_ATTACHMENT
+
 ################################
 #CONTACTORS
 ################################
@@ -3692,7 +3705,7 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cockpit/Avionics/Contactors/contactor3
+	EVENT_NAME /Cockpit/Avionics/Contactors/contactor2
 	VEH_XYZ 0 4.9 -26
 	EVENT_START_COND sim/cockpit2/electrical/bus_volts[0] != 28
 	EVENT_END_COND sim/cockpit2/electrical/bus_volts[0] == 28
@@ -3769,13 +3782,13 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Warnings/ding
 	VEH_XYZ 0 5.1 -25.5
-	EVENT_START_COND sim/cockpit2/annunciators/no_smoking
+	EVENT_START_COND sim/cockpit2/annunciators/no_smoking == 1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Warnings/ding
 	VEH_XYZ 0 5.1 -25.5
-	EVENT_START_COND sim/cockpit2/annunciators/fasten_seatbelt
+	EVENT_START_COND sim/cockpit2/annunciators/fasten_seatbelt == 1
 END_SOUND_ATTACHMENT
 
 ##################
@@ -4034,6 +4047,34 @@ BEGIN_SOUND_ATTACHMENT
 	VEH_XYZ 0 1 2
 	EVENT_START_COND sim/flightmodel2/gear/tire_rotation_speed_rad_sec[1] > 2
 	EVENT_END_COND sim/flightmodel2/gear/tire_rotation_speed_rad_sec[1] < 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/ground effect/boom1
+	VEH_XYZ 0 0 0
+	EVENT_START_COND sim/cockpit2/gauges/indicators/vvi_fpm_pilot < -1000
+	EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/ground effect/boom2
+	VEH_XYZ 0 0 0
+	EVENT_START_COND sim/cockpit2/gauges/indicators/vvi_fpm_pilot < -150
+	EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/ground effect/boom3
+	VEH_XYZ 0 0 0
+	EVENT_START_COND sim/cockpit2/gauges/indicators/vvi_fpm_pilot < -250
+	EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/ground effect/boom4
+	VEH_XYZ 0 0 0
+	EVENT_START_COND sim/cockpit2/gauges/indicators/vvi_fpm_pilot < -90
+	EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 0
 END_SOUND_ATTACHMENT
 
 ###########################
