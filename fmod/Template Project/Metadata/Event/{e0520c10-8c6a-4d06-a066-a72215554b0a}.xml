@@ -113,6 +113,7 @@
             <destination>{85d4920d-e27d-4332-8dff-85747ae61de8}</destination>
             <destination>{202a33fb-4285-455e-b0fb-06894753bf85}</destination>
             <destination>{ab30bb3c-fe3b-4bc8-9264-2e9d2591cbc3}</destination>
+            <destination>{8fbc2b0d-0c58-4a12-a98d-e0d030a06620}</destination>
         </relationship>
         <relationship name="markers">
             <destination>{af42c442-588c-4743-92f3-a6c1f4af0a96}</destination>
@@ -198,7 +199,7 @@
     </object>
     <object class="EventMixerGroup" id="{d9e20fff-37e5-4028-9f00-dca71636e28f}">
         <property name="volume">
-            <value>-10</value>
+            <value>-29.5</value>
         </property>
         <property name="name">
             <value>fan1</value>
@@ -264,7 +265,7 @@
     </object>
     <object class="EventMixerGroup" id="{584030e5-3d89-41a2-832e-bcdd83f43700}">
         <property name="volume">
-            <value>-10</value>
+            <value>-29.5</value>
         </property>
         <property name="name">
             <value>fan2</value>
@@ -285,6 +286,7 @@
         </property>
         <relationship name="automationCurves">
             <destination>{073510e9-5a84-42ab-bf3a-161a5fd8f110}</destination>
+            <destination>{8fbc2b0d-0c58-4a12-a98d-e0d030a06620}</destination>
         </relationship>
         <relationship name="objectBeingAutomated">
             <destination>{bc98cd7c-16d5-4756-8390-5f1202fd7b64}</destination>
@@ -340,6 +342,12 @@
         <relationship name="automationPoints">
             <destination>{46e3a9f9-e285-4087-9e02-f404c890826b}</destination>
             <destination>{3fc301ef-b897-4363-8603-13324e449bab}</destination>
+        </relationship>
+    </object>
+    <object class="AutomationCurve" id="{8fbc2b0d-0c58-4a12-a98d-e0d030a06620}">
+        <relationship name="automationPoints">
+            <destination>{e478856b-6702-48b0-bff5-e4ff69c21621}</destination>
+            <destination>{7bf63bfc-e815-4ab7-849f-2d5381bf39a2}</destination>
         </relationship>
     </object>
     <object class="LoopRegion" id="{af42c442-588c-4743-92f3-a6c1f4af0a96}">
@@ -474,6 +482,25 @@
         </property>
         <property name="value">
             <value>5</value>
+        </property>
+    </object>
+    <object class="AutomationPoint" id="{e478856b-6702-48b0-bff5-e4ff69c21621}">
+        <property name="position">
+            <value>2.3775976008118866</value>
+        </property>
+        <property name="value">
+            <value>0</value>
+        </property>
+        <property name="curveShape">
+            <value>0.802075207</value>
+        </property>
+    </object>
+    <object class="AutomationPoint" id="{7bf63bfc-e815-4ab7-849f-2d5381bf39a2}">
+        <property name="position">
+            <value>2.9774837647090395</value>
+        </property>
+        <property name="value">
+            <value>-80</value>
         </property>
     </object>
     <object class="AutomationPoint" id="{b2c42f22-70d9-4afb-988f-3f140f409370}">

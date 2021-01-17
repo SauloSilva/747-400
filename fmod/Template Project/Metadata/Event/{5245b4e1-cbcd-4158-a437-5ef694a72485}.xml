@@ -232,7 +232,7 @@
             <value>1</value>
         </property>
         <property name="value">
-            <value>0</value>
+            <value>-0.0608711243</value>
         </property>
     </object>
     <object class="AutomationPoint" id="{787aa350-004c-4d68-8ec7-ddde7a59f7e8}">
@@ -240,7 +240,7 @@
             <value>0.59924690324679508</value>
         </property>
         <property name="value">
-            <value>9.18558788</value>
+            <value>10</value>
         </property>
     </object>
     <object class="AutomationPoint" id="{44af0677-d07c-4b46-9747-3e93e4c1556f}">
@@ -259,7 +259,7 @@
             <value>-80</value>
         </property>
         <property name="curveShape">
-            <value>-0.473037481</value>
+            <value>-0.153644264</value>
         </property>
     </object>
     <object class="AutomationPoint" id="{487d5f06-0ee0-4d22-ac81-b99c536eded1}">
@@ -275,7 +275,7 @@
             <value>240</value>
         </property>
         <property name="value">
-            <value>5.20695782</value>
+            <value>10</value>
         </property>
     </object>
     <object class="AutomationPoint" id="{1dd7a5df-9c62-4fb7-8fb1-df92b84143c1}">
@@ -285,17 +285,24 @@
         <property name="value">
             <value>0</value>
         </property>
+        <property name="curveShape">
+            <value>1</value>
+        </property>
     </object>
     <object class="AutomationPoint" id="{f8606da0-c880-4394-8fc7-de87657e8ec3}">
         <property name="position">
             <value>100</value>
         </property>
         <property name="value">
-            <value>-80</value>
+            <value>-0.0608711243</value>
         </property>
     </object>
     <object class="MixerBusFader" id="{1b6415d5-b083-4c56-99be-3097f8d62b7a}"/>
-    <object class="SpatialiserEffect" id="{680c2f5e-3f3d-407b-827d-6074755d0897}"/>
+    <object class="SpatialiserEffect" id="{680c2f5e-3f3d-407b-827d-6074755d0897}">
+        <property name="maximumDistance">
+            <value>10000</value>
+        </property>
+    </object>
     <object class="PluginEffect" id="{706d908a-80ac-4c85-9998-eae4b988b202}">
         <relationship name="plugin">
             <destination>{8f9224d2-bd09-4678-b19b-ac7e66e8920f}</destination>

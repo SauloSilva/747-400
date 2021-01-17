@@ -5,13 +5,13 @@
             <value>fan2.wav</value>
         </property>
         <property name="frequencyInKHz">
-            <value>48</value>
+            <value>44.0999985</value>
         </property>
         <property name="channelCount">
             <value>1</value>
         </property>
         <property name="length">
-            <value>5.3913124999999997</value>
+            <value>1.4117006802721088</value>
         </property>
         <relationship name="masterAssetFolder">
             <destination>{e26eb768-3a3a-41bf-8cc8-8bfd664eb35a}</destination>
