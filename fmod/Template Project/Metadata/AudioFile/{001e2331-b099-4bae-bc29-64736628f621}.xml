@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.08.00">
+    <object class="AudioFile" id="{001e2331-b099-4bae-bc29-64736628f621}">
+        <property name="assetPath">
+            <value>climb.wav</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>1.1378004535147392</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{e26eb768-3a3a-41bf-8cc8-8bfd664eb35a}</destination>
+        </relationship>
+    </object>
+</objects>

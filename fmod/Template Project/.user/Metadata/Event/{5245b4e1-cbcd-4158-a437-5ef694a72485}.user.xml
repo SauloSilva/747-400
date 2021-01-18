@@ -5,7 +5,7 @@
             <destination>{520735a4-f711-47ec-8c98-30c78f605e83}</destination>
         </relationship>
         <relationship name="uiLastParameterSelection">
-            <destination>{8efe3dc8-6b27-4dce-81f3-acccf9ae353e}</destination>
+            <destination>{eff86358-4187-4f57-a3eb-2cef74aa8428}</destination>
         </relationship>
     </object>
     <object class="MasterTrack" id="{7bbd2e13-3cd3-4d5b-99ff-8358682a1734}"/>
@@ -19,7 +19,7 @@
     </object>
     <object class="Timeline" id="{df6779ba-00d5-48c5-bcbc-ed53258b87aa}">
         <property name="uiLastRulerScaleRatio">
-            <value>0.016137708445400752</value>
+            <value>0.016129032258064516</value>
         </property>
     </object>
     <object class="GameParameter" id="{8efe3dc8-6b27-4dce-81f3-acccf9ae353e}">
@@ -27,7 +27,7 @@
             <value>1</value>
         </property>
         <property name="uiLastRulerScaleRatio">
-            <value>0.00053792361484669173</value>
+            <value>0.00053763440860215054</value>
         </property>
     </object>
     <object class="GameParameter" id="{eff86358-4187-4f57-a3eb-2cef74aa8428}">
@@ -35,7 +35,7 @@
             <value>50.349650349650346</value>
         </property>
         <property name="uiLastRulerScaleRatio">
-            <value>0.32275416890801506</value>
+            <value>0.32258064516129031</value>
         </property>
     </object>
     <object class="DistanceParameter" id="{03ee8bbe-0665-46cd-831e-ade9a5aa1466}">

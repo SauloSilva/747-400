@@ -16,7 +16,7 @@
     <object class="GroupTrack" id="{53b6b00c-99b5-4626-90aa-43d280455587}"/>
     <object class="Timeline" id="{0b0df9f9-3090-4457-8274-7672f66eefda}">
         <property name="uiLastRulerScaleRatio">
-            <value>0.016137708445400752</value>
+            <value>0.016129032258064516</value>
         </property>
     </object>
     <object class="GameParameter" id="{187ed461-4739-4e79-91fb-b26de0e7908b}">
@@ -40,7 +40,7 @@
             <value>1</value>
         </property>
         <property name="uiLastRulerScaleRatio">
-            <value>0.00053792361484669173</value>
+            <value>0.00053763440860215054</value>
         </property>
     </object>
     <object class="EventMixerMaster" id="{fc6d19b1-28bd-4682-83e2-60ffbb81759c}">
