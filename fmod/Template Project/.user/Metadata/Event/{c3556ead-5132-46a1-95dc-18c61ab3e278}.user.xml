@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.01.08.00">
     <object class="Event" id="{c3556ead-5132-46a1-95dc-18c61ab3e278}">
         <relationship name="selectables">
-            <destination>{8a453f26-5351-4ddd-98e6-b844256a5182}</destination>
+            <destination>{a40ca681-c52e-4068-b6d4-49c4f461bad1}</destination>
         </relationship>
         <relationship name="uiLastParameterSelection">
             <destination>{a40ca681-c52e-4068-b6d4-49c4f461bad1}</destination>
@@ -19,7 +19,7 @@
     </object>
     <object class="Timeline" id="{0c6b8446-e681-454d-b8d1-b61ce16557aa}">
         <property name="uiLastRulerScaleRatio">
-            <value>0.016137708445400752</value>
+            <value>0.016129032258064516</value>
         </property>
     </object>
     <object class="GameParameter" id="{6a7098d0-0b73-47f9-958f-82aa2264e85c}">
@@ -43,7 +43,7 @@
             <value>1</value>
         </property>
         <property name="uiLastRulerScaleRatio">
-            <value>0.00053792361484669173</value>
+            <value>0.00053763440860215054</value>
         </property>
     </object>
     <object class="EventMixerMaster" id="{355cfcf8-1f35-4874-9550-7c10d1badecc}">

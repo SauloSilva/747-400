@@ -19,15 +19,15 @@
     </object>
     <object class="Timeline" id="{61f0fcb3-1936-4b5f-9a48-f85641bdb0c7}">
         <property name="uiLastRulerScaleRatio">
-            <value>0.016137708445400752</value>
+            <value>0.016129032258064516</value>
         </property>
     </object>
     <object class="GameParameter" id="{d4fed26d-0fbf-4606-be1f-4c1dc6b352b5}">
         <property name="cursorPosition">
-            <value>135.23399677245831</value>
+            <value>23.883808499193115</value>
         </property>
         <property name="uiLastRulerScaleRatio">
-            <value>0.32275416890801506</value>
+            <value>0.32258064516129031</value>
         </property>
     </object>
     <object class="DistanceParameter" id="{25f2461f-6933-44e2-9ac2-c71416b15292}">

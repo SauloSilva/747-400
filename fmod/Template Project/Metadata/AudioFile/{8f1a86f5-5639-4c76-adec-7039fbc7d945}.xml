@@ -5,13 +5,13 @@
             <value>master_caution.wav</value>
         </property>
         <property name="frequencyInKHz">
-            <value>48</value>
+            <value>44.0999985</value>
         </property>
         <property name="channelCount">
             <value>2</value>
         </property>
         <property name="length">
-            <value>0.84389583333333329</value>
+            <value>0.77337868480725624</value>
         </property>
         <relationship name="masterAssetFolder">
             <destination>{e26eb768-3a3a-41bf-8cc8-8bfd664eb35a}</destination>

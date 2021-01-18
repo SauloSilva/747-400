@@ -5,7 +5,7 @@ by Matt726
 
 Available for: Default Laminar Research or mSparks 747 mod
 
-Version: v0.5b
+Version: v0.7b
 
 Email: mfahrenheit135@gmail.com
 
@@ -25,6 +25,21 @@ Email: mfahrenheit135@gmail.com
 
 ---
 ## CHANGELOG:
+
+###v0.7b:
+
+-improved ground roll
+-added rudder trim
+-added yoke stab trim
+-added engine shutdown effects
+-added better gear lever
+-added flap sounds
+
+###v0.6.1b:
+
+-improved engine start effects
+-edited engine parameters
+-FD and AT switch sounds
 
 ### v0.6b:
 
