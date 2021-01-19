@@ -79,7 +79,8 @@ B747DR_ap_autothrottle_armed        	= deferred_dataref("laminar/B747/autothrott
 B747DR_ap_mach_decimal_visibiilty	    = deferred_dataref("laminar/B747/autopilot/mach_dec_vis", "number")
 B747DR_ap_fpa	    = deferred_dataref("laminar/B747/autopilot/navadata/fpa", "number")
 B747DR_ap_vb	    = deferred_dataref("laminar/B747/autopilot/navadata/vb", "number")
-
+B747DR_ap_capt_roll	    = deferred_dataref("laminar/B747/autopilot/capt_roll_ref", "number")
+B747DR_ap_fo_roll	    = deferred_dataref("laminar/B747/autopilot/fo_roll_ref", "number")
 
 
 

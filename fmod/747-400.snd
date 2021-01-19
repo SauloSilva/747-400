@@ -9,7 +9,7 @@ ACF_SOUNDS
 #                                                                                    #
 #     E n g i n e s : P W 4 0 6 2                                                    #
 #                                                                                    #
-#     V e r s i o n : v0.7b                                                          #
+#     V e r s i o n : v0.8b                                                          #
 #                                                                                    #
 #     B y :  M a t t 7 2 6                                                           #
 #                                                                                    #
@@ -913,6 +913,71 @@ BEGIN_SOUND_ATTACHMENT
 	EVENT_CMND_HOLD_CUE laminar/B747/toggle_switch/autothrottle
 END_SOUND_ATTACHMENT
 
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/rhotery
+	VEH_XYZ 0 4.3 -26.5
+    EVENT_START_COND ABS_DELTA=laminar/B747/cockpit2/autopilot/vvi_dial_fpm > 10
+	EVENT_END_COND ABS_DELTA=laminar/B747/cockpit2/autopilot/vvi_dial_fpm < 5
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/rhotery
+	VEH_XYZ 0 4.3 -26.5
+    EVENT_START_COND ABS_DELTA=laminar/B747/autopilot/heading/altitude_dial_ft > 10
+	EVENT_END_COND ABS_DELTA=laminar/B747/autopilot/heading/altitude_dial_ft < 5
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/rhotery
+	VEH_XYZ 0 4.3 -26.5
+    EVENT_START_COND ABS_DELTA=sim/cockpit2/autopilot/heading_dial_deg_mag_pilot > 10
+	EVENT_END_COND ABS_DELTA=sim/cockpit2/autopilot/heading_dial_deg_mag_pilot < 5
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/rhotery
+	VEH_XYZ 0 4.3 -26.5
+    EVENT_START_COND ABS_DELTA=sim/cockpit2/autopilot/heading_dial_deg_mag_copilot > 10
+	EVENT_END_COND ABS_DELTA=sim/cockpit2/autopilot/heading_dial_deg_mag_copilot < 5
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/rhotery
+	VEH_XYZ 0 4.3 -26.5
+    EVENT_START_COND ABS_DELTA=laminar/B747/autopilot/ias_dial_value > 10
+	EVENT_END_COND ABS_DELTA=laminar/B747/autopilot/ias_dial_value < 5
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/rhotery
+	VEH_XYZ 0 4.3 -26.5
+    EVENT_START_COND ABS_DELTA=sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot > 10
+	EVENT_END_COND ABS_DELTA=sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot < 5
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/rhotery
+	VEH_XYZ 0 4.3 -26.5
+    EVENT_START_COND ABS_DELTA=sim/cockpit2/radios/actuators/nav2_obs_deg_mag_copilot > 10
+	EVENT_END_COND ABS_DELTA=sim/cockpit2/radios/actuators/nav2_obs_deg_mag_copilot < 5
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/rhotery
+	VEH_XYZ 0 4.3 -26.5
+   	EVENT_START_COND ABS_DELTA=sim/cockpit/radios/transponder_code > 10
+	EVENT_END_COND ABS_DELTA=sim/cockpit/radios/transponder_code < 5
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/transponder
+	VEH_XYZ 0.13 4.3 -26.05
+    EVENT_START_COND DELTA=laminar/B747/ap_R/nav_filter/sel_dial_pos
+    EVENT_START_COND DELTA=laminar/B747/flt_mgmt/txpdr/mode_sel_pos
+    EVENT_START_COND DELTA=laminar/B747/flt_mgmt/transponder/sel_dial_pos
+END_SOUND_ATTACHMENT
+
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/button3
 	VEH_XYZ0 4.6 -26.75
@@ -941,6 +1006,118 @@ BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/rudder trim release
 	VEH_XYZ 0 5.1 -26
 	EVENT_CMND_UP sim/flight_controls/rudder_trim_right
+END_SOUND_ATTACHMENT
+
+########################
+#VHF
+########################
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button8
+	VEH_XYZ 0.15 3.7 -26.1
+    EVENT_CMND_DOWN laminar/B747/ap_C/vhf_L/xmt_sel_switch
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button8
+	VEH_XYZ 0.15 3.7 -26.1
+    EVENT_CMND_DOWN laminar/B747/ap_L/vhf_L/xmt_sel_switch
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button8
+	VEH_XYZ 0.15 3.7 -26.1
+    EVENT_CMND_DOWN laminar/B747/ap_C/vhf_R/xmt_sel_switch
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button8
+	VEH_XYZ 0.15 3.7 -26.1
+    EVENT_CMND_DOWN laminar/B747/ap_L/vhf_R/xmt_sel_switch
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button8
+	VEH_XYZ 0.15 3.7 -26.1
+    EVENT_CMND_DOWN laminar/B747/ap_R/flt/xmt_sel_switch
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button8
+	VEH_XYZ 0.15 3.7 -26.1
+    EVENT_CMND_DOWN laminar/B747/ap_R/cab/xmt_sel_switch
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button8
+	VEH_XYZ 0.15 3.7 -26.1
+    EVENT_CMND_DOWN laminar/B747/ap_R/pa/xmt_sel_switch
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button8
+	VEH_XYZ 0.15 3.7 -26.1
+    EVENT_CMND_DOWN laminar/B747/ap_R/vhf_C/xmt_sel_switch
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button8
+	VEH_XYZ 0.15 3.7 -26.1
+    EVENT_CMND_DOWN laminar/B747/ap_R/vhf_C/xmt_sel_switch
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button8
+	VEH_XYZ 0.15 3.7 -26.1
+    EVENT_CMND_DOWN laminar/B747/ap_R/vhf_L/xmt_sel_switch
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button8
+	VEH_XYZ 0.15 3.7 -26.1
+    EVENT_CMND_DOWN laminar/B747/ap_R/vhf_L/xmt_sel_switch
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button8
+	VEH_XYZ 0.15 3.7 -26.1
+    EVENT_CMND_DOWN laminar/B747/ap_R/vhf_R/xmt_sel_switch
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button8
+	VEH_XYZ -0.15 3.7 -26.1
+    EVENT_CMND_DOWN laminar/B747/ap_L/cab/xmt_sel_switch
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button8
+	VEH_XYZ -0.15 3.7 -26.1
+    EVENT_CMND_DOWN laminar/B747/ap_L/pa/xmt_sel_switch
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button8
+	VEH_XYZ -0.15 3.7 -26.1
+    EVENT_CMND_DOWN laminar/B747/ap_L/flt/xmt_sel_switch
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button8
+	VEH_XYZ -0.15 3.7 -26.1
+    EVENT_CMND_DOWN laminar/B747/ap_L/vhf_R/xmt_sel_switch
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button8
+	VEH_XYZ -0.15 3.7 -26.1
+    EVENT_CMND_DOWN laminar/B747/ap_L/vhf_C/xmt_sel_switch
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button8
+	VEH_XYZ -0.15 3.7 -26.1
+    EVENT_CMND_DOWN laminar/B747/ap_L/vhf_L/xmt_sel_switch
 END_SOUND_ATTACHMENT
 
 #####################

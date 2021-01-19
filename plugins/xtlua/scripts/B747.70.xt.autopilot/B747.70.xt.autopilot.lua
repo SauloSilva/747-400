@@ -133,7 +133,11 @@ simDR_autopilot_TOGA_pitch_deg      	= find_dataref("sim/cockpit2/autopilot/TOGA
 simDR_autopilot_fms_vnav				= find_dataref("sim/cockpit2/autopilot/fms_vnav")
 simDR_autopilot_gpss					= find_dataref("sim/cockpit2/autopilot/gpss_status")
 simDR_autopilot_pitch					= find_dataref("sim/cockpit2/autopilot/pitch_status")
-
+B747DR_capt_ap_roll	   					= find_dataref("laminar/B747/autopilot/capt_roll_ref")
+B747DR_fo_ap_roll	   					= find_dataref("laminar/B747/autopilot/fo_roll_ref")
+B747DR_ap_target_roll					= find_dataref("sim/cockpit2/autopilot/flight_director_roll_deg")
+simDR_fo_roll							= find_dataref("sim/cockpit2/gauges/indicators/roll_AHARS_deg_copilot")
+simDR_capt_roll							= find_dataref("sim/cockpit2/gauges/indicators/roll_AHARS_deg_pilot")
 simDR_airspeed_mach                 	= find_dataref("sim/flightmodel/misc/machno")
 simDR_vvi_fpm_pilot                 	= find_dataref("sim/cockpit2/gauges/indicators/vvi_fpm_pilot")
 simDR_ind_airspeed_kts_pilot        	= find_dataref("sim/cockpit2/gauges/indicators/airspeed_kts_pilot")
@@ -2499,6 +2503,9 @@ B747DR_ap_autoland=0
 dofile("B747.autoland.lua")
 
 function B747_ap_fma()
+	B747DR_capt_ap_roll=B747DR_ap_target_roll-simDR_capt_roll
+	B747DR_fo_ap_roll=B747DR_ap_target_roll-simDR_fo_roll
+
     if runAutoland() then return end
     -- AUTOTHROTTLE
     -------------------------------------------------------------------------------------

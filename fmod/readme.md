@@ -5,7 +5,7 @@ by Matt726
 
 Available for: Default Laminar Research or mSparks 747 mod
 
-Version: v0.7b
+Version: v0.8b
 
 Email: mfahrenheit135@gmail.com
 
@@ -25,6 +25,13 @@ Email: mfahrenheit135@gmail.com
 
 ---
 ## CHANGELOG:
+
+###v0.8b:
+
+-added doppler (flyby) effect
+-added mcp turn sounds
+-added some pedestal sounds
+-improved flap sounds
 
 ###v0.7b:
 
