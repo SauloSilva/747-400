@@ -60,7 +60,11 @@
             <destination>{06db5351-0b2f-4648-b97a-a33b40a00e11}</destination>
         </relationship>
     </object>
-    <object class="EventAutomatableProperties" id="{2f0f659d-8401-485c-bd68-c5b992392f42}"/>
+    <object class="EventAutomatableProperties" id="{2f0f659d-8401-485c-bd68-c5b992392f42}">
+        <property name="dopplerEnabled">
+            <value>true</value>
+        </property>
+    </object>
     <object class="MarkerTrack" id="{1c323891-7871-4cdc-9f58-2e66295cb28b}"/>
     <object class="GroupTrack" id="{6a90a83b-12eb-4f44-be37-8149c4b18fcb}">
         <relationship name="automationTracks">
@@ -208,7 +212,7 @@
             <value>100</value>
         </property>
         <property name="value">
-            <value>-18.6339149</value>
+            <value>-23.1838493</value>
         </property>
     </object>
     <object class="AutomationPoint" id="{c5868b53-5922-40e1-b573-27df17e84479}">
