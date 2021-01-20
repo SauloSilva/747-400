@@ -22186,9 +22186,9 @@ ATTR_manip_command	button	laminar/B747/fms3/ls_key/R6	Right Line Select Key 6
 TRIS	14442 30
 ATTR_manip_command	button	laminar/B747/gear_lock/override	Gear Lock Override
 TRIS	14472 30
-ATTR_manip_command	button	laminar/B747/glareshield/captain/chrono_switch	Chrono Start/Stop/Reset
+ATTR_manip_command	button	laminar/B747/fltInst/capt/clock_chrono_switch	Chrono Start/Stop/Reset
 TRIS	14502 30
-ATTR_manip_command	button	laminar/B747/glareshield/fo/chrono_switch	Chrono Start/Stop/Reset
+ATTR_manip_command	button	laminar/B747/fltInst/fo/clock_chrono_switch	Chrono Start/Stop/Reset
 TRIS	14532 30
 ATTR_manip_command	button	laminar/B747/nd/arpt/capt/switch	ARPT ON/OFF
 TRIS	14562 30
