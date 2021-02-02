@@ -3970,6 +3970,13 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Avionics/gyro
+	VEH_XYZ 0.17 4.78 26.7
+    	EVENT_START_COND sim/cockpit2/electrical/battery_on[0] != 0
+	EVENT_END_COND sim/cockpit2/electrical/battery_on[0] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Avionics/avionics fans
 	VEH_XYZ 0 4.9 -26
 	EVENT_START_COND sim/cockpit2/electrical/bus_volts[0] == 28
@@ -4043,6 +4050,19 @@ BEGIN_SOUND_ATTACHMENT
 	VEH_XYZ 0 4.2 -26.8
 	EVENT_START_COND laminar/B747/warning/master_warning > 0.5
 	EVENT_END_COND laminar/B747/warning/master_warning < 0.5
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Warnings/autopilot
+	VEH_XYZ 0 4.2 -26.8
+	EVENT_START_COND sim/cockpit/warnings/annunciators/autopilot_disconnect == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Warnings/autopilot_loop
+	VEH_XYZ 0 4.2 -26.8
+	EVENT_START_COND sim/cockpit/warnings/annunciators/autopilot_disconnect == 1
+	EVENT_END_COND sim/cockpit/warnings/annunciators/autopilot_disconnect == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -4231,10 +4251,8 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Warnings/GPWS/dontsink
 	VEH_XYZ 0 4.2 -26.8
-  	EVENT_START_COND sim/cockpit2/gauges/indicators/vvi_fpm_pilot < -100
 	EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 5000
-	EVENT_START_COND sim/cockpit2/controls/flap_ratio == 0
-  	EVENT_END_COND sim/cockpit2/gauges/indicators/vvi_fpm_pilot > 0
+	EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot > 5000
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -4412,6 +4430,7 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Ambience/hyd
 	VEH_XYZ 0 0 0
+	EVENT_ALLOWED_FOR_AI
 	EVENT_START_COND sim/cockpit2/hydraulics/indicators/hydraulic_pressure_1 > 0
 	EVENT_END_COND sim/cockpit2/hydraulics/indicators/hydraulic_pressure_1 == 0
 END_SOUND_ATTACHMENT
@@ -4423,6 +4442,7 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Engines/PW/engine1
 	VEH_XYZ -20 -1.5 2
+	EVENT_ALLOWED_FOR_AI
 	EVENT_START_COND sim/flightmodel2/engines/N1_percent[0] > 0
 	EVENT_END_COND sim/flightmodel2/engines/N1_percent[0] <= 0
 END_SOUND_ATTACHMENT
@@ -4430,6 +4450,7 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Engines/PW/engine2
 	VEH_XYZ -12 -1.5 -2
+	EVENT_ALLOWED_FOR_AI
 	EVENT_START_COND sim/flightmodel2/engines/N1_percent[1] > 0
 	EVENT_END_COND sim/flightmodel2/engines/N1_percent[1] <= 0
 END_SOUND_ATTACHMENT
@@ -4437,6 +4458,7 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Engines/PW/engine3
 	VEH_XYZ 12 -1.5 -2
+	EVENT_ALLOWED_FOR_AI
 	EVENT_START_COND sim/flightmodel2/engines/N1_percent[2] > 0
 	EVENT_END_COND sim/flightmodel2/engines/N1_percent[2] <= 0
 END_SOUND_ATTACHMENT
@@ -4444,6 +4466,7 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Engines/PW/engine4
 	VEH_XYZ 20 1.5 2
+	EVENT_ALLOWED_FOR_AI
 	EVENT_START_COND sim/flightmodel2/engines/N1_percent[3] > 0
 	EVENT_END_COND sim/flightmodel2/engines/N1_percent[3] <= 0
 END_SOUND_ATTACHMENT
@@ -4453,6 +4476,7 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Engines/PW/start/start1
 	VEH_XYZ -20 -1.5 2
+	EVENT_ALLOWED_FOR_AI
 	EVENT_START_COND sim/cockpit2/engine/indicators/N2_percent[0] > 2
 	EVENT_END_COND sim/cockpit2/engine/indicators/N2_percent[0] > 65
 END_SOUND_ATTACHMENT
@@ -4460,6 +4484,7 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Engines/PW/start/start1
 	VEH_XYZ -12 -1.5 -2
+	EVENT_ALLOWED_FOR_AI
 	EVENT_START_COND sim/cockpit2/engine/indicators/N2_percent[1] > 2
 	EVENT_END_COND sim/cockpit2/engine/indicators/N2_percent[1] > 65
 END_SOUND_ATTACHMENT
@@ -4467,6 +4492,7 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Engines/PW/start/start1
 	VEH_XYZ 12 -1.5 -2
+	EVENT_ALLOWED_FOR_AI
 	EVENT_START_COND sim/cockpit2/engine/indicators/N2_percent[2] > 2
 	EVENT_END_COND sim/cockpit2/engine/indicators/N2_percent[2] > 65
 END_SOUND_ATTACHMENT
@@ -4474,6 +4500,7 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Engines/PW/start/start1
 	VEH_XYZ 20 -1.5 2
+	EVENT_ALLOWED_FOR_AI
 	EVENT_START_COND sim/cockpit2/engine/indicators/N2_percent[3] > 2
 	EVENT_END_COND sim/cockpit2/engine/indicators/N2_percent[3] > 65
 END_SOUND_ATTACHMENT
@@ -4481,6 +4508,7 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Engines/PW/start/start2
 	VEH_XYZ -20 -1.5 2
+	EVENT_ALLOWED_FOR_AI
 	EVENT_START_COND sim/flightmodel2/engines/engine_is_burning_fuel[0] == 1
 	EVENT_END_COND sim/flightmodel2/engines/engine_is_burning_fuel[0] != 1
 END_SOUND_ATTACHMENT
@@ -4488,6 +4516,7 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Engines/PW/start/start2
 	VEH_XYZ -12 -1.5 -2
+	EVENT_ALLOWED_FOR_AI
 	EVENT_START_COND sim/flightmodel2/engines/engine_is_burning_fuel[1] == 1
 	EVENT_END_COND sim/flightmodel2/engines/engine_is_burning_fuel[1] != 1
 END_SOUND_ATTACHMENT
@@ -4495,6 +4524,7 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Engines/PW/start/start2
 	VEH_XYZ 12 -1.5 -2
+	EVENT_ALLOWED_FOR_AI
 	EVENT_START_COND sim/flightmodel2/engines/engine_is_burning_fuel[2] == 1
 	EVENT_END_COND sim/flightmodel2/engines/engine_is_burning_fuel[2] != 1
 END_SOUND_ATTACHMENT
@@ -4502,6 +4532,7 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Engines/PW/start/start2
 	VEH_XYZ 20 -1.5 2
+	EVENT_ALLOWED_FOR_AI
 	EVENT_START_COND sim/flightmodel2/engines/engine_is_burning_fuel[3] == 1
 	EVENT_END_COND sim/flightmodel2/engines/engine_is_burning_fuel[3] != 1
 END_SOUND_ATTACHMENT
@@ -4511,6 +4542,7 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Engines/PW/shutdown
 	VEH_XYZ -20 -1.5 2
+	EVENT_ALLOWED_FOR_AI
 	EVENT_START_COND sim/time/total_flight_time_sec > 0
 	EVENT_START_COND sim/cockpit2/engine/indicators/N1_percent[0] < 19
 END_SOUND_ATTACHMENT
@@ -4518,6 +4550,7 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Engines/PW/shutdown
 	VEH_XYZ -12 -1.5 -2
+	EVENT_ALLOWED_FOR_AI
 	EVENT_START_COND sim/time/total_flight_time_sec > 0
 	EVENT_START_COND sim/cockpit2/engine/indicators/N1_percent[1] < 19
 END_SOUND_ATTACHMENT
@@ -4525,6 +4558,7 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Engines/PW/shutdown
 	VEH_XYZ 12 -1.5 -2
+	EVENT_ALLOWED_FOR_AI
 	EVENT_START_COND sim/time/total_flight_time_sec > 0
 	EVENT_START_COND sim/cockpit2/engine/indicators/N1_percent[2] < 19
 END_SOUND_ATTACHMENT
@@ -4532,6 +4566,7 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Engines/PW/shutdown
 	VEH_XYZ 20 -1.5 2
+	EVENT_ALLOWED_FOR_AI
 	EVENT_START_COND sim/time/total_flight_time_sec > 0
 	EVENT_START_COND sim/cockpit2/engine/indicators/N1_percent[3] < 19
 END_SOUND_ATTACHMENT
@@ -4543,12 +4578,14 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /APU/apu
 	VEH_XYZ 0 3.5 35
+	EVENT_ALLOWED_FOR_AI
 	EVENT_START_COND sim/cockpit2/electrical/APU_running == 1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /APU/apu_start
 	VEH_XYZ 0 3.5 35
+	EVENT_ALLOWED_FOR_AI
 	EVENT_START_COND sim/cockpit2/electrical/APU_running == 1
 END_SOUND_ATTACHMENT
 
@@ -4559,6 +4596,7 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
         EVENT_NAME /Ambience/Flaps/flaps
         VEH_XYZ 7 0.8 3
+	EVENT_ALLOWED_FOR_AI
         EVENT_START_COND ABS_DELTA=sim/flightmodel2/wing/flap1_deg[0] > 0
         EVENT_END_COND ABS_DELTA=sim/flightmodel2/wing/flap1_deg[0] == 0
 END_SOUND_ATTACHMENT
@@ -4566,12 +4604,14 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
         EVENT_NAME /Ambience/Flaps/flaps_stop
         VEH_XYZ 7 0.8 3
+	EVENT_ALLOWED_FOR_AI
         EVENT_END_COND ABS_DELTA=sim/flightmodel2/wing/flap1_deg[0] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
         EVENT_NAME /Ambience/Flaps/flaps
         VEH_XYZ -7 0.8 3
+	EVENT_ALLOWED_FOR_AI
         EVENT_START_COND ABS_DELTA=sim/flightmodel2/wing/flap1_deg[0] > 0
         EVENT_END_COND ABS_DELTA=sim/flightmodel2/wing/flap1_deg[0] == 0
 END_SOUND_ATTACHMENT
@@ -4579,6 +4619,7 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
         EVENT_NAME /Ambience/Flaps/flaps_stop
         VEH_XYZ -7 0.8 3
+	EVENT_ALLOWED_FOR_AI
         EVENT_START_COND ABS_DELTA=sim/flightmodel2/wing/flap1_deg[0] == 0
 END_SOUND_ATTACHMENT
 

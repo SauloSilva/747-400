@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.01.08.00">
-    <object class="Snapshot" id="{8f014de2-6cb5-4385-ad7d-23f9b7e1fc8b}">
-        <relationship name="uiLastParameterSelection">
-            <destination>{5c2b8c57-8f51-494b-8a33-d5373d6c0475}</destination>
-        </relationship>
-    </object>
-</objects>

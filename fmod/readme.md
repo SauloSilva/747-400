@@ -26,6 +26,19 @@ Email: mfahrenheit135@gmail.com
 ---
 ## CHANGELOG:
 
+###v0.8.3b:
+
+-adjusted engines
+-updated warnings
+
+###v0.8.2b:
+
+-adjusted engines
+
+###v0.8.1b:
+
+-fixing volume
+
 ###v0.8b:
 
 -added doppler (flyby) effect
