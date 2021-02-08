@@ -352,7 +352,7 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/button1_hold
 	VEH_XYZ 0 5.3 -25.8
-	EVENT_CMND_UP laminar/B747/button_switch/elec_apu_gen_1
+	EVENT_CMND_DOWN laminar/B747/button_switch/elec_apu_gen_1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
