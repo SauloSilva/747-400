@@ -5,7 +5,7 @@ by Matt726
 
 Available for: Default Laminar Research or mSparks 747 mod
 
-Version: v0.8b
+Version: v0.9b
 
 Email: mfahrenheit135@gmail.com
 
@@ -25,6 +25,17 @@ Email: mfahrenheit135@gmail.com
 
 ---
 ## CHANGELOG:
+###v0.9b:
+
+-fixed engine 3 not sounding issue
+-better irs knobs
+-chime when irs to nav
+-chime when ac power on
+-updated contactors
+-updated chimes
+-fixed irs ground horn
+-updated buttons
+-updated master caution
 
 ###v0.8.4b:
 
