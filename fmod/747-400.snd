@@ -7,9 +7,7 @@ ACF_SOUNDS
 #                                                                                    #
 #     B o e i n g  7 4 7 - 4 0 0                                                     #
 #                                                                                    #
-#     E n g i n e s : P W 4 0 6 2                                                    #
-#                                                                                    #
-#     V e r s i o n : v0.8b                                                          #
+#     V e r s i o n : v0.9.1b                                                        #
 #                                                                                    #
 #     B y :  M a t t 7 2 6                                                           #
 #                                                                                    #
@@ -24,9 +22,11 @@ REQUIRES_BANK ambience.bank
 REQUIRES_BANK apu.bank
 REQUIRES_BANK cabin.bank
 REQUIRES_BANK cockpit.bank
-REQUIRES_BANK warnings.bank
-REQUIRES_BANK GPWS.bank
 REQUIRES_BANK enginePW.bank
+REQUIRES_BANK FO.bank
+REQUIRES_BANK GPWS.bank
+REQUIRES_BANK warnings.bank
+REQUIRES_BANK Master Bank.bank
 
 DISABLE_LEGACY_ALERT_SOUNDS
 
@@ -144,12 +144,6 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Avionics/Contactors/shaker_test
 	VEH_XYZ -0.55 4.8 -26.26
-    	EVENT_START_COND laminar/B747/electrical/standby_power/sel_dial_pos > 0
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cockpit/Avionics/Contactors/shaker_test
-	VEH_XYZ 0.55 4.8 -26.26
     	EVENT_START_COND laminar/B747/electrical/standby_power/sel_dial_pos > 0
 END_SOUND_ATTACHMENT
 
@@ -3982,7 +3976,12 @@ BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/auto_spoiler
 	VEH_XYZ 0.14 4.4 -26.35 
 	EVENT_START_COND laminar/B747/flt_ctrls/speedbrake_lever == 1
-    	EVENT_END_COND laminar/B747/flt_ctrls/speedbrake_lever != 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/auto_spoiler_retract
+	VEH_XYZ 0.14 4.4 -26.35 
+	EVENT_START_COND laminar/B747/flt_ctrls/speedbrake_lever == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -4140,6 +4139,7 @@ BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Warnings/master_caution
 	VEH_XYZ 0 4.2 -26.8
 	EVENT_START_COND laminar/B747/warning/master_caution > 0.5
+	EVENT_START_COND sim/cockpit2/electrical/bus_volts[0] > 24
 	EVENT_END_COND laminar/B747/warning/master_caution < 0.5
 END_SOUND_ATTACHMENT
 
@@ -4444,14 +4444,14 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cabin/Passenger/packs
+	EVENT_NAME /Cabin/Passenger/CABpacks
 	VEH_XYZ 0 0 0
     	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[2] >= 1
     	EVENT_END_COND laminar/B747/air/pack_ctrl/sel_dial_pos[2] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cabin/Passenger/packs
+	EVENT_NAME /Cabin/Passenger/CABpacks
 	VEH_XYZ 0 0 0
     	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[2] >= 1
     	EVENT_END_COND laminar/B747/air/pack_ctrl/sel_dial_pos[2] == 0
@@ -4474,24 +4474,73 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Ambience/gear_wind
+	EVENT_NAME /Ambience/gear/gear_wind1
 	VEH_XYZ 0 0 0
 	EVENT_START_COND sim/flightmodel2/gear/deploy_ratio[0] > 0.05
 	EVENT_END_COND sim/flightmodel2/gear/deploy_ratio[0] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Ambience/speedbrake_wind
-	VEH_XYZ -12 1 5
-	EVENT_START_COND sim/flightmodel2/wing/spoiler1_deg[0] > 0
-	EVENT_END_COND sim/flightmodel2/wing/spoiler1_deg[0] == 0
+	EVENT_NAME /Ambience/gear/gear_wind2
+	VEH_XYZ 0 0 0
+	EVENT_START_COND sim/flightmodel2/gear/deploy_ratio[1] > 0.05
+	EVENT_END_COND sim/flightmodel2/gear/deploy_ratio[1] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Ambience/speedbrake_wind
+	EVENT_NAME /Ambience/gear/gear_wind3
+	VEH_XYZ 0 0 0
+	EVENT_START_COND sim/flightmodel2/gear/deploy_ratio[2] > 0.05
+	EVENT_END_COND sim/flightmodel2/gear/deploy_ratio[2] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/gear/gear_wind4
+	VEH_XYZ 0 0 0
+	EVENT_START_COND sim/flightmodel2/gear/deploy_ratio[3] > 0.05
+	EVENT_END_COND sim/flightmodel2/gear/deploy_ratio[3] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/gear/gear_wind5
+	VEH_XYZ 0 0 0
+	EVENT_START_COND sim/flightmodel2/gear/deploy_ratio[4] > 0.05
+	EVENT_END_COND sim/flightmodel2/gear/deploy_ratio[4] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/gear/gear_wind6
+	VEH_XYZ 0 0 0
+	EVENT_START_COND sim/flightmodel2/gear/deploy_ratio[5] > 0.05
+	EVENT_END_COND sim/flightmodel2/gear/deploy_ratio[5] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/gear/gear_wind7
+	VEH_XYZ 0 0 0
+	EVENT_START_COND sim/flightmodel2/gear/deploy_ratio[6] > 0.05
+	EVENT_END_COND sim/flightmodel2/gear/deploy_ratio[6] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/gear/gear_wind8
+	VEH_XYZ -12 1 5
+	EVENT_START_COND sim/flightmodel2/wing/spoiler1_deg[7] > 0
+	EVENT_END_COND sim/flightmodel2/wing/spoiler1_deg[7] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/gear/gear_wind9
 	VEH_XYZ 12 1 5
-	EVENT_START_COND sim/flightmodel2/wing/spoiler1_deg[0] > 0
-	EVENT_END_COND sim/flightmodel2/wing/spoiler1_deg[0] == 0
+	EVENT_START_COND sim/flightmodel2/wing/spoiler1_deg[8] > 0
+	EVENT_END_COND sim/flightmodel2/wing/spoiler1_deg[8] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/gear/gear_wind10
+	VEH_XYZ 0 0 0
+	EVENT_START_COND sim/flightmodel2/gear/deploy_ratio[9] > 0.05
+	EVENT_END_COND sim/flightmodel2/gear/deploy_ratio[9] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -4757,4 +4806,14 @@ BEGIN_SOUND_ATTACHMENT
         EVENT_NAME /Ambience/Wipers/wipers2
         VEH_XYZ 0 5 -27.5
         EVENT_START_COND sim/flightmodel2/misc/wiper_angle_deg[0] < 5
+END_SOUND_ATTACHMENT
+
+#############
+#FO CALLOUTS
+#############
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /FO Callouts/v1
+	VEH_XYZ 0.5 5.1 25.9
+	EVENT_START_COND laminar/B747/gpws/v1
 END_SOUND_ATTACHMENT
