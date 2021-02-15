@@ -7,7 +7,7 @@ ACF_SOUNDS
 #                                                                                    #
 #     B o e i n g  7 4 7 - 4 0 0                                                     #
 #                                                                                    #
-#     V e r s i o n : v0.9.1b                                                        #
+#     V e r s i o n : v0.9.2b                                                        #
 #                                                                                    #
 #     B y :  M a t t 7 2 6                                                           #
 #                                                                                    #
@@ -48,6 +48,23 @@ BEGIN_SOUND_ATTACHMENT
 	SNAPSHOT_NAME /init
 	EVENT_START_COND sim/time/total_flight_time_sec > 0
 	EVENT_END_COND sim/time/total_flight_time_sec > 5
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	SNAPSHOT_NAME /packs_on
+	EVENT_START_COND sim/cockpit2/bleedair/indicators/bleed_available_center == 1
+    	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[0] >= 1
+    	EVENT_END_COND laminar/B747/air/pack_ctrl/sel_dial_pos[0] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	SNAPSHOT_NAME /packs_off
+    	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[0] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	SNAPSHOT_NAME /packs_off
+	EVENT_START_COND sim/cockpit2/bleedair/indicators/bleed_available_center == 0
 END_SOUND_ATTACHMENT
 
 ###########################
@@ -4024,7 +4041,7 @@ END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Avionics/avioncs3
-	VEH_XYZ 0 5 -24.6
+	VEH_XYZ 0.7 5 -24.6
     	EVENT_START_COND sim/cockpit2/electrical/battery_on[0] != 0
 	EVENT_END_COND sim/cockpit2/electrical/battery_on[0] == 0
 END_SOUND_ATTACHMENT
@@ -4037,7 +4054,7 @@ END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Avionics/gyro
-	VEH_XYZ -0.17 4.8 26.67
+	VEH_XYZ -0.17 4.8 -26.67
     	EVENT_START_COND sim/cockpit2/electrical/battery_on[0] != 0
 	EVENT_END_COND sim/cockpit2/electrical/battery_on[0] == 0
 END_SOUND_ATTACHMENT
@@ -4439,6 +4456,7 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cabin/Passenger/packs
 	VEH_XYZ 0 5.1 -25.5
+	EVENT_START_COND sim/cockpit2/bleedair/indicators/bleed_available_center == 1
     	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[0] >= 1
     	EVENT_END_COND laminar/B747/air/pack_ctrl/sel_dial_pos[0] == 0
 END_SOUND_ATTACHMENT
@@ -4446,6 +4464,7 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cabin/Passenger/CABpacks
 	VEH_XYZ 0 0 0
+	EVENT_START_COND sim/cockpit2/bleedair/indicators/bleed_available_center == 1
     	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[2] >= 1
     	EVENT_END_COND laminar/B747/air/pack_ctrl/sel_dial_pos[2] == 0
 END_SOUND_ATTACHMENT
@@ -4453,6 +4472,7 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cabin/Passenger/CABpacks
 	VEH_XYZ 0 0 0
+	EVENT_START_COND sim/cockpit2/bleedair/indicators/bleed_available_center == 1
     	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[2] >= 1
     	EVENT_END_COND laminar/B747/air/pack_ctrl/sel_dial_pos[2] == 0
 END_SOUND_ATTACHMENT
@@ -4712,7 +4732,6 @@ BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Engines/PW/shutdown
 	VEH_XYZ -20 -1.5 2
 	EVENT_ALLOWED_FOR_AI
-	EVENT_START_COND sim/time/total_flight_time_sec > 0
 	EVENT_START_COND sim/cockpit2/engine/indicators/N1_percent[0] < 19.8
 END_SOUND_ATTACHMENT
 
@@ -4720,7 +4739,6 @@ BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Engines/PW/shutdown
 	VEH_XYZ -12 -1.5 -2
 	EVENT_ALLOWED_FOR_AI
-	EVENT_START_COND sim/time/total_flight_time_sec > 0
 	EVENT_START_COND sim/cockpit2/engine/indicators/N1_percent[1] < 19.8
 END_SOUND_ATTACHMENT
 
@@ -4728,7 +4746,6 @@ BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Engines/PW/shutdown
 	VEH_XYZ 12 -1.5 -2
 	EVENT_ALLOWED_FOR_AI
-	EVENT_START_COND sim/time/total_flight_time_sec > 0
 	EVENT_START_COND sim/cockpit2/engine/indicators/N1_percent[2] < 19.8
 END_SOUND_ATTACHMENT
 
@@ -4736,7 +4753,6 @@ BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Engines/PW/shutdown
 	VEH_XYZ 20 -1.5 2
 	EVENT_ALLOWED_FOR_AI
-	EVENT_START_COND sim/time/total_flight_time_sec > 0
 	EVENT_START_COND sim/cockpit2/engine/indicators/N1_percent[3] < 19.8
 END_SOUND_ATTACHMENT
 
