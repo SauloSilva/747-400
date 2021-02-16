@@ -5,7 +5,7 @@ by Matt726
 
 Available for: Default Laminar Research or mSparks 747 mod
 
-Version: v0.9.2b
+Version: v0.9.3b
 
 Email: mfahrenheit135@gmail.com
 
@@ -25,6 +25,10 @@ Email: mfahrenheit135@gmail.com
 
 ---
 ## CHANGELOG:
+
+## v0.9.3b:
+
+-updated flap lever sounds
 
 ### v0.9.2b:
 

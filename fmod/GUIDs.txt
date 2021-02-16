@@ -78,6 +78,7 @@
 {113e81c4-058e-4331-a683-28c9d90f6f33} event:/Cockpit/Switches/throttle at
 {7b02fca3-f6f0-4e0c-8f76-7cbf6b9f45b1} event:/Cockpit/Switches/toga
 {67b1af76-2832-41c5-9456-5e8b7f336555} event:/Cockpit/Switches/transponder
+{04e21581-3834-4327-adde-315693e2b2b2} event:/Cockpit/Switches/flap4
 {233c0f79-d6a0-4c3a-8918-0da9448e8633} event:/Engines/PW/start/start1
 {914f36ce-af10-457e-ac06-2da400d29636} event:/Engines/PW/start/start2
 {28c72ed5-11a8-4eaa-816d-af0469b0f2a0} event:/Engines/PW/engine1
