@@ -26,7 +26,15 @@ Email: mfahrenheit135@gmail.com
 ---
 ## CHANGELOG:
 
-## v0.9.3b:
+### v0.9.4b:
+
+- fixed wind glitch
+- added efis knobs switch
+- updated efis buttons
+- added fuel control switch sounds
+- added engine start switch sounds
+
+### v0.9.3b:
 
 -updated flap lever sounds
 
