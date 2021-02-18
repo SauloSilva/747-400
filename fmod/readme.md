@@ -5,7 +5,7 @@ by Matt726
 
 Available for: Default Laminar Research or mSparks 747 mod
 
-Version: v0.9.3b
+Version: v0.9.5b
 
 Email: mfahrenheit135@gmail.com
 
@@ -25,6 +25,13 @@ Email: mfahrenheit135@gmail.com
 
 ---
 ## CHANGELOG:
+
+### v0.9.5b:
+
+- fixed gpws glitch
+- added fo efis sounds
+- BIG: ADDED REVERSE THRUST SOUND
+- adjusted engines
 
 ### v0.9.4b:
 

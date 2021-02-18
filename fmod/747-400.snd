@@ -7,7 +7,7 @@ ACF_SOUNDS
 #                                                                                    #
 #     B o e i n g  7 4 7 - 4 0 0                                                     #
 #                                                                                    #
-#     V e r s i o n : v0.9.4b                                                        #
+#     V e r s i o n : v0.9.5b                                                        #
 #                                                                                    #
 #     B y :  M a t t 7 2 6                                                           #
 #                                                                                    #
@@ -1037,6 +1037,14 @@ END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/transponder
+	VEH_XYZ 0 4.3 -26.05
+    EVENT_START_COND DELTA=laminar/B747/ap_L/vor_adf_rcvr/sel_dial_pos
+    EVENT_START_COND DELTA=laminar/B747/ap_L/app_rcvr/sel_dial_pos
+    EVENT_START_COND DELTA=laminar/B747/ap_L/nav_filter/sel_dial_pos
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/transponder
 	VEH_XYZ 0.13 4.3 -26.05
     EVENT_START_COND DELTA=laminar/B747/ap_R/nav_filter/sel_dial_pos
     EVENT_START_COND DELTA=laminar/B747/flt_mgmt/txpdr/mode_sel_pos
@@ -1191,7 +1199,7 @@ END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/button7
-	VEH_XYZ 0.25 5.3 -25.84
+	VEH_XYZ -0.25 5.3 -25.84
     EVENT_START_COND DELTA=laminar/B747/nd/wxr/capt/switch_pos
     EVENT_START_COND DELTA=laminar/B747/nd/sta/capt/switch_pos
     EVENT_START_COND DELTA=laminar/B747/nd/wpt/capt/switch_pos
@@ -1225,33 +1233,34 @@ END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/efis_knob
-	VEH_XYZ 0.25 5.3 -25.84
-    EVENT_START_COND DELTA=sim/cockpit/switches/EFIS_map_range_selector
-    EVENT_START_COND DELTA=sim/cockpit/switches/EFIS_map_submode
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cockpit/Switches/efis_knob
-	VEH_XYZ 0.25 5.3 -25.84
+	VEH_XYZ -0.25 5.3 -25.84
+    	EVENT_START_COND DELTA=sim/cockpit/switches/EFIS_map_range_selector
+    	EVENT_START_COND DELTA=sim/cockpit/switches/EFIS_map_submode
         EVENT_START_COND DELTA=laminar/B747/efis/min_ref_alt/capt/sel_dial_pos
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cockpit/Switches/efis_knob
-	VEH_XYZ 0.25 5.3 -25.84
         EVENT_START_COND DELTA=laminar/B747/efis/baro_ref/capt/sel_dial_pos
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cockpit/Switches/efis_knob2
+	EVENT_NAME /Cockpit/Switches/efis_knob
 	VEH_XYZ 0.25 5.3 -25.84
+    	EVENT_START_COND DELTA=sim/cockpit/switches/EFIS_map_range_selector
+    	EVENT_START_COND DELTA=sim/cockpit/switches/EFIS_map_submode
+        EVENT_START_COND DELTA=laminar/B747/efis/min_ref_alt/fo/sel_dial_pos
+        EVENT_START_COND DELTA=laminar/B747/efis/baro_ref/fo/sel_dial_pos
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/efis_knob2
+	VEH_XYZ -0.25 5.3 -25.84
         EVENT_START_COND DELTA=laminar/B747/efis/baro/capt/set_dial_pos
+        EVENT_START_COND DELTA=laminar/B747/efis/ref_alt/capt/set_dial_pos
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/efis_knob2
 	VEH_XYZ 0.25 5.3 -25.84
-        EVENT_START_COND DELTA=laminar/B747/efis/ref_alt/capt/set_dial_pos
+        EVENT_START_COND DELTA=laminar/B747/efis/baro/fo/set_dial_pos
+        EVENT_START_COND DELTA=laminar/B747/efis/ref_alt/fo/set_dial_pos
 END_SOUND_ATTACHMENT
 
 ##################
@@ -2926,829 +2935,829 @@ END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/2
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/3
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/4
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/5
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/6
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/7
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/8
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/9
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/A
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/B
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/C
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/D
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/E
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/F
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/G
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/H
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/I
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/J
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/K
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/L
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/M
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/N
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/O
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/P
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/Q
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/R
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/S
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/T
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/U
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/V
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/W
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/X
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/Y
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/alphanum_key/Z
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/func_key/clb
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/func_key/crz
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/func_key/dep_arr
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/func_key/des
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/func_key/dir_intc
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/func_key/fix
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/func_key/fpln
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/func_key/hold
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/func_key/index
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/func_key/legs
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/func_key/navrad
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/func_key/next_pg
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/func_key/prev_pg
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/func_key/prog
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/key/clear
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/key/del
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/key/execute
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/key/minus
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/key/period
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/key/slash
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/key/space
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/ls_key/L1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/ls_key/L2
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/ls_key/L3
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/ls_key/L4
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/ls_key/L5
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/ls_key/L6
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/ls_key/R1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/ls_key/R2
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/ls_key/R3
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/ls_key/R4
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/ls_key/R5
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button hold
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_DOWN laminar/B747/fms3/ls_key/R6
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/2
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/3
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/4
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/5
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/6
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/7
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/8
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/9
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/A
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/B
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/C
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/D
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/E
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/F
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/G
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/H
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/I
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/J
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/K
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/L
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/M
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/N
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/O
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/P
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/Q
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/R
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/S
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/T
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/U
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/V
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/W
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/X
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/Y
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/alphanum_key/Z
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/func_key/clb
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/func_key/crz
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/func_key/dep_arr
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/func_key/des
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/func_key/dir_intc
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/func_key/fix
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/func_key/fpln
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/func_key/hold
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/func_key/index
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/func_key/legs
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/func_key/navrad
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/func_key/next_pg
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/func_key/prev_pg
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/func_key/prog
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/key/clear
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/key/del
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/key/execute
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/key/minus
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/key/period
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/key/slash
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/key/space
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/ls_key/L1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/ls_key/L2
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/ls_key/L3
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/ls_key/L4
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/ls_key/L5
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/ls_key/L6
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/ls_key/R1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/ls_key/R2
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/ls_key/R3
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/ls_key/R4
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/ls_key/R5
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fmc button release
-	VEH_XYZ 0 4.64 26.04
+	VEH_XYZ 0 4.64 -26.04
 	EVENT_CMND_UP laminar/B747/fms3/ls_key/R6
 END_SOUND_ATTACHMENT
 
@@ -3876,27 +3885,15 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cockpit/Switches/button10
+	EVENT_NAME /Cockpit/Switches/button5
 	VEH_XYZ 0 5.3 -25.8
-	EVENT_START_COND laminar/B747/toggle_switch/position[20] == 1
+	EVENT_CMND_HOLD_CUE laminar/B747/toggle_switch/windshield_washer_L
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cockpit/Switches/button11
+	EVENT_NAME /Cockpit/Switches/button5
 	VEH_XYZ 0 5.3 -25.8
-	EVENT_START_COND laminar/B747/toggle_switch/position[20] == 0
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cockpit/Switches/button10
-	VEH_XYZ 0 5.3 -25.8
-	EVENT_START_COND laminar/B747/toggle_switch/position[21] == 1
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cockpit/Switches/button11
-	VEH_XYZ 0 5.3 -25.8
-	EVENT_START_COND laminar/B747/toggle_switch/position[21] == 0
+	EVENT_CMND_HOLD_CUE laminar/B747/toggle_switch/windshield_washer_R
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -4141,28 +4138,28 @@ BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/start_release
 	VEH_XYZ 0 5.3 -25.8
 	EVENT_START_COND laminar/B747/toggle_switch/position[16] == 0
-	EVENT_START_COND sim/flightmodel2/engines/N1_percent[0] > 10
+	EVENT_START_COND sim/flightmodel2/engines/N1_percent[0] > 15
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/start_release
 	VEH_XYZ 0 5.3 -25.8
 	EVENT_START_COND laminar/B747/toggle_switch/position[17] == 0
-	EVENT_START_COND sim/flightmodel2/engines/N1_percent[1] > 10
+	EVENT_START_COND sim/flightmodel2/engines/N1_percent[1] > 15
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/start_release
 	VEH_XYZ 0 5.3 -25.8
 	EVENT_START_COND laminar/B747/toggle_switch/position[18] == 0
-	EVENT_START_COND sim/flightmodel2/engines/N1_percent[2] > 10
+	EVENT_START_COND sim/flightmodel2/engines/N1_percent[2] > 15
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/start_release
 	VEH_XYZ 0 5.3 -25.8
 	EVENT_START_COND laminar/B747/toggle_switch/position[19] == 0
-	EVENT_START_COND sim/flightmodel2/engines/N1_percent[3] > 10
+	EVENT_START_COND sim/flightmodel2/engines/N1_percent[3] > 15
 END_SOUND_ATTACHMENT
 
 ############################
