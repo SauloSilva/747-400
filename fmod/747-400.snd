@@ -684,15 +684,15 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cockpit/Switches/button1
+	EVENT_NAME /Cockpit/Switches/button7
 	VEH_XYZ 0 5.3 -25.8
-	EVENT_CMND_HOLD_CUE laminar/B747/button_switch/press_airspeed
+	EVENT_START_COND laminar/B747/button_switch/press_airspeed
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cockpit/Switches/button1
+	EVENT_NAME /Cockpit/Switches/button7
 	VEH_XYZ 0 5.3 -25.8
-	EVENT_CMND_HOLD_CUE laminar/B747/button_switch/press_altitude
+	EVENT_START_COND laminar/B747/button_switch/press_altitude
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -977,6 +977,11 @@ BEGIN_SOUND_ATTACHMENT
 	EVENT_CMND_HOLD_CUE laminar/B747/toggle_switch/autothrottle
 END_SOUND_ATTACHMENT
 
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button7
+	VEH_XYZ 0 5.1 -26
+	EVENT_START_COND DELTA=sim/autopilot/knots_mach_toggle
+	EVENT_START_COND DELTA=sim/autopilot/heading
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -1029,8 +1034,14 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cockpit/Switches/rhotery
+	EVENT_NAME /Cockpit/Switches/efis_knob
 	VEH_XYZ 0 4.3 -26.5
+    EVENT_START_COND ABS_DELTA=laminar/B747/autopilot/bank_limit/sel_dial_pos
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/rhotery
+	VEH_XYZ 0 4.3 -26.05
    	EVENT_START_COND ABS_DELTA=sim/cockpit/radios/transponder_code > 10
 	EVENT_END_COND ABS_DELTA=sim/cockpit/radios/transponder_code < 5
 END_SOUND_ATTACHMENT
@@ -1254,6 +1265,28 @@ BEGIN_SOUND_ATTACHMENT
 	VEH_XYZ -0.25 5.3 -25.84
         EVENT_START_COND DELTA=laminar/B747/efis/baro/capt/set_dial_pos
         EVENT_START_COND DELTA=laminar/B747/efis/ref_alt/capt/set_dial_pos
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button7
+	VEH_XYZ -0.25 5.3 -25.84
+        EVENT_START_COND DELTA=laminar/B747/efis/meters/capt/switch
+        EVENT_START_COND DELTA=laminar/B747/efis/fpv/capt/switch
+	EVENT_START_COND DELTA=laminar/B747/efis/dh/capt/reset_switch
+	EVENT_START_COND DELTA=laminar/B747/efis/baro_std/capt/switch
+	EVENT_START_COND DELTA=laminar/B747/nd/center/capt/switch
+	EVENT_START_COND DELTA=laminar/B747/nd/traffic/capt/switch
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button7
+	VEH_XYZ 0.25 5.3 -25.84
+        EVENT_START_COND DELTA=laminar/B747/efis/meters/fo/switch
+        EVENT_START_COND DELTA=laminar/B747/efis/fpv/fo/switch
+	EVENT_START_COND DELTA=laminar/B747/efis/dh/fo/reset_switch
+	EVENT_START_COND DELTA=laminar/B747/efis/baro_std/fo/switch
+	EVENT_START_COND DELTA=laminar/B747/nd/center/fo/switch
+	EVENT_START_COND DELTA=laminar/B747/nd/traffic/fo/switch
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -4055,7 +4088,7 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/auto_spoiler_retract
 	VEH_XYZ 0.14 4.4 -26.35
-	EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 0
+	EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 10
 	EVENT_START_COND laminar/B747/flt_ctrls/speedbrake_lever == 0
 END_SOUND_ATTACHMENT
 

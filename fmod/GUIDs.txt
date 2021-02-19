@@ -88,11 +88,11 @@
 {67b1af76-2832-41c5-9456-5e8b7f336555} event:/Cockpit/Switches/transponder
 {233c0f79-d6a0-4c3a-8918-0da9448e8633} event:/Engines/PW/start/start1
 {914f36ce-af10-457e-ac06-2da400d29636} event:/Engines/PW/start/start2
-{28c72ed5-11a8-4eaa-816d-af0469b0f2a0} event:/Engines/PW/engine1
 {623f8045-df33-46d3-adab-aeb6aa8a7522} event:/Engines/PW/shutdown
-{b99a4fa2-fc8c-4eb3-a71d-a75dec363b3b} event:/Engines/PW/engine2
-{04198f84-5ea0-4fbd-a2f7-8e006556fc3f} event:/Engines/PW/engine3
-{a82d212b-8144-4567-b4b2-dec4b55e06aa} event:/Engines/PW/engine4
+{db5e1cf4-b22b-4d76-9a8c-db261adf0cc0} event:/Engines/PW/engine1
+{72bdc516-e7ec-414e-b2e2-eeff13ef3643} event:/Engines/PW/engine2
+{09d8a872-b581-4461-8461-8acc21b2b102} event:/Engines/PW/engine3
+{35fbde7a-952a-4ce1-9a5f-739556e7cf42} event:/Engines/PW/engine4
 {93a2e983-0537-4b1c-a39c-be78517c3c8b} event:/PM Callouts/1000
 {7bf91825-a67e-453f-9bd1-364cbb8fef71} event:/PM Callouts/1000togo
 {264033f8-2b14-4d0b-91de-71f3eade9929} event:/PM Callouts/100ft
