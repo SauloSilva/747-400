@@ -157,6 +157,6 @@ end
 if sim/cockpit2/switches/door_open == [1,0,0,0,0,0,0,0,0,0] then
   lineB = "<CLOSE           Upper L"
   else
-  lineA = "<OPEN            Upper L"
+  lineB = "<OPEN            Upper L"
 end
 ]]
