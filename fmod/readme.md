@@ -5,7 +5,7 @@ by Matt726
 
 Available for: Default Laminar Research or mSparks 747 mod
 
-Version: v0.9.5b
+Version: v0.9.6b
 
 Email: mfahrenheit135@gmail.com
 
@@ -25,6 +25,10 @@ Email: mfahrenheit135@gmail.com
 
 ---
 ## CHANGELOG:
+
+### v0.9.6b:
+
+- updated engines
 
 ### v0.9.5b:
 
