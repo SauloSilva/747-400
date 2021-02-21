@@ -29,7 +29,7 @@ XTlua is described in more detail [here](https://forums.x-plane.org/index.php?/f
 
 XTlua source is [here](https://github.com/mSparks43/XLua/tree/xTLua)
 
-**How can I contribute**
+**How can I contribute?**
 
 Please use the [github issue page](https://github.com/mSparks43/747-400/issues) if you find a problem. If your issue is already listed please add your details, problems that can be recreated are generally fixed quickly.
 
@@ -56,13 +56,13 @@ In order to use this aircraft
 
 ### Troubleshooting
 
-**What is the black console window that opens when I start the plane** Don't close it. The console window is part of the systems monitoring and will give important information needed to report issues for example if the plane crashes to desktop. This and the X-Plane Log.txt are the two primary tools for investigating issues.
+**What is the black console window that opens when I start the plane?** Don't close it. The console window is part of the systems monitoring and will give important information needed to report issues for example if the plane crashes to desktop. This and the X-Plane Log.txt are the two primary tools for investigating issues.
 
-**All my cockpit is black and I can't click anything** Windows users: Please install the installers linked above. Also check that the plugins/xtlua/64/win.xpl extracted correctly. Some users have reported their antivirus blocking it from being extracted. Please send an angry email to your antivirus provider along with a copy of the file if you have your time wasted by this.
+**All my cockpit is black and I can't click anything?** Windows users: Please install the installers linked above. Also check that the plugins/xtlua/64/win.xpl extracted correctly. Some users have reported their antivirus blocking it from being extracted. Please send an angry email to your antivirus provider along with a copy of the file if you have your time wasted by this.
 
-**Why is my FMC blank** certain controllers have their switches automatically bound to avionics power, if these are off it turns off the avionics needed by the FMC, either switch on the switch on your controller, or bind a key to "avionics on" and use that to bring the FMC to life
+**Why is my FMC blank?** certain controllers have their switches automatically bound to avionics power, if these are off it turns off the avionics needed by the FMC, either switch on the switch on your controller, or bind a key to "avionics on" and use that to bring the FMC to life
 
-**Why can't I move** The aircraft brakes require hydraulic pressure to function, to prevent the aircraft rolling away before the hydraulics are pressurised the wheels are fitted with chocks when starting cold and dark, remove the from the ground services menu in one of the FMCs.
+**Why can't I move?** The aircraft brakes require hydraulic pressure to function, to prevent the aircraft rolling away before the hydraulics are pressurised the wheels are fitted with chocks when starting cold and dark, remove the from the ground services menu in one of the FMCs.
 
 Additionally, the break lever and X-Plane breaks are now seperated, there is a new command to engage the breaks by lifting the parking break lever.
 
