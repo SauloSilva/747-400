@@ -2236,8 +2236,8 @@ function B747_fuel_tank_levels()
     ----- ENGINE FUEL BURN ------------------------------------------------------
 
     -- APU
-   -- simDR_fuel_tank_weight_kg[2] = math.max(B747.fuel.main2_tank.min, simDR_fuel_tank_weight_kg[2] - (apuFuelBurn_KgSec * fuel_calc_rate))
-
+    simDR_fuel_tank_weight_kg[2] = math.max(B747.fuel.main2_tank.min, simDR_fuel_tank_weight_kg[2] - (apuFuelBurn_KgSec * fuel_calc_rate/2))
+    simDR_fuel_tank_weight_kg[3] = math.max(B747.fuel.main3_tank.min, simDR_fuel_tank_weight_kg[3] - (apuFuelBurn_KgSec * fuel_calc_rate/2))
 
     -- ENGINE #1
     local eng1fuelShareRatio = 0
