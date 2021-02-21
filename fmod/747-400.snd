@@ -7,7 +7,7 @@ ACF_SOUNDS
 #                                                                                    #
 #     B o e i n g  7 4 7 - 4 0 0                                                     #
 #                                                                                    #
-#     V e r s i o n : v0.9.5b                                                        #
+#     V e r s i o n : v0.9.8b                                                        #
 #                                                                                    #
 #     B y :  M a t t 7 2 6                                                           #
 #                                                                                    #
@@ -56,20 +56,9 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	SNAPSHOT_NAME /packs_on
-	EVENT_START_COND sim/cockpit2/bleedair/indicators/bleed_available_center == 1
-    	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[0] >= 1
-    	EVENT_END_COND laminar/B747/air/pack_ctrl/sel_dial_pos[0] == 0
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-	SNAPSHOT_NAME /packs_off
-    	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[0] == 0
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-	SNAPSHOT_NAME /packs_off
-	EVENT_START_COND sim/cockpit2/bleedair/indicators/bleed_available_center == 0
+	SNAPSHOT_NAME /lower_deck
+	EVENT_START_COND sim/graphics/view/pilots_head_z >= -23.3
+	EVENT_END_COND sim/graphics/view/pilots_head_z <= -23.4
 END_SOUND_ATTACHMENT
 
 ###########################
@@ -118,25 +107,25 @@ END_SOUND_SPACE
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/stab_trim
 	VEH_XYZ -0.55 4.8 -26.26
-    	EVENT_CMND_DOWN laminar/B747/flt_ctrls/stab_trim_dn_capt
+    	EVENT_CMND_DOWN sim/flight_controls/pitch_trim_down
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/stab_trim
 	VEH_XYZ -0.55 4.8 -26.26
-    	EVENT_CMND_UP laminar/B747/flt_ctrls/stab_trim_dn_capt
+    	EVENT_CMND_UP sim/flight_controls/pitch_trim_down
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/stab_trim
 	VEH_XYZ -0.55 4.8 -26.26
-    	EVENT_CMND_DOWN laminar/B747/flt_ctrls/stab_trim_up_capt
+    	EVENT_CMND_DOWN sim/flight_controls/pitch_trim_up
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/stab_trim
 	VEH_XYZ -0.55 4.8 -26.26
-    	EVENT_CMND_UP laminar/B747/flt_ctrls/stab_trim_up_capt
+    	EVENT_CMND_UP sim/flight_controls/pitch_trim_up
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -3871,9 +3860,17 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cockpit/Switches/button3
+	EVENT_NAME /Cockpit/Switches/autobrake
 	VEH_XYZ 0.13 4.3 -26.0
     	EVENT_START_COND DELTA=laminar/B747/gear/autobrakes/sel_dial_pos
+	EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/autobrake_reset
+	VEH_XYZ 0.13 4.3 -26.0
+	EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot > 0
+    	EVENT_START_COND laminar/B747/gear/autobrakes/sel_dial_pos == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -4614,27 +4611,42 @@ END_SOUND_ATTACHMENT
 ##################
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cabin/Passenger/packs
+	EVENT_NAME /Cabin/Passenger/packsL
 	VEH_XYZ 0 5.1 -25.5
-	EVENT_START_COND sim/cockpit2/bleedair/indicators/bleed_available_center == 1
     	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[0] >= 1
     	EVENT_END_COND laminar/B747/air/pack_ctrl/sel_dial_pos[0] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cabin/Passenger/CABpacks
-	VEH_XYZ 0 0 0
-	EVENT_START_COND sim/cockpit2/bleedair/indicators/bleed_available_center == 1
-    	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[2] >= 1
-    	EVENT_END_COND laminar/B747/air/pack_ctrl/sel_dial_pos[2] == 0
+	EVENT_NAME /Cabin/Passenger/packsLOFF
+	VEH_XYZ 0 5.1 -25.5
+    	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[0] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cabin/Passenger/CABpacks
+	EVENT_NAME /Cabin/Passenger/packsC
 	VEH_XYZ 0 0 0
-	EVENT_START_COND sim/cockpit2/bleedair/indicators/bleed_available_center == 1
-    	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[2] >= 1
-    	EVENT_END_COND laminar/B747/air/pack_ctrl/sel_dial_pos[2] == 0
+    	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[1] == 1
+	EVENT_END_COND laminar/B747/air/pack_ctrl/sel_dial_pos[1] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cabin/Passenger/packsCOFF
+	VEH_XYZ 0 0 0
+    	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[1] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cabin/Passenger/packsC
+	VEH_XYZ 0 0 0
+    	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[2] == 1
+	EVENT_END_COND laminar/B747/air/pack_ctrl/sel_dial_pos[2] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cabin/Passenger/packsCOFF
+	VEH_XYZ 0 5.1 -25.5
+    	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[2] == 0
 END_SOUND_ATTACHMENT
 
 ######################
@@ -4735,6 +4747,12 @@ BEGIN_SOUND_ATTACHMENT
 	VEH_XYZ 0 0 0
 	EVENT_START_COND sim/cockpit2/gauges/indicators/vvi_fpm_pilot < -90
 	EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/ground effect/nose_rattle
+	VEH_XYZ 0 1.5 -24.3
+	EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot > 10
 END_SOUND_ATTACHMENT
 
 ###########################
