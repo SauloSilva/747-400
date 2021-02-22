@@ -17,7 +17,7 @@ The YesAviation team now goes under another name, and is developing another 747 
 This 747 currently includes new FMOD sounds, realistic textures, new systems and FMC, three variants of engines coming soon, a new UV map for livery creators, and many more big changes in the future.
 The github repository contains the latest versions, including the LCF model variant by Lee_Hyeon_Seo (with permission) with the existing improvements, check out the working his [A340 developements](https://forums.x-plane.org/index.php?/forums/topic/203381-3d-cockpit-for-a340/&)
 
-Custom sounds and display textures from [Matt726](https://youtube.com/c/matt726) (with permission)
+Custom sounds and display textures from [Matt726](https://youtube.com/c/matt726)
 
 The general concept is to bring the aircraft as close to the real version as is achievable, please refer to original 747-400 material such as the widely distributed FCOM for details on how the aircraft functions.
 
