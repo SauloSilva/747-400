@@ -7,7 +7,7 @@ ACF_SOUNDS
 #                                                                                    #
 #     B o e i n g  7 4 7 - 4 0 0                                                     #
 #                                                                                    #
-#     V e r s i o n : v0.9.8b                                                        #
+#     V e r s i o n : v1.0                                                           #
 #                                                                                    #
 #     B y :  M a t t 7 2 6                                                           #
 #                                                                                    #
@@ -45,20 +45,27 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	SNAPSHOT_NAME /cockpit_mute
-	EVENT_ALWAYS 
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
 	SNAPSHOT_NAME /init
 	EVENT_START_COND sim/time/total_flight_time_sec > 0
 	EVENT_END_COND sim/time/total_flight_time_sec > 5
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
+	SNAPSHOT_NAME /cockpit_mute
+	VEH_XYZ 0 5 -23.3
+	PARAM_DREF_IDX 1
+	EVENT_START_COND sim/operation/sound/inside_ratio[1] != 0
+	EVENT_END_COND sim/operation/sound/inside_ratio[1] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
 	SNAPSHOT_NAME /lower_deck
-	EVENT_START_COND sim/graphics/view/pilots_head_z >= -23.3
-	EVENT_END_COND sim/graphics/view/pilots_head_z <= -23.4
+	EVENT_ALWAYS 
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	SNAPSHOT_NAME /all
+	EVENT_ALWAYS 
 END_SOUND_ATTACHMENT
 
 ###########################
@@ -945,7 +952,13 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/button2
 	VEH_XYZ 0 5.1 -26
-	EVENT_CMND_HOLD_CUE laminar/B747/autopilot/slide_switch/disengage_bar
+	EVENT_START_COND laminar/B747/autopilot/button_switch/position[14] == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button21
+	VEH_XYZ 0 5.1 -26
+	EVENT_START_COND laminar/B747/autopilot/button_switch/position[14] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -969,8 +982,19 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/button7
 	VEH_XYZ 0 5.1 -26
-	EVENT_START_COND DELTA=sim/autopilot/knots_mach_toggle
-	EVENT_START_COND DELTA=sim/autopilot/heading
+	EVENT_START_COND sim/autopilot/knots_mach_toggle
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button7
+	VEH_XYZ 0 5.1 -26
+	EVENT_START_COND sim/autopilot/heading
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/button7
+	VEH_XYZ 0 5.1 -26
+	EVENT_START_COND laminar/B747/button_switch/press_altitude
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -4117,6 +4141,18 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/park_brake
+	VEH_XYZ -0.18 4.2 -26.2
+    EVENT_START_COND laminar/B747/flt_ctrls/parking_brake_ratio == 1
+END_SOUND_ATTACHMENT	
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/park_brake
+	VEH_XYZ -0.18 4.2 -26.2
+    EVENT_START_COND laminar/B747/flt_ctrls/parking_brake_ratio == 0
+END_SOUND_ATTACHMENT	
+
+BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/fuel_control
 	VEH_XYZ 0 4.7 -26.2
 	EVENT_CMND_HOLD_CUE laminar/B747/fuel/fuel_control_1/toggle_switch
@@ -4760,11 +4796,279 @@ END_SOUND_ATTACHMENT
 ###########################
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Ambience/hyd
-	VEH_XYZ 0 0 0
+	EVENT_NAME /Ambience/HYD/hyd1
+	VEH_XYZ -5 -0.5 0
 	EVENT_ALLOWED_FOR_AI
-	EVENT_START_COND sim/cockpit2/hydraulics/indicators/hydraulic_pressure_1 > 0
-	EVENT_END_COND sim/cockpit2/hydraulics/indicators/hydraulic_pressure_1 == 0
+	EVENT_START_COND laminar/B747/hydraulics/pressure_1 > 0
+	EVENT_END_COND laminar/B747/hydraulics/pressure_1 == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/HYD/hyd2
+	VEH_XYZ -1.5 0 3.7
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/hydraulics/pressure_1 > 0
+	EVENT_END_COND laminar/B747/hydraulics/pressure_1 == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/HYD/hyd3
+	VEH_XYZ 1.5 0 3.7
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/hydraulics/pressure_1 > 0
+	EVENT_END_COND laminar/B747/hydraulics/pressure_1 == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/HYD/hyd4
+	VEH_XYZ 5 -0.5 0
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/hydraulics/pressure_1 > 0
+	EVENT_END_COND laminar/B747/hydraulics/pressure_1 == 0
+END_SOUND_ATTACHMENT
+
+################
+#FUEL
+################
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel
+	VEH_XYZ -21 1.5 8
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/main1_tank/main_pump_fwd_on == 1
+	EVENT_END_COND laminar/B747/fuel/main1_tank/main_pump_fwd_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel_off
+	VEH_XYZ -21 1.5 8
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/main1_tank/main_pump_fwd_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel
+	VEH_XYZ -21 1.5 9
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/main1_tank/main_pump_aft_on == 1
+	EVENT_END_COND laminar/B747/fuel/main1_tank/main_pump_aft_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel_off
+	VEH_XYZ -21 1.5 9
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/main1_tank/main_pump_aft_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel
+	VEH_XYZ -21 1.5 8
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/main2_tank/ovrd_jett_pump_fwd_on == 1
+	EVENT_END_COND laminar/B747/fuel/main2_tank/ovrd_jett_pump_fwd_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel_off
+	VEH_XYZ -21 1.5 8
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/main2_tank/ovrd_jett_pump_fwd_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel
+	VEH_XYZ -21 1.5 9
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/main2_tank/ovrd_jett_pump_aft_on == 1
+	EVENT_END_COND laminar/B747/fuel/main2_tank/ovrd_jett_pump_aft_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel_off
+	VEH_XYZ -21 1.5 9
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/main2_tank/ovrd_jett_pump_aft_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel
+	VEH_XYZ -12 1 0
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/main2_tank/main_pump_fwd_on == 1
+	EVENT_END_COND laminar/B747/fuel/main2_tank/main_pump_fwd_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel_off
+	VEH_XYZ -12 1 0
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/main2_tank/main_pump_fwd_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel
+	VEH_XYZ -12 1 2
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/main2_tank/main_pump_aft_on == 1
+	EVENT_END_COND laminar/B747/fuel/main2_tank/main_pump_aft_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel_off
+	VEH_XYZ -12 1 2
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/main2_tank/main_pump_aft_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel
+	VEH_XYZ 12 1 0
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/main3_tank/main_pump_fwd_on == 1
+	EVENT_END_COND laminar/B747/fuel/main3_tank/main_pump_fwd_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel_off
+	VEH_XYZ 12 1 0
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/main3_tank/main_pump_fwd_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel
+	VEH_XYZ 12 1 2
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/main3_tank/main_pump_aft_on == 1
+	EVENT_END_COND laminar/B747/fuel/main3_tank/main_pump_aft_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel_off
+	VEH_XYZ 12 1 2
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/main3_tank/main_pump_aft_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel
+	VEH_XYZ -21 1.5 8
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/main3_tank/ovrd_jett_pump_fwd_on == 1
+	EVENT_END_COND laminar/B747/fuel/main3_tank/ovrd_jett_pump_fwd_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel_off
+	VEH_XYZ -21 1.5 8
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/main3_tank/ovrd_jett_pump_fwd_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel
+	VEH_XYZ -21 1.5 9
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/main3_tank/ovrd_jett_pump_aft_on == 1
+	EVENT_END_COND laminar/B747/fuel/main3_tank/ovrd_jett_pump_aft_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel_off
+	VEH_XYZ -21 1.5 9
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/main3_tank/ovrd_jett_pump_aft_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel
+	VEH_XYZ 21 1.5 8
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/main4_tank/main_pump_fwd_on == 1
+	EVENT_END_COND laminar/B747/fuel/main4_tank/main_pump_fwd_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel_off
+	VEH_XYZ 21 1.5 8
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/main4_tank/main_pump_fwd_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel
+	VEH_XYZ 21 1.5 9
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/main4_tank/main_pump_aft_on == 1
+	EVENT_END_COND laminar/B747/fuel/main4_tank/main_pump_aft_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel_off
+	VEH_XYZ 21 1.5 9
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/main4_tank/main_pump_aft_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel
+	VEH_XYZ -1 0 -9
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/center_tank/ovrd_jett_pump_L_on == 1
+	EVENT_END_COND laminar/B747/fuel/center_tank/ovrd_jett_pump_L_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel_off
+	VEH_XYZ -1 0 -9
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/center_tank/ovrd_jett_pump_L_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel
+	VEH_XYZ 1 0 -9
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/center_tank/ovrd_jett_pump_R_on == 1
+	EVENT_END_COND laminar/B747/fuel/center_tank/ovrd_jett_pump_R_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel_off
+	VEH_XYZ 1 0 -9
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/center_tank/ovrd_jett_pump_R_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel
+	VEH_XYZ -2 4 32
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/stab_tank/xfr_jett_pump_L_on == 1
+	EVENT_END_COND laminar/B747/fuel/stab_tank/xfr_jett_pump_L_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel_off
+	VEH_XYZ -2 4 32
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/stab_tank/xfr_jett_pump_L_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel
+	VEH_XYZ 2 4 32
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/stab_tank/xfr_jett_pump_R_on == 1
+	EVENT_END_COND laminar/B747/fuel/stab_tank/xfr_jett_pump_R_on == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Ambience/fuel_off
+	VEH_XYZ 2 4 32
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND laminar/B747/fuel/stab_tank/xfr_jett_pump_R_on == 0
 END_SOUND_ATTACHMENT
 
 ###############################
@@ -4915,6 +5219,13 @@ BEGIN_SOUND_ATTACHMENT
 	VEH_XYZ 0 3.5 35
 	EVENT_ALLOWED_FOR_AI
 	EVENT_START_COND sim/cockpit2/electrical/APU_running == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /APU/apu_stop
+	VEH_XYZ 0 3.5 35
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND sim/cockpit2/electrical/APU_N1_percent != 100
 END_SOUND_ATTACHMENT
 
 #########################
