@@ -84,15 +84,15 @@ fmsFunctionsDefs["DOORS2"]["R6"]={"setpage","DOORS3"}
 fmsPages["DOORS2"].getSmallPage=function(self,pgNo,fmsID)
     return {
     "                        ",
-    "     Wing L (INOP)      ",
+    "   FWD WING L (INOP)    ",
+    "                        ",
+    "     WING L (INOP)      ",
     "                        ",
     "     WING R (INOP)      ",
     "                        ",
     "   AFT WING L (INOP)    ",
     "                        ",
     "   AFT WING R (INOP)    ",
-    "                        ",
-    "      AFT L (INOP)      ",
     "                        ",
     "                        ",
     "                        "
@@ -111,7 +111,7 @@ return {
 "                        ",
 "<OPEN             CLOSE>",
 "                        ",
-"                        ",
+"<OPEN             CLOSE>",
 "                        ",
 "                        ",
 "                        ",
@@ -130,9 +130,9 @@ fmsFunctionsDefs["DOORS3"]["R6"]={"setpage","GNDHNDL"}
 fmsPages["DOORS3"].getSmallPage=function(self,pgNo,fmsID)
     return {
     "                        ",
+    "      AFT L (INOP)      ",
+    "                        ",
     "      AFT R (INOP)      ",
-    "                        ",
-    "                        ",
     "                        ",
     "                        ",
     "                        ",
