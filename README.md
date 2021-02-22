@@ -14,10 +14,14 @@ The YesAviation team now goes under another name, and is developing another 747 
 
 **What are the differences between the default 747, and the Sparky 747?**
 
-This 747 currently includes new FMOD sounds done by FT+Sim, new systems and FMC, three variants of engines coming soon, a new UV map for livery creators, and many more big changes in the future.
+This 747 currently includes new FMOD sounds, realistic textures, new systems and FMC, three variants of engines coming soon, a new UV map for livery creators, and many more big changes in the future.
 The github repository contains the latest versions, including the LCF model variant by Lee_Hyeon_Seo (with permission) with the existing improvements, check out the working his [A340 developements](https://forums.x-plane.org/index.php?/forums/topic/203381-3d-cockpit-for-a340/&)
 
-Custom sounds from [FTSim+](https://k-akai.blogspot.com/) (with permission)
+Custom sounds and display textures by [Matt726](https://youtube.com/c/matt726)
+
+Old custom sounds from [FTSim+](https://k-akai.blogspot.com/) (with permission)
+
+We greatly thank FTSim+ for the former soundpack, and wish them good luck on other soundpacks! [Check them out!](https://k-akai.blogspot.com/)
 
 The general concept is to bring the aircraft as close to the real version as is achievable, please refer to original 747-400 material such as the widely distributed FCOM for details on how the aircraft functions.
 
@@ -122,5 +126,4 @@ To 02/11/2020:
 - fixed FMS buttons
 - green screen CDUs
 - Hydraulic system simulation
-
 
