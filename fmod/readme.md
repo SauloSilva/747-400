@@ -1,8 +1,6 @@
 # Boeing 747-400 FMOD Soundpack
 by Matt726
 
-## WARNING: This soundpack is a WORK IN PROGRESS BETA. Be prepared to find missing or unfinished features.
-
 Available for: Default Laminar Research or mSparks 747 mod
 
 Version: v1.0
