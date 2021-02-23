@@ -203,7 +203,6 @@ fmsPages["FUEL"].getPage=function(self,pgNo,fmsID)
 
 local lineA = CurrentFuel
 local lineB = "                        "
-local lineC = "                        "
 RequestedFuel = 0
 
 if RequestedFuel == 0 then
