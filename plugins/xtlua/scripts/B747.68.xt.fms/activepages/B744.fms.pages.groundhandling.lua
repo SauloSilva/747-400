@@ -194,3 +194,64 @@ fmsPages["PUSHBACK"].getSmallPage=function(self,pgNo,fmsID)
 end
 fmsFunctionsDefs["PUSHBACK"]["L4"]={"setDref","CHOCKS"}
 fmsFunctionsDefs["PUSHBACK"]["L6"]={"setpage","GNDHNDL"}
+--[[
+registerFMCCommand("RequestFuel","Request Fuel")
+registerFMCCommand("ExpediteFuel","Expedite Fuel")
+
+fmsPages[FUEL"]=createPage("FUEL")
+fmsPages["FUEL"].getPage=function(self,pgNo,fmsID)
+
+local lineA = CurrentFuel
+local lineB = "                        "
+local lineC = "                        "
+RequestedFuel = 0
+
+if RequestedFuel == 0 then
+lineB = "<----                   "
+else
+lineB = RequestedFuel
+end
+
+if simConfigData["data"].SIM.weight_display_units == "LBS" then
+lineC = "                     LBS"
+else
+lineC = "                     KGS"
+end
+
+return{
+"          FUEL          ",
+"                        ",
+lineA, -- current fuel
+"                        ",
+lineB                    ",
+"                        ",
+"<Load          EXPEDITE>",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"------------------------",
+"<GND SERVICE            "
+}
+end
+
+fmsFunctionsDefs["FUEL"]["L2"]={"setdata","RequestedFuel"}
+fmsFunctionsDefs["FUEL"]["L3"]={"doCMD","LoadFuel"}
+
+fmsPages["FUEL"].getSmallPage=function(self,pgNo,fmsID)
+return{
+"                        ",
+"CURRENT FUEL            ",
+"                        ",
+"TOTAL REQUESTED AMOUNT  ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        "
+}
+end
