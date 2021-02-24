@@ -112,6 +112,246 @@ END_SOUND_SPACE
 #######################
 
 BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_up
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[0] == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_down
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[0] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_up
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[1] == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_down
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[1] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_up
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[2] == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_down
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[2] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_up
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[3] == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_down
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[3] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_up
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[4] == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_down
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[4] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_up
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[5] == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_down
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[5] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_up
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[6] == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_down
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[6] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_up
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[7] == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_down
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[7] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_up
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[8] == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_down
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[8] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_up
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[9] == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_down
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[9] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_up
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[10] == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_down
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[10] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_up
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[11] == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_down
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[11] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_up
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[12] == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_down
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[12] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_up
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[13] == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_down
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[13] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_up
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[14] == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_down
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[14] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_up
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[15] == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_down
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[15] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_up
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[16] == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_down
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[16] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_up
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[17] == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_down
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[17] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_up
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[18] == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_down
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[18] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_up
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[19] == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/cover_down
+	VEH_XYZ 0 4.9 -26
+    	EVENT_START_COND laminar/B747/button_switch_cover/position[19] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/stab_trim
 	VEH_XYZ -0.55 4.8 -26.26
     	EVENT_CMND_DOWN sim/flight_controls/pitch_trim_down
@@ -191,6 +431,34 @@ BEGIN_SOUND_ATTACHMENT
 	VEH_XYZ 0 4.7 -26.2
     	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[3] == 0
 	EVENT_END_COND sim/cockpit2/engine/actuators/throttle_ratio[3] != 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/throttle
+	VEH_XYZ 0 4.7 -26.2
+    	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[0] == 1
+	EVENT_END_COND sim/cockpit2/engine/actuators/throttle_ratio[0] != 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/throttle
+	VEH_XYZ 0 4.7 -26.2
+    	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[1] == 1
+	EVENT_END_COND sim/cockpit2/engine/actuators/throttle_ratio[1] != 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/throttle
+	VEH_XYZ 0 4.7 -26.2
+    	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[2] == 1
+	EVENT_END_COND sim/cockpit2/engine/actuators/throttle_ratio[2] != 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/throttle
+	VEH_XYZ 0 4.7 -26.2
+    	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[3] == 1
+	EVENT_END_COND sim/cockpit2/engine/actuators/throttle_ratio[3] != 1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -4104,6 +4372,7 @@ BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/auto_spoiler
 	VEH_XYZ 0.14 4.4 -26.35
 	EVENT_START_COND laminar/B747/flt_ctrls/speedbrake_lever == 1
+	EVENT_START_COND sim/flightmodel/position/true_airspeed > 100
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -4608,7 +4877,8 @@ BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Warnings/GPWS/sinkrate
 	VEH_XYZ 0 4.2 -26.8
   	EVENT_START_COND sim/cockpit2/gauges/indicators/vvi_fpm_pilot < -2500
-  	EVENT_END_COND sim/cockpit2/gauges/indicators/vvi_fpm_pilot > -2000
+	EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 2500
+	EVENT_AUTO_END_FROM_START_COND
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
