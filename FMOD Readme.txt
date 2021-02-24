@@ -4,7 +4,7 @@ by Matt726
 
 Available for: Default Laminar Research or mSparks 747 mod
 
-Version: v1.0
+Version: v1.1
 
 Email: mfahrenheit135@gmail.com
 
@@ -22,6 +22,12 @@ Installation Instructions:
 
 ---
 CHANGELOG:
+
+v1.1
+
+- added cover switch sounds
+- fixed sink rate sound
+- fix for auto spoiler
 
 v1.0:
 
