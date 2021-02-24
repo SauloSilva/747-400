@@ -17,6 +17,7 @@ ACF_SOUNDS
 #                                                                                    #
 #     Y O U T U B E : https://www.youtube.com/channel/UC6SJ3NetEv9x4p0vCE9Nwug       #
 ######################################################################################
+#     Very minor modification by crazytimtimtim
 
 REQUIRES_BANK ambience.bank
 REQUIRES_BANK apu.bank
@@ -4372,7 +4373,7 @@ BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/auto_spoiler
 	VEH_XYZ 0.14 4.4 -26.35
 	EVENT_START_COND laminar/B747/flt_ctrls/speedbrake_lever == 1
-	EVENT_START_COND sim/flightmodel/position/true_airspeed > 100
+	EVENT_START_COND sim/flightmodel/position/true_airspeed > 130
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
