@@ -2363,7 +2363,7 @@ function vnavCruise()
 	local ci_mach = 850
 	if(ci == nil or ci == "****") then
 		--was: spdval=tonumber(fmsData["crzspd"])/10
-		spdval = 84  --default
+		spdval = 85  --default
 	else
 		-- mach numbers in thousands...
 		local lrcMach = 388.2356 + 0.6203 * gwtKG/1000 + 7.8061 * simDR_pressureAlt1/1000
