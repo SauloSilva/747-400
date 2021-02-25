@@ -187,7 +187,8 @@ throttlederate=find_dataref("sim/aircraft/engine/acf_throtmax_FWD")
    40 = ILS WITH GLIDESLOPE
 -]]
 
-
+-- Datarefs for cost index calculations
+gwtKG=find_dataref("sim/flightmodel/weight/m_total") -- kilograms
 
 
 
@@ -2355,7 +2356,33 @@ function vnavCruise()
   end
   
   if diff2>-100 and diff2<100 and simDR_autopilot_altitude_ft==B747BR_cruiseAlt then
-    spdval=tonumber(fmsData["crzspd"])/10
+    --spdval=tonumber(fmsData["crzspd"])/10
+	-- Cost Indexing [0=MRC, 9999=Mmo]
+	-- ==========================================================================
+	local ci = tonumber( fmsData["costindex"] )
+	local ci_mach = 850
+	if(ci == nil or ci == "****") then
+		--was: spdval=tonumber(fmsData["crzspd"])/10
+		spdval = 85  --default
+	else
+		-- mach numbers in thousands...
+		local lrcMach = 388.2356 + 0.6203 * gwtKG/1000 + 7.8061 * simDR_pressureAlt1/1000
+		local mrcMach = lrcMach -  20
+		local maxMach = 920 - 20
+		local ci_mach = lrcMach --default
+
+		if(ci <= 230) then --LRC or less  (CI 230 corresponds to LRC - ref Boeing)
+			ci_mach = mrcMach + 20 * (ci / 230)
+		else
+			ci_mach = lrcMach + (maxMach - lrcMach) * ((ci-230)/(9999-230))
+		end
+		if(ci_mach < mrcMach) then ci_mach = mrcMach end
+		if(ci_mach > maxMach) then ci_mach = maxMach end
+
+		ci_mach = math.floor(ci_mach)
+		spdval = math.floor(ci_mach/10)
+	end
+		
       if (B747DR_ap_ias_dial_value ~=  spdval) and B747DR_ap_ias_mach_window_open == 0 and switchingIASMode==0 then 
 	switchingIASMode=1
 	simDR_autopilot_airspeed_is_mach = 1
