@@ -2363,7 +2363,7 @@ function vnavCruise()
 	local ci_mach = 850
 	if(ci == nil or ci == "****") then
 		--was: spdval=tonumber(fmsData["crzspd"])/10
-		spdval = 85  --default
+		spdval = 84  --default
 	else
 		-- mach numbers in thousands...
 		local lrcMach = 388.2356 + 0.6203 * gwtKG/1000 + 7.8061 * simDR_pressureAlt1/1000
@@ -2382,7 +2382,7 @@ function vnavCruise()
 		ci_mach = math.floor(ci_mach)
 		spdval = math.floor(ci_mach/10)
 	end
-		
+
       if (B747DR_ap_ias_dial_value ~=  spdval) and B747DR_ap_ias_mach_window_open == 0 and switchingIASMode==0 then 
 	switchingIASMode=1
 	simDR_autopilot_airspeed_is_mach = 1
