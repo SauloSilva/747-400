@@ -272,13 +272,9 @@ end
 function B747_elec_apu_sel_up_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_elec_apu_sel_pos = math.min(B747DR_elec_apu_sel_pos+1, 2)
-<<<<<<< HEAD
 		if simDR_battery_on == 1 then
 			if B747DR_elec_apu_sel_pos == 2 then B747_apu_start = 1 end
 		end
-=======
-        if B747DR_elec_apu_sel_pos == 2 then B747_apu_start = 1 end
->>>>>>> parent of 774d16a (Update B747.03.xt.electrical.lua)
     end
 
     if phase == 2 then
