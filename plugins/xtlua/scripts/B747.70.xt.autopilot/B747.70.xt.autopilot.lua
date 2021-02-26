@@ -189,7 +189,8 @@ throttlederate=find_dataref("sim/aircraft/engine/acf_throtmax_FWD")
 
 -- Datarefs for cost index calculations
 gwtKG=find_dataref("sim/flightmodel/weight/m_total") -- kilograms
-
+simDR_TAS_mps=find_dataref("sim/flightmodel/position/true_airspeed") -- true airspeed in meters per second
+simDR_GS_mps=find_dataref("sim/flightmodel/position/groundspeed") -- ground airspeed in meters per second
 
 
 
@@ -2356,7 +2357,6 @@ function vnavCruise()
   end
   
   if diff2>-100 and diff2<100 and simDR_autopilot_altitude_ft==B747BR_cruiseAlt then
-    --spdval=tonumber(fmsData["crzspd"])/10
 	-- Cost Indexing [0=MRC, 9999=Mmo]
 	-- ==========================================================================
 	local ci = tonumber( fmsData["costindex"] )
@@ -2374,24 +2374,38 @@ function vnavCruise()
 		if(ci <= 230) then --LRC or less  (CI 230 corresponds to LRC - ref Boeing)
 			ci_mach = mrcMach + 20 * (ci / 230)
 		else
-			ci_mach = lrcMach + (maxMach - lrcMach) * ((ci-230)/(9999-230))
+			ci_mach = lrcMach + (maxMach - lrcMach) * ((ci-230)/(9999-230)) -- interpolate LRC to Mmo wrt. CI=230 to CI=9999, respectively.
 		end
+
+		-- Faster with headwind, slower with tailwind (cf., LRC which does not adjust for wind)
+		-- Source: https://mediawiki.ivao.aero/index.php?title=Cost_Index and https://www.pprune.org/tech-log/248931-use-cost-index-winds.html
+		local tas = simDR_TAS_mps * 1.94384 -- true airspeed in knots
+		local gs = simDR_GS_mps * 1.94384 -- ground speed in knots
+		local relWind = tas - gs  -- headwind positive, tailwind negative
+		local adjWind = 0
+		if(relWind > 0) then
+			adjWind = 10 * relWind/50 -- plus M0.01 per 50 knots of headwind
+		else
+			adjWind = 20 * relWind/50 -- minus M0.02 per 50 knots of tailwind
+		end
+		ci_mach = ci_mach + adjWind
+
 		if(ci_mach < mrcMach) then ci_mach = mrcMach end
 		if(ci_mach > maxMach) then ci_mach = maxMach end
 
 		ci_mach = math.floor(ci_mach)
-		spdval = math.floor(ci_mach/10)
+		spdval = ci_mach/10
 	end
 
-      if (B747DR_ap_ias_dial_value ~=  spdval) and B747DR_ap_ias_mach_window_open == 0 and switchingIASMode==0 then 
-	switchingIASMode=1
-	simDR_autopilot_airspeed_is_mach = 1
-	B747DR_ap_ias_dial_value = spdval
-	lastap_dial_airspeed=spdval*0.01
+    if (B747DR_ap_ias_dial_value ~=  spdval) and B747DR_ap_ias_mach_window_open == 0 and switchingIASMode==0 then 
+		switchingIASMode=1
+		simDR_autopilot_airspeed_is_mach = 1
+		B747DR_ap_ias_dial_value = spdval
+		lastap_dial_airspeed=spdval*0.01
 	
-	run_after_time(B747_updateIASSpeed, 0.25)
+		run_after_time(B747_updateIASSpeed, 0.25)
 	
-	print("set cruise speed "..B747DR_ap_ias_dial_value)
+		print("set cruise speed "..B747DR_ap_ias_dial_value)
     end	
     
     if simDR_autopilot_alt_hold_status == 2 and simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 then							-- AUTOTHROTTLE IS "OFF"
