@@ -22,11 +22,11 @@
 {98b4060d-607d-4a81-9132-f1277121364f} event:/Ambience/HYD/hyd4
 {1e299038-c39f-4f30-8450-c51e9eff524b} event:/Ambience/Wipers/wipers1
 {6fa9adc5-215c-4e63-b57b-bc8f6832a830} event:/Ambience/Wipers/wipers2
+{2e587bb5-8cb7-41b4-b61a-706a40d3a9c1} event:/Ambience/fuel
+{321522b4-1f4a-499f-acc9-7a0198f53e75} event:/Ambience/fuel_off
 {8141233f-0535-4076-9376-1fb677b49eca} event:/Ambience/hyd
 {56c600a7-2aa1-4248-956f-ccd004b30053} event:/Ambience/in_wind
 {5e0909b5-6e3e-49c0-8047-60f8f2beb482} event:/Ambience/windX
-{2e587bb5-8cb7-41b4-b61a-706a40d3a9c1} event:/Ambience/fuel
-{321522b4-1f4a-499f-acc9-7a0198f53e75} event:/Ambience/fuel_off
 {c3556ead-5132-46a1-95dc-18c61ab3e278} event:/APU/apu
 {138cea42-f425-46f3-a806-2dcdc918d714} event:/APU/apu_ground_fire
 {d6bd600a-ffa2-4e79-babd-71dba832b0b1} event:/APU/apu_start
@@ -64,6 +64,7 @@
 {d6df731e-7717-4d87-a0e1-a5e62a097469} event:/Cockpit/Switches/button1_hold
 {bb6eab19-afec-4f02-a53b-869fa1ba6553} event:/Cockpit/Switches/button1_release
 {30b44714-eb40-4645-9316-eb9b9eb0fec1} event:/Cockpit/Switches/button2
+{39d2f4df-7690-41fd-82ee-8406c0e0e42f} event:/Cockpit/Switches/button21
 {40e4a1fa-4f34-40c3-a853-e9753d22efba} event:/Cockpit/Switches/button3
 {ece586c7-2125-4d97-b873-c9c885318a59} event:/Cockpit/Switches/button4_hold
 {ab590e31-248f-4d03-9082-dae76e569708} event:/Cockpit/Switches/button4_release
@@ -72,10 +73,13 @@
 {3c54b004-191b-4db6-9bc3-ab00d0ef539b} event:/Cockpit/Switches/button7
 {cc0da4a7-ee39-43b6-9582-f976f85ca8fc} event:/Cockpit/Switches/button8
 {8ea94dcf-e670-47a5-ba01-334b0f95ec4f} event:/Cockpit/Switches/button9
+{ae0844c1-47ac-4565-a5b4-1aa73bbb3d8b} event:/Cockpit/Switches/cover_down
+{ffe9b035-66e8-4260-a310-a636b4ab240d} event:/Cockpit/Switches/cover_up
 {f2b6de51-510b-407e-95e0-bcbf2b7a025b} event:/Cockpit/Switches/efis_knob
 {28f37db6-32d7-4dd8-a9f6-0b71a0883efe} event:/Cockpit/Switches/efis_knob2
 {7749ac10-b64b-416f-8202-0f46c30aada3} event:/Cockpit/Switches/FD
 {b5c2a426-824a-4da2-874f-03e8436c1e5c} event:/Cockpit/Switches/fire handle pull
+{ab3c28b2-4ed7-43a2-890a-b97e8700cf6a} event:/Cockpit/Switches/fire handle twist
 {20c87333-2a07-41e3-a29a-168efe3a6b3c} event:/Cockpit/Switches/flap1
 {3072b059-ad0a-486c-b29d-e103f4ea371d} event:/Cockpit/Switches/flap2
 {ad1b1136-eec4-49ef-9a38-0f9ac54db24d} event:/Cockpit/Switches/flap3
@@ -86,6 +90,7 @@
 {821f273f-3195-4fec-964b-318075419c48} event:/Cockpit/Switches/gear1
 {c01c8dfb-ced0-42fd-b901-0b0e39d367fd} event:/Cockpit/Switches/gear2
 {9eb68eb1-ba92-4821-be28-419414b83941} event:/Cockpit/Switches/gear3
+{692c26d1-4eda-41ce-8a18-0d6fc954f7db} event:/Cockpit/Switches/park_brake
 {88691473-2bbf-4803-aa88-fe03529b9d9d} event:/Cockpit/Switches/rhotery
 {12895419-6956-4739-b54e-3386799e825f} event:/Cockpit/Switches/rudder trim hold
 {2dc3bf38-9568-42da-8f93-8cbabd6311bc} event:/Cockpit/Switches/rudder trim release
@@ -96,18 +101,20 @@
 {113e81c4-058e-4331-a683-28c9d90f6f33} event:/Cockpit/Switches/throttle at
 {7b02fca3-f6f0-4e0c-8f76-7cbf6b9f45b1} event:/Cockpit/Switches/toga
 {67b1af76-2832-41c5-9456-5e8b7f336555} event:/Cockpit/Switches/transponder
-{39d2f4df-7690-41fd-82ee-8406c0e0e42f} event:/Cockpit/Switches/button21
-{ab3c28b2-4ed7-43a2-890a-b97e8700cf6a} event:/Cockpit/Switches/fire handle twist
-{ffe9b035-66e8-4260-a310-a636b4ab240d} event:/Cockpit/Switches/cover_up
-{ae0844c1-47ac-4565-a5b4-1aa73bbb3d8b} event:/Cockpit/Switches/cover_down
-{692c26d1-4eda-41ce-8a18-0d6fc954f7db} event:/Cockpit/Switches/park_brake
 {233c0f79-d6a0-4c3a-8918-0da9448e8633} event:/Engines/PW/start/start1
 {914f36ce-af10-457e-ac06-2da400d29636} event:/Engines/PW/start/start2
 {db5e1cf4-b22b-4d76-9a8c-db261adf0cc0} event:/Engines/PW/engine1
-{623f8045-df33-46d3-adab-aeb6aa8a7522} event:/Engines/PW/shutdown
 {ef1c57b4-d588-4c86-976d-28d566cd8a16} event:/Engines/PW/engine2
 {73218389-8b46-4c70-8f5b-9878c60eff4e} event:/Engines/PW/engine3
 {c3788c85-4a4b-41ff-8a9c-7bc916366386} event:/Engines/PW/engine4
+{623f8045-df33-46d3-adab-aeb6aa8a7522} event:/Engines/PW/shutdown
+{eb2a30a1-7a1e-444b-bd04-ad9cd093ecef} event:/Engines/GE/start/start1
+{7c714455-5a24-471c-ae2f-c502e9f1da24} event:/Engines/GE/start/start2
+{61183869-ed16-44e9-ad62-f7f7d1a8f15d} event:/Engines/GE/engine1
+{7b12a32c-4225-474d-ad73-964aae385bef} event:/Engines/GE/shutdown
+{99aec830-7504-494b-9f7d-c8816d835365} event:/Engines/GE/engine2
+{141f7440-3faf-4d92-bcf2-77fbfdcc7522} event:/Engines/GE/engine3
+{0d9f67fa-e87c-40af-832f-1692bfe1dcac} event:/Engines/GE/engine4
 {93a2e983-0537-4b1c-a39c-be78517c3c8b} event:/PM Callouts/1000
 {7bf91825-a67e-453f-9bd1-364cbb8fef71} event:/PM Callouts/1000togo
 {264033f8-2b14-4d0b-91de-71f3eade9929} event:/PM Callouts/100ft
@@ -214,3 +221,4 @@
 {6ca0eee5-fdb7-4a79-9a7c-22ac13168dca} bank:/TCAS
 {1ab07404-3f10-4048-bcbf-9c1ca1eab876} bank:/warnings
 {93173edc-09f8-4879-84f8-11d5f4cbf842} bank:/Master Bank
+{073b5c08-f281-4ea7-b40f-fb026219fd47} bank:/engineGE
