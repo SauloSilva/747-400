@@ -19,10 +19,16 @@ Email: mfahrenheit135@gmail.com
 
 2: Drag and drop "fmod" and "sound" folders into default (Boeing 747-400) or mSparks (747-400-master/Sparky 744) 747 main folder
 
-3: enjoy your flight!
+3: OPTIONAL: If you want to add GE engines to your aircraft, open the GE folder in fmod, then drag "747-400.snd" into the fmod folder. Replace as neccessary.
+
+4: enjoy your flight!
 
 ---
 ## CHANGELOG:
+
+### v1.2:
+
+- aded GE engine sounds
 
 ### v1.1:
 

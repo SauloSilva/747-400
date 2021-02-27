@@ -4,7 +4,7 @@ by Matt726
 
 Available for: Default Laminar Research or mSparks 747 mod
 
-Version: v1.1
+Version: v1.2
 
 Email: mfahrenheit135@gmail.com
 
@@ -18,10 +18,15 @@ Installation Instructions:
 
 1: Unzip "Boeing 747-400 FMOD"
 2: Drag and drop "fmod" and "sound" folders into default (Boeing 747-400) or mSparks (747-400-master/Sparky 744) 747 main folder
-3: enjoy your flight!
+3: OPTIONAL: If you want to add GE engines to your aircraft, open the GE folder in fmod, then drag "747-400.snd" into the fmod folder. Replace as neccessary.
+4: enjoy your flight!
 
 ---
 CHANGELOG:
+
+v1.2:
+
+- added GE engine sounds
 
 v1.1
 
