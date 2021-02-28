@@ -853,6 +853,7 @@ end
 function B747_set_gear_ER()
   
 	simDR_gear_handle_down=1
+	B747DR_gear_handle = 0.0
 	--B747DR__gear_chocked=0.0
 	
 end
