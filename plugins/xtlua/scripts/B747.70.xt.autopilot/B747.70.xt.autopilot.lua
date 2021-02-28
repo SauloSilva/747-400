@@ -2362,8 +2362,10 @@ function vnavCruise()
 	local ci = tonumber( fmsData["costindex"] )
 	local ci_mach = 850
 	if(ci == nil or ci == "****") then
-		--was: spdval=tonumber(fmsData["crzspd"])/10
-		spdval = 85  --default
+		spdval=tonumber(fmsData["crzspd"])/10
+		if(spdval == nil) then
+			spdval = 85
+		end
 	else
 		-- mach numbers in thousands...
 		local lrcMach = 388.2356 + 0.6203 * gwtKG/1000 + 7.8061 * simDR_pressureAlt1/1000
