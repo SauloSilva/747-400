@@ -3,11 +3,11 @@ by Matt726
 
 Available for: Default Laminar Research or mSparks 747 mod
 
-Version: v1.3
+Version: v1.3.1
 
 Email: mfahrenheit135@gmail.com
 
-[YouTube](https://www.youtube.com/channel/UC6SJ3NetEv9x4p0vCE9Nwug)
+[YouTube](https://youtube.com/c/Matt726)
 
 [Discord](https://discord.gg/W4Uym2S)
 
@@ -26,6 +26,9 @@ Email: mfahrenheit135@gmail.com
 ---
 ## CHANGELOG:
 
+### v1.3.1:
+
+- spoiler edit by crazytimtimtim
 ### v1.3:
 
 - added cabin announcement sounds
