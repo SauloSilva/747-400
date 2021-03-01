@@ -3,7 +3,7 @@ by Matt726
 
 Available for: Default Laminar Research or mSparks 747 mod
 
-Version: v1.1
+Version: v1.3
 
 Email: mfahrenheit135@gmail.com
 
@@ -25,6 +25,13 @@ Email: mfahrenheit135@gmail.com
 
 ---
 ## CHANGELOG:
+
+### v1.3:
+
+- added cabin announcement sounds
+- added cabin boarding music
+- updated GE engines
+- added extra cabin sounds
 
 ### v1.2:
 
