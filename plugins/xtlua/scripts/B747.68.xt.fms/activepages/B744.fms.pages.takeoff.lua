@@ -17,7 +17,8 @@ end
 B747DR_airspeed_flapsRef                              = find_dataref("laminar/B747/airspeed/flapsRef")
 fmsPages["TAKEOFF"]=createPage("TAKEOFF")
 fmsPages["TAKEOFF"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be this way
-  local flaps = roundToIncrement(B747DR_airspeed_flapsRef, 5)
+  local flaps = string.format("%02d",roundToIncrement(B747DR_airspeed_flapsRef, 5))
+  if B747DR_airspeed_flapsRef==0 then flaps="**" end
   local v1="***"
   local vr="***"
   local v2="***"
@@ -44,7 +45,7 @@ fmsPages["TAKEOFF"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be 
 
   "      TAKEOFF REF       ",
   "                        ",
-  string.format("%02d                %3d",flaps, v1),
+  flaps.. string.format("                %3d", v1),
   "                        ",
   string.format("                  %3d", vr),
   "                        ",
@@ -61,7 +62,7 @@ fmsPages["TAKEOFF"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be 
 
   "      TAKEOFF REF       ",
   "                        ",
-  string.format("%02d                ***",flaps),
+  flaps..string.format("                ***"),
   "                        ",
   string.format("                  ***"),
   "                        ",
