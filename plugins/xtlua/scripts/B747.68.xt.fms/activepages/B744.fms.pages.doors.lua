@@ -49,7 +49,10 @@ fmsPages["DOORS"].getPage=function(self,pgNo,fmsID)
     }
 
   elseif pgNo == 2 then
-
+    
+    fmsFunctionsDefs["DOORS"]["L1"]=nil
+    fmsFunctionsDefs["DOORS"]["L2"]=nil
+    
     return {
       "     Door Control       ",
       "                        ",
@@ -68,6 +71,9 @@ fmsPages["DOORS"].getPage=function(self,pgNo,fmsID)
 
   elseif pgNo == 3 then
 
+    fmsFunctionsDefs["DOORS"]["L1"]=nil
+    fmsFunctionsDefs["DOORS"]["L2"]=nil
+    
     return {
       "     Door Control       ",
       "                        ",
