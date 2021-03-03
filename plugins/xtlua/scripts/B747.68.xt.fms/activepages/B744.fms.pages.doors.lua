@@ -1,7 +1,6 @@
 
 --THIS SCRIPT WAS MADE BY CRAZYTIMTIMTIM, with some help from mSparks43 and Marauder28
 
-
 registerFMCCommand("sim/flight_controls/door_open_1","OPEN DOOR 1")
 registerFMCCommand("sim/flight_controls/door_close_1","CLOSE DOOR 1")
 registerFMCCommand("sim/flight_controls/door_open_2","OPEN DOOR 2")
