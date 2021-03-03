@@ -1,7 +1,6 @@
 
 --THIS SCRIPT WAS MADE BY CRAZYTIMTIMTIM, with some help from mSparks43 and Marauder28
 
-
 registerFMCCommand("sim/flight_controls/door_open_1","OPEN DOOR 1")
 registerFMCCommand("sim/flight_controls/door_close_1","CLOSE DOOR 1")
 registerFMCCommand("sim/flight_controls/door_open_2","OPEN DOOR 2")
@@ -49,7 +48,10 @@ fmsPages["DOORS"].getPage=function(self,pgNo,fmsID)
     }
 
   elseif pgNo == 2 then
-
+    
+    fmsFunctionsDefs["DOORS"]["L1"]=nil
+    fmsFunctionsDefs["DOORS"]["L2"]=nil
+    
     return {
       "     Door Control       ",
       "                        ",
@@ -68,6 +70,9 @@ fmsPages["DOORS"].getPage=function(self,pgNo,fmsID)
 
   elseif pgNo == 3 then
 
+    fmsFunctionsDefs["DOORS"]["L1"]=nil
+    fmsFunctionsDefs["DOORS"]["L2"]=nil
+    
     return {
       "     Door Control       ",
       "                        ",
