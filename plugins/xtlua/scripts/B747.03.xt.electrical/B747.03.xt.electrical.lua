@@ -201,7 +201,6 @@ B747DR_elec_utilityright2      	= deferred_dataref("laminar/B747/electrical/util
 -- APU
 function sim_apu_start_CMDhandler(phase, duration)
     if phase == 0 then
-
         if simDR_apu_running == 0 then
             if B747DR_elec_apu_sel_pos == 0 then
                 B747CMD_elec_apu_sel_up:once()
@@ -272,9 +271,11 @@ end
 function B747_elec_apu_sel_up_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_elec_apu_sel_pos = math.min(B747DR_elec_apu_sel_pos+1, 2)
-        if B747DR_elec_apu_sel_pos == 2 then B747_apu_start = 1 end
+        if B747DR_elec_apu_sel_pos == 2 
+			then B747_apu_start = 1 
+		end
     end
-
+	
     if phase == 2 then
         if B747DR_elec_apu_sel_pos == 2 then
             B747DR_elec_apu_sel_pos = 1
@@ -418,9 +419,11 @@ function B747_battery()
         and simDR_battery_on[0] == 0
     then
         simDR_battery_on[0] = 1
-        B747DR_elec_apu_volts = 28
+        
     end
-
+    if simDR_battery_on[0] == 1 then
+         B747DR_elec_apu_volts = 28
+    end
 end
 
 
@@ -599,12 +602,13 @@ end
 ----- APU -------------------------------------------------------------------------------
 function B747_apu_shutdown()
 
-    simDR_apu_start_switch_mode = 0
+    simDR_apu_start_switch_mode = 0 -- literally starter switch omg
     B747DR_elec_apu_pwr_1_switch_mode = 0
     B747DR_elec_apu_pwr_2_switch_mode = 0
     B747_apu_inlet_door_target_pos = 0.0
 
 end
+
 
 function B747_apu()
 
@@ -618,15 +622,23 @@ function B747_apu()
                     run_after_time(B747_apu_shutdown, 60.0)
                 end
             end
+		elseif simDR_apu_running == 0 then			-- BASICALLY IF YOU TURN IT ON AND OFF BEFORE IT STARTS, IT SHOULD CLOSE THE INLET DOOR
+			B747_apu_shutdown()
         end
 
 
-    elseif B747_apu_start == 1 then                   -- TODO:  NEED BATTERY SWITCH ON OR HARDWIRED ?
+	elseif B747DR_elec_apu_sel_pos == 1 then
+		if simDR_battery_on[0] == 1 then		-- ONLY OPEN INLET DOOR IF BAT ON
+			B747_apu_inlet_door_target_pos = 1.0
+		end
+
+	elseif B747DR_elec_apu_sel_pos == 2 then
         if simDR_apu_running == 0 then
-            B747_apu_inlet_door_target_pos = 1.0
-            if B747DR_elec_apu_inlet_door_pos > 0.95 then
-                simDR_apu_start_switch_mode = 2                 -- START
-            end
+			if B747DR_elec_apu_inlet_door_pos > 0.95 then
+				B747_apu_start = 1
+				simDR_apu_start_switch_mode = 2                 -- START
+				run_after_time(B747_apu_selector_return_spring, 6.0)  				-- SHOULD RETURN THE APU SELECTOR SW TO RUN AFTER START, YMMV
+			end
 
         elseif simDR_apu_running == 1 then
             B747_apu_start = 0
@@ -636,8 +648,8 @@ function B747_apu()
     end
 
 
-    -- INLET DOOR
-    B747DR_elec_apu_inlet_door_pos = B747_set_animation_position(B747DR_elec_apu_inlet_door_pos, B747_apu_inlet_door_target_pos, 0.0, 1.0, 0.7)
+    -- INLET DOOR ANIMATION
+    B747DR_elec_apu_inlet_door_pos = B747_set_animation_position(B747DR_elec_apu_inlet_door_pos, B747_apu_inlet_door_target_pos, 0.0, 1.0, 0.4)
 
 
     -- APU GENERATOR
@@ -682,7 +694,13 @@ function B747_apu()
 end
 
 
+function B747_apu_selector_return_spring()
 
+	if B747DR_elec_apu_sel_pos == 2 then
+	B747DR_elec_apu_sel_pos = 1
+	end
+
+end
 
 
 
@@ -773,7 +791,7 @@ function B747_electrical_EICAS_msg()
     end
     if (B747DR_elec_apu_sel_pos > 0.95 and simDR_apu_N1_pct < 0.1)
         or
-        (B747DR_elec_apu_sel_pos < 0.05 and simDR_apu_N1_pct > 95.0)
+        (B747DR_elec_apu_sel_pos < 0.05 and simDR_apu_N1_pct > 95.0 and is_timer_scheduled(B747_apu_shutdown) == false)
     then
         B747DR_CAS_advisory_status[13] = 1
     else
