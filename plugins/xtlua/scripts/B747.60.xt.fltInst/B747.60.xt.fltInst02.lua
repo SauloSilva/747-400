@@ -2863,7 +2863,7 @@ function B747_Vs()
         B747DR_airspeed_Vs=B747_animate_value(B747DR_airspeed_Vs,target_airspeed_Vs,0,450,1)
     end
     simDR_stall_warning=0 -- always set
-    if simDR_airspeed<B747DR_airspeed_Vs then
+    if simDR_airspeed<B747DR_airspeed_Vs and simDR_all_wheels_on_ground==0 then
         simDR_stall_warning=1
     else
         simDR_stall_warning=0
@@ -2912,7 +2912,7 @@ function B747_fltInst_EICAS_msg()
 
     -- >AIRSPEED LOW
     
-    if simDR_airspeed < B747DR_airspeed_Vmc or simDR_airspeed < B747DR_airspeed_Vs
+    if (simDR_airspeed < B747DR_airspeed_Vmc or simDR_airspeed < B747DR_airspeed_Vs)
         and simDR_radio_alt_height_capt > 100.0
     then
         B747DR_CAS_caution_status[0] = 1
