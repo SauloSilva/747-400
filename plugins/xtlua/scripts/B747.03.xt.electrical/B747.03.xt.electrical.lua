@@ -671,9 +671,12 @@ function B747_apu()
 	 end
     elseif simDR_apu_gen_on == 1 and B747DR_elec_apu_pwr_1_switch_mode == 0 and B747DR_elec_apu_pwr_2_switch_mode==0 then
         simDR_apu_gen_on = 0
-    elseif B747DR_elec_apu_sel_pos == 0 then
-	simDR_apu_gen_on = 0
     end
+
+    if B747DR_elec_apu_sel_pos == 0 then
+    	simDR_apu_gen_on = 0
+    end
+
 --     if simDR_aircraft_on_ground == 1 then
 --         if (B747DR_elec_apu_pwr_1_switch_mode == 1 or B747DR_elec_apu_pwr_2_switch_mode == 1)
 --             and simDR_apu_N1_pct > 95.0
