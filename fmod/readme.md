@@ -26,6 +26,13 @@ Email: mfahrenheit135@gmail.com
 ---
 ## CHANGELOG:
 
+### v1.4:
+
+- updated GE engines
+- updated master caution
+- updated master warning
+- updated GPWS
+
 ### v1.3.1:
 
 - spoiler edit by crazytimtimtim
