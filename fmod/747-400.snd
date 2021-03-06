@@ -7,7 +7,7 @@ ACF_SOUNDS
 #                                                                                    #
 #     B o e i n g  7 4 7 - 4 0 0                                                     #
 #                                                                                    #
-#     V e r s i o n : v1.3.1                                                         #
+#     V e r s i o n : v1.4                                                           #
 #                                                                                    #
 #     B y :  M a t t 7 2 6                                                           #
 #                                                                                    #
@@ -6275,7 +6275,7 @@ BEGIN_SOUND_ATTACHMENT
 	VEH_XYZ -20 -1.5 2
 	EVENT_ALLOWED_FOR_AI
 	EVENT_START_COND sim/cockpit2/engine/indicators/N2_percent[0] > 2
-	EVENT_END_COND sim/cockpit2/engine/indicators/N2_percent[0] > 65
+	EVENT_END_COND sim/flightmodel2/engines/engine_is_burning_fuel[0] == 1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -6283,7 +6283,7 @@ BEGIN_SOUND_ATTACHMENT
 	VEH_XYZ -12 -1.5 -2
 	EVENT_ALLOWED_FOR_AI
 	EVENT_START_COND sim/cockpit2/engine/indicators/N2_percent[1] > 2
-	EVENT_END_COND sim/cockpit2/engine/indicators/N2_percent[1] > 65
+	EVENT_END_COND sim/flightmodel2/engines/engine_is_burning_fuel[1] == 1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -6291,7 +6291,7 @@ BEGIN_SOUND_ATTACHMENT
 	VEH_XYZ 12 -1.5 -2
 	EVENT_ALLOWED_FOR_AI
 	EVENT_START_COND sim/cockpit2/engine/indicators/N2_percent[2] > 2
-	EVENT_END_COND sim/cockpit2/engine/indicators/N2_percent[2] > 65
+	EVENT_END_COND sim/flightmodel2/engines/engine_is_burning_fuel[2] == 1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -6299,7 +6299,7 @@ BEGIN_SOUND_ATTACHMENT
 	VEH_XYZ 20 -1.5 2
 	EVENT_ALLOWED_FOR_AI
 	EVENT_START_COND sim/cockpit2/engine/indicators/N2_percent[3] > 2
-	EVENT_END_COND sim/cockpit2/engine/indicators/N2_percent[3] > 65
+	EVENT_END_COND sim/flightmodel2/engines/engine_is_burning_fuel[3] == 1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -6457,18 +6457,21 @@ BEGIN_SOUND_ATTACHMENT
         EVENT_NAME /Cabin/PA/PAcaptain
         VEH_XYZ -0.9 -5.5 -22.4
 	EVENT_START_COND laminar/B747/toggle_switch/position[8] != 0
+	EVENT_END_COND laminar/B747/toggle_switch/position[8] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
         EVENT_NAME /Cabin/PA/PAdoorsclose
         VEH_XYZ 0 0 0
 	EVENT_START_COND laminar/B747/toggle_switch/position[8] != 0
+	EVENT_END_COND laminar/B747/toggle_switch/position[8] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
         EVENT_NAME /Cabin/PA/PAsafety
         VEH_XYZ 0 0 0
 	EVENT_START_COND laminar/B747/toggle_switch/position[8] != 0
+	EVENT_END_COND laminar/B747/toggle_switch/position[8] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
