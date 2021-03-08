@@ -26,6 +26,11 @@ Email: mfahrenheit135@gmail.com
 ---
 ## CHANGELOG:
 
+### v1.5:
+
+- better wind sounds
+- fixed GPWS
+
 ### v1.4:
 
 - updated GE engines

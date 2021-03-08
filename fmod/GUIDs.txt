@@ -242,7 +242,6 @@
 {7e6e66d8-08fb-45f5-ad3d-444c0c1fe7db} snapshot:/all
 {fafcbb53-6eb7-4e03-b314-3820a2ed5832} snapshot:/PA2
 {15676de9-e60c-4e8b-a5e9-06373f0c209b} snapshot:/cabin_effect
-{2a73efa7-eaf2-4cb2-816e-360c7243196d} snapshot:/Warnings2
 {3aa8281b-f85d-493a-b376-e8549cf0e64a} snapshot:/Warnings
 {e5a1fdba-6cfa-4169-89a0-7c97e382c7a1} bank:/ambience
 {70cfa2b8-fa37-43dc-9b35-64f6c52f0e54} bank:/apu
