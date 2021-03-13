@@ -3,7 +3,7 @@ by Matt726
 
 Available for: Default Laminar Research or mSparks 747 mod
 
-Version: v1.3.1
+Version: v1.5.1
 
 Email: mfahrenheit135@gmail.com
 
@@ -25,6 +25,22 @@ Email: mfahrenheit135@gmail.com
 
 ---
 ## CHANGELOG:
+
+### v1.5.1:
+
+- fixed CTD issue
+
+### v1.5:
+
+- better wind sounds
+- fixed GPWS
+
+### v1.4:
+
+- updated GE engines
+- updated master caution
+- updated master warning
+- updated GPWS
 
 ### v1.3.1:
 
