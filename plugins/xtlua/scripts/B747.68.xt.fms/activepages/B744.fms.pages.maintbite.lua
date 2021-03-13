@@ -18,4 +18,4 @@ fmsPages["MAINTBITE"]["template"]={
 
 
 fmsFunctionsDefs["MAINTBITE"]={}
-fmsFunctionsDefs["MAINTBITE"]["L6"]={"setpage","MAINT"}
+fmsFunctionsDefs["MAINTBITE"]["L6"]={"setpage","INITREF"}
