@@ -3,7 +3,7 @@ by Matt726
 
 Available for: Default Laminar Research or mSparks 747 mod
 
-Version: v1.5.1
+Version: v1.6
 
 Email: mfahrenheit135@gmail.com
 
@@ -25,6 +25,12 @@ Email: mfahrenheit135@gmail.com
 
 ---
 ## CHANGELOG:
+
+### v1.6:
+
+- new warnings
+- updated pan
+- updated park brake
 
 ### v1.5.1:
 
