@@ -72,6 +72,8 @@ Additionally, the break lever and X-Plane breaks are now seperated, there is a n
 
 **Why are my screens half black?** IRS alignment cannot complete until you set the IRS position in the FMC. (INIT REF -> POS -> R4 to copy GPS position, R5 to enter it into current position.
 
+**Why do I have the default X-Plane FMC?** In order to use the custom FMC, you need to use the INIT REF button. If you click "FMC" (Key L1) from the main menu, it will take you to the default FMC.
+
 ### Changelog:
 See the [commit history](https://github.com/mSparks43/747-400/commits/master) for detailed changes.
 
