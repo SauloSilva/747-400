@@ -3,7 +3,7 @@ by Matt726
 
 Available for: Default Laminar Research or mSparks 747 mod
 
-Version: v1.5.1
+Version: v1.6
 
 Email: mfahrenheit135@gmail.com
 
