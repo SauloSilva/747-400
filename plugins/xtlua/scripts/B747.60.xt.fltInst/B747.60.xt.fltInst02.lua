@@ -152,8 +152,7 @@ simDR_airspeed                      = find_dataref("sim/cockpit2/gauges/indicato
 simDR_airspeed_mach                 = find_dataref("sim/flightmodel/misc/machno")
 simDR_AOA_fail                      = find_dataref("sim/operation/failures/rel_AOA")
 simDR_battery_chg_watt_hr           = find_dataref("sim/cockpit/electrical/battery_charge_watt_hr")
-simDR_stalled_elements              = find_dataref("sim/flightmodel2/wing/elements/element_is_stalled")
-simDR_stall_warning                  = find_dataref("sim/flightmodel/failures/stallwarning")
+
 simDR_hsi_hdef_dots_pilot           = find_dataref("sim/cockpit2/radios/indicators/hsi_hdef_dots_pilot")
 simDR_hsi_vdef_dots_pilot           = find_dataref("sim/cockpit2/radios/indicators/hsi_vdef_dots_pilot")
 
@@ -2760,19 +2759,7 @@ end
 
 
 
-function B747_animate_value(current_value, target, min, max, speed)
 
-    local fps_factor = math.min(0.1, speed * SIM_PERIOD)
-
-    if target >= (max - 0.001) and current_value >= (max - 0.01) then
-        return max
-    elseif target <= (min + 0.001) and current_value <= (min + 0.01) then
-       return min
-    else
-        return current_value + ((target - current_value) * fps_factor)
-    end
-
-end
 
 -- LOW SPEED RED CHECKER BOX ON ASI
 function B747_Vs()
@@ -2845,29 +2832,8 @@ function B747_Vs()
     local Vs_max_flap_min_alt_speed = B747_rescale(weight_min, VsData[flap_max][alt_min][weight_min_index], weight_max, VsData[flap_max][alt_min][weight_max_index], simDR_acf_weight_total_kg)
     local Vs_max_flap_max_alt_speed = B747_rescale(weight_min, VsData[flap_max][alt_max][weight_min_index], weight_max, VsData[flap_max][alt_max][weight_max_index], simDR_acf_weight_total_kg)
     local Vs_max_flap_alt_speed     = B747_rescale(alt_min, Vs_max_flap_min_alt_speed, alt_max, Vs_max_flap_max_alt_speed, simDR_altitude_ft_pilot)
-    local target_airspeed_Vs              = B747_rescale(flap_min, Vs_min_flap_alt_speed, flap_max, Vs_max_flap_alt_speed, simDR_wing_flap1_deg[0])
-    if simDR_airspeed > target_airspeed_Vs then
-        local numStalled=0
-        for i=0,320 do
-            if simDR_stalled_elements[i]>0 then
-                numStalled=numStalled+1
-            end
-        end
-        local vSAOA=0
-        if numStalled > 0 then
-            vSAOA=(target_airspeed_Vs-simDR_airspeed)*(0-numStalled)/10
-        end
-        B747DR_airspeed_Vs=B747_animate_value(B747DR_airspeed_Vs,target_airspeed_Vs+vSAOA,0,450,1)
-        print(vSAOA)
-    else
-        B747DR_airspeed_Vs=B747_animate_value(B747DR_airspeed_Vs,target_airspeed_Vs,0,450,1)
-    end
-    simDR_stall_warning=0 -- always set
-    if simDR_airspeed<B747DR_airspeed_Vs and simDR_all_wheels_on_ground==0 then
-        simDR_stall_warning=1
-    else
-        simDR_stall_warning=0
-    end
+    B747DR_airspeed_Vs              = B747_rescale(flap_min, Vs_min_flap_alt_speed, flap_max, Vs_max_flap_alt_speed, simDR_wing_flap1_deg[0])
+
 end
 
 
@@ -2912,7 +2878,7 @@ function B747_fltInst_EICAS_msg()
 
     -- >AIRSPEED LOW
     
-    if (simDR_airspeed < B747DR_airspeed_Vmc or simDR_airspeed < B747DR_airspeed_Vs)
+    if simDR_airspeed < B747DR_airspeed_Vmc
         and simDR_radio_alt_height_capt > 100.0
     then
         B747DR_CAS_caution_status[0] = 1

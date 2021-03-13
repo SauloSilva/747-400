@@ -7,7 +7,7 @@ ACF_SOUNDS
 #                                                                                    #
 #     B o e i n g  7 4 7 - 4 0 0                                                     #
 #                                                                                    #
-#     V e r s i o n : v1.5.1                                                         #
+#     V e r s i o n : v1.3                                                           #
 #                                                                                    #
 #     B y :  M a t t 7 2 6                                                           #
 #                                                                                    #
@@ -15,9 +15,8 @@ ACF_SOUNDS
 #                                                                                    #
 #     E M A I L : mfahrenheit135@gmail.com                                           #
 #                                                                                    #
-#     Y O U T U B E : https://youtube.com/c/Matt726                                  #
+#     Y O U T U B E : https://www.youtube.com/channel/UC6SJ3NetEv9x4p0vCE9Nwug       #
 ######################################################################################
-#     Very minor modification by crazytimtimtim
 
 REQUIRES_BANK ambience.bank
 REQUIRES_BANK apu.bank
@@ -5165,7 +5164,7 @@ BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/auto_spoiler
 	VEH_XYZ 0.14 4.4 -26.35
 	EVENT_START_COND laminar/B747/flt_ctrls/speedbrake_lever == 1
-	EVENT_START_COND sim/flightmodel/position/true_airspeed > 130
+	EVENT_START_COND sim/flightmodel/position/true_airspeed > 100
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -5727,44 +5726,26 @@ BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cabin/Passenger/packsL
 	VEH_XYZ 0 5.1 -25.5
     	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[0] >= 1
-    	EVENT_START_COND sim/cockpit/pressure/bleed_air_on == 1
-	EVENT_AUTO_END_FROM_START_COND
+    	EVENT_END_COND laminar/B747/air/pack_ctrl/sel_dial_pos[0] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cabin/Passenger/packsLOFF
 	VEH_XYZ 0 5.1 -25.5
     	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[0] == 0
-    	EVENT_START_COND sim/cockpit/pressure/bleed_air_on == 1
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cabin/Passenger/packsLOFF
-	VEH_XYZ 0 5.1 -25.5
-    	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[0] >= 0
-    	EVENT_START_COND sim/cockpit/pressure/bleed_air_on == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cabin/Passenger/packsC
 	VEH_XYZ 0 0 0
-    	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[2] >= 1
-    	EVENT_START_COND sim/cockpit/pressure/bleed_air_on == 1
-	EVENT_AUTO_END_FROM_START_COND
+    	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[1] == 1
+	EVENT_END_COND laminar/B747/air/pack_ctrl/sel_dial_pos[1] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cabin/Passenger/packsCOFF
 	VEH_XYZ 0 0 0
-    	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[2] == 0
-    	EVENT_START_COND sim/cockpit/pressure/bleed_air_on == 1
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cabin/Passenger/packsCOFF
-	VEH_XYZ 0 0 0
-    	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[2] >= 0
-    	EVENT_START_COND sim/cockpit/pressure/bleed_air_on == 0
+    	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[1] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -5796,23 +5777,14 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cabin/Passenger/cabin3
 	VEH_XYZ 0 3 -4
-    	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[1] >= 1
-    	EVENT_START_COND sim/cockpit/pressure/bleed_air_on == 1
-	EVENT_AUTO_END_FROM_START_COND
+    	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[1] == 1
+	EVENT_END_COND laminar/B747/air/pack_ctrl/sel_dial_pos[1] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cabin/Passenger/cabin3off
 	VEH_XYZ 0 3 -4
-    	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[1] == 0
-    	EVENT_START_COND sim/cockpit/pressure/bleed_air_on == 1
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cabin/Passenger/cabin3off
-	VEH_XYZ 0 3 -4
-    	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[1] >= 0
-    	EVENT_START_COND sim/cockpit/pressure/bleed_air_on == 0
+	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[1] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -5844,23 +5816,14 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cabin/Passenger/cabin6
 	VEH_XYZ 0 5 -9
-    	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[1] >= 1
-    	EVENT_START_COND sim/cockpit/pressure/bleed_air_on == 1
-	EVENT_AUTO_END_FROM_START_COND
+    	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[1] == 1
+	EVENT_END_COND laminar/B747/air/pack_ctrl/sel_dial_pos[1] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cabin/Passenger/cabin6off
 	VEH_XYZ 0 5 -9
-    	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[1] >= 0
-    	EVENT_START_COND sim/cockpit/pressure/bleed_air_on == 0
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cabin/Passenger/cabin6off
-	VEH_XYZ 0 5 -9
-    	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[1] == 0
-    	EVENT_START_COND sim/cockpit/pressure/bleed_air_on == 1
+	EVENT_START_COND laminar/B747/air/pack_ctrl/sel_dial_pos[1] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -6311,7 +6274,7 @@ BEGIN_SOUND_ATTACHMENT
 	VEH_XYZ -20 -1.5 2
 	EVENT_ALLOWED_FOR_AI
 	EVENT_START_COND sim/cockpit2/engine/indicators/N2_percent[0] > 2
-	EVENT_END_COND sim/flightmodel2/engines/engine_is_burning_fuel[0] == 1
+	EVENT_END_COND sim/cockpit2/engine/indicators/N2_percent[0] > 65
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -6319,7 +6282,7 @@ BEGIN_SOUND_ATTACHMENT
 	VEH_XYZ -12 -1.5 -2
 	EVENT_ALLOWED_FOR_AI
 	EVENT_START_COND sim/cockpit2/engine/indicators/N2_percent[1] > 2
-	EVENT_END_COND sim/flightmodel2/engines/engine_is_burning_fuel[1] == 1
+	EVENT_END_COND sim/cockpit2/engine/indicators/N2_percent[1] > 65
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -6327,7 +6290,7 @@ BEGIN_SOUND_ATTACHMENT
 	VEH_XYZ 12 -1.5 -2
 	EVENT_ALLOWED_FOR_AI
 	EVENT_START_COND sim/cockpit2/engine/indicators/N2_percent[2] > 2
-	EVENT_END_COND sim/flightmodel2/engines/engine_is_burning_fuel[2] == 1
+	EVENT_END_COND sim/cockpit2/engine/indicators/N2_percent[2] > 65
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -6335,7 +6298,7 @@ BEGIN_SOUND_ATTACHMENT
 	VEH_XYZ 20 -1.5 2
 	EVENT_ALLOWED_FOR_AI
 	EVENT_START_COND sim/cockpit2/engine/indicators/N2_percent[3] > 2
-	EVENT_END_COND sim/flightmodel2/engines/engine_is_burning_fuel[3] == 1
+	EVENT_END_COND sim/cockpit2/engine/indicators/N2_percent[3] > 65
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -6422,8 +6385,7 @@ BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /APU/apu_stop
 	VEH_XYZ 0 3.5 35
 	EVENT_ALLOWED_FOR_AI
-	EVENT_START_COND sim/cockpit2/electrical/APU_N1_percent == 40
-	EVENT_START_COND sim/cockpit2/electrical/APU_running == 0
+	EVENT_START_COND sim/cockpit2/electrical/APU_N1_percent != 100
 END_SOUND_ATTACHMENT
 
 #########################
@@ -6494,21 +6456,18 @@ BEGIN_SOUND_ATTACHMENT
         EVENT_NAME /Cabin/PA/PAcaptain
         VEH_XYZ -0.9 -5.5 -22.4
 	EVENT_START_COND laminar/B747/toggle_switch/position[8] != 0
-	EVENT_END_COND laminar/B747/toggle_switch/position[8] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
         EVENT_NAME /Cabin/PA/PAdoorsclose
         VEH_XYZ 0 0 0
 	EVENT_START_COND laminar/B747/toggle_switch/position[8] != 0
-	EVENT_END_COND laminar/B747/toggle_switch/position[8] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
         EVENT_NAME /Cabin/PA/PAsafety
         VEH_XYZ 0 0 0
 	EVENT_START_COND laminar/B747/toggle_switch/position[8] != 0
-	EVENT_END_COND laminar/B747/toggle_switch/position[8] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
