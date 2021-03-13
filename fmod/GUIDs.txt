@@ -29,8 +29,8 @@
 {8141233f-0535-4076-9376-1fb677b49eca} event:/Ambience/hyd
 {56c600a7-2aa1-4248-956f-ccd004b30053} event:/Ambience/in_wind
 {5e0909b5-6e3e-49c0-8047-60f8f2beb482} event:/Ambience/windX
+{73386548-3f5c-4b74-a35f-7335ec7435cc} event:/APU/apu_ground_fire
 {c3556ead-5132-46a1-95dc-18c61ab3e278} event:/APU/apu
-{138cea42-f425-46f3-a806-2dcdc918d714} event:/APU/apu_ground_fire
 {d6bd600a-ffa2-4e79-babd-71dba832b0b1} event:/APU/apu_start
 {a6fa6480-81b3-40aa-bcc3-055fe3806441} event:/APU/apu_stop
 {9cf291db-01d6-4844-8890-f5f76d068399} event:/Cabin/Music/song1
@@ -118,7 +118,7 @@
 {821f273f-3195-4fec-964b-318075419c48} event:/Cockpit/Switches/gear1
 {c01c8dfb-ced0-42fd-b901-0b0e39d367fd} event:/Cockpit/Switches/gear2
 {9eb68eb1-ba92-4821-be28-419414b83941} event:/Cockpit/Switches/gear3
-{692c26d1-4eda-41ce-8a18-0d6fc954f7db} event:/Cockpit/Switches/park_brake
+{692c26d1-4eda-41ce-8a18-0d6fc954f7db} event:/Cockpit/Switches/park_brake_set
 {88691473-2bbf-4803-aa88-fe03529b9d9d} event:/Cockpit/Switches/rhotery
 {12895419-6956-4739-b54e-3386799e825f} event:/Cockpit/Switches/rudder trim hold
 {2dc3bf38-9568-42da-8f93-8cbabd6311bc} event:/Cockpit/Switches/rudder trim release
@@ -129,6 +129,7 @@
 {113e81c4-058e-4331-a683-28c9d90f6f33} event:/Cockpit/Switches/throttle at
 {7b02fca3-f6f0-4e0c-8f76-7cbf6b9f45b1} event:/Cockpit/Switches/toga
 {67b1af76-2832-41c5-9456-5e8b7f336555} event:/Cockpit/Switches/transponder
+{571f1bb6-c3e8-4cb6-a296-44755a8ceeae} event:/Cockpit/Switches/park_brake_release
 {eb2a30a1-7a1e-444b-bd04-ad9cd093ecef} event:/Engines/GE/start/start1
 {7c714455-5a24-471c-ae2f-c502e9f1da24} event:/Engines/GE/start/start2
 {61183869-ed16-44e9-ad62-f7f7d1a8f15d} event:/Engines/GE/engine1
@@ -202,6 +203,7 @@
 {86daa0a3-1936-41f6-a1c6-02dcf2b3ec2b} event:/Warnings/TCAS/tcas_test_pass
 {d30a2e52-c717-4dbb-b529-3edbf5399204} event:/Warnings/TCAS/traffic
 {e1e35743-93ee-440d-9ed6-f77c6f391f6a} event:/Warnings/TCAS/traffic_traffic
+{2936bcbe-8855-45fd-858a-8ec5e7e181d7} event:/Warnings/hi_chime
 {e522d5dc-b8ee-4189-a68e-0cc4ba90c688} event:/Warnings/autopilot
 {2848e2c4-7b81-483f-bc27-40a4488189d2} event:/Warnings/autopilot_loop
 {33c46132-62cf-4b8f-9339-cfe0854a5800} event:/Warnings/ding
@@ -215,6 +217,7 @@
 {78211b4b-b0e3-48bb-bee8-374a09439b31} event:/Warnings/master_caution
 {8c775274-3694-4d99-85f5-b95dd5222113} event:/Warnings/master_caution2
 {327d8e20-870c-4de0-aff6-f949a543e035} event:/Warnings/stall
+{d605017b-53b8-421d-b4d3-39a7754a4529} event:/Warnings/fire_click
 {9f08114d-36ec-44cc-b8bf-b2babda09f9e} bus:/
 {7f7c05a4-e05a-4d44-94fe-d4691147a9b7} bus:/Master
 {e3492bec-f854-4fbb-b2bc-23586269032e} bus:/Master/Copilot
@@ -232,6 +235,7 @@
 {05d30fa2-4afa-47a4-a5f6-a77c6e3781fd} bus:/Master/Interior/Cockpit/Warnings
 {6ec39052-7e01-4f18-8b32-8b9b0a9d4cf7} bus:/Master/Interior/Cockpit/Warnings/Warn2
 {e52ea25e-b4cc-4807-b213-2f9382833d31} bus:/Master/Interior/Packs
+{a89f52c6-579b-4f55-b24b-bdc968287ab7} bus:/Master/Interior/Gear
 {d8526059-b27c-4eae-9b14-a1ee1cb3dfa1} bus:/Master/Radios
 {77575f3b-b9cd-4bff-9056-637cff744a14} bus:/Master/UI
 {b45856d7-41c3-499d-8db2-88fefad80e57} snapshot:/in_mute
@@ -243,6 +247,7 @@
 {fafcbb53-6eb7-4e03-b314-3820a2ed5832} snapshot:/PA2
 {15676de9-e60c-4e8b-a5e9-06373f0c209b} snapshot:/cabin_effect
 {3aa8281b-f85d-493a-b376-e8549cf0e64a} snapshot:/Warnings
+{d85d6c6a-c536-4b6e-94d0-b89e8e935ec5} snapshot:/gear
 {e5a1fdba-6cfa-4169-89a0-7c97e382c7a1} bank:/ambience
 {70cfa2b8-fa37-43dc-9b35-64f6c52f0e54} bank:/apu
 {96d29e97-9aae-40b4-80a8-03806fd247a9} bank:/cabin

@@ -26,6 +26,12 @@ Email: mfahrenheit135@gmail.com
 ---
 ## CHANGELOG:
 
+### v1.6:
+
+- new warnings
+- updated pan
+- updated park brake
+
 ### v1.5.1:
 
 - fixed CTD issue

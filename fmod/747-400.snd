@@ -479,19 +479,22 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/toga
 	VEH_XYZ 0 4.7 -26.2
-	EVENT_START_COND sim/engines/TOGA_power
+	EVENT_CMND_DOWN sim/engines/TOGA_power
+	EVENT_CMND_UP sim/engines/TOGA_power
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/throttle at
 	VEH_XYZ 0 4.7 -26.2
-	EVENT_START_COND laminar/B747/autopilot/button_switch/autothrottle_disco_L
+	EVENT_CMND_DOWN laminar/B747/autopilot/button_switch/autothrottle_disco_L
+	EVENT_CMND_UP laminar/B747/autopilot/button_switch/autothrottle_disco_L
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/throttle at
 	VEH_XYZ 0 4.7 -26.2
-	EVENT_START_COND laminar/B747/autopilot/button_switch/autothrottle_disco_R
+	EVENT_CMND_DOWN laminar/B747/autopilot/button_switch/autothrottle_disco_R
+	EVENT_CMND_UP laminar/B747/autopilot/button_switch/autothrottle_disco_R
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -1910,97 +1913,97 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/button7
 	VEH_XYZ -0.15 4.5 -26.1
-    EVENT_CMND_DOWN laminar/B747/rpt_C/vhf_L/sel_switch
+    EVENT_CMND_DOWN laminar/B747/rtp_C/vhf_L/sel_switch
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/button7
 	VEH_XYZ -0.15 4.5 -26.1
-    EVENT_CMND_DOWN laminar/B747/rpt_C/vhf_C/sel_switch
+    EVENT_CMND_DOWN laminar/B747/rtp_C/vhf_C/sel_switch
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/button7
 	VEH_XYZ -0.15 4.5 -26.1
-    EVENT_CMND_DOWN laminar/B747/rpt_C/vhf_R/sel_switch
+    EVENT_CMND_DOWN laminar/B747/rtp_C/vhf_R/sel_switch
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/button7
 	VEH_XYZ -0.15 4.5 -26.1
-    EVENT_CMND_DOWN laminar/B747/rpt_C/hf_L/sel_switch
+    EVENT_CMND_DOWN laminar/B747/rtp_C/hf_L/sel_switch
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/button7
 	VEH_XYZ -0.15 4.5 -26.1
-    EVENT_CMND_DOWN laminar/B747/rpt_C/am/sel_switch
+    EVENT_CMND_DOWN laminar/B747/rtp_C/am/sel_switch
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/button7
 	VEH_XYZ -0.15 4.5 -26.1
-    EVENT_CMND_DOWN laminar/B747/rpt_C/hf_R/sel_switch
+    EVENT_CMND_DOWN laminar/B747/rtp_C/hf_R/sel_switch
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/button7
 	VEH_XYZ -0.15 4.5 -26.1
-    EVENT_CMND_DOWN laminar/B747/rpt_C/freq_txfr/sel_switch
+    EVENT_CMND_DOWN laminar/B747/rtp_C/freq_txfr/sel_switch
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/button7
 	VEH_XYZ -0.15 4.5 -26.1
-    EVENT_CMND_DOWN laminar/B747/rpt_C/off_switch
+    EVENT_CMND_DOWN laminar/B747/rtp_C/off_switch
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/button7
 	VEH_XYZ -0.15 4.5 -26.1
-    EVENT_CMND_UP laminar/B747/rpt_C/vhf_L/sel_switch
+    EVENT_CMND_UP laminar/B747/rtp_C/vhf_L/sel_switch
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/button7
 	VEH_XYZ -0.15 4.5 -26.1
-    EVENT_CMND_UP laminar/B747/rpt_C/vhf_C/sel_switch
+    EVENT_CMND_UP laminar/B747/rtp_C/vhf_C/sel_switch
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/button7
 	VEH_XYZ -0.15 4.5 -26.1
-    EVENT_CMND_UP laminar/B747/rpt_C/vhf_R/sel_switch
+    EVENT_CMND_UP laminar/B747/rtp_C/vhf_R/sel_switch
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/button7
 	VEH_XYZ -0.15 4.5 -26.1
-    EVENT_CMND_UP laminar/B747/rpt_C/hf_L/sel_switch
+    EVENT_CMND_UP laminar/B747/rtp_C/hf_L/sel_switch
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/button7
 	VEH_XYZ -0.15 4.5 -26.1
-    EVENT_CMND_UP laminar/B747/rpt_C/am/sel_switch
+    EVENT_CMND_UP laminar/B747/rtp_C/am/sel_switch
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/button7
 	VEH_XYZ -0.15 4.5 -26.1
-    EVENT_CMND_UP laminar/B747/rpt_C/hf_R/sel_switch
+    EVENT_CMND_UP laminar/B747/rtp_C/hf_R/sel_switch
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/button7
 	VEH_XYZ -0.15 4.5 -26.1
-    EVENT_CMND_UP laminar/B747/rpt_C/freq_txfr/sel_switch
+    EVENT_CMND_UP laminar/B747/rtp_C/freq_txfr/sel_switch
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
 	EVENT_NAME /Cockpit/Switches/button7
 	VEH_XYZ -0.15 4.5 -26.1
-    EVENT_CMND_UP laminar/B747/rpt_C/off_switch
+    EVENT_CMND_UP laminar/B747/rtp_C/off_switch
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -5203,13 +5206,13 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cockpit/Switches/park_brake
+	EVENT_NAME /Cockpit/Switches/park_brake_set
 	VEH_XYZ -0.18 4.2 -26.2
     EVENT_START_COND laminar/B747/flt_ctrls/parking_brake_ratio == 1
 END_SOUND_ATTACHMENT	
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Cockpit/Switches/park_brake
+	EVENT_NAME /Cockpit/Switches/park_brake_release
 	VEH_XYZ -0.18 4.2 -26.2
     EVENT_START_COND laminar/B747/flt_ctrls/parking_brake_ratio == 0
 END_SOUND_ATTACHMENT	
@@ -5478,9 +5481,13 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-	EVENT_NAME /Warnings/irs_off
+	EVENT_NAME /Warnings/ground_horn
 	VEH_XYZ 0 1.5 -24.3
-	EVENT_START_COND laminar/B747/flt_mgmt/iru/mode_sel_dial_pos[0] == 2
+	EVENT_START_COND laminar/B747/flt_mgmt/iru/mode_sel_dial_pos[0] > 0
+	EVENT_START_COND laminar/B747/flt_mgmt/iru/mode_sel_dial_pos[1] > 0
+	EVENT_START_COND laminar/B747/flt_mgmt/iru/mode_sel_dial_pos[2] > 0
+	EVENT_START_COND sim/cockpit2/electrical/bus_volts[0] < 24
+	EVENT_AUTO_END_FROM_START_COND
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
