@@ -3,7 +3,7 @@ by Matt726
 
 Available for: Default Laminar Research or mSparks 747 mod
 
-Version: v1.6.1
+Version: v1.6
 
 Email: mfahrenheit135@gmail.com
 
@@ -21,16 +21,10 @@ Email: mfahrenheit135@gmail.com
 
 3: OPTIONAL: If you want to add GE engines to your aircraft, open the GE folder in fmod, then drag "747-400.snd" into the fmod folder. Replace as neccessary.
 
-4: OPTIONAL: If you are flying cargo, go to fmod/Announcement Removal, and drag and drop “cabin.bank” into the main fmod folder in your aircraft. This will remove cabin announcements and music.
-
-5: enjoy your flight!
+4: enjoy your flight!
 
 ---
 ## CHANGELOG:
-
-### v1.6.1:
-
-- added option to remove cabin announcements
 
 ### v1.6:
 
