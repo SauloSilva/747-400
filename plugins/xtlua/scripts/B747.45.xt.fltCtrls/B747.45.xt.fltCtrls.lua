@@ -689,7 +689,7 @@ end
 ----- YAW DAMPER ------------------------------------------------------------------------
 function B747_yaw_damper()
 
-   if (B747DR_button_switch_position[82] > 0.95 or
+    if (B747DR_button_switch_position[82] > 0.95 or
         B747DR_button_switch_position[83] > 0.95)
         and
         simDR_yaw_damper_on == 0
@@ -708,9 +708,9 @@ function B747_yaw_damper()
         simCMD_yaw_damper_off:once()
     end
 
-    if  (B747DR_IRS_dial_pos[0] ~= 2 or
-        B747DR_IRS_dial_pos[1] ~= 2 or
-        B747DR_IRS_dial_pos[2] ~= 2 or
+    if  ((B747DR_IRS_dial_pos[0] ~= 2 and
+        B747DR_IRS_dial_pos[1] ~= 2 and
+        B747DR_IRS_dial_pos[2] ~= 2) or
         B747DR_ELEC_BATT[0] == 0) and
         simDR_yaw_damper_on == 1
     then
@@ -718,6 +718,7 @@ function B747_yaw_damper()
     end
 
 end
+
 
 
 function B747_flap_move_to_slot()
