@@ -720,7 +720,6 @@ function B747_yaw_damper()
 end
 
 
-
 function B747_flap_move_to_slot()
     
     
