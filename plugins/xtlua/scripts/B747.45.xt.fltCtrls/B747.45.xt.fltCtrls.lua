@@ -694,9 +694,9 @@ function B747_yaw_damper()
         and
         simDR_yaw_damper_on == 0
         and
-        B747DR_IRS_dial_pos[0] == 2 and                 -- make sure at leaset 1 IRU is in NAV position  (crazytimtimtim)
-        B747DR_IRS_dial_pos[1] == 2 and
-        B747DR_IRS_dial_pos[2] == 2 and
+        (B747DR_IRS_dial_pos[0] == 2 or                 -- make sure at leaset 1 IRU is in NAV position  (crazytimtimtim)
+        B747DR_IRS_dial_pos[1] == 2 or
+        B747DR_IRS_dial_pos[2] == 2) and
         B747DR_ELEC_BATT[0] == 1
     then
         simCMD_yaw_damper_on:once()
