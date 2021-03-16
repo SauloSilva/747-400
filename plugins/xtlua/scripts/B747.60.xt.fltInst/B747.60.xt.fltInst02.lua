@@ -2858,7 +2858,7 @@ function B747_Vs()
             vSAOA=(target_airspeed_Vs-simDR_airspeed)*(0-numStalled)/10
         end
         B747DR_airspeed_Vs=B747_animate_value(B747DR_airspeed_Vs,target_airspeed_Vs+vSAOA,0,450,1)
-        print(vSAOA)
+        --print(vSAOA)
     else
         B747DR_airspeed_Vs=B747_animate_value(B747DR_airspeed_Vs,target_airspeed_Vs,0,450,1)
     end
