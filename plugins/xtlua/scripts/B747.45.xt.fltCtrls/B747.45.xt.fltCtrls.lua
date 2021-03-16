@@ -85,6 +85,11 @@ B747DR_airspeed_V1              = find_dataref("laminar/B747/airspeed/V1")
 B747DR_parking_brake_ratio = find_dataref("laminar/B747/flt_ctrls/parking_brake_ratio")
 B747DR_autobrakes_sel_dial_pos  = deferred_dataref("laminar/B747/gear/autobrakes/sel_dial_pos", "number")
 B747DR_CAS_memo_status          = find_dataref("laminar/B747/CAS/memo_status")
+
+-- crazytimtimtim
+B747DR_IRS_dial_pos             = find_dataref("laminar/B747/flt_mgmt/iru/mode_sel_dial_pos")
+B747DR_ELEC_BATT                = find_dataref("sim/cockpit/electrical/battery_array_on")
+-- crazytimtimtim end
 --*************************************************************************************--
 --** 				               FIND CUSTOM COMMANDS              			     **--
 --*************************************************************************************--
@@ -688,18 +693,31 @@ function B747_yaw_damper()
         B747DR_button_switch_position[83] > 0.95)
         and
         simDR_yaw_damper_on == 0
+        and
+        B747DR_IRS_dial_pos[0] == 2 and                 -- make sure at leaset 1 IRU is in NAV position  (crazytimtimtim)
+        B747DR_IRS_dial_pos[1] == 2 and
+        B747DR_IRS_dial_pos[2] == 2 and
+        B747DR_ELEC_BATT[0] == 1
     then
         simCMD_yaw_damper_on:once()
-
-    elseif B747DR_button_switch_position[82] < 0.05 and
+    elseif
+        B747DR_button_switch_position[82] < 0.05 and
         B747DR_button_switch_position[83] < 0.05 and
         simDR_yaw_damper_on == 1
     then
         simCMD_yaw_damper_off:once()
     end
 
-end
+    if  ((B747DR_IRS_dial_pos[0] ~= 2 and
+        B747DR_IRS_dial_pos[1] ~= 2 and
+        B747DR_IRS_dial_pos[2] ~= 2) or
+        B747DR_ELEC_BATT[0] == 0) and
+        simDR_yaw_damper_on == 1
+    then
+        simCMD_yaw_damper_off:once()                -- disable Yaw Damper if all IRS is not on (crazytimtimtim)
+    end
 
+end
 
 
 function B747_flap_move_to_slot()
