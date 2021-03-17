@@ -74,8 +74,8 @@ local B747_ap_last_AFDS_status = 0
 local B747_ap_last_FMA_autothrottle_mode = 0
 local B747_ap_last_FMA_roll_mode = 0
 local B747_ap_last_FMA_pitch_mode = 0
-local fmsData
-local inVnavAlt=0
+fmsData={}
+inVnavAlt=0
 
 --*************************************************************************************--
 --** 				             FIND X-PLANE DATAREFS           			    	 **--

@@ -311,7 +311,7 @@ function B747_update_vnav_speed()
     local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
     local dist_to_TOD=(B747BR_totalDistance-B747BR_tod)
     for i=1,table.getn(fms),1 do
-      if fms[i][10]==true and i<=recalcAfter and 
+      if fms[i][10]==true and i<=vnavSPD_state["recalcAfter"] and 
       vnavSPD_state["vnavcalcwithMCPAlt"]==B747DR_autopilot_altitude_ft
       and
       vnavSPD_state["vnavcalcwithTargetAlt"]==simDR_autopilot_altitude_ft
@@ -416,7 +416,7 @@ function B747_update_vnav_speed()
       fmscurrentIndex=currentIndex
         end 
         --print("targetAlt=".. targetAlt .. " simDR_autopilot_altitude_ft=".. simDR_autopilot_altitude_ft .. " simDR_pressureAlt1=" .. simDR_pressureAlt1.. " vnavcalcwithMCPAlt=" .. vnavcalcwithMCPAlt .. " fmscurrentIndex=" .. fmscurrentIndex .. " targetIndex=" .. targetIndex .. " B747DR_autopilot_altitude_ft="..B747DR_autopilot_altitude_ft)
-        recalcAfter=fmstargetIndex
+        vnavSPD_state["recalcAfter"]=fmstargetIndex
     --end
   end
   
