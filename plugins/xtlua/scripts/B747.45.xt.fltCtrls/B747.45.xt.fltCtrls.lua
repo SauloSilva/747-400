@@ -107,6 +107,7 @@ B747CMD_yaw_damper_lwr = find_command("laminar/B747/button_switch/yaw_damper_lwr
 simDR_startup_running           = find_dataref("sim/operation/prefs/startup_running")
 
 simDR_innerslats_ratio  	= find_dataref("sim/flightmodel2/controls/slat1_deploy_ratio")
+simDR_outerslats_ratio  	= find_dataref("sim/flightmodel2/controls/slat2_deploy_ratio")
 simDR_autoslats_ratio  		= find_dataref("sim/aircraft/parts/acf_slatEQ")
 simDR_prop_mode                 = find_dataref("sim/cockpit2/engine/actuators/prop_mode")
 simDR_all_wheels_on_ground      = find_dataref("sim/flightmodel/failures/onground_all")
@@ -802,8 +803,9 @@ end
 local slatsRetract=false
 
 function B747_landing_slats()
-
-   if (B747DR_speedbrake_lever >0.5 and (simDR_prop_mode[0] == 3 or simDR_prop_mode[1] == 3 or simDR_prop_mode[2] == 3 or simDR_prop_mode[3] == 3)) 
+   if simDR_flap_ratio_control==0 and simDR_innerslats_ratio==0 and simDR_outerslats_ratio==0 then
+        simDR_autoslats_ratio=0
+   elseif (B747DR_speedbrake_lever >0.5 and (simDR_prop_mode[0] == 3 or simDR_prop_mode[1] == 3 or simDR_prop_mode[2] == 3 or simDR_prop_mode[3] == 3)) 
        or (slatsRetract==true and B747DR_speedbrake_lever >0.5) then	
      simDR_innerslats_ratio = B747_set_animation_position(simDR_innerslats_ratio, 0.0, 0.0, 1.0, 0.5)
      simDR_autoslats_ratio=0
@@ -816,7 +818,9 @@ function B747_landing_slats()
      else 
        simDR_autoslats_ratio=1
      end
-     
+
+    else 
+        simDR_autoslats_ratio=1 
    end
   
 end
