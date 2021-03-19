@@ -2594,6 +2594,9 @@ function B747_setV1VrV2()
     local weight_max = math.min(420000, roundUpToIncrement(simDR_acf_weight_total_kg, 20000))
     local weight_min = math.max(200000, weight_max-20000)
     local flaps = roundToIncrement(B747DR_airspeed_flapsRef, 10)
+    if B747DR_radio_altitude>1000 then
+        B747DR_airspeed_flapsRef=0
+    end
 
     if flaps >= 10.0 and flaps <= 20.0 then
 
