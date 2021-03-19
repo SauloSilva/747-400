@@ -70,8 +70,8 @@ function B747_update_vnav_speed()
       if B747DR_airspeed_V2<999 then
         simDR_autopilot_airspeed_is_mach = 0  
         B747DR_ap_ias_dial_value = math.min(399.0, B747DR_airspeed_V2 + 10)
-        switchingIASMode=1
-        lastap_dial_airspeed=B747DR_ap_ias_dial_value
+        B747DR_switchingIASMode=1
+        B747DR_lastap_dial_airspeed=B747DR_ap_ias_dial_value
         run_after_time(B747_updateIAS, 0.25)
         
         vnavSPD_conditions["onground"]=1
@@ -99,8 +99,8 @@ function B747_update_vnav_speed()
         simDR_autopilot_airspeed_is_mach = 0
         print("convert to clb clbrestspd ".. spdval)
         B747DR_ap_ias_dial_value = math.min(399.0, spdval)
-        switchingIASMode=1
-        lastap_dial_airspeed=B747DR_ap_ias_dial_value
+        B747DR_switchingIASMode=1
+        B747DR_lastap_dial_airspeed=B747DR_ap_ias_dial_value
         run_after_time(B747_updateIAS, 0.25)
         vnavSPD_conditions["name"]="<clbrestalt"
         vnavSPD_conditions["crzAlt"]=B747BR_cruiseAlt
@@ -130,18 +130,18 @@ function B747_update_vnav_speed()
         vnavSPD_conditions["name"]=">clbrestalt <spdtransalt"
         vnavSPD_conditions["crzAlt"]=B747BR_cruiseAlt
         vnavSPD_conditions["crzSpd"]=fmsData["crzspd"]
-        switchingIASMode=1
+        B747DR_switchingIASMode=1
         crzspdval=tonumber(fmsData["crzspd"])/10
         if simDR_airspeed_mach > (crzspdval/100) then
       print("convert to cruise speed in clb".. crzspdval)
       simDR_autopilot_airspeed_is_mach = 1
       B747DR_ap_ias_dial_value = crzspdval
-      lastap_dial_airspeed=crzspdval*0.01
+      B747DR_lastap_dial_airspeed=crzspdval*0.01
         else
       simDR_autopilot_airspeed_is_mach = 0
       print("convert to clb speed ".. spdval)
       B747DR_ap_ias_dial_value = math.min(399.0, spdval)
-      lastap_dial_airspeed=B747DR_ap_ias_dial_value
+      B747DR_lastap_dial_airspeed=B747DR_ap_ias_dial_value
         end
         run_after_time(B747_updateIAS, 0.25)
         gotVNAVSpeed=true
@@ -195,44 +195,36 @@ function B747_update_vnav_speed()
         vnavSPD_conditions["crzSpd"]=fmsData["crzspd"]
        
         print("convert to clb transpd ".. spdval)
-        switchingIASMode=1
+        B747DR_switchingIASMode=1
         crzspdval=tonumber(fmsData["crzspd"])/10
         if simDR_airspeed_mach > (crzspdval/100) then
       print("convert to cruise speed in clb".. crzspdval)
       simDR_autopilot_airspeed_is_mach = 1
       B747DR_ap_ias_dial_value = crzspdval
-      lastap_dial_airspeed=crzspdval*0.01
+      B747DR_lastap_dial_airspeed=crzspdval*0.01
         else
       simDR_autopilot_airspeed_is_mach = 0
       B747DR_ap_ias_dial_value = math.min(399.0, spdval)
-      lastap_dial_airspeed=B747DR_ap_ias_dial_value
+      B747DR_lastap_dial_airspeed=B747DR_ap_ias_dial_value
         end
         run_after_time(B747_updateIAS, 0.25)
         gotVNAVSpeed=true
         return
       end
         
-        spdval=tonumber(fmsData["crzspd"])
-        if B747DR_ap_inVNAVdescent ==0 and spdval~=nil and altval2~=nil and simDR_pressureAlt1>=altval2  then 
-      vnavSPD_conditions["above"]=-1
-      vnavSPD_conditions["below"]=altval3
-      vnavSPD_conditions["descent"]=true
-      vnavSPD_conditions["onground"]=simDR_onGround
-      vnavSPD_conditions["name"]="crzspd"
-      vnavSPD_conditions["crzAlt"]=B747BR_cruiseAlt
-      vnavSPD_conditions["crzSpd"]=fmsData["crzspd"]
-  -- 	switchingIASMode=1
-  -- 	simDR_autopilot_airspeed_is_mach = 1
-  -- 	B747DR_ap_ias_dial_value = spdval/10
-  -- 	lastap_dial_airspeed=B747DR_ap_ias_dial_value*0.01
-  -- 	run_after_time(B747_updateIASSpeed, 0.25)
-      print("approaching cruise speed")
-      --[[if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 then							-- AUTOTHROTTLE IS "OFF"
-        simDR_autopilot_autothrottle_enabled = 1									-- ACTIVATE THE AUTOTHROTTLE  
-      end]]	
-      gotVNAVSpeed=true
-      return
-        end
+      spdval=tonumber(fmsData["crzspd"])
+      if B747DR_ap_inVNAVdescent ==0 and spdval~=nil and altval2~=nil and simDR_pressureAlt1>=altval2  then 
+        vnavSPD_conditions["above"]=-1
+        vnavSPD_conditions["below"]=altval3
+        vnavSPD_conditions["descent"]=true
+        vnavSPD_conditions["onground"]=simDR_onGround
+        vnavSPD_conditions["name"]="crzspd"
+        vnavSPD_conditions["crzAlt"]=B747BR_cruiseAlt
+        vnavSPD_conditions["crzSpd"]=fmsData["crzspd"]
+        print("approaching cruise speed")
+        gotVNAVSpeed=true
+        return
+      end
       end
       spdval=tonumber(fmsData["desspdmach"])
       altval=tonumber(fmsData["desspdtransalt"])
@@ -248,10 +240,10 @@ function B747_update_vnav_speed()
       vnavSPD_conditions["onground"]=simDR_onGround
       vnavSPD_conditions["name"]=">desspdtransalt"
       vnavSPD_conditions["crzAlt"]=B747BR_cruiseAlt
-      switchingIASMode=1
+      B747DR_switchingIASMode=1
       simDR_autopilot_airspeed_is_mach = 1
       B747DR_ap_ias_dial_value = spdval/10
-      lastap_dial_airspeed=spdval*0.01
+      B747DR_lastap_dial_airspeed=spdval*0.01
       run_after_time(B747_updateIASSpeed, 0.25)
       --simCMD_autopilot_alt_hold_mode:once()
       gotVNAVSpeed=true
@@ -266,11 +258,11 @@ function B747_update_vnav_speed()
       vnavSPD_conditions["onground"]=simDR_onGround
       vnavSPD_conditions["name"]=">desrestalt <desspdtransalt"
       vnavSPD_conditions["crzAlt"]=B747BR_cruiseAlt
-      switchingIASMode=1
+      B747DR_switchingIASMode=1
       simDR_autopilot_airspeed_is_mach = 0
       simCMD_autopilot_alt_hold_mode:once()
       B747DR_ap_ias_dial_value = spdval
-      lastap_dial_airspeed=B747DR_ap_ias_dial_value
+      B747DR_lastap_dial_airspeed=B747DR_ap_ias_dial_value
       run_after_time(B747_updateIAS, 0.25)
       gotVNAVSpeed=true
       return
@@ -283,11 +275,11 @@ function B747_update_vnav_speed()
       vnavSPD_conditions["onground"]=simDR_onGround
       vnavSPD_conditions["name"]="<desrestalt"
       vnavSPD_conditions["crzAlt"]=B747BR_cruiseAlt
-      switchingIASMode=1
+      B747DR_switchingIASMode=1
       simDR_autopilot_airspeed_is_mach = 0
       simCMD_autopilot_alt_hold_mode:once()
       B747DR_ap_ias_dial_value = spdval
-      lastap_dial_airspeed=B747DR_ap_ias_dial_value
+      B747DR_lastap_dial_airspeed=B747DR_ap_ias_dial_value
       run_after_time(B747_updateIAS, 0.25)
       gotVNAVSpeed=true
       return
@@ -421,11 +413,11 @@ function B747_update_vnav_speed()
   end
   
   function getDescentTarget()
-    target_descentSpeed=tonumber(fmsData["destranspd"])
-    target_descentAlt=tonumber(fmsData["desspdtransalt"])
-    if target_descentAlt>simDR_pressureAlt1 or simDR_autopilot_airspeed_kts<target_descentSpeed then descentSpeedGradient=0 return end
-    descentSpeedGradient=(simDR_autopilot_airspeed_kts-target_descentSpeed)/(simDR_pressureAlt1-target_descentAlt)
-    print("set descentSpeedGradient to " .. descentSpeedGradient)
+    B747DR_target_descentSpeed=tonumber(fmsData["destranspd"])
+    B747DR_target_descentAlt=tonumber(fmsData["desspdtransalt"])
+    if B747DR_target_descentAlt>simDR_pressureAlt1 or simDR_autopilot_airspeed_kts<B747DR_target_descentSpeed then B747DR_descentSpeedGradient=0 return end
+    B747DR_descentSpeedGradient=(simDR_autopilot_airspeed_kts-B747DR_target_descentSpeed)/(simDR_pressureAlt1-B747DR_target_descentAlt)
+    print("set descentSpeedGradient to " .. B747DR_descentSpeedGradient)
   end
   
   function vnavDescent()
@@ -490,31 +482,31 @@ function B747_update_vnav_speed()
   
   function vnavCruise()
     --if simDR_autopilot_alt_hold_status == 2 then return end
-    if switchingIASMode==1 then return end -- if we are in an airspeed mode switch just go away
+    if B747DR_switchingIASMode==1 then return end -- if we are in an airspeed mode switch just go away
     if B747DR_ap_vnav_state<2 then return end -- not in VNAV just go away
     --not called in descent anyway
     local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
     local diff2 = simDR_autopilot_altitude_ft - simDR_pressureAlt1
     local diff = simDR_autopilot_hold_altitude_ft - simDR_pressureAlt1
-    
+    print("in vnav cruise "..diff.." "..diff2.. " "..numAPengaged)
     --if diff2>100 and simDR_autopilot_flch_status > 0 then return end
     --if diff2<-100 and simDR_autopilot_vs_status == 2 then return end
     if diff2>1000 then --and simDR_autopilot_altitude_ft==B747BR_cruiseAlt - dont care, we are vnav climb, make sure we do
         if simDR_autopilot_flch_status == 0 and (simDR_autopilot_alt_hold_status == 0 or numAPengaged==0 )then
-      simCMD_autopilot_flch_mode:once()
-      simDR_autopilot_flch_status =1
-      print("flch > 1000 feet climb")
+          simCMD_autopilot_flch_mode:once()
+          simDR_autopilot_flch_status =1
+          print("flch > 1000 feet climb")
         end 
         spdval=tonumber(fmsData["crzspd"])/10
         
-        if simDR_airspeed_mach > (spdval/100) and B747DR_ap_ias_mach_window_open == 0 and switchingIASMode==0 and simDR_autopilot_airspeed_is_mach ==0 then
-      print("convert to cruise speed "..spdval)
-      switchingIASMode=1
-      simDR_autopilot_airspeed_is_mach = 1
-      B747DR_ap_ias_dial_value = spdval
-      lastap_dial_airspeed=spdval*0.01
-      
-      run_after_time(B747_updateIASSpeed, 0.25)
+        if simDR_airspeed_mach > (spdval/100) and B747DR_ap_ias_mach_window_open == 0 and B747DR_switchingIASMode==0 and simDR_autopilot_airspeed_is_mach ==0 then
+          print("convert to cruise speed "..spdval)
+          B747DR_switchingIASMode=1
+          simDR_autopilot_airspeed_is_mach = 1
+          B747DR_ap_ias_dial_value = spdval
+          B747DR_lastap_dial_airspeed=spdval*0.01
+          
+          run_after_time(B747_updateIASSpeed, 0.25)
         end
         
     elseif diff2>100 and simDR_autopilot_altitude_ft==B747BR_cruiseAlt then
@@ -532,6 +524,7 @@ function B747_update_vnav_speed()
     end
     
     if diff2>-100 and diff2<100 and simDR_autopilot_altitude_ft==B747BR_cruiseAlt then
+      print("at cruise altitude")
       local ci = tonumber( fmsData["costindex"] )
       local ci_mach = 850
       if(ci == nil or ci == "****") then
@@ -570,12 +563,14 @@ function B747_update_vnav_speed()
 
         ci_mach = math.floor(ci_mach)
         spdval = ci_mach/10
+        
       end 
-      if (B747DR_ap_ias_dial_value ~=  spdval) and B747DR_ap_ias_mach_window_open == 0 and switchingIASMode==0 then 
-        switchingIASMode=1
+      print("at cruise altitude for "..spdval)
+      if (B747DR_ap_ias_dial_value ~=  spdval) and B747DR_ap_ias_mach_window_open == 0 and B747DR_switchingIASMode==0 then 
+        B747DR_switchingIASMode=1
         simDR_autopilot_airspeed_is_mach = 1
         B747DR_ap_ias_dial_value = spdval
-        lastap_dial_airspeed=spdval*0.01
+        B747DR_lastap_dial_airspeed=spdval*0.01
         
         run_after_time(B747_updateIASSpeed, 0.25)
         
