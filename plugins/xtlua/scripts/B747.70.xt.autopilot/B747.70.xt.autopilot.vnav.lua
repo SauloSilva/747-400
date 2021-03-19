@@ -53,7 +53,7 @@ function B747_update_vnav_speed()
        print("new crzAlt")
       gotVNAVSpeed=false 
     end
-    if vnavSPD_conditions["crzSpd"]~=fmsData["crzspd"] then 
+    if vnavSPD_conditions["crzSpd"]~=getFMSData("crzspd") then 
        print("new crzSpd")
       gotVNAVSpeed=false 
     end
@@ -78,7 +78,7 @@ function B747_update_vnav_speed()
         vnavSPD_conditions["descent"]=true
         vnavSPD_conditions["name"]="on ground"
         vnavSPD_conditions["crzAlt"]=B747BR_cruiseAlt
-        vnavSPD_conditions["crzSpd"]=fmsData["crzspd"]
+        vnavSPD_conditions["crzSpd"]=getFMSData("crzspd")
         gotVNAVSpeed=true
         vnavSPD_state["targetSpd"]=B747DR_ap_ias_dial_value
         vnavSPD_state["targetAlt"]=B747BR_cruiseAlt
@@ -88,9 +88,9 @@ function B747_update_vnav_speed()
         print("updated speed simDR_onGround")
       end
     else --not on the ground
-      local altval=tonumber(fmsData["clbrestalt"])
-      local spdval=tonumber(fmsData["clbrestspd"])
-      --print("updating speed simDR_onGround=0 "..fmsData["spdtransalt"].. " " ..fmsData["clbspd"])
+      local altval=tonumber(getFMSData("clbrestalt"))
+      local spdval=tonumber(getFMSData("clbrestspd"))
+     
       if B747DR_ap_inVNAVdescent ==0 and altval~=nil and spdval~=nil and simDR_pressureAlt1<=altval  then 
         vnavSPD_conditions["above"]=altval+500
         vnavSPD_conditions["below"]=-1
@@ -104,7 +104,7 @@ function B747_update_vnav_speed()
         run_after_time(B747_updateIAS, 0.25)
         vnavSPD_conditions["name"]="<clbrestalt"
         vnavSPD_conditions["crzAlt"]=B747BR_cruiseAlt
-        vnavSPD_conditions["crzSpd"]=fmsData["crzspd"]
+        vnavSPD_conditions["crzSpd"]=getFMSData("crzspd")
         vnavSPD_state["targetSpd"]=B747DR_ap_ias_dial_value
         vnavSPD_state["targetAlt"]=B747BR_cruiseAlt
         vnavSPD_state["targetVS"]=1 --descend, hold climb
@@ -114,13 +114,13 @@ function B747_update_vnav_speed()
         return
       end
       
-      spdval=tonumber(fmsData["clbspd"])
-      local spdtransalt=tonumber(fmsData["spdtransalt"])
+      spdval=tonumber(getFMSData("clbspd"))
+      local spdtransalt=tonumber(getFMSData("spdtransalt"))
       local above = spdtransalt
-      local transalt=tonumber(fmsData["transalt"])
+      local transalt=tonumber(getFMSData("transalt"))
       if transalt<spdtransalt then above= transalt end
       
-      local altval3=tonumber(fmsData["desrestalt"])
+      local altval3=tonumber(getFMSData("desrestalt"))
       if B747DR_ap_inVNAVdescent ==0 and altval~=nil and spdval~=nil and spdtransalt~=nil and simDR_pressureAlt1>=altval and simDR_pressureAlt1<above  then 
         
         vnavSPD_conditions["above"]=above
@@ -129,9 +129,9 @@ function B747_update_vnav_speed()
         vnavSPD_conditions["onground"]=simDR_onGround
         vnavSPD_conditions["name"]=">clbrestalt <spdtransalt"
         vnavSPD_conditions["crzAlt"]=B747BR_cruiseAlt
-        vnavSPD_conditions["crzSpd"]=fmsData["crzspd"]
+        vnavSPD_conditions["crzSpd"]=getFMSData("crzspd")
         B747DR_switchingIASMode=1
-        crzspdval=tonumber(fmsData["crzspd"])/10
+        crzspdval=tonumber(getFMSData("crzspd"))/10
         if simDR_airspeed_mach > (crzspdval/100) then
       print("convert to cruise speed in clb".. crzspdval)
       simDR_autopilot_airspeed_is_mach = 1
@@ -149,13 +149,13 @@ function B747_update_vnav_speed()
       end
       
       
-      altval3=tonumber(fmsData["desspdtransalt"])
-      spdval=tonumber(fmsData["transpd"])
+      altval3=tonumber(getFMSData("desspdtransalt"))
+      spdval=tonumber(getFMSData("transpd"))
       
-      if tonumber(string.sub(fmsData["crzalt"],3))~=nil then
-        altval=tonumber(fmsData["transalt"])
+      if tonumber(string.sub(getFMSData("crzalt"),3))~=nil then
+        altval=tonumber(getFMSData("transalt"))
         
-        altval2=(tonumber(string.sub(fmsData["crzalt"],3))*100)-1000
+        altval2=(tonumber(string.sub(getFMSData("crzalt"),3))*100)-1000
         local above=altval2
         
         if B747DR_ap_inVNAVdescent ==0 and spdval~=nil and altval~=nil and simDR_pressureAlt1>=altval and (B747DR_efis_baro_std_capt_switch_pos==0 or B747DR_efis_baro_std_fo_switch_pos==0)  then 
@@ -170,7 +170,7 @@ function B747_update_vnav_speed()
       vnavSPD_conditions["onground"]=simDR_onGround
       vnavSPD_conditions["name"]=">standard baro"
       vnavSPD_conditions["crzAlt"]=B747BR_cruiseAlt
-      vnavSPD_conditions["crzSpd"]=fmsData["crzspd"]
+      vnavSPD_conditions["crzSpd"]=getFMSData("crzspd")
       B747DR_efis_baro_std_capt_switch_pos = 1
       --B747DR_efis_baro_capt_preselect  = 29.92
       simDR_altimeter_baro_inHg = 29.92
@@ -192,11 +192,11 @@ function B747_update_vnav_speed()
         vnavSPD_conditions["onground"]=simDR_onGround 
         vnavSPD_conditions["name"]=">spdtransalt <".. above
         vnavSPD_conditions["crzAlt"]=B747BR_cruiseAlt
-        vnavSPD_conditions["crzSpd"]=fmsData["crzspd"]
+        vnavSPD_conditions["crzSpd"]=getFMSData("crzspd")
        
         print("convert to clb transpd ".. spdval)
         B747DR_switchingIASMode=1
-        crzspdval=tonumber(fmsData["crzspd"])/10
+        crzspdval=tonumber(getFMSData("crzspd"))/10
         if simDR_airspeed_mach > (crzspdval/100) then
       print("convert to cruise speed in clb".. crzspdval)
       simDR_autopilot_airspeed_is_mach = 1
@@ -212,7 +212,7 @@ function B747_update_vnav_speed()
         return
       end
         
-      spdval=tonumber(fmsData["crzspd"])
+      spdval=tonumber(getFMSData("crzspd"))
       if B747DR_ap_inVNAVdescent ==0 and spdval~=nil and altval2~=nil and simDR_pressureAlt1>=altval2  then 
         vnavSPD_conditions["above"]=-1
         vnavSPD_conditions["below"]=altval3
@@ -220,16 +220,16 @@ function B747_update_vnav_speed()
         vnavSPD_conditions["onground"]=simDR_onGround
         vnavSPD_conditions["name"]="crzspd"
         vnavSPD_conditions["crzAlt"]=B747BR_cruiseAlt
-        vnavSPD_conditions["crzSpd"]=fmsData["crzspd"]
+        vnavSPD_conditions["crzSpd"]=getFMSData("crzspd")
         print("approaching cruise speed")
         gotVNAVSpeed=true
         return
       end
       end
-      spdval=tonumber(fmsData["desspdmach"])
-      altval=tonumber(fmsData["desspdtransalt"])
-      if tonumber(string.sub(fmsData["crzalt"],3))~=nil then 
-        altval2=(tonumber(string.sub(fmsData["crzalt"],3))*100)-1000
+      spdval=tonumber(getFMSData("desspdmach"))
+      altval=tonumber(getFMSData("desspdtransalt"))
+      if tonumber(string.sub(getFMSData("crzalt"),3))~=nil then 
+        altval2=(tonumber(string.sub(getFMSData("crzalt"),3))*100)-1000
       else
         altval2=40000
       end
@@ -249,8 +249,8 @@ function B747_update_vnav_speed()
       gotVNAVSpeed=true
       return
       end
-      altval2=tonumber(fmsData["desrestalt"])
-      spdval=tonumber(fmsData["destranspd"])
+      altval2=tonumber(getFMSData("desrestalt"))
+      spdval=tonumber(getFMSData("destranspd"))
       if B747DR_ap_inVNAVdescent >0 and spdval~=nil and altval~=nil and simDR_pressureAlt1>=altval2 and simDR_pressureAlt1<altval then 
       vnavSPD_conditions["above"]=altval+200
       vnavSPD_conditions["below"]=altval2
@@ -267,7 +267,7 @@ function B747_update_vnav_speed()
       gotVNAVSpeed=true
       return
       end
-      spdval=tonumber(fmsData["desrestspd"])
+      spdval=tonumber(getFMSData("desrestspd"))
       if B747DR_ap_inVNAVdescent >0 and spdval~=nil and altval~=nil and simDR_pressureAlt1<=altval2 then 
       vnavSPD_conditions["above"]=altval2+200
       vnavSPD_conditions["below"]=-1
@@ -369,8 +369,8 @@ function B747_update_vnav_speed()
       end
       simDR_autopilot_altitude_ft=targetAlt
       
-      fmstargetIndex=targetIndex
-      fmscurrentIndex=currentIndex
+      B747DR_fmstargetIndex=targetIndex
+      B747DR_fmscurrentIndex=currentIndex
       if simDR_autopilot_autothrottle_enabled == 0 and B747DR_engine_TOGA_mode == 0 and B747DR_ap_inVNAVdescent > 0 and B747DR_toggle_switch_position[29] == 1 then							-- AUTOTHROTTLE IS "OFF"
           simCMD_autopilot_autothrottle_on:once()									-- ACTIVATE THE AUTOTHROTTLE
       end
@@ -389,8 +389,8 @@ function B747_update_vnav_speed()
       end
       simDR_autopilot_altitude_ft=targetAlt
       
-      fmstargetIndex=targetIndex
-      fmscurrentIndex=currentIndex
+      B747DR_fmstargetIndex=targetIndex
+      B747DR_fmscurrentIndex=currentIndex
       if simDR_autopilot_altitude_ft> simDR_pressureAlt1+500 and (simDR_autopilot_alt_hold_status < 2 or numAPengaged==0) then
         simCMD_autopilot_alt_hold_mode:once()
         if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 then							-- AUTOTHROTTLE IS "OFF"
@@ -404,70 +404,77 @@ function B747_update_vnav_speed()
       
       end]]
         else
-      fmstargetIndex=targetIndex
-      fmscurrentIndex=currentIndex
+          B747DR_fmstargetIndex=targetIndex
+          B747DR_fmscurrentIndex=currentIndex
         end 
         --print("targetAlt=".. targetAlt .. " simDR_autopilot_altitude_ft=".. simDR_autopilot_altitude_ft .. " simDR_pressureAlt1=" .. simDR_pressureAlt1.. " vnavcalcwithMCPAlt=" .. vnavcalcwithMCPAlt .. " fmscurrentIndex=" .. fmscurrentIndex .. " targetIndex=" .. targetIndex .. " B747DR_autopilot_altitude_ft="..B747DR_autopilot_altitude_ft)
-        vnavSPD_state["recalcAfter"]=fmstargetIndex
+        vnavSPD_state["recalcAfter"]=B747DR_fmstargetIndex
     --end
   end
   
   function getDescentTarget()
-    B747DR_target_descentSpeed=tonumber(fmsData["destranspd"])
-    B747DR_target_descentAlt=tonumber(fmsData["desspdtransalt"])
-    if B747DR_target_descentAlt>simDR_pressureAlt1 or simDR_autopilot_airspeed_kts<B747DR_target_descentSpeed then B747DR_descentSpeedGradient=0 return end
+    B747DR_target_descentSpeed=tonumber(getFMSData("destranspd"))
+    B747DR_target_descentAlt=tonumber(getFMSData("desspdtransalt"))
+    if B747DR_target_descentAlt>simDR_pressureAlt1 
+      or simDR_autopilot_airspeed_kts<B747DR_target_descentSpeed 
+      then 
+      B747DR_descentSpeedGradient=0 
+      return 
+    end
     B747DR_descentSpeedGradient=(simDR_autopilot_airspeed_kts-B747DR_target_descentSpeed)/(simDR_pressureAlt1-B747DR_target_descentAlt)
     print("set descentSpeedGradient to " .. B747DR_descentSpeedGradient)
   end
   
   function vnavDescent()
     local diff = simDR_ind_airspeed_kts_pilot - simDR_autopilot_airspeed_kts
-        local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
-        if B747DR_ap_inVNAVdescent >0 and simDR_autopilot_autothrottle_enabled == 0 and diff>0 and simDR_allThrottle>0 and simDR_radarAlt1>1000 then
+    local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
+    if B747DR_ap_inVNAVdescent >0 and simDR_autopilot_autothrottle_enabled == 0 and diff>0 and simDR_allThrottle>0 and simDR_radarAlt1>1000 then
           simCMD_ThrottleDown:once()
           print("go idle")
-        elseif B747DR_ap_inVNAVdescent ==2 and simDR_autopilot_autothrottle_enabled == 1 and simDR_autopilot_airspeed_is_mach==1 and simDR_allThrottle<0.02 then							-- AUTOTHROTTLE IS "ON"
+    elseif B747DR_ap_inVNAVdescent ==2 and simDR_autopilot_autothrottle_enabled == 1 and simDR_autopilot_airspeed_is_mach==1 and simDR_allThrottle<0.02 then							-- AUTOTHROTTLE IS "ON"
           simCMD_autopilot_autothrottle_off:once()									-- DEACTIVATE THE AUTOTHROTTLE
           B747DR_ap_inVNAVdescent =1
           print("fix idle throttle")
-        elseif B747DR_ap_inVNAVdescent >0 and simDR_autopilot_autothrottle_enabled == 0 and (simDR_ind_airspeed_kts_pilot<B747DR_airspeed_Vmc+15) and B747DR_toggle_switch_position[29] == 1 then
+    elseif B747DR_ap_inVNAVdescent >0 and simDR_autopilot_autothrottle_enabled == 0 and (simDR_ind_airspeed_kts_pilot<B747DR_airspeed_Vmc+15) and B747DR_toggle_switch_position[29] == 1 then
           simCMD_autopilot_autothrottle_on:once()
           --B747DR_ap_inVNAVdescent =1
           print("fix idle throttle to climb/maintain")
-        end
-        local diff2 = simDR_autopilot_altitude_ft - simDR_pressureAlt1
-        local diff3 = B747DR_autopilot_altitude_ft- simDR_pressureAlt1
-        if B747DR_ap_inVNAVdescent ==0 and diff2<=0 and diff3<=-2000 
+    end
+    local diff2 = simDR_autopilot_altitude_ft - simDR_pressureAlt1
+    local diff3 = B747DR_autopilot_altitude_ft- simDR_pressureAlt1
+    if B747DR_ap_inVNAVdescent ==0 and diff2<=0 and diff3<=-2000 
           and B747BR_totalDistance>0 and B747BR_totalDistance-B747BR_tod<=0
-          and simDR_autopilot_vs_status == 0 and simDR_radarAlt1>1000 and simDR_autopilot_autothrottle_enabled>-1 then
+          and simDR_autopilot_vs_status == 0 
+          and simDR_radarAlt1>1000 
+          and simDR_autopilot_autothrottle_enabled>-1 then
           B747DR_ap_inVNAVdescent =1
           print("Begin descent")
           getDescentTarget()
-        end
-        
-        if B747DR_ap_inVNAVdescent ==1 and diff<5 and diff2<-200 and simDR_autopilot_vs_status == 0 and simDR_radarAlt1>1000 then
+    end
+    print("in vnav descent "..diff.." "..diff2.. " "..B747DR_ap_inVNAVdescent)    
+    if B747DR_ap_inVNAVdescent ==1 and diff<5 and diff2<-200 and simDR_autopilot_vs_status == 0 and simDR_radarAlt1>1000 then
           if simDR_autopilot_gs_status < 1 then 
             simCMD_autopilot_vert_speed_mode:once()
-          simDR_autopilot_vs_status =1
-          if simDR_autopilot_autothrottle_enabled == 1 and diff2<-2000 and diff3<-2000 and (simDR_ind_airspeed_kts_pilot>B747DR_airspeed_Vmc+15) then							-- AUTOTHROTTLE IS "ON"
-            --simDR_autopilot_autothrottle_enabled=0
-            simCMD_autopilot_autothrottle_off:once()									-- DEACTIVATE THE AUTOTHROTTLE
-          end
-            B747DR_ap_inVNAVdescent =2 -- stop on/off, resume below
-            print("Resume descent")
+            simDR_autopilot_vs_status =1
+            if simDR_autopilot_autothrottle_enabled == 1 and diff2<-2000 and diff3<-2000 and (simDR_ind_airspeed_kts_pilot>B747DR_airspeed_Vmc+15) then							-- AUTOTHROTTLE IS "ON"
+              --simDR_autopilot_autothrottle_enabled=0
+              simCMD_autopilot_autothrottle_off:once()									-- DEACTIVATE THE AUTOTHROTTLE
+            end
+              B747DR_ap_inVNAVdescent =2 -- stop on/off, resume below
+              print("Resume descent")
   -- 	    else
   -- 	      print("Ended descent")
           end
         --elseif B747DR_ap_inVNAVdescent ==1 and simDR_autopilot_vs_status == 0 and simDR_radarAlt1>1000 then
          -- print("waiting to resume descent "..diff.." "..diff2.." "..simDR_radarAlt1.. " " .. simDR_autopilot_altitude_ft)
-        end
-        if B747DR_ap_inVNAVdescent == 2 and ((simDR_autopilot_alt_hold_status == 2 or numAPengaged==0 or simDR_autopilot_vs_status == 0) and inVnavAlt<1) and (diff2<-1000) and (diff3<-1000) then 
-            B747DR_ap_inVNAVdescent =1 --has simDR_autopilot_alt_hold_status == 2 in condition
-        end
+    end
+    if B747DR_ap_inVNAVdescent == 2 and ((simDR_autopilot_alt_hold_status == 2 or numAPengaged==0 or simDR_autopilot_vs_status == 0) and inVnavAlt<1) and (diff2<-1000) and (diff3<-1000) then 
+        B747DR_ap_inVNAVdescent =1 --has simDR_autopilot_alt_hold_status == 2 in condition
+    end
         
-        if simDR_autopilot_vs_status == 2 and fms~=nill and table.getn(fms)>2 and fmstargetIndex>0 then
-          setDescentVSpeed(fms)
-        end
+    if simDR_autopilot_vs_status == 2 and B747DR_fmstargetIndex>2 then
+        setDescentVSpeed()
+    end
   end
   function doAltChange()
     local diff2 = simDR_autopilot_altitude_ft - simDR_pressureAlt1
@@ -497,7 +504,7 @@ function B747_update_vnav_speed()
           simDR_autopilot_flch_status =1
           print("flch > 1000 feet climb")
         end 
-        spdval=tonumber(fmsData["crzspd"])/10
+        spdval=tonumber(getFMSData("crzspd"))/10
         
         if simDR_airspeed_mach > (spdval/100) and B747DR_ap_ias_mach_window_open == 0 and B747DR_switchingIASMode==0 and simDR_autopilot_airspeed_is_mach ==0 then
           print("convert to cruise speed "..spdval)
@@ -525,10 +532,10 @@ function B747_update_vnav_speed()
     
     if diff2>-100 and diff2<100 and simDR_autopilot_altitude_ft==B747BR_cruiseAlt then
       print("at cruise altitude")
-      local ci = tonumber( fmsData["costindex"] )
+      local ci = tonumber( getFMSData("costindex") )
       local ci_mach = 850
       if(ci == nil or ci == "****") then
-        spdval=tonumber(fmsData["crzspd"])/10
+        spdval=tonumber(getFMSData("crzspd"))/10
         if(spdval == nil) then
           spdval = 85
         end

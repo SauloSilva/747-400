@@ -171,6 +171,8 @@ B747DR_target_descentAlt        = deferred_dataref("laminar/B747/autopilot/ap_mo
 B747DR_target_descentSpeed      = deferred_dataref("laminar/B747/autopilot/ap_monitor/target_descentSpeed", "number")
 B747DR_descentSpeedGradient     = deferred_dataref("laminar/B747/autopilot/ap_monitor/descentSpeedGradient", "number")
 B747DR_switchingIASMode         = deferred_dataref("laminar/B747/autopilot/ap_monitor/switchingIASMode", "number")
+B747DR_fmstargetIndex           = deferred_dataref("laminar/B747/autopilot/ap_monitor/fmstargetIndex", "number")
+B747DR_fmscurrentIndex          = deferred_dataref("laminar/B747/autopilot/ap_monitor/fmscurrentIndex", "number")
 
 B747CMD_ap_thrust_mode              	= deferred_command("laminar/B747/autopilot/button_switch/thrust_mode", "Autopilot THR Mode", B747_ap_thrust_mode_CMDhandler)
 B747CMD_ap_switch_speed_mode			= deferred_command("laminar/B747/autopilot/button_switch/speed_mode", "A/P Speed Mode Switch", B747_ap_switch_speed_mode_CMDhandler)

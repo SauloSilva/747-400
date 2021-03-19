@@ -74,9 +74,11 @@ local B747_ap_last_AFDS_status = 0
 local B747_ap_last_FMA_autothrottle_mode = 0
 local B747_ap_last_FMA_roll_mode = 0
 local B747_ap_last_FMA_pitch_mode = 0
-fmsData={}
+local fmsData={}
 inVnavAlt=0
-
+function getFMSData(name)
+	return fmsData[name]
+end
 --*************************************************************************************--
 --** 				             FIND X-PLANE DATAREFS           			    	 **--
 --*************************************************************************************--
@@ -203,7 +205,8 @@ B747DR_target_descentAlt        = deferred_dataref("laminar/B747/autopilot/ap_mo
 B747DR_target_descentSpeed      = deferred_dataref("laminar/B747/autopilot/ap_monitor/target_descentSpeed", "number")
 B747DR_descentSpeedGradient     = deferred_dataref("laminar/B747/autopilot/ap_monitor/descentSpeedGradient", "number")
 B747DR_switchingIASMode         = deferred_dataref("laminar/B747/autopilot/ap_monitor/switchingIASMode", "number")
-
+B747DR_fmstargetIndex= deferred_dataref("laminar/B747/autopilot/ap_monitor/fmstargetIndex", "number")
+B747DR_fmscurrentIndex= deferred_dataref("laminar/B747/autopilot/ap_monitor/fmscurrentIndex", "number")
 
 --*************************************************************************************--
 --** 				             FIND X-PLANE COMMANDS                   	    	 **--
@@ -1747,11 +1750,12 @@ function B747_ap_ias_mach_mode()
 end	
 
 local fms
-fmstargetIndex=0
-fmscurrentIndex=0
+function getFMS()
+	return fms
+end
 function setDistances(fmsO)
   --print("set distances")
-  local start=fmscurrentIndex
+  local start=B747DR_fmscurrentIndex
   if start==0 then start=1 end
   if fmsO[start]==nil then
     print("empty data")
@@ -1776,18 +1780,10 @@ function setDistances(fmsO)
   B747BR_nextDistanceInFeet=nextDistanceInFeet
   B747BR_tod=(((B747BR_cruiseAlt-fms[eod][3])/100))/2.9
 end
-function setDescentVSpeed(fmsO)
-  if simDR_autopilot_altitude_ft+600 > simDR_pressureAlt1 then return end --dont set fpm near hold alt
---   if simDR_radarAlt1<=1200 then
---     --fmstargetIndex=-1
---     --fmscurrentIndex=0
---     --B747DR_ap_vnav_state=0
---     --simCMD_autopilot_alt_hold_mode:once()
---     simDR_autopilot_vs_fpm = -250 -- slow descent, reduces AoA which if it goes to high spoils the landing
---     return
---   end
-  
-  local distanceNM=getDistance(simDR_latitude,simDR_longitude,fmsO[fmstargetIndex][5],fmsO[fmstargetIndex][6]) --B747BR_nextDistanceInFeet/6076.12
+function setDescentVSpeed()
+	local fmsO=getFMS()
+  if simDR_autopilot_altitude_ft+600 > simDR_pressureAlt1 then return end --dont set fpm near hold alt  
+  local distanceNM=getDistance(simDR_latitude,simDR_longitude,fmsO[B747DR_fmstargetIndex][5],fmsO[B747DR_fmstargetIndex][6]) --B747BR_nextDistanceInFeet/6076.12
   local nextDistanceInFeet=distanceNM*6076.12
   local time=distanceNM*30.8666/(simDR_groundspeed) --time in minutes, gs in m/s....
   local early=100
@@ -1829,8 +1825,8 @@ function getCurrentWayPoint(fms)
     --print("FMS j="..fmsJSON)
     
     if fms[i][10]==true then
-      fmscurrentIndex=i
-      setVNAVState("recalcAfter",i)
+		B747DR_fmscurrentIndex=i
+      	setVNAVState("recalcAfter",i)
       break 
     end
   end
