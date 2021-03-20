@@ -316,14 +316,14 @@ function findILS(value)
   navAids=json.decode(navAidsJSON)
   local direction=nil
   local valueSO=split(value,"/")
-  print(value)
+  --print(value)
   if table.getn(valueSO) > 1 then
     value=valueSO[1]
-     print(value)
+     --print(value)
     direction=tonumber(valueSO[2])
-    print(value.." and " .. direction)
+    --print(value.." and " .. direction)
   else
-    print(value)
+    --print(value)
   end
   --print(" in " .. navAidsJSON)
   local val=tonumber(value)
@@ -629,7 +629,7 @@ end
 
 -- VALIDATE ENTRY OF SETHDG
 function validate_sethdg(value)
-	print(value)
+	--print(value)
 	if tonumber(value) >= 0 and tonumber(value) <= 360 then
 		return true
 	else
@@ -946,13 +946,13 @@ function fmsFunctions.setdata(fmsO,value)
   elseif value=="desspds" then
     div = string.find(fmsO["scratchpad"], "%/")
     spd=getFMSData("desspd")
-    print(spd)
+   -- print(spd)
     if div==nil then 
       div=string.len(fmsO["scratchpad"])+1 
     else
       spd=string.sub(fmsO["scratchpad"],div+1)
     end
-    print(spd)
+   -- print(spd)
     machspd=string.sub(fmsO["scratchpad"],1,div-1)
     if validateMachSpeed(machspd) ==nil or validateSpeed(spd) ==false then 
       fmsO["notify"]="INVALID ENTRY"
@@ -2045,7 +2045,7 @@ function fmsFunctions.setDref(fmsO,value)
      fmsO["notify"]="INVALID ENTRY"
      return 
    end
-  print(val)
+ --print(val)
   if value=="VORL" then B747DR_radioModes=replace_char(2,modes,"M") simDR_radio_nav_freq_hz[2]=val*100  end
   if value=="VORR" then B747DR_radioModes=replace_char(3,modes,"M") simDR_radio_nav_freq_hz[3]=val*100  end
   if value=="CRSL" then simDR_radio_nav_obs_deg[2]=val end
