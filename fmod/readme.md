@@ -3,7 +3,7 @@ by Matt726
 
 Available for: Default Laminar Research or mSparks 747 mod
 
-Version: v1.6.1
+Version: v1.6.2
 
 Email: mfahrenheit135@gmail.com
 
@@ -28,6 +28,9 @@ Email: mfahrenheit135@gmail.com
 ---
 ## CHANGELOG:
 
+### v1.6.2:
+
+- fixed "1000" gpws issue
 ### v1.6.1:
 
 - added option to remove cabin announcements
