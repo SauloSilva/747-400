@@ -6280,7 +6280,7 @@ END_SOUND_ATTACHMENT
 ###############################
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Engines/PW/engine1
+    EVENT_NAME /Engines/GE/engine1
     VEH_XYZ -20 -1.5 2
     EVENT_ALLOWED_FOR_AI
     EVENT_START_COND sim/flightmodel2/engines/N1_percent[0] > 0
@@ -6288,7 +6288,7 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Engines/PW/engine2
+    EVENT_NAME /Engines/GE/engine2
     VEH_XYZ -12 -1.5 -2
     EVENT_ALLOWED_FOR_AI
     EVENT_START_COND sim/flightmodel2/engines/N1_percent[1] > 0
@@ -6296,7 +6296,7 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Engines/PW/engine3
+    EVENT_NAME /Engines/GE/engine3
     VEH_XYZ 12 -1.5 -2
     EVENT_ALLOWED_FOR_AI
     EVENT_START_COND sim/flightmodel2/engines/N1_percent[2] > 0
@@ -6304,7 +6304,7 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Engines/PW/engine4
+    EVENT_NAME /Engines/GE/engine4
     VEH_XYZ 20 1.5 2
     EVENT_ALLOWED_FOR_AI
     EVENT_START_COND sim/flightmodel2/engines/N1_percent[3] > 0
@@ -6314,7 +6314,7 @@ END_SOUND_ATTACHMENT
 #START
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Engines/PW/start/start1
+    EVENT_NAME /Engines/GE/start/start1
     VEH_XYZ -20 -1.5 2
     EVENT_ALLOWED_FOR_AI
     EVENT_START_COND sim/cockpit2/engine/indicators/N2_percent[0] > 2
@@ -6322,7 +6322,7 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Engines/PW/start/start1
+    EVENT_NAME /Engines/GE/start/start1
     VEH_XYZ -12 -1.5 -2
     EVENT_ALLOWED_FOR_AI
     EVENT_START_COND sim/cockpit2/engine/indicators/N2_percent[1] > 2
@@ -6330,7 +6330,7 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Engines/PW/start/start1
+    EVENT_NAME /Engines/GE/start/start1
     VEH_XYZ 12 -1.5 -2
     EVENT_ALLOWED_FOR_AI
     EVENT_START_COND sim/cockpit2/engine/indicators/N2_percent[2] > 2
@@ -6338,7 +6338,7 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Engines/PW/start/start1
+    EVENT_NAME /Engines/GE/start/start1
     VEH_XYZ 20 -1.5 2
     EVENT_ALLOWED_FOR_AI
     EVENT_START_COND sim/cockpit2/engine/indicators/N2_percent[3] > 2
@@ -6346,7 +6346,7 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Engines/PW/start/start2
+    EVENT_NAME /Engines/GE/start/start2
     VEH_XYZ -20 -1.5 2
     EVENT_ALLOWED_FOR_AI
     EVENT_START_COND sim/flightmodel2/engines/engine_is_burning_fuel[0] == 1
@@ -6354,7 +6354,7 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Engines/PW/start/start2
+    EVENT_NAME /Engines/GE/start/start2
     VEH_XYZ -12 -1.5 -2
     EVENT_ALLOWED_FOR_AI
     EVENT_START_COND sim/flightmodel2/engines/engine_is_burning_fuel[1] == 1
@@ -6362,7 +6362,7 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Engines/PW/start/start2
+    EVENT_NAME /Engines/GE/start/start2
     VEH_XYZ 12 -1.5 -2
     EVENT_ALLOWED_FOR_AI
     EVENT_START_COND sim/flightmodel2/engines/engine_is_burning_fuel[2] == 1
@@ -6370,7 +6370,7 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Engines/PW/start/start2
+    EVENT_NAME /Engines/GE/start/start2
     VEH_XYZ 20 -1.5 2
     EVENT_ALLOWED_FOR_AI
     EVENT_START_COND sim/flightmodel2/engines/engine_is_burning_fuel[3] == 1
@@ -6380,28 +6380,28 @@ END_SOUND_ATTACHMENT
 #SHUT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Engines/PW/shutdown
+    EVENT_NAME /Engines/GE/shutdown
     VEH_XYZ -20 -1.5 2
     EVENT_ALLOWED_FOR_AI
     EVENT_START_COND sim/cockpit2/engine/indicators/N1_percent[0] < 19.8
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Engines/PW/shutdown
+    EVENT_NAME /Engines/GE/shutdown
     VEH_XYZ -12 -1.5 -2
     EVENT_ALLOWED_FOR_AI
     EVENT_START_COND sim/cockpit2/engine/indicators/N1_percent[1] < 19.8
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Engines/PW/shutdown
+    EVENT_NAME /Engines/GE/shutdown
     VEH_XYZ 12 -1.5 -2
     EVENT_ALLOWED_FOR_AI
     EVENT_START_COND sim/cockpit2/engine/indicators/N1_percent[2] < 19.8
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Engines/PW/shutdown
+    EVENT_NAME /Engines/GE/shutdown
     VEH_XYZ 20 -1.5 2
     EVENT_ALLOWED_FOR_AI
     EVENT_START_COND sim/cockpit2/engine/indicators/N1_percent[3] < 19.8
