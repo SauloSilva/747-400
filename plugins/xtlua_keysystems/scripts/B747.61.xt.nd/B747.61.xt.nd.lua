@@ -117,6 +117,8 @@ end
 function makeIcon(iconTextData,navtype,text,latitude,longitude,distance)
   if text~=nil and text~="LATLON" and iconTextData==iconTextDataCapt and usedNaviadsTableCapt[text]~=nil then return end
   if text~=nil and text~="LATLON" and iconTextData==iconTextDataFO and usedNaviadsTableFO[text]~=nil then return end
+  if text=="LATLON" then text=" " end
+  
   local abs_heading=getHeading(simDR_latitude,simDR_longitude,latitude,longitude)
   local heading_diff=0
   if simDR_map_mode==2 then
