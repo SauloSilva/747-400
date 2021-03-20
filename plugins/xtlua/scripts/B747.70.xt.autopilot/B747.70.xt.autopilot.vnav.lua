@@ -121,7 +121,7 @@ function B747_update_vnav_speed()
       if transalt<spdtransalt then above= transalt end
       
       local altval3=tonumber(getFMSData("desrestalt"))
-      if B747DR_ap_inVNAVdescent ==0 and altval~=nil and spdval~=nil and spdtransalt~=nil and simDR_pressureAlt1>=altval and simDR_pressureAlt1<above  then 
+      if B747DR_ap_inVNAVdescent ==0 and altval~=nil and spdval~=nil and spdtransalt~=nil and simDR_pressureAlt1>=altval  then 
         
         vnavSPD_conditions["above"]=above
         vnavSPD_conditions["below"]=altval3
@@ -145,7 +145,7 @@ function B747_update_vnav_speed()
         end
         run_after_time(B747_updateIAS, 0.25)
         gotVNAVSpeed=true
-        return
+        --return
       end
       
       

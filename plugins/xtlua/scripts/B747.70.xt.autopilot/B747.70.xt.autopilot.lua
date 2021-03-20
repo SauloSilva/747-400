@@ -841,15 +841,16 @@ function B747_ap_VNAV_mode_CMDhandler(phase, duration)
 
 
 		end
-			setVNAVState("gotVNAVSpeed",false)
-			B747_vnav_speed()
+			
 		if B747DR_ap_vnav_system == 1 then
 		  simCMD_autopilot_FMS_mode:once()
 		elseif B747DR_ap_vnav_state>0 then 
 		  B747DR_ap_vnav_state=0
 		  B747DR_ap_inVNAVdescent =0
 		elseif B747DR_ap_vnav_system == 2 then
-		  B747DR_ap_vnav_state=1  
+		  B747DR_ap_vnav_state=1 
+		  setVNAVState("gotVNAVSpeed",false)
+		  B747_vnav_speed() 
 -- 		  if simDR_autopilot_altitude_ft - simDR_pressureAlt1<-200 then
 -- 		    B747DR_ap_inVNAVdescent =1
 -- 		  elseif simDR_autopilot_altitude_ft - simDR_pressureAlt1>2000 and simDR_autopilot_flch_status==0 and B747DR_engine_TOGA_mode == 0 and simDR_onGround==0 then
