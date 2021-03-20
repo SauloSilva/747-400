@@ -451,27 +451,20 @@ function B747_ap_switch_vnavspeed_mode_CMDhandler(phase, duration)
 end	
 function B747_ap_switch_vnavalt_mode_CMDhandler(phase, duration)
 	if phase == 0 then
+		print("vnav alt button")
 		B747_ap_button_switch_position_target[16] = 1									-- SET THE ALT KNOB ANIMATION TO "IN"
 		setVNAVState("vnavcalcwithTargetAlt",0)
 		if manualVNAVspd==0 then
 		    setVNAVState("gotVNAVSpeed",false)
-		    B747_vnav_speed()
-		     
+		    B747_vnav_speed()    
 		end
+
 		if B747DR_ap_vnav_state==2 then
+			
 		  if B747BR_totalDistance>0 and (B747BR_totalDistance-B747BR_tod)<50 and simDR_pressureAlt1>simDR_autopilot_altitude_ft then
-		    if simDR_autopilot_vs_status == 0 then
-		      simCMD_autopilot_vert_speed_mode:once()
-		    end
-		    B747DR_ap_inVNAVdescent = 2
-		  elseif simDR_autopilot_flch_status==0 and simDR_pressureAlt1<simDR_autopilot_altitude_ft-1000 then
-		    if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 then							-- AUTOTHROTTLE IS "OFF"
-		      simCMD_autopilot_autothrottle_on:once()
-			end
-			--print("B747_ap_switch_vnavalt_mode_CMDhandler badness")
-		    simCMD_autopilot_flch_mode:once()
-		    
-		    --B747CMD_ap_switch_flch_mode:once()
+			B747DR_ap_inVNAVdescent = 2
+		  else
+			B747DR_ap_vnav_state = 3 --resume
 		  end
 		end
 	elseif phase == 2 then
@@ -844,15 +837,16 @@ function B747_ap_VNAV_mode_CMDhandler(phase, duration)
 		B747_ap_button_switch_position_target[3] = 1
 		if B747BR_cruiseAlt < 10 then
 		  B747DR_fmc_notifications[30]=1
-		  return 
+		return 
+
+
 		end
-		setVNAVState("gotVNAVSpeed",false)
-		B747_vnav_speed()
+			setVNAVState("gotVNAVSpeed",false)
+			B747_vnav_speed()
 		if B747DR_ap_vnav_system == 1 then
 		  simCMD_autopilot_FMS_mode:once()
 		elseif B747DR_ap_vnav_state>0 then 
 		  B747DR_ap_vnav_state=0
-		  
 		  B747DR_ap_inVNAVdescent =0
 		elseif B747DR_ap_vnav_system == 2 then
 		  B747DR_ap_vnav_state=1  
@@ -1632,8 +1626,6 @@ function B747_ap_ias_mach_mode()
 	   -- (B747DR_engine_TOGA_mode == 1 or (B747DR_ap_vnav_state > 0 and B747DR_ap_inVNAVdescent == 0) )
 	and (simDR_radarAlt1>400 or simDR_ind_airspeed_kts_pilot>simDR_autopilot_airspeed_kts) then							-- AUTOTHROTTLE IS "OFF"
 	  if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 then simCMD_autopilot_autothrottle_on:once()	end								-- ACTIVATE THE AUTOTHROTTLE
-	  --B747CMD_ap_switch_flch_mode:once()
-	  --print("B747_ap_ias_mach_mode badness")
 	  simCMD_autopilot_flch_mode:once()
 	  B747DR_engine_TOGA_mode = 0 
 	  B747DR_ap_autoland=-1
@@ -1949,7 +1941,7 @@ end
 ----- FLIGHT MODE ANNUNCIATORS ----------------------------------------------------------
 
 dofile("B747.autoland.lua")
-
+dofile("B747.70.xt.autopilot.monitor.lua")
 function B747_ap_fma()
 	B747DR_capt_ap_roll=B747DR_ap_target_roll-simDR_capt_roll
 	B747DR_fo_ap_roll=B747DR_ap_target_roll-simDR_fo_roll
@@ -2110,62 +2102,78 @@ function B747_ap_fma()
     -- (G/S) --
     elseif simDR_autopilot_gs_status == 2 then
         B747DR_ap_FMA_active_pitch_mode = 2
-	B747DR_ap_vnav_state=0
-	B747DR_ap_inVNAVdescent =0
+		B747DR_ap_vnav_state=0
+		B747DR_ap_inVNAVdescent =0
     -- (FLARE) --
     -- TODO: AUTOLAND LOGIC
 
     -- (VNAV SPD) --
-    elseif (simDR_autopilot_fms_vnav == 1 or B747DR_ap_vnav_state > 0)
+    elseif (simDR_autopilot_fms_vnav == 1 or B747DR_ap_vnav_state >= 2)
       and simDR_autopilot_flch_status == 2
     then
         B747DR_ap_FMA_active_pitch_mode = 4
-	B747DR_ap_vnav_state = 2
-	if clbderate==0 then throttlederate=1.0
-	elseif clbderate==1 then throttlederate=0.9
-	elseif clbderate==2 then throttlederate=0.8 end
+		--B747DR_ap_vnav_state = 2
+		if clbderate==0 then 
+			throttlederate=1.0
+		elseif clbderate==1 then 
+			throttlederate=0.9
+		elseif clbderate==2 then 
+			throttlederate=0.8 
+		end
     -- (VNAV ALT) --
-    elseif (simDR_autopilot_fms_vnav == 1 or B747DR_ap_vnav_state > 0)
+    elseif (simDR_autopilot_fms_vnav == 1 or B747DR_ap_vnav_state >= 2)
       and simDR_autopilot_alt_hold_status == 2
     then
-	if (simDR_autopilot_hold_altitude_ft==B747DR_autopilot_altitude_ft) and (simDR_autopilot_altitude_ft/100 ~= tonumber(string.sub(fmsData["crzalt"],3))) then
-	  B747DR_ap_FMA_active_pitch_mode = 5 --VNAV ALT - MCP alt
-	  inVnavAlt=1
-	else
-	  B747DR_ap_FMA_active_pitch_mode = 6  --VNAV PTH - FMC alt
-	end
-	B747DR_ap_vnav_state = 2
-        if clbderate==0 then throttlederate=1.0
-	elseif clbderate==1 then throttlederate=0.9
-	elseif clbderate==2 then throttlederate=0.8  end   
+		if (simDR_autopilot_hold_altitude_ft==B747DR_autopilot_altitude_ft) and (simDR_autopilot_altitude_ft/100 ~= tonumber(string.sub(fmsData["crzalt"],3))) then
+			B747DR_ap_FMA_active_pitch_mode = 5 --VNAV ALT - MCP alt
+			inVnavAlt=1
+		else
+			B747DR_ap_FMA_active_pitch_mode = 6  --VNAV PTH - FMC alt
+		end
+		--B747DR_ap_vnav_state = 2
+        if clbderate==0 then 
+			throttlederate=1.0
+		elseif clbderate==1 then 
+			throttlederate=0.9
+		elseif clbderate==2 then 
+			throttlederate=0.8  
+		end   
     -- (VNAV PATH) --
-    elseif (simDR_autopilot_fms_vnav == 1 or B747DR_ap_vnav_state > 0)
+    elseif (simDR_autopilot_fms_vnav == 1 or B747DR_ap_vnav_state >= 2)
       and simDR_autopilot_vs_status == 2
     then
       B747DR_ap_FMA_active_pitch_mode = 6  
-      B747DR_ap_vnav_state = 2
+      --B747DR_ap_vnav_state = 2
     -- (V/S) --
     elseif simDR_autopilot_vs_status == 2 
       and simDR_autopilot_fms_vnav == 0 and B747DR_ap_vnav_state == 0
     then
         B747DR_ap_FMA_active_pitch_mode = 7
-	if clbderate==0 then throttlederate=1.0
-	  elseif clbderate==1 then throttlederate=0.9
-	  elseif clbderate==2 then throttlederate=0.8 end 
+		if clbderate==0 then 
+			throttlederate=1.0
+	  	elseif clbderate==1 then 
+			throttlederate=0.9
+	  	elseif clbderate==2 then 
+			throttlederate=0.8 
+		end 
     -- (FLCH SPD) --
     elseif simDR_autopilot_flch_status == 2 
       and simDR_autopilot_fms_vnav == 0  and B747DR_ap_vnav_state == 0
     then
         B747DR_ap_FMA_active_pitch_mode = 8
-	if clbderate==0 then throttlederate=1.0
-	elseif clbderate==1 then throttlederate=0.9
-	elseif clbderate==2 then throttlederate=0.8  end
+		if clbderate==0 then 
+			throttlederate=1.0
+		elseif clbderate==1 then 
+			throttlederate=0.9
+		elseif clbderate==2 then 
+			throttlederate=0.8  
+		end
     -- (ALT) --
     elseif simDR_autopilot_alt_hold_status == 2 
       and simDR_autopilot_fms_vnav == 0  and B747DR_ap_vnav_state == 0
     then
         B747DR_ap_FMA_active_pitch_mode = 9
-	throttlederate=1.0
+		throttlederate=1.0
 
     -- (NONE) --
     else
@@ -2548,6 +2556,7 @@ function after_physics()
     else
       fmsData=json.decode("[]")
     end
+	B747_monitorAP()
     B747_ap_fma()
     B747_ap_button_switch_animation()
     B747_fltmgmt_setILS() 
