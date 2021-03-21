@@ -400,11 +400,7 @@ function B747_update_vnav_speed()
           if B747DR_engine_TOGA_mode >0 then B747DR_engine_TOGA_mode = 0 end	-- CANX ENGINE TOGA IF ACTIVE
         end	
       end
-      --[[if simDR_autopilot_vs_status == 0 then
-        simCMD_autopilot_vert_speed_mode:once()
-        --simDR_autopilot_vs_fpm = vspeed 
-      
-      end]]
+
         else
           B747DR_fmstargetIndex=targetIndex
           B747DR_fmscurrentIndex=currentIndex
@@ -478,16 +474,7 @@ function B747_update_vnav_speed()
         setDescentVSpeed()
     end
   end
-  function doAltChange()
-    local diff2 = simDR_autopilot_altitude_ft - simDR_pressureAlt1
-    if diff2>-100 and diff2<100 then return end
-    if simDR_autopilot_vs_status == 0 then
-        simCMD_autopilot_vert_speed_mode:once()
-        simDR_autopilot_vs_status =1
-        
-    end 
-    simDR_autopilot_vs_fpm = -1000
-  end
+
   
   function vnavCruise()
     --if simDR_autopilot_alt_hold_status == 2 then return end
@@ -520,16 +507,7 @@ function B747_update_vnav_speed()
         
     elseif diff2>100 and simDR_autopilot_altitude_ft==B747BR_cruiseAlt then
       return --print("last 1000 feet climb")
-    elseif diff2<-1000 and simDR_autopilot_altitude_ft==B747BR_cruiseAlt then
-        if simDR_autopilot_vs_status == 0 then
-          simCMD_autopilot_vert_speed_mode:once()
-          simDR_autopilot_vs_status =1
-        end 
-        simDR_autopilot_vs_fpm = -1000
-    elseif (diff2<-100 or diff<-1000) and simDR_autopilot_altitude_ft==B747BR_cruiseAlt then
-      if simDR_autopilot_vs_status == 0 and is_timer_scheduled(doAltChange) == false then
-        run_after_time(doAltChange, 15.0)
-      end
+
     end
     
     if diff2>-100 and diff2<100 and simDR_autopilot_altitude_ft==B747BR_cruiseAlt then

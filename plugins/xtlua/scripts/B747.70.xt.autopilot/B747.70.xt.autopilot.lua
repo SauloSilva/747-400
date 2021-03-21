@@ -129,6 +129,7 @@ simDR_autopilot_pitch					= find_dataref("sim/cockpit2/autopilot/pitch_status")
 B747DR_capt_ap_roll	   					= find_dataref("laminar/B747/autopilot/capt_roll_ref")
 B747DR_fo_ap_roll	   					= find_dataref("laminar/B747/autopilot/fo_roll_ref")
 B747DR_ap_target_roll					= find_dataref("sim/cockpit2/autopilot/flight_director_roll_deg")
+simDR_ap_aileron_trim					= find_dataref("sim/cockpit2/controls/aileron_trim")
 simDR_fo_roll							= find_dataref("sim/cockpit2/gauges/indicators/roll_AHARS_deg_copilot")
 simDR_capt_roll							= find_dataref("sim/cockpit2/gauges/indicators/roll_AHARS_deg_pilot")
 simDR_airspeed_mach                 	= find_dataref("sim/flightmodel/misc/machno")
@@ -389,6 +390,19 @@ B747DR_ap_AFDS_status_annun            	= deferred_dataref("laminar/B747/autopil
 --*************************************************************************************--
 --** 				             CUSTOM COMMAND HANDLERS            			     **--
 --*************************************************************************************--
+function B747_animate_value(current_value, target, min, max, speed)
+
+    local fps_factor = math.min(0.1, speed * SIM_PERIOD)
+
+    if target >= (max - 0.001) and current_value >= (max - 0.01) then
+        return max
+    elseif target <= (min + 0.001) and current_value <= (min + 0.01) then
+       return min
+    else
+        return current_value + ((target - current_value) * fps_factor)
+    end
+
+end
 
 dofile("B747.70.xt.autopilot.vnav.lua")
 
@@ -1944,8 +1958,10 @@ end
 dofile("B747.autoland.lua")
 dofile("B747.70.xt.autopilot.monitor.lua")
 function B747_ap_fma()
-	B747DR_capt_ap_roll=B747DR_ap_target_roll-simDR_capt_roll
-	B747DR_fo_ap_roll=B747DR_ap_target_roll-simDR_fo_roll
+	B747DR_capt_ap_roll=B747_animate_value(B747DR_capt_ap_roll,B747DR_ap_target_roll-simDR_capt_roll,-25,25,10)
+	B747DR_fo_ap_roll=B747_animate_value(B747DR_fo_ap_roll,B747DR_ap_target_roll-simDR_fo_roll,-25,25,10)
+	--B747DR_capt_ap_roll=B747DR_ap_target_roll-simDR_capt_roll
+	--B747DR_fo_ap_roll=B747DR_ap_target_roll-simDR_fo_roll
 
     if runAutoland() then return end
     -- AUTOTHROTTLE
