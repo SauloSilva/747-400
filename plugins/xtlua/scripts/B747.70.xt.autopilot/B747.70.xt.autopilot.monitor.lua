@@ -8,13 +8,13 @@ function VNAV_CLB(numAPengaged)
             print("flch > 1000 feet climb")
         end 
         if simDR_autopilot_flch_status > 0 or simDR_autopilot_alt_hold_status > 0 then
-            B747DR_ap_vnav_state=2
+            B747DR_ap_vnav_state=2a
         end
     end
 end
 function VNAV_CRZ(numAPengaged)
 
-    if (simDR_autopilot_alt_hold_status == 0 and (B747DR_ap_vnav_state == 1)then
+    if simDR_autopilot_alt_hold_status == 0 and B747DR_ap_vnav_state == 1 then
         simCMD_autopilot_alt_hold_mode:once()
         print("alt hold < 50nm from TOD")
     end 
