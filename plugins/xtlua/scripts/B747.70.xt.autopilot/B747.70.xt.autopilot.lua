@@ -108,6 +108,7 @@ simDR_autopilot_airspeed_kts_mach   	= find_dataref("sim/cockpit2/autopilot/airs
 simDR_autopilot_heading_deg         	= find_dataref("sim/cockpit/autopilot/heading_mag")
 simDR_autopilot_vs_fpm         			= find_dataref("sim/cockpit2/autopilot/vvi_dial_fpm")
 B747DR_autopilot_vs_fpm         			= find_dataref("laminar/B747/cockpit2/autopilot/vvi_dial_fpm")
+simDR_autopilot_state					= find_dataref("sim/cockpit/autopilot/autopilot_state")
 simDR_autopilot_vs_status          		= find_dataref("sim/cockpit2/autopilot/vvi_status")
 simDR_autopilot_flch_status         	= find_dataref("sim/cockpit2/autopilot/speed_status")
 simDR_autopilot_TOGA_vert_status    	= find_dataref("sim/cockpit2/autopilot/TOGA_status")
@@ -450,8 +451,8 @@ function B747_ap_switch_vnavspeed_mode_CMDhandler(phase, duration)
 	if phase == 0 then
 		B747_ap_button_switch_position_target[15] = 1									-- SET THE SPEED KNOB ANIMATION TO "IN"
 		if B747DR_ap_vnav_state==2 then
-		  manualVNAVspd=1-manualVNAVspd
-		  if manualVNAVspd==0 then
+			setVNAVState("manualVNAVspd",1-getVNAVState("manualVNAVspd"))
+		  if getVNAVState("manualVNAVspd")==0 then
 		    setVNAVState("gotVNAVSpeed",false)
 		    B747_vnav_speed()
 		     
@@ -468,7 +469,7 @@ function B747_ap_switch_vnavalt_mode_CMDhandler(phase, duration)
 		print("vnav alt button")
 		B747_ap_button_switch_position_target[16] = 1									-- SET THE ALT KNOB ANIMATION TO "IN"
 		setVNAVState("vnavcalcwithTargetAlt",0)
-		if manualVNAVspd==0 then
+		if getVNAVState("manualVNAVspd")==0 then
 		    setVNAVState("gotVNAVSpeed",false)
 		    B747_vnav_speed()    
 		end
@@ -1651,7 +1652,7 @@ function B747_ap_ias_mach_mode()
 	    print("IAS end Go Around")
 	  end
 	----- SET THE IAS/MACH WINDOW STATUS
-	if B747DR_switchingIASMode==0 and (B747DR_ap_vnav_state<2 or manualVNAVspd==1) --inop until we know speed!
+	if B747DR_switchingIASMode==0 and (B747DR_ap_vnav_state<2 or getVNAVState("manualVNAVspd")==1) --inop until we know speed!
 	then	
 		B747DR_ap_ias_mach_window_open = 1
 	else
@@ -2044,12 +2045,12 @@ function B747_ap_fma()
     -- (LNAV) --
     elseif simDR_autopilot_gpss == 2 then
         B747DR_ap_FMA_active_roll_mode = 2
-	B747DR_ap_lnav_state=2
+		B747DR_ap_lnav_state=2
     -- (LOC) --
     elseif simDR_autopilot_nav_status == 2 then
         B747DR_ap_FMA_active_roll_mode = 3
         simDR_autopilot_heading_deg = roundToIncrement(simDR_nav1_radio_course_deg, 1)            -- SET THE SELECTED HEADING VALUE TO THE LOC COURSE
-	B747DR_ap_lnav_state=0
+		B747DR_ap_lnav_state=0
 
       -- (ROLLOUT) --
       -- TODO: AUTOLAND LOGIC
@@ -2058,7 +2059,7 @@ function B747_ap_fma()
     -- (HDG SEL) --
     elseif simDR_autopilot_heading_status == 2 then
         B747DR_ap_FMA_active_roll_mode = 6
-	B747DR_ap_lnav_state=0
+		B747DR_ap_lnav_state=0
     -- (HDG HLD) --
     elseif simDR_autopilot_heading_hold_status == 2 then
         B747DR_ap_FMA_active_roll_mode = 7

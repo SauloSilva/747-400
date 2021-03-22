@@ -8,7 +8,7 @@ function VNAV_CLB(numAPengaged)
             print("flch > 1000 feet climb")
         end 
         if simDR_autopilot_flch_status > 0 or simDR_autopilot_alt_hold_status > 0 then
-            B747DR_ap_vnav_state=2a
+            B747DR_ap_vnav_state=2
         end
     end
 end
@@ -26,7 +26,7 @@ end
 function VNAV_DES(numAPengaged)
     local diff2 = simDR_autopilot_altitude_ft - simDR_pressureAlt1
     local diff3 = B747DR_autopilot_altitude_ft- simDR_pressureAlt1
-    print("VNAV_DES " ..diff2.." "..diff3)
+    --print("VNAV_DES " ..diff2.." "..diff3)
 end
 function VNAV_modeSwitch()
     --if B747BR_cruiseAlt < 10 then return end --no cruise alt set, not needed because cant set to 1 without this
@@ -50,16 +50,23 @@ function VNAV_modeSwitch()
     lastmodeswitch=simDRTime
     
 end
-
+function LNAV_modeSwitch()
+    --[[print("Nav status "..simDR_autopilot_nav_status)
+    print("Heading status "..simDR_autopilot_heading_status)
+    print("Roll status "..simDR_autopilot_roll_status)
+    print("sync_degrees "..simDR_autopilot_roll_sync_degrees)
+    print("ap_state "..simDR_autopilot_state)]]
+end 
 function aileronTrim()
     local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
     if numAPengaged==0 then return end
-    if math.abs(B747DR_capt_ap_roll)>15 then
+    --Flight envelope protection
+    if math.abs(B747DR_capt_ap_roll)>15 and math.abs(simDR_capt_roll)>15 then
         simDR_ap_aileron_trim=B747_animate_value(simDR_ap_aileron_trim,B747DR_capt_ap_roll/5,-6,6,1)
     else
         simDR_ap_aileron_trim=B747_animate_value(simDR_ap_aileron_trim,0,-6,6,5)
     end
-    print("trim " .. B747DR_capt_ap_roll .. " " .. simDR_ap_aileron_trim)
+    --print("trim " .. B747DR_capt_ap_roll .. " " .. simDR_ap_aileron_trim)
 
 end
 
@@ -69,5 +76,6 @@ function B747_monitorAP()
     local flch_status=simDR_autopilot_flch_status
 
     VNAV_modeSwitch()
+    LNAV_modeSwitch()
     aileronTrim()
 end
