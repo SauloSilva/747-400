@@ -164,7 +164,7 @@ dofile("B747.70.xt.autopilot.vnavspd.lua")
           print("Begin descent")
           getDescentTarget()
     end
-    print("in vnav descent "..diff.." "..diff2.. " "..B747DR_ap_inVNAVdescent)    
+    --print("in vnav descent "..diff.." "..diff2.. " "..B747DR_ap_inVNAVdescent)    
     if B747DR_ap_inVNAVdescent ==1 and diff<5 and diff2<-200 and simDR_autopilot_vs_status == 0 and simDR_radarAlt1>1000 then
           if simDR_autopilot_gs_status < 1 then 
             simCMD_autopilot_vert_speed_mode:once()

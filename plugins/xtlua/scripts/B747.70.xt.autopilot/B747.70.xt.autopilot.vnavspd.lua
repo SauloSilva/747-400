@@ -16,7 +16,7 @@ vnavSPD_state["gotVNAVSpeed"]=false
 vnavSPD_state["recalcAfter"]=0
 
 function clb_src_next()
-    return simDR_pressureAlt1+(400-simDR_radarAlt1) --400ft agl at current pressure alt
+    return simDR_pressureAlt1+(200-simDR_radarAlt1) --400ft agl at current pressure alt
 end
 function clb_aptres_next()
     return tonumber(getFMSData("clbrestalt"))+100
@@ -250,7 +250,6 @@ function B747_vnav_speed_old()
         B747DR_switchingIASMode=1
         B747DR_lastap_dial_airspeed=B747DR_ap_ias_dial_value
         run_after_time(B747_updateIAS, 0.25)
-        
         vnavSPD_conditions["onground"]=1
         vnavSPD_conditions["descent"]=true
         vnavSPD_conditions["name"]="on ground"
