@@ -14,7 +14,7 @@ vnavSPD_state["vnavcalcwithMCPAlt"]=0
 vnavSPD_state["vnavcalcwithTargetAlt"]=0
 vnavSPD_state["gotVNAVSpeed"]=false
 vnavSPD_state["recalcAfter"]=0
-
+vnavSPD_state["setBaro"]=false
 function clb_src_next()
     return simDR_pressureAlt1+(200-simDR_radarAlt1) --400ft agl at current pressure alt
 end
@@ -77,6 +77,7 @@ function clb_src_setSpd()
         B747DR_lastap_dial_airspeed=B747DR_ap_ias_dial_value
         run_after_time(B747_updateIAS, 0.25)
     end
+    vnavSPD_state["setBaro"]=false
 end
 function clb_aptres_setSpd()
     local spdval=tonumber(getFMSData("clbrestspd"))
@@ -187,6 +188,19 @@ function B747_vnav_setClimbspeed()
         lastAlt=nextAlt
         cState=spd_states["clb"][cState]["nextstate"]
         nextAlt=spd_states["clb"][cState]["nextfunc"]()
+    end
+    local transalt=tonumber(getFMSData("transalt"))
+    if vnavSPD_state["setBaro"]==false and nextAlt>transalt and simDR_pressureAlt1<=transalt then
+        nextAlt=transalt
+        print("prepped baro")
+    end
+    if vnavSPD_state["setBaro"]==false and simDR_pressureAlt1>=transalt then
+        vnavSPD_state["setBaro"]=true
+        B747DR_efis_baro_std_capt_switch_pos = 1
+        print("set baro")
+        simDR_altimeter_baro_inHg = 29.92
+        B747DR_efis_baro_std_fo_switch_pos = 1
+        simDR_altimeter_baro_inHg_fo = 29.92
     end
     vnavSPD_conditions["name"]="clb_"..cState
     vnavSPD_conditions["onground"]=simDR_onGround
