@@ -91,9 +91,9 @@ end
 function clb_spcres_setSpd()
     local spdval=tonumber(getFMSData("clbspd"))
     B747DR_switchingIASMode=1
-    crzspdval=tonumber(getFMSData("crzspd"))/10
+    local crzspdval=tonumber(getFMSData("crzspd"))/10
     if simDR_airspeed_mach > (crzspdval/100) then
-      print("convert to cruise speed in clb".. crzspdval)
+      print("convert to cruise speed in clb ".. crzspdval)
       simDR_autopilot_airspeed_is_mach = 1
       B747DR_ap_ias_dial_value = crzspdval
       B747DR_lastap_dial_airspeed=crzspdval*0.01
@@ -109,7 +109,7 @@ end
 function clb_nores_setSpd()
     local spdval=tonumber(getFMSData("transpd"))
     B747DR_switchingIASMode=1
-    crzspdval=tonumber(getFMSData("crzspd"))/10
+    local crzspdval=tonumber(getFMSData("crzspd"))/10
     if simDR_airspeed_mach > (crzspdval/100) then
       print("convert to cruise speed in clb".. crzspdval)
       simDR_autopilot_airspeed_is_mach = 1
@@ -125,11 +125,11 @@ function clb_nores_setSpd()
 
 end
 function clb_crz_setSpd()
-    local spdval=tonumber(getFMSData("crzspd"))
-    print("convert to cruise speed in clb".. crzspdval)
+    local spdval=tonumber(getFMSData("crzspd"))/10
+    print("convert to cruise speed in clb_crz_setSpd ".. spdval)
     simDR_autopilot_airspeed_is_mach = 1
-    B747DR_ap_ias_dial_value = crzspdval
-    B747DR_lastap_dial_airspeed=crzspdval*0.01
+    B747DR_ap_ias_dial_value = spdval
+    B747DR_lastap_dial_airspeed=spdval*0.01
     run_after_time(B747_updateIAS, 0.25)
 end
 function des_src_setSpd()

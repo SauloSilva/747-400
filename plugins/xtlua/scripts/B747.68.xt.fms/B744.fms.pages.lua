@@ -940,7 +940,7 @@ function fmsFunctions.setdata(fmsO,value)
     end
   elseif value=="stepalt" then
     if validFL(fmsO["scratchpad"]) ~=nil then 
-	setFMSData("stepalt",validFL(fmsO["scratchpad"]))
+		setFMSData("stepalt",validFL(fmsO["scratchpad"]))
     else
       fmsO["notify"]="INVALID ENTRY"
     end

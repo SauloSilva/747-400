@@ -518,6 +518,7 @@ function defaultFMSData()
   spdtransalt="10000",
   transalt="18000",
   clbrestspd="180",
+  maxkts="420",
   clbrestalt="5000 ",
   stepalt="FL360",
   crzspd="810",
@@ -609,6 +610,7 @@ fmsModules["setData"]=function(self,id,value)
     end
     --newVal=string.sub(value,1,len)
     self["data"][id]=string.format("%s%"..(len-string.len(value)).."s",value,"")
+	B747DR_FMSdata=json.encode(fmsModules["data"]["values"])--make the fms data available to other modules
 end
 function setFMSData(id,value)
     --print("setting " .. id .. " to "..value.." curently "..fmsModules["data"][id])
