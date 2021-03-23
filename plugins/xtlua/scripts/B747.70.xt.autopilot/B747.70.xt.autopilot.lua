@@ -989,6 +989,12 @@ function B747_ap_knots_mach_toggle_CMDhandler(phase, duration)
 				B747DR_ap_ias_mach_window_open = 0								-- WRITE THE NEW VALUE TO FORCE CONVERSION TO CORRECT UNITS
 				B747DR_switchingIASMode=1
 				run_after_time(B747_updateIASWindow, 0.25) --update target
+			elseif simDR_airspeed_mach <= 0.4 and simDR_autopilot_airspeed_is_mach == 1 then
+				B747DR_lastap_dial_airspeed = simDR_autopilot_airspeed_kts							-- READ THE CURRENT AIRSPEED SETTING					
+				simDR_autopilot_airspeed_is_mach = 0			-- SWAP THE MACH/KNOTS STATE
+				B747DR_ap_ias_mach_window_open = 0								-- WRITE THE NEW VALUE TO FORCE CONVERSION TO CORRECT UNITS
+				B747DR_switchingIASMode=1
+				run_after_time(B747_updateIASWindow, 0.25) --update target
 			end
 		end
 	elseif phase == 2 then
@@ -1799,38 +1805,7 @@ function setDistances(fmsO)
   B747BR_nextDistanceInFeet=nextDistanceInFeet
   B747BR_tod=(((B747BR_cruiseAlt-fms[eod][3])/100))/2.9
 end
-function setDescentVSpeed()
-	local fmsO=getFMS()
-  if simDR_autopilot_altitude_ft+600 > simDR_pressureAlt1 then return end --dont set fpm near hold alt  
-  local distanceNM=getDistance(simDR_latitude,simDR_longitude,fmsO[B747DR_fmstargetIndex][5],fmsO[B747DR_fmstargetIndex][6]) --B747BR_nextDistanceInFeet/6076.12
-  local nextDistanceInFeet=distanceNM*6076.12
-  local time=distanceNM*30.8666/(simDR_groundspeed) --time in minutes, gs in m/s....
-  local early=100
-  if simDR_autopilot_altitude_ft>5000 then early=250 end
-  local vdiff=B747DR_ap_vnav_target_alt-simDR_pressureAlt1-early --to be negative
-  local vspeed=vdiff/time
-  --print("speed=".. simDR_groundspeed .. " distance=".. distanceNM .. " vspeed=" .. vspeed .. " vdiff=" .. vdiff .. " time=" .. time)
-		  --speed=89.32039642334 distance=2.9459299767094vspeed=-6559410.6729958
-  B747DR_ap_vb = math.atan2(vdiff,nextDistanceInFeet)*-57.2958
-  if vspeed<-3500 then vspeed=-3500 end
-  
-  if simDR_radarAlt1<=1200 then
-    simDR_autopilot_vs_fpm = -250 -- slow descent, reduces AoA which if it goes to high spoils the landing
-    return
-  end
-  simDR_autopilot_vs_fpm = vspeed
-  B747DR_ap_fpa=math.atan2(vspeed,simDR_groundspeed*196.85)*-57.2958
-  
-  if B747DR_descentSpeedGradient>0 and simDR_pressureAlt1>B747DR_target_descentAlt then
-    simDR_autopilot_airspeed_kts=B747DR_target_descentSpeed+(simDR_pressureAlt1-B747DR_target_descentAlt)*B747DR_descentSpeedGradient
-    if simDR_autopilot_airspeed_is_mach == 1 then
-      B747DR_ap_ias_dial_value=simDR_autopilot_airspeed_kts_mach*100
-    end
-    --print("set descentSpeed to " .. simDR_autopilot_airspeed_kts)
-  end
 
-  
-end
 ----- ALTITUDE SELECTED -----------------------------------------------------------------
 
 function getCurrentWayPoint(fms)

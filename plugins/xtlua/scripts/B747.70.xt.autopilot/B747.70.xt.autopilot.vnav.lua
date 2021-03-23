@@ -12,9 +12,39 @@
 *
 --]]
 dofile("B747.70.xt.autopilot.vnavspd.lua")
-  function computeVNAVAlt(fms)
+function setDescentVSpeed()
+	local fmsO=getFMS()
+  if simDR_autopilot_altitude_ft+600 > simDR_pressureAlt1 then return end --dont set fpm near hold alt  
+  local distanceNM=getDistance(simDR_latitude,simDR_longitude,fmsO[B747DR_fmstargetIndex][5],fmsO[B747DR_fmstargetIndex][6]) --B747BR_nextDistanceInFeet/6076.12
+  local nextDistanceInFeet=distanceNM*6076.12
+  local time=distanceNM*30.8666/(simDR_groundspeed) --time in minutes, gs in m/s....
+  local early=100
+  if simDR_autopilot_altitude_ft>5000 then early=250 end
+  local vdiff=B747DR_ap_vnav_target_alt-simDR_pressureAlt1-early --to be negative
+  local vspeed=vdiff/time
+  --print("speed=".. simDR_groundspeed .. " distance=".. distanceNM .. " vspeed=" .. vspeed .. " vdiff=" .. vdiff .. " time=" .. time)
+		  --speed=89.32039642334 distance=2.9459299767094vspeed=-6559410.6729958
+  B747DR_ap_vb = math.atan2(vdiff,nextDistanceInFeet)*-57.2958
+  if vspeed<-3500 then vspeed=-3500 end
+  
+  if simDR_radarAlt1<=1200 then
+    simDR_autopilot_vs_fpm = -250 -- slow descent, reduces AoA which if it goes to high spoils the landing
+    return
+  end
+  simDR_autopilot_vs_fpm = vspeed
+  B747DR_ap_fpa=math.atan2(vspeed,simDR_groundspeed*196.85)*-57.2958
+  
+  if B747DR_descentSpeedGradient>0 and simDR_pressureAlt1>B747DR_target_descentAlt then
+    simDR_autopilot_airspeed_kts=B747DR_target_descentSpeed+(simDR_pressureAlt1-B747DR_target_descentAlt)*B747DR_descentSpeedGradient
+    if simDR_autopilot_airspeed_is_mach == 1 then
+      B747DR_ap_ias_dial_value=simDR_autopilot_airspeed_kts_mach*100
+    end
+    --print("set descentSpeed to " .. simDR_autopilot_airspeed_kts)
+  end
 
-
+  
+end
+function computeVNAVAlt(fms)
     local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
     local dist_to_TOD=(B747BR_totalDistance-B747BR_tod)
     for i=1,table.getn(fms),1 do
@@ -28,7 +58,7 @@ dofile("B747.70.xt.autopilot.vnavspd.lua")
       end
     end
     if simDR_autopilot_alt_hold_status < 2 or dist_to_TOD>0 or numAPengaged==0 then --force a recalc after hold ends to set to B747DR_autopilot_altitude_ft if required
-        setVNAVState("vnavcalcwithMCPAlt",B747DR_autopilot_altitude_ft)
+      setVNAVState("vnavcalcwithMCPAlt",B747DR_autopilot_altitude_ft)
     else
       setVNAVState("vnavcalcwithMCPAlt",simDR_autopilot_altitude_ft)
     end 
@@ -195,90 +225,10 @@ dofile("B747.70.xt.autopilot.vnavspd.lua")
     --if simDR_autopilot_alt_hold_status == 2 then return end
     if B747DR_switchingIASMode==1 then return end -- if we are in an airspeed mode switch just go away
     if B747DR_ap_vnav_state<2 then return end -- not in VNAV just go away
-    --not called in descent anyway
-    local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
+
     local diff2 = simDR_autopilot_altitude_ft - simDR_pressureAlt1
-    local diff = simDR_autopilot_hold_altitude_ft - simDR_pressureAlt1
-    --print("in vnav cruise "..diff.." "..diff2.. " "..numAPengaged)
-    --if diff2>100 and simDR_autopilot_flch_status > 0 then return end
-    --if diff2<-100 and simDR_autopilot_vs_status == 2 then return end
-    if diff2>1000 then --and simDR_autopilot_altitude_ft==B747BR_cruiseAlt - dont care, we are vnav climb, make sure we do
-        --if simDR_autopilot_flch_status == 0 and (simDR_autopilot_alt_hold_status == 0 or numAPengaged==0 )then
-        --  simCMD_autopilot_flch_mode:once()
-        --  simDR_autopilot_flch_status =1
-        --  print("flch > 1000 feet climb")
-        --end 
-        spdval=tonumber(getFMSData("crzspd"))/10
-        
-        if simDR_airspeed_mach > (spdval/100) and B747DR_ap_ias_mach_window_open == 0 and B747DR_switchingIASMode==0 and simDR_autopilot_airspeed_is_mach ==0 then
-          print("convert to cruise speed "..spdval)
-          B747DR_switchingIASMode=1
-          simDR_autopilot_airspeed_is_mach = 1
-          B747DR_ap_ias_dial_value = spdval
-          B747DR_lastap_dial_airspeed=spdval*0.01
-          
-          run_after_time(B747_updateIASSpeed, 0.25)
-        end
-        
-    elseif diff2>100 and simDR_autopilot_altitude_ft==B747BR_cruiseAlt then
-      return --print("last 1000 feet climb")
-
-    end
-    
-    if diff2>-100 and diff2<100 and simDR_autopilot_altitude_ft==B747BR_cruiseAlt then
-      
-      local ci = tonumber( getFMSData("costindex") )
-      local ci_mach = 850
-      if(ci == nil or ci == "****") then
-        spdval=tonumber(getFMSData("crzspd"))/10
-        if(spdval == nil) then
-          spdval = 85
-        end
-      else
-        -- mach numbers in thousands...
-        local lrcMach = 388.2356 + 0.6203 * gwtKG/1000 + 7.8061 * simDR_pressureAlt1/1000
-        local mrcMach = lrcMach -  20
-        local maxMach = 920 - 20
-        local ci_mach = lrcMach --default
-
-        if(ci <= 230) then --LRC or less  (CI 230 corresponds to LRC - ref Boeing)
-          ci_mach = mrcMach + 20 * (ci / 230)
-        else
-          ci_mach = lrcMach + (maxMach - lrcMach) * ((ci-230)/(9999-230)) -- interpolate LRC to Mmo wrt. CI=230 to CI=9999, respectively.
-        end
-
-        -- Faster with headwind, slower with tailwind (cf., LRC which does not adjust for wind)
-        -- Source: https://mediawiki.ivao.aero/index.php?title=Cost_Index and https://www.pprune.org/tech-log/248931-use-cost-index-winds.html
-        local tas = simDR_TAS_mps * 1.94384 -- true airspeed in knots
-        local gs = simDR_GS_mps * 1.94384 -- ground speed in knots
-        local relWind = tas - gs  -- headwind positive, tailwind negative
-        local adjWind = 0
-        if(relWind > 0) then
-          adjWind = 10 * relWind/50 -- plus M0.01 per 50 knots of headwind
-        else
-          adjWind = 20 * relWind/50 -- minus M0.02 per 50 knots of tailwind
-        end
-        ci_mach = ci_mach + adjWind
-
-        if(ci_mach < mrcMach) then ci_mach = mrcMach end
-        if(ci_mach > maxMach) then ci_mach = maxMach end
-
-        ci_mach = math.floor(ci_mach)
-        spdval = ci_mach/10
-        
-      end 
-      --print("at cruise altitude for "..spdval)
-      if (B747DR_ap_ias_dial_value ~=  spdval) and B747DR_ap_ias_mach_window_open == 0 and B747DR_switchingIASMode==0 then 
-        B747DR_switchingIASMode=1
-        simDR_autopilot_airspeed_is_mach = 1
-        B747DR_ap_ias_dial_value = spdval
-        B747DR_lastap_dial_airspeed=spdval*0.01
-        
-        run_after_time(B747_updateIASSpeed, 0.25)
-        
-        print("set cruise speed "..B747DR_ap_ias_dial_value)
-      end	
-      
+    local diff = simDR_autopilot_hold_altitude_ft - simDR_pressureAlt1   
+    if diff2>-100 and diff2<100 and simDR_autopilot_altitude_ft==B747BR_cruiseAlt then     
       if simDR_autopilot_alt_hold_status == 2 and simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 then							-- AUTOTHROTTLE IS "OFF"
         simDR_autopilot_autothrottle_enabled = 1
         print("A/T on")-- ACTIVATE THE AUTOTHROTTLE  
