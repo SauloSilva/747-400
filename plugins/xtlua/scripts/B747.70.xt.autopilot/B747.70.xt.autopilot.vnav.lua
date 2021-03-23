@@ -200,7 +200,6 @@ function computeVNAVAlt(fms)
             simCMD_autopilot_vert_speed_mode:once()
             simDR_autopilot_vs_status =1
             if simDR_autopilot_autothrottle_enabled == 1 and diff2<-2000 and diff3<-2000 and (simDR_ind_airspeed_kts_pilot>B747DR_airspeed_Vmc+15) then							-- AUTOTHROTTLE IS "ON"
-              --simDR_autopilot_autothrottle_enabled=0
               simCMD_autopilot_autothrottle_off:once()									-- DEACTIVATE THE AUTOTHROTTLE
             end
               B747DR_ap_inVNAVdescent =2 -- stop on/off, resume below
@@ -222,17 +221,6 @@ function computeVNAVAlt(fms)
 
   
   function vnavCruise()
-    --if simDR_autopilot_alt_hold_status == 2 then return end
-    if B747DR_switchingIASMode==1 then return end -- if we are in an airspeed mode switch just go away
-    if B747DR_ap_vnav_state<2 then return end -- not in VNAV just go away
-
-    local diff2 = simDR_autopilot_altitude_ft - simDR_pressureAlt1
-    local diff = simDR_autopilot_hold_altitude_ft - simDR_pressureAlt1   
-    if diff2>-100 and diff2<100 and simDR_autopilot_altitude_ft==B747BR_cruiseAlt then     
-      if simDR_autopilot_alt_hold_status == 2 and simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 then							-- AUTOTHROTTLE IS "OFF"
-        simDR_autopilot_autothrottle_enabled = 1
-        print("A/T on")-- ACTIVATE THE AUTOTHROTTLE  
-      end
-    end
+    
     
   end

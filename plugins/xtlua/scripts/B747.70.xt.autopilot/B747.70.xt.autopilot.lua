@@ -105,6 +105,7 @@ simDR_autopilot_altitude_ft    		= find_dataref("sim/cockpit2/autopilot/altitude
 simDR_autopilot_hold_altitude_ft    		= find_dataref("sim/cockpit2/autopilot/altitude_hold_ft")
 simDR_autopilot_tod_index    		= find_dataref("sim/cockpit2/radios/indicators/fms_tod_before_index_pilot")
 simDR_autopilot_tod_distance    	= find_dataref("sim/cockpit2/radios/indicators/fms_distance_to_tod_pilot")
+simDR_engine_N1_pct             = find_dataref("sim/cockpit2/engine/indicators/N1_percent")
 B747DR_fmc_notifications            = find_dataref("laminar/B747/fms/notification")
 B747DR_ils_dots           	= deferred_dataref("laminar/B747/autopilot/ils_dots", "number") --display only
 B747BR_totalDistance 			= find_dataref("laminar/B747/autopilot/dist/remaining_distance")
@@ -1679,7 +1680,7 @@ function B747_ap_ias_mach_mode()
       
       
 	----- AUTO-SWITCH AUTOPILOT IAS/MACH WINDOW AIRSPEED MODE
-    if simDR_ind_airspeed_kts_pilot > 310.0 and B747DR_switchingIASMode==0 and B747DR_ap_vnav_state==0 then
+    if simDR_airspeed_mach < 0.40 and B747DR_switchingIASMode==0 and B747DR_ap_vnav_state==0 then
     	if simDR_vvi_fpm_pilot < -250.0 then
 	    	if ap_simDR_autopilot_airspeed_is_mach == 1 then
 				
@@ -2198,12 +2199,16 @@ function B747_ap_afds()
 	local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
 	if simDR_autopilot_servos_on == 0 then
 		if numAPengaged > 0 and (switching_servos_on-simDRTime)>1 then
-			--print("reset AP in B747_ap_afds")	
+			print("reset AP in B747_ap_afds")	
 			B747CMD_ap_reset:once()
 			B747DR_ap_cmd_L_mode = 0
 			B747DR_ap_cmd_C_mode = 0 
 			B747DR_ap_cmd_R_mode = 0
+			
 		end	
+		simDR_autopilot_approach_status =0
+		B747DR_ap_autoland=0
+		landAssist=false
 		
 	elseif simDR_autopilot_servos_on == 1 and (switching_servos_on-simDRTime)>1 then
 		if numAPengaged == 0 then
@@ -2222,9 +2227,9 @@ function B747_ap_afds()
     if numAPengaged == 1 then                                                           	-- TODO:  CHANGE TO "==" WHEN AUTOLAND LOGIC (BELOW) IS IMPLEMENTED 
         if  landAssist==true then
             B747DR_ap_AFDS_status_annun = 5                                              	-- AFDS MODE = "NO AUTOLAND" (NOT MODELED)
-	else
-	    B747DR_ap_AFDS_status_annun = 2   -- AFDS MODE = "CMD"
-    end
+		else
+	   		B747DR_ap_AFDS_status_annun = 2   -- AFDS MODE = "CMD"
+    	end
 
     -- TODO: IF LOC OR APP CAPTURED ? THEN...
     elseif numAPengaged == 2  and landAssist==true  then

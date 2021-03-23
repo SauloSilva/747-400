@@ -2859,6 +2859,7 @@ function B747_Vs()
         local vSAOA=0
         if numStalled > 0 then
             vSAOA=(target_airspeed_Vs-simDR_airspeed)*(0-numStalled)/10
+            vSAOA=math.min(vSAOA,simDR_airspeed+15-target_airspeed_Vs)
         end
         B747DR_airspeed_Vs=B747_animate_value(B747DR_airspeed_Vs,target_airspeed_Vs+vSAOA,0,450,1)
         --print(vSAOA)

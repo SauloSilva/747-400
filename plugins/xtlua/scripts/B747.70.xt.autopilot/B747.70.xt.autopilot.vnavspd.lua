@@ -1,3 +1,17 @@
+--[[
+*****************************************************************************************
+* Program Script Name	:	B747.70.autopilot.vnavspd
+* Author Name			:	Mark Parker (mSparks)
+*
+*   Revisions:
+*   -- DATE --	--- REV NO ---		--- DESCRIPTION ---
+*   2021-03-23	0.01a				Start of Dev
+*
+*
+*
+*
+--]]
+
 local vnavSPD_conditions={}
 vnavSPD_conditions["onground"]=0
 vnavSPD_conditions["below"]=-1
@@ -310,6 +324,7 @@ function B747_vnav_setDescendspeed()
     vnavSPD_state["spdIsMach"]=simDR_autopilot_airspeed_is_mach
     vnavSPD_state["gotVNAVSpeed"]=true
     print("des cState " .. cState .. " lastAlt "..lastAlt .. " nextAlt "..nextAlt)
+    spd_states["des"][cState]["spdfunc"]()
 end
 function B747_vnav_speed()
     if B747DR_ap_vnav_state==0 then return end

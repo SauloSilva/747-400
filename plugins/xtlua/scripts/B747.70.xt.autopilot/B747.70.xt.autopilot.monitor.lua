@@ -1,11 +1,32 @@
+--[[
+*****************************************************************************************
+* Program Script Name	:	B747.70.autopilot.monitor
+* Author Name			:	Mark Parker (mSparks)
+*
+*   Revisions:
+*   -- DATE --	--- REV NO ---		--- DESCRIPTION ---
+*   2021-03-23	0.01a				Start of Dev
+*
+*
+*
+*
+--]]
 
 local lastmodeswitch=0
-
+local lastatmodeswitch=0
 function VNAV_CLB(numAPengaged)
     if (simDR_pressureAlt1 < B747BR_cruiseAlt-300 or simDR_pressureAlt1 > B747BR_cruiseAlt+300) and simDR_radarAlt1>400 then 
-        if simDR_autopilot_flch_status == 0 and (simDR_autopilot_alt_hold_status == 0 or numAPengaged==0 or B747DR_ap_vnav_state == 1 or B747DR_ap_vnav_state == 3)then
+        if simDR_autopilot_flch_status == 0 and (simDR_autopilot_alt_hold_status == 0 or numAPengaged==0 or B747DR_ap_vnav_state == 1 or B747DR_ap_vnav_state == 3) then
             simCMD_autopilot_flch_mode:once()
             print("flch > 1000 feet climb")
+        end
+        if simDR_autopilot_flch_status > 0 or simDR_autopilot_alt_hold_status > 0 then
+            B747DR_ap_vnav_state=2
+        end
+    elseif (simDR_pressureAlt1 >= B747BR_cruiseAlt-300 or simDR_pressureAlt1 <= B747BR_cruiseAlt+300) and simDR_radarAlt1>400 then 
+        if (simDR_autopilot_alt_hold_status == 0 and (numAPengaged==0 or B747DR_ap_vnav_state == 1 or B747DR_ap_vnav_state == 3)) then
+            simCMD_autopilot_alt_hold_mode:once()
+            print("alt hold +/-300 feet cruise")
         end 
         if simDR_autopilot_flch_status > 0 or simDR_autopilot_alt_hold_status > 0 then
             B747DR_ap_vnav_state=2
@@ -69,7 +90,64 @@ function aileronTrim()
     --print("trim " .. B747DR_capt_ap_roll .. " " .. simDR_ap_aileron_trim)
 
 end
+function B747_monitorAT()
+    local diff=simDRTime-lastatmodeswitch
+    if diff<0.5 then return end --mode switch at 0.5 second intervals
+    --make sure autothrottle is in the correct mode for the FMA
+    print("A/T " .. simDR_autopilot_autothrottle_enabled)
+    --disconnects if 2 more more (more than one) engine inop
+    local numRun=0;
+    if simDR_engine_N1_pct[0]>20.0 then numRun=numRun+1 end
+    if simDR_engine_N1_pct[1]>20.0 then numRun=numRun+1 end
+    if simDR_engine_N1_pct[2]>20.0 then numRun=numRun+1 end
+    if simDR_engine_N1_pct[3]>20.0 then numRun=numRun+1 end
 
+    if numRun<3 then 
+        if simDR_autopilot_autothrottle_enabled==1 then
+            simCMD_autopilot_autothrottle_off:once()
+        end
+        lastatmodeswitch=simDRTime
+        return 
+    end
+
+    --AT OFF
+    if B747DR_toggle_switch_position[29] == 0 then 
+        if simDR_autopilot_autothrottle_enabled==1 then
+            simCMD_autopilot_autothrottle_off:once()
+        end
+        lastatmodeswitch=simDRTime
+        return 
+    end
+
+    --ALT/VS/GS
+    if simDR_autopilot_alt_hold_status == 2 then
+        
+        if simDR_autopilot_autothrottle_enabled==0 then
+            simCMD_autopilot_autothrottle_on:once()
+        end
+        lastatmodeswitch=simDRTime
+        return 
+    end
+    if (B747DR_ap_FMA_active_pitch_mode == 9 
+    or B747DR_ap_FMA_active_pitch_mode == 7 
+    or B747DR_ap_FMA_active_pitch_mode == 2) then
+        if simDR_autopilot_autothrottle_enabled==0 then
+            simCMD_autopilot_autothrottle_on:once()
+        end
+        lastatmodeswitch=simDRTime
+        return 
+    end
+
+    --otherwise off
+    if simDR_autopilot_autothrottle_enabled==1 then
+        simCMD_autopilot_autothrottle_off:once()
+    end
+    lastatmodeswitch=simDRTime
+    
+    
+    
+
+end
 function B747_monitorAP()
     --refresh
     local autothrottlemode=simDR_autopilot_autothrottle_enabled
@@ -78,4 +156,5 @@ function B747_monitorAP()
     VNAV_modeSwitch()
     LNAV_modeSwitch()
     aileronTrim()
+    B747_monitorAT()
 end
