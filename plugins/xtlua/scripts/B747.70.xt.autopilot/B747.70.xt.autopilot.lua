@@ -53,7 +53,7 @@ function deferred_dataref(name,nilType,callFunction)
     return find_dataref(name)
 end
 
-
+lastatmodeswitch=0
 --*************************************************************************************--
 --** 					            GLOBAL VARIABLES                				 **--
 --*************************************************************************************--
@@ -96,6 +96,7 @@ simDR_autopilot_flight_dir_mode     	= find_dataref("sim/cockpit2/autopilot/flig
 simDR_autopilot_autothrottle_enabled	= find_dataref("sim/cockpit2/autopilot/autothrottle_enabled")
 simDR_autopilot_autothrottle_on      	= find_dataref("sim/cockpit2/autopilot/autothrottle_on")
 simCMD_ThrottleDown=find_command("sim/engines/throttle_down")
+simCMD_ThrottleUp=find_command("sim/engines/throttle_up")
 B747DR_ap_vnav_pause            = find_dataref("laminar/B747/autopilot/vnav_pause")
 simCMD_pause=find_command("sim/operation/pause_toggle")
 simDRTime=find_dataref("sim/time/total_running_time_sec")
@@ -432,6 +433,7 @@ end
 function B747_ap_switch_speed_mode_CMDhandler(phase, duration)
 	if phase == 0 then
 		B747_ap_button_switch_position_target[1] = 1									-- SET THE SPEED SWITCH ANIMATION TO "IN"
+		lastatmodeswitch=simDRTime
 		if B747DR_toggle_switch_position[29] == 1 then									-- AUTOTHROTTLE ""ARM" SWITCH IS "ON"
 		
 			if simDR_autopilot_autothrottle_enabled == 0 then							-- AUTOTHROTTLE IS "OFF"
@@ -444,9 +446,9 @@ function B747_ap_switch_speed_mode_CMDhandler(phase, duration)
 		
 		if B747DR_switchingIASMode==0 then  
 		  if simDR_autopilot_airspeed_is_mach == 0 then
-			simDR_autopilot_airspeed_kts = math.min(B747DR_ap_ias_dial_value,maxSafeSpeed)
-		  elseif simDR_autopilot_airspeed_is_mach == 1 and B747DR_ap_ias_dial_value* 0.01 > 0.4 then
-			simDR_autopilot_airspeed_kts_mach = math.min(B747DR_ap_ias_dial_value* 0.01,maxmach-0.01) ---roundToIncrement(B747DR_ap_ias_dial_value, 1) * 0.01
+			simDR_autopilot_airspeed_kts = B747DR_ap_ias_dial_value
+		  elseif simDR_autopilot_airspeed_is_mach == 1 and B747DR_ap_ias_dial_value* 0.01  then
+			simDR_autopilot_airspeed_kts_mach = B747DR_ap_ias_dial_value* 0.01 ---roundToIncrement(B747DR_ap_ias_dial_value, 1) * 0.01
 
 		  end
 		end
@@ -519,10 +521,12 @@ end
 function B747_ap_switch_flch_mode_CMDhandler(phase, duration)
 	if phase == 0 then 
 		B747_ap_button_switch_position_target[4] = 1
+		lastatmodeswitch=simDRTime
 		simDR_autopilot_altitude_ft=B747DR_autopilot_altitude_ft
 		simCMD_autopilot_flch_mode:once()
 		B747DR_ap_vnav_state=0
-		B747DR_ap_inVNAVdescent =0	
+		B747DR_ap_inVNAVdescent =0
+			
 	elseif phase == 2 then
 		B747_ap_button_switch_position_target[4] = 0		
 	end	
