@@ -957,7 +957,7 @@ function setNotifications()
       fmsModules["fmsL"]["notify"]=B747_FMCAlertMsg[i].name
       fmsModules["fmsC"]["notify"]=B747_FMCAlertMsg[i].name
       fmsModules["fmsR"]["notify"]=B747_FMCAlertMsg[i].name
-      print("do FMS notify"..B747_FMCAlertMsg[i].name)
+      print("do FMS notify "..B747_FMCAlertMsg[i].name)
       break
     else
       if fmsModules["fmsL"]["notify"]==B747_FMCAlertMsg[i].name then fmsModules["fmsL"]["notify"]="" end

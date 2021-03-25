@@ -14,13 +14,25 @@
 
 local lastmodeswitch=0
 
+--[[function VNAV_CLB_THROTTLE(numAPengaged)
+    if (simDR_pressureAlt1 < B747BR_cruiseAlt-300 or simDR_pressureAlt1 > B747BR_cruiseAlt+300) and simDR_radarAlt1>400 then 
+        if simDR_autopilot_flch_status == 0 and (simDR_autopilot_alt_hold_status == 0) then
+            if (simDR_allThrottle<0.94) then
+                simCMD_ThrottleUp:once()
+            end       
+        end
+    end
+end]]
 function VNAV_CLB(numAPengaged)
     if (simDR_pressureAlt1 < B747BR_cruiseAlt-300 or simDR_pressureAlt1 > B747BR_cruiseAlt+300) and simDR_radarAlt1>400 then 
         if simDR_autopilot_flch_status == 0 and (simDR_autopilot_alt_hold_status == 0 or numAPengaged==0 or B747DR_ap_vnav_state == 1 or B747DR_ap_vnav_state == 3) then
-            simCMD_autopilot_flch_mode:once()
-            print("flch > 1000 feet climb")
+            --if (simDR_allThrottle>=0.94) then
+                simCMD_autopilot_flch_mode:once()
+                print("flch > 1000 feet climb")  
+            --end 
         end
         if simDR_autopilot_flch_status > 0 or simDR_autopilot_alt_hold_status > 0 then
+            --print("VNAV_CLB simDR_autopilot_flch_status > 0")  
             B747DR_ap_vnav_state=2
         end
     elseif (simDR_pressureAlt1 >= B747BR_cruiseAlt-300 or simDR_pressureAlt1 <= B747BR_cruiseAlt+300) and simDR_radarAlt1>400 then 
@@ -29,6 +41,7 @@ function VNAV_CLB(numAPengaged)
             print("alt hold +/-300 feet cruise")
         end 
         if simDR_autopilot_flch_status > 0 or simDR_autopilot_alt_hold_status > 0 then
+            --print("at cruise")  
             B747DR_ap_vnav_state=2
         end
     end
@@ -42,6 +55,7 @@ function VNAV_CRZ(numAPengaged)
         print("alt hold < 50nm from TOD")
     end 
     if simDR_autopilot_alt_hold_status > 0 then
+       -- print("VNAV_CRZ alt hold")  
         B747DR_ap_vnav_state=2
     end
     
@@ -50,14 +64,17 @@ function VNAV_DES(numAPengaged)
     local diff2 = simDR_autopilot_altitude_ft - simDR_pressureAlt1
     local diff3 = B747DR_autopilot_altitude_ft- simDR_pressureAlt1
     --print("VNAV_DES " ..diff2.." "..diff3)
+    --print("VNAV_DES")  
     B747DR_ap_vnav_state=2
 end
 function VNAV_modeSwitch()
     --if B747BR_cruiseAlt < 10 then return end --no cruise alt set, not needed because cant set to 1 without this
     if B747DR_ap_vnav_state == 0 then return end --not requested 
     local dist=B747BR_totalDistance-B747BR_tod
-    if B747DR_ap_FMA_autothrottle_mode==5 and simDR_allThrottle<0.94 and dist>50 then
+    if (B747DR_ap_FMA_autothrottle_mode==5 and dist>50 and simDR_allThrottle<0.94) then
 	    simCMD_ThrottleUp:once()--simDR_allThrottle = B747_set_animation_position(simDR_allThrottle,0.95,0,1,1)
+    --elseif B747DR_toggle_switch_position[29]==1 then
+     --   VNAV_CLB_THROTTLE(1)
     end
     local diff=simDRTime-lastmodeswitch
     if diff<0.5 then return end --mode switch at 0.5 second intervals
@@ -97,11 +114,31 @@ function aileronTrim()
     --print("trim " .. B747DR_capt_ap_roll .. " " .. simDR_ap_aileron_trim)
 
 end
+function toBits(num)
+    -- returns a table of bits, least significant first.
+    local t={} -- will contain the bits
+    while num>0 do
+        rest=math.fmod(num,2)
+        t[#t+1]=rest
+        num=(num-rest)/2
+    end
+    return t
+end
 function B747_monitorAT()
     local diff=simDRTime-lastatmodeswitch
     if diff<0.5 then return end --mode switch at 0.5 second intervals
     --make sure autothrottle is in the correct mode for the FMA
-    print("A/T " .. simDR_autopilot_autothrottle_enabled)
+    local ap_state=toBits(simDR_autopilot_state)
+    local fmsArm=0
+    local fmsactive=0
+    if table.getn(ap_state) >=13 then fmsArm=ap_state[13] end 
+    if table.getn(ap_state) >=14 then fmsactive=ap_state[14] end 
+    --[[print("A/T " .. simDR_autopilot_autothrottle_enabled.. " ap_state "..simDR_autopilot_state
+    .. " FMS ARM "..fmsArm
+    .. " FMS ACTIVE "..fmsactive
+    .. " course "..simDR_autopilot_course
+    .. " type "..simDR_autopilot_destination_type
+    .. " index "..simDR_autopilot_destination_index)]]
     --disconnects if 2 more more (more than one) engine inop
     local numRun=0;
     if simDR_engine_N1_pct[0]>15.0 then numRun=numRun+1 end

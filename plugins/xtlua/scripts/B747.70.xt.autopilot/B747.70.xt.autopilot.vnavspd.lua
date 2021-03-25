@@ -30,23 +30,63 @@ vnavSPD_state["vnavcalcwithTargetAlt"]=0
 vnavSPD_state["gotVNAVSpeed"]=false
 vnavSPD_state["recalcAfter"]=0
 vnavSPD_state["setBaro"]=false
+--[[
+    clb_src_next()
+    First state during climb, get the altitude for next update as 200ft agl
+]]
 function clb_src_next()
     return simDR_pressureAlt1+(200-simDR_radarAlt1) --400ft agl at current pressure alt
 end
+
+--[[
+    clb_aptres_next()
+    Lower airspeed restriction , get the altitude for next update 100ft above SPD REST ALT, L4 on FMC VNAV page 1
+    updates every 500 feet
+]]
 function clb_aptres_next()
-    return tonumber(getFMSData("clbrestalt"))+100
+    --return tonumber(getFMSData("clbrestalt"))+100
+    local tAlt=tonumber(getFMSData("clbrestalt"))+100
+    if tAlt>vnavSPD_conditions["above"]+500 then
+        tAlt=math.min(vnavSPD_conditions["above"]+500,tAlt)
+    end
+    return tAlt
 end
+--[[
+    clb_spcres_next()
+    Lower airspace airspeed restriction , get the altitude for next update 100ft above SPD TRANSE ALT, L3 on FMC VNAV page 1
+    updates every 500 feet
+]]
 function clb_spcres_next()
-    return tonumber(getFMSData("spdtransalt"))+100
+    --return tonumber(getFMSData("spdtransalt"))+100
+    local tAlt=tonumber(getFMSData("spdtransalt"))+100
+    if tAlt>vnavSPD_conditions["above"]+500 then
+        tAlt=math.min(vnavSPD_conditions["above"]+500,tAlt)
+    end
+    return tAlt
 end
+--[[
+    clb_spcres_next()
+    Unrestrictied airspeed climb speed , get the altitude for next update 100ft above SPD TRANSE ALT, L3 on FMC VNAV page 1
+    updates every 500 feet
+]]
 function clb_nores_next()
-    return (tonumber(string.sub(getFMSData("crzalt"),3))*100)-1000
+    --return (tonumber(string.sub(getFMSData("crzalt"),3))*100)-1000
+    local tAlt=(tonumber(string.sub(getFMSData("crzalt"),3))*100)-1000
+    if tAlt>vnavSPD_conditions["above"]+500 then
+        tAlt=math.min(vnavSPD_conditions["above"]+500,tAlt)
+    end
+    return tAlt
 end
 function clb_crz_next()
     return 320000
 end
 function des_src_next()
-    return tonumber(getFMSData("desspdtransalt"))
+    --return tonumber(getFMSData("desspdtransalt"))
+    local tAlt=tonumber(getFMSData("desspdtransalt"))
+    if tAlt<vnavSPD_conditions["below"]-500 then
+        tAlt=math.max(vnavSPD_conditions["below"]-500,tAlt)
+    end
+    return tAlt
 end
 function des_aptres_next()
     return tonumber(getFMSData("desrestalt"))
@@ -115,6 +155,9 @@ function clb_spcres_setSpd()
       B747DR_lastap_dial_airspeed=crzspdval*0.01
     else
       simDR_autopilot_airspeed_is_mach = 0
+      if(B747DR_ap_ias_dial_value<spdval) then
+        spdval=math.min(B747DR_ap_ias_dial_value+10,spdval)
+      end
       print("convert to clb speed ".. spdval)
       B747DR_ap_ias_dial_value = math.min(399.0, spdval)
       B747DR_lastap_dial_airspeed=B747DR_ap_ias_dial_value
@@ -133,6 +176,9 @@ function clb_nores_setSpd()
       B747DR_lastap_dial_airspeed=crzspdval*0.01
     else
       simDR_autopilot_airspeed_is_mach = 0
+      if(B747DR_ap_ias_dial_value<spdval) then
+        spdval=math.min(B747DR_ap_ias_dial_value+10,spdval)
+      end
       print("convert to transpd speed ".. spdval)
       B747DR_ap_ias_dial_value = math.min(399.0, spdval)
       B747DR_lastap_dial_airspeed=B747DR_ap_ias_dial_value
@@ -191,11 +237,17 @@ function des_src_setSpd()
     local crzspdval=tonumber(getFMSData("desspdmach"))/10
     local spdval=tonumber(getFMSData("desspd"))
     if simDR_airspeed_mach > (crzspdval/100) then
-      print("convert to mach descend speed in clb".. crzspdval)
+      print("convert to mach descend speed in des".. crzspdval)
       simDR_autopilot_airspeed_is_mach = 1
       B747DR_ap_ias_dial_value = crzspdval
       B747DR_lastap_dial_airspeed=crzspdval*0.01
     else
+        
+      if simDR_autopilot_airspeed_is_mach==1 then
+        spdval=simDR_ind_airspeed_kts_pilot
+      elseif(B747DR_ap_ias_dial_value>spdval) then
+        spdval=math.max(B747DR_ap_ias_dial_value-5,spdval)
+      end
       simDR_autopilot_airspeed_is_mach = 0
       print("convert to descend speed ".. spdval)
       B747DR_ap_ias_dial_value = math.min(399.0, spdval)
@@ -263,7 +315,7 @@ function B747_update_vnav_speed()
        vnavSPD_state["gotVNAVSpeed"]=false 
     end
     if vnavSPD_conditions["leg"]~=B747DR_fmscurrentIndex then
-       print("new crzSpd")
+       print("new crzSpd leg")
        vnavSPD_state["gotVNAVSpeed"]=false 
     end
 end
@@ -327,7 +379,9 @@ function B747_vnav_setDescendspeed()
     spd_states["des"][cState]["spdfunc"]()
 end
 function B747_vnav_speed()
+   
     if B747DR_ap_vnav_state==0 then return end
+    local radarAltRefresh=simDR_radarAlt1
     if getVNAVState("manualVNAVspd")==1 then return end
     B747_update_vnav_speed()
     if vnavSPD_state["gotVNAVSpeed"]==true then return end

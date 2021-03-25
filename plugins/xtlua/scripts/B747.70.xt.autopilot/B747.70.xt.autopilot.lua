@@ -113,6 +113,9 @@ B747BR_totalDistance 			= find_dataref("laminar/B747/autopilot/dist/remaining_di
 B747BR_nextDistanceInFeet 		= find_dataref("laminar/B747/autopilot/dist/next_distance_feet")
 B747BR_cruiseAlt 			= find_dataref("laminar/B747/autopilot/dist/cruise_alt")
 B747BR_tod				= find_dataref("laminar/B747/autopilot/dist/top_of_descent")
+simDR_autopilot_course					= find_dataref("sim/cockpit/gps/course")
+simDR_autopilot_destination_type					= find_dataref("sim/cockpit/gps/destination_type")
+simDR_autopilot_destination_index					= find_dataref("sim/cockpit/gps/destination_index")
 simDR_autopilot_airspeed_kts   		= find_dataref("sim/cockpit2/autopilot/airspeed_dial_kts")
 simDR_autopilot_airspeed_kts_mach   	= find_dataref("sim/cockpit2/autopilot/airspeed_dial_kts_mach")
 --simDR_autopilot_heading_deg         	= find_dataref("sim/cockpit2/autopilot/heading_dial_deg_mag_pilot")
@@ -2121,7 +2124,7 @@ function B747_ap_fma()
       and simDR_autopilot_flch_status == 2
     then
         B747DR_ap_FMA_active_pitch_mode = 4
-		--B747DR_ap_vnav_state = 2
+
 		if clbderate==0 then 
 			throttlederate=1.0
 		elseif clbderate==1 then 
@@ -2139,7 +2142,6 @@ function B747_ap_fma()
 		else
 			B747DR_ap_FMA_active_pitch_mode = 6  --VNAV PTH - FMC alt
 		end
-		--B747DR_ap_vnav_state = 2
         if clbderate==0 then 
 			throttlederate=1.0
 		elseif clbderate==1 then 
@@ -2152,7 +2154,6 @@ function B747_ap_fma()
       and simDR_autopilot_vs_status == 2
     then
       B747DR_ap_FMA_active_pitch_mode = 6  
-      --B747DR_ap_vnav_state = 2
     -- (V/S) --
     elseif simDR_autopilot_vs_status == 2 
       and simDR_autopilot_fms_vnav == 0 and B747DR_ap_vnav_state == 0
@@ -2187,8 +2188,7 @@ function B747_ap_fma()
     -- (NONE) --
     else
         B747DR_ap_FMA_active_pitch_mode = 0
-	--B747DR_ap_vnav_state=0
-	throttlederate=1.0
+		throttlederate=1.0
     end
   
 end 	
@@ -2420,7 +2420,7 @@ function B747_ap_EICAS_msg()
 		B747DR_CAS_caution_status[5] = 0
 	end
     --if B747DR_speedbrake_lever <0.3  and simDR_autopilot_vs_fpm<-2000 and simDR_autopilot_vs_status >= 1 and B747DR_ap_vnav_state>0 then 
-	if B747DR_speedbrake_lever <0.3  and simDR_ind_airspeed_kts_pilot>(simDR_autopilot_airspeed_kts+10) and simDR_autopilot_vs_status >= 1 and B747DR_ap_vnav_state>0 then 
+	if B747DR_speedbrake_lever <0.3  and simDR_ind_airspeed_kts_pilot>(simDR_autopilot_airspeed_kts+20) and simDR_autopilot_vs_status >= 1 and B747DR_ap_vnav_state>0 then 
 	--just a simple one for now, min thrust and increasing speed in vs mode would be better
       B747DR_fmc_notifications[9]=1
     else
