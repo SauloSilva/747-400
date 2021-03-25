@@ -36,7 +36,7 @@ return {
 
 "          MENU          ",
 "                        ",
-"<FMC             SELECT>",
+"<FMC  <ACT>      SELECT>",
 "                        ",
 acarsS.."           SELECT>",
 "                        ",
@@ -73,7 +73,7 @@ fmsPages["INDEX"].getSmallPage=function(self,pgNo,fmsID)
       }
 end
 fmsFunctionsDefs["INDEX"]={}
-fmsFunctionsDefs["INDEX"]["L1"]={"setpage","FMC"}
+fmsFunctionsDefs["INDEX"]["L1"]={"setpage","IDENT"}
 
 fmsFunctionsDefs["INDEX"]["L5"]={"setpage","ACMS"}
 fmsFunctionsDefs["INDEX"]["L6"]={"setpage","CMC"}
@@ -117,7 +117,8 @@ fmsPages["RTE1"].getPage=function(self,pgNo,fmsID)
   end
   fmsFunctionsDefs["RTE1"]["L2"]={"setdata","runway"}
   fmsFunctionsDefs["RTE1"]["R2"]={"custom2fmc","R3"}
-  fmsFunctionsDefs["RTE1"]["R3"]={"custom2fmc","L2"}
+  
+  fmsFunctionsDefs["RTE1"]["R3"]={"setpage","FMC"}
   
   local line5="                "..string.sub(cleanFMSLine(B747DR_srcfms[fmsID][5]),1,8)
   if acarsSystem.provider.online() then line5=" <SEND          "..string.sub(cleanFMSLine(B747DR_srcfms[fmsID][5]),1,8) end
@@ -479,7 +480,7 @@ function fmsFunctions.setpage_no(fmsO,valueA)
     fmsO["targetPage"]="FMC"
     simCMD_FMS_key[fmsO.id]["fpln"]:once()
     simCMD_FMS_key[fmsO.id]["L6"]:once()
-     
+	simCMD_FMS_key[fmsO.id]["L2"]:once()
   elseif value=="VHFCONTROL" then
     fmsO["targetCustomFMC"]=false
     fmsO["targetPage"]="VHFCONTROL"
@@ -939,7 +940,7 @@ function fmsFunctions.setdata(fmsO,value)
     end
   elseif value=="stepalt" then
     if validFL(fmsO["scratchpad"]) ~=nil then 
-	setFMSData("stepalt",validFL(fmsO["scratchpad"]))
+		setFMSData("stepalt",validFL(fmsO["scratchpad"]))
     else
       fmsO["notify"]="INVALID ENTRY"
     end

@@ -115,8 +115,10 @@ function getDistance(lat1,lon1,lat2,lon2)
   return retVal
 end
 function makeIcon(iconTextData,navtype,text,latitude,longitude,distance)
-  if text~=nil and text~="LATLON" and iconTextData==iconTextDataCapt and usedNaviadsTableCapt[text]~=nil then return end
-  if text~=nil and text~="LATLON" and iconTextData==iconTextDataFO and usedNaviadsTableFO[text]~=nil then return end
+  if text~=nil and string.lower(text)~="latlong" and iconTextData==iconTextDataCapt and usedNaviadsTableCapt[text]~=nil then return end
+  if text~=nil and string.lower(text)~="latlong" and iconTextData==iconTextDataFO and usedNaviadsTableFO[text]~=nil then return end
+  if text~=nil and string.lower(text)=="latlong" then text=" " end
+  if text~=nil and string.lower(text)=="latlon" then text=" " end
   local abs_heading=getHeading(simDR_latitude,simDR_longitude,latitude,longitude)
   local heading_diff=0
   if simDR_map_mode==2 then
