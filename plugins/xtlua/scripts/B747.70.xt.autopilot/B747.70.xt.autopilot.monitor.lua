@@ -64,7 +64,9 @@ function VNAV_DES(numAPengaged)
     local diff2 = simDR_autopilot_altitude_ft - simDR_pressureAlt1
     local diff3 = B747DR_autopilot_altitude_ft- simDR_pressureAlt1
     --print("VNAV_DES " ..diff2.." "..diff3)
-    --print("VNAV_DES")  
+    --print("VNAV_DES") 
+    print("VNAV_DES B747DR_ap_inVNAVdescent=" .. " "..B747DR_ap_inVNAVdescent.. " "..diff2.. " "..diff3.. " "..B747DR_ap_vnav_state)
+
     B747DR_ap_vnav_state=2
 end
 function VNAV_modeSwitch()
@@ -128,11 +130,11 @@ function B747_monitorAT()
     local diff=simDRTime-lastatmodeswitch
     if diff<0.5 then return end --mode switch at 0.5 second intervals
     --make sure autothrottle is in the correct mode for the FMA
-    local ap_state=toBits(simDR_autopilot_state)
+    --[[local ap_state=toBits(simDR_autopilot_state)
     local fmsArm=0
     local fmsactive=0
     if table.getn(ap_state) >=13 then fmsArm=ap_state[13] end 
-    if table.getn(ap_state) >=14 then fmsactive=ap_state[14] end 
+    if table.getn(ap_state) >=14 then fmsactive=ap_state[14] end ]]
     --[[print("A/T " .. simDR_autopilot_autothrottle_enabled.. " ap_state "..simDR_autopilot_state
     .. " FMS ARM "..fmsArm
     .. " FMS ACTIVE "..fmsactive
