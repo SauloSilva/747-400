@@ -2594,6 +2594,9 @@ function B747_setV1VrV2()
     local weight_max = math.min(420000, roundUpToIncrement(simDR_acf_weight_total_kg, 20000))
     local weight_min = math.max(200000, weight_max-20000)
     local flaps = roundToIncrement(B747DR_airspeed_flapsRef, 10)
+    if B747DR_radio_altitude>1000 then
+        B747DR_airspeed_flapsRef=0
+    end
 
     if flaps >= 10.0 and flaps <= 20.0 then
 
@@ -2856,6 +2859,7 @@ function B747_Vs()
         local vSAOA=0
         if numStalled > 0 then
             vSAOA=(target_airspeed_Vs-simDR_airspeed)*(0-numStalled)/10
+            vSAOA=math.min(vSAOA,simDR_airspeed+15-target_airspeed_Vs)
         end
         B747DR_airspeed_Vs=B747_animate_value(B747DR_airspeed_Vs,target_airspeed_Vs+vSAOA,0,450,1)
         --print(vSAOA)
