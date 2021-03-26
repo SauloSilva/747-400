@@ -299,7 +299,8 @@ fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be thi
       fmsFunctionsDefs["VNAV"]["R1"]=nil
       fmsFunctionsDefs["VNAV"]["R3"]=nil
 
-      if B747DR_ap_vnav_state>0 and simDR_autopilot_vs_status==2 then
+      -- cleaned up formatting a little
+      if B747DR_ap_vnav_state==2 and simDR_autopilot_vs_status==2 then
 	      fmsModules["data"]["fpa"]=string.format("%1.1f",B747DR_ap_fpa)
 	      fmsModules["data"]["vb"]=string.format("%1.1f", B747DR_ap_vb)
 	      fmsModules["data"]["vs"]=string.format("%4d",simDR_autopilot_vs_fpm*-1) 
