@@ -35,7 +35,7 @@ vnavSPD_state["setBaro"]=false
     First state during climb, get the altitude for next update as 200ft agl
 ]]
 function clb_src_next()
-    return simDR_pressureAlt1+(200-simDR_radarAlt1) --400ft agl at current pressure alt
+    return simDR_pressureAlt1+(100-simDR_radarAlt1) --400ft agl at current pressure alt
 end
 
 --[[
@@ -125,7 +125,7 @@ spd_states["des"]["aptres"]["nextstate"]="spcres"
 spd_states["des"]["spcres"]["nextstate"]=nil
 
 function clb_src_setSpd()
-    if B747DR_airspeed_V2<999 then
+    if B747DR_airspeed_V2<900 then
         simDR_autopilot_airspeed_is_mach = 0  
         B747DR_ap_ias_dial_value = math.min(399.0, B747DR_airspeed_V2 + 10)
         B747DR_switchingIASMode=1
@@ -156,7 +156,7 @@ function clb_spcres_setSpd()
     else
       simDR_autopilot_airspeed_is_mach = 0
       if(B747DR_ap_ias_dial_value<spdval) then
-        spdval=math.min(B747DR_ap_ias_dial_value+10,spdval)
+        spdval=math.min(B747DR_ap_ias_dial_value+5,spdval)
       end
       print("convert to clb speed ".. spdval)
       B747DR_ap_ias_dial_value = math.min(399.0, spdval)
@@ -387,6 +387,7 @@ function B747_vnav_speed()
    
     if B747DR_ap_vnav_state==0 then return end
     local radarAltRefresh=simDR_radarAlt1
+    local pressureAltRefresh=simDR_pressureAlt1
     if getVNAVState("manualVNAVspd")==1 then return end
     B747_update_vnav_speed()
     if vnavSPD_state["gotVNAVSpeed"]==true then return end

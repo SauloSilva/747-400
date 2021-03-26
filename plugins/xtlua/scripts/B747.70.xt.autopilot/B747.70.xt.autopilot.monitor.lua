@@ -24,7 +24,7 @@ local lastmodeswitch=0
     end
 end]]
 function VNAV_CLB(numAPengaged)
-    if (simDR_pressureAlt1 < B747BR_cruiseAlt-300 or simDR_pressureAlt1 > B747BR_cruiseAlt+300) and simDR_radarAlt1>400 then 
+    if (simDR_pressureAlt1 < B747BR_cruiseAlt-300 or simDR_pressureAlt1 > B747BR_cruiseAlt+300) and simDR_radarAlt1>50 then 
         if simDR_autopilot_flch_status == 0 and (simDR_autopilot_alt_hold_status == 0 or numAPengaged==0 or B747DR_ap_vnav_state == 1 or B747DR_ap_vnav_state == 3) then
             --if (simDR_allThrottle>=0.94) then
                 simCMD_autopilot_flch_mode:once()
