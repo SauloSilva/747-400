@@ -1987,8 +1987,23 @@ function fmsFunctions.setdata(fmsO,value)
 		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
 	end
 --Marauder28
-
-  elseif fmsO["scratchpad"]=="" and del==false then
+   elseif value=="atc" then
+		setFMSData(value,fmsO["scratchpad"])
+		
+		fmsFunctions["acarsLogonATC"](fmsO,"Logon " .. fmsO["scratchpad"])
+	elseif value=="fltdepatc" then
+		setFMSData("atc",fmsModules.data["fltdep"])
+		
+		fmsFunctions["acarsLogonATC"](fmsO,"Logon " .. fmsModules.data["fltdep"])
+	elseif value=="fltdstatc" then
+		setFMSData("atc",fmsModules.data["fltdst"])
+		
+		fmsFunctions["acarsLogonATC"](fmsO,"Logon " .. fmsModules.data["fltdst"])	
+	elseif value=="metarreq" then	
+		fmsFunctions["acarsATCRequest"](fmsO,"REQUEST METAR")	
+	elseif value=="tafreq" then	
+		fmsFunctions["acarsATCRequest"](fmsO,"REQUEST TAF")	
+   elseif fmsO["scratchpad"]=="" and del==false then
       cVal=getFMSData(value)
     
       fmsO["scratchpad"]=cVal

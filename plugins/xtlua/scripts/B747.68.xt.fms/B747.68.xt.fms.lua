@@ -972,7 +972,10 @@ function after_physics()
 --     for i =1,24,1 do
 --       print(string.byte(fms_style,i))
 --     end
-
+	--refresh time
+	local cM=hh
+	cM=mm
+	cM=ss
     setNotifications()
     B747DR_FMSdata=json.encode(fmsModules["data"]["values"])--make the fms data available to other modules
     --print(B747DR_FMSdata)
