@@ -28,7 +28,6 @@ REQUIRES_BANK enginePW.bank
 REQUIRES_BANK FO.bank
 REQUIRES_BANK GPWS.bank
 REQUIRES_BANK warnings.bank
-#REQUIRES_BANK Master Bank.bank
 
 DISABLE_LEGACY_ALERT_SOUNDS
 
@@ -42,21 +41,16 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    SNAPSHOT_NAME /Warnings
-    EVENT_ALWAYS 
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
     SNAPSHOT_NAME /init
     EVENT_START_COND sim/time/total_flight_time_sec > 0
     EVENT_END_COND sim/time/total_flight_time_sec > 5
 END_SOUND_ATTACHMENT
 
-#BEGIN_SOUND_ATTACHMENT
-#    SNAPSHOT_NAME /cockpit_mute
-#    VEH_XYZ 0 5 -23.3
-#    EVENT_ALWAYS
-#END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+    SNAPSHOT_NAME /cockpit_mute
+    VEH_XYZ 0 5 -23.3
+    EVENT_ALWAYS
+END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     SNAPSHOT_NAME /lower_deck
@@ -68,20 +62,10 @@ BEGIN_SOUND_ATTACHMENT
     EVENT_ALWAYS 
 END_SOUND_ATTACHMENT
 
-#BEGIN_SOUND_ATTACHMENT
-#    SNAPSHOT_NAME /PA
-#    EVENT_ALWAYS 
-#END_SOUND_ATTACHMENT
-
-#BEGIN_SOUND_ATTACHMENT
-#    SNAPSHOT_NAME /PA2
-#    EVENT_ALWAYS 
-#END_SOUND_ATTACHMENT
-
-#BEGIN_SOUND_ATTACHMENT
-#    SNAPSHOT_NAME /cabin_effect
-#    EVENT_ALWAYS 
-#END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+    SNAPSHOT_NAME /PA2
+    EVENT_ALWAYS 
+END_SOUND_ATTACHMENT
 
 ###########################
 #SOUND SPACES
@@ -480,21 +464,36 @@ BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/toga
     VEH_XYZ 0 4.7 -26.2
     EVENT_CMND_DOWN sim/engines/TOGA_power
-   # EVENT_CMND_UP sim/engines/TOGA_power
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/toga
+    VEH_XYZ 0 4.7 -26.2
+    EVENT_CMND_UP sim/engines/TOGA_power
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/throttle at
     VEH_XYZ 0 4.7 -26.2
     EVENT_CMND_DOWN laminar/B747/autopilot/button_switch/autothrottle_disco_L
-  #  EVENT_CMND_UP laminar/B747/autopilot/button_switch/autothrottle_disco_L
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/throttle at
+    VEH_XYZ 0 4.7 -26.2
+    EVENT_CMND_UP laminar/B747/autopilot/button_switch/autothrottle_disco_L
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/throttle at
     VEH_XYZ 0 4.7 -26.2
     EVENT_CMND_DOWN laminar/B747/autopilot/button_switch/autothrottle_disco_R
-  #  EVENT_CMND_UP laminar/B747/autopilot/button_switch/autothrottle_disco_R
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/throttle at
+    VEH_XYZ 0 4.7 -26.2
+    EVENT_CMND_UP laminar/B747/autopilot/button_switch/autothrottle_disco_R
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -1385,7 +1384,17 @@ BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/transponder
     VEH_XYZ 0 4.3 -26.05
     EVENT_START_COND DELTA=laminar/B747/ap_L/vor_adf_rcvr/sel_dial_pos
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/transponder
+    VEH_XYZ 0 4.3 -26.05
     EVENT_START_COND DELTA=laminar/B747/ap_L/app_rcvr/sel_dial_pos
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/transponder
+    VEH_XYZ 0 4.3 -26.05
     EVENT_START_COND DELTA=laminar/B747/ap_L/nav_filter/sel_dial_pos
 END_SOUND_ATTACHMENT
 
@@ -1393,7 +1402,17 @@ BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/transponder
     VEH_XYZ 0.13 4.3 -26.05
     EVENT_START_COND DELTA=laminar/B747/ap_R/nav_filter/sel_dial_pos
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/transponder
+    VEH_XYZ 0.13 4.3 -26.05
     EVENT_START_COND DELTA=laminar/B747/flt_mgmt/txpdr/mode_sel_pos
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/transponder
+    VEH_XYZ 0.13 4.3 -26.05
     EVENT_START_COND DELTA=laminar/B747/flt_mgmt/transponder/sel_dial_pos
 END_SOUND_ATTACHMENT
 
@@ -4760,21 +4779,101 @@ BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/button3
     VEH_XYZ -0.25 5.3 -25.8
     EVENT_START_COND DELTA=laminar/B747/electrical/standby_power/sel_dial_pos
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/button3
+    VEH_XYZ -0.25 5.3 -25.8
     EVENT_START_COND DELTA=laminar/B747/electrical/apu/sel_dial_pos
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/button3
+    VEH_XYZ -0.25 5.3 -25.8
         EVENT_START_COND DELTA=laminar/B747/hydraulics/dmd_pump/sel_dial_pos[0]
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/button3
+    VEH_XYZ -0.25 5.3 -25.8
         EVENT_START_COND DELTA=laminar/B747/hydraulics/dmd_pump/sel_dial_pos[1]
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/button3
+    VEH_XYZ -0.25 5.3 -25.8
     EVENT_START_COND DELTA=laminar/B747/hydraulics/dmd_pump/sel_dial_pos[2]
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/button3
+    VEH_XYZ -0.25 5.3 -25.8
         EVENT_START_COND DELTA=laminar/B747/hydraulics/dmd_pump/sel_dial_pos[3]
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/button3
+    VEH_XYZ -0.25 5.3 -25.8
     EVENT_START_COND DELTA=laminar/B747/air/cabin_alt_auto/sel_dial_pos
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/button3
+    VEH_XYZ -0.25 5.3 -25.8
         EVENT_START_COND DELTA=laminar/B747/air/equip_cooling/sel_dial_pos
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/button3
+    VEH_XYZ -0.25 5.3 -25.8
     EVENT_START_COND DELTA=laminar/B747/air/pack_ctrl/sel_dial_pos[0]
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/button3
+    VEH_XYZ -0.25 5.3 -25.8
         EVENT_START_COND DELTA=laminar/B747/air/pack_ctrl/sel_dial_pos[1]
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/button3
+    VEH_XYZ -0.25 5.3 -25.8
         EVENT_START_COND DELTA=laminar/B747/air/pack_ctrl/sel_dial_pos[2]
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/button3
+    VEH_XYZ -0.25 5.3 -25.8
     EVENT_START_COND DELTA=laminar/B747/electrical/auto_ignit/sel_dial_pos
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/button3
+    VEH_XYZ -0.25 5.3 -25.8
         EVENT_START_COND DELTA=laminar/B747/fuel/fuel_jettison/sel_dial_pos
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/button3
+    VEH_XYZ -0.25 5.3 -25.8
     EVENT_START_COND DELTA=laminar/B747/electrical/stby_ignit/sel_dial_pos
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/button3
+    VEH_XYZ -0.25 5.3 -25.8
     EVENT_START_COND DELTA=laminar/B747/air/cabin_alt_auto/sel_dial_pos
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/button3
+    VEH_XYZ -0.25 5.3 -25.8
     EVENT_START_COND DELTA=laminar/B747/antiice/wndshlsd_wiper_L/sel_dial_pos
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/button3
+    VEH_XYZ -0.25 5.3 -25.8
     EVENT_START_COND DELTA=laminar/B747/antiice/wndshlsd_wiper_R/sel_dial_pos
 END_SOUND_ATTACHMENT
 
@@ -4782,7 +4881,17 @@ BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/button9
     VEH_XYZ -0.25 5.3 -25.8
     EVENT_START_COND DELTA=laminar/B747/flt_mgmt/iru/mode_sel_dial_pos[0]
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/button9
+    VEH_XYZ -0.25 5.3 -25.8
     EVENT_START_COND DELTA=laminar/B747/flt_mgmt/iru/mode_sel_dial_pos[1]
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/button9
+    VEH_XYZ -0.25 5.3 -25.8
     EVENT_START_COND DELTA=laminar/B747/flt_mgmt/iru/mode_sel_dial_pos[2]
 END_SOUND_ATTACHMENT
 
@@ -4790,9 +4899,29 @@ BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/button3
     VEH_XYZ -0.75 4.52 -26.7
         EVENT_START_COND DELTA=laminar/B747/flt_inst/flt_dir_src/capt/sel_dial_pos
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/button3
+    VEH_XYZ -0.75 4.52 -26.7
         EVENT_START_COND DELTA=laminar/B747/flt_inst/air_data_src/capt/sel_dial_pos
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/button3
+    VEH_XYZ -0.75 4.52 -26.7
         EVENT_START_COND DELTA=laminar/B747/flt_inst/nav_src/capt/sel_dial_pos
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/button3
+    VEH_XYZ -0.75 4.52 -26.7
         EVENT_START_COND DELTA=laminar/B747/flt_inst/irs_src/capt/sel_dial_pos
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/button3
+    VEH_XYZ -0.75 4.52 -26.7
         EVENT_START_COND DELTA=laminar/B747/flt_inst/eiu_src/capt/sel_dial_pos
 END_SOUND_ATTACHMENT
 
@@ -4824,9 +4953,29 @@ BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/button3
     VEH_XYZ 0.75 4.52 -26.7
         EVENT_START_COND DELTA=laminar/B747/flt_inst/flt_dir_src/fo/sel_dial_pos
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/button3
+    VEH_XYZ 0.75 4.52 -26.7
         EVENT_START_COND DELTA=laminar/B747/flt_inst/air_data_src/fo/sel_dial_pos
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/button3
+    VEH_XYZ 0.75 4.52 -26.7
         EVENT_START_COND DELTA=laminar/B747/flt_inst/nav_src/fo/sel_dial_pos
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/button3
+    VEH_XYZ 0.75 4.52 -26.7
         EVENT_START_COND DELTA=laminar/B747/flt_inst/irs_src/fo/sel_dial_pos
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/button3
+    VEH_XYZ 0.75 4.52 -26.7
         EVENT_START_COND DELTA=laminar/B747/flt_inst/eiu_src/fo/sel_dial_pos
 END_SOUND_ATTACHMENT
 
@@ -4834,6 +4983,11 @@ BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/button3
     VEH_XYZ -0.41 4.6 -26.75
         EVENT_START_COND DELTA=laminar/B747/flt_inst/capt_inbd_display/sel_dial_pos
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/button3
+    VEH_XYZ -0.41 4.6 -26.75
         EVENT_START_COND DELTA=laminar/B747/flt_inst/capt_lwr_display/sel_dial_pos
 END_SOUND_ATTACHMENT
 
@@ -4841,6 +4995,11 @@ BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/button3
     VEH_XYZ 0.41 4.6 -26.75
         EVENT_START_COND DELTA=laminar/B747/flt_inst/fo_inbd_display/sel_dial_pos
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/button3
+    VEH_XYZ 0.41 4.6 -26.75
     EVENT_START_COND DELTA=laminar/B747/flt_inst/fo_lwr_display/sel_dial_pos
 END_SOUND_ATTACHMENT
 
@@ -4848,7 +5007,17 @@ BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/button3
     VEH_XYZ 0 4.6 -26.75
         EVENT_START_COND DELTA=laminar/B747/flt_inst/eiu_src/ctr_pnl/sel_dial_pos
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/button3
+    VEH_XYZ 0 4.6 -26.75
         EVENT_START_COND DELTA=laminar/B747/flt_inst/fmc_master_src/ctr_pnl/sel_dial_pos
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/button3
+    VEH_XYZ 0 4.6 -26.75
         EVENT_START_COND DELTA=laminar/B747/flt_ctrls/alt_flaps/sel_dial_pos
 END_SOUND_ATTACHMENT
 
@@ -4862,99 +5031,43 @@ BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/autobrake_reset
     VEH_XYZ 0.13 4.3 -26.0
     EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot > 0
-        EVENT_START_COND laminar/B747/gear/autobrakes/sel_dial_pos == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/button3
     VEH_XYZ 0.13 4.3 -26.0
         EVENT_START_COND DELTA=laminar/B747/safety/no_smoking/sel_dial_pos
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/button3
+    VEH_XYZ 0.13 4.3 -26.0
         EVENT_START_COND DELTA=laminar/B747/safety/seat_belts/sel_dial_pos
 END_SOUND_ATTACHMENT
 
-#BEGIN_SOUND_ATTACHMENT
-#    EVENT_NAME /Cockpit/Switches/fire handle pull
-#    VEH_XYZ 0 5.3 -25.8
-#    EVENT_START_COND laminar/B747/fire/engine01/ext_switch/pos_disch == 0
-#        EVENT_CMND_DOWN laminar/B747/fire/engine01/ext_switch_arm
-#END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/fire handle pull
+	VEH_XYZ 0 5.3 -25.8
+    EVENT_CMND_DOWN laminar/B747/fire/engine01/ext_switch_arm
+END_SOUND_ATTACHMENT
 
-#BEGIN_SOUND_ATTACHMENT
-#    EVENT_NAME /Cockpit/Switches/fire handle pull
-#    VEH_XYZ 0 5.3 -25.8
-#    EVENT_START_COND laminar/B747/fire/engine02/ext_switch/pos_disch == 0
-#    EVENT_CMND_DOWN laminar/B747/fire/engine02/ext_switch_arm
-#END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/fire handle pull
+	VEH_XYZ 0 5.3 -25.8
+    EVENT_CMND_DOWN laminar/B747/fire/engine02/ext_switch_arm
+END_SOUND_ATTACHMENT
 
-#BEGIN_SOUND_ATTACHMENT
-#    EVENT_NAME /Cockpit/Switches/fire handle pull
-#    VEH_XYZ 0 5.3 -25.8
-#    EVENT_START_COND laminar/B747/fire/engine03/ext_switch/pos_disch == 0
-#    EVENT_CMND_DOWN laminar/B747/fire/engine03/ext_switch_arm
-#END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/fire handle pull
+	VEH_XYZ 0 5.3 -25.8
+    EVENT_CMND_DOWN laminar/B747/fire/engine03/ext_switch_arm
+END_SOUND_ATTACHMENT
 
-#BEGIN_SOUND_ATTACHMENT
-#    EVENT_NAME /Cockpit/Switches/fire handle pull
-#    VEH_XYZ 0 5.3 -25.8
-#    EVENT_START_COND laminar/B747/fire/engine04/ext_switch/pos_disch == 0
-#    EVENT_CMND_DOWN laminar/B747/fire/engine04/ext_switch_arm
-#END_SOUND_ATTACHMENT
-
-#BEGIN_SOUND_ATTACHMENT
-#    EVENT_NAME /Cockpit/Switches/fire handle twist
-#    VEH_XYZ 0 5.3 -25.8
-#        EVENT_START_COND laminar/B747/fire/engine01/ext_switch/pos_disch != 1
-#    EVENT_CMND_DOWN laminar/B747/fire/engine01/ext_switch_A
-#END_SOUND_ATTACHMENT
-
-#BEGIN_SOUND_ATTACHMENT
-#    EVENT_NAME /Cockpit/Switches/fire handle twist
-#    VEH_XYZ 0 5.3 -25.8
-#        EVENT_START_COND laminar/B747/fire/engine01/ext_switch/pos_disch != 1
-#    EVENT_CMND_DOWN laminar/B747/fire/engine01/ext_switch_B
-#END_SOUND_ATTACHMENT
-
-#BEGIN_SOUND_ATTACHMENT
-#    EVENT_NAME /Cockpit/Switches/fire handle twist
-#    VEH_XYZ 0 5.3 -25.8
-#        EVENT_START_COND laminar/B747/fire/engine02/ext_switch/pos_disch != 1
-#    EVENT_CMND_DOWN laminar/B747/fire/engine02/ext_switch_A
-#END_SOUND_ATTACHMENT
-
-#BEGIN_SOUND_ATTACHMENT
-#    EVENT_NAME /Cockpit/Switches/fire handle twist
-#    VEH_XYZ 0 5.3 -25.8
-#        EVENT_START_COND laminar/B747/fire/engine02/ext_switch/pos_disch != 1
-#    EVENT_CMND_DOWN laminar/B747/fire/engine02/ext_switch_B
-#END_SOUND_ATTACHMENT
-
-#BEGIN_SOUND_ATTACHMENT
-#    EVENT_NAME /Cockpit/Switches/fire handle twist
-#    VEH_XYZ 0 5.3 -25.8
-#        EVENT_START_COND laminar/B747/fire/engine03/ext_switch/pos_disch != 1
-#    EVENT_CMND_DOWN laminar/B747/fire/engine03/ext_switch_A
-#END_SOUND_ATTACHMENT
-
-#BEGIN_SOUND_ATTACHMENT
-#    EVENT_NAME /Cockpit/Switches/fire handle twist
-#    VEH_XYZ 0 5.3 -25.8
-#        EVENT_START_COND laminar/B747/fire/engine03/ext_switch/pos_disch != 1
-#    EVENT_CMND_DOWN laminar/B747/fire/engine03/ext_switch_B
-#END_SOUND_ATTACHMENT
-
-#BEGIN_SOUND_ATTACHMENT
-#    EVENT_NAME /Cockpit/Switches/fire handle twist
-#    VEH_XYZ 0 5.3 -25.8
-#        EVENT_START_COND laminar/B747/fire/engine04/ext_switch/pos_disch != 1
-#    EVENT_CMND_DOWN laminar/B747/fire/engine04/ext_switch_A
-#END_SOUND_ATTACHMENT
-
-#BEGIN_SOUND_ATTACHMENT
-#    EVENT_NAME /Cockpit/Switches/fire handle twist
-#    VEH_XYZ 0 5.3 -25.8
-#        EVENT_START_COND laminar/B747/fire/engine04/ext_switch/pos_disch != 1
-#    EVENT_CMND_DOWN laminar/B747/fire/engine04/ext_switch_B
-#END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /Cockpit/Switches/fire handle pull
+	VEH_XYZ 0 5.3 -25.8
+    EVENT_CMND_DOWN laminar/B747/fire/engine04/ext_switch_arm
+END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/circle
