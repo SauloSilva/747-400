@@ -171,7 +171,7 @@ function computeVNAVAlt(fms)
   function vnavDescent()
     local diff = simDR_ind_airspeed_kts_pilot - simDR_autopilot_airspeed_kts
     local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
-   if B747DR_ap_inVNAVdescent >0 and simDR_autopilot_autothrottle_enabled == 0 and diff>0 and simDR_allThrottle>0 and simDR_radarAlt1>1000 then
+   if B747DR_ap_inVNAVdescent >0 and simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 and diff>0 and simDR_allThrottle>0 and simDR_radarAlt1>1000 then
           simCMD_ThrottleDown:once()
           print("go idle")
     elseif B747DR_ap_inVNAVdescent ==2 and simDR_autopilot_autothrottle_enabled == 1 and simDR_autopilot_airspeed_is_mach==1 and simDR_allThrottle<0.02 then							-- AUTOTHROTTLE IS "ON"
