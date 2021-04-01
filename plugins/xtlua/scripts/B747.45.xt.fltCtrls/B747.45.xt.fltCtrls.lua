@@ -647,6 +647,7 @@ function B747_speedbrake_lever_stop()
 
     if simDR_all_wheels_on_ground < 1 and simDR_radarAlt1>15 then
         B747_speedbrake_stop = 1
+        B747DR__gear_chocked=0
     else
 		B747_speedbrake_stop = 0	        
     end
