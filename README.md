@@ -10,7 +10,7 @@ Yes! Of course! This project is an open source project, consisting of developers
 
 **What happened to the YesAviation 747?**
 
-The YesAviation team now goes under another name, and is developing another 747 somewhere else. Everyone sends a big thank you to the former team, and wish them good luck in their endeavors.
+The YesAviation team now goes under another name, and is developing another aircraft somewhere else. Everyone sends a big thank you to the former team, and wish them good luck in their endeavors.
 
 **What are the differences between the default 747, and the Sparky 747?**
 
