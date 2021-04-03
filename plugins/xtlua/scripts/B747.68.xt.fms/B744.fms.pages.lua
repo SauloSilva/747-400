@@ -36,7 +36,7 @@ return {
 
 "          MENU          ",
 "                        ",
-"<FMC  <ACT>      SELECT>",
+"<FMC    <ACT>    SELECT>",
 "                        ",
 acarsS.."           SELECT>",
 "                        ",
