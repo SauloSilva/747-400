@@ -1811,7 +1811,10 @@ function setDistances(fmsO)
   
   B747BR_totalDistance=totalDistance
   B747BR_nextDistanceInFeet=nextDistanceInFeet
-  B747BR_tod=(((B747BR_cruiseAlt-fms[eod][3])/100))/2.9
+  local cruiseTOD=(((B747BR_cruiseAlt-fms[eod][3])/100))/2.9
+  local currentTOD=(((simDR_pressureAlt1-fms[eod][3])/100))/2.9
+  print("cruiseTOD="..cruiseTOD.." currentTOD="..currentTOD.." B747BR_totalDistance="..B747BR_totalDistance)
+  B747BR_tod=cruiseTOD
 end
 
 ----- ALTITUDE SELECTED -----------------------------------------------------------------
