@@ -2042,7 +2042,15 @@ function fmsFunctions.setDref(fmsO,value)
 	if numVal<=1 then numVal=1 end
 	B747DR_ap_vnav_pause=numVal
 	return 
-  end 
+  end
+-- sound options (crazytimtimtim + Matt726)
+  if value == "B747DR_SNDoptions_gpws" then B747DR_SNDoptions_gpws = 1 - B747DR_SNDoptions_gpws return end
+  if value == "B747DR_SNDoptions_seatBelt" then B747DR_SNDoptions_seatBelt = 1 - B747DR_SNDoptions_seatBelt return end
+  if value == "B747DR_SNDoptions_pa" then B747DR_SNDoptions_pa = 1 - B747DR_SNDoptions_pa return end
+  if value == "B747DR_SNDoptions_music" then B747DR_SNDoptions_music = 1 - B747DR_SNDoptions_music return end
+  if value == "B747DR_SNDoptions_modernAlarms" then B747DR_SNDoptions_modernAlarms = 1 - B747DR_SNDoptions_modernAlarms return end
+  -- Matt, add another if statement here just like the previous, but change the dataref for the sound option.
+-- end sound options
   if value=="TO" then toderate=0 clbderate=0 return  end
   if value=="TO1" then toderate=1 clbderate=1 return  end
   if value=="TO2" then toderate=2 clbderate=2 return  end
