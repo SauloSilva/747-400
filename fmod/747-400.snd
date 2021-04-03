@@ -7,7 +7,7 @@ ACF_SOUNDS
 #                                                                                    #
 #     B o e i n g  7 4 7 - 4 0 0                                                     #
 #                                                                                    #
-#     V e r s i o n : v1.6.3                                                         #
+#     V e r s i o n : v1.7                                                           #
 #                                                                                    #
 #     B y :  M a t t 7 2 6                                                           #
 #                                                                                    #
@@ -36,35 +36,36 @@ DISABLE_LEGACY_ALERT_SOUNDS
 ###########################
 
 BEGIN_SOUND_ATTACHMENT
-    SNAPSHOT_NAME /in_mute
-    EVENT_ALWAYS 
+	SNAPSHOT_NAME /in_mute
+	EVENT_START_COND sim/graphics/view/view_is_external == 1
+	EVENT_START_END sim/graphics/view/view_is_external == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    SNAPSHOT_NAME /init
-    EVENT_START_COND sim/time/total_flight_time_sec > 0
-    EVENT_END_COND sim/time/total_flight_time_sec > 5
+	SNAPSHOT_NAME /init
+	EVENT_START_COND sim/time/total_flight_time_sec > 0
+	EVENT_END_COND sim/time/total_flight_time_sec > 5
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    SNAPSHOT_NAME /cockpit_mute
-    VEH_XYZ 0 5 -23.3
-    EVENT_ALWAYS
+	SNAPSHOT_NAME /flight_deck_door_cabin
+	EVENT_START_COND sim/operation/sound/inside_ratio[0] == 0
+	EVENT_END_COND sim/operation/sound/inside_ratio[0] != 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    SNAPSHOT_NAME /lower_deck
-    EVENT_ALWAYS 
+	SNAPSHOT_NAME /lower_deck
+	EVENT_ALWAYS
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    SNAPSHOT_NAME /all
-    EVENT_ALWAYS 
+	SNAPSHOT_NAME /all
+	EVENT_ALWAYS
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    SNAPSHOT_NAME /PA2
-    EVENT_ALWAYS 
+	SNAPSHOT_NAME /old_vs_new_alarms
+	EVENT_ALWAYS
 END_SOUND_ATTACHMENT
 
 ###########################
@@ -105,6 +106,34 @@ BEGIN_SOUND_SPACE
     BLEND_DEPTH 0.0
     AABB -3.3 -1 3.5 3.3 3.7 24.5
 END_SOUND_SPACE
+
+#######################
+#DOOR
+#######################
+
+BEGIN_SOUND_ATTACHMENT
+	VEH_XYZ 0 5 -23.3
+	EVENT_NAME /Cockpit/Door/door_knob
+	EVENT_START_COND sim/flightmodel2/misc/door_open_ratio[9] != 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	VEH_XYZ 0 5 -23.3
+	EVENT_NAME /Cockpit/Door/door_knob
+	EVENT_START_COND sim/flightmodel2/misc/door_open_ratio[9] != 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	VEH_XYZ 0 5 -23.3
+	EVENT_NAME /Cockpit/Door/door_stop
+	EVENT_START_COND sim/flightmodel2/misc/door_open_ratio[9] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+	VEH_XYZ 0 5 -23.3
+	EVENT_NAME /Cockpit/Door/door_stop
+	EVENT_START_COND sim/flightmodel2/misc/door_open_ratio[9] == 1
+END_SOUND_ATTACHMENT
 
 #######################
 #Switches
@@ -5325,7 +5354,7 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT    
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/Switches/park_brake_release
+    EVENT_NAME /Cockpit/Switches/park_brake_set
     VEH_XYZ -0.18 4.2 -26.2
     EVENT_START_COND laminar/B747/flt_ctrls/parking_brake_ratio == 0
 END_SOUND_ATTACHMENT    
@@ -5531,7 +5560,35 @@ END_SOUND_ATTACHMENT
 ################################
 
 BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Warnings/altitude
+    VEH_XYZ 0 4.2 -26.8
+    EVENT_START_COND sim/cockpit2/gauges/indicators/baro_altimeter_alert_lit_pilot != 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Warnings/altitude_old
+    VEH_XYZ 0 4.2 -26.8
+    EVENT_START_COND sim/cockpit2/gauges/indicators/baro_altimeter_alert_lit_pilot != 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Warnings/master_caution
+    VEH_XYZ 0 4.2 -26.8
+    EVENT_START_COND laminar/B747/warning/master_caution > 0.5
+    EVENT_START_COND sim/cockpit2/electrical/bus_volts[0] > 24
+    EVENT_END_COND laminar/B747/warning/master_caution < 0.5
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Warnings/master_caution2
+    VEH_XYZ 0 4.2 -26.8
+    EVENT_START_COND laminar/B747/warning/master_caution > 0.5
+    EVENT_START_COND sim/cockpit2/electrical/bus_volts[0] > 24
+    EVENT_END_COND laminar/B747/warning/master_caution < 0.5
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Warnings/master_caution3
     VEH_XYZ 0 4.2 -26.8
     EVENT_START_COND laminar/B747/warning/master_caution > 0.5
     EVENT_START_COND sim/cockpit2/electrical/bus_volts[0] > 24
@@ -5546,13 +5603,40 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Warnings/master-warning_old
+    VEH_XYZ 0 4.2 -26.8
+    EVENT_START_COND laminar/B747/warning/master_warning > 0.5
+    EVENT_END_COND laminar/B747/warning/master_warning < 0.5
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Warnings/autopilot
     VEH_XYZ 0 4.2 -26.8
     EVENT_START_COND sim/cockpit/warnings/annunciators/autopilot_disconnect == 1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Warnings/autopilot_new
+    VEH_XYZ 0 4.2 -26.8
+    EVENT_START_COND sim/cockpit/warnings/annunciators/autopilot_disconnect == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Warnings/autopilot_loop
+    VEH_XYZ 0 4.2 -26.8
+    EVENT_START_COND sim/cockpit/warnings/annunciators/autopilot_disconnect == 1
+    EVENT_END_COND sim/cockpit/warnings/annunciators/autopilot_disconnect == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Warnings/autopilot_loop_new
+    VEH_XYZ 0 4.2 -26.8
+    EVENT_START_COND sim/cockpit/warnings/annunciators/autopilot_disconnect == 1
+    EVENT_END_COND sim/cockpit/warnings/annunciators/autopilot_disconnect == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Warnings/autopilot_old
     VEH_XYZ 0 4.2 -26.8
     EVENT_START_COND sim/cockpit/warnings/annunciators/autopilot_disconnect == 1
     EVENT_END_COND sim/cockpit/warnings/annunciators/autopilot_disconnect == 0
@@ -5566,6 +5650,13 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Warnings/fire bell_old
+    VEH_XYZ 0 4.8 -26.5
+        EVENT_START_COND sim/cockpit/warnings/annunciators/engine_fire != 0
+    EVENT_END_COND sim/cockpit/warnings/annunciators/engine_fire == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Warnings/fire bell
     VEH_XYZ 0 4.8 -26.5
         EVENT_START_COND laminar/B747/fire/fire_ovht/button_pos == 1
@@ -5573,22 +5664,15 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Warnings/stall
-    VEH_XYZ 0.55 4.85 -26.2
-        EVENT_START_COND sim/cockpit2/annunciators/stall_warning == 1
-    EVENT_END_COND sim/cockpit2/annunciators/stall_warning != 1
+    EVENT_NAME /Warnings/fire bell_old
+    VEH_XYZ 0 4.8 -26.5
+        EVENT_START_COND laminar/B747/fire/fire_ovht/button_pos == 1
+    EVENT_END_COND laminar/B747/fire/fire_ovht/button_pos == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Warnings/stall
-    VEH_XYZ -0.55 4.85 -26.2
-        EVENT_START_COND sim/cockpit2/annunciators/stall_warning == 1
-    EVENT_END_COND sim/cockpit2/annunciators/stall_warning != 1
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Warnings/stall
-    VEH_XYZ -0.55 4.85 -26.2
+    VEH_XYZ 0 4.85 -26.2
         EVENT_START_COND sim/cockpit2/annunciators/stall_warning == 1
     EVENT_END_COND sim/cockpit2/annunciators/stall_warning != 1
 END_SOUND_ATTACHMENT
@@ -5826,6 +5910,166 @@ END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Warnings/GPWS/windshear
+    VEH_XYZ 0 4.2 -26.8
+    EVENT_START_COND sim/cockpit2/annunciators/windshear_warning == 1
+    EVENT_START_COND sim/cockpit2/electrical/bus_volts[0] > 1
+    EVENT_END_COND sim/cockpit2/electrical/bus_volts[0] < 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Warnings/GPWS/OLD/2500
+    VEH_XYZ 0 4.2 -26.8
+    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 2510
+    EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 2400
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Warnings/GPWS/OLD/1000
+    VEH_XYZ 0 4.2 -26.8
+    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 1010
+    EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 900
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Warnings/GPWS/OLD/500
+    VEH_XYZ 0 4.2 -26.8
+    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 510
+    EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 450
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Warnings/GPWS/OLD/400
+    VEH_XYZ 0 4.2 -26.8
+    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 410
+    EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 350
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Warnings/GPWS/OLD/300
+    VEH_XYZ 0 4.2 -26.8
+    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 310
+    EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 250
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Warnings/GPWS/OLD/200
+    VEH_XYZ 0 4.2 -26.8
+    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 210
+    EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 150
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Warnings/GPWS/OLD/100
+    VEH_XYZ 0 4.2 -26.8
+    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 110
+    EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 60
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Warnings/GPWS/OLD/50
+    VEH_XYZ 0 4.2 -26.8
+    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 55
+    EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 45
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Warnings/GPWS/OLD/40
+    VEH_XYZ 0 4.2 -26.8
+    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 41
+    EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 35
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Warnings/GPWS/OLD/30
+    VEH_XYZ 0 4.2 -26.8
+    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 31
+    EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 25
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Warnings/GPWS/OLD/20
+    VEH_XYZ 0 4.2 -26.8
+    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 21
+    EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 15
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Warnings/GPWS/OLD/10
+    VEH_XYZ 0 4.2 -26.8
+    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot <= 11
+    EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 6
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Warnings/GPWS/OLD/bankangle
+    VEH_XYZ 0 4.2 -26.8
+    EVENT_START_COND sim/cockpit2/gauges/indicators/roll_electric_deg_pilot > 35
+    EVENT_START_COND sim/cockpit2/electrical/bus_volts[0] == 28
+    EVENT_END_COND sim/cockpit2/gauges/indicators/roll_electric_deg_pilot < 32
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Warnings/GPWS/OLD/bankangle
+    VEH_XYZ 0 4.2 -26.8
+    EVENT_START_COND sim/cockpit2/gauges/indicators/roll_electric_deg_pilot < -35
+    EVENT_END_COND sim/cockpit2/gauges/indicators/roll_electric_deg_pilot > -32
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Warnings/GPWS/OLD/dontsink
+    VEH_XYZ 0 4.2 -26.8
+    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 5000
+    EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot > 5000
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Warnings/GPWS/OLD/glideslope
+    VEH_XYZ 0 4.2 -26.8
+      EVENT_START_COND sim/cockpit/warnings/annunciators/glideslope == 1
+      EVENT_END_COND sim/cockpit/warnings/annunciators/glideslope == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Warnings/GPWS/OLD/pull_up
+    VEH_XYZ 0 4.2 -26.8
+      EVENT_START_COND sim/cockpit/warnings/annunciators/GPWS == 1
+    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 2450
+      EVENT_END_COND sim/cockpit/warnings/annunciators/GPWS == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Warnings/GPWS/OLD/sinkrate
+    VEH_XYZ 0 4.2 -26.8
+      EVENT_START_COND sim/cockpit2/gauges/indicators/vvi_fpm_pilot < -2500
+    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 2500
+    EVENT_AUTO_END_FROM_START_COND
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Warnings/GPWS/OLD/too_low_flaps
+    VEH_XYZ 0 4.2 -26.8
+    EVENT_START_COND sim/cockpit2/controls/flap_ratio == 0
+    EVENT_END_COND sim/cockpit2/controls/flap_ratio =! 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Warnings/GPWS/OLD/too_low_gear
+    VEH_XYZ 0 4.2 -26.8
+      EVENT_START_COND sim/cockpit2/annunciators/gear_warning_aural == 1
+    EVENT_END_COND sim/cockpit2/annunciators/gear_warning_aural != 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Warnings/GPWS/OLD/too_low_terrain
+    VEH_XYZ 0 4.2 -26.8
+    EVENT_START_COND sim/cockpit2/gauges/indicators/vvi_fpm_pilot < -200
+    EVENT_START_COND sim/flightmodel2/gear/deploy_ratio == 1
+    EVENT_START_COND sim/flightmodel/position/indicated_airspeed < 180
+    EVENT_END_COND sim/cockpit2/gauges/indicators/vvi_fpm_pilot > -200
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Warnings/GPWS/OLD/windshear
     VEH_XYZ 0 4.2 -26.8
     EVENT_START_COND sim/cockpit2/annunciators/windshear_warning == 1
     EVENT_START_COND sim/cockpit2/electrical/bus_volts[0] > 1
@@ -6124,24 +6368,24 @@ BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Ambience/HYD/hyd2
     VEH_XYZ -1.5 0 3.7
     EVENT_ALLOWED_FOR_AI
-    EVENT_START_COND laminar/B747/hydraulics/pressure_1 > 0
-    EVENT_END_COND laminar/B747/hydraulics/pressure_1 == 0
+    EVENT_START_COND laminar/B747/hydraulics/pressure_2 > 0
+    EVENT_END_COND laminar/B747/hydraulics/pressure_2 == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Ambience/HYD/hyd3
     VEH_XYZ 1.5 0 3.7
     EVENT_ALLOWED_FOR_AI
-    EVENT_START_COND laminar/B747/hydraulics/pressure_1 > 0
-    EVENT_END_COND laminar/B747/hydraulics/pressure_1 == 0
+    EVENT_START_COND laminar/B747/hydraulics/pressure_3 > 0
+    EVENT_END_COND laminar/B747/hydraulics/pressure_3 == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Ambience/HYD/hyd4
     VEH_XYZ 5 -0.5 0
     EVENT_ALLOWED_FOR_AI
-    EVENT_START_COND laminar/B747/hydraulics/pressure_1 > 0
-    EVENT_END_COND laminar/B747/hydraulics/pressure_1 == 0
+    EVENT_START_COND laminar/B747/hydraulics/pressure_4 > 0
+    EVENT_END_COND laminar/B747/hydraulics/pressure_4 == 0
 END_SOUND_ATTACHMENT
 
 ################
@@ -6431,7 +6675,7 @@ BEGIN_SOUND_ATTACHMENT
     VEH_XYZ -20 -1.5 2
     EVENT_ALLOWED_FOR_AI
     EVENT_START_COND sim/cockpit2/engine/indicators/N2_percent[0] > 2
-    EVENT_END_COND sim/cockpit2/engine/indicators/N2_percent[0] > 65
+    EVENT_END_COND sim/flightmodel2/engines/engine_is_burning_fuel[0] == 1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -6439,7 +6683,7 @@ BEGIN_SOUND_ATTACHMENT
     VEH_XYZ -12 -1.5 -2
     EVENT_ALLOWED_FOR_AI
     EVENT_START_COND sim/cockpit2/engine/indicators/N2_percent[1] > 2
-    EVENT_END_COND sim/cockpit2/engine/indicators/N2_percent[1] > 65
+    EVENT_END_COND sim/flightmodel2/engines/engine_is_burning_fuel[1] == 1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -6447,7 +6691,7 @@ BEGIN_SOUND_ATTACHMENT
     VEH_XYZ 12 -1.5 -2
     EVENT_ALLOWED_FOR_AI
     EVENT_START_COND sim/cockpit2/engine/indicators/N2_percent[2] > 2
-    EVENT_END_COND sim/cockpit2/engine/indicators/N2_percent[2] > 65
+    EVENT_END_COND sim/flightmodel2/engines/engine_is_burning_fuel[2] == 1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -6455,7 +6699,15 @@ BEGIN_SOUND_ATTACHMENT
     VEH_XYZ 20 -1.5 2
     EVENT_ALLOWED_FOR_AI
     EVENT_START_COND sim/cockpit2/engine/indicators/N2_percent[3] > 2
-    EVENT_END_COND sim/cockpit2/engine/indicators/N2_percent[3] > 65
+    EVENT_END_COND sim/flightmodel2/engines/engine_is_burning_fuel[3] == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Engines/GE/start/start1_end
+    VEH_XYZ -20 -1.5 2
+    EVENT_ALLOWED_FOR_AI
+    EVENT_START_COND sim/flightmodel2/engines/engine_is_burning_fuel[0] == 1
+    EVENT_END_COND sim/flightmodel2/engines/engine_is_burning_fuel[0] != 1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -6475,6 +6727,14 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Engines/GE/start/start1_end
+    VEH_XYZ -12 -1.5 -2
+    EVENT_ALLOWED_FOR_AI
+    EVENT_START_COND sim/flightmodel2/engines/engine_is_burning_fuel[1] == 1
+    EVENT_END_COND sim/flightmodel2/engines/engine_is_burning_fuel[1] != 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Engines/GE/start/start2
     VEH_XYZ 12 -1.5 -2
     EVENT_ALLOWED_FOR_AI
@@ -6483,7 +6743,23 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Engines/GE/start/start1_end
+    VEH_XYZ 12 -1.5 -2
+    EVENT_ALLOWED_FOR_AI
+    EVENT_START_COND sim/flightmodel2/engines/engine_is_burning_fuel[2] == 1
+    EVENT_END_COND sim/flightmodel2/engines/engine_is_burning_fuel[2] != 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Engines/GE/start/start2
+    VEH_XYZ 20 -1.5 2
+    EVENT_ALLOWED_FOR_AI
+    EVENT_START_COND sim/flightmodel2/engines/engine_is_burning_fuel[3] == 1
+    EVENT_END_COND sim/flightmodel2/engines/engine_is_burning_fuel[3] != 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Engines/GE/start/start1_end
     VEH_XYZ 20 -1.5 2
     EVENT_ALLOWED_FOR_AI
     EVENT_START_COND sim/flightmodel2/engines/engine_is_burning_fuel[3] == 1
