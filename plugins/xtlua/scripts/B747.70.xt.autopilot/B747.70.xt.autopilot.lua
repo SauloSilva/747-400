@@ -1813,8 +1813,12 @@ function setDistances(fmsO)
   B747BR_nextDistanceInFeet=nextDistanceInFeet
   local cruiseTOD=(((B747BR_cruiseAlt-fms[eod][3])/100))/2.9
   local currentTOD=(((simDR_pressureAlt1-fms[eod][3])/100))/2.9
-  print("cruiseTOD="..cruiseTOD.." currentTOD="..currentTOD.." B747BR_totalDistance="..B747BR_totalDistance)
-  B747BR_tod=cruiseTOD
+  --print("cruiseTOD="..cruiseTOD.." currentTOD="..currentTOD.." B747BR_totalDistance="..B747BR_totalDistance)
+  if totalDistance-cruiseTOD<50 then
+	B747BR_tod=currentTOD
+  else
+  	B747BR_tod=cruiseTOD
+  end
 end
 
 ----- ALTITUDE SELECTED -----------------------------------------------------------------
@@ -2197,7 +2201,10 @@ function B747_ap_fma()
 end 	
 
 
-
+function ap_reset()
+	print("full reset AP in B747_ap_afds")
+	B747CMD_ap_reset:once()
+end
 
 
 ---- AFDS STATUS -------------------------------------------------------------------------
@@ -2205,9 +2212,10 @@ function B747_ap_afds()
 
 	local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
 	if simDR_autopilot_servos_on == 0 then
-		if numAPengaged > 0 and (switching_servos_on-simDRTime)>1 then
+		if numAPengaged > 0 and (simDRTime-switching_servos_on)>1 then
 			print("reset AP in B747_ap_afds")	
-			B747CMD_ap_reset:once()
+			run_after_time(ap_reset,2)
+
 			B747DR_ap_cmd_L_mode = 0
 			B747DR_ap_cmd_C_mode = 0 
 			B747DR_ap_cmd_R_mode = 0
@@ -2217,7 +2225,7 @@ function B747_ap_afds()
 		B747DR_ap_autoland=0
 		landAssist=false
 		
-	elseif simDR_autopilot_servos_on == 1 and (switching_servos_on-simDRTime)>1 then
+	elseif simDR_autopilot_servos_on == 1 and (simDRTime-switching_servos_on)>1 then
 		if numAPengaged == 0 then
 			--[[B747CMD_ap_reset:once()
 			B747DR_ap_cmd_L_mode = 0
@@ -2392,7 +2400,7 @@ end
 
 ----- TURN AUTOPILOT COMMAND MODES OFF --------------------------------------------------
 function B747_ap_all_cmd_modes_off()
-
+	print("B747_ap_all_cmd_modes_off")
 	B747DR_ap_cmd_L_mode = 0	
 	B747DR_ap_cmd_C_mode = 0	
 	B747DR_ap_cmd_R_mode = 0	
