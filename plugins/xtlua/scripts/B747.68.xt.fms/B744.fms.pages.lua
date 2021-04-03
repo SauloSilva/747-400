@@ -36,7 +36,7 @@ return {
 
 "          MENU          ",
 "                        ",
-"<FMC             SELECT>",
+"<FMC  <ACT>      SELECT>",
 "                        ",
 acarsS.."           SELECT>",
 "                        ",
@@ -73,7 +73,7 @@ fmsPages["INDEX"].getSmallPage=function(self,pgNo,fmsID)
       }
 end
 fmsFunctionsDefs["INDEX"]={}
-fmsFunctionsDefs["INDEX"]["L1"]={"setpage","FMC"}
+fmsFunctionsDefs["INDEX"]["L1"]={"setpage","IDENT"}
 
 fmsFunctionsDefs["INDEX"]["L5"]={"setpage","ACMS"}
 fmsFunctionsDefs["INDEX"]["L6"]={"setpage","CMC"}
@@ -117,7 +117,8 @@ fmsPages["RTE1"].getPage=function(self,pgNo,fmsID)
   end
   fmsFunctionsDefs["RTE1"]["L2"]={"setdata","runway"}
   fmsFunctionsDefs["RTE1"]["R2"]={"custom2fmc","R3"}
-  fmsFunctionsDefs["RTE1"]["R3"]={"custom2fmc","L2"}
+  
+  fmsFunctionsDefs["RTE1"]["R3"]={"setpage","FMC"}
   
   local line5="                "..string.sub(cleanFMSLine(B747DR_srcfms[fmsID][5]),1,8)
   if acarsSystem.provider.online() then line5=" <SEND          "..string.sub(cleanFMSLine(B747DR_srcfms[fmsID][5]),1,8) end
@@ -316,14 +317,14 @@ function findILS(value)
   navAids=json.decode(navAidsJSON)
   local direction=nil
   local valueSO=split(value,"/")
-  print(value)
+  --print(value)
   if table.getn(valueSO) > 1 then
     value=valueSO[1]
-     print(value)
+     --print(value)
     direction=tonumber(valueSO[2])
-    print(value.." and " .. direction)
+    --print(value.." and " .. direction)
   else
-    print(value)
+    --print(value)
   end
   --print(" in " .. navAidsJSON)
   local val=tonumber(value)
@@ -479,7 +480,7 @@ function fmsFunctions.setpage_no(fmsO,valueA)
     fmsO["targetPage"]="FMC"
     simCMD_FMS_key[fmsO.id]["fpln"]:once()
     simCMD_FMS_key[fmsO.id]["L6"]:once()
-     
+	simCMD_FMS_key[fmsO.id]["L2"]:once()
   elseif value=="VHFCONTROL" then
     fmsO["targetCustomFMC"]=false
     fmsO["targetPage"]="VHFCONTROL"
@@ -629,7 +630,7 @@ end
 
 -- VALIDATE ENTRY OF SETHDG
 function validate_sethdg(value)
-	print(value)
+	--print(value)
 	if tonumber(value) >= 0 and tonumber(value) <= 360 then
 		return true
 	else
@@ -939,20 +940,20 @@ function fmsFunctions.setdata(fmsO,value)
     end
   elseif value=="stepalt" then
     if validFL(fmsO["scratchpad"]) ~=nil then 
-	setFMSData("stepalt",validFL(fmsO["scratchpad"]))
+		setFMSData("stepalt",validFL(fmsO["scratchpad"]))
     else
       fmsO["notify"]="INVALID ENTRY"
     end
   elseif value=="desspds" then
     div = string.find(fmsO["scratchpad"], "%/")
     spd=getFMSData("desspd")
-    print(spd)
+   -- print(spd)
     if div==nil then 
       div=string.len(fmsO["scratchpad"])+1 
     else
       spd=string.sub(fmsO["scratchpad"],div+1)
     end
-    print(spd)
+   -- print(spd)
     machspd=string.sub(fmsO["scratchpad"],1,div-1)
     if validateMachSpeed(machspd) ==nil or validateSpeed(spd) ==false then 
       fmsO["notify"]="INVALID ENTRY"
@@ -1986,8 +1987,23 @@ function fmsFunctions.setdata(fmsO,value)
 		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
 	end
 --Marauder28
-
-  elseif fmsO["scratchpad"]=="" and del==false then
+   elseif value=="atc" then
+		setFMSData(value,fmsO["scratchpad"])
+		
+		fmsFunctions["acarsLogonATC"](fmsO,"Logon " .. fmsO["scratchpad"])
+	elseif value=="fltdepatc" then
+		setFMSData("atc",fmsModules.data["fltdep"])
+		
+		fmsFunctions["acarsLogonATC"](fmsO,"Logon " .. fmsModules.data["fltdep"])
+	elseif value=="fltdstatc" then
+		setFMSData("atc",fmsModules.data["fltdst"])
+		
+		fmsFunctions["acarsLogonATC"](fmsO,"Logon " .. fmsModules.data["fltdst"])	
+	elseif value=="metarreq" then	
+		fmsFunctions["acarsATCRequest"](fmsO,"REQUEST METAR")	
+	elseif value=="tafreq" then	
+		fmsFunctions["acarsATCRequest"](fmsO,"REQUEST TAF")	
+   elseif fmsO["scratchpad"]=="" and del==false then
       cVal=getFMSData(value)
     
       fmsO["scratchpad"]=cVal
@@ -2045,7 +2061,7 @@ function fmsFunctions.setDref(fmsO,value)
      fmsO["notify"]="INVALID ENTRY"
      return 
    end
-  print(val)
+ --print(val)
   if value=="VORL" then B747DR_radioModes=replace_char(2,modes,"M") simDR_radio_nav_freq_hz[2]=val*100  end
   if value=="VORR" then B747DR_radioModes=replace_char(3,modes,"M") simDR_radio_nav_freq_hz[3]=val*100  end
   if value=="CRSL" then simDR_radio_nav_obs_deg[2]=val end

@@ -752,7 +752,7 @@ function B747_prop_mode()
     --simDR_prop_mode[2] = B747_ternary(((B747DR_thrust_rev_lever_pos[2] > 0.45) and (simDR_hydraulic_sys_press_02 > 1000.0)), 3, 1)
     --simDR_prop_mode[3] = B747_ternary(((B747DR_thrust_rev_lever_pos[3] > 0.45) and (simDR_hydraulic_sys_press_01 > 1000.0)), 3, 1)simCMD_ThrottleUp
    
-    if ((B747DR_engine_TOGA_mode >0 and B747DR_engine_TOGA_mode < 1) or B747DR_ap_autoland<0) and simDR_allThrottle<0.94 then
+    if ((B747DR_engine_TOGA_mode >0 and B747DR_engine_TOGA_mode < 1) or B747DR_ap_autoland<0) and simDR_allThrottle<0.94 and B747DR_toggle_switch_position[29] == 1 then
 	    simCMD_ThrottleUp:once()--simDR_allThrottle = B747_set_animation_position(simDR_allThrottle,0.95,0,1,1)
     elseif B747DR_engine_TOGA_mode >0 and B747DR_engine_TOGA_mode < 1 then
       B747DR_engine_TOGA_mode = 1

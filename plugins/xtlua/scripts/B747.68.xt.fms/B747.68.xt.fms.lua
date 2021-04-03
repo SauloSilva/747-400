@@ -518,6 +518,7 @@ function defaultFMSData()
   spdtransalt="10000",
   transalt="18000",
   clbrestspd="180",
+  maxkts="420",
   clbrestalt="5000 ",
   stepalt="FL360",
   crzspd="810",
@@ -609,6 +610,7 @@ fmsModules["setData"]=function(self,id,value)
     end
     --newVal=string.sub(value,1,len)
     self["data"][id]=string.format("%s%"..(len-string.len(value)).."s",value,"")
+	B747DR_FMSdata=json.encode(fmsModules["data"]["values"])--make the fms data available to other modules
 end
 function setFMSData(id,value)
     --print("setting " .. id .. " to "..value.." curently "..fmsModules["data"][id])
@@ -639,7 +641,7 @@ function switchCustomMode()
   fmsModules["fmsL"]["pgNo"]=fmsModules["fmsL"]["targetpgNo"]
   fmsModules["fmsC"]["pgNo"]=fmsModules["fmsC"]["targetpgNo"]
   fmsModules["fmsR"]["pgNo"]=fmsModules["fmsR"]["targetpgNo"]
-  print("left cdu blanking")
+  --print("left cdu blanking")
 end
 function createPage(page)
   retVal={}
@@ -955,7 +957,7 @@ function setNotifications()
       fmsModules["fmsL"]["notify"]=B747_FMCAlertMsg[i].name
       fmsModules["fmsC"]["notify"]=B747_FMCAlertMsg[i].name
       fmsModules["fmsR"]["notify"]=B747_FMCAlertMsg[i].name
-      print("do FMS notify"..B747_FMCAlertMsg[i].name)
+      print("do FMS notify "..B747_FMCAlertMsg[i].name)
       break
     else
       if fmsModules["fmsL"]["notify"]==B747_FMCAlertMsg[i].name then fmsModules["fmsL"]["notify"]="" end
@@ -970,7 +972,10 @@ function after_physics()
 --     for i =1,24,1 do
 --       print(string.byte(fms_style,i))
 --     end
-
+	--refresh time
+	local cM=hh
+	cM=mm
+	cM=ss
     setNotifications()
     B747DR_FMSdata=json.encode(fmsModules["data"]["values"])--make the fms data available to other modules
     --print(B747DR_FMSdata)
