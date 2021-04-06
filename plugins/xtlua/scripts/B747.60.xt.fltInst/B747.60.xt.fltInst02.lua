@@ -2366,7 +2366,6 @@ end
 function B747_vsi()
 
     B747DR_vertical_speed_fpm = roundToIncrement(simDR_vvi_fpm_pilot, 50)
-
 end
 
 
