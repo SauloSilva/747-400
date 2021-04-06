@@ -15,6 +15,7 @@ B747DR_text_fo_show 				= find_dataref("laminar/B747/nd/fo/text/show")
 B747DR_text_fo_heading			= find_dataref("laminar/B747/nd/fo/text/heading")
 B747DR_text_fo_distance			= find_dataref("laminar/B747/nd/fo/text/distance")
 --B747DR_text_fo_icon				= find_dataref("laminar/B747/nd/fo/text/icon","array[60]")
+B747DR_fmscurrentIndex      = find_dataref("laminar/B747/autopilot/ap_monitor/fmscurrentIndex")
 
 iconTextDataCapt={}
 iconTextDataCapt.icons=find_dataref("laminar/B747/nd/capt/text/icon")
@@ -269,7 +270,9 @@ function newIcons()
   usedNaviadsTableCapt={}
   usedNaviadsTableFO={}
   --flightplan
-  for n=1,table.getn(fmsTable),1 do
+  local start=B747DR_fmscurrentIndex-1
+  if start<1 then start=1 end
+  for n=start,table.getn(fmsTable),1 do
     local distance = getDistance(simDR_latitude,simDR_longitude,fmsTable[n][5],fmsTable[n][6])
     --Captain flightplan
     if distance < ranges[simDR_range_dial_capt + 1] then 

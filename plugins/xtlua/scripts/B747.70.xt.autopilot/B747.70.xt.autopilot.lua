@@ -75,7 +75,7 @@ local B747_ap_last_FMA_autothrottle_mode = 0
 local B747_ap_last_FMA_roll_mode = 0
 local B747_ap_last_FMA_pitch_mode = 0
 local fmsData={}
-inVnavAlt=0
+
 function getFMSData(name)
 	return fmsData[name]
 end
@@ -223,7 +223,8 @@ B747DR_descentSpeedGradient     = deferred_dataref("laminar/B747/autopilot/ap_mo
 B747DR_switchingIASMode         = deferred_dataref("laminar/B747/autopilot/ap_monitor/switchingIASMode", "number")
 B747DR_fmstargetIndex= deferred_dataref("laminar/B747/autopilot/ap_monitor/fmstargetIndex", "number")
 B747DR_fmscurrentIndex= deferred_dataref("laminar/B747/autopilot/ap_monitor/fmscurrentIndex", "number")
-
+B747DR_mcp_hold                 = deferred_dataref("laminar/B747/autopilot/ap_monitor/mcp_hold", "number")
+B747DR_mcp_hold_pressed          = deferred_dataref("laminar/B747/autopilot/ap_monitor/mcp_hold_pressed", "number")
 --*************************************************************************************--
 --** 				             FIND X-PLANE COMMANDS                   	    	 **--
 --*************************************************************************************--
@@ -483,24 +484,24 @@ function B747_ap_switch_vnavalt_mode_CMDhandler(phase, duration)
 	if phase == 0 then
 		print("vnav alt button")
 		B747_ap_button_switch_position_target[16] = 1									-- SET THE ALT KNOB ANIMATION TO "IN"
+		B747DR_mcp_hold=0
+		B747DR_mcp_hold_pressed=simDRTime
 		setVNAVState("vnavcalcwithTargetAlt",0)
 		if getVNAVState("manualVNAVspd")==0 then
 		    setVNAVState("gotVNAVSpeed",false)
 		    B747_vnav_speed()    
 		end
 
-		if B747DR_ap_vnav_state==2 then
+		 if B747DR_ap_vnav_state==2 then
 			
-		  if B747BR_totalDistance>0 and (B747BR_totalDistance-B747BR_tod)<50 and simDR_pressureAlt1>simDR_autopilot_altitude_ft then
-			B747DR_ap_inVNAVdescent = 2
-		  else
+		  --if B747BR_totalDistance>0 and (B747BR_totalDistance-B747BR_tod)<50 and simDR_pressureAlt1>simDR_autopilot_altitude_ft then
+		--	B747DR_ap_inVNAVdescent = 2
+		  --else
 			B747DR_ap_vnav_state = 3 --resume
-		  end
+		  --end
 		end
 	elseif phase == 2 then
-		B747_ap_button_switch_position_target[16] = 0									-- SET THE ALT KNOB ANIMATION TO "OUT"				
-	 
-
+		B747_ap_button_switch_position_target[16] = 0									-- SET THE ALT KNOB ANIMATION TO "OUT"
 	end
 end	
 
@@ -1344,15 +1345,15 @@ end
 function int(x)
 	return x>=0 and math.floor(x) or math.ceil(x)
 end
-function B747_fltmgmt_setILS()
+function B747_fltmgmt_setILS(fms)
   local modes=B747DR_radioModes
-  local fmsSTR=fmsJSON
+  
   --print("B747_fltmgmt_setILS")
   if modes:sub(1, 1)==" " then
     targetFMSnum=-1
     B747DR_radioModes=replace_char(1,modes,"A")
   elseif  modes:sub(1, 1)=="M" then
-    local fms=json.decode(fmsSTR)
+    --local fms=json.decode(fmsSTR)
     if table.getn(fms)>2 then
       setDistances(fms)
     end
@@ -1369,7 +1370,7 @@ function B747_fltmgmt_setILS()
   local d1=simDR_radio_nav_obs_deg[0]
   local d2=simDR_radio_nav_obs_deg[1]--continually get latest
   --print("fmsJSON=".. fmsSTR)
-  local fms=json.decode(fmsSTR)
+  
   if table.getn(fms)>2 then
     setDistances(fms)
   end
@@ -1637,7 +1638,7 @@ function B747_ap_vs_mode()
     ----- WINDOW
 	B747DR_ap_vs_window_open = B747_ternary(simDR_autopilot_vs_status >= 1 and B747DR_ap_vnav_state<2, 1, 0)
     
-    
+   -- print("simDR_autopilot_vs_fpm="..simDR_autopilot_vs_fpm)
     ----- VVI FOR ANIMATION 
 
     --[[if B747DR_autopilot_altitude_ft > simDR_pressureAlt1+500 and simDR_autopilot_vs_fpm<0 then
@@ -1811,23 +1812,31 @@ function setDistances(fmsO)
   
   B747BR_totalDistance=totalDistance
   B747BR_nextDistanceInFeet=nextDistanceInFeet
-  B747BR_tod=(((B747BR_cruiseAlt-fms[eod][3])/100))/2.9
+  local cruiseTOD=(((B747BR_cruiseAlt-fms[eod][3])/100))/2.9
+  local currentTOD=(((simDR_pressureAlt1-fms[eod][3])/100))/2.9
+  --print("cruiseTOD="..cruiseTOD.." currentTOD="..currentTOD.." B747BR_totalDistance="..B747BR_totalDistance)
+  if totalDistance-cruiseTOD<50 then
+	B747BR_tod=currentTOD
+  else
+  	B747BR_tod=cruiseTOD
+  end
 end
 
 ----- ALTITUDE SELECTED -----------------------------------------------------------------
 
-function getCurrentWayPoint(fms)
-  for i=1,table.getn(fms),1 do
+function B747_getCurrentWayPoint(fms)
+ --[[ for i=1,table.getn(fms),1 do
     if fms[i][10]==true and i<=getVNAVState("recalcAfter") then
       --print("simDR_autopilot_altitude_ft=".. simDR_autopilot_altitude_ft)
       return 
     end
-  end
+  end]]
   for i=1,table.getn(fms),1 do
     --print("FMS j="..fmsJSON)
     
     if fms[i][10]==true then
 		B747DR_fmscurrentIndex=i
+
       	setVNAVState("recalcAfter",i)
       break 
     end
@@ -1865,16 +1874,14 @@ function B747_ap_altitude()
 	    return
 	  end --no vnav
 	  
-	  computeVNAVAlt(fms)
+	  --computeVNAVAlt(fms)
 	  if B747BR_totalDistance-B747BR_tod<=50 then
 	    vnavDescent()
 	  else
 	    vnavCruise()
 	  end
-	  
-	else
-	  getCurrentWayPoint(fms)
 	end
+
 end	
 
 
@@ -2136,9 +2143,9 @@ function B747_ap_fma()
     elseif (simDR_autopilot_fms_vnav == 1 or B747DR_ap_vnav_state >= 2)
       and simDR_autopilot_alt_hold_status == 2
     then
-		if (simDR_autopilot_hold_altitude_ft==B747DR_autopilot_altitude_ft) and (simDR_autopilot_altitude_ft/100 ~= tonumber(string.sub(fmsData["crzalt"],3))) then
+		if B747DR_mcp_hold==1 and (simDR_autopilot_altitude_ft/100 ~= tonumber(string.sub(fmsData["crzalt"],3))) then
 			B747DR_ap_FMA_active_pitch_mode = 5 --VNAV ALT - MCP alt
-			inVnavAlt=1
+
 		else
 			B747DR_ap_FMA_active_pitch_mode = 6  --VNAV PTH - FMC alt
 		end
@@ -2194,7 +2201,10 @@ function B747_ap_fma()
 end 	
 
 
-
+function ap_reset()
+	print("full reset AP in B747_ap_afds")
+	B747CMD_ap_reset:once()
+end
 
 
 ---- AFDS STATUS -------------------------------------------------------------------------
@@ -2202,9 +2212,10 @@ function B747_ap_afds()
 
 	local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
 	if simDR_autopilot_servos_on == 0 then
-		if numAPengaged > 0 and (switching_servos_on-simDRTime)>1 then
+		if numAPengaged > 0 and (simDRTime-switching_servos_on)>1 then
 			print("reset AP in B747_ap_afds")	
-			B747CMD_ap_reset:once()
+			run_after_time(ap_reset,2)
+
 			B747DR_ap_cmd_L_mode = 0
 			B747DR_ap_cmd_C_mode = 0 
 			B747DR_ap_cmd_R_mode = 0
@@ -2214,7 +2225,7 @@ function B747_ap_afds()
 		B747DR_ap_autoland=0
 		landAssist=false
 		
-	elseif simDR_autopilot_servos_on == 1 and (switching_servos_on-simDRTime)>1 then
+	elseif simDR_autopilot_servos_on == 1 and (simDRTime-switching_servos_on)>1 then
 		if numAPengaged == 0 then
 			--[[B747CMD_ap_reset:once()
 			B747DR_ap_cmd_L_mode = 0
@@ -2281,9 +2292,7 @@ end
 
 function B747_pitch_mode_chg_timeout()
     B747DR_ap_pitch_mode_box_status = 0
-    if simDR_autopilot_alt_hold_status ~= 2 then
-      inVnavAlt=0
-    end
+
 end
 
 function B747_ap_afds_fma_mode_change()
@@ -2389,7 +2398,7 @@ end
 
 ----- TURN AUTOPILOT COMMAND MODES OFF --------------------------------------------------
 function B747_ap_all_cmd_modes_off()
-
+	print("B747_ap_all_cmd_modes_off")
 	B747DR_ap_cmd_L_mode = 0	
 	B747DR_ap_cmd_C_mode = 0	
 	B747DR_ap_cmd_R_mode = 0	
@@ -2398,7 +2407,7 @@ end
 
 
 
-
+local last_airspeed=0
 
 ----- EICAS MESSAGES --------------------------------------------------------------------
 function B747_ap_EICAS_msg()
@@ -2420,13 +2429,17 @@ function B747_ap_EICAS_msg()
 		B747DR_CAS_caution_status[5] = 0
 	end
     --if B747DR_speedbrake_lever <0.3  and simDR_autopilot_vs_fpm<-2000 and simDR_autopilot_vs_status >= 1 and B747DR_ap_vnav_state>0 then 
-	if B747DR_speedbrake_lever <0.3  and simDR_ind_airspeed_kts_pilot>(simDR_autopilot_airspeed_kts+20) and simDR_autopilot_vs_status >= 1 and B747DR_ap_vnav_state>0 then 
+	if B747DR_speedbrake_lever <0.3  
+	and simDR_ind_airspeed_kts_pilot>(simDR_autopilot_airspeed_kts+20)
+	and simDR_ind_airspeed_kts_pilot>last_airspeed
+	and simDR_autopilot_vs_status >= 1 
+	and B747DR_ap_vnav_state>0 then 
 	--just a simple one for now, min thrust and increasing speed in vs mode would be better
       B747DR_fmc_notifications[9]=1
-    else
+    elseif simDR_ind_airspeed_kts_pilot~=last_airspeed then --dont turn it off if airspeed didn't update
       B747DR_fmc_notifications[9]=0
     end
-
+	last_airspeed=simDR_ind_airspeed_kts_pilot
 end
 
 
@@ -2569,10 +2582,13 @@ function after_physics()
     else
       fmsData=json.decode("[]")
     end
-	B747_monitorAP()
+	local fmsSTR=fmsJSON
+  	local fms=json.decode(fmsSTR)
+	B747_getCurrentWayPoint(fms)
+	B747_monitorAP(fms)
     B747_ap_fma()
     B747_ap_button_switch_animation()
-    B747_fltmgmt_setILS() 
+    B747_fltmgmt_setILS(fms) 
     B747_ap_vs_mode()
     B747_ap_ias_mach_mode()
     B747_ap_altitude()

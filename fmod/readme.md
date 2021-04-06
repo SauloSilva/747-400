@@ -3,7 +3,7 @@ by Matt726
 
 Available for: Default Laminar Research or mSparks 747 mod
 
-Version: v1.6.3
+Version: v1.7
 
 Email: mfahrenheit135@gmail.com
 
@@ -27,6 +27,16 @@ Email: mfahrenheit135@gmail.com
 
 ---
 ## CHANGELOG:
+
+### v1.7
+
+- updated PW engines
+- fixed parking brake
+- potential CTD error fixes
+- added cockpit door sounds
+- added OLD ALARMS
+- added altitude alert
+- added "777" alarms
 
 ### v1.6.3:
 
