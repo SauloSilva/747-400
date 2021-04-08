@@ -252,11 +252,7 @@ function des_src_setSpd()
       print("des_src_setSpd:convert to descend speed ".. spdval)
       B747DR_ap_ias_dial_value = math.min(399.0, spdval)
       B747DR_lastap_dial_airspeed=B747DR_ap_ias_dial_value
-      --[[if  B747DR_ap_inVNAVdescent ==2 and spdval>tonumber(getFMSData("destranspd")) and simDR_autopilot_autothrottle_enabled == 1 then
-         simCMD_autopilot_autothrottle_off:once()									-- DEACTIVATE THE AUTOTHROTTLE
-          B747DR_ap_inVNAVdescent =1
-          print("des_src_setSpd:fix idle throttle")
-      end]]
+
     end
     run_after_time(B747_updateIAS, 0.25)
 end

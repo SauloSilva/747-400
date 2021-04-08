@@ -781,7 +781,12 @@ function fmsFunctions.setdata(fmsO,value)
 		simDR_EFIS_2_sel_pilot=2
 	end
   elseif value=="WPT" then
-
+	
+	if fmsO.id=="fmsR" then 
+		B747DR_nd_fo_wpt=1-B747DR_nd_fo_wpt 
+	else
+		B747DR_nd_capt_wpt=1-B747DR_nd_capt_wpt
+	end
   elseif value=="STA" then
 	if fmsO.id=="fmsR" then 
 		B747DR_nd_fo_vor_ndb = 1-B747DR_nd_fo_vor_ndb 

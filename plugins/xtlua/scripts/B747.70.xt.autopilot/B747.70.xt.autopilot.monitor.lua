@@ -149,7 +149,7 @@ function VNAV_DES(numAPengaged,fms)
     local diff2 = simDR_autopilot_altitude_ft - simDR_pressureAlt1
     local diff3 = B747DR_autopilot_altitude_ft- simDR_pressureAlt1
     local lastHold=simDRTime-B747DR_mcp_hold_pressed
-    print("VNAV_DES B747DR_ap_inVNAVdescent=" .. " "..B747DR_ap_inVNAVdescent.. " "..diff2.. " "..diff3.. " "..B747DR_ap_vnav_state.. " " .. B747DR_mcp_hold)
+    --print("VNAV_DES B747DR_ap_inVNAVdescent=" .. " "..B747DR_ap_inVNAVdescent.. " "..diff2.. " "..diff3.. " "..B747DR_ap_vnav_state.. " " .. B747DR_mcp_hold)
     if simDR_autopilot_vs_status == 0 then
         B747DR_ap_inVNAVdescent = 0
     end
