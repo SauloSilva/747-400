@@ -284,11 +284,12 @@ function B747_monitorAT()
     if simDR_engine_N1_pct[2]>15.0 then numRun=numRun+1 end
     if simDR_engine_N1_pct[3]>15.0 then numRun=numRun+1 end
 
-    if numRun<3 then 
+    if numRun<3 or B747DR_autothrottle_fail==1 then 
         if simDR_autopilot_autothrottle_enabled==1 then
-            print("2+ engines imop")
+            print("2+ engines imop or fail AT")
             simCMD_autopilot_autothrottle_off:once()
         end
+        B747DR_autothrottle_fail=1
         lastatmodeswitch=simDRTime
         return 
     end

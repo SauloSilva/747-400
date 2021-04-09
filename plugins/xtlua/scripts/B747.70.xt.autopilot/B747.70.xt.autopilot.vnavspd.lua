@@ -154,10 +154,14 @@ function clb_spcres_setSpd()
       B747DR_ap_ias_dial_value = crzspdval
       B747DR_lastap_dial_airspeed=crzspdval*0.01
     else
-      simDR_autopilot_airspeed_is_mach = 0
-      if(B747DR_ap_ias_dial_value<spdval) then
+        
+      if B747DR_ap_ias_dial_value+5<simDR_ind_airspeed_kts_pilot then
+        spdval=math.min(simDR_ind_airspeed_kts_pilot,spdval)
+      elseif(B747DR_ap_ias_dial_value<spdval) and simDR_autopilot_airspeed_is_mach == 0 then
         spdval=math.min(B747DR_ap_ias_dial_value+5,spdval)
       end
+      
+      simDR_autopilot_airspeed_is_mach = 0
       print("convert to clb speed ".. spdval)
       B747DR_ap_ias_dial_value = math.min(399.0, spdval)
       B747DR_lastap_dial_airspeed=B747DR_ap_ias_dial_value

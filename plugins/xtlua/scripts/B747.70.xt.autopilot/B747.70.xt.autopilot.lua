@@ -260,7 +260,7 @@ simCMD_autopilot_flch_mode				= find_command("sim/autopilot/level_change")
 
 B747DR_engine_TOGA_mode             	= find_dataref("laminar/B747/engines/TOGA_mode")
 
-
+B747DR_autothrottle_fail            	= find_dataref("laminar/B747/engines/autothrottle_fail")
 
 --*************************************************************************************--
 --** 				        CREATE READ-ONLY CUSTOM DATAREFS               	         **--
@@ -1968,8 +1968,9 @@ function B747_ap_fma()
     if runAutoland() then return end
     -- AUTOTHROTTLE
     -------------------------------------------------------------------------------------
-    
-    if (B747DR_engine_TOGA_mode >0 and simDR_ind_airspeed_kts_pilot<65) or B747DR_ap_autoland<0 then                                        
+    if B747DR_toggle_switch_position[29] == 0 or B747DR_autothrottle_fail==1 then
+		B747DR_ap_FMA_autothrottle_mode = 0
+	elseif (B747DR_engine_TOGA_mode >0 and simDR_ind_airspeed_kts_pilot<65) or B747DR_ap_autoland<0 then                                        
         B747DR_ap_FMA_autothrottle_mode = 5 --THR REF
     elseif (B747DR_engine_TOGA_mode == 1 and simDR_radarAlt1<50)  then                                        
         B747DR_ap_FMA_autothrottle_mode = 1 --HOLD
@@ -2423,7 +2424,7 @@ function B747_ap_EICAS_msg()
 	
     --print("test drag required".. B747DR_speedbrake_lever .. " " .. simDR_all_wheels_on_ground .. " " .. simDR_autopilot_vs_fpm .. " " .. simDR_autopilot_vs_status .. " " )
 	-- >AUTOTHROT DISC 
-	if B747DR_ap_autothrottle_armed == 0 then
+	if B747DR_ap_autothrottle_armed == 0 or B747DR_autothrottle_fail==1 then
 		B747DR_CAS_caution_status[5] = 1
 	else
 		B747DR_CAS_caution_status[5] = 0

@@ -181,6 +181,8 @@ B747DR_CAS_advisory_status      = find_dataref("laminar/B747/CAS/advisory_status
 
 B747DR_elec_standby_power_sel_pos   = find_dataref("laminar/B747/electrical/standby_power/sel_dial_pos")
 
+B747DR_autothrottle_fail            	= find_dataref("laminar/B747/engines/autothrottle_fail")
+
 --*************************************************************************************--
 --** 				        CREATE READ-ONLY CUSTOM DATAREFS               	         **--
 --*************************************************************************************--
@@ -2907,10 +2909,11 @@ function B747_fltInst_EICAS_msg()
 
     -- OVERSPEED
     
-    if simDR_airspeed > B747DR_airspeed_Vmo
+    if simDR_airspeed > B747DR_airspeed_Vmax
         or simDR_airspeed_mach > B747DR_airspeed_Mmo
     then
         B747DR_CAS_warning_status[22] = 1
+        B747DR_autothrottle_fail=1
     else
         B747DR_CAS_warning_status[22] = 0
     end

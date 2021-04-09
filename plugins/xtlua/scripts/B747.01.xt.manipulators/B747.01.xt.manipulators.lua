@@ -100,7 +100,7 @@ simDR_autopilot_TOGA_lat_status     	= find_dataref("sim/cockpit2/autopilot/TOGA
 --simDR_autopilot_alt_hold_status     	= find_dataref("sim/cockpit2/autopilot/altitude_hold_status")
 simDR_autopilot_autothrottle_enabled	= find_dataref("sim/cockpit2/autopilot/autothrottle_enabled")
 
-
+B747DR_autothrottle_fail            	= find_dataref("laminar/B747/engines/autothrottle_fail")
 --*************************************************************************************--
 --** 				              FIND CUSTOM DATAREFS             			    	 **--
 --*************************************************************************************--
@@ -1379,7 +1379,9 @@ function B747_autothrottle_arm_switch_CMDhandler(phase, duration)
     if phase == 0 then
         B747_toggle_switch_position_target[29] = 1.0 - B747_toggle_switch_position_target[29]
         B747DR_ap_autothrottle_armed = B747_toggle_switch_position_target[29]
+        B747DR_autothrottle_fail=0
         if B747_toggle_switch_position_target[29] == 0 then
+            
 	     	if simDR_autopilot_autothrottle_enabled == 1 then
 	     		simCMD_autopilot_autothrottle_off:once() 
 	     	end	  
