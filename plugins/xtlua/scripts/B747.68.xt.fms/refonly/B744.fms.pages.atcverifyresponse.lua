@@ -2,37 +2,37 @@ fmsPages["ATCVERIFYRESPONSE"]=createPage("ATCVERIFYRESPONSE")
 fmsPages["ATCVERIFYRESPONSE"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be this way
     return{
 
-"   VERIFY RESPONSE      "
-"                        "		               
-"WILCO                   "
+"   VERIFY RESPONSE      ",
+"                        ",		               
+"WILCO                   ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                   SEND>",
+"------------------------",
 "                        "
-"                        "
-"                        "
-"                        "
-"                        "
-"                        "
-"                        "
-"                   SEND>"
-"------------------------"
-"                        "  
     }
 end
 
 fmsPages["ATCVERIFYRESPONSE"].getSmallPage=function(self,pgNo,fmsID)--dynamic pages need to be this way
     return{
-"                    1/1 "
-"                        "		               
+"                    1/1 ",
+"                        ",		               
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                        ",
+"                RESPONSE",
+"                        ",
+"                        ",
 "                        "
-"                        "
-"                        "
-"                        "
-"                        "
-"                        "
-"                        "
-"                RESPONSE"
-"                        "
-"                        "
-"                        " 
 }
 end
 
