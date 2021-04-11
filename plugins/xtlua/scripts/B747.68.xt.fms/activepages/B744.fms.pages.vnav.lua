@@ -1,21 +1,35 @@
-fmsJson = find_dataref("xtlua/fms") -- fms data in json
+-- VNAV Page by Garen Evans, Revised 11 April 2021 1338 UTC
+----------------------------------------------------------------------------------------------
+--
+-- the following datarefs nil if not assigned:
+fmsJson = find_dataref("xtlua/fms") -- fmsJSON is nil
 simDR_vvi_fpm_pilot = find_dataref("sim/cockpit2/gauges/indicators/vvi_fpm_pilot")
-simDR_groundspeed = find_dataref("sim/flightmodel/position/groundspeed") --meters per second
 simDR_pressureAlt1	= find_dataref("sim/cockpit2/gauges/indicators/altitude_ft_pilot")
-simDR_lat=find_dataref("sim/flightmodel/position/latitude")
-simDR_lon=find_dataref("sim/flightmodel/position/longitude")
-simDR_onGround=find_dataref("sim/flightmodel/failures/onground_any")
-simDR_V2 = find_dataref("laminar/B747/airspeed/V2")
-fob_kg = find_dataref("sim/flightmodel/weight/m_fuel_total") -- fuel weight total, kg
 simDR_eng_fuel_flow_kg_sec = find_dataref("sim/cockpit2/engine/indicators/fuel_flow_kg_sec")
 
---simDR_RA_Min = find_dataref("sim/cockpit/misc/radio_altimeter_minimum")
+-- the following were identifed as redundant dataref calls (April 2021)
+----------------------------------------------------------------------------------------------
+--simDR_groundspeed = find_dataref("sim/flightmodel/position/groundspeed") --meters per second
+--simDR_onGround=find_dataref("sim/flightmodel/failures/onground_any")
+--simDR_autopilot_vs_status = find_dataref("sim/cockpit2/autopilot/vvi_status")
+
+-- the following were replaced with simDR_latitude and simDR_longitude
+--simDR_lat=find_dataref("sim/flightmodel/position/latitude")
+--simDR_lon=find_dataref("sim/flightmodel/position/longitude")
+
+-- the following was replaced by B747DR_airspeed_V2
+--simDR_V2 =find_dataref("laminar/B747/airspeed/V2")
+
+-- the following was replaced by simDR_fueL_tank_weight_total_kg
+--fob_kg = find_dataref("sim/flightmodel/weight/m_fuel_total") -- fuel weight total, kg
+-- ======================================================================================
 
 local nxWpt = "*****"
 local dICAO = "****"
 local dLat = 0 --destination latitude
 local dLon = 0 --destination longitude
 local dNM = -1 --distance to destination, this is currently assigned and used on Pg1 and also used on Pg2
+local ClbV2 = 0 --backup of V2 speed which
 --dNM = find_dataref("laminar/B747/autopilot/dist/remaining_distance") -- this is too inconsistent to use right now
 
 fmsPages["VNAV"]=createPage("VNAV")
@@ -23,6 +37,7 @@ fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be thi
 
     gsKTS = 1.94384 * simDR_groundspeed
     if pgNo==1 then 
+
       --ref pg 1519 fcomm
       fmsFunctionsDefs["VNAV"]["L1"]={"setdata","crzalt"}
       fmsFunctionsDefs["VNAV"]["L2"]={"setdata","clbspd"}
@@ -33,17 +48,18 @@ fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be thi
 
       spdalt = "     -----"
       error_line = "                 "
-      --a=1 if(a==1) then
-      --if(simDR_onGround~=1) then
+
+      
       --print(" --------------------- ")
       --print(simDR_RA_Min)
       --print("--------------------------------------"..B747DR_FMSdata)
-      dofile("json/json.lua")
+
+      --if(simDR_onGround~=1) then
       if(string.len(fmsJson) > 2) then
         local fms2 = json.decode(fmsJson)
         if(fms2 ~= nil) then
-          --print("fmsJson")
-          --print(fmsJson)
+--          print("fmsJson")
+--          print(fmsJson)
           --print("----------------------------------------")
           -- Determine cruise alt from FMC based on max altitude set -------- start
           maxalt = -999 -- this will be cruise altitude when we're done
@@ -59,7 +75,7 @@ fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be thi
           dICAO = fms2[nfms2][8] -- desintation icao (used on page2)
           dLat = fms2[nfms2][5]
           dLon = fms2[nfms2][6]
-          dNM = getDistance(simDR_lat, simDR_lon, dLat, dLon)
+          dNM = getDistance(simDR_latitude, simDR_longitude, dLat, dLon)
           for i=1,nfms2,1 do
             if(fms2[i][10] == true) then -- find the next waypoint
 
@@ -92,13 +108,13 @@ fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be thi
                   wlat = tonumber(fms2[i][5])
                   wlon = tonumber(fms2[i][6])
                   walt = tonumber(fms2[i][9])
-                  dist_to_wpt = getDistance(simDR_lat,simDR_lon,wlat,wlon)
+                  dist_to_wpt = getDistance(simDR_latitude,simDR_longitude,wlat,wlon)
                   alt_at_wpt = simDR_pressureAlt1 + (60*(dist_to_wpt/gsKTS))*simDR_vvi_fpm_pilot
     
                   dist_to_alt = dist_to_wpt - ((((walt-simDR_pressureAlt1)/simDR_vvi_fpm_pilot)/60)*gsKTS)
                   alt_discrep = alt_at_wpt - walt
                   if(alt_discrep < 0) then
-                    error_line = string.format("%.0f LO  %.0f LONG",-alt_discrep, dist_to_alt)
+                    error_line = string.format("%.0f LO  %.0f LONG",-alt_discrep, -dist_to_alt)
                   end
                 end
               end
@@ -117,11 +133,16 @@ fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be thi
         vxadj = 100
       end
 
-      if(simDR_V2 ~= nil and simDR_V2 < 200) then -- if value is 999, then V2 not set, otherwise 
-        Vx = string.format("  %03d",simDR_V2 + vxadj)
+      if(B747DR_airspeed_V2 ~= nil and B747DR_airspeed_V2 ~= 999) then -- if value is 999, then V2 not set, otherwise 
+        ClbV2 = B747DR_airspeed_V2
       else
-        Vx = "-----"
+        if(ClbV2 == 0) then --it was never set?
+          ClbV2 = 170 --typical
+        end
       end
+
+      VxSpeed = string.format("  %03d",ClbV2 + vxadj)
+
         
 
       return{
@@ -134,7 +155,7 @@ fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be thi
       "                        ",
       fmsModules["data"]["transpd"].."/"..fmsModules["data"]["spdtransalt"].."          "..fmsModules["data"]["transalt"],
       "                        ",
-      fmsModules["data"]["clbrestspd"].."/"..fmsModules["data"]["clbrestalt"].."          "..Vx,
+      fmsModules["data"]["clbrestspd"].."/"..fmsModules["data"]["clbrestalt"].."          "..VxSpeed,
       "------------------------",
       "                ENG OUT>", 
       "                        ",
@@ -150,7 +171,8 @@ fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be thi
       fmsFunctionsDefs["VNAV"]["R3"]=nil
       fmsFunctionsDefs["VNAV"]["R6"]={"setpage","LRC"}
       
-      dNM = getDistance(simDR_lat, simDR_lon, dLat, dLon)
+      dNM = getDistance(simDR_latitude, simDR_longitude, dLat, dLon)
+
 
       local gwtk = simDR_GRWT/1000 -- kilograms, thousands
       local optmax = "FL***/***"
@@ -179,8 +201,8 @@ fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be thi
         end
         if((czak + 2) < maxA) then
           fmsModules["data"]["stepalt"] = "FL"..string.format("%03.0f",(czak+2)*10)
-          stepTD = string.format("     %02d%02dz %04d",hh,mm,dNM)
-          --stepTD = string.format("          %02d%02dz",hh,mm)
+          --stepTD = string.format("     %02d%02dz %04d",hh,mm,dNM)
+          stepTD = string.format("          %02d%02dz",hh,mm)
 
         elseif(czak+2 < svcCeil) then --step climb below service ceiline
 
@@ -229,22 +251,22 @@ fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be thi
       if(simDR_onGround==1) then --on the ground
         if(dtogo > 10) then -- at origin with route set
           eta = tmnow + (18.464 + 0.132 * dtogo) / 60 -- hours
-          fad = fob_kg * 2.205 - dtogo * 55 --rough approximation of fuel remaining at dest
+          fad = simDR_fueL_tank_weight_total_kg * 2.205 - dtogo * 51.6 --rough approximation of fuel remaining at dest
           if(fad < 0) then fad = 0 end
         end
       else
         if(dtogo < 10) then -- near origin (0 with no flight plan) , or very near destination
           eta = tmnow -- terminal airspace, therefore now
-          fad = fob_kg * 2.205
+          fad = simDR_fueL_tank_weight_total_kg * 2.205
 
         elseif(dtogo < 90) then --near terminal airspace, assume idle thrust
           ttg = dtogo/200 -- avg speed approx 200 kts from TOD to land
           eta = tmnow + ttg
-          fad = fob_kg * 2.205 - ( ttg * 22029/2.5 ) --40% of average enroute fuelage
+          fad = simDR_fueL_tank_weight_total_kg * 2.205 - ( ttg * 22029/2.5 ) --40% of average enroute fuelage
 
         elseif(simDR_vvi_fpm_pilot > 500 or simDR_vvi_fpm_pilot < -500) then --climbing or descending
           eta = tmnow + (18.464 + 0.132 * dtogo) / 60 -- hours
-          fad = fob_kg * 2.205 - dtogo * 55 -- mean fuel burn 55 pounds per nautical mile
+          fad = simDR_fueL_tank_weight_total_kg * 2.205 - dtogo * 51.6 -- mean fuel burn 55 pounds per nautical mile
 
         else --enroute phase of flight
           eta = tmnow + dtogo / gsKTS
@@ -254,9 +276,9 @@ fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be thi
             ff  = math.floor(ffkgh/1000) * 1000 -- fuel flow 
             if(ff < 1000) then ff = 1000 end
             ttg = math.floor( 10 * dtogo / gsKTS ) / 10 --time to go, hh.m
-            fad = (fob_kg - ttg*ff) * 2.205
+            fad = (simDR_fueL_tank_weight_total_kg - ttg*ff) * 2.205
           else
-            fad = fob_kg * 2.205 - dtogo * 55 -- mean fuel burn 55 pounds per nautical mile
+            fad = simDR_fueL_tank_weight_total_kg * 2.205 - dtogo * 55 -- mean fuel burn 55 pounds per nautical mile
           end          
 
         end
@@ -291,7 +313,7 @@ fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be thi
       "<RTA PROGRESS       LRC>"
       }  
     elseif pgNo==3 then 
-      --ref pg 1583 fcomm
+      --ref FCOM Virgin p.1023, Lease p.822
       fmsFunctionsDefs["VNAV"]["L1"]=nil
       fmsFunctionsDefs["VNAV"]["L2"]={"setdata","desspds"}
       fmsFunctionsDefs["VNAV"]["L3"]={"setdata","destrans"}
@@ -299,7 +321,6 @@ fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be thi
       fmsFunctionsDefs["VNAV"]["R1"]=nil
       fmsFunctionsDefs["VNAV"]["R3"]=nil
 
-      -- cleaned up formatting a little
       if B747DR_ap_vnav_state==2 and simDR_autopilot_vs_status==2 then
 	      fmsModules["data"]["fpa"]=string.format("%1.1f",B747DR_ap_fpa)
 	      fmsModules["data"]["vb"]=string.format("%1.1f", B747DR_ap_vb)
@@ -310,10 +331,69 @@ fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be thi
 	      fmsModules["data"]["vs"]="****"
       end
 
+      local nxtwpt = ""
+      local nxtalt = 0
+      local nxtspd = ""
+      local lowwpt = ""
+      local lowalt = 99999
+      --[cleanup]dofile("json/json.lua")
+      if(string.len(fmsJson) > 2) then
+        local fms = json.decode(fmsJson)
+        if(fms ~= nil) then
+          n = table.getn(fms)
+          for i=1,n,1 do
+            if(fms[i][10] == true) then -- this is the next waypoint
+              -- increment through the fms to find valid waypoint
+              while((i==1 or string.len(fms[i][8])>5 or tonumber(fms[i][8])~=nil) and ((i+1)<n) ) do
+                i = i + 1
+              end
+              if(nxtwpt == "") then
+                nxtwpt = fms[i][8] -- next waypoint from legs page
+                nxWpt = nxtwpt
+                nxtalt = fms[i][9] -- next waypoint altitude
+                nxtspd = "---" --fms[i][4] -- next waypoint speed                
+              end
+              if(i ~= n and trim1(fms[i][8])~="latlon") then
+                lowwpt = fms[i][8] -- waypoint with lowest alt constraint
+                lowalt = fms[i][9] -- altitude constraint of that waypoint
+              end
+            else
+              --if(nxtwpt ~= "") then
+          
+              if( i ~= n and trim1(fms[i][8]) ~= "latlon") then
+                x = math.floor(fms[i][9]) 
+                if(x > 1 and x < lowalt) then
+                  lowwpt = fms[i][8] 
+                  lowalt = x
+                end
+              end
+            end
+
+          end
+        end
+      end
+
+      if(lowalt == 99999) then lowalt = " " end
+
+      nxtspd = tonumber(fmsModules["data"]["desspd"])
+      local dtransalt = tonumber(fmsModules["data"]["desspdtransalt"])
+      local dtransspd = tonumber(fmsModules["data"]["destranspd"])
+      local drestalt  = tonumber(fmsModules["data"]["desrestalt"])
+      local drestspd  = tonumber(fmsModules["data"]["desrestspd"])
+
+      if(nxtalt < dtransalt) then
+        nxtspd = dtransspd
+      end
+      if(nxtalt < drestalt) then
+        nxtspd = drestspd
+      end
+      
+      
       return{
       "     ACT ECON DES       ",
       "                        ",
-      "  **** *****    ***/****",
+      --"  **** *****    ***/****",
+      " "..lowalt.." "..lowwpt.."  "..nxtspd.."/"..nxtalt,
       "                        ",
       ".".. fmsModules["data"]["desspdmach"].."/"..fmsModules["data"]["desspd"].."                ",
       "                        ",
@@ -324,6 +404,8 @@ fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be thi
       "               FORECAST>", 
       "                        ",
       "OFFPATH DES     DES DIR>"
+      
+
       }
     end
 end
@@ -366,7 +448,8 @@ fmsPages["VNAV"].getSmallPage=function(self,pgNo,fmsID)
     elseif pgNo==3 then 
       return{
       "                    3/3 ",
-      " E/D AT         AT *****",
+      --" E/D AT         AT *****",
+      " E/D AT         AT "..nxWpt,
       "                        ",
       " ECON SPD               ",
       "                        ",
@@ -397,4 +480,9 @@ function getDistance(lat1,lon1,lat2,lon2)
   if av > 1 then av=1 end
   retVal=math.acos(av) * 3440
   return retVal
+end
+
+-- http://lua-users.org/wiki/StringTrim
+function trim1(s)
+  return (s:gsub("^%s*(.-)%s*$", "%1"))
 end
