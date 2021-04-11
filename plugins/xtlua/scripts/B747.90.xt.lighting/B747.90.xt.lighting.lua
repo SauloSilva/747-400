@@ -438,7 +438,7 @@ B747DR_init_lighting_CD                 = deferred_dataref("laminar/B747/lightin
 ----- ANNUNCIATORS ----------------------------------------------------------------------
 B747DR_annun_brightness_ratio           = deferred_dataref("laminar/B747/annunciator/brightness_ratio", "array[" .. tostring(NUM_ANNUN_LIGHTS) .. "]")
 
-
+B747DR_ap_FMA_autothrottle_mode     	= deferred_dataref("laminar/B747/autopilot/FMA/autothrottle_mode", "number")
 
 
 
@@ -1547,7 +1547,8 @@ function B747_annunciators()
 
 
     -- MCP AUTOPILOT BUTTON SWITCHES ---------------------------------------------
-	annun.b.ap_thrust 	= B747_ternary(B747DR_engine_TOGA_mode >0 , 1, 0)
+	--annun.b.ap_thrust 	= B747_ternary(B747DR_engine_TOGA_mode >0 , 1, 0)
+    annun.b.ap_thrust 	= B747_ternary(B747DR_ap_FMA_autothrottle_mode==5 and (simDR_autopilot_vs_status == 2 or simDR_autopilot_alt_hold_status == 2) , 1, 0)
     annun.b.ap_speed 	= B747_ternary(simDR_autopilot_autothrottle_enabled == 1 and B747DR_ap_vnav_state < 1, 1, 0)
     annun.b.ap_lnav 	= B747_ternary(simDR_autopilot_gpss_status > 0 or B747DR_ap_lnav_state>0, 1, 0)
     annun.b.ap_vnav 	= B747_ternary(simDR_autopilot_fms_vnav_status > 0 or B747DR_ap_vnav_state>0, 1, 0)
