@@ -407,7 +407,7 @@ function read_fixes()
     fix_data_file:close()
     fix_data_file=nil
     localFixes={}
-    scansize=20
+    scansize=100
     numFixes=numTempFixes
     for n=1 ,numTempFixes do
       localFixes[n]={}
@@ -433,7 +433,7 @@ function after_physics()
     lastUpdateIcon=simDRTime
   end
   diff2=simDRTime-lastUpdateFixes
-  if diff2>15 then 
+  if diff2>10 then 
     read_fixes()
   end
   if diff<10 then return end

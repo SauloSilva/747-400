@@ -43,6 +43,7 @@ fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be thi
       fmsFunctionsDefs["VNAV"]["L2"]={"setdata","clbspd"}
       fmsFunctionsDefs["VNAV"]["L3"]={"setdata","clbtrans"}
       fmsFunctionsDefs["VNAV"]["L4"]={"setdata","clbrest"}
+      fmsFunctionsDefs["VNAV"]["L6"]=nil
       fmsFunctionsDefs["VNAV"]["R1"]=nil
       fmsFunctionsDefs["VNAV"]["R3"]={"setdata","transalt"}
 
@@ -167,6 +168,7 @@ fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be thi
       fmsFunctionsDefs["VNAV"]["L2"]={"setdata","crzspd"}
       fmsFunctionsDefs["VNAV"]["L3"]=nil
       fmsFunctionsDefs["VNAV"]["L4"]=nil
+      fmsFunctionsDefs["VNAV"]["L6"]={"setpage","PROGRESS"}
       fmsFunctionsDefs["VNAV"]["R1"]={"setdata","stepalt"}
       fmsFunctionsDefs["VNAV"]["R3"]=nil
       fmsFunctionsDefs["VNAV"]["R6"]={"setpage","LRC"}
@@ -318,6 +320,7 @@ fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be thi
       fmsFunctionsDefs["VNAV"]["L2"]={"setdata","desspds"}
       fmsFunctionsDefs["VNAV"]["L3"]={"setdata","destrans"}
       fmsFunctionsDefs["VNAV"]["L4"]={"setdata","desrest"}
+      fmsFunctionsDefs["VNAV"]["L6"]=nil
       fmsFunctionsDefs["VNAV"]["R1"]=nil
       fmsFunctionsDefs["VNAV"]["R3"]=nil
 
