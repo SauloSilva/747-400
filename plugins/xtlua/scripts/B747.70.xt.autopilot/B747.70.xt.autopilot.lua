@@ -579,11 +579,12 @@ function B747_ap_alt_hold_mode_CMDhandler(phase, duration)
 	
 		B747_ap_button_switch_position_target[7] = 1
 		if simDR_autopilot_autothrottle_enabled == 0  and B747DR_toggle_switch_position[29] == 1 then							-- AUTOTHROTTLE IS "OFF"
-		  --simCMD_autopilot_autothrottle_on:once()									-- ACTIVATE THE AUTOTHROTTLE
+		  simCMD_autopilot_autothrottle_on:once()									-- ACTIVATE THE AUTOTHROTTLE
 		  
 		  B747DR_engine_TOGA_mode = 0 
 		
 		end
+		B747DR_ap_thrust_mode=0
 		B747DR_ap_vnav_state=0
 		B747DR_ap_inVNAVdescent =0
 		simCMD_autopilot_alt_hold_mode:once()
