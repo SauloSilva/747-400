@@ -20,4 +20,4 @@ A clear and concise description of what the bug/issue is.
 
 ### Bug reports:
 
-Please replace this line with a brief summary of your issue **AND** if reporting a build issue include the link from:
+Please replace this line with a detailed description of the issue
