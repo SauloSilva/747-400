@@ -185,8 +185,9 @@ simDR_reqHeading=find_dataref("sim/cockpit2/radios/actuators/hsi_obs_deg_mag_pil
 
 simDR_overRideStab=find_dataref("sim/operation/override/override_artstab")
 simDR_nav1_radio_nav_type           	= find_dataref("sim/cockpit2/radios/indicators/nav1_type")
+toderate=deferred_dataref("laminar/B747/engine/derate/TO","number") 
 clbderate=deferred_dataref("laminar/B747/engine/derate/CLB","number")
-throttlederate=find_dataref("sim/aircraft/engine/acf_throtmax_FWD")
+throttlederate=find_dataref("sim/aircraft/engine/acf_throtmax_FWD") -- can use this for engine type?
 --[[
     0 = UNKNONW
     4 = VOR
@@ -293,7 +294,7 @@ B747DR_ap_vnav_target_alt            	= deferred_dataref("laminar/B747/autopilot
 B747DR_ap_vnav_state            	= deferred_dataref("laminar/B747/autopilot/vnav_state", "number")
 B747DR_ap_lnav_state            	= deferred_dataref("laminar/B747/autopilot/lnav_state", "number")
 B747DR_ap_inVNAVdescent 		= deferred_dataref("laminar/B747/autopilot/vnav_descent", "number")
-B747DR_airspeed_Mmo                     = deferred_dataref("laminar/B747/airspeed/Mmo", "number")
+B747DR_airspeed_Mms                             = deferred_dataref("laminar/B747/airspeed/Mms", "number")
 B747DR_ap_vvi_fpm						= deferred_dataref("laminar/B747/autopilot/vvi_fpm", "number")
 B747DR_ap_alt_show_thousands      		= deferred_dataref("laminar/B747/autopilot/altitude/show_thousands", "number")
 B747DR_ap_alt_show_tenThousands			= deferred_dataref("laminar/B747/autopilot/altitude/show_tenThousands", "number")
@@ -426,6 +427,10 @@ dofile("B747.70.xt.autopilot.vnav.lua")
 function B747_ap_thrust_mode_CMDhandler(phase, duration)								-- INOP, NO CORRESPONDING FUNCTIONALITY IN X-PLANE 
 	if phase == 0 then
 		B747_ap_button_switch_position_target[0] = 1
+		simCMD_autopilot_autothrottle_off:once()
+		if simDR_radarAlt1>400 then
+			B747DR_ap_thrust_mode=2
+		end
 	elseif phase == 2 then
 		B747_ap_button_switch_position_target[0] = 0				
 	end
@@ -438,16 +443,17 @@ function B747_ap_switch_speed_mode_CMDhandler(phase, duration)
 	if phase == 0 then
 		B747_ap_button_switch_position_target[1] = 1									-- SET THE SPEED SWITCH ANIMATION TO "IN"
 		lastatmodeswitch=simDRTime
+		
 		if B747DR_toggle_switch_position[29] == 1 then									-- AUTOTHROTTLE ""ARM" SWITCH IS "ON"
 		
-			if simDR_autopilot_autothrottle_enabled == 0 then							-- AUTOTHROTTLE IS "OFF"
+			if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 and simDR_onGround==0 then							-- AUTOTHROTTLE IS "OFF"
 				simCMD_autopilot_autothrottle_on:once()									-- ACTIVATE THE AUTOTHROTTLE
 				if B747DR_engine_TOGA_mode >0 then B747DR_engine_TOGA_mode = 0 end	-- CANX ENGINE TOGA IF ACTIVE
 			end	
 		end
 		B747DR_ap_vnav_state=0
 		B747DR_ap_inVNAVdescent =0
-		
+		B747DR_ap_thrust_mode=0
 		if B747DR_switchingIASMode==0 then  
 		  if simDR_autopilot_airspeed_is_mach == 0 then
 			simDR_autopilot_airspeed_kts = B747DR_ap_ias_dial_value
@@ -530,7 +536,7 @@ function B747_ap_switch_flch_mode_CMDhandler(phase, duration)
 		simCMD_autopilot_flch_mode:once()
 		B747DR_ap_vnav_state=0
 		B747DR_ap_inVNAVdescent =0
-			
+		B747DR_ap_thrust_mode=2	
 	elseif phase == 2 then
 		B747_ap_button_switch_position_target[4] = 0		
 	end	
@@ -545,7 +551,7 @@ function B747_ap_switch_vs_mode_CMDhandler(phase, duration)
 		--for animation
 
 		B747DR_ap_vvi_fpm=0 	
-		if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 then							-- AUTOTHROTTLE IS "OFF"
+		if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 and simDR_onGround==0 then							-- AUTOTHROTTLE IS "OFF"
 		  simCMD_autopilot_autothrottle_on:once()									-- ACTIVATE THE AUTOTHROTTLE
 		  
 		  B747DR_engine_TOGA_mode = 0 
@@ -573,7 +579,7 @@ function B747_ap_alt_hold_mode_CMDhandler(phase, duration)
 	
 		B747_ap_button_switch_position_target[7] = 1
 		if simDR_autopilot_autothrottle_enabled == 0  and B747DR_toggle_switch_position[29] == 1 then							-- AUTOTHROTTLE IS "OFF"
-		  simCMD_autopilot_autothrottle_on:once()									-- ACTIVATE THE AUTOTHROTTLE
+		  --simCMD_autopilot_autothrottle_on:once()									-- ACTIVATE THE AUTOTHROTTLE
 		  
 		  B747DR_engine_TOGA_mode = 0 
 		
@@ -842,6 +848,7 @@ function B747_ap_reset_CMDhandler(phase, duration)
 		B747DR_engine_TOGA_mode=0
 		simDR_autopilot_fms_vnav = 0
 		B747DR_ap_vnav_state=0
+		B747DR_ap_thrust_mode=0
 		B747DR_ap_inVNAVdescent =0
 		B747_ap_all_cmd_modes_off()
 		B747DR_ap_ias_mach_window_open = 0
@@ -880,6 +887,7 @@ function B747_ap_VNAV_mode_CMDhandler(phase, duration)
 		elseif B747DR_ap_vnav_state>0 then 
 		  B747DR_ap_vnav_state=0
 		  B747DR_ap_inVNAVdescent =0
+		  
 		elseif B747DR_ap_vnav_system == 2 then
 		  B747DR_ap_vnav_state=1 
 		  setVNAVState("gotVNAVSpeed",false)
@@ -915,6 +923,7 @@ end
 
 
 B747CMD_ap_thrust_mode              			= deferred_command("laminar/B747/autopilot/button_switch/thrust_mode", "Autopilot THR Mode", B747_ap_thrust_mode_CMDhandler)
+B747DR_ap_thrust_mode              			= deferred_dataref("laminar/B747/autopilot/thrust_mode", "number")
 B747CMD_ap_switch_speed_mode				= deferred_command("laminar/B747/autopilot/button_switch/speed_mode", "A/P Speed Mode Switch", B747_ap_switch_speed_mode_CMDhandler)
 B747CMD_ap_press_airspeed				= deferred_command("laminar/B747/button_switch/press_airspeed", "Airspeed Dial Press", B747_ap_switch_vnavspeed_mode_CMDhandler)
 B747CMD_ap_press_altitude				= deferred_command("laminar/B747/button_switch/press_altitude", "Altitude Dial Press", B747_ap_switch_vnavalt_mode_CMDhandler)
@@ -1667,6 +1676,7 @@ function B747_ap_ias_mach_mode()
 	and (simDR_radarAlt1>400 or simDR_ind_airspeed_kts_pilot>simDR_autopilot_airspeed_kts) then							-- AUTOTHROTTLE IS "OFF"
 	  if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 then simCMD_autopilot_autothrottle_on:once()	end								-- ACTIVATE THE AUTOTHROTTLE
 	  simCMD_autopilot_flch_mode:once()
+	  if B747DR_ap_vnav_state==0 then B747DR_ap_thrust_mode=2 end
 	  B747DR_engine_TOGA_mode = 0 
 	  B747DR_ap_autoland=-1
 	end
@@ -1750,7 +1760,7 @@ function B747_ap_ias_mach_mode()
 	    minSafeSpeed=minSafeSpeed-9
 	  end
 	end
-	local maxmach=B747DR_airspeed_Mmo
+	local maxmach=B747DR_airspeed_Mms
 
 	if B747DR_switchingIASMode==0 then  
 	if simDR_autopilot_airspeed_is_mach == 0 then
@@ -1970,7 +1980,7 @@ function B747_ap_fma()
     -------------------------------------------------------------------------------------
     if B747DR_toggle_switch_position[29] == 0 or B747DR_autothrottle_fail==1 then
 		B747DR_ap_FMA_autothrottle_mode = 0
-	elseif (B747DR_engine_TOGA_mode >0 and simDR_ind_airspeed_kts_pilot<65) or B747DR_ap_autoland<0 then                                        
+	elseif (B747DR_engine_TOGA_mode >0 and simDR_ind_airspeed_kts_pilot<65) or B747DR_ap_autoland<0 or (B747DR_ap_vnav_state==0 and B747DR_ap_thrust_mode==2) then                                        
         B747DR_ap_FMA_autothrottle_mode = 5 --THR REF
     elseif (B747DR_engine_TOGA_mode == 1 and simDR_radarAlt1<50)  then                                        
         B747DR_ap_FMA_autothrottle_mode = 1 --HOLD
@@ -1979,8 +1989,8 @@ function B747_ap_fma()
 	  B747DR_ap_FMA_autothrottle_mode = 5  --THR REF
     elseif simDR_autopilot_autothrottle_on == 1 then
       if B747DR_ap_vnav_state > 0 and simDR_allThrottle<0.02 and B747DR_ap_inVNAVdescent>0 then
-	  B747DR_ap_FMA_autothrottle_mode = 2 --IDLE
-	else
+	  	B747DR_ap_FMA_autothrottle_mode = 2 --IDLE
+	  elseif simDR_onGround==0 then
         B747DR_ap_FMA_autothrottle_mode = 3 -- SPD
       end
     else
@@ -2040,6 +2050,7 @@ function B747_ap_fma()
         B747DR_ap_FMA_active_roll_mode = 1
     elseif simDR_onGround==1 then
        B747DR_ap_FMA_active_roll_mode = 0
+	   B747DR_ap_thrust_mode=0
     -- (LNAV) --
     elseif simDR_autopilot_gpss == 2 then
         B747DR_ap_FMA_active_roll_mode = 2
@@ -2120,6 +2131,7 @@ function B747_ap_fma()
         B747DR_ap_FMA_active_pitch_mode = 2
 		B747DR_ap_vnav_state=0
 		B747DR_ap_inVNAVdescent =0
+
     -- (FLARE) --
     -- TODO: AUTOLAND LOGIC
 
@@ -2129,13 +2141,13 @@ function B747_ap_fma()
     then
         B747DR_ap_FMA_active_pitch_mode = 4
 
-		if clbderate==0 then 
+		--[[if clbderate==0 then 
 			throttlederate=1.0
 		elseif clbderate==1 then 
 			throttlederate=0.9
 		elseif clbderate==2 then 
 			throttlederate=0.8 
-		end
+		end]]--
     -- (VNAV ALT) --
     elseif (simDR_autopilot_fms_vnav == 1 or B747DR_ap_vnav_state >= 2)
       and simDR_autopilot_alt_hold_status == 2
@@ -2146,13 +2158,13 @@ function B747_ap_fma()
 		else
 			B747DR_ap_FMA_active_pitch_mode = 6  --VNAV PTH - FMC alt
 		end
-        if clbderate==0 then 
+        --[[if clbderate==0 then 
 			throttlederate=1.0
 		elseif clbderate==1 then 
 			throttlederate=0.9
 		elseif clbderate==2 then 
 			throttlederate=0.8  
-		end   
+		end   ]]
     -- (VNAV PATH) --
     elseif (simDR_autopilot_fms_vnav == 1 or B747DR_ap_vnav_state >= 2)
       and simDR_autopilot_vs_status == 2
@@ -2163,36 +2175,36 @@ function B747_ap_fma()
       and simDR_autopilot_fms_vnav == 0 and B747DR_ap_vnav_state == 0
     then
         B747DR_ap_FMA_active_pitch_mode = 7
-		if clbderate==0 then 
+		--[[if clbderate==0 then 
 			throttlederate=1.0
 	  	elseif clbderate==1 then 
 			throttlederate=0.9
 	  	elseif clbderate==2 then 
 			throttlederate=0.8 
-		end 
+		end ]]--
     -- (FLCH SPD) --
     elseif simDR_autopilot_flch_status == 2 
       and simDR_autopilot_fms_vnav == 0  and B747DR_ap_vnav_state == 0
     then
         B747DR_ap_FMA_active_pitch_mode = 8
-		if clbderate==0 then 
+		--[[if clbderate==0 then 
 			throttlederate=1.0
 		elseif clbderate==1 then 
 			throttlederate=0.9
 		elseif clbderate==2 then 
 			throttlederate=0.8  
-		end
+		end]]--
     -- (ALT) --
     elseif simDR_autopilot_alt_hold_status == 2 
       and simDR_autopilot_fms_vnav == 0  and B747DR_ap_vnav_state == 0
     then
         B747DR_ap_FMA_active_pitch_mode = 9
-		throttlederate=1.0
+		--throttlederate=1.0
 
     -- (NONE) --
     else
         B747DR_ap_FMA_active_pitch_mode = 0
-		throttlederate=1.0
+		--throttlederate=1.0
     end
   
 end 	

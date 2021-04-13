@@ -396,6 +396,7 @@ B747DR_airspeed_Vfe25                           = deferred_dataref("laminar/B747
 B747DR_airspeed_Vfe30                           = deferred_dataref("laminar/B747/airspeed/Vfe30", "number")
 B747DR_airspeed_Vlo                             = deferred_dataref("laminar/B747/airspeed/Vlo", "number")
 B747DR_airspeed_Mlo                             = deferred_dataref("laminar/B747/airspeed/Mlo", "number")
+B747DR_airspeed_Mms                             = deferred_dataref("laminar/B747/airspeed/Mms", "number")
 B747DR_airspeed_Vle                             = deferred_dataref("laminar/B747/airspeed/Vle", "number")
 B747DR_airspeed_Mle                             = deferred_dataref("laminar/B747/airspeed/Mle", "number")
 B747DR_airspeed_Vmo                             = deferred_dataref("laminar/B747/airspeed/Vmo", "number")
@@ -2726,6 +2727,7 @@ function B747_Vspeeds()
 
     if simDR_altitude_ft_pilot <= 28620.0 then B747DR_airspeed_Mmo = 0.880 end
     if simDR_altitude_ft_pilot > 28620.0 then B747DR_airspeed_Mmo = 0.920 end
+    B747DR_airspeed_Mms = B747_rescale(20620.0,0.740,28620,0.920,simDR_altitude_ft_pilot)
 
 
     -- Vne / Mne (NEVER EXCEED SPEED)

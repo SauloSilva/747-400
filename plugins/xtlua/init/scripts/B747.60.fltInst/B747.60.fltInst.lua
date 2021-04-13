@@ -199,6 +199,7 @@ B747DR_airspeed_Vle                             = deferred_dataref("laminar/B747
 B747DR_airspeed_Mle                             = deferred_dataref("laminar/B747/airspeed/Mle", "number")
 B747DR_airspeed_Vmo                             = deferred_dataref("laminar/B747/airspeed/Vmo", "number")
 B747DR_airspeed_Mmo                             = deferred_dataref("laminar/B747/airspeed/Mmo", "number")
+B747DR_airspeed_Mms                             = deferred_dataref("laminar/B747/airspeed/Mms", "number")
 B747DR_airspeed_Vmc                             = deferred_dataref("laminar/B747/airspeed/Vmc", "number")
 B747DR_airspeed_Vne                             = deferred_dataref("laminar/B747/airspeed/Vne", "number")
 B747DR_airspeed_Mne                             = deferred_dataref("laminar/B747/airspeed/Mne", "number")

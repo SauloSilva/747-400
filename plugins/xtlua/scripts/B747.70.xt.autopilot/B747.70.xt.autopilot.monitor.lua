@@ -204,16 +204,70 @@ function VNAV_DES(numAPengaged,fms)
 
     B747DR_ap_vnav_state=2
 end
+local last_THR_REF=0
+function B747_rescale(in1, out1, in2, out2, x)
 
+    if x < in1 then return out1 end
+    if x > in2 then return out2 end
+    return out1 + (out2 - out1) * (x - in1) / (in2 - in1)
+
+end
+function B747_monitor_THR_REF_AT()
+    
+    if B747DR_ap_FMA_autothrottle_mode~=5 or B747DR_toggle_switch_position[29] ~= 1 then return end
+    local n1_pct=math.max(simDR_engine_N1_pct[0],simDR_engine_N1_pct[1],simDR_engine_N1_pct[2],simDR_engine_N1_pct[3])
+    local lastChange=simDRTime-last_THR_REF
+
+    
+
+    --[[if lastChange>1 or lastChange<-1 then return end --wait for engines to stabilise
+    if lastChange==0 and needNew==true then return end --wait for engines to stabilise, wait for update N1]]
+    local ref_throttle=100
+    local altDiff = simDR_autopilot_altitude_ft - simDR_pressureAlt1
+    if B747DR_ap_thrust_mode==2 and altDiff<0 then
+        ref_throttle=20+B747_rescale(-10000,0,0,30,altDiff)
+        print("THR REF descend at ref_throttle "..ref_throttle.." altDiff "..altDiff)
+    elseif simDR_radarAlt1<1000 and B747DR_ap_thrust_mode==0 then
+        if toderate==1 then ref_throttle=96
+        elseif toderate==2 then ref_throttle=86  
+        end      
+    else
+        if B747DR_ap_thrust_mode==0 then B747DR_ap_thrust_mode=1 end
+        if clbderate==1 then ref_throttle=96
+        elseif clbderate==2 then ref_throttle=86
+        end 
+    end
+    
+    
+    local wait=0
+    local thrustDiff=ref_throttle-n1_pct
+    if (thrustDiff<0) then
+        thrustDiff=thrustDiff*-1
+    end
+    if thrustDiff<2 then wait=0.2
+    elseif thrustDiff<10 then wait=0.1
+    elseif thrustDiff<20 then wait=0.05 end
+    --print("THR REF="..ref_throttle.. " simDR_allThrottle="..n1_pct.. " wait="..wait)
+    if lastChange<wait then return end --wait for engines to stabilise
+    if (n1_pct < (ref_throttle-0.2)) then
+	    simCMD_ThrottleUp:once()
+    elseif (n1_pct > (ref_throttle+0.2)) then
+        simCMD_ThrottleDown:once()
+    end
+    last_THR_REF=simDRTime
+end
 function VNAV_modeSwitch(fmsO)
     --if B747BR_cruiseAlt < 10 then return end --no cruise alt set, not needed because cant set to 1 without this
-    if B747DR_ap_vnav_state == 0 then return end --not requested 
+    if B747DR_ap_vnav_state == 0 then  
+        B747_monitor_THR_REF_AT() 
+        return 
+    end --not requested 
     local dist=B747BR_totalDistance-B747BR_tod
-    if (B747DR_ap_FMA_autothrottle_mode==5 and dist>50 and simDR_allThrottle<0.94) then
-	    simCMD_ThrottleUp:once()--simDR_allThrottle = B747_set_animation_position(simDR_allThrottle,0.95,0,1,1)
-    end
+    
     if B747DR_ap_inVNAVdescent >0 and simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 and simDR_allThrottle>0 and simDR_radarAlt1>1000 then
         simCMD_ThrottleDown:once()
+    else
+        B747_monitor_THR_REF_AT()
     end
 
     local diff=simDRTime-lastmodeswitch
@@ -262,6 +316,8 @@ function toBits(num)
     end
     return t
 end
+--custom autothrottle for THR REF
+
 function B747_monitorAT()
     local diff=simDRTime-lastatmodeswitch
     if diff<0.5 then return end --mode switch at 0.5 second intervals
@@ -286,7 +342,7 @@ function B747_monitorAT()
 
     if numRun<3 or B747DR_autothrottle_fail==1 then 
         if simDR_autopilot_autothrottle_enabled==1 then
-            print("2+ engines imop or fail AT")
+            print("2+ engines inop or fail AT")
             simCMD_autopilot_autothrottle_off:once()
         end
         B747DR_autothrottle_fail=1
@@ -309,18 +365,21 @@ function B747_monitorAT()
         
         if simDR_autopilot_autothrottle_enabled==0 then
             print("simDR_autopilot_alt_hold_status")
+            B747DR_ap_thrust_mode=0
             simCMD_autopilot_autothrottle_on:once()
+            
         end
         lastatmodeswitch=simDRTime
         return 
     end
     if (B747DR_ap_FMA_active_pitch_mode == 9 
-    or B747DR_ap_FMA_active_pitch_mode == 7 
-    or B747DR_ap_FMA_active_pitch_mode == 2) then
+    or B747DR_ap_FMA_active_pitch_mode == 7) and B747DR_ap_vnav_state > 0
+    or B747DR_ap_FMA_active_pitch_mode == 2 then
         if simDR_autopilot_autothrottle_enabled==0 then
             print("B747DR_ap_FMA_active_pitch_mode")
             simCMD_autopilot_autothrottle_on:once()
         end
+        B747DR_ap_thrust_mode=0
         lastatmodeswitch=simDRTime
         return 
     end
@@ -328,8 +387,8 @@ function B747_monitorAT()
         lastatmodeswitch=simDRTime
         return 
     end
-    --otherwise off
-    if simDR_autopilot_autothrottle_enabled==1 and B747DR_ap_inVNAVdescent == 0 then
+    --otherwise off  (VNAV ONLY)
+    if simDR_autopilot_autothrottle_enabled==1 and B747DR_ap_inVNAVdescent == 0 and (B747DR_ap_vnav_state>0 or B747DR_ap_FMA_autothrottle_mode == 5) then
         print("Off with B747DR_ap_FMA_active_pitch_mode="..B747DR_ap_FMA_active_pitch_mode)
         simCMD_autopilot_autothrottle_off:once()
     end
