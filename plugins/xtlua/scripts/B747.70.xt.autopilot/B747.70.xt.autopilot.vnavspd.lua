@@ -89,7 +89,11 @@ function des_src_next()
     return tAlt
 end
 function des_aptres_next()
-    return tonumber(getFMSData("desrestalt"))
+    local tAlt=tonumber(getFMSData("desrestalt"))
+    if tAlt<simDR_pressureAlt1-500 then
+        tAlt=math.max(simDR_pressureAlt1-500,tAlt)
+    end
+    return tAlt
 end
 function des_spcres_next()
     return -100
@@ -135,7 +139,7 @@ function clb_src_setSpd()
     vnavSPD_state["setBaro"]=false
 end
 function clb_aptres_setSpd()
-    local spdval=tonumber(getFMSData("clbrestspd"))
+    local spdval=math.max(tonumber(getFMSData("clbrestspd")),simDR_ind_airspeed_kts_pilot-5)
     simDR_autopilot_airspeed_is_mach = 0
     print("convert to clb clbrestspd ".. spdval)
     B747DR_ap_ias_dial_value = math.min(399.0, spdval)
@@ -160,7 +164,7 @@ function clb_spcres_setSpd()
       elseif(B747DR_ap_ias_dial_value<spdval) and simDR_autopilot_airspeed_is_mach == 0 then
         spdval=math.min(B747DR_ap_ias_dial_value+5,spdval)
       end
-      
+      spdval=math.max(spdval,simDR_ind_airspeed_kts_pilot-5)
       simDR_autopilot_airspeed_is_mach = 0
       print("convert to clb speed ".. spdval)
       B747DR_ap_ias_dial_value = math.min(399.0, spdval)
@@ -188,6 +192,7 @@ function clb_nores_setSpd()
      else
         simDR_autopilot_airspeed_is_mach = 0
      end
+      spdval=math.max(spdval,simDR_ind_airspeed_kts_pilot-5)
       print("convert to transpd speed ".. spdval)
       B747DR_ap_ias_dial_value = math.min(399.0, spdval)
       B747DR_lastap_dial_airspeed=B747DR_ap_ias_dial_value
@@ -242,9 +247,11 @@ function clb_crz_setSpd()
     B747DR_lastap_dial_airspeed=spdval*0.01
     run_after_time(B747_updateIAS, 0.25)
 end
+
 function des_src_setSpd()
     local crzspdval=tonumber(getFMSData("desspdmach"))/10
     local spdval=tonumber(getFMSData("desspd"))
+    local nextspdval=tonumber(getFMSData("destranspd"))
     if simDR_airspeed_mach > (crzspdval/100) then
       print("convert to mach descend speed in des".. crzspdval)
       simDR_autopilot_airspeed_is_mach = 1
@@ -256,6 +263,10 @@ function des_src_setSpd()
         spdval=simDR_ind_airspeed_kts_pilot
       elseif(B747DR_ap_ias_dial_value>spdval) then
         spdval=math.max(B747DR_ap_ias_dial_value-5,spdval)
+      else
+        local lowerAlt=tonumber(getFMSData("desspdtransalt"))
+        local upperAlt=lowerAlt+2000
+        spdval=B747_rescale(lowerAlt,nextspdval,upperAlt,spdval,simDR_pressureAlt1)
       end
       simDR_autopilot_airspeed_is_mach = 0
       print("des_src_setSpd:convert to descend speed ".. spdval)
@@ -267,6 +278,12 @@ function des_src_setSpd()
 end
 function des_aptres_setSpd()
     local spdval=tonumber(getFMSData("destranspd"))
+    
+    local lowerAlt=tonumber(getFMSData("desrestalt"))
+    --local upperAlt=math.min(tonumber(getFMSData("desspdtransalt")),lowerAlt+2000)
+    local upperAlt=tonumber(getFMSData("desspdtransalt"))
+    local nextspdval=tonumber(getFMSData("desrestspd"))
+    spdval=B747_rescale(lowerAlt,nextspdval,upperAlt,spdval,simDR_pressureAlt1)
     simDR_autopilot_airspeed_is_mach = 0
     print("convert to destranspd speed ".. spdval)
     B747DR_ap_ias_dial_value = math.min(399.0, spdval)
@@ -279,7 +296,7 @@ end
 function des_spcres_setSpd()
     local spdval=tonumber(getFMSData("desrestspd"))
     simDR_autopilot_airspeed_is_mach = 0
-    print("convert to descend speed ".. spdval)
+    print("convert to desrestspd speed ".. spdval)
     B747DR_ap_ias_dial_value = math.min(399.0, spdval)
     B747DR_lastap_dial_airspeed=B747DR_ap_ias_dial_value
     run_after_time(B747_updateIAS, 0.25)
@@ -353,6 +370,7 @@ function B747_vnav_setClimbspeed()
         simDR_altimeter_baro_inHg = 29.92
         B747DR_efis_baro_std_fo_switch_pos = 1
         simDR_altimeter_baro_inHg_fo = 29.92
+        
     end
     vnavSPD_conditions["name"]="clb_"..cState
     vnavSPD_conditions["onground"]=simDR_onGround

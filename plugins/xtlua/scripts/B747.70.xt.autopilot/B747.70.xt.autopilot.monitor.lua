@@ -205,13 +205,7 @@ function VNAV_DES(numAPengaged,fms)
     B747DR_ap_vnav_state=2
 end
 local last_THR_REF=0
-function B747_rescale(in1, out1, in2, out2, x)
 
-    if x < in1 then return out1 end
-    if x > in2 then return out2 end
-    return out1 + (out2 - out1) * (x - in1) / (in2 - in1)
-
-end
 function B747_monitor_THR_REF_AT()
     
     if B747DR_ap_FMA_autothrottle_mode~=5 or B747DR_toggle_switch_position[29] ~= 1 then return end

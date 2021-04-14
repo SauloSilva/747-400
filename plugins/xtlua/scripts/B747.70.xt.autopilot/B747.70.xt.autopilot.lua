@@ -75,7 +75,13 @@ local B747_ap_last_FMA_autothrottle_mode = 0
 local B747_ap_last_FMA_roll_mode = 0
 local B747_ap_last_FMA_pitch_mode = 0
 local fmsData={}
+function B747_rescale(in1, out1, in2, out2, x)
 
+    if x < in1 then return out1 end
+    if x > in2 then return out2 end
+    return out1 + (out2 - out1) * (x - in1) / (in2 - in1)
+
+end
 function getFMSData(name)
 	return fmsData[name]
 end
@@ -561,13 +567,13 @@ function B747_ap_switch_vs_mode_CMDhandler(phase, duration)
 		simDR_autopilot_altitude_ft=B747DR_autopilot_altitude_ft
 		B747DR_ap_vnav_state=0
 		B747DR_ap_inVNAVdescent =0
-		B747DR_autopilot_vs_fpm=B744_fpm
+		B747DR_autopilot_vs_fpm=0
 		simCMD_autopilot_vert_speed_mode:once()
 
 	elseif phase ==2 then
 	  --for autpilot
 		  
-		  simDR_autopilot_vs_fpm=B744_fpm
+		  simDR_autopilot_vs_fpm=0
 		  
 	end
 end
@@ -805,10 +811,11 @@ end
 
 function B747_ap_switch_autothrottle_disco_L_CMDhandler(phase, duration)
 	if phase == 0 then
-		if simDR_autopilot_autothrottle_enabled == 1 then
+		--[[if simDR_autopilot_autothrottle_enabled == 1 then
 			simCMD_autopilot_autothrottle_off:once()
 			B747DR_engine_TOGA_mode = 0
-		end					
+		end	]]	
+		B747DR_autothrottle_fail=1			
 	end
 end	
 
@@ -817,10 +824,11 @@ end
 
 function B747_ap_switch_autothrottle_disco_R_CMDhandler(phase, duration)
 	if phase == 0 then
-		if simDR_autopilot_autothrottle_enabled == 1 then
+		--[[if simDR_autopilot_autothrottle_enabled == 1 then
 			simCMD_autopilot_autothrottle_off:once()
 			B747DR_engine_TOGA_mode = 0
-		end					
+		end	]]
+		B747DR_autothrottle_fail=1
 	end
 end	
 
