@@ -221,7 +221,7 @@ function B747_monitor_THR_REF_AT()
     if B747DR_ap_thrust_mode==2 and altDiff<0 then
         ref_throttle=20+B747_rescale(-10000,0,0,30,altDiff)
         print("THR REF descend at ref_throttle "..ref_throttle.." altDiff "..altDiff)
-    elseif simDR_radarAlt1<1000 and B747DR_ap_thrust_mode==0 then
+    elseif simDR_radarAlt1<1000 and B747DR_ap_thrust_mode<3 then
         if toderate==1 then ref_throttle=96
         elseif toderate==2 then ref_throttle=86  
         end      
@@ -241,11 +241,11 @@ function B747_monitor_THR_REF_AT()
     if thrustDiff<2 then wait=0.2
     elseif thrustDiff<10 then wait=0.1
     elseif thrustDiff<20 then wait=0.05 end
-    --print("THR REF="..ref_throttle.. " simDR_allThrottle="..n1_pct.. " wait="..wait)
+    --print("THR REF="..ref_throttle.. " simDR_allThrottle="..n1_pct.. " wait="..wait.. " B747DR_ap_thrust_mode="..B747DR_ap_thrust_mode)
     if lastChange<wait then return end --wait for engines to stabilise
-    if (n1_pct < (ref_throttle-0.2)) then
+    if (n1_pct < (ref_throttle-0.2)) and simDR_allThrottle<1.0 then
 	    simCMD_ThrottleUp:once()
-    elseif (n1_pct > (ref_throttle+0.2)) then
+    elseif (n1_pct > (ref_throttle+0.2)) and simDR_allThrottle>0.0 then
         simCMD_ThrottleDown:once()
     end
     last_THR_REF=simDRTime

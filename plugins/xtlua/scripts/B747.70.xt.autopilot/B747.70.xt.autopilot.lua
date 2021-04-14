@@ -435,7 +435,7 @@ function B747_ap_thrust_mode_CMDhandler(phase, duration)								-- INOP, NO CORR
 		B747_ap_button_switch_position_target[0] = 1
 		simCMD_autopilot_autothrottle_off:once()
 		if simDR_radarAlt1>400 then
-			B747DR_ap_thrust_mode=2
+			B747DR_ap_thrust_mode=3
 		end
 	elseif phase == 2 then
 		B747_ap_button_switch_position_target[0] = 0				
