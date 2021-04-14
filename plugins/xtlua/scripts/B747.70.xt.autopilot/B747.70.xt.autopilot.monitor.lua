@@ -340,6 +340,7 @@ function B747_monitorAT()
             simCMD_autopilot_autothrottle_off:once()
         end
         B747DR_autothrottle_fail=1
+        B747DR_engine_TOGA_mode = 0 
         lastatmodeswitch=simDRTime
         return 
     end
