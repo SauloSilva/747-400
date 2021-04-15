@@ -212,6 +212,7 @@ dofile("activepages/B744.fms.pages.progress.lua")
 dofile("activepages/B744.fms.pages.actrte1.lua")
 dofile("activepages/B744.fms.pages.fmccomm.lua")
 dofile("activepages/B744.fms.pages.vnav.lua")
+dofile("activepages/B744.fms.pages.vnav.lrc.lua")
 dofile("activepages/B744.fms.pages.groundhandling.lua")
 dofile("activepages/B744.fms.pages.maintsimconfig.lua")
 dofile("activepages/B744.fms.pages.identpage.lua")
@@ -481,6 +482,11 @@ function fmsFunctions.setpage_no(fmsO,valueA)
     simCMD_FMS_key[fmsO.id]["fpln"]:once()
     simCMD_FMS_key[fmsO.id]["L6"]:once()
 	simCMD_FMS_key[fmsO.id]["L2"]:once()
+  elseif value=="PROGRESS" then
+	fmsModules[fmsO.id].targetCustomFMC=true
+    simCMD_FMS_key[fmsO.id]["prog"]:once()
+    fmsModules[fmsO.id].targetPage="PROGRESS"
+	fmsModules[fmsO.id].targetpgNo=1
   elseif value=="VHFCONTROL" then
     fmsO["targetCustomFMC"]=false
     fmsO["targetPage"]="VHFCONTROL"
@@ -781,7 +787,12 @@ function fmsFunctions.setdata(fmsO,value)
 		simDR_EFIS_2_sel_pilot=2
 	end
   elseif value=="WPT" then
-
+	
+	if fmsO.id=="fmsR" then 
+		B747DR_nd_fo_wpt=1-B747DR_nd_fo_wpt 
+	else
+		B747DR_nd_capt_wpt=1-B747DR_nd_capt_wpt
+	end
   elseif value=="STA" then
 	if fmsO.id=="fmsR" then 
 		B747DR_nd_fo_vor_ndb = 1-B747DR_nd_fo_vor_ndb 

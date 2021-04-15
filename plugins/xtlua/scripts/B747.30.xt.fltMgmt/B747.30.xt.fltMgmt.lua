@@ -412,13 +412,13 @@ function B747_fltmgmt_EICAS_msg()
   else
     B747DR_CAS_advisory_status[279] = 0
   end
-  if B747DR_radio_altitude>400 and B747DR_xpdrMode_sel_pos==3 then
+  --[[if B747DR_radio_altitude>400 and B747DR_xpdrMode_sel_pos==3 then
     B747DR_CAS_advisory_status[280] = 1
     B747DR_CAS_advisory_status[281] = 1
   else
     B747DR_CAS_advisory_status[280] = 0
     B747DR_CAS_advisory_status[281] = 0
-  end
+  end]]
 end
 debug_fltmgmt     = deferred_dataref("laminar/B747/debug/fltmgmt", "number")
 function after_physics()
