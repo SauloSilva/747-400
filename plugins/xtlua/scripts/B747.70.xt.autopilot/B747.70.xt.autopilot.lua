@@ -1679,16 +1679,16 @@ end
 
 ----- IAS/MACH MODE ---------------------------------------------------------------------
 function B747_ap_ias_mach_mode()
-	if
+	--[[if
 	    (B747DR_engine_TOGA_mode == 1 or (simDR_autopilot_TOGA_vert_status == 2 and B747DR_ap_vnav_state==1) or (B747DR_ap_autoland<-1))
 	   -- (B747DR_engine_TOGA_mode == 1 or (B747DR_ap_vnav_state > 0 and B747DR_ap_inVNAVdescent == 0) )
 	and (simDR_radarAlt1>400 or simDR_ind_airspeed_kts_pilot>simDR_autopilot_airspeed_kts) then							-- AUTOTHROTTLE IS "OFF"
-	  if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 then simCMD_autopilot_autothrottle_on:once()	end								-- ACTIVATE THE AUTOTHROTTLE
+	 -- if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 then simCMD_autopilot_autothrottle_on:once()	end								-- ACTIVATE THE AUTOTHROTTLE
 	  simCMD_autopilot_flch_mode:once()
 	  if B747DR_ap_vnav_state==0 then B747DR_ap_thrust_mode=2 end
 	  B747DR_engine_TOGA_mode = 0 
 	  B747DR_ap_autoland=-1
-	end
+	end]]
 
 	  if B747DR_ap_autoland<0 and (simDR_radarAlt1>1500) then
 	    B747DR_ap_autoland=0
@@ -1989,7 +1989,7 @@ function B747_ap_fma()
     -------------------------------------------------------------------------------------
     if B747DR_toggle_switch_position[29] == 0 or B747DR_autothrottle_fail==1 then
 		B747DR_ap_FMA_autothrottle_mode = 0
-	elseif (B747DR_engine_TOGA_mode >0 and simDR_ind_airspeed_kts_pilot<65) or B747DR_ap_autoland<0 or (B747DR_ap_vnav_state==0 and B747DR_ap_thrust_mode==2) then                                        
+	elseif (B747DR_engine_TOGA_mode >0 and simDR_ind_airspeed_kts_pilot<65) or B747DR_ap_autoland<0 or (B747DR_ap_vnav_state==0 and B747DR_ap_thrust_mode>0) then                                        
         B747DR_ap_FMA_autothrottle_mode = 5 --THR REF
     elseif (B747DR_engine_TOGA_mode == 1 and simDR_radarAlt1<50)  then                                        
         B747DR_ap_FMA_autothrottle_mode = 1 --HOLD

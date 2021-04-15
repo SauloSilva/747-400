@@ -139,7 +139,7 @@ function clb_src_setSpd()
     vnavSPD_state["setBaro"]=false
 end
 function clb_aptres_setSpd()
-    local spdval=math.max(tonumber(getFMSData("clbrestspd")),simDR_ind_airspeed_kts_pilot-5)
+    local spdval=math.max(tonumber(getFMSData("clbrestspd")),simDR_ind_airspeed_kts_pilot-15)
     simDR_autopilot_airspeed_is_mach = 0
     print("convert to clb clbrestspd ".. spdval)
     B747DR_ap_ias_dial_value = math.min(399.0, spdval)
@@ -164,9 +164,9 @@ function clb_spcres_setSpd()
       elseif(B747DR_ap_ias_dial_value<spdval) and simDR_autopilot_airspeed_is_mach == 0 then
         spdval=math.min(B747DR_ap_ias_dial_value+5,spdval)
       end
-      spdval=math.max(spdval,simDR_ind_airspeed_kts_pilot-5)
-      simDR_autopilot_airspeed_is_mach = 0
-      print("convert to clb speed ".. spdval)
+      spdval=math.max(spdval,simDR_ind_airspeed_kts_pilot-15)
+      simDR_autopilot_airspeed_is_mach = 0 
+      print("convert to clb speed ".. spdval.. " at "..simDR_ind_airspeed_kts_pilot)
       B747DR_ap_ias_dial_value = math.min(399.0, spdval)
       B747DR_lastap_dial_airspeed=B747DR_ap_ias_dial_value
     end
@@ -192,7 +192,7 @@ function clb_nores_setSpd()
      else
         simDR_autopilot_airspeed_is_mach = 0
      end
-      spdval=math.max(spdval,simDR_ind_airspeed_kts_pilot-5)
+      spdval=math.max(spdval,simDR_ind_airspeed_kts_pilot-15)
       print("convert to transpd speed ".. spdval)
       B747DR_ap_ias_dial_value = math.min(399.0, spdval)
       B747DR_lastap_dial_airspeed=B747DR_ap_ias_dial_value
@@ -262,7 +262,7 @@ function des_src_setSpd()
       if simDR_autopilot_airspeed_is_mach==1 then
         spdval=simDR_ind_airspeed_kts_pilot
       elseif(B747DR_ap_ias_dial_value>spdval) then
-        spdval=math.max(B747DR_ap_ias_dial_value-5,spdval)
+        spdval=math.max(B747DR_ap_ias_dial_value-15,spdval)
       else
         local lowerAlt=tonumber(getFMSData("desspdtransalt"))
         local upperAlt=lowerAlt+2000
@@ -345,6 +345,12 @@ function B747_update_vnav_speed()
        print("new crzSpd leg")
        vnavSPD_state["gotVNAVSpeed"]=false 
     end
+    --probably not needed?
+    --[[if vnavSPD_conditions["mcpAlt"]~=B747DR_autopilot_altitude_ft then
+        print("new mcpAlt")
+        vnavSPD_conditions["mcpAlt"]=B747DR_autopilot_altitude_ft
+        vnavSPD_state["gotVNAVSpeed"]=false 
+     end]]
 end
 function B747_vnav_setClimbspeed()
     local lastAlt=simDR_pressureAlt1+(simDR_radarAlt1-400)
