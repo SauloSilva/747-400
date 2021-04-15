@@ -1,4 +1,4 @@
--- VNAV Page by Garen Evans, Revised 11 April 2021 1338 UTC
+-- VNAV Page by Garen Evans, Revised 15 April 2021 2016 UTC
 ----------------------------------------------------------------------------------------------
 --
 -- the following datarefs nil if not assigned:
@@ -32,9 +32,18 @@ local dNM = -1 --distance to destination, this is currently assigned and used on
 local ClbV2 = 0 --backup of V2 speed which
 --dNM = find_dataref("laminar/B747/autopilot/dist/remaining_distance") -- this is too inconsistent to use right now
 
+local conv = 1.0 --converter (pounds to kilos)
+
 fmsPages["VNAV"]=createPage("VNAV")
 fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be this way
+  
 
+  if simConfigData["data"].SIM.weight_display_units == "LBS" then
+    conv = 1.0
+  else
+    conv = 1 / simConfigData["data"].SIM.kgs_to_lbs
+  end
+  
     gsKTS = 1.94384 * simDR_groundspeed
     if pgNo==1 then 
 
@@ -43,8 +52,10 @@ fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be thi
       fmsFunctionsDefs["VNAV"]["L2"]={"setdata","clbspd"}
       fmsFunctionsDefs["VNAV"]["L3"]={"setdata","clbtrans"}
       fmsFunctionsDefs["VNAV"]["L4"]={"setdata","clbrest"}
+      fmsFunctionsDefs["VNAV"]["L6"]=nil
       fmsFunctionsDefs["VNAV"]["R1"]=nil
       fmsFunctionsDefs["VNAV"]["R3"]={"setdata","transalt"}
+      fmsFunctionsDefs["VNAV"]["R6"]=nil
 
       spdalt = "     -----"
       error_line = "                 "
@@ -167,6 +178,7 @@ fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be thi
       fmsFunctionsDefs["VNAV"]["L2"]={"setdata","crzspd"}
       fmsFunctionsDefs["VNAV"]["L3"]=nil
       fmsFunctionsDefs["VNAV"]["L4"]=nil
+      fmsFunctionsDefs["VNAV"]["L6"]={"setpage","PROGRESS"}
       fmsFunctionsDefs["VNAV"]["R1"]={"setdata","stepalt"}
       fmsFunctionsDefs["VNAV"]["R3"]=nil
       fmsFunctionsDefs["VNAV"]["R6"]={"setpage","LRC"}
@@ -247,6 +259,7 @@ fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be thi
       local tmnow = hh + mm/60
       local eta = 0
       local fad = 0 --fuel at destination, lbs
+      local fuelKg = simDR_fueL_tank_weight_total_kg
 
       if(simDR_onGround==1) then --on the ground
         if(dtogo > 10) then -- at origin with route set
@@ -278,7 +291,7 @@ fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be thi
             ttg = math.floor( 10 * dtogo / gsKTS ) / 10 --time to go, hh.m
             fad = (simDR_fueL_tank_weight_total_kg - ttg*ff) * 2.205
           else
-            fad = simDR_fueL_tank_weight_total_kg * 2.205 - dtogo * 55 -- mean fuel burn 55 pounds per nautical mile
+            fad = simDR_fueL_tank_weight_total_kg * 2.205 - dtogo * 51.6 -- mean fuel burn per NM, fuelplanner.com
           end          
 
         end
@@ -293,7 +306,7 @@ fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be thi
       --local dt1 = os.date( "!%X", timestamp )  -- UTC
       --local utcNow = string.formt("%02f%02f",dt1hour,dt1.min)
 
-      etafuel = string.format("%02d%02dz/ %03.1f",eta_h,eta_m,fad/1000)
+      etafuel = string.format("%02d%02dz/ %03.1f",eta_h,eta_m,conv*fad/1000)
 
       return{
       "     ACT ECON CRZ       ",
@@ -318,8 +331,10 @@ fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be thi
       fmsFunctionsDefs["VNAV"]["L2"]={"setdata","desspds"}
       fmsFunctionsDefs["VNAV"]["L3"]={"setdata","destrans"}
       fmsFunctionsDefs["VNAV"]["L4"]={"setdata","desrest"}
+      fmsFunctionsDefs["VNAV"]["L6"]=nil
       fmsFunctionsDefs["VNAV"]["R1"]=nil
       fmsFunctionsDefs["VNAV"]["R3"]=nil
+      fmsFunctionsDefs["VNAV"]["R6"]=nil
 
       if B747DR_ap_vnav_state==2 and simDR_autopilot_vs_status==2 then
 	      fmsModules["data"]["fpa"]=string.format("%1.1f",B747DR_ap_fpa)
@@ -336,7 +351,7 @@ fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be thi
       local nxtspd = ""
       local lowwpt = ""
       local lowalt = 99999
-      --[cleanup]dofile("json/json.lua")
+
       if(string.len(fmsJson) > 2) then
         local fms = json.decode(fmsJson)
         if(fms ~= nil) then
