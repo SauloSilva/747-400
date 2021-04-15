@@ -1,4 +1,4 @@
--- VNAV Page by Garen Evans, Revised 15 April 2021 2016 UTC
+-- VNAV LRC Page by Garen Evans, Revised 15 April 2021 2016 UTC
 ----------------------------------------------------------------------------------------------
 --
 -- the following datarefs nil if not assigned:
