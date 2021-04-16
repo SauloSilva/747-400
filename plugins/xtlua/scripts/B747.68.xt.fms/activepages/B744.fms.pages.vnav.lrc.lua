@@ -1,4 +1,4 @@
--- VNAV Page by Garen Evans, Revised 15 April 2021 1939 UTC
+-- VNAV Page by Garen Evans, Revised 16 April 2021 0718 UTC
 ----------------------------------------------------------------------------------------------
 local conv = 1.0 --converter (pounds to kilos)
 
@@ -11,7 +11,7 @@ else
   conv = 1 / simConfigData["data"].SIM.kgs_to_lbs
 end
 
-fmsFunctionsDefs["LRC"]["L5"]={"setpage","VNAV"}
+fmsFunctionsDefs["LRC"]["L5"]={"setpage","VNAV_2"}
 fmsFunctionsDefs["LRC"]["R6"]=nil
 fmsFunctionsDefs["LRC"]["R7"]=nil
 
