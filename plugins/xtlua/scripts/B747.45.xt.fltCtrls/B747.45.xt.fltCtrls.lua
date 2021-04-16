@@ -119,6 +119,7 @@ simDR_yaw_damper_on             = find_dataref("sim/cockpit2/switches/yaw_damper
 simDR_gear_vert_defl            = find_dataref("sim/flightmodel2/gear/tire_vertical_deflection_mtr")
 simDR_gear_deploy_ratio         = find_dataref("sim/flightmodel2/gear/deploy_ratio")
 simDR_wing_flap1_deg            = find_dataref("sim/flightmodel2/wing/flap1_deg")
+B747DR_airspeed_flapsRef        = find_dataref("laminar/B747/airspeed/flapsRef")
 simDR_ind_airspeed_kts_pilot    = find_dataref("sim/cockpit2/gauges/indicators/airspeed_kts_pilot")
 simDR_engine_N1_pct             = find_dataref("sim/cockpit2/engine/indicators/N1_percent")
 simDR_radio_alt_height_capt     = find_dataref("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot")
@@ -927,11 +928,11 @@ function B747_fltCtrols_EICAS_msg()
 
     -- >CONFIG FLAPS
     
-    if (simDR_wing_flap1_deg[0] < 9.95 or simDR_wing_flap1_deg[0] > 20.05)
+    if (simDR_wing_flap1_deg[0] < 9.95 or simDR_wing_flap1_deg[0] > 20.05 or simDR_wing_flap1_deg[0]~=B747DR_airspeed_flapsRef)
         and simDR_all_wheels_on_ground == 1
         and simDR_ind_airspeed_kts_pilot < B747DR_airspeed_V1
         and num_fuel_ctrl_sw_on >= 3
-        and simDR_engine_N1_pct[1] > 90.0 and simDR_engine_N1_pct[2] > 90.0
+        and simDR_engine_N1_pct[1] > 80.0 and simDR_engine_N1_pct[2] > 80.0
     then
         B747DR_CAS_warning_status[2] = 1
     else

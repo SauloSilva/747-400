@@ -92,13 +92,16 @@ function VNAV_CLB(numAPengaged,fmsO)
         --computeVNAVAlt(fmsO)
         print("UPDATE VNAV_CLB "..waypointDiff .. " " .. mcpDiff.. " " .. waypointAlt .. " " .. start.. " " .. fmsO[start][9].. " " .. simDR_pressureAlt1) 
     end
-    if (simDR_pressureAlt1 < B747BR_cruiseAlt-300 or simDR_pressureAlt1 > B747BR_cruiseAlt+300) and simDR_radarAlt1>50 then 
+    if (simDR_pressureAlt1 < B747BR_cruiseAlt-300 or simDR_pressureAlt1 > B747BR_cruiseAlt+300) and simDR_radarAlt1>400 then 
         if simDR_autopilot_flch_status == 0 and 
         (simDR_autopilot_alt_hold_status == 0 or numAPengaged==0 or B747DR_ap_vnav_state == 1 or B747DR_ap_vnav_state == 3
            -- or (waypointDiff>1000 and (mcpDiff>1000 or mcpDiff<-1000))
         ) then
             --if (simDR_allThrottle>=0.94) then
                 simCMD_autopilot_flch_mode:once()
+                if B747DR_ap_vnav_state==0 then B747DR_ap_thrust_mode=2 end
+                B747DR_engine_TOGA_mode = 0 
+                B747DR_ap_autoland=-1
                 print("flch > 1000 feet climb ")  
             --end 
         end
@@ -183,7 +186,7 @@ function VNAV_DES(numAPengaged,fms)
             print("Resume descent")
         end
     end
-    local spdval=tonumber(getFMSData("destranspd"))
+    local spdval=tonumber(getFMSData("desspd"))
     local forceOn=false
     if B747DR_ap_ias_dial_value<=spdval and simDR_autopilot_airspeed_is_mach==0 then forceOn=true end
 
