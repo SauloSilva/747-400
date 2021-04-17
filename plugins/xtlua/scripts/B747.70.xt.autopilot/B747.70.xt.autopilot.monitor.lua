@@ -12,7 +12,7 @@
 *
 --]]
 
-local lastmodeswitch=0
+
 function VNAV_NEXT_ALT(numAPengaged,fms)
     local began=false
     local targetAlt=simDR_autopilot_altitude_ft
@@ -123,7 +123,7 @@ function VNAV_CLB(numAPengaged,fmsO)
     
 end
 function VNAV_CRZ(numAPengaged)
-
+    print("VNAV_CRZ alt hold") 
     if simDR_autopilot_alt_hold_status == 0 and B747DR_ap_vnav_state == 1 then
         simCMD_autopilot_alt_hold_mode:once()
         print("alt hold < 50nm from TOD")
@@ -221,6 +221,7 @@ function B747_monitor_THR_REF_AT()
     if lastChange==0 and needNew==true then return end --wait for engines to stabilise, wait for update N1]]
     local ref_throttle=100
     local altDiff = simDR_autopilot_altitude_ft - simDR_pressureAlt1
+    local timediff=simDRTime-B747DR_ap_lastCommand
     if B747DR_ap_thrust_mode==2 and altDiff<0 then
         ref_throttle=20+B747_rescale(-10000,0,0,30,altDiff)
         print("THR REF descend at ref_throttle "..ref_throttle.." altDiff "..altDiff)
@@ -229,7 +230,10 @@ function B747_monitor_THR_REF_AT()
         elseif toderate==2 then ref_throttle=86  
         end      
     else
-        if B747DR_ap_thrust_mode==0 then B747DR_ap_thrust_mode=1 end
+        if B747DR_ap_thrust_mode==0 and timediff>0.5 then 
+            print("B747DR_ap_thrust_mode =1 @ "..timediff)
+            B747DR_ap_thrust_mode=1 
+        end
         if clbderate==1 then ref_throttle=96
         elseif clbderate==2 then ref_throttle=86
         end 
@@ -267,7 +271,7 @@ function VNAV_modeSwitch(fmsO)
         B747_monitor_THR_REF_AT()
     end
 
-    local diff=simDRTime-lastmodeswitch
+    local diff=simDRTime-B747DR_ap_lastCommand
     if diff<0.5 then return end --mode switch at 0.5 second intervals
     
     local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
@@ -276,12 +280,12 @@ function VNAV_modeSwitch(fmsO)
 
     if dist>50 then
         VNAV_CLB(numAPengaged,fmsO) --climb to cruise
-    elseif dist>10 and B747DR_ap_inVNAVdescent==0 then
+    elseif dist>0 and B747DR_ap_inVNAVdescent==0 then
         VNAV_CRZ(numAPengaged) --go to alt hold if not in descent
     else
         VNAV_DES(numAPengaged,fmsO)
     end
-    lastmodeswitch=simDRTime
+    B747DR_ap_lastCommand=simDRTime
     
 end
 function LNAV_modeSwitch()
@@ -316,7 +320,7 @@ end
 --custom autothrottle for THR REF
 
 function B747_monitorAT()
-    local diff=simDRTime-lastatmodeswitch
+    local diff=simDRTime-B747DR_ap_lastCommand
     if diff<0.5 then return end --mode switch at 0.5 second intervals
     --make sure autothrottle is in the correct mode for the FMA
     --[[local ap_state=toBits(simDR_autopilot_state)
@@ -344,7 +348,7 @@ function B747_monitorAT()
         end
         B747DR_autothrottle_fail=1
         B747DR_engine_TOGA_mode = 0 
-        lastatmodeswitch=simDRTime
+        B747DR_ap_lastCommand=simDRTime
         return 
     end
 
@@ -354,7 +358,7 @@ function B747_monitorAT()
             print("AT off")
             simCMD_autopilot_autothrottle_off:once()
         end
-        lastatmodeswitch=simDRTime
+        B747DR_ap_lastCommand=simDRTime
         return 
     end
 
@@ -367,7 +371,7 @@ function B747_monitorAT()
             simCMD_autopilot_autothrottle_on:once()
             
         end
-        lastatmodeswitch=simDRTime
+        B747DR_ap_lastCommand=simDRTime
         return 
     end
     if (B747DR_ap_FMA_active_pitch_mode == 9 
@@ -378,11 +382,11 @@ function B747_monitorAT()
             simCMD_autopilot_autothrottle_on:once()
         end
         B747DR_ap_thrust_mode=0
-        lastatmodeswitch=simDRTime
+        B747DR_ap_lastCommand=simDRTime
         return 
     end
     if B747DR_ap_FMA_autothrottle_mode == 3 then -- SPD
-        lastatmodeswitch=simDRTime
+        B747DR_ap_lastCommand=simDRTime
         return 
     end
     --otherwise off  (VNAV ONLY)
@@ -390,7 +394,7 @@ function B747_monitorAT()
         print("Off with B747DR_ap_FMA_active_pitch_mode="..B747DR_ap_FMA_active_pitch_mode)
         simCMD_autopilot_autothrottle_off:once()
     end
-    lastatmodeswitch=simDRTime
+    B747DR_ap_lastCommand=simDRTime
     
     
     

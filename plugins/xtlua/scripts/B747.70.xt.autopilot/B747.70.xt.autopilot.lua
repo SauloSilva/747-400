@@ -53,7 +53,7 @@ function deferred_dataref(name,nilType,callFunction)
     return find_dataref(name)
 end
 
-lastatmodeswitch=0
+
 --*************************************************************************************--
 --** 					            GLOBAL VARIABLES                				 **--
 --*************************************************************************************--
@@ -246,6 +246,7 @@ simCMD_autopilot_servos2_on              = find_command("sim/autopilot/servos2_o
 simCMD_autopilot_servos2_fdir_off        = find_command("sim/autopilot/servos_fdir2_off")
 simCMD_autopilot_servos3_on              = find_command("sim/autopilot/servos3_on")
 simCMD_autopilot_servos3_fdir_off        = find_command("sim/autopilot/servos_fdir3_off")
+simCMD_autopilot_servos_off        		= find_command("sim/autopilot/servos_off_any")
 simCMD_autopilot_fdir_off        		= find_command("sim/autopilot/servos_fdir_off")
 simCMD_autopilot_fdir_servos_down_one   = find_command("sim/autopilot/fdir_servos_down_one")
 simCMD_autopilot_pitch_sync             = find_command("sim/autopilot/pitch_sync")
@@ -434,6 +435,7 @@ function B747_ap_thrust_mode_CMDhandler(phase, duration)								-- INOP, NO CORR
 	if phase == 0 then
 		B747_ap_button_switch_position_target[0] = 1
 		simCMD_autopilot_autothrottle_off:once()
+		B747DR_ap_lastCommand=simDRTime
 		if simDR_radarAlt1>400 then
 			B747DR_ap_thrust_mode=3
 		end
@@ -448,7 +450,7 @@ end
 function B747_ap_switch_speed_mode_CMDhandler(phase, duration)
 	if phase == 0 then
 		B747_ap_button_switch_position_target[1] = 1									-- SET THE SPEED SWITCH ANIMATION TO "IN"
-		lastatmodeswitch=simDRTime
+		B747DR_ap_lastCommand=simDRTime
 		
 		if B747DR_toggle_switch_position[29] == 1 then									-- AUTOTHROTTLE ""ARM" SWITCH IS "ON"
 		
@@ -459,7 +461,9 @@ function B747_ap_switch_speed_mode_CMDhandler(phase, duration)
 		end
 		B747DR_ap_vnav_state=0
 		B747DR_ap_inVNAVdescent =0
+		print("B747DR_ap_thrust_mode "..B747DR_ap_thrust_mode)
 		B747DR_ap_thrust_mode=0
+		print("B747DR_ap_thrust_mode "..B747DR_ap_thrust_mode)
 		if B747DR_switchingIASMode==0 then  
 		  if simDR_autopilot_airspeed_is_mach == 0 then
 			simDR_autopilot_airspeed_kts = B747DR_ap_ias_dial_value
@@ -537,7 +541,7 @@ end
 function B747_ap_switch_flch_mode_CMDhandler(phase, duration)
 	if phase == 0 then 
 		B747_ap_button_switch_position_target[4] = 1
-		lastatmodeswitch=simDRTime
+		B747DR_ap_lastCommand=simDRTime
 		simDR_autopilot_altitude_ft=B747DR_autopilot_altitude_ft
 		simCMD_autopilot_flch_mode:once()
 		B747DR_ap_vnav_state=0
@@ -566,6 +570,7 @@ function B747_ap_switch_vs_mode_CMDhandler(phase, duration)
 
 		simDR_autopilot_altitude_ft=B747DR_autopilot_altitude_ft
 		B747DR_ap_vnav_state=0
+		B747DR_ap_thrust_mode=0
 		B747DR_ap_inVNAVdescent =0
 		B747DR_autopilot_vs_fpm=0
 		simCMD_autopilot_vert_speed_mode:once()
@@ -732,9 +737,13 @@ end
 function B747_ap_switch_disengage_bar_CMDhandler(phase, duration)
 	if phase == 0 then
 		B747_ap_button_switch_position_target[14] = 1.0 - B747_ap_button_switch_position_target[14]	
+		B747DR_ap_lastCommand=simDRTime
 		if B747_ap_button_switch_position_target[14] == 1.0	then						-- DISENGAGE
 			B747CMD_ap_reset:once()												-- TURN FLIGHT DIRECTOR AND SERVOS "OFF"	
-			B747_ap_all_cmd_modes_off()		
+			B747_ap_all_cmd_modes_off()	
+			simCMD_autopilot_servos_fdir_off:once()	
+			simCMD_autopilot_servos2_fdir_off:once()
+			simCMD_autopilot_servos3_fdir_off:once()	
 		end	
 	end
 end	
@@ -744,33 +753,13 @@ end
 
 function B747_ap_switch_yoke_disengage_capt_CMDhandler(phase, duration)
 	if phase == 0 then
-		if B747DR_toggle_switch_position[23] == 0 										-- LEFT FLIGHT DIRECTOR SWITCH IS "OFF"
-			and B747DR_toggle_switch_position[24] == 0 									-- RIGHT FLIGHT DIRECTOR SWITCH IS "OFF"
-		then				
-			if simDR_autopilot_flight_dir_mode == 0 then								-- FLIGHT DIRECTOR AND SERVOS ARE "OFF"
-				-- if A/P DISCO AURAL WARNING IS ON										-- TODO:  CANX AURAL WARNING, NEED FMOD AUDIO CONTROL OF A/P DISCO AURAL WARNING
-					-- TURN AURAL WARNING OFF
-					-- SET CAS MASSAGE TO OFF
-			else																		-- FLIGHT DIRECTOR IS ON OR F/D AND SERVOS ARE "ON"
-				B747CMD_ap_reset:once()													-- TURN FLIGHT DIRECTOR AND SERVOS "OFF"	
-			end
-		else																			-- ONE OF THE FLIGHT DIRECTOR SWITCHES IS "ON"	
-			if simDR_autopilot_flight_dir_mode == 0 then								-- FLIGHT DIRECTOR AND SERVOS ARE "OFF"	(NOTE:  THIS CONDITION SHOULD ACTUALLY _NEVER_ EXIST !!)			
-				-- if A/P DISCO AURAL WARNING IS ON										-- TODO:  NEED FMOD AUDIO CONTROL OF A/P DISCO AURAL WARNING
-					-- TURN AURAL WARNING OFF
-					-- SET CAS MASSAGE TO OFF
-			elseif simDR_autopilot_flight_dir_mode == 1 then							-- FLIGHT DIRECTOR IS ON, SERVOS ARE OFF
-				-- if A/P DISCO AURAL WARNING IS ON										-- TODO:  CANX AURAL WARNING, NEED FMOD AUDIO CONTROL OF A/P DISCO AURAL WARNING
-					-- TURN AURAL WARNING OFF
-					-- SET CAS MASSAGE TO OFF							
-			elseif simDR_autopilot_flight_dir_mode == 2 then							-- FLIGHT DIRECTOR AND SERVOS ARE "ON"
-				simCMD_autopilot_fdir_servos_down_one:once()							-- TURN ONLY THE SERVOS OFF, LEAVE FLIGHT DIRECTOR ON	
-				B747_ap_all_cmd_modes_off()			
-			end								
-		end
+		B747DR_ap_lastCommand=simDRTime
+		
 		B747CMD_ap_reset:once()
+		simCMD_autopilot_servos_off:once()
 		--simCMD_autopilot_fdir_servos_down_one:once()							-- TURN ONLY THE SERVOS OFF, LEAVE FLIGHT DIRECTOR ON	
 		B747_ap_all_cmd_modes_off()
+
 	end
 end	
 
@@ -779,30 +768,11 @@ end
 
 function B747_ap_switch_yoke_disengage_fo_CMDhandler(phase, duration)
 	if phase == 0 then
-		if B747DR_toggle_switch_position[23] == 0 										-- LEFT FLIGHT DIRECTOR SWITCH IS "OFF"
-			and B747DR_toggle_switch_position[24] == 0 									-- RIGHT FLIGHT DIRECTOR SWITCH IS "OFF"
-		then				
-			if simDR_autopilot_flight_dir_mode == 0 then								-- FLIGHT DIRECTOR AND SERVOS ARE "OFF"
-				-- if A/P DISCO AURAL WARNING IS ON										-- TODO:  CANX AURAL WARNING, NEED FMOD AUDIO CONTROL OF A/P DISCO AURAL WARNING
-					-- TURN AURAL WARNING OFF
-					-- SET CAS MASSAGE TO OFF
-			else																		-- FLIGHT DIRECTOR IS ON OR F/D AND SERVOS ARE "ON"
-				B747CMD_ap_reset:once()													-- TURN FLIGHT DIRECTOR AND SERVOS "OFF"	
-			end
-		else																			-- ONE OF THE FLIGHT DIRECTOR SWITCHES IS "ON"	
-			if simDR_autopilot_flight_dir_mode == 0 then								-- FLIGHT DIRECTOR AND SERVOS ARE "OFF"	(NOTE:  THIS CONDITION SHOULD ACTUALLY _NEVER_ EXIST !!)			
-				-- if A/P DISCO AURAL WARNING IS ON										-- TODO:  NEED FMOD AUDIO CONTROL OF A/P DISCO AURAL WARNING
-					-- TURN AURAL WARNING OFF
-					-- SET CAS MASSAGE TO OFF
-			elseif simDR_autopilot_flight_dir_mode == 1 then							-- FLIGHT DIRECTOR IS ON, SERVOS ARE OFF
-				-- if A/P DISCO AURAL WARNING IS ON										-- TODO:  CANX AURAL WARNING, NEED FMOD AUDIO CONTROL OF A/P DISCO AURAL WARNING
-					-- TURN AURAL WARNING OFF
-					-- SET CAS MASSAGE TO OFF							
-			elseif simDR_autopilot_flight_dir_mode == 2 then							-- FLIGHT DIRECTOR AND SERVOS ARE "ON"
-				simCMD_autopilot_fdir_servos_down_one:once()							-- TURN ONLY THE SERVOS OFF, LEAVE FLIGHT DIRECTOR ON	
-				B747_ap_all_cmd_modes_off()			
-			end								
-		end	
+		B747DR_ap_lastCommand=simDRTime
+		B747CMD_ap_reset:once()
+		simCMD_autopilot_servos_off:once()
+		--simCMD_autopilot_fdir_servos_down_one:once()							-- TURN ONLY THE SERVOS OFF, LEAVE FLIGHT DIRECTOR ON	
+		B747_ap_all_cmd_modes_off()
 	end
 end	
 
@@ -849,18 +819,19 @@ end
 
 
 function B747_ap_reset_CMDhandler(phase, duration)
+	print("B747_ap_reset_CMDhandler")
 	if phase == 0 then
 		--simCMD_autopilot_pitch_sync:once()
-		simCMD_autopilot_servos_fdir_off:once()	
-		simCMD_autopilot_servos2_fdir_off:once()
-		simCMD_autopilot_servos3_fdir_off:once()
+		
 		B747DR_engine_TOGA_mode=0
 		simDR_autopilot_fms_vnav = 0
 		B747DR_ap_vnav_state=0
 		B747DR_ap_thrust_mode=0
 		B747DR_ap_inVNAVdescent =0
-		B747_ap_all_cmd_modes_off()
+		B747_ap_all_cmd_modes_off() --B747_ap_reset_CMDhandler
 		B747DR_ap_ias_mach_window_open = 0
+		
+		
 	end
 end	
 
@@ -896,7 +867,8 @@ function B747_ap_VNAV_mode_CMDhandler(phase, duration)
 		elseif B747DR_ap_vnav_state>0 then 
 		  B747DR_ap_vnav_state=0
 		  B747DR_ap_inVNAVdescent =0
-		  
+		  B747DR_ap_thrust_mode=0
+		  if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 and simDR_onGround==0 then simCMD_autopilot_autothrottle_on:once() end
 		elseif B747DR_ap_vnav_system == 2 then
 		  B747DR_ap_vnav_state=1 
 		  setVNAVState("gotVNAVSpeed",false)
@@ -933,6 +905,7 @@ end
 
 B747CMD_ap_thrust_mode              			= deferred_command("laminar/B747/autopilot/button_switch/thrust_mode", "Autopilot THR Mode", B747_ap_thrust_mode_CMDhandler)
 B747DR_ap_thrust_mode              			= deferred_dataref("laminar/B747/autopilot/thrust_mode", "number")
+B747DR_ap_lastCommand              			= deferred_dataref("laminar/B747/autopilot/lastCommand", "number")
 B747CMD_ap_switch_speed_mode				= deferred_command("laminar/B747/autopilot/button_switch/speed_mode", "A/P Speed Mode Switch", B747_ap_switch_speed_mode_CMDhandler)
 B747CMD_ap_press_airspeed				= deferred_command("laminar/B747/button_switch/press_airspeed", "Airspeed Dial Press", B747_ap_switch_vnavspeed_mode_CMDhandler)
 B747CMD_ap_press_altitude				= deferred_command("laminar/B747/button_switch/press_altitude", "Altitude Dial Press", B747_ap_switch_vnavalt_mode_CMDhandler)
@@ -1890,15 +1863,12 @@ function B747_ap_altitude()
 	    print("Cancel VNAV "..table.getn(fms)) 
 	    B747DR_fmc_notifications[30]=1
 	    B747DR_ap_vnav_state=0 
+		B747DR_ap_thrust_mode=0
 	    return
 	  end --no vnav
 	  
 	  --computeVNAVAlt(fms)
-	  if B747BR_totalDistance-B747BR_tod<=50 then
-	    vnavDescent()
-	  else
-	    vnavCruise()
-	  end
+
 	end
 
 end	
@@ -2140,7 +2110,7 @@ function B747_ap_fma()
         B747DR_ap_FMA_active_pitch_mode = 2
 		B747DR_ap_vnav_state=0
 		B747DR_ap_inVNAVdescent =0
-
+		B747DR_ap_thrust_mode=0
     -- (FLARE) --
     -- TODO: AUTOLAND LOGIC
 
