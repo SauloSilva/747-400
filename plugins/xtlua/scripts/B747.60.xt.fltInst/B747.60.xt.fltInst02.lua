@@ -2931,7 +2931,7 @@ function B747_fltInst_EICAS_msg()
         or simDR_airspeed_mach > B747DR_airspeed_Mmo
     then
         B747DR_CAS_warning_status[22] = 1
-        B747DR_autothrottle_fail=1
+        --B747DR_autothrottle_fail=1
     else
         B747DR_CAS_warning_status[22] = 0
     end
