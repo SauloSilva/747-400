@@ -110,8 +110,8 @@ function B747_speedbrake_lever_DRhandler()
 		simDR_speedbrake_ratio_control = 0.0
 		B747DR_CAS_memo_status[45] = 0
      -- ARMED DETENT
-    elseif B747DR_speedbrake_lever < 0.15 and
-        B747DR_speedbrake_lever > 0.10
+    elseif B747DR_speedbrake_lever < 0.30 and
+        B747DR_speedbrake_lever > 0.07
     then
         B747DR_speedbrake_lever = 0.125 
         simDR_speedbrake_ratio_control = -0.5

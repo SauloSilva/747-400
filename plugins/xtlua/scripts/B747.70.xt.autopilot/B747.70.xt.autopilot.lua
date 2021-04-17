@@ -741,6 +741,7 @@ function B747_ap_switch_disengage_bar_CMDhandler(phase, duration)
 		if B747_ap_button_switch_position_target[14] == 1.0	then						-- DISENGAGE
 			B747CMD_ap_reset:once()												-- TURN FLIGHT DIRECTOR AND SERVOS "OFF"	
 			B747_ap_all_cmd_modes_off()	
+			simCMD_autopilot_servos_off:once()
 			simCMD_autopilot_servos_fdir_off:once()	
 			simCMD_autopilot_servos2_fdir_off:once()
 			simCMD_autopilot_servos3_fdir_off:once()	
