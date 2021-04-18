@@ -43,6 +43,11 @@ You can follow progress, make requests and generally chat about the 747 on the 7
 
 Feel free to join the conversation, fork this repository, and make the plane your own.
 
+**How can I remove the boarding music or PA announcements?**
+
+Head to the FMC MENU > ACMS > MAINT > SIMCONFIG. Here you can find many settings for the aircraft, including sound options.
+
+
 ### Installation
 Just extract the zip to your aircraft folder, with some caveats:
 
