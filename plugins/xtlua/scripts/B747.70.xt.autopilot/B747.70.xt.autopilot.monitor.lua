@@ -212,6 +212,7 @@ local last_THR_REF=0
 function B747_monitor_THR_REF_AT()
     
     if B747DR_ap_FMA_autothrottle_mode~=5 or B747DR_toggle_switch_position[29] ~= 1 then return end
+    
     local n1_pct=math.max(simDR_engine_N1_pct[0],simDR_engine_N1_pct[1],simDR_engine_N1_pct[2],simDR_engine_N1_pct[3])
     local lastChange=simDRTime-last_THR_REF
 
@@ -223,7 +224,7 @@ function B747_monitor_THR_REF_AT()
     local altDiff = simDR_autopilot_altitude_ft - simDR_pressureAlt1
     local timediff=simDRTime-B747DR_ap_lastCommand
     if B747DR_ap_thrust_mode==2 and altDiff<0 then
-        ref_throttle=20+B747_rescale(-10000,0,0,30,altDiff)
+        ref_throttle=math.floor(20+B747_rescale(-10000,0,0,30,altDiff))
         print("THR REF descend at ref_throttle "..ref_throttle.." altDiff "..altDiff)
     elseif simDR_radarAlt1<1000 and B747DR_ap_thrust_mode<3 then
         if toderate==1 then ref_throttle=96
@@ -250,6 +251,7 @@ function B747_monitor_THR_REF_AT()
     elseif thrustDiff<20 then wait=0.05 end
     --print("THR REF="..ref_throttle.. " simDR_allThrottle="..n1_pct.. " wait="..wait.. " B747DR_ap_thrust_mode="..B747DR_ap_thrust_mode)
     if lastChange<wait then return end --wait for engines to stabilise
+    if simDR_autopilot_autothrottle_enabled == 1 and timediff>0.5 then B747DR_ap_thrust_mode=0 return end
     if (n1_pct < (ref_throttle-0.2)) and simDR_allThrottle<1.0 then
 	    simCMD_ThrottleUp:once()
     elseif (n1_pct > (ref_throttle+0.2)) and simDR_allThrottle>0.0 then
@@ -408,7 +410,7 @@ function B747_updateApproachHeading(fmsO)
         return
       end
     local ap2Heading=getHeading(simDR_latitude,simDR_longitude,fmsO[start][5],fmsO[start][6])
-    if B747DR_ap_approach_mode==1 then
+    if B747DR_ap_approach_mode==1 and B747DR_ap_lnav_state>0 then
         simDR_autopilot_heading_deg =	ap2Heading+simDR_variation
     end
 end

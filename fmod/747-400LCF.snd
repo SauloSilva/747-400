@@ -1326,13 +1326,13 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/button7
     VEH_XYZ 0 5.1 -26
-    EVENT_CMND_UP sim/autopilot/heading
+    EVENT_CMND_UP laminar/B747/autopilot/button_switch/heading_select
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/button7
     VEH_XYZ 0 5.1 -26
-    EVENT_CMND_DOWN sim/autopilot/heading
+    EVENT_CMND_DOWN laminar/B747/autopilot/button_switch/heading_select
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
