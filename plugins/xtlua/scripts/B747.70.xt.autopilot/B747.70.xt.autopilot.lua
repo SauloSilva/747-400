@@ -292,6 +292,7 @@ B747DR_ap_vs_show_thousands         	= deferred_dataref("laminar/B747/autopilot/
 --B747DR_ap_hdg_sel_mode              	= deferred_dataref("laminar/B747/autopilot/heading_sel_mode", "number")
 B747DR_autopilot_altitude_ft    			= find_dataref("laminar/B747/autopilot/heading/altitude_dial_ft")
 B747DR_ap_heading_deg               	= deferred_dataref("laminar/B747/autopilot/heading/degrees", "number")
+B747DR_ap_target_heading_deg               	= deferred_dataref("laminar/B747/autopilot/heading/target", "number")
 B747DR_ap_ias_dial_value            	= deferred_dataref("laminar/B747/autopilot/ias_dial_value", "number")
 B747DR_ap_ias_bug_value            	= deferred_dataref("laminar/B747/autopilot/ias_bug_value", "number")
 B747DR_ap_ias_mach_dial_value            	= deferred_dataref("laminar/B747/autopilot/ias_mach_dial_value", "number") -- display only
@@ -2381,7 +2382,28 @@ end
 
 
 local last_airspeed=0
-
+local last_target_heading=0
+function B474_ap_target_heading()
+               
+	if B747DR_ap_target_heading_deg ==-1 then return end
+	if B747DR_ap_heading_deg==B747DR_ap_target_heading_deg then
+		B747DR_ap_target_heading_deg=-1
+		return 
+	end
+	local diff=simDRTime-last_target_heading
+	if diff<0.05 then return end
+	last_target_heading=simDRTime 
+	
+	B747DR_ap_target_heading_deg=math.floor(B747DR_ap_target_heading_deg)
+	local heading_diff=getHeadingDifference(B747DR_ap_target_heading_deg,B747DR_ap_heading_deg)
+	print("target heading "..B747DR_ap_target_heading_deg.." "..B747DR_ap_heading_deg.." "..heading_diff)
+	if heading_diff<0 then
+		B747DR_ap_heading_deg =	math.floor(math.fmod((B747DR_ap_heading_deg + 1), 360.0))  
+	else
+		B747DR_ap_heading_deg =	math.floor(math.fmod((B747DR_ap_heading_deg - 1), 360.0))
+		if B747DR_ap_heading_deg < 0.0 then B747DR_ap_heading_deg = B747DR_ap_heading_deg + 360.0 end
+	end 
+end
 ----- EICAS MESSAGES --------------------------------------------------------------------
 function B747_ap_EICAS_msg()
 
@@ -2570,6 +2592,7 @@ function after_physics()
     B747_ap_afds()
     B747_ap_afds_fma_mode_change()
     B747_ap_EICAS_msg()
+	B474_ap_target_heading()
     B747_ap_monitor_AI()
 end
 
