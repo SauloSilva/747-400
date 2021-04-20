@@ -765,11 +765,11 @@ end
 
 function B747_ap_switch_autothrottle_disco_L_CMDhandler(phase, duration)
 	if phase == 0 then
-		--[[if simDR_autopilot_autothrottle_enabled == 1 then
-			simCMD_autopilot_autothrottle_off:once()
-			B747DR_engine_TOGA_mode = 0
-		end	]]	
-		B747DR_autothrottle_fail=1			
+		if B747DR_autothrottle_fail==0 then
+			B747DR_autothrottle_fail=1
+		else
+			B747DR_autothrottle_fail=0
+		end			
 	end
 end	
 
@@ -778,11 +778,11 @@ end
 
 function B747_ap_switch_autothrottle_disco_R_CMDhandler(phase, duration)
 	if phase == 0 then
-		--[[if simDR_autopilot_autothrottle_enabled == 1 then
-			simCMD_autopilot_autothrottle_off:once()
-			B747DR_engine_TOGA_mode = 0
-		end	]]
-		B747DR_autothrottle_fail=1
+		if B747DR_autothrottle_fail==0 then
+			B747DR_autothrottle_fail=1
+		else
+			B747DR_autothrottle_fail=0
+		end	
 	end
 end	
 
@@ -1942,7 +1942,7 @@ function B747_ap_fma()
     if runAutoland() then return end
     -- AUTOTHROTTLE
     -------------------------------------------------------------------------------------
-    if B747DR_toggle_switch_position[29] == 0 or B747DR_autothrottle_fail==1 then
+    if B747DR_toggle_switch_position[29] == 0 or B747DR_autothrottle_fail>0 then
 		B747DR_ap_FMA_autothrottle_mode = 0
 	elseif (B747DR_engine_TOGA_mode >0 and simDR_ind_airspeed_kts_pilot<65) or B747DR_ap_autoland<0 or (B747DR_ap_vnav_state==0 and B747DR_ap_thrust_mode>0) then                                        
         B747DR_ap_FMA_autothrottle_mode = 5 --THR REF

@@ -252,7 +252,7 @@ function B747_monitor_THR_REF_AT()
     --print("THR REF="..ref_throttle.. " simDR_allThrottle="..n1_pct.. " wait="..wait.. " B747DR_ap_thrust_mode="..B747DR_ap_thrust_mode)
     if lastChange<wait then return end --wait for engines to stabilise
     if simDR_autopilot_autothrottle_enabled == 1 and timediff>0.5 then B747DR_ap_thrust_mode=0 return end
-    if (n1_pct < (ref_throttle-0.2)) and simDR_allThrottle<1.0 then
+    if (n1_pct < (ref_throttle-0.2)) and simDR_allThrottle<0.99 then
 	    simCMD_ThrottleUp:once()
     elseif (n1_pct > (ref_throttle+0.2)) and simDR_allThrottle>0.0 then
         simCMD_ThrottleDown:once()
@@ -343,7 +343,7 @@ function B747_monitorAT()
     if simDR_engine_N1_pct[2]>15.0 then numRun=numRun+1 end
     if simDR_engine_N1_pct[3]>15.0 then numRun=numRun+1 end
 
-    if numRun<3 or B747DR_autothrottle_fail==1 then 
+    if numRun<3 or B747DR_autothrottle_fail>0 then 
         if simDR_autopilot_autothrottle_enabled==1 then
             print("2+ engines inop or fail AT")
             simCMD_autopilot_autothrottle_off:once()
