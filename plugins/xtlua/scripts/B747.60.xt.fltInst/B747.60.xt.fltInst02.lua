@@ -2887,7 +2887,7 @@ function B747_Vs()
     else
         B747DR_airspeed_Vs=B747_animate_value(B747DR_airspeed_Vs,target_airspeed_Vs,0,450,1)
     end
-    simDR_stall_warning=0 -- always set
+    --simDR_stall_warning=0 -- always set
     if simDR_airspeed<B747DR_airspeed_Vs and simDR_all_wheels_on_ground==0 then
         simDR_stall_warning=1
     else
