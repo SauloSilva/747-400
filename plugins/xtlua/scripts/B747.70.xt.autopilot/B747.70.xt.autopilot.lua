@@ -116,6 +116,7 @@ simDR_engine_N1_pct             = find_dataref("sim/cockpit2/engine/indicators/N
 B747DR_fmc_notifications            = find_dataref("laminar/B747/fms/notification")
 B747DR_ils_dots           	= deferred_dataref("laminar/B747/autopilot/ils_dots", "number") --display only
 B747BR_totalDistance 			= find_dataref("laminar/B747/autopilot/dist/remaining_distance")
+B747BR_eod_index 			= deferred_dataref("laminar/B747/autopilot/dist/eod_index", "number")
 B747BR_nextDistanceInFeet 		= find_dataref("laminar/B747/autopilot/dist/next_distance_feet")
 B747BR_cruiseAlt 			= find_dataref("laminar/B747/autopilot/dist/cruise_alt")
 B747BR_tod				= find_dataref("laminar/B747/autopilot/dist/top_of_descent")
@@ -1779,14 +1780,14 @@ function setDistances(fmsO)
   for i=start,endI-1,1 do
     totalDistance=totalDistance+getDistance(fmsO[i][5],fmsO[i][6],fmsO[i+1][5],fmsO[i+1][6])
     dtoAirport=getDistance(fmsO[i][5],fmsO[i][6],fmsO[endI][5],fmsO[endI][6])
-    --print("i=".. i .." speed="..simDR_groundspeed .. " distance="..totalDistance.." dtoAirport="..dtoAirport)
-	if dtoAirport<5 then 
+    --print("i=".. i .." speed="..simDR_groundspeed .. " distance="..totalDistance.." dtoAirport="..dtoAirport.. " ".. fmsO[i][5].." ".. fmsO[i][6].." ".. fmsO[i+1][5].." ".. fmsO[i+1][6])
+	if dtoAirport<10 then 
 		eod=i
 		--print("end fms"..i.."=at alt "..fms[i][3])
 		break 
 	end
   end
-  
+  B747BR_eod_index=eod
   B747BR_totalDistance=totalDistance
   B747BR_nextDistanceInFeet=nextDistanceInFeet
   local cruiseTOD=(((B747BR_cruiseAlt-fms[eod][3])/100))/2.9

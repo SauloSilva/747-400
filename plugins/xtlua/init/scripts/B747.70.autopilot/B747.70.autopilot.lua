@@ -66,6 +66,7 @@ B747DR_ap_vnav_state            	= deferred_dataref("laminar/B747/autopilot/vnav
 B747DR_ap_lnav_state            	= deferred_dataref("laminar/B747/autopilot/lnav_state", "number")
 B747DR_ap_inVNAVdescent 		= deferred_dataref("laminar/B747/autopilot/vnav_descent", "number")
 B747BR_totalDistance 			= deferred_dataref("laminar/B747/autopilot/dist/remaining_distance", "number")
+B747BR_eod_index 			= deferred_dataref("laminar/B747/autopilot/dist/eod_index", "number")
 B747BR_nextDistanceInFeet 		= deferred_dataref("laminar/B747/autopilot/dist/next_distance_feet", "number")
 B747BR_cruiseAlt 			= deferred_dataref("laminar/B747/autopilot/dist/cruise_alt", "number")
 B747BR_tod				= deferred_dataref("laminar/B747/autopilot/dist/top_of_descent", "number")
