@@ -53,7 +53,7 @@ function deferred_dataref(name,nilType,callFunction)
     return find_dataref(name)
 end
 
-lastatmodeswitch=0
+
 --*************************************************************************************--
 --** 					            GLOBAL VARIABLES                				 **--
 --*************************************************************************************--
@@ -116,6 +116,7 @@ simDR_engine_N1_pct             = find_dataref("sim/cockpit2/engine/indicators/N
 B747DR_fmc_notifications            = find_dataref("laminar/B747/fms/notification")
 B747DR_ils_dots           	= deferred_dataref("laminar/B747/autopilot/ils_dots", "number") --display only
 B747BR_totalDistance 			= find_dataref("laminar/B747/autopilot/dist/remaining_distance")
+B747BR_eod_index 			= deferred_dataref("laminar/B747/autopilot/dist/eod_index", "number")
 B747BR_nextDistanceInFeet 		= find_dataref("laminar/B747/autopilot/dist/next_distance_feet")
 B747BR_cruiseAlt 			= find_dataref("laminar/B747/autopilot/dist/cruise_alt")
 B747BR_tod				= find_dataref("laminar/B747/autopilot/dist/top_of_descent")
@@ -246,13 +247,14 @@ simCMD_autopilot_servos2_on              = find_command("sim/autopilot/servos2_o
 simCMD_autopilot_servos2_fdir_off        = find_command("sim/autopilot/servos_fdir2_off")
 simCMD_autopilot_servos3_on              = find_command("sim/autopilot/servos3_on")
 simCMD_autopilot_servos3_fdir_off        = find_command("sim/autopilot/servos_fdir3_off")
+simCMD_autopilot_servos_off        		= find_command("sim/autopilot/servos_off_any")
 simCMD_autopilot_fdir_off        		= find_command("sim/autopilot/servos_fdir_off")
 simCMD_autopilot_fdir_servos_down_one   = find_command("sim/autopilot/fdir_servos_down_one")
 simCMD_autopilot_pitch_sync             = find_command("sim/autopilot/pitch_sync")
 simCMD_autopilot_set_nav1_as_nav_source = find_command("sim/autopilot/hsi_select_nav_1")
 simCMD_autopilot_nav_mode               = find_command("sim/autopilot/NAV")
 simCMD_autopilot_wing_leveler           = find_command("sim/autopilot/wing_leveler")
-simCMD_autopilot_heading_hold           = find_command("sim/autopilot/heading")
+simCMD_autopilot_heading_select         = find_command("sim/autopilot/heading")
 simCMD_autopilot_vert_speed_mode    	= find_command("sim/autopilot/vertical_speed")
 simCMD_autopilot_alt_hold_mode			= find_command("sim/autopilot/altitude_hold")
 simCMD_autopilot_glideslope_mode		= find_command("sim/autopilot/glide_slope")
@@ -291,6 +293,7 @@ B747DR_ap_vs_show_thousands         	= deferred_dataref("laminar/B747/autopilot/
 --B747DR_ap_hdg_sel_mode              	= deferred_dataref("laminar/B747/autopilot/heading_sel_mode", "number")
 B747DR_autopilot_altitude_ft    			= find_dataref("laminar/B747/autopilot/heading/altitude_dial_ft")
 B747DR_ap_heading_deg               	= deferred_dataref("laminar/B747/autopilot/heading/degrees", "number")
+B747DR_ap_target_heading_deg               	= deferred_dataref("laminar/B747/autopilot/heading/target", "number")
 B747DR_ap_ias_dial_value            	= deferred_dataref("laminar/B747/autopilot/ias_dial_value", "number")
 B747DR_ap_ias_bug_value            	= deferred_dataref("laminar/B747/autopilot/ias_bug_value", "number")
 B747DR_ap_ias_mach_dial_value            	= deferred_dataref("laminar/B747/autopilot/ias_mach_dial_value", "number") -- display only
@@ -434,6 +437,7 @@ function B747_ap_thrust_mode_CMDhandler(phase, duration)								-- INOP, NO CORR
 	if phase == 0 then
 		B747_ap_button_switch_position_target[0] = 1
 		simCMD_autopilot_autothrottle_off:once()
+		B747DR_ap_lastCommand=simDRTime
 		if simDR_radarAlt1>400 then
 			B747DR_ap_thrust_mode=3
 		end
@@ -448,7 +452,7 @@ end
 function B747_ap_switch_speed_mode_CMDhandler(phase, duration)
 	if phase == 0 then
 		B747_ap_button_switch_position_target[1] = 1									-- SET THE SPEED SWITCH ANIMATION TO "IN"
-		lastatmodeswitch=simDRTime
+		B747DR_ap_lastCommand=simDRTime
 		
 		if B747DR_toggle_switch_position[29] == 1 then									-- AUTOTHROTTLE ""ARM" SWITCH IS "ON"
 		
@@ -459,7 +463,9 @@ function B747_ap_switch_speed_mode_CMDhandler(phase, duration)
 		end
 		B747DR_ap_vnav_state=0
 		B747DR_ap_inVNAVdescent =0
+		print("B747DR_ap_thrust_mode "..B747DR_ap_thrust_mode)
 		B747DR_ap_thrust_mode=0
+		print("B747DR_ap_thrust_mode "..B747DR_ap_thrust_mode)
 		if B747DR_switchingIASMode==0 then  
 		  if simDR_autopilot_airspeed_is_mach == 0 then
 			simDR_autopilot_airspeed_kts = B747DR_ap_ias_dial_value
@@ -537,7 +543,7 @@ end
 function B747_ap_switch_flch_mode_CMDhandler(phase, duration)
 	if phase == 0 then 
 		B747_ap_button_switch_position_target[4] = 1
-		lastatmodeswitch=simDRTime
+		B747DR_ap_lastCommand=simDRTime
 		simDR_autopilot_altitude_ft=B747DR_autopilot_altitude_ft
 		simCMD_autopilot_flch_mode:once()
 		B747DR_ap_vnav_state=0
@@ -566,6 +572,7 @@ function B747_ap_switch_vs_mode_CMDhandler(phase, duration)
 
 		simDR_autopilot_altitude_ft=B747DR_autopilot_altitude_ft
 		B747DR_ap_vnav_state=0
+		B747DR_ap_thrust_mode=0
 		B747DR_ap_inVNAVdescent =0
 		B747DR_autopilot_vs_fpm=0
 		simCMD_autopilot_vert_speed_mode:once()
@@ -600,33 +607,12 @@ function B747_ap_alt_hold_mode_CMDhandler(phase, duration)
 end
 
 
---[[
-function B747_ap_switch_hdg_sel_mode_CMDhandler(phase, duration)						-- CURRENTLY SET TO HEADING HOLD UNTIL NEW HOLD FEATURE IS IMPLEMENTED BY PHILIPP
-	if phase == 0 then
-		B747DR_ap_hdg_sel_mode = 1			
-		B747DR_ap_hdg_hold_mode = 0
-		simCMD_autopilot_heading_hold:once()
-	end
-end	
 
-
-
-
-function B747_ap_switch_hdg_hold_mode_CMDhandler(phase, duration)						-- TODO:  HEADING HOLD MODE IS PENDING A NEW FEATURE FROM PHILIPP
-	if phase == 0 then
-		B747_ap_button_switch_position_target[5] = 1
-		B747DR_ap_hdg_hold_mode = 1
-		B747DR_ap_hdg_sel_mode = 0
-	elseif phase == 2 then
-		B747_ap_button_switch_position_target[5] = 0				
-	end
-end	
---]]
 
 
 
 function B747_ap_switch_loc_mode_CMDhandler(phase, duration)
-	if phase == 0 then
+	if phase == 0 then 
 		B747_ap_button_switch_position_target[8] = 1									-- SET THE LOC SWITCH ANIMATION TO "IN"
 		B747DR_ap_approach_mode=0
 		----- APPROACH MODE IS ARMED
@@ -645,7 +631,9 @@ function B747_ap_switch_loc_mode_CMDhandler(phase, duration)
 			and simDR_autopilot_gs_status == 0
 		then
 			simCMD_autopilot_nav_mode:once()											-- DISARM LOC MODE		
-			
+			if B747DR_ap_lnav_state>0 then
+				B747DR_ap_lnav_state=1
+			end
 		----- LOC MODE IS OFF	 			 		
 		elseif simDR_autopilot_nav_status == 0 
 			and simDR_autopilot_gs_status == 0
@@ -655,7 +643,8 @@ function B747_ap_switch_loc_mode_CMDhandler(phase, duration)
 	        	or simDR_nav1_radio_nav_type == 40										-- NAV1 RADIO TYPE IS "ILS WITH GLIDESLOPE"		|
 			then
 		    	simCMD_autopilot_nav_mode:once()										-- ARM/ACTIVATE LOC MODE
-		    end	   
+		    end	 
+			  
 	    end 
 	    				
 	elseif phase == 2 then
@@ -732,9 +721,14 @@ end
 function B747_ap_switch_disengage_bar_CMDhandler(phase, duration)
 	if phase == 0 then
 		B747_ap_button_switch_position_target[14] = 1.0 - B747_ap_button_switch_position_target[14]	
+		B747DR_ap_lastCommand=simDRTime
 		if B747_ap_button_switch_position_target[14] == 1.0	then						-- DISENGAGE
 			B747CMD_ap_reset:once()												-- TURN FLIGHT DIRECTOR AND SERVOS "OFF"	
-			B747_ap_all_cmd_modes_off()		
+			B747_ap_all_cmd_modes_off()	
+			simCMD_autopilot_servos_off:once()
+			simCMD_autopilot_servos_fdir_off:once()	
+			simCMD_autopilot_servos2_fdir_off:once()
+			simCMD_autopilot_servos3_fdir_off:once()	
 		end	
 	end
 end	
@@ -744,33 +738,13 @@ end
 
 function B747_ap_switch_yoke_disengage_capt_CMDhandler(phase, duration)
 	if phase == 0 then
-		if B747DR_toggle_switch_position[23] == 0 										-- LEFT FLIGHT DIRECTOR SWITCH IS "OFF"
-			and B747DR_toggle_switch_position[24] == 0 									-- RIGHT FLIGHT DIRECTOR SWITCH IS "OFF"
-		then				
-			if simDR_autopilot_flight_dir_mode == 0 then								-- FLIGHT DIRECTOR AND SERVOS ARE "OFF"
-				-- if A/P DISCO AURAL WARNING IS ON										-- TODO:  CANX AURAL WARNING, NEED FMOD AUDIO CONTROL OF A/P DISCO AURAL WARNING
-					-- TURN AURAL WARNING OFF
-					-- SET CAS MASSAGE TO OFF
-			else																		-- FLIGHT DIRECTOR IS ON OR F/D AND SERVOS ARE "ON"
-				B747CMD_ap_reset:once()													-- TURN FLIGHT DIRECTOR AND SERVOS "OFF"	
-			end
-		else																			-- ONE OF THE FLIGHT DIRECTOR SWITCHES IS "ON"	
-			if simDR_autopilot_flight_dir_mode == 0 then								-- FLIGHT DIRECTOR AND SERVOS ARE "OFF"	(NOTE:  THIS CONDITION SHOULD ACTUALLY _NEVER_ EXIST !!)			
-				-- if A/P DISCO AURAL WARNING IS ON										-- TODO:  NEED FMOD AUDIO CONTROL OF A/P DISCO AURAL WARNING
-					-- TURN AURAL WARNING OFF
-					-- SET CAS MASSAGE TO OFF
-			elseif simDR_autopilot_flight_dir_mode == 1 then							-- FLIGHT DIRECTOR IS ON, SERVOS ARE OFF
-				-- if A/P DISCO AURAL WARNING IS ON										-- TODO:  CANX AURAL WARNING, NEED FMOD AUDIO CONTROL OF A/P DISCO AURAL WARNING
-					-- TURN AURAL WARNING OFF
-					-- SET CAS MASSAGE TO OFF							
-			elseif simDR_autopilot_flight_dir_mode == 2 then							-- FLIGHT DIRECTOR AND SERVOS ARE "ON"
-				simCMD_autopilot_fdir_servos_down_one:once()							-- TURN ONLY THE SERVOS OFF, LEAVE FLIGHT DIRECTOR ON	
-				B747_ap_all_cmd_modes_off()			
-			end								
-		end
+		B747DR_ap_lastCommand=simDRTime
+		
 		B747CMD_ap_reset:once()
+		simCMD_autopilot_servos_off:once()
 		--simCMD_autopilot_fdir_servos_down_one:once()							-- TURN ONLY THE SERVOS OFF, LEAVE FLIGHT DIRECTOR ON	
 		B747_ap_all_cmd_modes_off()
+
 	end
 end	
 
@@ -779,30 +753,11 @@ end
 
 function B747_ap_switch_yoke_disengage_fo_CMDhandler(phase, duration)
 	if phase == 0 then
-		if B747DR_toggle_switch_position[23] == 0 										-- LEFT FLIGHT DIRECTOR SWITCH IS "OFF"
-			and B747DR_toggle_switch_position[24] == 0 									-- RIGHT FLIGHT DIRECTOR SWITCH IS "OFF"
-		then				
-			if simDR_autopilot_flight_dir_mode == 0 then								-- FLIGHT DIRECTOR AND SERVOS ARE "OFF"
-				-- if A/P DISCO AURAL WARNING IS ON										-- TODO:  CANX AURAL WARNING, NEED FMOD AUDIO CONTROL OF A/P DISCO AURAL WARNING
-					-- TURN AURAL WARNING OFF
-					-- SET CAS MASSAGE TO OFF
-			else																		-- FLIGHT DIRECTOR IS ON OR F/D AND SERVOS ARE "ON"
-				B747CMD_ap_reset:once()													-- TURN FLIGHT DIRECTOR AND SERVOS "OFF"	
-			end
-		else																			-- ONE OF THE FLIGHT DIRECTOR SWITCHES IS "ON"	
-			if simDR_autopilot_flight_dir_mode == 0 then								-- FLIGHT DIRECTOR AND SERVOS ARE "OFF"	(NOTE:  THIS CONDITION SHOULD ACTUALLY _NEVER_ EXIST !!)			
-				-- if A/P DISCO AURAL WARNING IS ON										-- TODO:  NEED FMOD AUDIO CONTROL OF A/P DISCO AURAL WARNING
-					-- TURN AURAL WARNING OFF
-					-- SET CAS MASSAGE TO OFF
-			elseif simDR_autopilot_flight_dir_mode == 1 then							-- FLIGHT DIRECTOR IS ON, SERVOS ARE OFF
-				-- if A/P DISCO AURAL WARNING IS ON										-- TODO:  CANX AURAL WARNING, NEED FMOD AUDIO CONTROL OF A/P DISCO AURAL WARNING
-					-- TURN AURAL WARNING OFF
-					-- SET CAS MASSAGE TO OFF							
-			elseif simDR_autopilot_flight_dir_mode == 2 then							-- FLIGHT DIRECTOR AND SERVOS ARE "ON"
-				simCMD_autopilot_fdir_servos_down_one:once()							-- TURN ONLY THE SERVOS OFF, LEAVE FLIGHT DIRECTOR ON	
-				B747_ap_all_cmd_modes_off()			
-			end								
-		end	
+		B747DR_ap_lastCommand=simDRTime
+		B747CMD_ap_reset:once()
+		simCMD_autopilot_servos_off:once()
+		--simCMD_autopilot_fdir_servos_down_one:once()							-- TURN ONLY THE SERVOS OFF, LEAVE FLIGHT DIRECTOR ON	
+		B747_ap_all_cmd_modes_off()
 	end
 end	
 
@@ -811,11 +766,11 @@ end
 
 function B747_ap_switch_autothrottle_disco_L_CMDhandler(phase, duration)
 	if phase == 0 then
-		--[[if simDR_autopilot_autothrottle_enabled == 1 then
-			simCMD_autopilot_autothrottle_off:once()
-			B747DR_engine_TOGA_mode = 0
-		end	]]	
-		B747DR_autothrottle_fail=1			
+		if B747DR_autothrottle_fail==0 then
+			B747DR_autothrottle_fail=1
+		else
+			B747DR_autothrottle_fail=0
+		end			
 	end
 end	
 
@@ -824,11 +779,11 @@ end
 
 function B747_ap_switch_autothrottle_disco_R_CMDhandler(phase, duration)
 	if phase == 0 then
-		--[[if simDR_autopilot_autothrottle_enabled == 1 then
-			simCMD_autopilot_autothrottle_off:once()
-			B747DR_engine_TOGA_mode = 0
-		end	]]
-		B747DR_autothrottle_fail=1
+		if B747DR_autothrottle_fail==0 then
+			B747DR_autothrottle_fail=1
+		else
+			B747DR_autothrottle_fail=0
+		end	
 	end
 end	
 
@@ -849,18 +804,19 @@ end
 
 
 function B747_ap_reset_CMDhandler(phase, duration)
+	print("B747_ap_reset_CMDhandler")
 	if phase == 0 then
 		--simCMD_autopilot_pitch_sync:once()
-		simCMD_autopilot_servos_fdir_off:once()	
-		simCMD_autopilot_servos2_fdir_off:once()
-		simCMD_autopilot_servos3_fdir_off:once()
+		
 		B747DR_engine_TOGA_mode=0
 		simDR_autopilot_fms_vnav = 0
 		B747DR_ap_vnav_state=0
 		B747DR_ap_thrust_mode=0
 		B747DR_ap_inVNAVdescent =0
-		B747_ap_all_cmd_modes_off()
+		B747_ap_all_cmd_modes_off() --B747_ap_reset_CMDhandler
 		B747DR_ap_ias_mach_window_open = 0
+		
+		
 	end
 end	
 
@@ -896,7 +852,8 @@ function B747_ap_VNAV_mode_CMDhandler(phase, duration)
 		elseif B747DR_ap_vnav_state>0 then 
 		  B747DR_ap_vnav_state=0
 		  B747DR_ap_inVNAVdescent =0
-		  
+		  B747DR_ap_thrust_mode=0
+		  if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 and simDR_onGround==0 then simCMD_autopilot_autothrottle_on:once() end
 		elseif B747DR_ap_vnav_system == 2 then
 		  B747DR_ap_vnav_state=1 
 		  setVNAVState("gotVNAVSpeed",false)
@@ -925,7 +882,14 @@ function B747_ap_LNAV_mode_afterCMDhandler(phase, duration)
 		B747_ap_button_switch_position_target[2] = 0						
 	end
 end
+function B747_ap_switch_hdg_sel_mode_CMDhandler(phase, duration)
+	if phase == 0 then
+		B747DR_ap_lnav_state=0 
 
+		simCMD_autopilot_heading_select:once()
+		simDR_autopilot_heading_deg = B747DR_ap_heading_deg
+	end
+end
 --*************************************************************************************--
 --** 				             CREATE CUSTOM COMMANDS              			     **--
 --*************************************************************************************--
@@ -933,6 +897,7 @@ end
 
 B747CMD_ap_thrust_mode              			= deferred_command("laminar/B747/autopilot/button_switch/thrust_mode", "Autopilot THR Mode", B747_ap_thrust_mode_CMDhandler)
 B747DR_ap_thrust_mode              			= deferred_dataref("laminar/B747/autopilot/thrust_mode", "number")
+B747DR_ap_lastCommand              			= deferred_dataref("laminar/B747/autopilot/lastCommand", "number")
 B747CMD_ap_switch_speed_mode				= deferred_command("laminar/B747/autopilot/button_switch/speed_mode", "A/P Speed Mode Switch", B747_ap_switch_speed_mode_CMDhandler)
 B747CMD_ap_press_airspeed				= deferred_command("laminar/B747/button_switch/press_airspeed", "Airspeed Dial Press", B747_ap_switch_vnavspeed_mode_CMDhandler)
 B747CMD_ap_press_altitude				= deferred_command("laminar/B747/button_switch/press_altitude", "Altitude Dial Press", B747_ap_switch_vnavalt_mode_CMDhandler)
@@ -942,7 +907,7 @@ B747CMD_ap_switch_vs_mode				= deferred_command("laminar/B747/autopilot/button_s
 B747CMD_ap_switch_alt_hold_mode				= deferred_command("laminar/B747/autopilot/button_switch/alt_hold_mode", "A/P Altitude Hold Mode Switch", B747_ap_alt_hold_mode_CMDhandler)
 B747CMD_autopilot_VNAV_mode				= deferred_command("laminar/B747/autopilot/button_switch/VNAV","A/P VNAV Mode Switch",B747_ap_VNAV_mode_CMDhandler)
 B747CMD_autopilot_LNAV_mode				= deferred_command("laminar/B747/autopilot/button_switch/LNAV", "A/P LNAV Mode Switch",B747_ap_LNAV_mode_afterCMDhandler)
---B747CMD_ap_switch_hdg_sel_mode			= deferred_command("laminar/B747/autopilot/button_switch/hdg_sel_mode", "A/P Heading Select Mode Switch", B747_ap_switch_hdg_sel_mode_CMDhandler)
+B747CMD_ap_switch_hdg_sel_mode			= deferred_command("laminar/B747/autopilot/button_switch/heading_select", "A/P Heading Select Mode Switch", B747_ap_switch_hdg_sel_mode_CMDhandler)
 --B747CMD_ap_switch_hdg_hold_mode			= deferred_command("laminar/B747/autopilot/button_switch/hdg_hold_mode", "A/P Heading Hold Mode Switch", B747_ap_switch_hdg_hold_mode_CMDhandler)
 B747CMD_ap_switch_loc_mode				= deferred_command("laminar/B747/autopilot/button_switch/loc_mode", "A/P Localizer Mode Switch", B747_ap_switch_loc_mode_CMDhandler)
 
@@ -1091,39 +1056,18 @@ end
 
 
 
---OLD
--- function B747_ap_heading_up_CMDhandler(phase, duration)
--- 	if phase == 0 then
--- 		B747DR_ap_heading_deg =	math.fmod((B747DR_ap_heading_deg + 1), 360.0)	
--- 		if B747DR_ap_hdg_sel_mode == 1 then simDR_autopilot_heading_deg = B747DR_ap_heading_deg end	
--- 	elseif phase == 1 then
--- 		if duration > 0.5 then
--- 			B747DR_ap_heading_deg =	math.fmod((B747DR_ap_heading_deg + 1), 360.0)	
--- 			if B747DR_ap_hdg_sel_mode == 1 then simDR_autopilot_heading_deg = B747DR_ap_heading_deg end				
--- 		end		
--- 	end
--- end	
--- 
--- function B747_ap_heading_down_CMDhandler(phase, duration)
--- 	if phase == 0 then
--- 		B747DR_ap_heading_deg =	math.fmod((B747DR_ap_heading_deg - 1), 360.0)	
--- 		if B747DR_ap_heading_deg < 0.0 then B747DR_ap_heading_deg = B747DR_ap_heading_deg + 360.0 end
--- 		if B747DR_ap_hdg_sel_mode == 1 then simDR_autopilot_heading_deg = B747DR_ap_heading_deg end	
--- 	elseif phase == 1 then
--- 		if duration > 0.5 then
--- 			B747DR_ap_heading_deg =	math.fmod((B747DR_ap_heading_deg - 1), 360.0)	
--- 			if B747DR_ap_heading_deg < 0.0 then B747DR_ap_heading_deg = B747DR_ap_heading_deg + 360.0 end
--- 			if B747DR_ap_hdg_sel_mode == 1 then simDR_autopilot_heading_deg = B747DR_ap_heading_deg end				
--- 		end			
--- 	end
--- end	
+
 function B747_ap_heading_up_CMDhandler(phase, duration)
 	if phase == 0 then
-		simDR_autopilot_heading_deg =	math.floor(math.fmod((simDR_autopilot_heading_deg + 1), 360.0)	)
+		--simDR_autopilot_heading_deg =	math.floor(math.fmod((simDR_autopilot_heading_deg + 1), 360.0)	)
+		B747DR_ap_heading_deg = math.floor(math.fmod((B747DR_ap_heading_deg + 1), 360.0)	)
+		simDR_autopilot_heading_deg = B747DR_ap_heading_deg
 		--if B747DR_ap_hdg_sel_mode == 1 then simDR_autopilot_heading_deg = B747DR_ap_heading_deg end	
 	elseif phase == 1 then
 		if duration > 0.5 then
-			simDR_autopilot_heading_deg =	math.floor(math.fmod((simDR_autopilot_heading_deg + 1), 360.0)	)
+			--simDR_autopilot_heading_deg =	math.floor(math.fmod((simDR_autopilot_heading_deg + 1), 360.0)	)
+			B747DR_ap_heading_deg =	math.floor(math.fmod((B747DR_ap_heading_deg + 1), 360.0)	)
+			simDR_autopilot_heading_deg = B747DR_ap_heading_deg
 			--if B747DR_ap_hdg_sel_mode == 1 then simDR_autopilot_heading_deg = B747DR_ap_heading_deg end				
 		end		
 	end
@@ -1131,13 +1075,19 @@ end
 
 function B747_ap_heading_down_CMDhandler(phase, duration)
 	if phase == 0 then
-		simDR_autopilot_heading_deg =	math.floor(math.fmod((simDR_autopilot_heading_deg - 1), 360.0)	)
-		if simDR_autopilot_heading_deg < 0.0 then simDR_autopilot_heading_deg = simDR_autopilot_heading_deg + 360.0 end
+		--simDR_autopilot_heading_deg =	math.floor(math.fmod((simDR_autopilot_heading_deg - 1), 360.0)	)
+		--if simDR_autopilot_heading_deg < 0.0 then simDR_autopilot_heading_deg = simDR_autopilot_heading_deg + 360.0 end
+		B747DR_ap_heading_deg =	math.floor(math.fmod((B747DR_ap_heading_deg - 1), 360.0)	)
+		if B747DR_ap_heading_deg < 0.0 then B747DR_ap_heading_deg = B747DR_ap_heading_deg + 360.0 end
+		simDR_autopilot_heading_deg = B747DR_ap_heading_deg
 		--if B747DR_ap_hdg_sel_mode == 1 then simDR_autopilot_heading_deg = B747DR_ap_heading_deg end	
 	elseif phase == 1 then
 		if duration > 0.5 then
-			simDR_autopilot_heading_deg =	math.floor(math.fmod((simDR_autopilot_heading_deg - 1), 360.0)	)
-			if simDR_autopilot_heading_deg < 0.0 then simDR_autopilot_heading_deg = simDR_autopilot_heading_deg + 360.0 end
+			--simDR_autopilot_heading_deg =	math.floor(math.fmod((simDR_autopilot_heading_deg - 1), 360.0)	)
+			--if simDR_autopilot_heading_deg < 0.0 then simDR_autopilot_heading_deg = simDR_autopilot_heading_deg + 360.0 end
+			B747DR_ap_heading_deg =	math.floor(math.fmod((B747DR_ap_heading_deg - 1), 360.0)	)
+			if B747DR_ap_heading_deg < 0.0 then B747DR_ap_heading_deg = B747DR_ap_heading_deg + 360.0 end
+			simDR_autopilot_heading_deg = B747DR_ap_heading_deg
 			--if B747DR_ap_hdg_sel_mode == 1 then simDR_autopilot_heading_deg = B747DR_ap_heading_deg end				
 		end			
 	end
@@ -1248,7 +1198,7 @@ end
 --*************************************************************************************--
 
 simCMD_ap_knots_mach_toggle			= replace_command("sim/autopilot/knots_mach_toggle", B747_ap_knots_mach_toggle_CMDhandler)
---simCMD_ap_heading					= replace_command("sim/autopilot/heading", B747_ap_heading_hold_CMDhandler)					
+				
 
 simCMD_ap_airspeed_up				= replace_command("sim/autopilot/airspeed_up", B747_ap_airspeed_up_CMDhandler)
 simCMD_ap_airspeed_down				= replace_command("sim/autopilot/airspeed_down", B747_ap_airspeed_down_CMDhandler)
@@ -1542,14 +1492,23 @@ function B747_ap_appr_mode_beforeCMDhandler(phase, duration)
 	  if (simDR_autopilot_nav_status == 1)
 			and B747DR_ap_approach_mode < 2
  		then
-		B747DR_ap_approach_mode=0
+		B747DR_ap_approach_mode=1
+		if B747DR_ap_lnav_state>0 then
+			B747DR_ap_lnav_state=1
+		end
 		simCMD_autopilot_appr_mode:once()
 		print("approach mod command")
 	  elseif B747DR_ap_approach_mode>0 then
 	    B747DR_ap_approach_mode=0
 	    print("del approach")
+		if B747DR_ap_lnav_state>0 then
+			B747DR_ap_lnav_state=1
+		end
 	  else
 	    B747DR_ap_approach_mode=1
+		if B747DR_ap_lnav_state>0 then
+			simCMD_autopilot_heading_select:once()
+		end
 	     print("arm approach")
 	  end
 	  
@@ -1562,7 +1521,7 @@ function B747_ap_appr_mode_beforeCMDhandler(phase, duration)
 -- 				
 -- 			end	 			
 -- 		end
-	simDR_autopilot_heading_deg = roundToIncrement(simDR_nav1_radio_course_deg, 1)            -- SET THE SELECTED HEADING VALUE TO THE LOC COURSE
+	B747DR_ap_heading_deg = roundToIncrement(simDR_nav1_radio_course_deg, 1)            -- SET THE SELECTED HEADING VALUE TO THE LOC COURSE
 	elseif phase == 2 then
 		B747_ap_button_switch_position_target[9] = 0									
 	
@@ -1821,14 +1780,14 @@ function setDistances(fmsO)
   for i=start,endI-1,1 do
     totalDistance=totalDistance+getDistance(fmsO[i][5],fmsO[i][6],fmsO[i+1][5],fmsO[i+1][6])
     dtoAirport=getDistance(fmsO[i][5],fmsO[i][6],fmsO[endI][5],fmsO[endI][6])
-    --print("i=".. i .." speed="..simDR_groundspeed .. " distance="..totalDistance.." dtoAirport="..dtoAirport)
-	if dtoAirport<5 then 
+    --print("i=".. i .." speed="..simDR_groundspeed .. " distance="..totalDistance.." dtoAirport="..dtoAirport.. " ".. fmsO[i][5].." ".. fmsO[i][6].." ".. fmsO[i+1][5].." ".. fmsO[i+1][6])
+	if dtoAirport<10 then 
 		eod=i
 		--print("end fms"..i.."=at alt "..fms[i][3])
 		break 
 	end
   end
-  
+  B747BR_eod_index=eod
   B747BR_totalDistance=totalDistance
   B747BR_nextDistanceInFeet=nextDistanceInFeet
   local cruiseTOD=(((B747BR_cruiseAlt-fms[eod][3])/100))/2.9
@@ -1890,15 +1849,12 @@ function B747_ap_altitude()
 	    print("Cancel VNAV "..table.getn(fms)) 
 	    B747DR_fmc_notifications[30]=1
 	    B747DR_ap_vnav_state=0 
+		B747DR_ap_thrust_mode=0
 	    return
 	  end --no vnav
 	  
 	  --computeVNAVAlt(fms)
-	  if B747BR_totalDistance-B747BR_tod<=50 then
-	    vnavDescent()
-	  else
-	    vnavCruise()
-	  end
+
 	end
 
 end	
@@ -1987,7 +1943,7 @@ function B747_ap_fma()
     if runAutoland() then return end
     -- AUTOTHROTTLE
     -------------------------------------------------------------------------------------
-    if B747DR_toggle_switch_position[29] == 0 or B747DR_autothrottle_fail==1 then
+    if B747DR_toggle_switch_position[29] == 0 or B747DR_autothrottle_fail>0 then
 		B747DR_ap_FMA_autothrottle_mode = 0
 	elseif (B747DR_engine_TOGA_mode >0 and simDR_ind_airspeed_kts_pilot<65) or B747DR_ap_autoland<0 or (B747DR_ap_vnav_state==0 and B747DR_ap_thrust_mode>0) then                                        
         B747DR_ap_FMA_autothrottle_mode = 5 --THR REF
@@ -2060,24 +2016,25 @@ function B747_ap_fma()
     elseif simDR_onGround==1 then
        B747DR_ap_FMA_active_roll_mode = 0
 	   B747DR_ap_thrust_mode=0
-    -- (LNAV) --
-    elseif simDR_autopilot_gpss == 2 then
-        B747DR_ap_FMA_active_roll_mode = 2
-		B747DR_ap_lnav_state=2
-    -- (LOC) --
+	-- (LOC) --
     elseif simDR_autopilot_nav_status == 2 then
         B747DR_ap_FMA_active_roll_mode = 3
         simDR_autopilot_heading_deg = roundToIncrement(simDR_nav1_radio_course_deg, 1)            -- SET THE SELECTED HEADING VALUE TO THE LOC COURSE
 		B747DR_ap_lnav_state=0
+    -- (LNAV) --
+    elseif simDR_autopilot_gpss == 2 or B747DR_ap_lnav_state==2 then
+        B747DR_ap_FMA_active_roll_mode = 2
+		B747DR_ap_lnav_state=2
+    
 
       -- (ROLLOUT) --
       -- TODO: AUTOLAND LOGIC
      
 
     -- (HDG SEL) --
-    elseif simDR_autopilot_heading_status == 2 then
+    elseif simDR_autopilot_heading_status == 2 and B747DR_ap_lnav_state==0 then
         B747DR_ap_FMA_active_roll_mode = 6
-		B747DR_ap_lnav_state=0
+		
     -- (HDG HLD) --
     elseif simDR_autopilot_heading_hold_status == 2 then
         B747DR_ap_FMA_active_roll_mode = 7
@@ -2140,7 +2097,7 @@ function B747_ap_fma()
         B747DR_ap_FMA_active_pitch_mode = 2
 		B747DR_ap_vnav_state=0
 		B747DR_ap_inVNAVdescent =0
-
+		B747DR_ap_thrust_mode=0
     -- (FLARE) --
     -- TODO: AUTOLAND LOGIC
 
@@ -2426,7 +2383,28 @@ end
 
 
 local last_airspeed=0
-
+local last_target_heading=0
+function B474_ap_target_heading()
+               
+	if B747DR_ap_target_heading_deg ==-1 then return end
+	if B747DR_ap_heading_deg==B747DR_ap_target_heading_deg then
+		B747DR_ap_target_heading_deg=-1
+		return 
+	end
+	local diff=simDRTime-last_target_heading
+	if diff<0.05 then return end
+	last_target_heading=simDRTime 
+	
+	B747DR_ap_target_heading_deg=math.floor(B747DR_ap_target_heading_deg)
+	local heading_diff=getHeadingDifference(B747DR_ap_target_heading_deg,B747DR_ap_heading_deg)
+	print("target heading "..B747DR_ap_target_heading_deg.." "..B747DR_ap_heading_deg.." "..heading_diff)
+	if heading_diff<0 then
+		B747DR_ap_heading_deg =	math.floor(math.fmod((B747DR_ap_heading_deg + 1), 360.0))  
+	else
+		B747DR_ap_heading_deg =	math.floor(math.fmod((B747DR_ap_heading_deg - 1), 360.0))
+		if B747DR_ap_heading_deg < 0.0 then B747DR_ap_heading_deg = B747DR_ap_heading_deg + 360.0 end
+	end 
+end
 ----- EICAS MESSAGES --------------------------------------------------------------------
 function B747_ap_EICAS_msg()
 
@@ -2615,6 +2593,7 @@ function after_physics()
     B747_ap_afds()
     B747_ap_afds_fma_mode_change()
     B747_ap_EICAS_msg()
+	B474_ap_target_heading()
     B747_ap_monitor_AI()
 end
 

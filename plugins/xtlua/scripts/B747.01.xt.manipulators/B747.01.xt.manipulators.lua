@@ -426,7 +426,7 @@ end
 --*************************************************************************************--
 
 simCMD_autopilot_vert_speed_mode    = find_command("sim/autopilot/vertical_speed")
-simCMD_autopilot_heading_mode       = find_command("sim/autopilot/heading")
+simCMD_autopilot_heading_mode       = find_command("sim/autopilot/heading_hold")
 
 
 

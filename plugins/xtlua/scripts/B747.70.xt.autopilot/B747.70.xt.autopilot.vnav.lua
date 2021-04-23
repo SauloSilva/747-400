@@ -31,6 +31,7 @@ function setDescentVSpeed()
     simDR_autopilot_vs_fpm = -250 -- slow descent, reduces AoA which if it goes to high spoils the landing
     B747DR_ap_inVNAVdescent=0
     B747DR_ap_vnav_state=0
+    B747DR_ap_thrust_mode=0
     print("End Descent")
     return
   end
@@ -61,12 +62,3 @@ end
     print("set descentSpeedGradient to " .. B747DR_descentSpeedGradient)
   end
   
-  function vnavDescent()
-
-  end
-
-  
-  function vnavCruise()
-    
-    
-  end

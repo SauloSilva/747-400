@@ -192,7 +192,9 @@ end
 function B747CMD_gear_down_full_CMDhandler(phase, duration)
   runningGear=-1
 end  
-
+function B747CMD_gear_off_CMDhandler(phase, duration)
+    runningGear=2
+end
 function B747_animate_value(current_value, target, min, max, speed)
 
     local fps_factor = math.min(0.1, speed * SIM_PERIOD)
@@ -214,6 +216,7 @@ function runGear()
   
   if runningGear ==0 then return end
   if B747DR_gear_handle_detent < 0.037 then B747DR_gear_handle_detent=B747_animate_value(B747DR_gear_handle_detent,0.037,0,0.037,10) return end
+  if runningGear ==2 and (B747DR_gear_handle<1 or B747DR_gear_handle>1) then B747DR_gear_handle=B747_animate_value(B747DR_gear_handle,1,0,2,10) return end  
   if runningGear ==1 and B747DR_gear_handle<2 then B747DR_gear_handle=B747_animate_value(B747DR_gear_handle,2,0,2,10) return end  
   if runningGear ==-1 and B747DR_gear_handle>0 then B747DR_gear_handle=B747_animate_value(B747DR_gear_handle,0,0,2,10) return end
   
@@ -227,6 +230,7 @@ end
 --*************************************************************************************--
 B747CMD_gear_up_full      = deferred_command("laminar/B747/gear/overrideUp", "Gear Full Up", B747CMD_gear_up_full_CMDhandler)
 B747CMD_gear_down_full    = deferred_command("laminar/B747/gear/overrideDown", "Gear Full Down", B747CMD_gear_down_full_CMDhandler)
+B747CMD_gear_off      = deferred_command("laminar/B747/gear/overrideOff", "Gear Off", B747CMD_gear_off_CMDhandler)
 
 
 

@@ -43,6 +43,11 @@ You can follow progress, make requests and generally chat about the 747 on the 7
 
 Feel free to join the conversation, fork this repository, and make the plane your own.
 
+**How can I remove the boarding music or PA announcements?**
+
+Head to the FMC MENU > ACMS > MAINT > SIMCONFIG. Here you can find many settings for the aircraft, including sound options.
+
+
 ### Installation
 Just extract the zip to your aircraft folder, with some caveats:
 
@@ -70,8 +75,6 @@ In order to use this aircraft
 Additionally, the break lever and X-Plane breaks are now seperated, there is a new command to engage the breaks by lifting the parking break lever.
 
 **Why are my screens half black?** IRS alignment cannot complete until you set the IRS position in the FMC. (INIT REF -> POS -> R4 to copy GPS position, R5 to enter it into current position.
-
-**Why do I have the default X-Plane FMC?** In order to use the custom FMC, you need to use the INIT REF button. If you click "FMC" (Key L1) from the main menu, it will take you to the default FMC.
 
 ### Changelog:
 See the [commit history](https://github.com/mSparks43/747-400/commits/master) for detailed changes.
