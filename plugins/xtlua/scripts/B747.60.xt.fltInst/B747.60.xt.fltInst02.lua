@@ -407,10 +407,14 @@ B747DR_airspeed_Vmc                             = deferred_dataref("laminar/B747
 B747DR_airspeed_Vne                             = deferred_dataref("laminar/B747/airspeed/Vne", "number")
 B747DR_airspeed_Mne                             = deferred_dataref("laminar/B747/airspeed/Mne", "number")
 B747DR_airspeed_Vref30                          = deferred_dataref("laminar/B747/airspeed/Vref30", "number")
+B747DR_airspeed_Vref                          = deferred_dataref("laminar/B747/airspeed/Vref", "number")
+B747DR_airspeed_VrefFlap                          = deferred_dataref("laminar/B747/airspeed/VrefFlap", "number")
+B747DR_airspeed_showVf25                            = deferred_dataref("laminar/B747/airspeed/showVf25", "number")
+B747DR_airspeed_showVf30                            = deferred_dataref("laminar/B747/airspeed/showVf30", "number")
 B747DR_airspeed_Vmax                            = deferred_dataref("laminar/B747/airspeed/Vmax", "number")
 B747DR_airspeed_Vmaxm                           = deferred_dataref("laminar/B747/airspeed/Vmaxm", "number")
 B747DR_airspeed_Vs                              = deferred_dataref("laminar/B747/airspeed/Vs", "number")
-
+simDR_flap_ratio_control                        = find_dataref("sim/cockpit2/controls/flap_ratio")                      -- FLAP HANDLE
 B747DR_airspeed_window_min                      = deferred_dataref("laminar/B747/airspeed_window/min", "number")
 
 B747DR_init_inst_CD                             = deferred_dataref("laminar/B747/inst/init_CD", "number")
@@ -2693,7 +2697,23 @@ function B747_Vspeeds()
     B747DR_airspeed_Vf20 = B747DR_airspeed_Vref30+10
     B747DR_airspeed_Vf25 = B747DR_airspeed_Vref30+5
     B747DR_airspeed_Vf30 = B747DR_airspeed_Vref30
+    
+    
+    if simDR_flap_ratio_control <1.0 and simDR_flap_ratio_control>0.66 and (B747DR_airspeed_VrefFlap~=1) then
+        B747DR_airspeed_showVf25=1
+    else
+        B747DR_airspeed_showVf25=0
+    end
 
+    if simDR_flap_ratio_control >=0.83 and B747DR_airspeed_VrefFlap==0 then
+        B747DR_airspeed_showVf30=1
+    else
+        B747DR_airspeed_showVf30=0
+    end
+
+    if simDR_radio_alt_height_capt< 5.0 then
+        B747DR_airspeed_VrefFlap=0
+    end
 
     -- Vfe (MAXIMUM FLAP EXTENDED SPEED - [PLACARD])
     B747DR_airspeed_Vfe1 = 280.0

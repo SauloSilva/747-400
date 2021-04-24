@@ -123,7 +123,7 @@ function VNAV_CLB(numAPengaged,fmsO)
     
 end
 function VNAV_CRZ(numAPengaged)
-    print("VNAV_CRZ alt hold") 
+    --print("VNAV_CRZ alt hold") 
     if simDR_autopilot_alt_hold_status == 0 and B747DR_ap_vnav_state == 1 then
         simCMD_autopilot_alt_hold_mode:once()
         print("alt hold < 50nm from TOD")
