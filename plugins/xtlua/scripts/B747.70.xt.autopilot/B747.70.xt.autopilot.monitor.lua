@@ -61,7 +61,7 @@ end
 
 function VNAV_CLB_ALT(numAPengaged,fms)
     local targetAlt=VNAV_NEXT_ALT(numAPengaged,fms)
-    print("VNAV_CLB_ALT 1".. simDR_autopilot_altitude_ft .. " "  .. targetAlt .. " ")
+    --print("VNAV_CLB_ALT 1".. simDR_autopilot_altitude_ft .. " "  .. targetAlt .. " ")
     local lastHold=simDRTime-B747DR_mcp_hold_pressed
     if targetAlt>B747DR_autopilot_altitude_ft and simDR_pressureAlt1<B747DR_autopilot_altitude_ft+100 and lastHold>30 then
         targetAlt=B747DR_autopilot_altitude_ft
@@ -72,7 +72,7 @@ function VNAV_CLB_ALT(numAPengaged,fms)
     end 
     if B747DR_mcp_hold==0 then simDR_autopilot_altitude_ft=targetAlt end
 
-    print("VNAV_CLB_ALT 2".. simDR_autopilot_altitude_ft .. " "  .. targetAlt .. " ")
+    --print("VNAV_CLB_ALT 2".. simDR_autopilot_altitude_ft .. " "  .. targetAlt .. " ")
 end
 
 function VNAV_CLB(numAPengaged,fmsO)
@@ -86,7 +86,7 @@ function VNAV_CLB(numAPengaged,fmsO)
     local waypointDiff=waypointAlt-simDR_pressureAlt1
     local mcpDiff=simDR_pressureAlt1-B747DR_autopilot_altitude_ft
 
-    print("VNAV_CLB "..waypointDiff .. " " .. mcpDiff.. " " .. waypointAlt .. " " .. start.. " " .. fmsO[start][9].. " " .. simDR_pressureAlt1) 
+    --print("VNAV_CLB "..waypointDiff .. " " .. mcpDiff.. " " .. waypointAlt .. " " .. start.. " " .. fmsO[start][9].. " " .. simDR_pressureAlt1) 
     if simDR_autopilot_alt_hold_status==2 and (waypointDiff>1000 and (mcpDiff>1000 or mcpDiff<-1000)) then
         setVNAVState("vnavcalcwithTargetAlt",0)
 		if getVNAVState("manualVNAVspd")==0 then
