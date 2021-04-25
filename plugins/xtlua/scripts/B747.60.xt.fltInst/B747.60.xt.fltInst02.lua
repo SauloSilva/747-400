@@ -774,11 +774,33 @@ function B747_efis_baro_set_capt_sel_dial_up_CMDhandler(phase, duration)
             B747DR_efis_baro_capt_preselect = math.min(34.00, B747DR_efis_baro_capt_preselect + 0.01)
             B747DR_efis_baro_std_capt_show_preselect = 1
         end
+    elseif phase == 1 and duration > 0.5 then 
+        B747DR_efis_baro_capt_set_dial_pos = B747DR_efis_baro_capt_set_dial_pos + 0.01
+        -- NORMAL BARO ADJUST
+        if B747DR_efis_baro_std_capt_switch_pos == 0 then
+            simDR_altimeter_baro_inHg = math.min(34.00, simDR_altimeter_baro_inHg + 0.01)
+            B747DR_efis_baro_std_capt_show_preselect = 0
+        -- PRESELECT BARO ADJUST
+        elseif B747DR_efis_baro_std_capt_switch_pos == 1 then
+            B747DR_efis_baro_capt_preselect = math.min(34.00, B747DR_efis_baro_capt_preselect + 0.01)
+            B747DR_efis_baro_std_capt_show_preselect = 1
+        end
     end
 end
 
 function B747_efis_baro_set_capt_sel_dial_dn_CMDhandler(phase, duration)
     if phase == 0 then
+        B747DR_efis_baro_capt_set_dial_pos = B747DR_efis_baro_capt_set_dial_pos - 0.01
+        -- NORMAL BARO ADJUST
+        if B747DR_efis_baro_std_capt_switch_pos == 0 then
+            simDR_altimeter_baro_inHg = math.max(26.00, simDR_altimeter_baro_inHg - 0.01)
+            B747DR_efis_baro_std_capt_show_preselect = 0
+        -- PRESELECT BARO ADJUST
+        elseif B747DR_efis_baro_std_capt_switch_pos == 1 then
+            B747DR_efis_baro_capt_preselect = math.max(26.00, B747DR_efis_baro_capt_preselect - 0.01)
+            B747DR_efis_baro_std_capt_show_preselect = 1
+        end
+    elseif phase == 1 and duration > 0.5 then  
         B747DR_efis_baro_capt_set_dial_pos = B747DR_efis_baro_capt_set_dial_pos - 0.01
         -- NORMAL BARO ADJUST
         if B747DR_efis_baro_std_capt_switch_pos == 0 then
@@ -920,11 +942,33 @@ function B747_efis_baro_set_fo_sel_dial_up_CMDhandler(phase, duration)
             B747DR_efis_baro_fo_preselect = math.min(34.00, B747DR_efis_baro_fo_preselect + 0.01)
             B747DR_efis_baro_std_fo_show_preselect = 1
         end
+    elseif phase == 1 and duration > 0.5 then
+        B747DR_efis_baro_fo_set_dial_pos = B747DR_efis_baro_fo_set_dial_pos + 0.01
+        -- NORMAL BARO ADJUST
+        if B747DR_efis_baro_std_fo_switch_pos == 0 then
+            simDR_altimeter_baro_inHg_fo = math.min(34.00, simDR_altimeter_baro_inHg_fo + 0.01)
+            B747DR_efis_baro_std_fo_show_preselect = 0 
+        -- PRESELECT BARO ADJUST
+        elseif B747DR_efis_baro_std_fo_switch_pos == 1 then
+            B747DR_efis_baro_fo_preselect = math.min(34.00, B747DR_efis_baro_fo_preselect + 0.01)
+            B747DR_efis_baro_std_fo_show_preselect = 1
+        end
     end
 end
 
 function B747_efis_baro_set_fo_sel_dial_dn_CMDhandler(phase, duration)
     if phase == 0 then
+        B747DR_efis_baro_fo_set_dial_pos = B747DR_efis_baro_fo_set_dial_pos - 0.01
+        -- NORMAL BARO ADJUST
+        if B747DR_efis_baro_std_fo_switch_pos == 0 then
+            simDR_altimeter_baro_inHg_fo = math.max(26.00, simDR_altimeter_baro_inHg_fo - 0.01)
+            B747DR_efis_baro_std_fo_show_preselect = 0
+        -- PRESELECT BARO ADJUST
+        elseif B747DR_efis_baro_std_fo_switch_pos == 1 then
+            B747DR_efis_baro_fo_preselect = math.max(26.00, B747DR_efis_baro_fo_preselect - 0.01)
+            B747DR_efis_baro_std_fo_show_preselect = 1
+        end
+    elseif phase == 1 and duration > 0.5 then
         B747DR_efis_baro_fo_set_dial_pos = B747DR_efis_baro_fo_set_dial_pos - 0.01
         -- NORMAL BARO ADJUST
         if B747DR_efis_baro_std_fo_switch_pos == 0 then
