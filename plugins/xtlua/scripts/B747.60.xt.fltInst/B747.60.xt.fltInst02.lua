@@ -407,10 +407,14 @@ B747DR_airspeed_Vmc                             = deferred_dataref("laminar/B747
 B747DR_airspeed_Vne                             = deferred_dataref("laminar/B747/airspeed/Vne", "number")
 B747DR_airspeed_Mne                             = deferred_dataref("laminar/B747/airspeed/Mne", "number")
 B747DR_airspeed_Vref30                          = deferred_dataref("laminar/B747/airspeed/Vref30", "number")
+B747DR_airspeed_Vref                          = deferred_dataref("laminar/B747/airspeed/Vref", "number")
+B747DR_airspeed_VrefFlap                          = deferred_dataref("laminar/B747/airspeed/VrefFlap", "number")
+B747DR_airspeed_showVf25                            = deferred_dataref("laminar/B747/airspeed/showVf25", "number")
+B747DR_airspeed_showVf30                            = deferred_dataref("laminar/B747/airspeed/showVf30", "number")
 B747DR_airspeed_Vmax                            = deferred_dataref("laminar/B747/airspeed/Vmax", "number")
 B747DR_airspeed_Vmaxm                           = deferred_dataref("laminar/B747/airspeed/Vmaxm", "number")
 B747DR_airspeed_Vs                              = deferred_dataref("laminar/B747/airspeed/Vs", "number")
-
+simDR_flap_ratio_control                        = find_dataref("sim/cockpit2/controls/flap_ratio")                      -- FLAP HANDLE
 B747DR_airspeed_window_min                      = deferred_dataref("laminar/B747/airspeed_window/min", "number")
 
 B747DR_init_inst_CD                             = deferred_dataref("laminar/B747/inst/init_CD", "number")
@@ -770,11 +774,33 @@ function B747_efis_baro_set_capt_sel_dial_up_CMDhandler(phase, duration)
             B747DR_efis_baro_capt_preselect = math.min(34.00, B747DR_efis_baro_capt_preselect + 0.01)
             B747DR_efis_baro_std_capt_show_preselect = 1
         end
+    elseif phase == 1 and duration > 0.5 then 
+        B747DR_efis_baro_capt_set_dial_pos = B747DR_efis_baro_capt_set_dial_pos + 0.01
+        -- NORMAL BARO ADJUST
+        if B747DR_efis_baro_std_capt_switch_pos == 0 then
+            simDR_altimeter_baro_inHg = math.min(34.00, simDR_altimeter_baro_inHg + 0.01)
+            B747DR_efis_baro_std_capt_show_preselect = 0
+        -- PRESELECT BARO ADJUST
+        elseif B747DR_efis_baro_std_capt_switch_pos == 1 then
+            B747DR_efis_baro_capt_preselect = math.min(34.00, B747DR_efis_baro_capt_preselect + 0.01)
+            B747DR_efis_baro_std_capt_show_preselect = 1
+        end
     end
 end
 
 function B747_efis_baro_set_capt_sel_dial_dn_CMDhandler(phase, duration)
     if phase == 0 then
+        B747DR_efis_baro_capt_set_dial_pos = B747DR_efis_baro_capt_set_dial_pos - 0.01
+        -- NORMAL BARO ADJUST
+        if B747DR_efis_baro_std_capt_switch_pos == 0 then
+            simDR_altimeter_baro_inHg = math.max(26.00, simDR_altimeter_baro_inHg - 0.01)
+            B747DR_efis_baro_std_capt_show_preselect = 0
+        -- PRESELECT BARO ADJUST
+        elseif B747DR_efis_baro_std_capt_switch_pos == 1 then
+            B747DR_efis_baro_capt_preselect = math.max(26.00, B747DR_efis_baro_capt_preselect - 0.01)
+            B747DR_efis_baro_std_capt_show_preselect = 1
+        end
+    elseif phase == 1 and duration > 0.5 then  
         B747DR_efis_baro_capt_set_dial_pos = B747DR_efis_baro_capt_set_dial_pos - 0.01
         -- NORMAL BARO ADJUST
         if B747DR_efis_baro_std_capt_switch_pos == 0 then
@@ -916,11 +942,33 @@ function B747_efis_baro_set_fo_sel_dial_up_CMDhandler(phase, duration)
             B747DR_efis_baro_fo_preselect = math.min(34.00, B747DR_efis_baro_fo_preselect + 0.01)
             B747DR_efis_baro_std_fo_show_preselect = 1
         end
+    elseif phase == 1 and duration > 0.5 then
+        B747DR_efis_baro_fo_set_dial_pos = B747DR_efis_baro_fo_set_dial_pos + 0.01
+        -- NORMAL BARO ADJUST
+        if B747DR_efis_baro_std_fo_switch_pos == 0 then
+            simDR_altimeter_baro_inHg_fo = math.min(34.00, simDR_altimeter_baro_inHg_fo + 0.01)
+            B747DR_efis_baro_std_fo_show_preselect = 0 
+        -- PRESELECT BARO ADJUST
+        elseif B747DR_efis_baro_std_fo_switch_pos == 1 then
+            B747DR_efis_baro_fo_preselect = math.min(34.00, B747DR_efis_baro_fo_preselect + 0.01)
+            B747DR_efis_baro_std_fo_show_preselect = 1
+        end
     end
 end
 
 function B747_efis_baro_set_fo_sel_dial_dn_CMDhandler(phase, duration)
     if phase == 0 then
+        B747DR_efis_baro_fo_set_dial_pos = B747DR_efis_baro_fo_set_dial_pos - 0.01
+        -- NORMAL BARO ADJUST
+        if B747DR_efis_baro_std_fo_switch_pos == 0 then
+            simDR_altimeter_baro_inHg_fo = math.max(26.00, simDR_altimeter_baro_inHg_fo - 0.01)
+            B747DR_efis_baro_std_fo_show_preselect = 0
+        -- PRESELECT BARO ADJUST
+        elseif B747DR_efis_baro_std_fo_switch_pos == 1 then
+            B747DR_efis_baro_fo_preselect = math.max(26.00, B747DR_efis_baro_fo_preselect - 0.01)
+            B747DR_efis_baro_std_fo_show_preselect = 1
+        end
+    elseif phase == 1 and duration > 0.5 then
         B747DR_efis_baro_fo_set_dial_pos = B747DR_efis_baro_fo_set_dial_pos - 0.01
         -- NORMAL BARO ADJUST
         if B747DR_efis_baro_std_fo_switch_pos == 0 then
@@ -2693,7 +2741,23 @@ function B747_Vspeeds()
     B747DR_airspeed_Vf20 = B747DR_airspeed_Vref30+10
     B747DR_airspeed_Vf25 = B747DR_airspeed_Vref30+5
     B747DR_airspeed_Vf30 = B747DR_airspeed_Vref30
+    
+    
+    if simDR_flap_ratio_control <1.0 and simDR_flap_ratio_control>0.66 and (B747DR_airspeed_VrefFlap~=1) then
+        B747DR_airspeed_showVf25=1
+    else
+        B747DR_airspeed_showVf25=0
+    end
 
+    if simDR_flap_ratio_control >=0.83 and B747DR_airspeed_VrefFlap==0 then
+        B747DR_airspeed_showVf30=1
+    else
+        B747DR_airspeed_showVf30=0
+    end
+
+    if simDR_radio_alt_height_capt< 5.0 then
+        B747DR_airspeed_VrefFlap=0
+    end
 
     -- Vfe (MAXIMUM FLAP EXTENDED SPEED - [PLACARD])
     B747DR_airspeed_Vfe1 = 280.0
