@@ -1,7 +1,17 @@
+-- VNAV Page by Garen Evans, Revised 16 April 2021 0718 UTC
+----------------------------------------------------------------------------------------------
+local conv = 1.0 --converter (pounds to kilos)
+
 fmsPages["LRC"]=createPage("LRC")
 fmsPages["LRC"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be this way
 
-fmsFunctionsDefs["LRC"]["L5"]={"setpage","VNAV"}
+if simConfigData["data"].SIM.weight_display_units == "LBS" then
+  conv = 1.0
+else
+  conv = 1 / simConfigData["data"].SIM.kgs_to_lbs
+end
+
+fmsFunctionsDefs["LRC"]["L5"]={"setpage","VNAV_2"}
 fmsFunctionsDefs["LRC"]["R6"]=nil
 fmsFunctionsDefs["LRC"]["R7"]=nil
 
@@ -68,9 +78,9 @@ local wind_spd = tostring(round(simDR_wind_speed))
 local wind_string = string.format("%03.0f`/%s", wind_hdg, wind_spd)
 
 -- fuel at destination
---print("fuelkg "..simDR_fueL_tank_weight_total_kg)
---print("totdst "..B747BR_totalDistance)
-local fad = string.format("%5.1f", ((simDR_fueL_tank_weight_total_kg * 2.2) - (B747BR_totalDistance * 51.6))/1000 )
+local fobLBS = simDR_fueL_tank_weight_total_kg * 2.20462
+local fad = conv*((fobLBS - B747BR_totalDistance * 51.6)/1000)
+local fad = string.format("%5.1f", fad)
 
 
 return{

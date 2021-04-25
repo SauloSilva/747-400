@@ -927,12 +927,20 @@ function B747_fltCtrols_EICAS_msg()
     end
 
     -- >CONFIG FLAPS
-    
-    if (simDR_wing_flap1_deg[0] < 9.95 or simDR_wing_flap1_deg[0] > 20.05 or simDR_wing_flap1_deg[0]~=B747DR_airspeed_flapsRef)
+    local thRef=96
+    local unmatchedConfig=false
+    if B747DR_airspeed_flapsRef>0 then
+        if simDR_wing_flap1_deg[0]>B747DR_airspeed_flapsRef+0.05 or simDR_wing_flap1_deg[0]<B747DR_airspeed_flapsRef-0.05 then
+            unmatchedConfig=true
+        end
+        thRef=86
+    end
+
+    if (simDR_wing_flap1_deg[0] < 9.95 or simDR_wing_flap1_deg[0] > 20.05 or unmatchedConfig==true)
         and simDR_all_wheels_on_ground == 1
         and simDR_ind_airspeed_kts_pilot < B747DR_airspeed_V1
         and num_fuel_ctrl_sw_on >= 3
-        and simDR_engine_N1_pct[1] > 80.0 and simDR_engine_N1_pct[2] > 80.0
+        and simDR_engine_N1_pct[1] > thRef and simDR_engine_N1_pct[2] > thRef
     then
         B747DR_CAS_warning_status[2] = 1
     else

@@ -1108,7 +1108,31 @@ function fmsFunctions.setdata(fmsO,value)
 			timer_start = simDRTime
 		end
 	end
-
+  elseif value == "vref1" then
+	fmsO["scratchpad"]=string.format("25/%3d", B747DR_airspeed_Vf25)
+	return
+  elseif value == "vref2" then
+	fmsO["scratchpad"]=string.format("30/%3d", B747DR_airspeed_Vf30)
+	return
+  elseif value == "flapspeed" then
+	if fmsO["scratchpad"]=="" then 
+		B747DR_airspeed_VrefFlap=0
+		setFMSData(value,"") 
+		return 
+	end
+	local vref=tonumber(string.sub(fmsO["scratchpad"],4))
+	if vref==nil or vref<110 or vref>180 then 
+		fmsO["notify"]="INVALID ENTRY" 
+		return 
+	end
+	B747DR_airspeed_Vref=vref
+	print(string.sub(fmsO["scratchpad"],1,2))
+	if string.sub(fmsO["scratchpad"],1,2) == "25" then
+		B747DR_airspeed_VrefFlap=1
+  	else
+		B747DR_airspeed_VrefFlap=2
+	end	
+	setFMSData(value,fmsO["scratchpad"])
   elseif value == "grwt" then
 	local grwt
 	if string.len(fmsO["scratchpad"]) > 0 and string.len(fmsO["scratchpad"]) <= 5 and string.match(fmsO["scratchpad"], "%d") then

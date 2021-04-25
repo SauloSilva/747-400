@@ -1388,13 +1388,13 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/button7
     VEH_XYZ 0 5.1 -26
-    EVENT_CMND_UP sim/autopilot/heading
+    EVENT_CMND_UP laminar/B747/autopilot/button_switch/heading_select
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/button7
     VEH_XYZ 0 5.1 -26
-    EVENT_CMND_DOWN sim/autopilot/heading
+    EVENT_CMND_DOWN laminar/B747/autopilot/button_switch/heading_select
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -1426,16 +1426,16 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/rhotery
     VEH_XYZ 0 4.3 -26.5
-    EVENT_START_COND ABS_DELTA=sim/cockpit2/autopilot/heading_dial_deg_mag_pilot > 10
-    EVENT_END_COND ABS_DELTA=sim/cockpit2/autopilot/heading_dial_deg_mag_pilot < 5
+    EVENT_START_COND ABS_DELTA=laminar/B747/autopilot/heading/degrees > 10
+    EVENT_END_COND ABS_DELTA=laminar/B747/autopilot/heading/degrees < 5
 END_SOUND_ATTACHMENT
 
-BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/Switches/rhotery
-    VEH_XYZ 0 4.3 -26.5
-    EVENT_START_COND ABS_DELTA=sim/cockpit2/autopilot/heading_dial_deg_mag_copilot > 10
-    EVENT_END_COND ABS_DELTA=sim/cockpit2/autopilot/heading_dial_deg_mag_copilot < 5
-END_SOUND_ATTACHMENT
+#BEGIN_SOUND_ATTACHMENT
+#    EVENT_NAME /Cockpit/Switches/rhotery
+#    VEH_XYZ 0 4.3 -26.5
+#    EVENT_START_COND ABS_DELTA=sim/cockpit2/autopilot/heading_dial_deg_mag_copilot > 10
+#    EVENT_END_COND ABS_DELTA=sim/cockpit2/autopilot/heading_dial_deg_mag_copilot < 5
+#END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/rhotery

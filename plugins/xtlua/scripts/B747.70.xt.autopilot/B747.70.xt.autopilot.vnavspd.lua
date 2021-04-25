@@ -139,7 +139,8 @@ function clb_src_setSpd()
     vnavSPD_state["setBaro"]=false
 end
 function clb_aptres_setSpd()
-    local spdval=math.max(tonumber(getFMSData("clbrestspd")),simDR_ind_airspeed_kts_pilot-15)
+    local spdval=math.min(B747DR_ap_ias_dial_value+5,tonumber(getFMSData("clbrestspd")))
+    spdval=math.max(spdval,simDR_ind_airspeed_kts_pilot-15)
     simDR_autopilot_airspeed_is_mach = 0
     print("convert to clb clbrestspd ".. spdval)
     B747DR_ap_ias_dial_value = math.min(399.0, spdval)
