@@ -32,7 +32,7 @@ function VNAV_NEXT_ALT(numAPengaged,fms)
           break 
         end
         if fms[i][9]>0 and fms[i][2] ~= 1 then 
-            if fms[i][9]>simDR_pressureAlt1+1000 or fms[i][9]<simDR_pressureAlt1-1000 then
+            if fms[i][9]>simDR_pressureAlt1+1000 then
                 targetAlt=fms[i][9]
             else
                 targetAlt=simDR_autopilot_altitude_ft
