@@ -1426,16 +1426,16 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/rhotery
     VEH_XYZ 0 4.3 -26.5
-    EVENT_START_COND ABS_DELTA=sim/cockpit2/autopilot/heading_dial_deg_mag_pilot > 10
-    EVENT_END_COND ABS_DELTA=sim/cockpit2/autopilot/heading_dial_deg_mag_pilot < 5
+    EVENT_START_COND ABS_DELTA=laminar/B747/autopilot/heading/degrees > 10
+    EVENT_END_COND ABS_DELTA=laminar/B747/autopilot/heading/degrees < 5
 END_SOUND_ATTACHMENT
 
-BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/Switches/rhotery
-    VEH_XYZ 0 4.3 -26.5
-    EVENT_START_COND ABS_DELTA=sim/cockpit2/autopilot/heading_dial_deg_mag_copilot > 10
-    EVENT_END_COND ABS_DELTA=sim/cockpit2/autopilot/heading_dial_deg_mag_copilot < 5
-END_SOUND_ATTACHMENT
+#BEGIN_SOUND_ATTACHMENT
+#    EVENT_NAME /Cockpit/Switches/rhotery
+#    VEH_XYZ 0 4.3 -26.5
+#    EVENT_START_COND ABS_DELTA=sim/cockpit2/autopilot/heading_dial_deg_mag_copilot > 10
+#    EVENT_END_COND ABS_DELTA=sim/cockpit2/autopilot/heading_dial_deg_mag_copilot < 5
+#END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/rhotery
@@ -6471,7 +6471,7 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Ambience/ground effect/nose_roll_thud
     VEH_XYZ 0 1.5 -24.3
-    EVENT_START_COND sim/flightmodel2/gear/tire_rotation_angle_deg == 0
+    EVENT_START_COND sim/flightmodel2/gear/tire_rotation_angle_deg > 0
 END_SOUND_ATTACHMENT
 
 ###########################
@@ -7266,7 +7266,6 @@ BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /APU/apu_stop
     VEH_XYZ 0 3.5 35
     EVENT_ALLOWED_FOR_AI
-    EVENT_START_COND sim/cockpit2/electrical/APU_N1_percent == 40
     EVENT_START_COND sim/cockpit2/electrical/APU_running == 0
 END_SOUND_ATTACHMENT
 
