@@ -31,6 +31,7 @@ B747DR_fmc_notifications            = find_dataref("laminar/B747/fms/notificatio
 B747DR_airspeed_Vref                          = find_dataref("laminar/B747/airspeed/Vref")
 B747DR_airspeed_VrefFlap                          = find_dataref("laminar/B747/airspeed/VrefFlap")
 B747DR_altimter_ft_adjusted                     = find_dataref("laminar/B747/altimeter/ft_adjusted")
+B747BR_eod_index 			= find_dataref("laminar/B747/autopilot/dist/eod_index")
 --Workaround for stack overflow in init.lua namespace_read
 
 

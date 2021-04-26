@@ -842,12 +842,9 @@ function B747_ap_VNAV_mode_CMDhandler(phase, duration)
 		B747_ap_button_switch_position_target[3] = 1
 		local dist=B747BR_totalDistance-B747BR_tod
 		if B747BR_cruiseAlt < 10 or (dist<10 and simDR_onGround==1) then
-		  B747DR_fmc_notifications[30]=1
-		return 
-
-
-		end
-			
+		  	B747DR_fmc_notifications[30]=1
+			return 
+		end	
 		if B747DR_ap_vnav_system == 1 then
 		  simCMD_autopilot_FMS_mode:once()
 		elseif B747DR_ap_vnav_state>0 then 
@@ -1778,14 +1775,16 @@ function setDistances(fmsO)
   local nextDistanceInFeet=totalDistance*6076.12
   local endI =table.getn(fmsO)
   local eod=endI
-  for i=start,endI-1,1 do
-    totalDistance=totalDistance+getDistance(fmsO[i][5],fmsO[i][6],fmsO[i+1][5],fmsO[i+1][6])
-    dtoAirport=getDistance(fmsO[i][5],fmsO[i][6],fmsO[endI][5],fmsO[endI][6])
-    --print("i=".. i .." speed="..simDR_groundspeed .. " distance="..totalDistance.." dtoAirport="..dtoAirport.. " ".. fmsO[i][5].." ".. fmsO[i][6].." ".. fmsO[i+1][5].." ".. fmsO[i+1][6])
-	if dtoAirport<10 then 
-		eod=i
-		--print("end fms"..i.."=at alt "..fms[i][3])
-		break 
+  for i=1,endI-1,1 do
+	if i>= start then
+		totalDistance=totalDistance+getDistance(fmsO[i][5],fmsO[i][6],fmsO[i+1][5],fmsO[i+1][6])
+		dtoAirport=getDistance(fmsO[i][5],fmsO[i][6],fmsO[endI][5],fmsO[endI][6])
+		--print("i=".. i .." speed="..simDR_groundspeed .. " distance="..totalDistance.." dtoAirport="..dtoAirport.. " ".. fmsO[i][5].." ".. fmsO[i][6].." ".. fmsO[i+1][5].." ".. fmsO[i+1][6])
+		if dtoAirport<10 then 
+			eod=i
+			--print("end fms"..i.."=at alt "..fms[i][3])
+			break 
+		end
 	end
   end
   B747BR_eod_index=eod
