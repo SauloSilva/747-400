@@ -2093,9 +2093,9 @@ function fmsFunctions.setDref(fmsO,value)
   if value == "seatBeltOption" then B747DR_SNDoptions[1] = 1 - B747DR_SNDoptions[1] return end
   if value == "paOption" then B747DR_SNDoptions[2] = 1 - B747DR_SNDoptions[2] return end
   if value == "musicOption" then B747DR_SNDoptions[3] = 1 - B747DR_SNDoptions[3] return end
-  if value=="TO" then toderate=0 clbderate=0 return  end
 -- end sound options
-
+	
+  if value=="TO" then toderate=0 clbderate=0 return  end
   if value=="TO1" then toderate=1 clbderate=1 return  end
   if value=="TO2" then toderate=2 clbderate=2 return  end
   if value=="CLB" then clbderate=0 return  end
