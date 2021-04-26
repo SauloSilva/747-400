@@ -426,7 +426,9 @@ B747DR_loc_ptr_vis_fo                           = deferred_dataref("laminar/B747
 B747DR_loc_scale_vis_fo                         = deferred_dataref("laminar/B747/localizer_scale/visibility_flag_fo", "number")
 B747DR_glideslope_ptr_vis_fo                    = deferred_dataref("laminar/B747/glideslope_ptr/visibility_flag_fo", "number")
 
-
+-- crazytimtimtim ( + Matt726)
+B747DR_v1_alert                                 = deferred_dataref("laminar/B747/alerts/v1", "number")
+B747DR_appDH_alert                              = deferred_dataref("laminar/B747/alerts/appDH", "number")
 
 
 --*************************************************************************************--
