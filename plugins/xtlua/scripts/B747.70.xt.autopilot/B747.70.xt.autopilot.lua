@@ -840,7 +840,8 @@ function B747_ap_VNAV_mode_CMDhandler(phase, duration)
 	if phase == 0 then
 		
 		B747_ap_button_switch_position_target[3] = 1
-		if B747BR_cruiseAlt < 10 then
+		local dist=B747BR_totalDistance-B747BR_tod
+		if B747BR_cruiseAlt < 10 or (dist<10 and simDR_onGround==1) then
 		  B747DR_fmc_notifications[30]=1
 		return 
 
