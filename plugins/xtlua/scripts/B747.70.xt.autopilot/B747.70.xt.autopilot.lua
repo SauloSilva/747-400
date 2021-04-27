@@ -875,6 +875,7 @@ function B747_ap_LNAV_mode_afterCMDhandler(phase, duration)
 		if B747DR_ap_lnav_state>0 then 
 		  B747DR_ap_lnav_state=0 
 		  if simDR_autopilot_gpss >0 then simCMD_autopilot_gpss_mode:once() end
+		  run_after_time(checkLNAV, 0.5)
 		else 
 		  B747DR_ap_lnav_state=1 
 		end
@@ -884,10 +885,12 @@ function B747_ap_LNAV_mode_afterCMDhandler(phase, duration)
 end
 function B747_ap_switch_hdg_sel_mode_CMDhandler(phase, duration)
 	if phase == 0 then
-		B747DR_ap_lnav_state=0 
-
+		 
+		if simDR_autopilot_gpss >0 then simCMD_autopilot_gpss_mode:once() end
 		simCMD_autopilot_heading_select:once()
 		simDR_autopilot_heading_deg = B747DR_ap_heading_deg
+		B747DR_ap_lnav_state=0
+		run_after_time(checkLNAV, 0.5)
 	end
 end
 --*************************************************************************************--
@@ -1973,8 +1976,10 @@ function B747_ap_fma()
 
     if simDR_radarAlt1>50 and B747DR_ap_lnav_state==1 then
       B747DR_ap_lnav_state=2
-      simCMD_autopilot_gpss_mode:once()
-      run_after_time(checkLNAV, 1)
+	  if simDR_autopilot_gpss ==0 then simCMD_autopilot_gpss_mode:once() end
+	  simDR_autopilot_gpss=2
+     -- simCMD_autopilot_gpss_mode:once()
+      run_after_time(checkLNAV, 0.5)
     end
 
     -- ROLL MODES: ARMED
@@ -2027,7 +2032,10 @@ function B747_ap_fma()
     elseif simDR_autopilot_gpss == 2 or B747DR_ap_lnav_state==2 then
         B747DR_ap_FMA_active_roll_mode = 2
 		B747DR_ap_lnav_state=2
-    
+		if simDR_autopilot_gpss == 0 then 
+			simCMD_autopilot_gpss_mode:once() 
+			run_after_time(checkLNAV, 0.5)
+		end
 
       -- (ROLLOUT) --
       -- TODO: AUTOLAND LOGIC
@@ -2041,6 +2049,7 @@ function B747_ap_fma()
     elseif simDR_autopilot_heading_hold_status == 2 then
         B747DR_ap_FMA_active_roll_mode = 7
         B747DR_ap_lnav_state=0
+		
      -- (ATT) --
     elseif simDR_autopilot_roll_status == 2 
       and simDR_autopilot_flight_dir_mode > 0
@@ -2235,12 +2244,14 @@ function B747_ap_afds()
 
 
     else
-        if B747DR_toggle_switch_position[23] > 0.95
+		if numAPengaged >= 1 then
+			B747DR_ap_AFDS_status_annun = 2
+        elseif B747DR_toggle_switch_position[23] > 0.95
             or B747DR_toggle_switch_position[24] > 0.95
         then
             B747DR_ap_AFDS_status_annun = 1                                                	-- AFDS MODE = "FD"
-	else
-	    B747DR_ap_AFDS_status_annun = 0
+		else
+	    	B747DR_ap_AFDS_status_annun = 0
         end
     end
 
