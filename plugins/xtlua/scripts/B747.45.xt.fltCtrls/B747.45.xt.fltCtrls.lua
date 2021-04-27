@@ -982,6 +982,11 @@ function B747_fltCtrols_EICAS_msg()
       last_simDR_Brake=simDR_parking_brake_ratio
       last_B747DR_Brake=B747DR_parking_brake_ratio
     end
+    if simDR_parking_brake_ratio==0 and B747DR_parking_brake_ratio>0 then
+        B747DR_parking_brake_ratio=B747_animate_value(B747DR_parking_brake_ratio,0,0,1,3)
+        last_simDR_Brake=simDR_parking_brake_ratio
+        last_B747DR_Brake=B747DR_parking_brake_ratio
+    end
     local numClimb=0;
     if simDR_engine_N1_pct[0]>90.0 then numClimb=numClimb+1 end
     if simDR_engine_N1_pct[1]>90.0 then numClimb=numClimb+1 end
