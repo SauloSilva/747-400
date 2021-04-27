@@ -686,7 +686,8 @@ function B747_ap_switch_cmd_C_CMDhandler(phase, duration)
 		if B747DR_ap_button_switch_position[14] == 0 then								-- DISENGAGE BAR IS "UP/OFF"		
 			if B747DR_ap_cmd_C_mode == 0 then											-- CENTER CMD AP MODE IS "OFF"
 				if simDR_autopilot_servos_on == 0 then									-- AUTOPILOT IS NOT ENGAGED	
-					simCMD_autopilot_servos2_on:once()	
+					--simCMD_autopilot_servos2_on:once()
+					simCMD_autopilot_servos_on:once()	
 					switching_servos_on=simDRTime
 				end
 			B747DR_ap_cmd_C_mode = 1													-- SET AP CMD C MODE TO "ON"	
@@ -704,7 +705,8 @@ function B747_ap_switch_cmd_R_CMDhandler(phase, duration)
 		if B747DR_ap_button_switch_position[14] == 0 then								-- DISENGAGE BAR IS "UP/OFF"		
 			if B747DR_ap_cmd_R_mode == 0 then											-- RIGHT CMD AP MODE IS "OFF"
 				if simDR_autopilot_servos_on == 0 then									-- AUTOPILOT IS NOT ENGAGED	
-				simCMD_autopilot_servos3_on:once()
+				--simCMD_autopilot_servos3_on:once()
+				simCMD_autopilot_servos_on:once()
 				switching_servos_on=simDRTime
 				end
 			B747DR_ap_cmd_R_mode = 1													-- SET AP CMD R MODE TO "ON"	
@@ -873,6 +875,7 @@ function B747_ap_LNAV_mode_afterCMDhandler(phase, duration)
 		if B747DR_ap_lnav_state>0 then 
 		  B747DR_ap_lnav_state=0 
 		  if simDR_autopilot_gpss >0 then simCMD_autopilot_gpss_mode:once() end
+		  run_after_time(checkLNAV, 0.5)
 		else 
 		  B747DR_ap_lnav_state=1 
 		end
@@ -882,10 +885,12 @@ function B747_ap_LNAV_mode_afterCMDhandler(phase, duration)
 end
 function B747_ap_switch_hdg_sel_mode_CMDhandler(phase, duration)
 	if phase == 0 then
-		B747DR_ap_lnav_state=0 
-
+		 
+		if simDR_autopilot_gpss >0 then simCMD_autopilot_gpss_mode:once() end
 		simCMD_autopilot_heading_select:once()
 		simDR_autopilot_heading_deg = B747DR_ap_heading_deg
+		B747DR_ap_lnav_state=0
+		run_after_time(checkLNAV, 0.5)
 	end
 end
 --*************************************************************************************--
@@ -1776,15 +1781,15 @@ function setDistances(fmsO)
   local endI =table.getn(fmsO)
   local eod=endI
   for i=1,endI-1,1 do
-	if i>= start then
-		totalDistance=totalDistance+getDistance(fmsO[i][5],fmsO[i][6],fmsO[i+1][5],fmsO[i+1][6])
-		dtoAirport=getDistance(fmsO[i][5],fmsO[i][6],fmsO[endI][5],fmsO[endI][6])
-		--print("i=".. i .." speed="..simDR_groundspeed .. " distance="..totalDistance.." dtoAirport="..dtoAirport.. " ".. fmsO[i][5].." ".. fmsO[i][6].." ".. fmsO[i+1][5].." ".. fmsO[i+1][6])
-		if dtoAirport<10 then 
-			eod=i
-			--print("end fms"..i.."=at alt "..fms[i][3])
-			break 
-		end
+	if i>=start then
+    	totalDistance=totalDistance+getDistance(fmsO[i][5],fmsO[i][6],fmsO[i+1][5],fmsO[i+1][6])
+	end
+    dtoAirport=getDistance(fmsO[i][5],fmsO[i][6],fmsO[endI][5],fmsO[endI][6])
+    --print("i=".. i .." speed="..simDR_groundspeed .. " distance="..totalDistance.." dtoAirport="..dtoAirport.. " ".. fmsO[i][5].." ".. fmsO[i][6].." ".. fmsO[i+1][5].." ".. fmsO[i+1][6])
+	if dtoAirport<10 then 
+		eod=i
+		--print("end fms"..i.."=at alt "..fms[i][3])
+		break 
 	end
   end
   B747BR_eod_index=eod
@@ -1971,8 +1976,11 @@ function B747_ap_fma()
 
     if simDR_radarAlt1>50 and B747DR_ap_lnav_state==1 then
       B747DR_ap_lnav_state=2
-      simCMD_autopilot_gpss_mode:once()
-      run_after_time(checkLNAV, 1)
+	  print("simDR_radarAlt1>50 and B747DR_ap_lnav_state==1")
+	  if simDR_autopilot_gpss ==0 then simCMD_autopilot_gpss_mode:once() end
+	  simDR_autopilot_gpss=2
+     -- simCMD_autopilot_gpss_mode:once()
+      run_after_time(checkLNAV, 0.5)
     end
 
     -- ROLL MODES: ARMED
@@ -2025,7 +2033,11 @@ function B747_ap_fma()
     elseif simDR_autopilot_gpss == 2 or B747DR_ap_lnav_state==2 then
         B747DR_ap_FMA_active_roll_mode = 2
 		B747DR_ap_lnav_state=2
-    
+		if simDR_autopilot_gpss == 0 and B747DR_ap_approach_mode==0 then 
+			print("simDR_autopilot_gpss == 2 or B747DR_ap_lnav_state==2")
+			simCMD_autopilot_gpss_mode:once() 
+			run_after_time(checkLNAV, 0.5)
+		end
 
       -- (ROLLOUT) --
       -- TODO: AUTOLAND LOGIC
@@ -2039,6 +2051,7 @@ function B747_ap_fma()
     elseif simDR_autopilot_heading_hold_status == 2 then
         B747DR_ap_FMA_active_roll_mode = 7
         B747DR_ap_lnav_state=0
+		
      -- (ATT) --
     elseif simDR_autopilot_roll_status == 2 
       and simDR_autopilot_flight_dir_mode > 0
@@ -2233,12 +2246,14 @@ function B747_ap_afds()
 
 
     else
-        if B747DR_toggle_switch_position[23] > 0.95
+		if numAPengaged >= 1 then
+			B747DR_ap_AFDS_status_annun = 2
+        elseif B747DR_toggle_switch_position[23] > 0.95
             or B747DR_toggle_switch_position[24] > 0.95
         then
             B747DR_ap_AFDS_status_annun = 1                                                	-- AFDS MODE = "FD"
-	else
-	    B747DR_ap_AFDS_status_annun = 0
+		else
+	    	B747DR_ap_AFDS_status_annun = 0
         end
     end
 

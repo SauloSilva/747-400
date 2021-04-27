@@ -3,7 +3,7 @@ by Matt726
 
 Available for: Default Laminar Research or mSparks 747 mod
 
-Version: v1.7
+Version: v2.0
 
 Email: mfahrenheit135@gmail.com
 
@@ -27,6 +27,16 @@ Email: mfahrenheit135@gmail.com
 
 ---
 ## CHANGELOG:
+
+### v2.0
+
+- added RR engines
+- fixed PW engines
+- added reverse lever sounds
+- updated parameters for sound config
+- added "LCD" fan sound (changes when simconfig PFD display is changed to LCD
+- updated wind
+- added some touchdown effects
 
 ### v1.7
 
