@@ -10,7 +10,7 @@ simDR_onGround=find_dataref("sim/flightmodel/failures/onground_any")
 B747DR_acfType               = find_dataref("laminar/B747/acfType")
 B747DR_payload_weight               = find_dataref("sim/flightmodel/weight/m_fixed")
 simDR_acf_m_jettison  		=find_dataref("sim/aircraft/weight/acf_m_jettison")
-simDR_m_jettison  		=find_dataref("sim/flightmodel/weight/m_jettison")
+simDR_m_jettison  		=find_dataref("sim/flightmodel/weight/m_jettison")cr
 B747DR_CAS_advisory_status       = find_dataref("laminar/B747/CAS/advisory_status")
 B747DR_ap_vnav_system            = find_dataref("laminar/B747/autopilot/vnav_system")
 B747DR_ap_vnav_pause            = find_dataref("laminar/B747/autopilot/vnav_pause")
@@ -248,9 +248,6 @@ simDR_onground				= find_dataref("sim/flightmodel/failures/onground_any")
 simDR_payload_weight		= find_dataref("sim/flightmodel/weight/m_fixed")
 simDR_fuel_totalizer_kg		= find_dataref("sim/cockpit2/fuel/fuel_totalizer_init_kg")
 --Marauder28
-
---Engine Type (crazytimtimtim + Matt726)
-B747DR_engineType                       = find_dataref("laminar/B747/engines/type")
 
 --*************************************************************************************--
 --** 				        CREATE READ-WRITE CUSTOM DATAREFS                        **--
