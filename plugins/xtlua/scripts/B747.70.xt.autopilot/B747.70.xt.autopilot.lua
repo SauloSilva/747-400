@@ -1976,6 +1976,7 @@ function B747_ap_fma()
 
     if simDR_radarAlt1>50 and B747DR_ap_lnav_state==1 then
       B747DR_ap_lnav_state=2
+	  print("simDR_radarAlt1>50 and B747DR_ap_lnav_state==1")
 	  if simDR_autopilot_gpss ==0 then simCMD_autopilot_gpss_mode:once() end
 	  simDR_autopilot_gpss=2
      -- simCMD_autopilot_gpss_mode:once()
@@ -2032,7 +2033,8 @@ function B747_ap_fma()
     elseif simDR_autopilot_gpss == 2 or B747DR_ap_lnav_state==2 then
         B747DR_ap_FMA_active_roll_mode = 2
 		B747DR_ap_lnav_state=2
-		if simDR_autopilot_gpss == 0 then 
+		if simDR_autopilot_gpss == 0 and B747DR_ap_approach_mode==0 then 
+			print("simDR_autopilot_gpss == 2 or B747DR_ap_lnav_state==2")
 			simCMD_autopilot_gpss_mode:once() 
 			run_after_time(checkLNAV, 0.5)
 		end
