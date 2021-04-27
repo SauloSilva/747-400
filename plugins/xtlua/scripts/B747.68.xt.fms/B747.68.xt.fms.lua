@@ -249,9 +249,6 @@ simDR_payload_weight		= find_dataref("sim/flightmodel/weight/m_fixed")
 simDR_fuel_totalizer_kg		= find_dataref("sim/cockpit2/fuel/fuel_totalizer_init_kg")
 --Marauder28
 
---Engine Type (crazytimtimtim + Matt726)
-B747DR_engineType                       = find_dataref("laminar/B747/engines/type")
-
 --*************************************************************************************--
 --** 				        CREATE READ-WRITE CUSTOM DATAREFS                        **--
 --*************************************************************************************--

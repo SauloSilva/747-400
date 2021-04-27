@@ -183,6 +183,7 @@ B747DR_elec_standby_power_sel_pos   = find_dataref("laminar/B747/electrical/stan
 
 B747DR_autothrottle_fail            	= find_dataref("laminar/B747/engines/autothrottle_fail")
 
+B747DR_thrust_lever_position        = find_dataref("sim/cockpit2/engine/actuators/throttle_jet_rev_ratio_all") -- crazytimtimtim
 --*************************************************************************************--
 --** 				        CREATE READ-ONLY CUSTOM DATAREFS               	         **--
 --*************************************************************************************--
@@ -2245,7 +2246,17 @@ function B747_decision_height_capt()
 
 end
 
+    -- "Approaching Minimums" Callout (crazytimtimtim + Matt726)
+    if simDR_radio_alt_height_capt <= simDR_radio_alt_DH_capt + 80 and 
+	simDR_radio_alt_height_capt > simDR_radio_alt_DH_capt and 
+	simDR_all_wheels_on_ground == 0 and
+	B747DR_thrust_lever_position < 0.9 then
+        B747DR_appDH_alert = 1
+    else
+        B747DR_appDH_alert = 0
+    end
 
+end
 
 
 
