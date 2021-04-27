@@ -2078,14 +2078,23 @@ function fmsFunctions.setDref(fmsO,value)
 	B747DR_ap_vnav_pause=numVal
 	return 
   end
--- sound options (crazytimtimtim + Matt726)
-  if value == "B747DR_SNDoptions_gpws" then B747DR_SNDoptions_gpws = 1 - B747DR_SNDoptions_gpws return end
-  if value == "B747DR_SNDoptions_seatBelt" then B747DR_SNDoptions_seatBelt = 1 - B747DR_SNDoptions_seatBelt return end
-  if value == "B747DR_SNDoptions_pa" then B747DR_SNDoptions_pa = 1 - B747DR_SNDoptions_pa return end
-  if value == "B747DR_SNDoptions_music" then B747DR_SNDoptions_music = 1 - B747DR_SNDoptions_music return end
-  if value == "B747DR_SNDoptions_modernAlarms" then B747DR_SNDoptions_modernAlarms = 1 - B747DR_SNDoptions_modernAlarms return end
-  -- Matt, add another if statement here just like the previous, but change the dataref for the sound option.
+	
+-- sound options (crazytimtimtim + Matt726)    
+  if value == "alarmsOption" then
+	if B747DR_SNDoptions[0] == 0 then
+	  B747DR_SNDoptions[0] = 1
+	elseif B747DR_SNDoptions[0] == 1 then
+	  B747DR_SNDoptions[0] = 2
+	elseif B747DR_SNDoptions[0] == 2 then
+	  B747DR_SNDoptions[0] = 0
+	end
+	return
+  end  
+  if value == "seatBeltOption" then B747DR_SNDoptions[1] = 1 - B747DR_SNDoptions[1] return end
+  if value == "paOption" then B747DR_SNDoptions[2] = 1 - B747DR_SNDoptions[2] return end
+  if value == "musicOption" then B747DR_SNDoptions[3] = 1 - B747DR_SNDoptions[3] return end
 -- end sound options
+	
   if value=="TO" then toderate=0 clbderate=0 return  end
   if value=="TO1" then toderate=1 clbderate=1 return  end
   if value=="TO2" then toderate=2 clbderate=2 return  end

@@ -126,50 +126,50 @@ fmsPages["MAINTSIMCONFIG"].getPage=function(self,pgNo,fmsID)
 	elseif pgNo == 4 then
 		-- Sound options (crazytimtimtim + Matt726)
 	
-		local lineA = "          GPWS           "
+		local lineA = "         ALARMS          "
 		local lineB = "        SEAT BELT        "
 		local lineC = "           PA            "
 		local lineD = "          MUSIC          "
-		local lineE = "         ALARMS          "
 
-		fmsFunctionsDefs["MAINTSIMCONFIG"]["L1"]={"setDref","B747DR_SNDoptions_gpws"}
-		fmsFunctionsDefs["MAINTSIMCONFIG"]["L2"]={"setDref","B747DR_SNDoptions_seatBelt"}
-		fmsFunctionsDefs["MAINTSIMCONFIG"]["L3"]={"setDref","B747DR_SNDoptions_pa"}
-		fmsFunctionsDefs["MAINTSIMCONFIG"]["L4"]={"setDref","B747DR_SNDoptions_music"}
-		fmsFunctionsDefs["MAINTSIMCONFIG"]["L5"]={"setDref","B747DR_SNDoptions_modernAlarms"}
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["L1"]={"setDref","alarmsOption"}
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["L2"]={"setDref","seatBeltOption"}
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["L3"]={"setDref","paOption"}
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["L4"]={"setDref","musicOption"}
+		
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["R1"] = nil
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["R2"] = nil
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["R3"] = nil
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["R4"] = nil
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["R5"] = nil
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["L5"] = nil
 
-		if B747DR_SNDoptions_gpws == 0 then
-			lineA = "<USE OLD ALARMS         "
+		if B747DR_SNDoptions[0] == 0 then
+			lineA = "<USE NEW WARNINGS        "
+		elseif B747DR_SNDoptions[0] == 1 then
+			lineA = "<USE CLASSIC WARN        "
+		elseif B747DR_SNDoptions[0] == 2 then
+			lineA = "<USE DEFAULT WARN        "
+		end
+		
+		if B747DR_SNDoptions[1] == 0 then
+			lineB = "<USE SEATBELT SND 2      "
 		else
-			lineA = "<USE NEW ALARMS         "
+			lineB = "<USE SEATBELT SND 1      "
 		end
 
-		if B747DR_SNDoptions_seatBelt == 0 then
-			lineB = "<SEATBELT SOUND 2       "
-		else
-			lineB = "<SEATBELT SOUND 1       "
-		end
-
-		if B747DR_SNDoptions_pa == 0 then
+		if B747DR_SNDoptions[2] == 0 then
 			lineC = "<DISABLE PA             "
 		else
 			lineC = "<ENABLE PA              "
 		end
 
-		if B747DR_SNDoptions_music == 0 then
-			lineD = "<DISABLE BRD MUSIC       "
+		if B747DR_SNDoptions[3] == 0 then
+			lineD = "<DISABLE BRD MUSIC      "
 		else
-			lineD = "<ENABLE BRD MUSIC        "
-		end
-
-		if B747DR_SNDoptions_modernAlarms == 0 then
-			lineE = "<USE NEW WARNINGS        "
-		else
-			lineE = "<USE DEFAULT WARNINGS    "
+			lineD = "<ENABLE BRD MUSIC       "
 		end
 
 		return{
-
 		"      SOUND CONFIG      ",
 		"                        ",
 		lineA,
@@ -180,7 +180,7 @@ fmsPages["MAINTSIMCONFIG"].getPage=function(self,pgNo,fmsID)
 		"                        ",
 		lineD,
 		"                        ",
-		lineE,
+		"                        ",
 		"------------------------",
 		"<MAINT                  "
 		}
@@ -279,56 +279,51 @@ fmsPages["MAINTSIMCONFIG"].getSmallPage=function(self,pgNo,fmsID)
 	elseif pgNo == 4 then
 		-- smallPage for SoundConfig
 
-		local lineA = "                   (GPWS)"
+		local lineA = "                 (ALARMS)"
 		local lineB = "                  (STBLT)"
 		local lineC = "                     (PA)"
 		local lineD = "                  (MUSIC)"
-		local lineE = "                 (ALARMS)"
 
-		if B747DR_SNDoptions_gpws == 0 then
+		if B747DR_SNDoptions[0] == 0 then
+			lineA = "                      (DEF)"
+		elseif B747DR_SNDoptions[0] == 1 then
 			lineA = "                      (NEW)"
+		elseif B747DR_SNDoptions[0] == 2 then
+			lineA = "                      (OLD)"
+		end
+		
+		if B747DR_SNDoptions[1] == 0 then
+			lineB = "                      (1/2)"
 		else
-			lineA = "                  (CLASSIC)"
+			lineB = "                      (2/2)"
 		end
 
-		if B747DR_SNDoptions_seatBelt == 0 then
-			lineB = "                        (1)"
-		else
-			lineB = "                        (2)"
-		end
-
-		if B747DR_SNDoptions_pa == 0 then
+		if B747DR_SNDoptions[2] == 0 then
 			lineC = "                       (ON)"
 		else
 			lineC = "                      (OFF)"
 		end
 
-		if B747DR_SNDoptions_music == 0 then
+		if B747DR_SNDoptions[3] == 0 then
 			lineD = "                       (ON)"
 		else
 			lineD = "                      (OFF)"
 		end
 
-		if B747DR_SNDoptions_modernAlarms == 0 then
-			lineE = "                  (DEFAULT)"
-		else
-			lineE = "                      (NEW)"
-		end
-
 		return {
-			"                        4/4",
-			"OPTIONS           CURRENTLY",
-			lineA,
-			"                        ",
-			lineB,
-			"                        ",
-			lineC,
-			"                        ",
-			lineD,
-			"                        ",
-			lineE,
-			"                        ",
-			"                        "
+		"                        4/4",
+		"OPTIONS           CURRENTLY",
+		lineA,
+		"                        ",
+		lineB,
+		"                        ",
+		lineC,
+		"                        ",
+		lineD,
+		"                        ",
+		"                        ",
+		"                        ",
+		"                        "
 		}
 		
 		-- sound smallPage end
