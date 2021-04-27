@@ -52,11 +52,9 @@ Head to the FMC MENU > ACMS > MAINT > SIMCONFIG. Here you can find many settings
 Just extract the zip to your aircraft folder, with some caveats:
 
 Windows users:
-You need to manually install [C++ support](https://www.microsoft.com/en-us/download/details.aspx?id=13523) and [multithreading support](https://aka.ms/vs/16/release/vc_redist.x64.exe)
+You need to manually install [C++ support](https://www.microsoft.com/en-us/download/details.aspx?id=13523) and [multithreading support](https://aka.ms/vs/16/release/vc_redist.x64.exe) in order to use this aircraft.
 
 (aka.ms is a microsoft domain - linked from https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
-
-In order to use this aircraft
 
 ### Troubleshooting
 
