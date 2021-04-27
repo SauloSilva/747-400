@@ -2243,20 +2243,20 @@ function B747_decision_height_capt()
             B747_DH_alert_mode = 0
         end
     end
-
-end
-
     -- "Approaching Minimums" Callout (crazytimtimtim + Matt726)
     if simDR_radio_alt_height_capt <= simDR_radio_alt_DH_capt + 80 and 
-	simDR_radio_alt_height_capt > simDR_radio_alt_DH_capt and 
-	simDR_all_wheels_on_ground == 0 and
-	B747DR_thrust_lever_position < 0.9 then
+    simDR_radio_alt_height_capt > simDR_radio_alt_DH_capt and 
+    simDR_all_wheels_on_ground == 0 and
+    B747DR_thrust_lever_position < 0.9 then
         B747DR_appDH_alert = 1
     else
         B747DR_appDH_alert = 0
     end
-
 end
+
+    
+
+
 
 
 
