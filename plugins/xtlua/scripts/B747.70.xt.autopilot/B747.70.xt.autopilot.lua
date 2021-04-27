@@ -686,7 +686,8 @@ function B747_ap_switch_cmd_C_CMDhandler(phase, duration)
 		if B747DR_ap_button_switch_position[14] == 0 then								-- DISENGAGE BAR IS "UP/OFF"		
 			if B747DR_ap_cmd_C_mode == 0 then											-- CENTER CMD AP MODE IS "OFF"
 				if simDR_autopilot_servos_on == 0 then									-- AUTOPILOT IS NOT ENGAGED	
-					simCMD_autopilot_servos2_on:once()	
+					--simCMD_autopilot_servos2_on:once()
+					simCMD_autopilot_servos_on:once()	
 					switching_servos_on=simDRTime
 				end
 			B747DR_ap_cmd_C_mode = 1													-- SET AP CMD C MODE TO "ON"	
@@ -704,7 +705,8 @@ function B747_ap_switch_cmd_R_CMDhandler(phase, duration)
 		if B747DR_ap_button_switch_position[14] == 0 then								-- DISENGAGE BAR IS "UP/OFF"		
 			if B747DR_ap_cmd_R_mode == 0 then											-- RIGHT CMD AP MODE IS "OFF"
 				if simDR_autopilot_servos_on == 0 then									-- AUTOPILOT IS NOT ENGAGED	
-				simCMD_autopilot_servos3_on:once()
+				--simCMD_autopilot_servos3_on:once()
+				simCMD_autopilot_servos_on:once()
 				switching_servos_on=simDRTime
 				end
 			B747DR_ap_cmd_R_mode = 1													-- SET AP CMD R MODE TO "ON"	
@@ -1776,15 +1778,15 @@ function setDistances(fmsO)
   local endI =table.getn(fmsO)
   local eod=endI
   for i=1,endI-1,1 do
-	if i>= start then
-		totalDistance=totalDistance+getDistance(fmsO[i][5],fmsO[i][6],fmsO[i+1][5],fmsO[i+1][6])
-		dtoAirport=getDistance(fmsO[i][5],fmsO[i][6],fmsO[endI][5],fmsO[endI][6])
-		--print("i=".. i .." speed="..simDR_groundspeed .. " distance="..totalDistance.." dtoAirport="..dtoAirport.. " ".. fmsO[i][5].." ".. fmsO[i][6].." ".. fmsO[i+1][5].." ".. fmsO[i+1][6])
-		if dtoAirport<10 then 
-			eod=i
-			--print("end fms"..i.."=at alt "..fms[i][3])
-			break 
-		end
+	if i>=start then
+    	totalDistance=totalDistance+getDistance(fmsO[i][5],fmsO[i][6],fmsO[i+1][5],fmsO[i+1][6])
+	end
+    dtoAirport=getDistance(fmsO[i][5],fmsO[i][6],fmsO[endI][5],fmsO[endI][6])
+    --print("i=".. i .." speed="..simDR_groundspeed .. " distance="..totalDistance.." dtoAirport="..dtoAirport.. " ".. fmsO[i][5].." ".. fmsO[i][6].." ".. fmsO[i+1][5].." ".. fmsO[i+1][6])
+	if dtoAirport<10 then 
+		eod=i
+		--print("end fms"..i.."=at alt "..fms[i][3])
+		break 
 	end
   end
   B747BR_eod_index=eod

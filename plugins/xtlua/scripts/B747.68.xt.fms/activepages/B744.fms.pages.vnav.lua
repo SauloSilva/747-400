@@ -357,18 +357,12 @@ fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be thi
         local fms = json.decode(fmsJson)
         if(fms ~= nil and fmsModules["data"]["crzalt"]~="*****" ) then
           n = table.getn(fms)
-          local dist_to_TOD = B747BR_totalDistance - B747BR_tod
-          if B747BR_eod_index>0 and dist_to_TOD>0 then
-            eodWpt=fms[B747BR_eod_index][8]
-            eodAlt=fms[B747BR_eod_index][9]
-          else
-            eodWpt = "*****"
-            eodAlt = 0
-          end
+          
+          local currentWP=0
           for i=1,n,1 do
             if(fms[i][10] == true) then -- this is the next waypoint
               -- increment through the fms to find valid waypoint
-
+              currentWP=i
               while((i==1 or string.len(fms[i][8])>5 or tonumber(fms[i][8])~=nil or fms[i][9]>=B747BR_cruiseAlt-500) and ((i+1)<n) ) do
                 i = i + 1
               end
@@ -394,6 +388,14 @@ fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be thi
               end
             end
 
+          end
+
+          if B747BR_eod_index>0 and currentWP<=B747BR_eod_index then
+            eodWpt=fms[B747BR_eod_index][8]
+            eodAlt=fms[B747BR_eod_index][9]
+          else
+            eodWpt = "*****"
+            eodAlt = 0
           end
         end
       end
