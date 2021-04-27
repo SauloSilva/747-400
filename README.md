@@ -52,13 +52,9 @@ Head to the FMC MENU > ACMS > MAINT > SIMCONFIG. Here you can find many settings
 Just extract the zip to your aircraft folder, with some caveats:
 
 Windows users:
-You need to manually install C++ support
+You need to manually install [C++ support](https://www.microsoft.com/en-us/download/details.aspx?id=13523) and [multithreading support](https://aka.ms/vs/16/release/vc_redist.x64.exe)
 
-https://www.microsoft.com/en-us/download/details.aspx?id=13523
-
-And multithreading support
-
-https://aka.ms/vs/16/release/vc_redist.x64.exe (aka.ms is a microsoft domain - linked from https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
+(aka.ms is a microsoft domain - linked from https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads)
 
 In order to use this aircraft
 
@@ -70,7 +66,7 @@ In order to use this aircraft
 
 **Why is my FMC blank?** certain controllers have their switches automatically bound to avionics power, if these are off it turns off the avionics needed by the FMC, either switch on the switch on your controller, or bind a key to "avionics on" and use that to bring the FMC to life
 
-**Why can't I move?** The aircraft brakes require hydraulic pressure to function, to prevent the aircraft rolling away before the hydraulics are pressurised the wheels are fitted with chocks when starting cold and dark, remove the from the ground services menu in one of the FMCs.
+**Why can't I move?** The aircraft brakes require hydraulic pressure to function, to prevent the aircraft rolling away before the hydraulics are pressurised the wheels are fitted with chocks when starting cold and dark, remove the from the ground services menu in an FMC.
 
 Additionally, the break lever and X-Plane breaks are now seperated, there is a new command to engage the breaks by lifting the parking break lever.
 
