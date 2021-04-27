@@ -59,9 +59,10 @@ B747DR_thrust_ref							= deferred_dataref("laminar/B747/engines/thrust_ref", "n
 B747DR_efis_baro_ref_capt_sel_dial_pos		= deferred_dataref("laminar/B747/efis/baro_ref/capt/sel_dial_pos", "number")
 B747DR_efis_baro_ref_fo_sel_dial_pos		= deferred_dataref("laminar/B747/efis/baro_ref/fo/sel_dial_pos", "number")
 B747DR_efis_baro_ref_capt_switch_pos		= deferred_dataref("laminar/B747/efis/baro_std/capt/switch_pos", "number")
-
 B747DR_efis_baro_ref_fo_switch_pos			= deferred_dataref("laminar/B747/efis/baro_std/fo/switch_pos", "number")
 
+-- Engine Type (crazytimitmtim)
+B747DR_engineType                               = deferred_dataref("laminar/B747/engines/type", "number")
 --*************************************************************************************--
 --** 				        MAIN PROGRAM LOGIC                                       **--
 --*************************************************************************************--
@@ -134,6 +135,18 @@ function check_thrust_ref()
 		B747DR_thrust_ref = 1
 	end
 end
+
+-- crazytimtimtim
+function checkEngineType()
+	if string.match(simConfigData["data"].PLANE.engines, "PW") then
+		B747DR_engineType = 0
+	elseif string.match(simConfigData["data"].PLANE.engines, "CF") then
+		B747DR_engineType = 1
+	elseif string.match(simConfigData["data"].PLANE.engines, "RB") then
+		B747DR_engineType = 2
+	end
+end
+-- crazytimtimtim end
 
 function set_loaded_configs()
 
@@ -226,4 +239,6 @@ function after_physics()
 	--Thrust Ref Setting
 	check_thrust_ref()
 
+	--Engine Type
+	checkEngineType()
 end
