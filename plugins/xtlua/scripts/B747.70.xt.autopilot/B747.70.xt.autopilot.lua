@@ -98,6 +98,7 @@ end
 --** 				             FIND X-PLANE DATAREFS           			    	 **--
 --*************************************************************************************--
 
+simDR_autopilot_flight_dir_active     	= find_dataref("sim/cockpit2/annunciators/flight_director")
 simDR_autopilot_flight_dir_mode     	= find_dataref("sim/cockpit2/autopilot/flight_director_mode")
 simDR_autopilot_autothrottle_enabled	= find_dataref("sim/cockpit2/autopilot/autothrottle_enabled")
 simDR_autopilot_autothrottle_on      	= find_dataref("sim/cockpit2/autopilot/autothrottle_on")
@@ -1948,7 +1949,7 @@ function B747_ap_fma()
     if runAutoland() then return end
     -- AUTOTHROTTLE
     -------------------------------------------------------------------------------------
-    if B747DR_toggle_switch_position[29] == 0 or B747DR_autothrottle_fail>0 then
+    if B747DR_toggle_switch_position[29] == 0 or B747DR_autothrottle_fail>0 or (B747DR_toggle_switch_position[23] == 0.0 and B747DR_toggle_switch_position[24] == 0.0) then
 		B747DR_ap_FMA_autothrottle_mode = 0
 	elseif (B747DR_engine_TOGA_mode >0 and simDR_ind_airspeed_kts_pilot<65) or B747DR_ap_autoland<0 or (B747DR_ap_vnav_state==0 and B747DR_ap_thrust_mode>0) then                                        
         B747DR_ap_FMA_autothrottle_mode = 5 --THR REF
@@ -1988,9 +1989,10 @@ function B747_ap_fma()
 
     -- (NONE) --
     
-
+	if B747DR_toggle_switch_position[23] == 0.0 and B747DR_toggle_switch_position[24] == 0.0 then
+		B747DR_ap_FMA_armed_roll_mode = 0
     -- (TOGA) --
-    if simDR_autopilot_TOGA_lat_status == 2 and B747DR_engine_TOGA_mode==0 then
+    elseif simDR_autopilot_TOGA_lat_status == 2 and B747DR_engine_TOGA_mode==0 then
         B747DR_ap_FMA_armed_roll_mode = 1
 
     -- (LNAV) --
@@ -2019,7 +2021,10 @@ function B747_ap_fma()
     -- (TOGA) --
     local navcrz=simDR_nav1_radio_course_deg
   
-    if simDR_autopilot_TOGA_lat_status == 2 and B747DR_engine_TOGA_mode>0 then
+    if B747DR_toggle_switch_position[23] == 0.0 and B747DR_toggle_switch_position[24] == 0.0 then
+		B747DR_ap_FMA_active_roll_mode = 0
+    -- (TOGA) --
+    elseif simDR_autopilot_TOGA_lat_status == 2 and B747DR_engine_TOGA_mode>0 then
         B747DR_ap_FMA_active_roll_mode = 1
     elseif simDR_onGround==1 then
        B747DR_ap_FMA_active_roll_mode = 0
@@ -2070,9 +2075,10 @@ function B747_ap_fma()
 
     -- (NONE) --
    
-
-    -- (TOGA) -- 
-    if simDR_autopilot_TOGA_vert_status == 2  and B747DR_engine_TOGA_mode==0 then
+	if B747DR_toggle_switch_position[23] == 0.0 and B747DR_toggle_switch_position[24] == 0.0 then
+		B747DR_ap_FMA_armed_pitch_mode = 0
+    -- (TOGA) --
+    elseif simDR_autopilot_TOGA_vert_status == 2  and B747DR_engine_TOGA_mode==0 then
         B747DR_ap_FMA_armed_pitch_mode = 1
     
     elseif B747DR_ap_vnav_state == 1 then
@@ -2097,9 +2103,22 @@ function B747_ap_fma()
 
   -- (NONE) --
   --B747DR_ap_FMA_active_pitch_mode = 0
-  
-    -- (TOGA) --
-    if simDR_autopilot_TOGA_vert_status == 2 and B747DR_engine_TOGA_mode>0 then
+  	if B747DR_toggle_switch_position[23] == 0.0 and B747DR_toggle_switch_position[24] == 0.0 then
+		
+		if simDR_autopilot_flight_dir_active>0 then
+			B747_ap_all_cmd_modes_off()	
+			simCMD_autopilot_servos_fdir_off:once()	
+			simCMD_autopilot_servos2_fdir_off:once()
+			simCMD_autopilot_servos3_fdir_off:once()
+		end
+		B747DR_ap_FMA_active_pitch_mode = 0
+		B747DR_ap_vnav_state=0
+		B747DR_ap_inVNAVdescent =0
+		B747DR_ap_thrust_mode=0
+		B747DR_engine_TOGA_mode=0
+		B747DR_ap_approach_mode=0
+	-- (TOGA) --
+	elseif simDR_autopilot_TOGA_vert_status == 2 and B747DR_engine_TOGA_mode>0 then
     --if B747DR_engine_TOGA_mode == 1 then  
      
         B747DR_ap_FMA_active_pitch_mode = 1
@@ -2247,7 +2266,7 @@ function B747_ap_afds()
 
     else
 		if numAPengaged >= 1 then
-			B747DR_ap_AFDS_status_annun = 2
+			B747DR_ap_AFDS_status_annun = 2 -- AFDS MODE = "CMD"
         elseif B747DR_toggle_switch_position[23] > 0.95
             or B747DR_toggle_switch_position[24] > 0.95
         then
