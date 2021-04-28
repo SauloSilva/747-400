@@ -2037,10 +2037,12 @@ function B747_ap_fma()
     -- (LNAV) --
     elseif simDR_autopilot_gpss == 2 or B747DR_ap_lnav_state==2 then
         B747DR_ap_FMA_active_roll_mode = 2
-		B747DR_ap_lnav_state=2
-		if simDR_autopilot_gpss == 0 and B747DR_ap_approach_mode==0 then 
+
+		local diff=simDRTime-B747DR_ap_lastCommand
+		if diff>0.5 and simDR_autopilot_gpss == 0 and B747DR_ap_approach_mode==0 then 
 			print("simDR_autopilot_gpss == 2 or B747DR_ap_lnav_state==2")
 			simCMD_autopilot_gpss_mode:once() 
+			B747DR_ap_lnav_state=2
 			run_after_time(checkLNAV, 0.5)
 		end
 
