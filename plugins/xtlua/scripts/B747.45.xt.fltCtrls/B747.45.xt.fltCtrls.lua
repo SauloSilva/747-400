@@ -1126,8 +1126,6 @@ end
 
 
 
-
-
 ----- SET STATE FOR ALL MODES -----------------------------------------------------------
 function B747_set_fltctrls_all_modes()
 	
@@ -1262,3 +1260,5 @@ if debug_fltctrls>0 then return end
 end
 
 --function after_replay() end
+
+
