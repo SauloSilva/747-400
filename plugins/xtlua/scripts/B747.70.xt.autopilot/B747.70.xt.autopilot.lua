@@ -1967,7 +1967,7 @@ function B747_ap_fma()
     else
          if B747DR_ap_vnav_state > 0 and simDR_allThrottle<0.02 and simDR_onGround==0 then
 	   B747DR_ap_FMA_autothrottle_mode = 2 --IDLE
-	elseif B747DR_ap_vnav_state >0 and simDR_onGround==0 then
+	elseif (B747DR_ap_vnav_state >0 or B747DR_toggle_switch_position[29]>0) and simDR_onGround==0 then
 	  B747DR_ap_FMA_autothrottle_mode = 1 --HOLD
 	else
 	  B747DR_ap_FMA_autothrottle_mode = 0
