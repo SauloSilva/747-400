@@ -1251,8 +1251,10 @@ if debug_fltctrls>0 then return end
 	
     -- crazytimtimtim
     if B747DR_autobrakes_sel_dial_pos > 2 -- (or something)
+       and simDR_all_wheels_on_ground == 1
        and simDR_engine_throttle_jet_all < 0.3 -- Verify reversers aren't deployed, indicating a landing
        and simDR_speedbrake_ratio_control < 0.3 -- verify spoilers aren't deployed, also indicating a landing
+       and simDR_ind_airspeed_kts_pilot <= 30
        then
        run_after_time(B747autobrake_resetOnGround, 1.0)
     end
@@ -1260,5 +1262,6 @@ if debug_fltctrls>0 then return end
 end
 
 --function after_replay() end
+
 
 
