@@ -238,7 +238,7 @@ function B747_monitor_THR_REF_AT()
         elseif toderate==2 then ref_throttle=86  
         end      
     else
-        if B747DR_ap_thrust_mode==0 and timediff>0.5 and simDR_autopilot_alt_hold_status ~= 2 then 
+        if B747DR_ap_thrust_mode==0 and timediff>0.5 then 
             print("B747DR_ap_thrust_mode =1 @ "..timediff)
             B747DR_ap_thrust_mode=1 
         end
