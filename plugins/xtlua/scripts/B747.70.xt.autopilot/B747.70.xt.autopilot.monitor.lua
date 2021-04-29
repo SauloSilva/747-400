@@ -97,6 +97,7 @@ function VNAV_CLB(numAPengaged,fmsO)
         --computeVNAVAlt(fmsO)
         print("UPDATE VNAV_CLB "..waypointDiff .. " " .. mcpDiff.. " " .. waypointAlt .. " " .. start.. " " .. fmsO[start][9].. " " .. simDR_pressureAlt1) 
     end
+    if B747DR_engine_TOGA_mode == 1 and simDR_radarAlt1>1500 then B747DR_engine_TOGA_mode = 0 end
     if (simDR_pressureAlt1 < B747BR_cruiseAlt-300 or simDR_pressureAlt1 > B747BR_cruiseAlt+300) and simDR_radarAlt1>400 then 
         if simDR_autopilot_flch_status == 0 and 
         (simDR_autopilot_alt_hold_status == 0 or numAPengaged==0 or B747DR_ap_vnav_state == 1 or B747DR_ap_vnav_state == 3
@@ -202,6 +203,7 @@ function VNAV_DES(numAPengaged,fms)
         return
     elseif simDR_autopilot_autothrottle_enabled == 0 and (simDR_ind_airspeed_kts_pilot<B747DR_airspeed_Vmc+15 or forceOn==true) and B747DR_toggle_switch_position[29] == 1 then
         simCMD_autopilot_autothrottle_on:once()
+        if B747DR_engine_TOGA_mode ==1 then B747DR_engine_TOGA_mode = 0 end	-- CANX ENGINE TOGA IF ACTIVE
         print("fix idle throttle to climb/maintain")
         return
     end
@@ -236,7 +238,7 @@ function B747_monitor_THR_REF_AT()
         elseif toderate==2 then ref_throttle=86  
         end      
     else
-        if B747DR_ap_thrust_mode==0 and timediff>0.5 then 
+        if B747DR_ap_thrust_mode==0 and timediff>0.5 and simDR_autopilot_alt_hold_status ~= 2 then 
             print("B747DR_ap_thrust_mode =1 @ "..timediff)
             B747DR_ap_thrust_mode=1 
         end
@@ -378,6 +380,7 @@ function B747_monitorAT()
             print("simDR_autopilot_alt_hold_status")
             B747DR_ap_thrust_mode=0
             simCMD_autopilot_autothrottle_on:once()
+            B747DR_engine_TOGA_mode = 0	-- CANX ENGINE TOGA IF ACTIVE
             B747DR_ap_lastCommand=simDRTime
         end
         
@@ -389,6 +392,7 @@ function B747_monitorAT()
         if simDR_autopilot_autothrottle_enabled==0 then
             print("B747DR_ap_FMA_active_pitch_mode")
             simCMD_autopilot_autothrottle_on:once()
+            if B747DR_engine_TOGA_mode ==1 then B747DR_engine_TOGA_mode = 0 end	-- CANX ENGINE TOGA IF ACTIVE
             B747DR_ap_lastCommand=simDRTime
         end
         B747DR_ap_thrust_mode=0
