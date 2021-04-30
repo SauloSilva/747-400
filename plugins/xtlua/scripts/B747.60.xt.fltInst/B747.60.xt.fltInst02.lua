@@ -2961,7 +2961,7 @@ function B747_Vs()
             vSAOA=math.min(vSAOA,simDR_airspeed+15-target_airspeed_Vs)
             if simDR_all_wheels_on_ground==0 then
                 simDR_autopilot_TOGA_pitch_deg=15-(17*numStalled/10)
-                print("simDR_autopilot_TOGA_pitch_deg1="..simDR_autopilot_TOGA_pitch_deg)
+                --print("simDR_autopilot_TOGA_pitch_deg1="..simDR_autopilot_TOGA_pitch_deg)
             end
 
         elseif simDR_all_wheels_on_ground==1 then
@@ -2972,14 +2972,14 @@ function B747_Vs()
                 tSpeed=B747DR_airspeed_V2+10
             end
             simDR_autopilot_TOGA_pitch_deg=B747_rescale(target_airspeed_Vs,2,tSpeed,15,simDR_airspeed) 
-            print("simDR_autopilot_TOGA_pitch_deg2="..simDR_autopilot_TOGA_pitch_deg) 
+            --print("simDR_autopilot_TOGA_pitch_deg2="..simDR_autopilot_TOGA_pitch_deg) 
         end
         B747DR_airspeed_Vs=B747_animate_value(B747DR_airspeed_Vs,target_airspeed_Vs+vSAOA,0,450,1)
         --print(vSAOA)
     else
         B747DR_airspeed_Vs=B747_animate_value(B747DR_airspeed_Vs,target_airspeed_Vs,0,450,1)
         simDR_autopilot_TOGA_pitch_deg=8
-        print("simDR_autopilot_TOGA_pitch_deg3="..simDR_autopilot_TOGA_pitch_deg)
+        --print("simDR_autopilot_TOGA_pitch_deg3="..simDR_autopilot_TOGA_pitch_deg)
     end
     --simDR_stall_warning=0 -- always set
     if simDR_airspeed<B747DR_airspeed_Vs and simDR_all_wheels_on_ground==0 then
