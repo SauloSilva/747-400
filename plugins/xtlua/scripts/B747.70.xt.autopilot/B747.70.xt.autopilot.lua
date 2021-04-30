@@ -97,7 +97,7 @@ end
 --*************************************************************************************--
 --** 				             FIND X-PLANE DATAREFS           			    	 **--
 --*************************************************************************************--
-
+B747DR_CAS_warning_status       = find_dataref("laminar/B747/CAS/warning_status")
 simDR_autopilot_flight_dir_active     	= find_dataref("sim/cockpit2/annunciators/flight_director")
 simDR_autopilot_flight_dir_mode     	= find_dataref("sim/cockpit2/autopilot/flight_director_mode")
 simDR_autopilot_autothrottle_enabled	= find_dataref("sim/cockpit2/autopilot/autothrottle_enabled")
@@ -658,6 +658,7 @@ local switching_servos_on=simDRTime
 function B747_ap_switch_cmd_L_CMDhandler(phase, duration)
 	if phase == 0 then
 		B747_ap_button_switch_position_target[10] = 1									-- SET THE BUTTON ANIMATION TO "DOWN"
+		B747DR_CAS_warning_status[0] = 0
 		--B747CMD_ap_reset:once()
 	elseif phase == 2 then
 		B747_ap_button_switch_position_target[10] = 0									-- SET THE BUTTON ANIMATION TO "UP"	
@@ -681,7 +682,7 @@ end
 function B747_ap_switch_cmd_C_CMDhandler(phase, duration)
 	if phase == 0 then
 		B747_ap_button_switch_position_target[11] = 1									-- SET THE BUTTON ANIMATION TO "DOWN"
-		
+		B747DR_CAS_warning_status[0] = 0
 	elseif phase == 2 then
 		B747_ap_button_switch_position_target[11] = 0									-- SET THE BUTTON ANIMATION TO "UP"
 		if B747DR_ap_button_switch_position[14] == 0 then								-- DISENGAGE BAR IS "UP/OFF"		
@@ -703,6 +704,10 @@ end
 function B747_ap_switch_cmd_R_CMDhandler(phase, duration)
 	if phase == 0 then
 		B747_ap_button_switch_position_target[12] = 1									-- SET THE BUTTON ANIMATION TO "DOWN"
+		B747DR_CAS_warning_status[0] = 0
+		
+	elseif phase == 2 then
+		B747_ap_button_switch_position_target[12] = 0									-- SET THE BUTTON ANIMATION TO "UP"			
 		if B747DR_ap_button_switch_position[14] == 0 then								-- DISENGAGE BAR IS "UP/OFF"		
 			if B747DR_ap_cmd_R_mode == 0 then											-- RIGHT CMD AP MODE IS "OFF"
 				if simDR_autopilot_servos_on == 0 then									-- AUTOPILOT IS NOT ENGAGED	
@@ -713,8 +718,6 @@ function B747_ap_switch_cmd_R_CMDhandler(phase, duration)
 			B747DR_ap_cmd_R_mode = 1													-- SET AP CMD R MODE TO "ON"	
 			end
 		end
-	elseif phase == 2 then
-		B747_ap_button_switch_position_target[12] = 0									-- SET THE BUTTON ANIMATION TO "UP"			
 	end
 end	
 
@@ -731,7 +734,10 @@ function B747_ap_switch_disengage_bar_CMDhandler(phase, duration)
 			simCMD_autopilot_servos_off:once()
 			simCMD_autopilot_servos_fdir_off:once()	
 			simCMD_autopilot_servos2_fdir_off:once()
-			simCMD_autopilot_servos3_fdir_off:once()	
+			simCMD_autopilot_servos3_fdir_off:once()
+			B747DR_CAS_warning_status[0] = 1
+		else
+			B747DR_CAS_warning_status[0] = 0
 		end	
 	end
 end	
@@ -742,7 +748,11 @@ end
 function B747_ap_switch_yoke_disengage_capt_CMDhandler(phase, duration)
 	if phase == 0 then
 		B747DR_ap_lastCommand=simDRTime
-		
+		if B747DR_CAS_warning_status[0]==0 then
+			B747DR_CAS_warning_status[0] = 1
+		else
+			B747DR_CAS_warning_status[0] = 0
+		end
 		B747CMD_ap_reset:once()
 		simCMD_autopilot_servos_off:once()
 		--simCMD_autopilot_fdir_servos_down_one:once()							-- TURN ONLY THE SERVOS OFF, LEAVE FLIGHT DIRECTOR ON	
@@ -757,6 +767,11 @@ end
 function B747_ap_switch_yoke_disengage_fo_CMDhandler(phase, duration)
 	if phase == 0 then
 		B747DR_ap_lastCommand=simDRTime
+		if B747DR_CAS_warning_status[0]==0 then
+			B747DR_CAS_warning_status[0] = 1
+		else
+			B747DR_CAS_warning_status[0] = 0
+		end
 		B747CMD_ap_reset:once()
 		simCMD_autopilot_servos_off:once()
 		--simCMD_autopilot_fdir_servos_down_one:once()							-- TURN ONLY THE SERVOS OFF, LEAVE FLIGHT DIRECTOR ON	
@@ -2219,7 +2234,7 @@ function B747_ap_afds()
 		if numAPengaged > 0 and (simDRTime-switching_servos_on)>1 then
 			print("reset AP in B747_ap_afds")	
 			run_after_time(ap_reset,2)
-
+			B747DR_CAS_warning_status[0] = 1
 			B747DR_ap_cmd_L_mode = 0
 			B747DR_ap_cmd_C_mode = 0 
 			B747DR_ap_cmd_R_mode = 0
