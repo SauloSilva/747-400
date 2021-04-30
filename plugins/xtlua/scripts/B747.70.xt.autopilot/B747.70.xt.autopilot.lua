@@ -1991,9 +1991,6 @@ function B747_ap_fma()
     
 	if B747DR_toggle_switch_position[23] == 0.0 and B747DR_toggle_switch_position[24] == 0.0 then
 		B747DR_ap_FMA_armed_roll_mode = 0
-    -- (TOGA) --
-    elseif simDR_autopilot_TOGA_lat_status == 2 and B747DR_engine_TOGA_mode==0 then
-        B747DR_ap_FMA_armed_roll_mode = 0 -- "never" white
 
     -- (LNAV) --
     elseif simDR_autopilot_gpss == 1 or B747DR_ap_lnav_state==1 then
@@ -2080,9 +2077,7 @@ function B747_ap_fma()
 	if B747DR_toggle_switch_position[23] == 0.0 and B747DR_toggle_switch_position[24] == 0.0 then
 		B747DR_ap_FMA_armed_pitch_mode = 0
     -- (TOGA) --
-    elseif simDR_autopilot_TOGA_vert_status == 2  and B747DR_engine_TOGA_mode==0 then
-        B747DR_ap_FMA_armed_pitch_mode = 0 --"never" white
-    
+
     elseif B747DR_ap_vnav_state == 1 then
         B747DR_ap_FMA_armed_pitch_mode = 4
 
