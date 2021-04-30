@@ -154,6 +154,7 @@ simDR_AOA_fail                      = find_dataref("sim/operation/failures/rel_A
 simDR_battery_chg_watt_hr           = find_dataref("sim/cockpit/electrical/battery_charge_watt_hr")
 simDR_stalled_elements              = find_dataref("sim/flightmodel2/wing/elements/element_is_stalled")
 simDR_stall_warning                  = find_dataref("sim/flightmodel/failures/stallwarning")
+simDR_has_stall_warning                  = find_dataref("sim/aircraft/view/acf_has_stallwarn")
 simDR_hsi_hdef_dots_pilot           = find_dataref("sim/cockpit2/radios/indicators/hsi_hdef_dots_pilot")
 simDR_hsi_vdef_dots_pilot           = find_dataref("sim/cockpit2/radios/indicators/hsi_vdef_dots_pilot")
 
@@ -3398,7 +3399,7 @@ end
 
 
 function flight_start()
-
+    simDR_has_stall_warning=0
     B747_flight_start_fltInst()
 
 end
