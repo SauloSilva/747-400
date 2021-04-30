@@ -164,7 +164,7 @@ simDR_hsi_vdef_dots_copilot         = find_dataref("sim/cockpit2/radios/indicato
 simDR_elec_bus_volts				= find_dataref("sim/cockpit2/electrical/bus_volts")		
 simDR_time_now						= find_dataref("sim/time/total_running_time_sec")
 
-
+simDR_autopilot_TOGA_pitch_deg      	= find_dataref("sim/cockpit2/autopilot/TOGA_pitch_deg")
 --*************************************************************************************--
 --** 				              FIND CUSTOM DATAREFS             			    	 **--
 --*************************************************************************************--
@@ -2959,11 +2959,27 @@ function B747_Vs()
         if numStalled > 0 then
             vSAOA=(target_airspeed_Vs-simDR_airspeed)*(0-numStalled)/10
             vSAOA=math.min(vSAOA,simDR_airspeed+15-target_airspeed_Vs)
+            if simDR_all_wheels_on_ground==0 then
+                simDR_autopilot_TOGA_pitch_deg=15-(17*numStalled/10)
+                print("simDR_autopilot_TOGA_pitch_deg1="..simDR_autopilot_TOGA_pitch_deg)
+            end
+
+        elseif simDR_all_wheels_on_ground==1 then
+            simDR_autopilot_TOGA_pitch_deg=8
+        else
+            local tSpeed=target_airspeed_Vs+20
+            if B747DR_airspeed_V2<900 then
+                tSpeed=B747DR_airspeed_V2+10
+            end
+            simDR_autopilot_TOGA_pitch_deg=B747_rescale(target_airspeed_Vs,2,tSpeed,15,simDR_airspeed) 
+            print("simDR_autopilot_TOGA_pitch_deg2="..simDR_autopilot_TOGA_pitch_deg) 
         end
         B747DR_airspeed_Vs=B747_animate_value(B747DR_airspeed_Vs,target_airspeed_Vs+vSAOA,0,450,1)
         --print(vSAOA)
     else
         B747DR_airspeed_Vs=B747_animate_value(B747DR_airspeed_Vs,target_airspeed_Vs,0,450,1)
+        simDR_autopilot_TOGA_pitch_deg=8
+        print("simDR_autopilot_TOGA_pitch_deg3="..simDR_autopilot_TOGA_pitch_deg)
     end
     --simDR_stall_warning=0 -- always set
     if simDR_airspeed<B747DR_airspeed_Vs and simDR_all_wheels_on_ground==0 then
@@ -3400,6 +3416,7 @@ end
 
 function flight_start()
     simDR_has_stall_warning=0
+    simDR_autopilot_TOGA_pitch_deg      = 8.0
     B747_flight_start_fltInst()
 
 end

@@ -145,7 +145,7 @@ simDR_autopilot_approach_status     	= find_dataref("sim/cockpit2/autopilot/appr
 simDR_autopilot_roll_sync_degrees   	= find_dataref("sim/cockpit2/autopilot/sync_hold_roll_deg")
 simDR_autopilot_roll_status         	= find_dataref("sim/cockpit2/autopilot/roll_status")
 simDR_autopilot_servos_on           	= find_dataref("sim/cockpit2/autopilot/servos_on")
-simDR_autopilot_TOGA_pitch_deg      	= find_dataref("sim/cockpit2/autopilot/TOGA_pitch_deg")
+
 simDR_autopilot_fms_vnav				= find_dataref("sim/cockpit2/autopilot/fms_vnav")
 simDR_autopilot_gpss					= find_dataref("sim/cockpit2/autopilot/gpss_status")
 simDR_autopilot_pitch					= find_dataref("sim/cockpit2/autopilot/pitch_status")
@@ -2524,7 +2524,7 @@ function B747_set_ap_all_modes()
 	simDR_autopilot_vs_fpm 				= 0.0
 	simDR_autopilot_altitude_ft			= 10000.0
 	B747DR_autopilot_altitude_ft=10000.0
-	simDR_autopilot_TOGA_pitch_deg      = 8.0
+	
 	
 end
 
