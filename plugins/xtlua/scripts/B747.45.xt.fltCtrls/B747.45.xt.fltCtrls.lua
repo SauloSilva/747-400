@@ -111,6 +111,7 @@ simDR_outerslats_ratio  	= find_dataref("sim/flightmodel2/controls/slat2_deploy_
 simDR_autoslats_ratio  		= find_dataref("sim/aircraft/parts/acf_slatEQ")
 simDR_prop_mode                 = find_dataref("sim/cockpit2/engine/actuators/prop_mode")
 simDR_all_wheels_on_ground      = find_dataref("sim/flightmodel/failures/onground_all")
+simDR_autopilot_TOGA_pitch_deg      	= find_dataref("sim/cockpit2/autopilot/TOGA_pitch_deg")
 simDR_speedbrake_ratio_control  = find_dataref("sim/cockpit2/controls/speedbrake_ratio")
 simDR_flap_handle_deploy_ratio  = find_dataref("sim/cockpit2/controls/flap_handle_deploy_ratio")
 simDR_flap_ratio_control        = find_dataref("sim/cockpit2/controls/flap_ratio")                      -- FLAP HANDLE
@@ -1194,7 +1195,7 @@ function B747_flight_start_deferred()
     --B747_init_gear_check_flag()                                                             -- REQUIRED BECAUSE "sim/flightmodel/failures/onground_all" IS NOT VALID AT LOAD
     --B747_elevator_trim()  --moved to after_physics loop
     B747_last_sim_sb_handle_pos = simDR_speedbrake_ratio_control
-
+    simDR_autopilot_TOGA_pitch_deg      = 8.0
 end
 
 

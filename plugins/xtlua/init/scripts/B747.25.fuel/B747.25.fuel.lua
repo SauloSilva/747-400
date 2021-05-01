@@ -376,6 +376,7 @@ B747DR_engine_fuel_valve_pos        = find_dataref("laminar/B747/engines/fuel_va
 B747CMD_ai_fuel_quick_start		= deferred_command("laminar/B747/ai/fuel_quick_start", "number", B747_ai_fuek_quick_start_CMDhandler)
 simDR_override_fuel_system          = find_dataref("sim/operation/override/override_fuel_system")
 simDR_engine_has_fuel               = find_dataref("sim/flightmodel2/engines/has_fuel_flow_before_mixture")
+B747DR_engine_used_fuel               = deferred_dataref("laminar/B747/fuel/totaliser","array[5]")
 function aircraft_load()
 
     simDR_override_fuel_system = 1

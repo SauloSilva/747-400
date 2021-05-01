@@ -163,9 +163,9 @@ function VNAV_DES(numAPengaged,fms)
         B747DR_ap_inVNAVdescent = 0
     end
 
-    if B747DR_mcp_hold==1 then return end
+    if B747DR_mcp_hold>0 then return end
     --Past TOD and MCP ALT at current alt - activate VNAV ALT
-    if B747DR_ap_inVNAVdescent ==0 and diff2<=0 and (diff3>=-500 and diff3<=500)
+    if B747DR_ap_inVNAVdescent ==0 and diff2<=0 and (diff3>=-100 and diff3<=100)
             and B747BR_totalDistance>0 and B747BR_totalDistance-B747BR_tod<=0
             and simDR_autopilot_vs_status == 0 
             and simDR_radarAlt1>1000 
@@ -177,14 +177,19 @@ function VNAV_DES(numAPengaged,fms)
     end
 
     --Not started descent, not in VNAV ALT, past TOD, begin descending
-    if B747DR_ap_inVNAVdescent ==0 and diff2<=0 and (diff3<=-500 or diff3>=500) 
+    if B747DR_ap_inVNAVdescent ==0 and diff2<=0 and (diff3<=-100 or diff3>=0) 
             and B747BR_totalDistance>0 and B747BR_totalDistance-B747BR_tod<=0
             and simDR_autopilot_vs_status == 0 
             and simDR_radarAlt1>1000 
                  then
+        if diff3<=0 then           
             B747DR_ap_inVNAVdescent =1
-        print("Begin descent")
-        getDescentTarget()
+            print("Begin descent")
+            getDescentTarget()
+        else
+            B747DR_mcp_hold=2
+            print("set B747DR_mcp_hold")
+        end
     end
     if B747DR_ap_inVNAVdescent ==1 and diff2<=0 and (diff3<=-500 or diff3>=500) and simDR_autopilot_vs_status == 0 and simDR_radarAlt1>1000 then
         if simDR_autopilot_gs_status < 1 then 

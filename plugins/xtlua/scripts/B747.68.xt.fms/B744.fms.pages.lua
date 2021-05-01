@@ -483,7 +483,7 @@ function fmsFunctions.setpage_no(fmsO,valueA)
     simCMD_FMS_key[fmsO.id]["L6"]:once()
 	simCMD_FMS_key[fmsO.id]["L2"]:once()
   elseif value=="PROGRESS" then
-	fmsModules[fmsO.id].targetCustomFMC=true
+	fmsModules[fmsO.id].targetCustomFMC=false
     simCMD_FMS_key[fmsO.id]["prog"]:once()
     fmsModules[fmsO.id].targetPage="PROGRESS"
 	fmsModules[fmsO.id].targetpgNo=1
