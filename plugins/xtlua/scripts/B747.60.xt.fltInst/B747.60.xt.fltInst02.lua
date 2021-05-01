@@ -1044,6 +1044,7 @@ end
 
 function B747_nd_mode_capt_sel_dial_dn_CMDhandler(phase, duration)
     if phase == 0 then
+        B747_center_status_old = B747_nd_map_center_capt
         B747DR_nd_mode_capt_sel_dial_pos = math.max(B747DR_nd_mode_capt_sel_dial_pos-1, 0)
         simDR_EFIS_map_mode = B747DR_nd_mode_capt_sel_dial_pos
         if B747DR_nd_mode_capt_sel_dial_pos == 3 then
