@@ -1899,7 +1899,7 @@ function B747_ap_appr_mode()
 	    end
 	elseif simDR_autopilot_nav_status > 0 
 	    and simDR_autopilot_gs_status > 0 then	
-	  B747DR_ap_approach_mode=0
+	  	B747DR_ap_approach_mode=0
 	end
 	--[[if simDR_autopilot_approach_status > 0 then
 		
@@ -2097,7 +2097,7 @@ function B747_ap_fma()
         B747DR_ap_FMA_armed_pitch_mode = 4
 
     -- (G/S) --
-    elseif simDR_autopilot_gs_status == 1 then
+    elseif simDR_autopilot_gs_status == 1 or (B747DR_ap_approach_mode>0 and simDR_autopilot_gs_status ~= 2) then
         B747DR_ap_FMA_armed_pitch_mode = 2
 	
     -- (VNAV) --
