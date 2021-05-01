@@ -142,7 +142,7 @@ B747DR_elec_ext_pwr_2_switch_mode   = deferred_dataref("laminar/B747/elec_ext_pw
 B747DR_elec_apu_pwr_2_switch_mode   = deferred_dataref("laminar/B747/apu_pwr_2/switch_mode", "number")
 B747DR_gen_drive_disc_status        = deferred_dataref("laminar/B747/electrical/generator/drive_disc_status", "array[4]")
 
-
+B747DR_ap_FMA_autothrottle_mode     	= deferred_dataref("laminar/B747/autopilot/FMA/autothrottle_mode", "number")
 
 
 --*************************************************************************************--
@@ -1379,12 +1379,17 @@ function B747_autothrottle_arm_switch_CMDhandler(phase, duration)
     if phase == 0 then
         B747_toggle_switch_position_target[29] = 1.0 - B747_toggle_switch_position_target[29]
         B747DR_ap_autothrottle_armed = B747_toggle_switch_position_target[29]
-        B747DR_autothrottle_fail=0
+        
         if B747_toggle_switch_position_target[29] == 0 then
-            
+            if B747DR_ap_FMA_autothrottle_mode>0 then
+                print("B747_autothrottle_arm_switch_CMDhandler fail AT")
+                B747DR_autothrottle_fail=1
+            end
 	     	if simDR_autopilot_autothrottle_enabled == 1 then
 	     		simCMD_autopilot_autothrottle_off:once() 
-	     	end	  
+	     	end
+        else
+            B747DR_autothrottle_fail=0
 	    end    
     end
 end

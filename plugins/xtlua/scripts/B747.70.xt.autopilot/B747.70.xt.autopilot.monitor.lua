@@ -360,8 +360,12 @@ function B747_monitorAT()
             print("2+ engines inop or fail AT")
             simCMD_autopilot_autothrottle_off:once()
             B747DR_ap_lastCommand=simDRTime
+            B747DR_autothrottle_fail=1
         end
-        B747DR_autothrottle_fail=1
+        if B747DR_ap_FMA_autothrottle_mode>0 then
+            print("B747DR_ap_FMA_autothrottle_mode fail AT")
+            B747DR_autothrottle_fail=1
+        end
         B747DR_engine_TOGA_mode = 0 
         
         return 

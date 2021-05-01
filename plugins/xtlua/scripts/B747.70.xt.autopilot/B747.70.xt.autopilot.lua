@@ -2465,7 +2465,7 @@ function B747_ap_EICAS_msg()
 	
     --print("test drag required".. B747DR_speedbrake_lever .. " " .. simDR_all_wheels_on_ground .. " " .. simDR_autopilot_vs_fpm .. " " .. simDR_autopilot_vs_status .. " " )
 	-- >AUTOTHROT DISC 
-	if B747DR_ap_autothrottle_armed == 0 or B747DR_autothrottle_fail==1 then
+	if B747DR_autothrottle_fail==1 then
 		B747DR_CAS_caution_status[5] = 1
 	else
 		B747DR_CAS_caution_status[5] = 0
