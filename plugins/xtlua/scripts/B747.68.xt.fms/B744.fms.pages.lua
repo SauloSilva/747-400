@@ -511,7 +511,11 @@ function fmsFunctions.setpage_no(fmsO,valueA)
     fmsO["targetCustomFMC"]=false
     fmsO["targetPage"]="RTE2"
     simCMD_FMS_key[fmsO.id]["dir_intc"]:once()
-   
+  elseif value=="LEGS" then
+	fmsModules[fmsO.id].targetCustomFMC=true
+	fmsModules[fmsO.id].targetPage="LEGS"
+	simCMD_FMS_key[fmsO.id]["legs"]:once()
+	fmsModules[fmsO.id].targetpgNo=1  
   else
     fmsO["targetCustomFMC"]=true
     fmsO["targetPage"]=value 
