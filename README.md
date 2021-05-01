@@ -61,13 +61,13 @@ You need to manually install [C++ support](https://www.microsoft.com/en-us/downl
 
 ***Some general notes***:
 
- - On the ground RTE and LEGS behaves the same as default xplane RTE and LEGS, except loading .FMS files (from the xplane Output/FMS Plans directory) can be achieved by pressing the right line select key (aka R3) on the RTE page
+ - On the ground RTE and LEGS behaves the same as default X-Plane RTE and LEGS, except loading .FMS files (from the X-Plane Output/FMS Plans directory) can be achieved by pressing the right line select key (aka R3) on the RTE page
 
  - _Once in the air_: the LEGS page becomes the default INTC_DIR page, you can use this to go direct to by pressing L2 to L5 on page one to select the direct to destination, then L1, then exec to make it active.
 
 - If you want to go direct to something on page 2 onwards of the LEGS page in the air, activate heading hold, go direct to the last entry on page 1, and then the entries on page 2 will move up to page one.
 
- - _Once in the air_, the xplane LEGS page can be reached by pressing RTE, and then L6 (marked RTE 2)
+ - _Once in the air_, the X-Plane LEGS page can be reached by pressing RTE, and then L6 (marked RTE 2)
 
 **What is the black console window that opens when I start the plane?** Don't close it. The console window is part of the systems monitoring and will give important information needed to report issues for example if the plane crashes to desktop. This and the X-Plane Log.txt are the two primary tools for investigating issues.
 
