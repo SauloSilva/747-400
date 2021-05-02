@@ -78,7 +78,7 @@ function keyDown(fmsModule,key)
 	simCMD_FMS_key[fmsModule]["legs"]:once()
 	fmsModules[fmsModule].targetpgNo=1
       else
-	fmsModules[fmsModule].targetCustomFMC=true
+	fmsModules[fmsModule].targetCustomFMC=false
 	fmsModules[fmsModule].targetPage="RTE2"
 	simCMD_FMS_key[fmsModule]["dir_intc"]:once()
 	fmsModules[fmsModule].targetpgNo=1
