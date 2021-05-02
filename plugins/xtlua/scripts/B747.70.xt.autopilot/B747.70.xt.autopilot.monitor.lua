@@ -22,11 +22,11 @@ function VNAV_NEXT_ALT(numAPengaged,fms)
     for i=1,table.getn(fms),1 do
       --print("FMS j="..fmsJSON)
       
-      if fms[i][10]==true then
+    if fms[i][10]==true then
         began=true
         currentIndex=i
         local nextDistance=getDistance(simDR_latitude,simDR_longitude,fms[i][5],fms[i][6])
-        if nextDistance>dist_to_TOD and dist_to_TOD>50 and B747BR_cruiseAlt>0 then
+        if nextDistance>dist_to_TOD and dist_to_TOD>0 and B747DR_ap_inVNAVdescent==0 and B747BR_cruiseAlt>0 then
           targetAlt=B747BR_cruiseAlt
           targetIndex=i
           break 
@@ -40,14 +40,14 @@ function VNAV_NEXT_ALT(numAPengaged,fms)
           targetIndex=i
           break 
         end
-        elseif began==true then
-          local nextDistance=getDistance(simDR_latitude,simDR_longitude,fms[i][5],fms[i][6])
-          if nextDistance>dist_to_TOD and dist_to_TOD>50 and B747BR_cruiseAlt>0 then
+    elseif began==true then
+        local nextDistance=getDistance(simDR_latitude,simDR_longitude,fms[i][5],fms[i][6])
+        if nextDistance>dist_to_TOD and dist_to_TOD>0 and B747DR_ap_inVNAVdescent==0 and B747BR_cruiseAlt>0 then
           targetAlt=B747BR_cruiseAlt
           targetIndex=i
           break 
         end
-        if B747BR_totalDistance>0 and dist_to_TOD>50 and (nextDistance)>dist_to_TOD then 
+        if B747BR_totalDistance>0 and dist_to_TOD>0 and B747DR_ap_inVNAVdescent==0 and (nextDistance)>dist_to_TOD then 
           break 
         end
         

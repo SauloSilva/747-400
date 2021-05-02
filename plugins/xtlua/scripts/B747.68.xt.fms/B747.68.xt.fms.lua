@@ -835,7 +835,11 @@ function waypoint_eta_display()
 	local fms_distance_to_next_waypoint = 0
 	if string.len(fmsJSON) > 2 then
 		fms = json.decode(fmsJSON)
-        B747DR_destination = string.format("%4s",fms[table.getn(fms)][8])
+		if fms[table.getn(fms)][8]~="LATLON" then
+        	B747DR_destination = string.format("%4s",fms[table.getn(fms)][8])
+		else
+			B747DR_destination="----"
+		end
 		if simDR_onGround ~= 1 then
 		--print(fmsJSON)
 			

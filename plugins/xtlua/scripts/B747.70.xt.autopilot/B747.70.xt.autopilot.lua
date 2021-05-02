@@ -872,6 +872,7 @@ function B747_ap_VNAV_mode_CMDhandler(phase, duration)
 		  if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 and simDR_onGround==0 then simCMD_autopilot_autothrottle_on:once() end
 		elseif B747DR_ap_vnav_system == 2 then
 		  B747DR_ap_vnav_state=1 
+		  B747DR_ap_thrust_mode=0
 		  setVNAVState("gotVNAVSpeed",false)
 		  B747_vnav_speed() 
 -- 		  if simDR_autopilot_altitude_ft - simDR_pressureAlt1<-200 then
@@ -1270,6 +1271,7 @@ end
 function B747_ap_heading_hold_mode_afterCMDhandler(phase, duration) 
       
       --print("heading hold2"..simDR_AHARS_heading_deg_pilot)
+	B747DR_ap_lnav_state=0
 	if phase == 0 then
 		B747_ap_button_switch_position_target[5] = 1
 		
@@ -1814,7 +1816,7 @@ function setDistances(fmsO)
   local cruiseTOD=(((B747BR_cruiseAlt-fms[eod][3])/100))/2.9
   local currentTOD=(((simDR_pressureAlt1-fms[eod][3])/100))/2.9
   --print("cruiseTOD="..cruiseTOD.." currentTOD="..currentTOD.." B747BR_totalDistance="..B747BR_totalDistance)
-  if totalDistance-cruiseTOD<50 then
+  if totalDistance-cruiseTOD<50 and B747DR_ap_inVNAVdescent==0 then
 	B747BR_tod=currentTOD
   else
   	B747BR_tod=cruiseTOD
@@ -2012,7 +2014,7 @@ function B747_ap_fma()
         B747DR_ap_FMA_armed_roll_mode = 2
 
     -- (LOC) --
-    elseif simDR_autopilot_nav_status == 1 or B747DR_ap_approach_mode>0 then
+    elseif simDR_autopilot_nav_status == 1 or (B747DR_ap_approach_mode>0 and simDR_autopilot_nav_status~=2) then
         B747DR_ap_FMA_armed_roll_mode = 3
 
     -- (ROLLOUT) --

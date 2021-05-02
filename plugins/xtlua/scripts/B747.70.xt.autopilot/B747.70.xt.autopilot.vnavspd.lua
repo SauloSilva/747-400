@@ -279,10 +279,10 @@ function des_src_setSpd()
 end
 function des_aptres_setSpd()
     local spdval=tonumber(getFMSData("destranspd"))
-    
-    local lowerAlt=tonumber(getFMSData("desrestalt"))
-    --local upperAlt=math.min(tonumber(getFMSData("desspdtransalt")),lowerAlt+2000)
     local upperAlt=tonumber(getFMSData("desspdtransalt"))
+    local lowerAlt=tonumber(getFMSData("desrestalt"))
+
+    
     local nextspdval=tonumber(getFMSData("desrestspd"))
     spdval=B747_rescale(lowerAlt,nextspdval,upperAlt,spdval,simDR_pressureAlt1)
     simDR_autopilot_airspeed_is_mach = 0

@@ -12,6 +12,36 @@
 *
 --]]
 dofile("B747.70.xt.autopilot.vnavspd.lua")
+
+function deceleratedDesent(targetvspeed)
+  if simDR_autopilot_airspeed_is_mach == 1 then return targetvspeed end --can't do this in mach mode, slow tf down already
+
+
+  local upperAlt=math.max(tonumber(getFMSData("desspdtransalt")),tonumber(getFMSData("desrestalt")))
+  if simDR_pressureAlt1>upperAlt+1000 then return targetvspeed end --nowhere near a restriction yet
+  local lowerAlt=math.min(tonumber(getFMSData("desspdtransalt")),tonumber(getFMSData("desrestalt")))
+  local upperAltspdval=tonumber(getFMSData("destranspd"))
+  local lowerAltspdval=tonumber(getFMSData("desrestspd"))
+
+  if simDR_ind_airspeed_kts_pilot<=(lowerAltspdval+5) then return targetvspeed end --already low enough
+  --less than upperAlt+1000
+   -- greater than lowerAltspdval
+  if simDR_ind_airspeed_kts_pilot>(upperAltspdval+5) then 
+    print("upperAltspdval deceleratedDesent upperAlt"..upperAlt.." lowerAlt=".. lowerAlt .." upperAltspdval=".. upperAltspdval .." simDR_pressureAlt1="..simDR_pressureAlt1.." simDR_ind_airspeed_kts_pilot="..simDR_ind_airspeed_kts_pilot)
+    return -500 
+  end --approximate 500fpm
+
+  if simDR_pressureAlt1>lowerAlt+1000 then return targetvspeed end --not at next restriction yet
+
+  if simDR_ind_airspeed_kts_pilot>(lowerAltspdval+5) then 
+    print("lowerAltspdval deceleratedDesent upperAlt"..upperAlt.." lowerAlt=".. lowerAlt .." upperAltspdval=".. upperAltspdval .." simDR_pressureAlt1="..simDR_pressureAlt1.." simDR_ind_airspeed_kts_pilot="..simDR_ind_airspeed_kts_pilot)
+    return -500 
+  end --approximate 500fpm
+
+  print("oob deceleratedDesent upperAlt"..upperAlt.." lowerAlt=".. lowerAlt .." upperAltspdval=".. upperAltspdval .." simDR_pressureAlt1="..simDR_pressureAlt1.." simDR_ind_airspeed_kts_pilot="..simDR_ind_airspeed_kts_pilot)
+
+
+end
 function setDescentVSpeed()
 	local fmsO=getFMS()
   if simDR_autopilot_altitude_ft+600 > simDR_pressureAlt1 then return end --dont set fpm near hold alt  
@@ -35,7 +65,7 @@ function setDescentVSpeed()
     print("End Descent")
     return
   end
-  simDR_autopilot_vs_fpm = vspeed
+  simDR_autopilot_vs_fpm = deceleratedDesent(vspeed)
   B747DR_ap_fpa=math.atan2(vspeed,simDR_groundspeed*196.85)*-57.2958
   
   --[[if B747DR_descentSpeedGradient>0 and simDR_pressureAlt1>B747DR_target_descentAlt then

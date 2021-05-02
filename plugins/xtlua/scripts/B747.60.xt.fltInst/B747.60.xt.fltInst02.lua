@@ -1038,7 +1038,7 @@ function B747_nd_mode_capt_sel_dial_up_CMDhandler(phase, duration)
             --B747_nd_map_center_capt = 1
         else
             B747_nd_map_center_capt = B747_center_status_old
-            simDR_EFIS_map_mode = math.max(B747DR_nd_mode_capt_sel_dial_pos,1)
+            simDR_EFIS_map_mode = 1 --math.min(B747DR_nd_mode_capt_sel_dial_pos,1)
         end
         -- TODO:  ADD ELEMENTS STATUS BASED ON MODE
     end
@@ -1055,7 +1055,7 @@ function B747_nd_mode_capt_sel_dial_dn_CMDhandler(phase, duration)
             B747_nd_map_center_capt = B747_center_status_old
         else
             
-            simDR_EFIS_map_mode = math.max(B747DR_nd_mode_capt_sel_dial_pos,1)
+            simDR_EFIS_map_mode = 1 --math.max(B747DR_nd_mode_capt_sel_dial_pos,1)
         end
     end
 end
@@ -1187,7 +1187,7 @@ function B747_nd_mode_fo_sel_dial_up_CMDhandler(phase, duration)
             --B747_nd_map_center_capt = B747_nd_map_center_fo
         else
             B747_nd_map_center_fo = B747_center_status_old
-            simDR_EFIS_map_mode = math.max(B747DR_nd_mode_fo_sel_dial_pos,1)
+            simDR_EFIS_map_mode =1 -- math.max(B747DR_nd_mode_fo_sel_dial_pos,1)
             --B747_nd_map_center_capt = B747_nd_map_center_fo
         end
         -- TODO:  ADD ELEMENTS STATUS BASED ON MODE
@@ -1206,7 +1206,7 @@ function B747_nd_mode_fo_sel_dial_dn_CMDhandler(phase, duration)
            -- B747_nd_map_center_capt = B747_nd_map_center_fo
         else
             B747_nd_map_center_fo = B747_center_status_old
-            simDR_EFIS_map_mode = math.max(B747DR_nd_mode_fo_sel_dial_pos,1)
+            simDR_EFIS_map_mode =1 -- math.max(B747DR_nd_mode_fo_sel_dial_pos,1)
            -- B747_nd_map_center_capt = B747_nd_map_center_capt
         end
     end
@@ -3315,7 +3315,8 @@ function B747_set_inst_all_modes()
     B747DR_flt_inst_irs_src_fo_dial_pos = 2
     B747DR_flt_inst_air_data_src_fo_dial_pos = 1
 
-    if simDR_EFIS_map_mode == 3 then simDR_EFIS_map_mode = 0 end
+    --if simDR_EFIS_map_mode == 3 then simDR_EFIS_map_mode = 0 end
+    simDR_EFIS_map_mode = 1 
     B747DR_nd_mode_capt_sel_dial_pos = simDR_EFIS_map_mode
 
     B747DR_nd_range_capt_sel_dial_pos = simDR_EFIS_map_range
