@@ -265,8 +265,8 @@ function des_src_setSpd()
       elseif(B747DR_ap_ias_dial_value>spdval) then
         spdval=math.max(B747DR_ap_ias_dial_value-15,spdval)
       else
-        local lowerAlt=tonumber(getFMSData("desspdtransalt"))
-        local upperAlt=lowerAlt+2000
+        local lowerAlt=tonumber(getFMSData("desspdtransalt"))+1000
+        local upperAlt=lowerAlt+1500
         spdval=B747_rescale(lowerAlt,nextspdval,upperAlt,spdval,simDR_pressureAlt1)
       end
       simDR_autopilot_airspeed_is_mach = 0
@@ -279,12 +279,11 @@ function des_src_setSpd()
 end
 function des_aptres_setSpd()
     local spdval=tonumber(getFMSData("destranspd"))
-    local upperAlt=tonumber(getFMSData("desspdtransalt"))
     local lowerAlt=tonumber(getFMSData("desrestalt"))
 
     
     local nextspdval=tonumber(getFMSData("desrestspd"))
-    spdval=B747_rescale(lowerAlt,nextspdval,upperAlt,spdval,simDR_pressureAlt1)
+    spdval=B747_rescale(lowerAlt+1000,nextspdval,lowerAlt+1500,spdval,simDR_pressureAlt1)
     simDR_autopilot_airspeed_is_mach = 0
     print("convert to destranspd speed ".. spdval)
     B747DR_ap_ias_dial_value = math.min(399.0, spdval)
