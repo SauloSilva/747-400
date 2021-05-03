@@ -161,7 +161,7 @@ fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be thi
       return{
       "     ACT ECON CLB       ",
       "                        ",
-      fmsModules["data"]["crzalt"].."          "..spdalt,
+      fmsModules["data"]["crzalt"].."         "..spdalt,
       "                        ",
       fmsModules["data"]["clbspd"].."    "..error_line,
                                         --**** LO  ** LONG
