@@ -546,7 +546,9 @@ function B747_ap_switch_flch_mode_CMDhandler(phase, duration)
 		B747_ap_button_switch_position_target[4] = 1
 		B747DR_ap_lastCommand=simDRTime
 		simDR_autopilot_altitude_ft=B747DR_autopilot_altitude_ft
-		simCMD_autopilot_flch_mode:once()
+		if B747DR_ap_vnav_state==0 or (simDR_autopilot_flch_status==0 and B747DR_ap_vnav_state>0) then
+			simCMD_autopilot_flch_mode:once()
+		end
 		B747DR_ap_vnav_state=0
 		B747DR_ap_inVNAVdescent =0
 		B747DR_ap_thrust_mode=2	
@@ -875,11 +877,6 @@ function B747_ap_VNAV_mode_CMDhandler(phase, duration)
 		  B747DR_ap_thrust_mode=0
 		  setVNAVState("gotVNAVSpeed",false)
 		  B747_vnav_speed() 
--- 		  if simDR_autopilot_altitude_ft - simDR_pressureAlt1<-200 then
--- 		    B747DR_ap_inVNAVdescent =1
--- 		  elseif simDR_autopilot_altitude_ft - simDR_pressureAlt1>2000 and simDR_autopilot_flch_status==0 and B747DR_engine_TOGA_mode == 0 and simDR_onGround==0 then
--- 		    simCMD_autopilot_flch_mode:once()
--- 		  end
 		end
 	elseif phase == 2 then
 		B747_ap_button_switch_position_target[3] = 0						
