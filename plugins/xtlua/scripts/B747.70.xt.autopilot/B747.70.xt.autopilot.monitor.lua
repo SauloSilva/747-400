@@ -160,6 +160,7 @@ function VNAV_DES(numAPengaged,fms)
     local lastHold=simDRTime-B747DR_mcp_hold_pressed
     --print("VNAV_DES B747DR_ap_inVNAVdescent=" .. " "..B747DR_ap_inVNAVdescent.. " "..diff2.. " "..diff3.. " "..B747DR_ap_vnav_state.. " " .. B747DR_mcp_hold)
     if simDR_autopilot_vs_status == 0 then
+        print("simDR_autopilot_vs_status  == 0 clear descent")
         B747DR_ap_inVNAVdescent = 0
     end
 
@@ -178,12 +179,13 @@ function VNAV_DES(numAPengaged,fms)
 
     --Not started descent, not in VNAV ALT, past TOD, begin descending
     if B747DR_ap_inVNAVdescent ==0 and diff2<=0 and (diff3<=-100 or diff3>=0) 
-            and B747BR_totalDistance>0 and B747BR_totalDistance-B747BR_tod<=0
+            and B747BR_totalDistance>0 and (B747BR_totalDistance-B747BR_tod<=0 or beganDescent()==true)
             and simDR_autopilot_vs_status == 0 
             and simDR_radarAlt1>1000 
                  then
         if diff3<=0 then           
             B747DR_ap_inVNAVdescent =1
+            setDescent(true)
             print("Begin descent")
             getDescentTarget()
         else
@@ -194,6 +196,7 @@ function VNAV_DES(numAPengaged,fms)
     if B747DR_ap_inVNAVdescent ==1 and diff2<=0 and (diff3<=-500 or diff3>=500) and simDR_autopilot_vs_status == 0 and simDR_radarAlt1>1000 then
         if simDR_autopilot_gs_status < 1 then 
             simCMD_autopilot_vert_speed_mode:once()
+            setDescent(true)
             print("Resume descent")
         end
     end
@@ -203,7 +206,6 @@ function VNAV_DES(numAPengaged,fms)
 
     if B747DR_ap_inVNAVdescent >0 and simDR_autopilot_autothrottle_enabled == 1 and simDR_allThrottle<0.02 and forceOn==false then							-- AUTOTHROTTLE IS "ON"
         simCMD_autopilot_autothrottle_off:once()									-- DEACTIVATE THE AUTOTHROTTLE
-        B747DR_ap_inVNAVdescent =1
         print("fix idle throttle")
         return
     elseif simDR_autopilot_autothrottle_enabled == 0 and (simDR_ind_airspeed_kts_pilot<B747DR_airspeed_Vmc+15 or forceOn==true) and B747DR_toggle_switch_position[29] == 1 then
@@ -266,10 +268,27 @@ function B747_monitor_THR_REF_AT()
     if simDR_autopilot_autothrottle_enabled == 1 and timediff>0.5 then B747DR_ap_thrust_mode=0 return end
     if (n1_pct < (ref_throttle-0.2)) and simDR_allThrottle<0.99 then
 	    simCMD_ThrottleUp:once()
-    elseif (n1_pct > (ref_throttle+0.2)) and simDR_allThrottle>0.0 then
+    elseif (n1_pct > (ref_throttle+0.8)) and simDR_allThrottle>0.0 then
         simCMD_ThrottleDown:once()
     end
     last_THR_REF=simDRTime
+end
+function checkMCPAlt(dist)
+    local eta=dist/simDR_groundspeed
+   
+    if eta>0.0334 then
+        B747DR_fmc_notifications[33]=0
+        --print("checkMCPAlt "..eta.. " "..dist)
+        return
+    end
+
+    local diff3 = B747DR_autopilot_altitude_ft- simDR_pressureAlt1
+    --print("checkMCPAlt "..eta.. " "..dist.. " "..diff3)
+    if diff3>-1000 then
+        B747DR_fmc_notifications[33]=1
+    else
+        B747DR_fmc_notifications[33]=0
+    end
 end
 function VNAV_modeSwitch(fmsO)
     --if B747BR_cruiseAlt < 10 then return end --no cruise alt set, not needed because cant set to 1 without this
@@ -296,8 +315,10 @@ function VNAV_modeSwitch(fmsO)
         VNAV_CLB(numAPengaged,fmsO) --climb to cruise
     elseif dist>0 and B747DR_ap_inVNAVdescent==0 then
         VNAV_CRZ(numAPengaged) --go to alt hold if not in descent
+        checkMCPAlt(dist)
     else
         VNAV_DES(numAPengaged,fmsO)
+        checkMCPAlt(dist)
     end
     B747DR_ap_lastCommand=simDRTime
     

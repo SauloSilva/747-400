@@ -93,7 +93,16 @@ function setFMSData(id,value)
 	end
 	fmsData[id]=value
 	B747DR_FMSdata=json.encode(fmsData)
-end  
+end
+
+local beganDescentAny=false
+function beganDescent()
+	return beganDescentAny
+end
+function setDescent(val)
+	beganDescentAny=val
+end
+
 --*************************************************************************************--
 --** 				             FIND X-PLANE DATAREFS           			    	 **--
 --*************************************************************************************--
@@ -512,12 +521,13 @@ function B747_ap_switch_vnavalt_mode_CMDhandler(phase, duration)
 		end
 
 		 if B747DR_ap_vnav_state==2 then
-			
-		  --if B747BR_totalDistance>0 and (B747BR_totalDistance-B747BR_tod)<50 and simDR_pressureAlt1>simDR_autopilot_altitude_ft then
-		--	B747DR_ap_inVNAVdescent = 2
-		  --else
 			B747DR_ap_vnav_state = 3 --resume
-		  --end
+		end
+		if B747BR_totalDistance-B747BR_tod<=50 then
+			B747DR_ap_inVNAVdescent=1
+			setDescent(true)
+            print("Begin descent")
+            getDescentTarget()
 		end
 	elseif phase == 2 then
 		B747_ap_button_switch_position_target[16] = 0									-- SET THE ALT KNOB ANIMATION TO "OUT"
@@ -565,26 +575,26 @@ function B747_ap_switch_vs_mode_CMDhandler(phase, duration)
 		B747_ap_button_switch_position_target[6] = 1
 		--for animation
 
-		B747DR_ap_vvi_fpm=0 	
+			
 		if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 and simDR_onGround==0 then							-- AUTOTHROTTLE IS "OFF"
 		  simCMD_autopilot_autothrottle_on:once()									-- ACTIVATE THE AUTOTHROTTLE
 		  
 		  B747DR_engine_TOGA_mode = 0 
 		
 		end
-
 		simDR_autopilot_altitude_ft=B747DR_autopilot_altitude_ft
-		B747DR_ap_vnav_state=0
+		
 		B747DR_ap_thrust_mode=0
 		B747DR_ap_inVNAVdescent =0
-		B747DR_autopilot_vs_fpm=0
-		simCMD_autopilot_vert_speed_mode:once()
-
+		if B747DR_ap_vnav_state==0 or (simDR_autopilot_vs_status == 0 and B747DR_ap_vnav_state>0) then
+			simCMD_autopilot_vert_speed_mode:once()
+			simDR_autopilot_vs_fpm=0
+			B747DR_ap_vvi_fpm=0 
+			B747DR_autopilot_vs_fpm=0
+		end	
+		B747DR_ap_vnav_state=0
 	elseif phase ==2 then
-	  --for autpilot
-		  
-		  simDR_autopilot_vs_fpm=0
-		  
+	  --for autpilot	  
 	end
 end
 
@@ -871,10 +881,20 @@ function B747_ap_VNAV_mode_CMDhandler(phase, duration)
 		  B747DR_ap_vnav_state=0
 		  B747DR_ap_inVNAVdescent =0
 		  B747DR_ap_thrust_mode=0
-		  if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 and simDR_onGround==0 then simCMD_autopilot_autothrottle_on:once() end
+		  if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 and simDR_onGround==0 then 
+			simCMD_autopilot_autothrottle_on:once() 
+		  end
 		elseif B747DR_ap_vnav_system == 2 then
 		  B747DR_ap_vnav_state=1 
 		  B747DR_ap_thrust_mode=0
+		  if beganDescent()==true and simDR_autopilot_alt_hold_status<2 then 
+			print("had descent")
+			simCMD_autopilot_alt_hold_mode:once()
+		  elseif beganDescent()==true and simDR_autopilot_alt_hold_status==2 then 
+			print("had descent, in alt hold")
+		  else
+			print("no previous descent")
+		  end
 		  setVNAVState("gotVNAVSpeed",false)
 		  B747_vnav_speed() 
 		end

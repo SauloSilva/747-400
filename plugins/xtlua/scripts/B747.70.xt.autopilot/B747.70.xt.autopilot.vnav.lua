@@ -62,6 +62,7 @@ function setDescentVSpeed()
     B747DR_ap_inVNAVdescent=0
     B747DR_ap_vnav_state=0
     B747DR_ap_thrust_mode=0
+    setDescent(false)
     print("End Descent")
     return
   end
