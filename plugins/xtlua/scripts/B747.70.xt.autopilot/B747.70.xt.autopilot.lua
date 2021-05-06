@@ -624,46 +624,7 @@ end
 
 
 
-function B747_ap_switch_loc_mode_CMDhandler(phase, duration)
-	if phase == 0 then 
-		B747_ap_button_switch_position_target[8] = 1									-- SET THE LOC SWITCH ANIMATION TO "IN"
-		B747DR_ap_approach_mode=0
-		----- APPROACH MODE IS ARMED
-		if simDR_autopilot_nav_status == 1 
-			and simDR_autopilot_gs_status == 1
-		then
-			simCMD_autopilot_glideslope_mode:once()										-- CANX GLIDESLOPE MODE
-			
-			if B747DR_ap_cmd_L_mode == 1 then											-- LEFT AUTOPILOT IS ON
-				B747_ap_all_cmd_modes_off()	
-				B747DR_ap_cmd_L_mode = 1
-	        end	       	
-			
-		----- LOC MODE (ONLY) IS ARMED
-		elseif simDR_autopilot_nav_status == 1 
-			and simDR_autopilot_gs_status == 0
-		then
-			simCMD_autopilot_nav_mode:once()											-- DISARM LOC MODE		
-			if B747DR_ap_lnav_state>0 then
-				B747DR_ap_lnav_state=1
-			end
-		----- LOC MODE IS OFF	 			 		
-		elseif simDR_autopilot_nav_status == 0 
-			and simDR_autopilot_gs_status == 0
-		then	
-			if simDR_nav1_radio_nav_type == 8											-- NAV1 RADIO TYPE IS "ILS WITHOUT GLIDESLOPE" 	|
-	        	or simDR_nav1_radio_nav_type == 16 										-- NAV1 RADIO TYPE IS "LOC" (ONLY)				|-- ONLY VALID MODES TO SET A/P TO "LOC" MODE
-	        	or simDR_nav1_radio_nav_type == 40										-- NAV1 RADIO TYPE IS "ILS WITH GLIDESLOPE"		|
-			then
-		    	simCMD_autopilot_nav_mode:once()										-- ARM/ACTIVATE LOC MODE
-		    end	 
-			  
-	    end 
-	    				
-	elseif phase == 2 then
-		B747_ap_button_switch_position_target[8] = 0									-- SET THE LOC SWITCH ANIMATION TO "OUT"				
-	end
-end	
+	
 
 
 local switching_servos_on=simDRTime
@@ -1520,51 +1481,7 @@ function B747_fltmgmt_setILS(fms)
   end]]
 end
 
-function B747_ap_appr_mode_beforeCMDhandler(phase, duration) 
-	if phase == 0 then
-	  B747DR_ap_ias_mach_window_open = 1
-	  B747_ap_button_switch_position_target[9] = 1
-	  
-	  
-	  
-	  if (simDR_autopilot_nav_status == 1)
-			and B747DR_ap_approach_mode < 2
- 		then
-		B747DR_ap_approach_mode=1
-		if B747DR_ap_lnav_state>0 then
-			B747DR_ap_lnav_state=1
-		end
-		simCMD_autopilot_appr_mode:once()
-		print("approach mod command")
-	  elseif B747DR_ap_approach_mode>0 then
-	    B747DR_ap_approach_mode=0
-	    print("del approach")
-		if B747DR_ap_lnav_state>0 then
-			B747DR_ap_lnav_state=1
-		end
-	  else
-	    B747DR_ap_approach_mode=1
-		if B747DR_ap_lnav_state>0 then
-			simCMD_autopilot_heading_select:once()
-		end
-	     print("arm approach")
-	  end
-	  
--- 		if simDR_autopilot_nav_status == 1 
--- 			and simDR_autopilot_gs_status == 1	
--- 		then
--- 			if B747DR_ap_cmd_L_mode == 1 then											-- LEFT AUTOPILOT IS ON
--- 				B747_ap_all_cmd_modes_off()	
--- 				B747DR_ap_cmd_L_mode = 1
--- 				
--- 			end	 			
--- 		end
-	B747DR_ap_heading_deg = roundToIncrement(simDR_nav1_radio_course_deg, 1)            -- SET THE SELECTED HEADING VALUE TO THE LOC COURSE
-	elseif phase == 2 then
-		B747_ap_button_switch_position_target[9] = 0									
-	
-	end
-end
+
 
 
 
@@ -1898,9 +1815,92 @@ function B747_ap_altitude()
 	end
 
 end	
+function B747_ap_appr_mode_beforeCMDhandler(phase, duration) 
+	if phase == 0 then
+	  B747DR_ap_ias_mach_window_open = 1
+	  B747_ap_button_switch_position_target[9] = 1
+	  
+	  
+	  
+	  if (simDR_autopilot_nav_status == 1)
+			and B747DR_ap_approach_mode < 2
+ 		then
+		B747DR_ap_approach_mode=1
+		if B747DR_ap_lnav_state>0 then
+			B747DR_ap_lnav_state=1
+		end
+		simCMD_autopilot_appr_mode:once()
+		print("approach mod command")
+	  elseif B747DR_ap_approach_mode>0 then
+	    B747DR_ap_approach_mode=0
+	    print("del approach")
+		if B747DR_ap_lnav_state>0 then
+			B747DR_ap_lnav_state=1
+		end
+	  else
+	    B747DR_ap_approach_mode=1
+		if B747DR_ap_lnav_state>0 then
+			simCMD_autopilot_heading_select:once()
+		end
+	     print("arm approach")
+	  end
+	  
+-- 		if simDR_autopilot_nav_status == 1 
+-- 			and simDR_autopilot_gs_status == 1	
+-- 		then
+-- 			if B747DR_ap_cmd_L_mode == 1 then											-- LEFT AUTOPILOT IS ON
+-- 				B747_ap_all_cmd_modes_off()	
+-- 				B747DR_ap_cmd_L_mode = 1
+-- 				
+-- 			end	 			
+-- 		end
+	B747DR_ap_heading_deg = roundToIncrement(simDR_nav1_radio_course_deg, 1)            -- SET THE SELECTED HEADING VALUE TO THE LOC COURSE
+	elseif phase == 2 then
+		B747_ap_button_switch_position_target[9] = 0									
+	
+	end
+end
 
-
-
+function B747_ap_switch_loc_mode_CMDhandler(phase, duration)
+	if phase == 0 then 
+		B747_ap_button_switch_position_target[8] = 1									-- SET THE LOC SWITCH ANIMATION TO "IN"
+		B747DR_ap_approach_mode=0
+		----- APPROACH MODE IS ARMED
+		if simDR_autopilot_nav_status == 1 
+			and simDR_autopilot_gs_status == 1
+		then
+			simCMD_autopilot_glideslope_mode:once()										-- CANX GLIDESLOPE MODE
+			
+			if B747DR_ap_cmd_L_mode == 1 then											-- LEFT AUTOPILOT IS ON
+				B747_ap_all_cmd_modes_off()	
+				B747DR_ap_cmd_L_mode = 1
+	        end	       	
+			
+		----- LOC MODE (ONLY) IS ARMED
+		elseif simDR_autopilot_nav_status == 1 
+			and simDR_autopilot_gs_status == 0
+		then
+			simCMD_autopilot_nav_mode:once()											-- DISARM LOC MODE		
+			if B747DR_ap_lnav_state>0 then
+				B747DR_ap_lnav_state=1
+			end
+		----- LOC MODE IS OFF	 			 		
+		elseif simDR_autopilot_nav_status == 0 
+			and simDR_autopilot_gs_status == 0
+		then	
+			if simDR_nav1_radio_nav_type == 8											-- NAV1 RADIO TYPE IS "ILS WITHOUT GLIDESLOPE" 	|
+	        	or simDR_nav1_radio_nav_type == 16 										-- NAV1 RADIO TYPE IS "LOC" (ONLY)				|-- ONLY VALID MODES TO SET A/P TO "LOC" MODE
+	        	or simDR_nav1_radio_nav_type == 40										-- NAV1 RADIO TYPE IS "ILS WITH GLIDESLOPE"		|
+			then
+		    	simCMD_autopilot_nav_mode:once()										-- ARM/ACTIVATE LOC MODE
+		    end	 
+			  
+	    end 
+	    				
+	elseif phase == 2 then
+		B747_ap_button_switch_position_target[8] = 0									-- SET THE LOC SWITCH ANIMATION TO "OUT"				
+	end
+end
 
 
 ----- APPROACH MODE ---------------------------------------------------------------------
@@ -1912,7 +1912,8 @@ function B747_ap_appr_mode()
 	    and B747DR_ap_approach_mode == 1
 	    then
 	    local diffap=getHeadingDifference(simDR_nav1_radio_course_deg,simDR_AHARS_heading_deg_pilot)
-	    if diffap>-5 and diffap<5 then
+
+	    if diffap>-120 and diffap<120 then
 	       B747DR_ap_approach_mode=2
 	      simCMD_autopilot_appr_mode:once() --Really arm it
 	    end
