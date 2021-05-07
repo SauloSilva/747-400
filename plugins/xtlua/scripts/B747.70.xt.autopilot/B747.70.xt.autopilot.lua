@@ -702,13 +702,17 @@ function B747_ap_switch_disengage_bar_CMDhandler(phase, duration)
 		B747_ap_button_switch_position_target[14] = 1.0 - B747_ap_button_switch_position_target[14]	
 		B747DR_ap_lastCommand=simDRTime
 		if B747_ap_button_switch_position_target[14] == 1.0	then						-- DISENGAGE
+			local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
+			if numAPengaged>0 then
+				B747DR_CAS_warning_status[0] = 1
+			end
 			B747CMD_ap_reset:once()												-- TURN FLIGHT DIRECTOR AND SERVOS "OFF"	
 			B747_ap_all_cmd_modes_off()	
 			simCMD_autopilot_servos_off:once()
 			simCMD_autopilot_servos_fdir_off:once()	
 			simCMD_autopilot_servos2_fdir_off:once()
 			simCMD_autopilot_servos3_fdir_off:once()
-			B747DR_CAS_warning_status[0] = 1
+			
 		else
 			B747DR_CAS_warning_status[0] = 0
 		end	
@@ -721,7 +725,8 @@ end
 function B747_ap_switch_yoke_disengage_capt_CMDhandler(phase, duration)
 	if phase == 0 then
 		B747DR_ap_lastCommand=simDRTime
-		if B747DR_CAS_warning_status[0]==0 then
+		local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
+		if B747DR_CAS_warning_status[0]==0 and numAPengaged>0 then
 			B747DR_CAS_warning_status[0] = 1
 		else
 			B747DR_CAS_warning_status[0] = 0
@@ -740,7 +745,8 @@ end
 function B747_ap_switch_yoke_disengage_fo_CMDhandler(phase, duration)
 	if phase == 0 then
 		B747DR_ap_lastCommand=simDRTime
-		if B747DR_CAS_warning_status[0]==0 then
+		local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
+		if B747DR_CAS_warning_status[0]==0 and numAPengaged>0 then
 			B747DR_CAS_warning_status[0] = 1
 		else
 			B747DR_CAS_warning_status[0] = 0
@@ -907,7 +913,7 @@ B747CMD_autopilot_VNAV_mode				= deferred_command("laminar/B747/autopilot/button
 B747CMD_autopilot_LNAV_mode				= deferred_command("laminar/B747/autopilot/button_switch/LNAV", "A/P LNAV Mode Switch",B747_ap_LNAV_mode_afterCMDhandler)
 B747CMD_ap_switch_hdg_sel_mode			= deferred_command("laminar/B747/autopilot/button_switch/heading_select", "A/P Heading Select Mode Switch", B747_ap_switch_hdg_sel_mode_CMDhandler)
 --B747CMD_ap_switch_hdg_hold_mode			= deferred_command("laminar/B747/autopilot/button_switch/hdg_hold_mode", "A/P Heading Hold Mode Switch", B747_ap_switch_hdg_hold_mode_CMDhandler)
-B747CMD_ap_switch_loc_mode				= deferred_command("laminar/B747/autopilot/button_switch/loc_mode", "A/P Localizer Mode Switch", B747_ap_switch_loc_mode_CMDhandler)
+
 
 B747CMD_ap_switch_cmd_L					= deferred_command("laminar/B747/autopilot/button_switch/cmd_L", "A/P CMD L Switch", B747_ap_switch_cmd_L_CMDhandler)
 B747CMD_ap_switch_cmd_C					= deferred_command("laminar/B747/autopilot/button_switch/cmd_C", "A/P CMD C Switch", B747_ap_switch_cmd_C_CMDhandler)
@@ -1496,7 +1502,7 @@ simCMD_autopilot_gpss_mode	= find_command("sim/autopilot/gpss")
 simCMD_autopilot_FMS_mode					= find_command("sim/autopilot/FMS")
 simCMD_autopilot_heading_hold_mode			= wrap_command("sim/autopilot/heading_hold", B747_ap_heading_hold_mode_beforeCMDhandler, B747_ap_heading_hold_mode_afterCMDhandler)	
 simCMD_autopilot_appr_mode					= find_command("sim/autopilot/approach")
-B747CMD_autopilot_appr_mode					= deferred_command("laminar/B747/autopilot/approach", "APP Switch", B747_ap_appr_mode_beforeCMDhandler)
+
 
 
 
@@ -1815,6 +1821,8 @@ function B747_ap_altitude()
 	end
 
 end	
+--OLD button functions
+--[[
 function B747_ap_appr_mode_beforeCMDhandler(phase, duration) 
 	if phase == 0 then
 	  B747DR_ap_ias_mach_window_open = 1
@@ -1845,15 +1853,6 @@ function B747_ap_appr_mode_beforeCMDhandler(phase, duration)
 	     print("arm approach")
 	  end
 	  
--- 		if simDR_autopilot_nav_status == 1 
--- 			and simDR_autopilot_gs_status == 1	
--- 		then
--- 			if B747DR_ap_cmd_L_mode == 1 then											-- LEFT AUTOPILOT IS ON
--- 				B747_ap_all_cmd_modes_off()	
--- 				B747DR_ap_cmd_L_mode = 1
--- 				
--- 			end	 			
--- 		end
 	B747DR_ap_heading_deg = roundToIncrement(simDR_nav1_radio_course_deg, 1)            -- SET THE SELECTED HEADING VALUE TO THE LOC COURSE
 	elseif phase == 2 then
 		B747_ap_button_switch_position_target[9] = 0									
@@ -1901,11 +1900,46 @@ function B747_ap_switch_loc_mode_CMDhandler(phase, duration)
 		B747_ap_button_switch_position_target[8] = 0									-- SET THE LOC SWITCH ANIMATION TO "OUT"				
 	end
 end
+]]
+function B747_ap_appr_mode_beforeCMDhandler(phase, duration) 
+	if phase == 0 then 
+		B747_ap_button_switch_position_target[9] = 1
+		if B747DR_ap_approach_mode<=0 then
+			B747DR_ap_approach_mode=1
+			 print("arm APP approach")
+		else
+			B747DR_ap_approach_mode=0
+		end
+		B747DR_ap_lastCommand=simDRTime
+		B747DR_ap_heading_deg = roundToIncrement(simDR_nav1_radio_course_deg, 1)            -- SET THE SELECTED HEADING VALUE TO THE LOC COURSE
+		--simCMD_autopilot_appr_mode:once()
+	elseif phase == 2 then
+		B747_ap_button_switch_position_target[9] = 0									-- SET THE LOC SWITCH ANIMATION TO "OUT"				
+	end	
+end
+function B747_ap_switch_loc_mode_CMDhandler(phase, duration)
+	if phase == 0 then 
+		B747_ap_button_switch_position_target[8] = 1
+		if B747DR_ap_approach_mode>=0 then
+			B747DR_ap_approach_mode=-1
+			
+			 print("arm LOC approach")
+		else
+			B747DR_ap_approach_mode=0
+		end
+		B747DR_ap_lastCommand=simDRTime
+		--simCMD_autopilot_nav_mode:once()
+	elseif phase == 2 then
+		B747_ap_button_switch_position_target[8] = 0									-- SET THE LOC SWITCH ANIMATION TO "OUT"				
+	end	
+end
 
-
+B747CMD_autopilot_appr_mode					= deferred_command("laminar/B747/autopilot/approach", "APP Switch", B747_ap_appr_mode_beforeCMDhandler)
+B747CMD_ap_switch_loc_mode				= deferred_command("laminar/B747/autopilot/button_switch/loc_mode", "A/P Localizer Mode Switch", B747_ap_switch_loc_mode_CMDhandler)
 ----- APPROACH MODE ---------------------------------------------------------------------
 
-
+--OLD mode switching function
+--[[
 function B747_ap_appr_mode()
 	if (simDR_autopilot_nav_status == 0 
 	    or simDR_autopilot_gs_status == 0)	
@@ -1921,24 +1955,73 @@ function B747_ap_appr_mode()
 	    and simDR_autopilot_gs_status > 0 then	
 	  	B747DR_ap_approach_mode=0
 	end
-	--[[if simDR_autopilot_approach_status > 0 then
 		
-        -- TURN ON ALL AUTOPILOTS
-        if B747DR_ap_cmd_L_mode == 0 then
-            B747CMD_ap_switch_cmd_L:once()
-        end
-
-        if B747DR_ap_cmd_C_mode == 0 then
-            B747CMD_ap_switch_cmd_C:once()
-        end
-
-        if B747DR_ap_cmd_R_mode == 0 then
-            B747CMD_ap_switch_cmd_R:once()
-        end	
-	     
-    end   ]] 		
 	
 end	
+]]
+function B747_ap_appr_mode()
+	local diff=simDRTime-B747DR_ap_lastCommand
+	if B747DR_ap_approach_mode~=0 then --only if we'll need it
+		local refreshheading=simDR_autopilot_heading_status
+	end
+		--reactivate LNAV if required
+	if diff<0.2 then return end
+	if B747DR_ap_approach_mode==0 then
+		if simDR_autopilot_nav_status > 0 then
+			if simDR_autopilot_gs_status > 0 then
+				simCMD_autopilot_appr_mode:once() --DEACTIVATE APP
+				B747DR_ap_lastCommand=simDRTime
+			else
+				simCMD_autopilot_nav_mode:once() --DEACTIVATE LOC
+				B747DR_ap_lastCommand=simDRTime
+			end
+		end
+		return 
+	end -- no approach mode enabled
+	local diffap=getHeadingDifference(simDR_nav1_radio_course_deg,simDR_AHARS_heading_deg_pilot)
+	if diffap>-120 and diffap<120 then --can really arm the mode
+		if B747DR_ap_approach_mode==-1 then --WANT LOC
+			if simDR_autopilot_nav_status == 0 
+				or simDR_autopilot_gs_status > 0
+			then
+				simCMD_autopilot_nav_mode:once() --ACTIVATE LOC
+				B747DR_ap_lastCommand=simDRTime
+			end
+		elseif B747DR_ap_approach_mode==1 then --WANT APP
+			if simDR_autopilot_gs_status == 0
+			then
+				simCMD_autopilot_appr_mode:once() --ACTIVATE APP
+				B747DR_ap_lastCommand=simDRTime
+			end
+		end
+	elseif simDR_autopilot_nav_status > 0 then
+		if simDR_autopilot_gs_status > 0 then
+			simCMD_autopilot_appr_mode:once() --DEACTIVATE APP
+			B747DR_ap_lastCommand=simDRTime
+		else
+			simCMD_autopilot_nav_mode:once() --DEACTIVATE LOC
+			B747DR_ap_lastCommand=simDRTime
+		end
+	elseif simDR_autopilot_gs_status > 0 then
+		simCMD_autopilot_glideslope_mode:once()										-- CANX GLIDESLOPE MODE
+		B747DR_ap_lastCommand=simDRTime
+	end
+	if simDR_onGround==1 then
+		B747DR_ap_approach_mode=0
+	end
+
+	if B747DR_ap_lnav_state>0 and simDR_autopilot_heading_status == 0 then
+		simCMD_autopilot_heading_select:once()
+		B747DR_ap_lastCommand=simDRTime
+	end
+ 	--[[print("B747_ap_appr_mode diffap="..diffap 
+	 .." simDR_autopilot_nav_status="..simDR_autopilot_nav_status
+	 .." simDR_autopilot_gs_status="..simDR_autopilot_gs_status
+	 .." B747DR_ap_approach_mode="..B747DR_ap_approach_mode)
+	 ]]--
+
+
+end
 
 
 
@@ -2032,7 +2115,7 @@ function B747_ap_fma()
         B747DR_ap_FMA_armed_roll_mode = 2
 
     -- (LOC) --
-    elseif simDR_autopilot_nav_status == 1 or (B747DR_ap_approach_mode>0 and simDR_autopilot_nav_status~=2) then
+    elseif simDR_autopilot_nav_status == 1 or (B747DR_ap_approach_mode~=0 and simDR_autopilot_nav_status~=2) then
         B747DR_ap_FMA_armed_roll_mode = 3
 
     -- (ROLLOUT) --
@@ -2071,11 +2154,13 @@ function B747_ap_fma()
         B747DR_ap_FMA_active_roll_mode = 2
 
 		local diff=simDRTime-B747DR_ap_lastCommand
-		if diff>0.5 and simDR_autopilot_gpss == 0 and B747DR_ap_approach_mode==0 then 
+		--reactivate LNAV if required
+		if diff>0.5 and simDR_autopilot_gpss == 0 and B747DR_ap_approach_mode==0 then
 			print("simDR_autopilot_gpss == 2 or B747DR_ap_lnav_state==2")
 			simCMD_autopilot_gpss_mode:once() 
 			B747DR_ap_lnav_state=2
 			run_after_time(checkLNAV, 0.5)
+			B747DR_ap_lastCommand=simDRTime
 		end
 
       -- (ROLLOUT) --

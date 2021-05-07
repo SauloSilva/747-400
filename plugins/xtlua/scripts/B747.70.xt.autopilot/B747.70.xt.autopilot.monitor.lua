@@ -453,7 +453,7 @@ function B747_updateApproachHeading(fmsO)
         return
       end
     local ap2Heading=getHeading(simDR_latitude,simDR_longitude,fmsO[start][5],fmsO[start][6])
-    if B747DR_ap_approach_mode==1 and B747DR_ap_lnav_state>0 then
+    if B747DR_ap_approach_mode~=0 and simDR_autopilot_nav_status~=2 and B747DR_ap_lnav_state>0 then
         simDR_autopilot_heading_deg =	ap2Heading+simDR_variation
     end
 end
