@@ -1100,6 +1100,11 @@ function B747_fltCtrols_EICAS_msg()
 
 end
 
+-- crazytimmtimtim
+function B747_autobrake_resetOnGround() -- reset autobrakes if armed while on ground
+     B747DR_autobrakes_sel_dial_pos = 2 -- disarm
+end
+
 
 
 
@@ -1238,11 +1243,24 @@ if debug_fltctrls>0 then return end
     B747_fltCtrols_EICAS_msg()
 
     B747_fltctrls_monitor_AI()
-     B747_landing_slats()
+    B747_landing_slats()
+	
     --print(collectgarbage("count")*1024)
 	
-	--Marauder28
-	B747_elevator_trim()  --constantly update the safe stab trim position based on CG
+    --Marauder28
+    B747_elevator_trim()  --constantly update the safe stab trim position based on CG   
+	
+    -- crazytimtimtim
+    if B747DR_autobrakes_sel_dial_pos > 2 -- Autobrakes armed
+       and simDR_all_wheels_on_ground == 1
+       and simDR_engine_throttle_jet_all >= 0 -- reversers aren't deployed, indicating a landing
+       and simDR_speedbrake_ratio_control < 0.3 -- spoilers aren't deployed, indicating a landing
+       and simDR_ind_airspeed_kts_pilot <= 30 
+       and is_timer_scheduled(B747autobrake_resetOnGround) == false
+       then
+       run_after_time(B747autobrake_resetOnGround, 1.0)
+    end
+	
 end
 
 --function after_replay() end
