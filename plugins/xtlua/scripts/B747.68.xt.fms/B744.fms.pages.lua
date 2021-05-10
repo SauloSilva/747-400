@@ -36,7 +36,7 @@ return {
 
 "          MENU          ",
 "                        ",
-"<FMC             SELECT>",
+"<FMC    <ACT>    SELECT>",
 "                        ",
 acarsS.."           SELECT>",
 "                        ",
@@ -73,7 +73,7 @@ fmsPages["INDEX"].getSmallPage=function(self,pgNo,fmsID)
       }
 end
 fmsFunctionsDefs["INDEX"]={}
-fmsFunctionsDefs["INDEX"]["L1"]={"setpage","FMC"}
+fmsFunctionsDefs["INDEX"]["L1"]={"setpage","IDENT"}
 
 fmsFunctionsDefs["INDEX"]["L5"]={"setpage","ACMS"}
 fmsFunctionsDefs["INDEX"]["L6"]={"setpage","CMC"}
@@ -117,7 +117,8 @@ fmsPages["RTE1"].getPage=function(self,pgNo,fmsID)
   end
   fmsFunctionsDefs["RTE1"]["L2"]={"setdata","runway"}
   fmsFunctionsDefs["RTE1"]["R2"]={"custom2fmc","R3"}
-  fmsFunctionsDefs["RTE1"]["R3"]={"custom2fmc","L2"}
+  
+  fmsFunctionsDefs["RTE1"]["R3"]={"setpage","FMC"}
   
   local line5="                "..string.sub(cleanFMSLine(B747DR_srcfms[fmsID][5]),1,8)
   if acarsSystem.provider.online() then line5=" <SEND          "..string.sub(cleanFMSLine(B747DR_srcfms[fmsID][5]),1,8) end
@@ -211,6 +212,7 @@ dofile("activepages/B744.fms.pages.progress.lua")
 dofile("activepages/B744.fms.pages.actrte1.lua")
 dofile("activepages/B744.fms.pages.fmccomm.lua")
 dofile("activepages/B744.fms.pages.vnav.lua")
+dofile("activepages/B744.fms.pages.vnav.lrc.lua")
 dofile("activepages/B744.fms.pages.groundhandling.lua")
 dofile("activepages/B744.fms.pages.maintsimconfig.lua")
 dofile("activepages/B744.fms.pages.identpage.lua")
@@ -316,14 +318,14 @@ function findILS(value)
   navAids=json.decode(navAidsJSON)
   local direction=nil
   local valueSO=split(value,"/")
-  print(value)
+  --print(value)
   if table.getn(valueSO) > 1 then
     value=valueSO[1]
-     print(value)
+     --print(value)
     direction=tonumber(valueSO[2])
-    print(value.." and " .. direction)
+    --print(value.." and " .. direction)
   else
-    print(value)
+    --print(value)
   end
   --print(" in " .. navAidsJSON)
   local val=tonumber(value)
@@ -479,7 +481,12 @@ function fmsFunctions.setpage_no(fmsO,valueA)
     fmsO["targetPage"]="FMC"
     simCMD_FMS_key[fmsO.id]["fpln"]:once()
     simCMD_FMS_key[fmsO.id]["L6"]:once()
-     
+	simCMD_FMS_key[fmsO.id]["L2"]:once()
+  elseif value=="PROGRESS" then
+	fmsModules[fmsO.id].targetCustomFMC=false
+    simCMD_FMS_key[fmsO.id]["prog"]:once()
+    fmsModules[fmsO.id].targetPage="PROGRESS"
+	fmsModules[fmsO.id].targetpgNo=1
   elseif value=="VHFCONTROL" then
     fmsO["targetCustomFMC"]=false
     fmsO["targetPage"]="VHFCONTROL"
@@ -504,7 +511,11 @@ function fmsFunctions.setpage_no(fmsO,valueA)
     fmsO["targetCustomFMC"]=false
     fmsO["targetPage"]="RTE2"
     simCMD_FMS_key[fmsO.id]["dir_intc"]:once()
-   
+  elseif value=="LEGS" then
+	fmsModules[fmsO.id].targetCustomFMC=true
+	fmsModules[fmsO.id].targetPage="LEGS"
+	simCMD_FMS_key[fmsO.id]["legs"]:once()
+	fmsModules[fmsO.id].targetpgNo=1  
   else
     fmsO["targetCustomFMC"]=true
     fmsO["targetPage"]=value 
@@ -629,7 +640,7 @@ end
 
 -- VALIDATE ENTRY OF SETHDG
 function validate_sethdg(value)
-	print(value)
+	--print(value)
 	if tonumber(value) >= 0 and tonumber(value) <= 360 then
 		return true
 	else
@@ -780,7 +791,12 @@ function fmsFunctions.setdata(fmsO,value)
 		simDR_EFIS_2_sel_pilot=2
 	end
   elseif value=="WPT" then
-
+	
+	if fmsO.id=="fmsR" then 
+		B747DR_nd_fo_wpt=1-B747DR_nd_fo_wpt 
+	else
+		B747DR_nd_capt_wpt=1-B747DR_nd_capt_wpt
+	end
   elseif value=="STA" then
 	if fmsO.id=="fmsR" then 
 		B747DR_nd_fo_vor_ndb = 1-B747DR_nd_fo_vor_ndb 
@@ -939,20 +955,20 @@ function fmsFunctions.setdata(fmsO,value)
     end
   elseif value=="stepalt" then
     if validFL(fmsO["scratchpad"]) ~=nil then 
-	setFMSData("stepalt",validFL(fmsO["scratchpad"]))
+		setFMSData("stepalt",validFL(fmsO["scratchpad"]))
     else
       fmsO["notify"]="INVALID ENTRY"
     end
   elseif value=="desspds" then
     div = string.find(fmsO["scratchpad"], "%/")
     spd=getFMSData("desspd")
-    print(spd)
+   -- print(spd)
     if div==nil then 
       div=string.len(fmsO["scratchpad"])+1 
     else
       spd=string.sub(fmsO["scratchpad"],div+1)
     end
-    print(spd)
+   -- print(spd)
     machspd=string.sub(fmsO["scratchpad"],1,div-1)
     if validateMachSpeed(machspd) ==nil or validateSpeed(spd) ==false then 
       fmsO["notify"]="INVALID ENTRY"
@@ -1096,7 +1112,31 @@ function fmsFunctions.setdata(fmsO,value)
 			timer_start = simDRTime
 		end
 	end
-
+  elseif value == "vref1" then
+	fmsO["scratchpad"]=string.format("25/%3d", B747DR_airspeed_Vf25)
+	return
+  elseif value == "vref2" then
+	fmsO["scratchpad"]=string.format("30/%3d", B747DR_airspeed_Vf30)
+	return
+  elseif value == "flapspeed" then
+	if fmsO["scratchpad"]=="" then 
+		B747DR_airspeed_VrefFlap=0
+		setFMSData(value,"") 
+		return 
+	end
+	local vref=tonumber(string.sub(fmsO["scratchpad"],4))
+	if vref==nil or vref<110 or vref>180 then 
+		fmsO["notify"]="INVALID ENTRY" 
+		return 
+	end
+	B747DR_airspeed_Vref=vref
+	print(string.sub(fmsO["scratchpad"],1,2))
+	if string.sub(fmsO["scratchpad"],1,2) == "25" then
+		B747DR_airspeed_VrefFlap=1
+  	else
+		B747DR_airspeed_VrefFlap=2
+	end	
+	setFMSData(value,fmsO["scratchpad"])
   elseif value == "grwt" then
 	local grwt
 	if string.len(fmsO["scratchpad"]) > 0 and string.len(fmsO["scratchpad"]) <= 5 and string.match(fmsO["scratchpad"], "%d") then
@@ -1986,8 +2026,23 @@ function fmsFunctions.setdata(fmsO,value)
 		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
 	end
 --Marauder28
-
-  elseif fmsO["scratchpad"]=="" and del==false then
+   elseif value=="atc" then
+		setFMSData(value,fmsO["scratchpad"])
+		
+		fmsFunctions["acarsLogonATC"](fmsO,"Logon " .. fmsO["scratchpad"])
+	elseif value=="fltdepatc" then
+		setFMSData("atc",fmsModules.data["fltdep"])
+		
+		fmsFunctions["acarsLogonATC"](fmsO,"Logon " .. fmsModules.data["fltdep"])
+	elseif value=="fltdstatc" then
+		setFMSData("atc",fmsModules.data["fltdst"])
+		
+		fmsFunctions["acarsLogonATC"](fmsO,"Logon " .. fmsModules.data["fltdst"])	
+	elseif value=="metarreq" then	
+		fmsFunctions["acarsATCRequest"](fmsO,"REQUEST METAR")	
+	elseif value=="tafreq" then	
+		fmsFunctions["acarsATCRequest"](fmsO,"REQUEST TAF")	
+   elseif fmsO["scratchpad"]=="" and del==false then
       cVal=getFMSData(value)
     
       fmsO["scratchpad"]=cVal
@@ -2026,7 +2081,24 @@ function fmsFunctions.setDref(fmsO,value)
 	if numVal<=1 then numVal=1 end
 	B747DR_ap_vnav_pause=numVal
 	return 
-  end 
+  end
+	
+-- sound options (crazytimtimtim + Matt726)    
+  if value == "alarmsOption" then
+	if B747DR_SNDoptions[0] == 0 then
+	  B747DR_SNDoptions[0] = 1
+	elseif B747DR_SNDoptions[0] == 1 then
+	  B747DR_SNDoptions[0] = 2
+	elseif B747DR_SNDoptions[0] == 2 then
+	  B747DR_SNDoptions[0] = 0
+	end
+	return
+  end  
+  if value == "seatBeltOption" then B747DR_SNDoptions[1] = 1 - B747DR_SNDoptions[1] return end
+  if value == "paOption" then B747DR_SNDoptions[2] = 1 - B747DR_SNDoptions[2] return end
+  if value == "musicOption" then B747DR_SNDoptions[3] = 1 - B747DR_SNDoptions[3] return end
+-- end sound options
+	
   if value=="TO" then toderate=0 clbderate=0 return  end
   if value=="TO1" then toderate=1 clbderate=1 return  end
   if value=="TO2" then toderate=2 clbderate=2 return  end
@@ -2045,7 +2117,7 @@ function fmsFunctions.setDref(fmsO,value)
      fmsO["notify"]="INVALID ENTRY"
      return 
    end
-  print(val)
+ --print(val)
   if value=="VORL" then B747DR_radioModes=replace_char(2,modes,"M") simDR_radio_nav_freq_hz[2]=val*100  end
   if value=="VORR" then B747DR_radioModes=replace_char(3,modes,"M") simDR_radio_nav_freq_hz[3]=val*100  end
   if value=="CRSL" then simDR_radio_nav_obs_deg[2]=val end

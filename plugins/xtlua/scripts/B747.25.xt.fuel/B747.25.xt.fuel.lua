@@ -144,7 +144,7 @@ B747.fuel.stab_tank.xfr_jett_pump_R   = {}
 
     B747.fuel.stab_tank.xfr_jett_pump_L.on        = deferred_dataref("laminar/B747/fuel/stab_tank/xfr_jett_pump_L_on", "number")
     B747.fuel.stab_tank.xfr_jett_pump_R.on        = deferred_dataref("laminar/B747/fuel/stab_tank/xfr_jett_pump_R_on", "number")
-
+    B747DR_engine_used_fuel               = deferred_dataref("laminar/B747/fuel/totaliser","array[5]")
 -- VALVES
 B747.fuel.center_tank.refuel_vlv_L    = {}
 B747.fuel.center_tank.refuel_vlv_R    = {}
@@ -2132,6 +2132,8 @@ function B747_fuel_tank_levels()
         for i=0,7,1 do
             simDR_fuel_tank_weight_kg[i]=lastFuelLevels[i]
         end
+    
+       
     end
     ----- FUEL TRANSFER ---------------------------------------------------------
 
@@ -2238,46 +2240,55 @@ function B747_fuel_tank_levels()
     -- APU
     simDR_fuel_tank_weight_kg[2] = math.max(B747.fuel.main2_tank.min, simDR_fuel_tank_weight_kg[2] - (apuFuelBurn_KgSec * fuel_calc_rate/2))
     simDR_fuel_tank_weight_kg[3] = math.max(B747.fuel.main3_tank.min, simDR_fuel_tank_weight_kg[3] - (apuFuelBurn_KgSec * fuel_calc_rate/2))
-
+    
     -- ENGINE #1
     local eng1fuelShareRatio = 0
+    local engine1_used=0
     if #engine1fuelSrc > 0 then eng1fuelShareRatio = 1.0 / #engine1fuelSrc end
     local engine1_source_fuel_flow_KgSec = simDR_eng_fuel_flow_kg_sec[0] * eng1fuelShareRatio
-
+    
     for _, tankID in ipairs(engine1fuelSrc) do
+        engine1_used=engine1_used+(engine1_source_fuel_flow_KgSec * fuel_calc_rate)
         simDR_fuel_tank_weight_kg[tankID] = simDR_fuel_tank_weight_kg[tankID] - (engine1_source_fuel_flow_KgSec * fuel_calc_rate)
     end
-
-
+ 
+    B747DR_engine_used_fuel[0]=B747DR_engine_used_fuel[0]+engine1_used
     -- ENGINE #2
     local eng2fuelShareRatio = 0
+    local engine2_used=0
     if #engine2fuelSrc > 0 then eng2fuelShareRatio = 1.0 / #engine2fuelSrc end
     local engine2_source_fuel_flow_KgSec = simDR_eng_fuel_flow_kg_sec[1] * eng2fuelShareRatio
 
     for _, tankID in ipairs(engine2fuelSrc) do
+        engine2_used=engine2_used+(engine2_source_fuel_flow_KgSec * fuel_calc_rate)
         simDR_fuel_tank_weight_kg[tankID] = simDR_fuel_tank_weight_kg[tankID] - (engine2_source_fuel_flow_KgSec * fuel_calc_rate)
     end
-
+    B747DR_engine_used_fuel[1]=B747DR_engine_used_fuel[1]+engine2_used
 
     -- ENGINE #3
     local eng3fuelShareRatio = 0
+    local engine3_used=0
     if #engine3fuelSrc > 0 then eng3fuelShareRatio = 1.0 / #engine3fuelSrc end
     local engine3_source_fuel_flow_KgSec = simDR_eng_fuel_flow_kg_sec[2] * eng3fuelShareRatio
 
     for _, tankID in ipairs(engine3fuelSrc) do
+        engine3_used=engine3_used+(engine3_source_fuel_flow_KgSec * fuel_calc_rate)
         simDR_fuel_tank_weight_kg[tankID] = simDR_fuel_tank_weight_kg[tankID] - (engine3_source_fuel_flow_KgSec * fuel_calc_rate)
     end
-
+    B747DR_engine_used_fuel[2]=B747DR_engine_used_fuel[2]+engine3_used
 
     -- ENGINE #4
     local eng4fuelShareRatio = 0
+    local engine4_used=0
     if #engine4fuelSrc > 0 then eng4fuelShareRatio = 1.0 / #engine4fuelSrc end
     local engine4_source_fuel_flow_KgSec = simDR_eng_fuel_flow_kg_sec[3] * eng4fuelShareRatio
 
     for _, tankID in ipairs(engine4fuelSrc) do
+        engine4_used=engine4_used+(engine4_source_fuel_flow_KgSec * fuel_calc_rate)
         simDR_fuel_tank_weight_kg[tankID] = simDR_fuel_tank_weight_kg[tankID] - (engine4_source_fuel_flow_KgSec * fuel_calc_rate)
     end
-
+    B747DR_engine_used_fuel[3]=B747DR_engine_used_fuel[3]+engine4_used
+    B747DR_engine_used_fuel[4]=B747DR_engine_used_fuel[4]+engine1_used+engine2_used+engine3_used+engine4_used+(apuFuelBurn_KgSec * fuel_calc_rate)
     lastTotalFuel=simDR_fuel_tank_weight_total_kg 
     for i=0,7,1 do
         --print(i .. " " ..lastFuelLevels[i] .. " ".. simDR_fuel_tank_weight_kg[i])

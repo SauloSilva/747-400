@@ -28,8 +28,15 @@ B747DR_ap_fpa	    = find_dataref("laminar/B747/autopilot/navadata/fpa")
 B747DR_ap_vb	    = find_dataref("laminar/B747/autopilot/navadata/vb")
 simDR_autopilot_vs_fpm         			= find_dataref("sim/cockpit2/autopilot/vvi_dial_fpm")
 B747DR_fmc_notifications            = find_dataref("laminar/B747/fms/notification")
-
+B747DR_airspeed_Vref                          = find_dataref("laminar/B747/airspeed/Vref")
+B747DR_airspeed_VrefFlap                          = find_dataref("laminar/B747/airspeed/VrefFlap")
 B747DR_altimter_ft_adjusted                     = find_dataref("laminar/B747/altimeter/ft_adjusted")
+B747BR_eod_index 			= find_dataref("laminar/B747/autopilot/dist/eod_index")
+B747DR_TAS_pilot			  =find_dataref("laminar/B747/nd/TAS_pilot")
+B747DR_engine_used_fuel       = find_dataref("laminar/B747/fuel/totaliser")
+simDR_autopilot_airspeed_is_mach	= find_dataref("sim/cockpit2/autopilot/airspeed_is_mach")
+simDR_autopilot_airspeed_kts_mach   	= find_dataref("sim/cockpit2/autopilot/airspeed_dial_kts_mach")
+simDR_autopilot_airspeed_kts   		= find_dataref("sim/cockpit2/autopilot/airspeed_dial_kts")
 --Workaround for stack overflow in init.lua namespace_read
 
 
@@ -195,7 +202,9 @@ simDR_EFIS_1_sel_fo              = find_dataref("sim/cockpit2/EFIS/EFIS_1_select
 simDR_EFIS_2_sel_pilot                 = find_dataref("sim/cockpit2/EFIS/EFIS_2_selection_pilot")
 simDR_EFIS_2_sel_fo                 = find_dataref("sim/cockpit2/EFIS/EFIS_2_selection_copilot")
 B747DR_nd_capt_vor_ndb                          = find_dataref("laminar/B747/nd/data/capt/vor_ndb")
+B747DR_nd_capt_wpt							= find_dataref("laminar/B747/nd/data/capt/wpt")
 B747DR_nd_fo_vor_ndb                          	= find_dataref("laminar/B747/nd/data/fo/vor_ndb")
+B747DR_nd_fo_wpt                          	= find_dataref("laminar/B747/nd/data/fo/wpt")
 B747DR_nd_capt_apt	                        = find_dataref("laminar/B747/nd/data/capt/apt")
 B747DR_nd_fo_apt	                        = find_dataref("laminar/B747/nd/data/fo/apt")
 B747DR_nd_fo_ftc	                        = find_dataref("laminar/B747/nd/fo/tfc")
@@ -262,7 +271,10 @@ B747DR_fuel_preselect_temp				= deferred_dataref("laminar/B747/fuel/fuel_presele
 --pos data
 B747DR_waypoint_ata					= deferred_dataref("laminar/B747/nd/waypoint_ata", "string")
 B747DR_last_waypoint				= deferred_dataref("laminar/B747/nd/last_waypoint", "string")
+B747DR_last_waypoint_fuel=simDR_fueL_tank_weight_total_kg
+B747DR_destination					= deferred_dataref("laminar/B747/nd/dest", "string")
 B747DR_next_waypoint_eta					= deferred_dataref("laminar/B747/nd/next_waypoint_eta", "string")
+B747DR_next_waypoint_dist					= deferred_dataref("laminar/B747/nd/next_waypoint_dist", "number")
 B747DR_next_waypoint				= deferred_dataref("laminar/B747/nd/next_waypoint", "string")
 
 --Waypoint info for ND DISPLAY
@@ -287,6 +299,9 @@ B747DR_ND_Wind_Bearing					= deferred_dataref("laminar/B747/nd/wind_bearing", "n
 
 --STAB TRIM setting
 B747DR_elevator_trim				    = deferred_dataref("laminar/B747/fmc/elevator_trim", "number")
+
+--Sound Options (crazytimtimtim + Matt726)
+B747DR_SNDoptions			        	= deferred_dataref("laminar/B747/fmod/options", "array[4]")
 
 --Simulator Config Options
 simConfigData = {}
@@ -518,12 +533,13 @@ function defaultFMSData()
   spdtransalt="10000",
   transalt="18000",
   clbrestspd="180",
+  maxkts="420",
   clbrestalt="5000 ",
   stepalt="FL360",
   crzspd="810",
   desspdmach="805",
   desspd="270",
-  destranspd="250",
+  destranspd="240",
   desspdtransalt="10000",
   desrestspd="180",
   desrestalt="5000 ",
@@ -609,6 +625,7 @@ fmsModules["setData"]=function(self,id,value)
     end
     --newVal=string.sub(value,1,len)
     self["data"][id]=string.format("%s%"..(len-string.len(value)).."s",value,"")
+	B747DR_FMSdata=json.encode(fmsModules["data"]["values"])--make the fms data available to other modules
 end
 function setFMSData(id,value)
     --print("setting " .. id .. " to "..value.." curently "..fmsModules["data"][id])
@@ -639,7 +656,7 @@ function switchCustomMode()
   fmsModules["fmsL"]["pgNo"]=fmsModules["fmsL"]["targetpgNo"]
   fmsModules["fmsC"]["pgNo"]=fmsModules["fmsC"]["targetpgNo"]
   fmsModules["fmsR"]["pgNo"]=fmsModules["fmsR"]["targetpgNo"]
-  print("left cdu blanking")
+  --print("left cdu blanking")
 end
 function createPage(page)
   retVal={}
@@ -737,7 +754,7 @@ function getCurrentWayPoint(fms,usenext)
 				end
 				elseif i+1<table.getn(fms) then
 				  if fms[i+1][8] == "latlon" then
-					return "------", fms[i+1][5], fms[i+1][6]
+					return "-----", fms[i+1][5], fms[i+1][6]
 				else
 					return fms[i+1][8], fms[i+1][5], fms[i+1][6]
 				end
@@ -746,20 +763,15 @@ function getCurrentWayPoint(fms,usenext)
 	end
 	return ""  --NOT FOUND
 end
-function get_waypoint_estimate(latitude,longitude,fms_waypoint, fms_latitude, fms_longitude,additionalTime)
-  local meters_per_second_to_kts = 1.94384449
-  local hours = 0
-  local mins = 0
-  local secs = 0
-  local default_speed = 275
-  local actual_speed = simDR_groundspeed * meters_per_second_to_kts
-  local time_to_waypoint = 0
-  local fms_distance_to_waypoint = 0
-  if fms_waypoint ~= "" and fms_waypoint ~= "VECTOR" and not string.match(fms_waypoint, "%(") then
-	--print("Checking distance for waypoint = "..fms_current_waypoint)
-	fms_distance_to_waypoint = getDistance(latitude, longitude, fms_latitude, fms_longitude)
-	
-	time_to_waypoint = additionalTime + (fms_distance_to_waypoint / math.max(default_speed, actual_speed)) * 3600
+function get_ETA_for_Distance(distance,additionalTime)
+	local meters_per_second_to_kts = 1.94384449
+	local hours = 0
+	local mins = 0
+	local secs = 0
+	local time_to_waypoint = 0
+	local default_speed = 275 * meters_per_second_to_kts
+	local actual_speed = simDR_groundspeed * meters_per_second_to_kts
+	time_to_waypoint = additionalTime + (distance / math.max(default_speed, actual_speed)) * 3600
 	
 	hours = math.floor((time_to_waypoint % 86400) / 3600)
 	mins = math.floor((time_to_waypoint % 3600) / 60)
@@ -782,10 +794,28 @@ function get_waypoint_estimate(latitude,longitude,fms_waypoint, fms_latitude, fm
 		secs = secs - 1
 		mins = mins + 1
 	end
+
+	return time_to_waypoint,hours,mins,secs
+end
+function get_waypoint_estimate(latitude,longitude,fms_waypoint, fms_latitude, fms_longitude,additionalTime)
+  
+  local hours = 0
+  local mins = 0
+  local secs = 0
+  
+  local time_to_waypoint = 0
+  local fms_distance_to_waypoint = 0
+  if fms_waypoint ~= "" and fms_waypoint ~= "VECTOR" and not string.match(fms_waypoint, "%(") then
+	--print("Checking distance for waypoint = "..fms_current_waypoint)
+	fms_distance_to_waypoint = getDistance(latitude, longitude, fms_latitude, fms_longitude)
+	time_to_waypoint,hours,mins,secs = get_ETA_for_Distance(fms_distance_to_waypoint,additionalTime)
+	
   end
   
   return fms_distance_to_waypoint,time_to_waypoint,hours,mins,secs
 end
+
+
 function waypoint_eta_display()
 	local hours = 0
 	local mins = 0
@@ -803,9 +833,16 @@ function waypoint_eta_display()
 	local time_to_waypoint = 0
 	local fms_distance_to_waypoint = 0
 	local fms_distance_to_next_waypoint = 0
-	if simDR_onGround ~= 1 and string.len(fmsJSON) > 2 then
+	if string.len(fmsJSON) > 2 then
+		fms = json.decode(fmsJSON)
+		if fms[table.getn(fms)][8]~="LATLON" then
+        	B747DR_destination = string.format("%4s",fms[table.getn(fms)][8])
+		else
+			B747DR_destination="----"
+		end
+		if simDR_onGround ~= 1 then
 		--print(fmsJSON)
-		fms = json.decode(fmsJSON)	
+			
 		fms_current_waypoint, fms_latitude, fms_longitude = getCurrentWayPoint(fms,false)
 		--print(string.match(fms_current_waypoint, "%("))
 		fms_distance_to_waypoint,time_to_waypoint,hours,mins,secs = get_waypoint_estimate(simDR_latitude, simDR_longitude,fms_current_waypoint, fms_latitude, fms_longitude,0)
@@ -813,21 +850,25 @@ function waypoint_eta_display()
 		fms_next_waypoint, fms_next_latitude, fms_next_longitude = getCurrentWayPoint(fms,true)
 		--print(string.match(fms_current_waypoint, "%("))
 		fms_distance_to_next_waypoint,time_to_waypoint,nhours,nmins,nsecs = get_waypoint_estimate(fms_latitude, fms_longitude,fms_next_waypoint, fms_next_latitude, fms_next_longitude,time_to_waypoint)
-		
+		end
+	else
+		B747DR_destination="----"	
 	end
 	
 	if fms_current_waypoint == "" or string.match(fms_current_waypoint, "%(") then
 		B747DR_ND_current_waypoint = "-----"
 		B747DR_ND_waypoint_distance = "------NM"
-		B747DR_ND_waypoint_eta = "------Z"	
+		B747DR_ND_waypoint_eta = "------Z"
+			
 	elseif fms_current_waypoint == "VECTOR" then
 		B747DR_ND_current_waypoint = fms_current_waypoint
 		B747DR_ND_waypoint_distance = "------NM"
 		B747DR_ND_waypoint_eta = "------Z"
 	else
-	        if B747DR_ND_current_waypoint ~= fms_current_waypoint then
+	    if B747DR_ND_current_waypoint ~= fms_current_waypoint then
 		  B747DR_waypoint_ata = B747DR_ND_waypoint_eta
 		  B747DR_last_waypoint = B747DR_ND_current_waypoint
+		  B747DR_last_waypoint_fuel=simDR_fueL_tank_weight_total_kg
 		end
 		B747DR_ND_current_waypoint = fms_current_waypoint
 		B747DR_ND_waypoint_distance = string.format("%5.1f".."nm", fms_distance_to_waypoint)
@@ -838,13 +879,16 @@ function waypoint_eta_display()
 	  B747DR_waypoint_ata="------Z"
 	end
 	if fms_next_waypoint == "" or string.match(fms_next_waypoint, "%(") then
-		B747DR_next_waypoint = "------"
-		B747DR_next_waypoint_eta = "------Z"	
+		B747DR_next_waypoint = "-----"
+		B747DR_next_waypoint_eta = "------Z"
+		B747DR_next_waypoint_dist=0	
 	elseif fms_next_waypoint == "VECTOR" then
 		B747DR_next_waypoint = fms_next_waypoint
+		B747DR_next_waypoint_dist=fms_distance_to_next_waypoint
 		B747DR_next_waypoint_eta = "------Z"
 	else
 		B747DR_next_waypoint = fms_next_waypoint
+		B747DR_next_waypoint_dist=fms_distance_to_next_waypoint
 		B747DR_next_waypoint_eta = string.format("%02d%02d.%d".."z", nhours, nmins, nsecs * 10)			
 	end
 end
@@ -868,7 +912,9 @@ function nd_speed_wind_display()
 	local Tt = K0 + simDR_total_air_temp  --Total air temperature in Kelvin
 	local T_pilot = Tt / (1 + (0.2 * math.pow(M_pilot, 2)))  --Static air temperature in Kelvin	
 	local T_copilot = Tt / (1 + (0.2 * math.pow(M_copilot, 2)))  --Static air temperature in Kelvin	
+	
 	local TAS_pilot = round(a0 * M_pilot * math.sqrt(T_pilot/T0))
+	B747DR_TAS_pilot=TAS_pilot
 	local TAS_copilot = round(a0 * M_copilot * math.sqrt(T_copilot/T0))
 	
 	local groundspeed = simDR_groundspeed * meters_per_second_to_kts
@@ -920,6 +966,7 @@ end
 --Marauder28
 
 function flight_start()
+	B747DR_last_waypoint_fuel=simDR_fueL_tank_weight_total_kg
   if simDR_startup_running == 0 then
     irsSystem["irsL"]["aligned"]=false
     irsSystem["irsC"]["aligned"]=false
@@ -955,7 +1002,7 @@ function setNotifications()
       fmsModules["fmsL"]["notify"]=B747_FMCAlertMsg[i].name
       fmsModules["fmsC"]["notify"]=B747_FMCAlertMsg[i].name
       fmsModules["fmsR"]["notify"]=B747_FMCAlertMsg[i].name
-      print("do FMS notify"..B747_FMCAlertMsg[i].name)
+      print("do FMS notify "..B747_FMCAlertMsg[i].name)
       break
     else
       if fmsModules["fmsL"]["notify"]==B747_FMCAlertMsg[i].name then fmsModules["fmsL"]["notify"]="" end
@@ -970,7 +1017,10 @@ function after_physics()
 --     for i =1,24,1 do
 --       print(string.byte(fms_style,i))
 --     end
-
+	--refresh time
+	local cM=hh
+	cM=mm
+	cM=ss
     setNotifications()
     B747DR_FMSdata=json.encode(fmsModules["data"]["values"])--make the fms data available to other modules
     --print(B747DR_FMSdata)

@@ -118,12 +118,14 @@ fmsPages["EFISOPTIONS152"].getPage=function(self,pgNo,fmsID)
     if fmsID=="fmsR" then 
         if B747DR_nd_fo_ftc==1 then tfcSelected="<SEL>" end
         if B747DR_nd_fo_vor_ndb==1 then staSelected="<SEL>" end
+        if B747DR_nd_fo_wpt==1 then wptSelected="<SEL>" end
         if B747DR_nd_fo_apt==1 then arptSelected="<SEL>" end
         if simDR_EFIS_1_sel_fo==2 and simDR_EFIS_2_sel_fo==2 then vorSelected="<SEL>" end
         if simDR_EFIS_1_sel_fo==0 and simDR_EFIS_2_sel_fo==0 then adfSelected="<SEL>" end
     else
         if B747DR_nd_capt_ftc==1 then tfcSelected="<SEL>" end
         if B747DR_nd_capt_vor_ndb==1 then staSelected="<SEL>" end
+        if B747DR_nd_capt_wpt==1 then wptSelected="<SEL>" end
         if B747DR_nd_capt_apt==1 then arptSelected="<SEL>" end
         if simDR_EFIS_1_sel_pilot==2 and simDR_EFIS_2_sel_pilot==2 then vorSelected="<SEL>" end
         if simDR_EFIS_1_sel_pilot==0 and simDR_EFIS_2_sel_pilot==0 then adfSelected="<SEL>" end
@@ -150,7 +152,7 @@ fmsFunctionsDefs["EFISOPTIONS152"]["L1"]={"setdata","WXR"}
 --fmsFunctionsDefs["EFISOPTIONS152"]["L3"]={"setdata","TERR"}
 fmsFunctionsDefs["EFISOPTIONS152"]["L4"]={"setdata","TFC"}
 fmsFunctionsDefs["EFISOPTIONS152"]["L5"]={"setdata","VORDISP"}
---fmsFunctionsDefs["EFISOPTIONS152"]["R1"]={"setdata","WPT"}
+fmsFunctionsDefs["EFISOPTIONS152"]["R1"]={"setdata","WPT"}
 fmsFunctionsDefs["EFISOPTIONS152"]["R2"]={"setdata","STA"}
 fmsFunctionsDefs["EFISOPTIONS152"]["R3"]={"setdata","ARPT"}
 --fmsFunctionsDefs["EFISOPTIONS152"]["R4"]={"setdata","DATA"}

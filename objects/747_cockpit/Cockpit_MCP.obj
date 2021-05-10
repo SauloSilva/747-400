@@ -24603,7 +24603,7 @@ ANIM_begin
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.1151    2.9910    5.0536	  -0.1151    2.9910    5.0536	0 0	no_ref
-	ANIM_rotate	   0.0000   -0.3746   -0.9272	  0.00   1.00	0 1	sim/cockpit2/autopilot/heading_dial_deg_mag_pilot
+	ANIM_rotate	   0.0000   -0.3746   -0.9272	  0.00   1.00	0 1	laminar/B747/autopilot/heading/degrees
 	TRIS	29043 324
 ANIM_end
 ANIM_begin
@@ -24942,7 +24942,7 @@ ANIM_end
 ANIM_begin
 	ANIM_hide	0.0 0.0	laminar/B747/autopilot/vert_spd/window_open
 	ANIM_trans	  -0.0722    2.9998    5.0242	  -0.0722    2.9998    5.0242	0 0	no_ref
-	ANIM_rotate_begin	   1.0000   -0.0000    0.0000	laminar/B747/cockpit2/autopilot/vvi_dial_fpm
+	ANIM_rotate_begin	   1.0000   -0.0000    0.0000	sim/cockpit2/autopilot/vvi_dial_fpm
 		ANIM_rotate_key	0	 72.00
 		ANIM_rotate_key	-0.1	 36.00
 		ANIM_rotate_key	-10000.0	 36.00
@@ -25253,7 +25253,7 @@ ANIM_begin
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.1059    2.9998    5.0242	  -0.1059    2.9998    5.0242	0 0	no_ref
-	ANIM_rotate_begin	   1.0000    0.0000   -0.0000	sim/cockpit2/autopilot/heading_dial_deg_mag_pilot
+	ANIM_rotate_begin	   1.0000    0.0000   -0.0000	laminar/B747/autopilot/heading/degrees
 		ANIM_rotate_key	0	  0.00
 		ANIM_rotate_key	0.9	  0.00
 		ANIM_rotate_key	1.0	 37.03
@@ -25280,7 +25280,7 @@ ANIM_begin
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.1152    2.9998    5.0242	  -0.1152    2.9998    5.0242	0 0	no_ref
-	ANIM_rotate_begin	   1.0000   -0.0000    0.0000	sim/cockpit2/autopilot/heading_dial_deg_mag_pilot
+	ANIM_rotate_begin	   1.0000   -0.0000    0.0000	laminar/B747/autopilot/heading/degrees
 		ANIM_rotate_key	0	  0.00
 		ANIM_rotate_key	9.0	  0.00
 		ANIM_rotate_key	10.0	 35.81
@@ -25307,7 +25307,7 @@ ANIM_begin
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.1245    2.9998    5.0242	  -0.1245    2.9998    5.0242	0 0	no_ref
-	ANIM_rotate_begin	   1.0000   -0.0000   -0.0000	sim/cockpit2/autopilot/heading_dial_deg_mag_pilot
+	ANIM_rotate_begin	   1.0000   -0.0000   -0.0000	laminar/B747/autopilot/heading/degrees
 		ANIM_rotate_key	0	  0.00
 		ANIM_rotate_key	99.0	  0.00
 		ANIM_rotate_key	100.0	 35.55

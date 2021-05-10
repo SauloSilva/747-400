@@ -3,7 +3,7 @@ by Matt726
 
 Available for: Default Laminar Research or mSparks 747 mod
 
-Version: v1.3.1
+Version: v2.0
 
 Email: mfahrenheit135@gmail.com
 
@@ -21,10 +21,66 @@ Email: mfahrenheit135@gmail.com
 
 3: OPTIONAL: If you want to add GE engines to your aircraft, open the GE folder in fmod, then drag "747-400.snd" into the fmod folder. Replace as neccessary.
 
-4: enjoy your flight!
+4: OPTIONAL: If you are flying cargo, go to fmod/Announcement Removal, and drag and drop “cabin.bank” into the main fmod folder in your aircraft. This will remove cabin announcements and music.
+
+5: enjoy your flight!
 
 ---
 ## CHANGELOG:
+
+### v2.0
+
+- added RR engines
+- fixed PW engines
+- added reverse lever sounds
+- updated parameters for sound config
+- added "LCD" fan sound (changes when simconfig PFD display is changed to LCD
+- updated wind
+- added some touchdown effects
+
+### v1.7
+
+- updated PW engines
+- fixed parking brake
+- potential CTD error fixes
+- added cockpit door sounds
+- added OLD ALARMS
+- added altitude alert
+- added "777" alarms
+
+### v1.6.3:
+
+- potential fix for CTD issue
+
+### v1.6.2:
+
+- fixed "1000" gpws issue
+
+### v1.6.1:
+
+- added option to remove cabin announcements
+
+### v1.6:
+
+- new warnings
+- updated pan
+- updated park brake
+
+### v1.5.1:
+
+- fixed CTD issue
+
+### v1.5:
+
+- better wind sounds
+- fixed GPWS
+
+### v1.4:
+
+- updated GE engines
+- updated master caution
+- updated master warning
+- updated GPWS
 
 ### v1.3.1:
 

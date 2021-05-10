@@ -131,7 +131,7 @@ fmsPages["DOORS"].getSmallPage=function(self,pgNo,fmsID)
 
     return{
       "                     2/3",
-      "FWD WING L              ",
+      "FWD WING R              ",
       "                        ",
       "WING L                  ",
       "                        ",

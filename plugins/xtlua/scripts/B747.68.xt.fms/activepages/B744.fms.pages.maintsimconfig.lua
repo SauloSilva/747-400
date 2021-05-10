@@ -89,14 +89,14 @@ fmsPages["MAINTSIMCONFIG"].getPage=function(self,pgNo,fmsID)
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["L1"]={"setdata","model"}
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["L2"]={"setdata","aircraftType"}
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["L3"]={"setdata","engines"}
-    fmsFunctionsDefs["MAINTSIMCONFIG"]["L4"]={"setdata","thrustRef"}
-    fmsFunctionsDefs["MAINTSIMCONFIG"]["L5"]=nil
+	    fmsFunctionsDefs["MAINTSIMCONFIG"]["L4"]={"setdata","thrustRef"}
+    	fmsFunctionsDefs["MAINTSIMCONFIG"]["L5"]=nil
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["R1"]={"setdata","airline"}
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["R2"]={"setdata","civilRegistration"}
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["R3"]={"setdata","finNbr"}
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["R4"]={"setdata","pfdStyle"}
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["R5"]={"setdata","ndStyle"}
-    fmsFunctionsDefs["MAINTSIMCONFIG"]["R6"]={"setdata","simConfigSave"}
+    	fmsFunctionsDefs["MAINTSIMCONFIG"]["R6"]={"setdata","simConfigSave"}
 		local model = string.format("%-10s", string.sub(simConfigData["data"].PLANE.model, 1, 10))
 		local aircraft_type = string.format("%-10s", simConfigData["data"].PLANE.aircraft_type)
 		local engines = string.format("%-15s", simConfigData["data"].PLANE.engines)
@@ -122,6 +122,70 @@ fmsPages["MAINTSIMCONFIG"].getPage=function(self,pgNo,fmsID)
 		"                        ",
 		"<MAINT               SAVE>"		
 		}
+
+	elseif pgNo == 4 then
+		-- Sound options (crazytimtimtim + Matt726)
+	
+		local lineA = "         ALARMS          "
+		local lineB = "        SEAT BELT        "
+		local lineC = "           PA            "
+		local lineD = "          MUSIC          "
+
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["L1"]={"setDref","alarmsOption"}
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["L2"]={"setDref","seatBeltOption"}
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["L3"]={"setDref","paOption"}
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["L4"]={"setDref","musicOption"}
+		
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["R1"] = nil
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["R2"] = nil
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["R3"] = nil
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["R4"] = nil
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["R5"] = nil
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["L5"] = nil
+
+		if B747DR_SNDoptions[0] == 0 then
+			lineA = "<USE NEW WARNINGS        "
+		elseif B747DR_SNDoptions[0] == 1 then
+			lineA = "<USE CLASSIC WARN        "
+		elseif B747DR_SNDoptions[0] == 2 then
+			lineA = "<USE DEFAULT WARN        "
+		end
+		
+		if B747DR_SNDoptions[1] == 0 then
+			lineB = "<USE SEATBELT SND 2      "
+		else
+			lineB = "<USE SEATBELT SND 1      "
+		end
+
+		if B747DR_SNDoptions[2] == 0 then
+			lineC = "<DISABLE PA             "
+		else
+			lineC = "<ENABLE PA              "
+		end
+
+		if B747DR_SNDoptions[3] == 0 then
+			lineD = "<DISABLE BRD MUSIC      "
+		else
+			lineD = "<ENABLE BRD MUSIC       "
+		end
+
+		return{
+		"      SOUND CONFIG      ",
+		"                        ",
+		lineA,
+		"                        ",
+		lineB,
+		"                        ",
+		lineC,
+		"                        ",
+		lineD,
+		"                        ",
+		"                        ",
+		"------------------------",
+		"<MAINT                  "
+		}
+
+		-- Sound Options end
 	end
 end
 
@@ -157,7 +221,7 @@ fmsPages["MAINTSIMCONFIG"].getSmallPage=function(self,pgNo,fmsID)
 		end
 
 		return {
-		"                     1/3",
+		"                     1/4",
 		" WGT UNITS    STD PAX WGT",
 		"<    "..display_weight_units,
 		" IRS ALIGN      CAPT INBD",
@@ -171,9 +235,9 @@ fmsPages["MAINTSIMCONFIG"].getSmallPage=function(self,pgNo,fmsID)
 		"                        ",
 		"                        "
     }
-  elseif pgNo == 2 then 
+  elseif pgNo == 2 then
     return {
-      "                     2/3",
+      "                     2/4",
       "                        ",
       "                        ",
       "                        ",
@@ -197,7 +261,7 @@ fmsPages["MAINTSIMCONFIG"].getSmallPage=function(self,pgNo,fmsID)
 		end
 		
 		return {
-		"                     3/3",
+		"                     3/4",
 		" MODEL            AIRLINE",
 		"                        ",
 		" TYPE           CIVIL REG",
@@ -211,10 +275,62 @@ fmsPages["MAINTSIMCONFIG"].getSmallPage=function(self,pgNo,fmsID)
 		"                        ",
 		"                        "
 		}
+
+	elseif pgNo == 4 then
+		-- smallPage for SoundConfig
+
+		local lineA = "                 (ALARMS)"
+		local lineB = "                  (STBLT)"
+		local lineC = "                     (PA)"
+		local lineD = "                  (MUSIC)"
+
+		if B747DR_SNDoptions[0] == 0 then
+			lineA = "                      (DEF)"
+		elseif B747DR_SNDoptions[0] == 1 then
+			lineA = "                      (NEW)"
+		elseif B747DR_SNDoptions[0] == 2 then
+			lineA = "                      (OLD)"
+		end
+		
+		if B747DR_SNDoptions[1] == 0 then
+			lineB = "                      (1/2)"
+		else
+			lineB = "                      (2/2)"
+		end
+
+		if B747DR_SNDoptions[2] == 0 then
+			lineC = "                       (ON)"
+		else
+			lineC = "                      (OFF)"
+		end
+
+		if B747DR_SNDoptions[3] == 0 then
+			lineD = "                       (ON)"
+		else
+			lineD = "                      (OFF)"
+		end
+
+		return {
+		"                        4/4",
+		"OPTIONS           CURRENTLY",
+		lineA,
+		"                        ",
+		lineB,
+		"                        ",
+		lineC,
+		"                        ",
+		lineD,
+		"                        ",
+		"                        ",
+		"                        ",
+		"                        "
+		}
+		
+		-- sound smallPage end
 	end
 end
 
 fmsPages["MAINTSIMCONFIG"].getNumPages=function(self)
-  return 3
+  return 4
 end
 fmsFunctionsDefs["MAINTSIMCONFIG"]["L6"]={"setpage","MAINT"}

@@ -61,7 +61,7 @@ end
 --** 				        CREATE READ-ONLY CUSTOM DATAREFS               	         **--
 --*************************************************************************************--
 
-B747DR_thrust_mnp_show				= deferred_dataref("laminar/B747/engine/thrust_mnp_show", "array[4)")
+B747DR_thrust_mnp_show				= deferred_dataref("laminar/B747/engine/thrust_mnp_show", "array[4]")
 B747DR_thrust_mnp_show_all			= deferred_dataref("laminar/B747/engine/thrust_mnp_show_all", "number")
 
 B747DR_reverse_mnp_show				= deferred_dataref("laminar/B747/engine/rev_mnp_show", "array[4)")
@@ -89,7 +89,7 @@ B747DR_engine_TOGA_mode             = deferred_dataref("laminar/B747/engines/TOG
 
 B747DR_ref_thr_limit_mode           = deferred_dataref("laminar/B747/engines/ref_thr_limit_mode", "string")
 
-
+B747DR_autothrottle_fail            = deferred_dataref("laminar/B747/engines/autothrottle_fail", "number")
 	
 
 
