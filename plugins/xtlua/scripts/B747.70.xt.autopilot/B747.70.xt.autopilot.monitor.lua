@@ -284,7 +284,7 @@ function checkMCPAlt(dist)
 
     local diff3 = B747DR_autopilot_altitude_ft- simDR_pressureAlt1
     --print("checkMCPAlt "..eta.. " "..dist.. " "..diff3)
-    if diff3>-1000 then
+    if diff3>-1000 and B747DR_autopilot_altitude_ft>B747BR_cruiseAlt-1000 then
         B747DR_fmc_notifications[33]=1
     else
         B747DR_fmc_notifications[33]=0
