@@ -1,4 +1,4 @@
--- Wanna use STP with XLua?  Copy StackTracePlus.lua to be next to init.lua in the same folder
+-- Wanna use STP with XLua?  Copy StackTracePlus.lua to be next to init.lua in the same folder 
 -- https://github.com/ignacio/StackTracePlus
 
 -- Grab STP conditionally, do not squawk if it is missing.
