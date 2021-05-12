@@ -995,6 +995,7 @@ function setNotifications()
   local diff=simDRTime-lastNotify
   if diff<10 then return end
   --print("FMS notify")
+  local hasNotify=false
   lastNotify=simDRTime
   for i =1,53,1 do
     --print("do FMS notify".." ".. i .." " ..B747DR_fmc_notifications[i])
@@ -1002,7 +1003,8 @@ function setNotifications()
       fmsModules["fmsL"]["notify"]=B747_FMCAlertMsg[i].name
       fmsModules["fmsC"]["notify"]=B747_FMCAlertMsg[i].name
       fmsModules["fmsR"]["notify"]=B747_FMCAlertMsg[i].name
-      print("do FMS notify "..B747_FMCAlertMsg[i].name)
+      --print("do FMS notify "..B747_FMCAlertMsg[i].name)
+	  hasNotify=true
       break
     else
       if fmsModules["fmsL"]["notify"]==B747_FMCAlertMsg[i].name then fmsModules["fmsL"]["notify"]="" end
@@ -1010,7 +1012,11 @@ function setNotifications()
       if fmsModules["fmsR"]["notify"]==B747_FMCAlertMsg[i].name then fmsModules["fmsR"]["notify"]="" end
     end
   end
-
+  if hasNotify==true then 
+	B747DR_CAS_advisory_status[145] = 1 
+  else
+	B747DR_CAS_advisory_status[145] = 0
+  end
 end
 function after_physics()
   if debug_fms>0 then return end
