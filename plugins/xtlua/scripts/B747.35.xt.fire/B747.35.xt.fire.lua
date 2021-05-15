@@ -62,7 +62,7 @@ simDR_press_diff_psi        = find_dataref("sim/cockpit2/pressurization/indicato
 --*************************************************************************************--
 
 B747DR_CAS_warning_status                   = find_dataref("laminar/B747/CAS/warning_status")
-B747DR_engineFuelControl                    = find_dataref("laminar/B747/fuel/fuel_control/toggle_sw_pos")
+--B747DR_engineFuelControl                    = find_dataref("laminar/B747/fuel/fuel_control/toggle_sw_pos")
 
 
 --*************************************************************************************--
@@ -359,9 +359,9 @@ function B747_fire_extinguishers()
         simDR_engine_fire_ext_on[0] = 0
     end
 	
-    if B747DR_engine01_fire_ext_switch_pos_arm == 1 then
+    --[[if B747DR_engine01_fire_ext_switch_pos_arm == 1 then
         B747DR_engineFuelControl[0] = 0
-    end
+    end]]
 
     -- ENGINE #2
     if B747DR_engine02_fire_ext_switch_pos_disch < -0.95
@@ -372,9 +372,9 @@ function B747_fire_extinguishers()
         simDR_engine_fire_ext_on[1] = 0
     end
 
-    if B747DR_engine02_fire_ext_switch_pos_arm == 1 then
+    --[[if B747DR_engine02_fire_ext_switch_pos_arm == 1 then
         B747DR_engineFuelControl[1] = 0
-    end
+    end]]
 
     -- ENGINE #3
     if B747DR_engine03_fire_ext_switch_pos_disch < -0.95
@@ -385,9 +385,9 @@ function B747_fire_extinguishers()
         simDR_engine_fire_ext_on[2] = 0
     end
 
-    if B747DR_engine03_fire_ext_switch_pos_arm == 1 then
+   --[[ if B747DR_engine03_fire_ext_switch_pos_arm == 1 then
         B747DR_engineFuelControl[2] = 0
-    end
+    end]]
 	
     -- ENGINE #4
     if B747DR_engine04_fire_ext_switch_pos_disch < -0.95
@@ -398,9 +398,9 @@ function B747_fire_extinguishers()
         simDR_engine_fire_ext_on[3] = 0
     end
 
-    if B747DR_engine04_fire_ext_switch_pos_arm == 1 then
+   --[[if B747DR_engine04_fire_ext_switch_pos_arm == 1 then
         B747DR_engineFuelControl[3] = 0
-    end
+    end]]
 
 
     ----- SET BOTTLE PRESSURE ON DISCHARGE
