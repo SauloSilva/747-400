@@ -811,10 +811,10 @@ function B747_ap_reset_CMDhandler(phase, duration)
 		--simCMD_autopilot_pitch_sync:once()
 		
 		B747DR_engine_TOGA_mode=0
-		simDR_autopilot_fms_vnav = 0
-		B747DR_ap_vnav_state=0
-		B747DR_ap_thrust_mode=0
-		B747DR_ap_inVNAVdescent =0
+		--simDR_autopilot_fms_vnav = 0
+		--B747DR_ap_vnav_state=0
+		--B747DR_ap_thrust_mode=0
+		--B747DR_ap_inVNAVdescent =0
 		B747_ap_all_cmd_modes_off() --B747_ap_reset_CMDhandler
 		B747DR_ap_ias_mach_window_open = 0
 		
@@ -1604,16 +1604,6 @@ end
 
 ----- IAS/MACH MODE ---------------------------------------------------------------------
 function B747_ap_ias_mach_mode()
-	--[[if
-	    (B747DR_engine_TOGA_mode == 1 or (simDR_autopilot_TOGA_vert_status == 2 and B747DR_ap_vnav_state==1) or (B747DR_ap_autoland<-1))
-	   -- (B747DR_engine_TOGA_mode == 1 or (B747DR_ap_vnav_state > 0 and B747DR_ap_inVNAVdescent == 0) )
-	and (simDR_radarAlt1>400 or simDR_ind_airspeed_kts_pilot>simDR_autopilot_airspeed_kts) then							-- AUTOTHROTTLE IS "OFF"
-	 -- if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 then simCMD_autopilot_autothrottle_on:once()	end								-- ACTIVATE THE AUTOTHROTTLE
-	  simCMD_autopilot_flch_mode:once()
-	  if B747DR_ap_vnav_state==0 then B747DR_ap_thrust_mode=2 end
-	  B747DR_engine_TOGA_mode = 0 
-	  B747DR_ap_autoland=-1
-	end]]
 
 	  if B747DR_ap_autoland<0 and (simDR_radarAlt1>1500) then
 	    B747DR_ap_autoland=0
@@ -1817,6 +1807,7 @@ function B747_ap_altitude()
 	    print("Cancel VNAV "..table.getn(fms)) 
 	    B747DR_fmc_notifications[30]=1
 	    B747DR_ap_vnav_state=0 
+		B747DR_ap_lnav_state=0
 		B747DR_ap_thrust_mode=0
 	    return
 	  end --no vnav
@@ -2240,7 +2231,8 @@ function B747_ap_fma()
 			simCMD_autopilot_servos3_fdir_off:once()
 		end
 		B747DR_ap_FMA_active_pitch_mode = 0
-		B747DR_ap_vnav_state=0
+		B747DR_ap_vnav_state=0 
+		B747DR_ap_lnav_state=0
 		B747DR_ap_inVNAVdescent =0
 		B747DR_ap_thrust_mode=0
 		B747DR_engine_TOGA_mode=0
