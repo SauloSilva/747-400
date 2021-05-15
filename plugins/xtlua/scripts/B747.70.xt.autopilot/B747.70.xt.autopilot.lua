@@ -397,10 +397,13 @@ B747DR_ap_FMA_active_pitch_mode     	= deferred_dataref("laminar/B747/autopilot/
 
 
 
-B747DR_ap_AFDS_mode_box_status      	= deferred_dataref("laminar/B747/autopilot/AFDS/mode_box_status", "number")
-B747DR_ap_AFDS_mode_box2_status     	= deferred_dataref("laminar/B747/autopilot/AFDS/mode_box2_status", "number")
+B747DR_ap_AFDS_mode_box_status_pilot      	= deferred_dataref("laminar/B747/autopilot/AFDS/mode_box_status_pilot", "number")
+B747DR_ap_AFDS_mode_box_status_copilot      	= deferred_dataref("laminar/B747/autopilot/AFDS/mode_box_status_copilot", "number")
+B747DR_ap_AFDS_mode_box2_status_pilot     	= deferred_dataref("laminar/B747/autopilot/AFDS/mode_box2_status_pilot", "number")
+B747DR_ap_AFDS_mode_box2_status_copilot     	= deferred_dataref("laminar/B747/autopilot/AFDS/mode_box2_status_copilot", "number")
 
-B747DR_ap_AFDS_status_annun            	= deferred_dataref("laminar/B747/autopilot/AFDS/status_annun", "number")
+B747DR_ap_AFDS_status_annun_pilot            	= deferred_dataref("laminar/B747/autopilot/AFDS/status_annun_pilot", "number")
+B747DR_ap_AFDS_status_annun_copilot            	= deferred_dataref("laminar/B747/autopilot/AFDS/status_annun_copilot", "number")
 --[[
     0 = NONE
     1 = FD
@@ -1908,6 +1911,12 @@ function B747_ap_appr_mode_beforeCMDhandler(phase, duration)
 		B747_ap_button_switch_position_target[9] = 1
 		if B747DR_ap_approach_mode<=0 then
 			B747DR_ap_approach_mode=1
+
+			if B747DR_ap_cmd_L_mode ==1 or B747DR_ap_cmd_C_mode ==1 or B747DR_ap_cmd_R_mode==1 then
+				B747DR_ap_cmd_L_mode=1
+				B747DR_ap_cmd_C_mode=1
+				B747DR_ap_cmd_R_mode=1
+			end
 			 print("arm APP approach")
 		else
 			B747DR_ap_approach_mode=0
@@ -2332,7 +2341,25 @@ function ap_reset()
 	B747CMD_ap_reset:once()
 end
 
-
+local B747_ap_AFDS_status_annun
+function set_afds_status(value)
+	B747_ap_AFDS_status_annun=value
+	if value == 1 then 
+		if B747DR_toggle_switch_position[23] == 1.0 then 
+			B747DR_ap_AFDS_status_annun_pilot=value 
+		else
+			B747DR_ap_AFDS_status_annun_pilot=0
+		end 
+		if B747DR_toggle_switch_position[24] == 1.0 then 
+			B747DR_ap_AFDS_status_annun_copilot=value 
+		else
+			B747DR_ap_AFDS_status_annun_copilot=0
+		end 
+	else
+		B747DR_ap_AFDS_status_annun_pilot=value
+		B747DR_ap_AFDS_status_annun_copilot=value
+	end
+end
 ---- AFDS STATUS -------------------------------------------------------------------------
 function B747_ap_afds()
 
@@ -2367,31 +2394,31 @@ function B747_ap_afds()
     if simDR_autopilot_approach_status > 1 or B747DR_ap_autoland==1 then landAssist=true end
     if numAPengaged == 1 then                                                           	-- TODO:  CHANGE TO "==" WHEN AUTOLAND LOGIC (BELOW) IS IMPLEMENTED 
         if  landAssist==true then
-            B747DR_ap_AFDS_status_annun = 5                                              	-- AFDS MODE = "NO AUTOLAND" (NOT MODELED)
+            set_afds_status(5)                                             	-- AFDS MODE = "NO AUTOLAND" (NOT MODELED)
 		else
-	   		B747DR_ap_AFDS_status_annun = 2   -- AFDS MODE = "CMD"
+			set_afds_status(2)   -- AFDS MODE = "CMD"
     	end
 
     -- TODO: IF LOC OR APP CAPTURED ? THEN...
     elseif numAPengaged == 2  and landAssist==true  then
-        B747DR_ap_AFDS_status_annun = 3                                                  	-- AFDS MODE = "LAND 2"
+        set_afds_status(3   )                                               	-- AFDS MODE = "LAND 2"
         B747_AFDS_land2_EICAS_status = 1
 
     elseif numAPengaged == 3  and landAssist==true  then
-        B747DR_ap_AFDS_status_annun = 4                                                  	-- AFDS MODE = "LAND 3"
+        set_afds_status(4)                                                  	-- AFDS MODE = "LAND 3"
         B747_AFDS_land3_EICAS_status = 1
 
 
 
     else
 		if numAPengaged >= 1 then
-			B747DR_ap_AFDS_status_annun = 2 -- AFDS MODE = "CMD"
+			set_afds_status(2) -- AFDS MODE = "CMD"
         elseif B747DR_toggle_switch_position[23] > 0.95
             or B747DR_toggle_switch_position[24] > 0.95
         then
-            B747DR_ap_AFDS_status_annun = 1                                                	-- AFDS MODE = "FD"
+            set_afds_status(1)                                                	-- AFDS MODE = "FD"
 		else
-	    	B747DR_ap_AFDS_status_annun = 0
+	    	set_afds_status(0)
         end
     end
 
@@ -2403,11 +2430,13 @@ end
 
 ----- FLIGHT MODE ANNUNCIATORS MODE CHANGE BOX ------------------------------------------
 function B747_AFDS_status_mode_chg_timeout()
-    B747DR_ap_AFDS_mode_box_status = 0
+    B747DR_ap_AFDS_mode_box_status_pilot = 0
+	B747DR_ap_AFDS_mode_box_status_copilot = 0
 end
 
 function B747_AFDS_status_mode_chg2_timeout()
-    B747DR_ap_AFDS_mode_box2_status = 0
+    B747DR_ap_AFDS_mode_box2_status_pilot = 0
+	B747DR_ap_AFDS_mode_box2_status_copilot = 0
 end
 
 function B747_at_mode_chg_timeout()
@@ -2426,25 +2455,31 @@ end
 function B747_ap_afds_fma_mode_change()
 
     -- AFDS STATUS
-    if B747DR_ap_AFDS_status_annun ~= B747_ap_last_AFDS_status then
-        if B747DR_ap_AFDS_status_annun == 0 then                                            -- MODE IS "NONE"
+    if B747_ap_AFDS_status_annun ~= B747_ap_last_AFDS_status then
+        if B747_ap_AFDS_status_annun == 0 then                                            -- MODE IS "NONE"
             if is_timer_scheduled(B747_AFDS_status_mode_chg2_timeout) == true then          -- TEST IF TIMER IS RUNNING
                 stop_timer(B747_AFDS_status_mode_chg2_timeout)                              -- KILL THE TIMER
             end
-            B747DR_ap_AFDS_mode_box_status = 0
-            B747DR_ap_AFDS_mode_box2_status = 0
-        elseif B747DR_ap_AFDS_status_annun > 0 and B747DR_ap_AFDS_status_annun < 5 then     -- MODE IS NOT "NONE" AND NOT "NO AUTOLAND"
-            B747DR_ap_AFDS_mode_box2_status = 0
-            B747DR_ap_AFDS_mode_box_status = 1                                              -- SHOW THE MODE CHANGE BOX
+            B747DR_ap_AFDS_mode_box_status_pilot = 0
+			B747DR_ap_AFDS_mode_box_status_copilot = 0
+            B747DR_ap_AFDS_mode_box2_status_pilot = 0
+			B747DR_ap_AFDS_mode_box2_status_copilot = 0
+        elseif B747_ap_AFDS_status_annun > 0 and B747_ap_AFDS_status_annun < 5 then     -- MODE IS NOT "NONE" AND NOT "NO AUTOLAND"
+            B747DR_ap_AFDS_mode_box2_status_pilot = 0
+			B747DR_ap_AFDS_mode_box2_status_copilot = 0
+            if B747DR_toggle_switch_position[23] == 1 then B747DR_ap_AFDS_mode_box_status_pilot = 1   end                                          -- SHOW THE MODE CHANGE BOX
+			if B747DR_toggle_switch_position[24] == 1 then B747DR_ap_AFDS_mode_box_status_copilot = 1   end                                          -- SHOW THE MODE CHANGE BOX                                          -- SHOW THE MODE CHANGE BOX
             if is_timer_scheduled(B747_AFDS_status_mode_chg_timeout) == false then          -- CHECK TIMEOUT STATUS
                 run_after_time(B747_AFDS_status_mode_chg_timeout, 10.0)                     -- SET TO TIMEOUT IN 10 SECONDS
             else
                 stop_timer(B747_AFDS_status_mode_chg_timeout)                               -- STOP PREVIOUS TIMER
                 run_after_time(B747_AFDS_status_mode_chg_timeout, 10.0)                     -- SET TO TIMEOUT IN 10 SECONDS
             end
-        elseif B747DR_ap_AFDS_status_annun == 5 then                                        -- MODE IS "NO AUTOLAND"
-            B747DR_ap_AFDS_mode_box_status = 0
-            B747DR_ap_AFDS_mode_box2_status = 1                                             -- SHOW THE MODE CHANGE BOX
+        elseif B747_ap_AFDS_status_annun == 5 then                                        -- MODE IS "NO AUTOLAND"
+            B747DR_ap_AFDS_mode_box_status_pilot = 0
+			B747DR_ap_AFDS_mode_box_status_copilot = 0
+            if B747DR_toggle_switch_position[23] == 1 then B747DR_ap_AFDS_mode_box2_status_pilot = 1   end                                          -- SHOW THE MODE CHANGE BOX
+			if B747DR_toggle_switch_position[24] == 1 then B747DR_ap_AFDS_mode_box2_status_copilot = 1   end                                          -- SHOW THE MODE CHANGE BOX
             if is_timer_scheduled(B747_AFDS_status_mode_chg2_timeout) == false then         -- CHECK TIMEOUT STATUS
                 run_after_time(B747_AFDS_status_mode_chg2_timeout, 10.0)                    -- SET TO TIMEOUT IN 10 SECONDS
             else
@@ -2453,7 +2488,7 @@ function B747_ap_afds_fma_mode_change()
             end
         end
     end
-    B747_ap_last_AFDS_status = B747DR_ap_AFDS_status_annun                                  -- RESET LAST MODE
+    B747_ap_last_AFDS_status = B747_ap_AFDS_status_annun                                  -- RESET LAST MODE
 
 
     -- AUTOTHROTTLE MODE
