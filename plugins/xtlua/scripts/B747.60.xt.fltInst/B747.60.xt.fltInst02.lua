@@ -148,7 +148,10 @@ simDR_wind_speed_kts                = find_dataref("sim/cockpit2/gauges/indicato
 simDR_position_mag_psi              = find_dataref("sim/flightmodel/position/mag_psi")
 
 simDR_gear_deploy_ratio             = find_dataref("sim/flightmodel2/gear/deploy_ratio")
-simDR_airspeed                      = find_dataref("sim/cockpit2/gauges/indicators/airspeed_kts_pilot")
+simDR_airspeed_pilot                = find_dataref("sim/cockpit2/gauges/indicators/airspeed_kts_pilot")
+simDR_airspeed_copilot              = find_dataref("sim/cockpit2/gauges/indicators/airspeed_kts_copilot")
+simDR_airspeed                      = find_dataref("laminar/B747/gauges/indicators/airspeed_kts_pilot")
+simDR_airspeed2                      = find_dataref("laminar/B747/gauges/indicators/airspeed_kts_copilot")
 simDR_airspeed_mach                 = find_dataref("sim/flightmodel/misc/machno")
 simDR_AOA_fail                      = find_dataref("sim/operation/failures/rel_AOA")
 simDR_battery_chg_watt_hr           = find_dataref("sim/cockpit/electrical/battery_charge_watt_hr")
@@ -3093,6 +3096,18 @@ function B747_fltInst_EICAS_msg()
 
 end
 
+function fltInstsetASIs()
+    if simDR_airspeed_pilot>=30 then
+        simDR_airspeed=simDR_airspeed_pilot
+    else
+        simDR_airspeed=30
+    end
+    if simDR_airspeed_copilot>=30 then
+        simDR_airspeed2=simDR_airspeed_copilot
+    else
+        simDR_airspeed2=30
+    end   
+end
 
 function fltInstsetCRTs()
   
@@ -3475,6 +3490,7 @@ function after_physics()
 
     B747_inst_monitor_AI()
     fltInstsetCRTs()
+    fltInstsetASIs()
 end
 
 

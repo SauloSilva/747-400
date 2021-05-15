@@ -226,8 +226,11 @@ B747DR_loc_ptr_vis_fo                           = deferred_dataref("laminar/B747
 B747DR_loc_scale_vis_fo                         = deferred_dataref("laminar/B747/localizer_scale/visibility_flag_fo", "number")
 B747DR_glideslope_ptr_vis_fo                    = deferred_dataref("laminar/B747/glideslope_ptr/visibility_flag_fo", "number")
 
-
+B747DR_airspeed_pilot                      = deferred_dataref("laminar/B747/gauges/indicators/airspeed_kts_pilot", "number")
+B747DR_airspeed_copilot                      = deferred_dataref("laminar/B747/gauges/indicators/airspeed_kts_copilot", "number")
 -- INSTRUMENT SOURCE SELECTORS (CAPTAIN)
+
+
 B747CMD_flt_inst_fd_src_capt_dial_up        = deferred_command("laminar/B747/flt_inst/flt_dir_src/capt/sel_dial_up", "Flight Inst Flight Director Source Captain Up", B747_flt_inst_fd_src_capt_dial_up_CMDhandler)
 B747CMD_flt_inst_fd_src_capt_dial_dn        = deferred_command("laminar/B747/flt_inst/flt_dir_src/capt/sel_dial_dn", "Flight Inst Flight Director Source Captain Down", B747_flt_inst_fd_src_capt_dial_dn_CMDhandler)
 

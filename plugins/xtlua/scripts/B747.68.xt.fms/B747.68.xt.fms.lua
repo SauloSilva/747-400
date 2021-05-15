@@ -233,7 +233,7 @@ simDR_EFIS_map_mode                 = find_dataref("sim/cockpit2/EFIS/map_mode")
 simDR_EFIS_map_range                = find_dataref("sim/cockpit2/EFIS/map_range")
 
 simDR_groundspeed			= find_dataref("sim/flightmodel2/position/groundspeed")
-simDR_ias_pilot				= find_dataref("sim/cockpit2/gauges/indicators/airspeed_kts_pilot")
+simDR_ias_pilot				= find_dataref("laminar/B747/gauges/indicators/airspeed_kts_pilot")
 simDR_wind_degrees			= find_dataref("sim/cockpit2/gauges/indicators/wind_heading_deg_mag")
 simDR_wind_speed			= find_dataref("sim/cockpit2/gauges/indicators/wind_speed_kts")
 simDR_mach_pilot			= find_dataref("sim/cockpit2/gauges/indicators/mach_pilot")
