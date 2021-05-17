@@ -7,7 +7,7 @@ ACF_SOUNDS
 #                                                                                    #
 #     B o e i n g  7 4 7 - 4 0 0                                                     #
 #                                                                                    #
-#     V e r s i o n : v2.1                                                           #
+#     V e r s i o n : v2.2                                                           #
 #                                                                                    #
 #     B y :  M a t t 7 2 6                                                           #
 #                                                                                    #
@@ -5546,19 +5546,25 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/rattle
     VEH_XYZ 0.7 4.9 -25
+    EVENT_START_COND sim/flightmodel2/gear/tire_rotation_speed_rad_sec[0] > 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/rotate_rattle
+    VEH_XYZ 0.7 4.9 -25
     EVENT_START_COND sim/flightmodel2/gear/on_ground[0] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/rattle2
     VEH_XYZ 0.7 4.9 -25
-    EVENT_START_COND sim/flightmodel2/gear/on_ground[0] == 0
+    EVENT_START_COND sim/flightmodel2/gear/tire_rotation_speed_rad_sec[0] > 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/rattle_main
     VEH_XYZ 0 4.3 -27
-    EVENT_START_COND sim/flightmodel2/gear/on_ground[0] == 0
+    EVENT_START_COND sim/flightmodel/position/true_airspeed > 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -6435,12 +6441,6 @@ END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Ambience/in_wind
-    VEH_XYZ 0 0 0
-    EVENT_START_COND sim/flightmodel/position/true_airspeed > 0
-END_SOUND_ATTACHMENT
-
-BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Ambience/in_wind2
     VEH_XYZ 0 0 0
     EVENT_START_COND sim/flightmodel/position/true_airspeed > 0
 END_SOUND_ATTACHMENT
