@@ -6,6 +6,8 @@ fmsPages["EFISCTL152"].getPage=function(self,pgNo,fmsID)
     local mapCenter=simDR_nd_center_dial_capt
     local baro=simDR_altimeter_baro_inHg
     local baroString=""
+    local dh=string.format("%03d",simDR_radio_alt_DH_capt) 
+    local mda=string.format("%04d",B747DR_efis_baro_alt_ref_capt)
     if fmsID=="fmsR" then 
         mapMode=simDR_nd_mode_dial_fo 
         mapCenter=simDR_nd_center_dial_fo
@@ -16,7 +18,8 @@ fmsPages["EFISCTL152"].getPage=function(self,pgNo,fmsID)
         else
             baroString=string.format("%02.2f",baro) 
         end
-
+        dh=string.format("%03d",simDR_radio_alt_DH_fo) 
+        mda=string.format("%04d",B747DR_efis_baro_alt_ref_fo)
     elseif  B747DR_efis_baro_ref_capt_sel_dial_pos ==1 then 
         baro=baro*33.863892  
         baroString=" "..string.format("%04d",baro) 
@@ -35,8 +38,7 @@ fmsPages["EFISCTL152"].getPage=function(self,pgNo,fmsID)
     elseif mapMode==2 then mapSelected="<SEL>" 
     elseif mapMode==3 then plnSelected="<SEL>"
     end
-    local dh=string.format("%03d",simDR_radio_alt_DH_capt) 
-    local mda=string.format("%04d",B747DR_efis_baro_alt_ref_capt) 
+     
     if mapCenter==1 then ctrSelected ="<SEL>" end  
     local page={
     "      EFIS CONTROL      ",
