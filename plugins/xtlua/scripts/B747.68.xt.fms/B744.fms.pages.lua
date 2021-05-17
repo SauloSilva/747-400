@@ -775,6 +775,11 @@ function fmsFunctions.setdata(fmsO,value)
 		fmsModules["cmds"]["sim/instruments/EFIS_wxr"]:once()  
   elseif value=="POS" then
   elseif value=="TERR" then
+	if fmsO.id=="fmsR" then 
+		B747DR_nd_fo_terr = 1-B747DR_nd_fo_terr
+	else
+		B747DR_nd_capt_terr=1-B747DR_nd_capt_terr
+	end
   elseif value=="TFC" then
 	if fmsO.id=="fmsR" then 
 		B747DR_nd_fo_traffic_Selected=1-B747DR_nd_fo_traffic_Selected

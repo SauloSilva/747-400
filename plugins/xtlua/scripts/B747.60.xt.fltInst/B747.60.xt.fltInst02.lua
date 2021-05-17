@@ -273,6 +273,8 @@ B747DR_nd_pos_capt_switch_pos                   = deferred_dataref("laminar/B747
 B747DR_nd_terr_capt_switch_pos                  = deferred_dataref("laminar/B747/nd/terr/capt/switch_pos", "number")
 B747DR_nd_capt_traffic_Selected                 = deferred_dataref("laminar/B747/nd/traffic/capt/selected", "number")
 B747DR_nd_fo_traffic_Selected                   = deferred_dataref("laminar/B747/nd/traffic/fo/selected", "number")
+B747DR_nd_capt_terr                          = deferred_dataref("laminar/B747/nd/data/capt/terr", "number")
+B747DR_nd_fo_terr                          	= deferred_dataref("laminar/B747/nd/data/fo/terr", "number")
 B747DR_nd_capt_vor_ndb                          = deferred_dataref("laminar/B747/nd/data/capt/vor_ndb", "number")
 B747DR_nd_fo_vor_ndb                          	= deferred_dataref("laminar/B747/nd/data/fo/vor_ndb", "number")
 B747DR_nd_capt_wpt                          = deferred_dataref("laminar/B747/nd/data/capt/wpt", "number")
@@ -1166,6 +1168,7 @@ end
 function B747_nd_terr_capt_switch_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_nd_terr_capt_switch_pos = 1
+        B747DR_nd_capt_terr=1.0-B747DR_nd_capt_terr
     elseif phase == 2 then
         B747DR_nd_terr_capt_switch_pos = 0
     end
@@ -1319,6 +1322,7 @@ end
 function B747_nd_terr_fo_switch_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_nd_terr_fo_switch_pos = 1
+        B747DR_nd_fo_terr=1.0-B747DR_nd_fo_terr
     elseif phase == 2 then
         B747DR_nd_terr_fo_switch_pos = 0
     end
@@ -3341,7 +3345,8 @@ function B747_set_inst_all_modes()
     simDR_EFIS_2_sel_pilot = 1
     simDR_EFIS_1_sel_fo = 1
     simDR_EFIS_2_sel_fo = 1
-
+    B747DR_nd_capt_terr=0
+    B747DR_nd_fo_terr=0
     B747DR_nd_capt_vor_ndb = 0
     B747DR_nd_fo_vor_ndb = 0
     B747DR_nd_capt_wpt = 0
