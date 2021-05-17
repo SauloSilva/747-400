@@ -3,7 +3,7 @@ by Matt726
 
 Available for: Default Laminar Research or mSparks 747 mod
 
-Version: v2.1
+Version: v2.2
 
 Email: mfahrenheit135@gmail.com
 
@@ -27,6 +27,13 @@ Email: mfahrenheit135@gmail.com
 
 ---
 ## CHANGELOG:
+
+### v2.2:
+
+- updated GE engines
+- updated rattle effects
+- updated autopilot disconnect sound
+- updated wind sound
 
 ### v2.1:
 
