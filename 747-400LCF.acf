@@ -97146,7 +97146,7 @@ GROUP Captain PFD
     gen_pointer Tape
       POS 79.500000 767.000000
       IMAGE CRT Displays/PFD/ASI/ASItape
-      DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+      DATAREF laminar/B747/gauges/indicators/airspeed_kts_pilot
       
       HIDE
       CLIP
@@ -97257,8 +97257,8 @@ GROUP Captain PFD
       gen_rolling Hundreds
         POS 66.500000 767.000000
         IMAGE CRT Displays/PFD/ASI/ASIcrntHndrds
-        DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
-        SHOW_GREATER 100.000000 sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+        DATAREF laminar/B747/gauges/indicators/airspeed_kts_pilot
+        SHOW_GREATER 100.000000 laminar/B747/gauges/indicators/airspeed_kts_pilot
         
         HIDE
         LIGHT_MODE GLASS_AUTO
@@ -97272,7 +97272,7 @@ GROUP Captain PFD
       gen_rolling Tens
         POS 66.500000 767.000000
         IMAGE CRT Displays/PFD/ASI/ASIcrntTens
-        DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+        DATAREF laminar/B747/gauges/indicators/airspeed_kts_pilot
         
         HIDE
         LIGHT_MODE GLASS_AUTO
@@ -97287,7 +97287,7 @@ GROUP Captain PFD
       gen_rolling Ones
         POS 66.500000 767.000000
         IMAGE CRT Displays/PFD/ASI/ASIcrntOnes
-        DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+        DATAREF laminar/B747/gauges/indicators/airspeed_kts_pilot
         
         HIDE
         LIGHT_MODE GLASS_AUTO
@@ -97311,7 +97311,7 @@ GROUP Captain PFD
         GROUP_ANIMATE_MODE TRANSLATE
         GROUP_WIDTH 43
         GROUP_HEIGHT 480
-        DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+        DATAREF laminar/B747/gauges/indicators/airspeed_kts_pilot
         POS 127.500000 767.000000
         
         KEY_FRAME 220.000000 400.000000 1.000000
@@ -97367,7 +97367,7 @@ GROUP Captain PFD
         GROUP_ANIMATE_MODE TRANSLATE
         GROUP_WIDTH 43
         GROUP_HEIGHT 480
-        DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+        DATAREF laminar/B747/gauges/indicators/airspeed_kts_pilot
         POS 127.500000 767.000000
         
         KEY_FRAME 100.000000 240.000000 1.000000
@@ -97479,7 +97479,7 @@ GROUP Captain PFD
         GROUP_ANIMATE_MODE TRANSLATE
         GROUP_WIDTH 43
         GROUP_HEIGHT 480
-        DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+        DATAREF laminar/B747/gauges/indicators/airspeed_kts_pilot
         POS 127.500000 767.000000
         CLIP
         KEY_FRAME 0.000000 0.000000 1.000000
@@ -97514,7 +97514,7 @@ GROUP Captain PFD
         GROUP_ANIMATE_MODE TRANSLATE
         GROUP_WIDTH 43
         GROUP_HEIGHT 480
-        DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+        DATAREF laminar/B747/gauges/indicators/airspeed_kts_pilot
         POS 127.500000 767.000000
         CLIP
         KEY_FRAME 0.000000 0.000000 1.000000
@@ -97592,7 +97592,7 @@ GROUP Captain PFD
         GROUP_ANIMATE_MODE TRANSLATE
         GROUP_WIDTH 43
         GROUP_HEIGHT 480
-        DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+        DATAREF laminar/B747/gauges/indicators/airspeed_kts_pilot
         POS 127.500000 767.000000
         CLIP
         KEY_FRAME 0.000000 0.000000 1.000000
@@ -100695,7 +100695,7 @@ GROUP First Officer PFD
     gen_pointer Tape 2
       POS 758.500000 767.000000
       IMAGE CRT Displays/PFD/ASI/ASItape
-      DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_copilot
+      DATAREF laminar/B747/gauges/indicators/airspeed_kts_copilot
       
       HIDE
       CLIP
@@ -100806,8 +100806,8 @@ GROUP First Officer PFD
       gen_rolling Hundreds 2
         POS 745.500000 767.000000
         IMAGE CRT Displays/PFD/ASI/ASIcrntHndrds
-        DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_copilot
-        SHOW_GREATER 100.000000 sim/cockpit2/gauges/indicators/airspeed_kts_copilot
+        DATAREF laminar/B747/gauges/indicators/airspeed_kts_copilot
+        SHOW_GREATER 100.000000 laminar/B747/gauges/indicators/airspeed_kts_copilot
         
         HIDE
         LIGHT_MODE GLASS_AUTO
@@ -100821,7 +100821,7 @@ GROUP First Officer PFD
       gen_rolling Tens 2
         POS 745.500000 767.000000
         IMAGE CRT Displays/PFD/ASI/ASIcrntTens
-        DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_copilot
+        DATAREF laminar/B747/gauges/indicators/airspeed_kts_copilot
         
         HIDE
         LIGHT_MODE GLASS_AUTO
@@ -100836,7 +100836,7 @@ GROUP First Officer PFD
       gen_rolling Ones 2
         POS 745.500000 767.000000
         IMAGE CRT Displays/PFD/ASI/ASIcrntOnes
-        DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_copilot
+        DATAREF laminar/B747/gauges/indicators/airspeed_kts_copilot
         
         HIDE
         LIGHT_MODE GLASS_AUTO
@@ -100858,7 +100858,7 @@ GROUP First Officer PFD
         GROUP_ANIMATE_MODE TRANSLATE
         GROUP_WIDTH 43
         GROUP_HEIGHT 480
-        DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_copilot
+        DATAREF laminar/B747/gauges/indicators/airspeed_kts_copilot
         POS 806.500000 767.000000
         CLIP
         KEY_FRAME 220.000000 400.000000 1.000000
@@ -100914,7 +100914,7 @@ GROUP First Officer PFD
         GROUP_ANIMATE_MODE TRANSLATE
         GROUP_WIDTH 43
         GROUP_HEIGHT 480
-        DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_copilot
+        DATAREF laminar/B747/gauges/indicators/airspeed_kts_copilot
         POS 806.500000 767.000000
         
         KEY_FRAME 100.000000 240.000000 1.000000
@@ -101026,7 +101026,7 @@ GROUP First Officer PFD
         GROUP_ANIMATE_MODE TRANSLATE
         GROUP_WIDTH 43
         GROUP_HEIGHT 480
-        DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_copilot
+        DATAREF laminar/B747/gauges/indicators/airspeed_kts_copilot
         POS 806.500000 767.000000
         CLIP
         KEY_FRAME 0.000000 0.000000 1.000000
@@ -101061,7 +101061,7 @@ GROUP First Officer PFD
         GROUP_ANIMATE_MODE TRANSLATE
         GROUP_WIDTH 43
         GROUP_HEIGHT 480
-        DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_copilot
+        DATAREF laminar/B747/gauges/indicators/airspeed_kts_copilot
         POS 806.500000 767.000000
         CLIP
         KEY_FRAME 0.000000 0.000000 1.000000
@@ -101138,7 +101138,7 @@ GROUP First Officer PFD
         GROUP_ANIMATE_MODE TRANSLATE
         GROUP_WIDTH 43
         GROUP_HEIGHT 480
-        DATAREF sim/cockpit2/gauges/indicators/airspeed_kts_copilot
+        DATAREF laminar/B747/gauges/indicators/airspeed_kts_copilot
         POS 806.500000 767.000000
         CLIP
         KEY_FRAME 0.000000 0.000000 1.000000

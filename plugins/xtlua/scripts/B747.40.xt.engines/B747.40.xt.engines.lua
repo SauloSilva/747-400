@@ -150,7 +150,7 @@ simDR_thrust_rev_fail_04        = find_dataref("sim/operation/failures/rel_rever
 simDR_thrust_spoolTime	        = find_dataref("sim/aircraft/engine/acf_spooltime_turbine")
 simDR_autopilot_TOGA_vert_status = find_dataref("sim/cockpit2/autopilot/TOGA_status")
 
-    simDR_ind_airspeed_kts_pilot        	= find_dataref("sim/cockpit2/gauges/indicators/airspeed_kts_pilot")
+    simDR_ind_airspeed_kts_pilot        	= find_dataref("laminar/B747/gauges/indicators/airspeed_kts_pilot")
 
 
 

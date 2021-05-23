@@ -8237,7 +8237,7 @@ ANIM_begin
 	ANIM_begin
 		ANIM_trans	   0.0000    0.7704    0.1010	   0.0000    0.7704    0.1010	0 0	no_ref
 		ANIM_rotate	  -0.0000    0.0000    1.0000	 80.00 -80.00	-1.0 1	sim/cockpit2/controls/yoke_roll_ratio
-		ANIM_rotate	  -0.0000   -0.0000    1.0000	 54.00 -54.00	-1.0 1	sim/cockpit2/controls/aileron_trim
+		ANIM_rotate	  -0.0000   -0.0000    -1.0000	 54.00 -54.00	-1.0 1	sim/cockpit2/controls/aileron_trim
 		TRIS	8946 15501
 		ANIM_begin
 			ANIM_trans	   0.0430   -0.0056    0.0461	   0.0407   -0.1480    0.0724	0 1	laminar/B747/safety/checklist_marker_fo

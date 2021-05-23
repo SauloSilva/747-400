@@ -27,18 +27,18 @@ function deceleratedDesent(targetvspeed)
   --less than upperAlt+1000
    -- greater than lowerAltspdval
   if simDR_ind_airspeed_kts_pilot>(upperAltspdval+5) then 
-    print("upperAltspdval deceleratedDesent upperAlt"..upperAlt.." lowerAlt=".. lowerAlt .." upperAltspdval=".. upperAltspdval .." simDR_pressureAlt1="..simDR_pressureAlt1.." simDR_ind_airspeed_kts_pilot="..simDR_ind_airspeed_kts_pilot)
+    --print("upperAltspdval deceleratedDesent upperAlt"..upperAlt.." lowerAlt=".. lowerAlt .." upperAltspdval=".. upperAltspdval .." simDR_pressureAlt1="..simDR_pressureAlt1.." simDR_ind_airspeed_kts_pilot="..simDR_ind_airspeed_kts_pilot)
     return -500 
   end --approximate 500fpm
 
   if simDR_pressureAlt1>lowerAlt+1000 then return targetvspeed end --not at next restriction yet
 
   if simDR_ind_airspeed_kts_pilot>(lowerAltspdval+5) then 
-    print("lowerAltspdval deceleratedDesent upperAlt"..upperAlt.." lowerAlt=".. lowerAlt .." upperAltspdval=".. upperAltspdval .." simDR_pressureAlt1="..simDR_pressureAlt1.." simDR_ind_airspeed_kts_pilot="..simDR_ind_airspeed_kts_pilot)
+    --print("lowerAltspdval deceleratedDesent upperAlt"..upperAlt.." lowerAlt=".. lowerAlt .." upperAltspdval=".. upperAltspdval .." simDR_pressureAlt1="..simDR_pressureAlt1.." simDR_ind_airspeed_kts_pilot="..simDR_ind_airspeed_kts_pilot)
     return -500 
   end --approximate 500fpm
 
-  print("oob deceleratedDesent upperAlt"..upperAlt.." lowerAlt=".. lowerAlt .." upperAltspdval=".. upperAltspdval .." simDR_pressureAlt1="..simDR_pressureAlt1.." simDR_ind_airspeed_kts_pilot="..simDR_ind_airspeed_kts_pilot)
+  --print("oob deceleratedDesent upperAlt"..upperAlt.." lowerAlt=".. lowerAlt .." upperAltspdval=".. upperAltspdval .." simDR_pressureAlt1="..simDR_pressureAlt1.." simDR_ind_airspeed_kts_pilot="..simDR_ind_airspeed_kts_pilot)
 
 
 end
@@ -57,7 +57,7 @@ function setDescentVSpeed()
   B747DR_ap_vb = math.atan2(vdiff,nextDistanceInFeet)*-57.2958
   if vspeed<-3500 then vspeed=-3500 end
   
-  if simDR_radarAlt1<=2000 then
+  if simDR_radarAlt1<=10 then
     simDR_autopilot_vs_fpm = -250 -- slow descent, reduces AoA which if it goes to high spoils the landing
     B747DR_ap_inVNAVdescent=0
     B747DR_ap_vnav_state=0

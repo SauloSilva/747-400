@@ -10,14 +10,14 @@
 {8b4df2db-8920-4032-916f-d252058f5124} event:/Ambience/gear/gear_wind7
 {24c016ba-8662-49a7-969c-b67ea72c5c01} event:/Ambience/gear/gear_wind8
 {7f3e1f77-054e-4ea6-a8e2-364b638875b7} event:/Ambience/gear/gear_wind9
-{656aa2b3-2054-4a45-89d8-c63e904ea1f4} event:/Ambience/ground effect/boom1
-{a0f7c8e6-ce9d-4399-9d4a-dba5928cdec8} event:/Ambience/ground effect/boom2
+{a0f7c8e6-ce9d-4399-9d4a-dba5928cdec8} event:/Ambience/ground effect/boom1
 {55a01aef-0808-4567-9421-999d50a39807} event:/Ambience/ground effect/boom3
 {eb6f8f4f-a065-46c6-80b9-c9519498356f} event:/Ambience/ground effect/boom4
-{4a0ad8f5-5bc4-44e8-961d-11faadb6e57c} event:/Ambience/ground effect/nose_rattle
+{991a8c01-ca59-4dc4-8829-a09360903c29} event:/Ambience/ground effect/nose_roll
 {9ddc1473-ef17-4d3b-99e4-ea1edb35c53f} event:/Ambience/ground effect/nose_roll_thud
-{ab83f1c0-0c20-40ae-977a-301088bf57f9} event:/Ambience/ground effect/nose_thud
-{991a8c01-ca59-4dc4-8829-a09360903c29} event:/Ambience/ground effect/roll
+{2018505f-ebb4-4cc3-a12a-e4e286d8e8b1} event:/Ambience/ground effect/nose_thud
+{ab83f1c0-0c20-40ae-977a-301088bf57f9} event:/Ambience/ground effect/nose_touch
+{ec7eb177-9785-4592-90d0-9333fc54a89c} event:/Ambience/ground effect/roll
 {c50c16b3-ef9c-4fa8-9af6-a4b8cfca7248} event:/Ambience/HYD/hyd1
 {db45db37-0026-4c24-91bb-82c058ec1542} event:/Ambience/HYD/hyd2
 {9480ecd6-fb49-4723-ac01-2fd08108cfbb} event:/Ambience/HYD/hyd3
@@ -27,8 +27,8 @@
 {2e587bb5-8cb7-41b4-b61a-706a40d3a9c1} event:/Ambience/fuel
 {321522b4-1f4a-499f-acc9-7a0198f53e75} event:/Ambience/fuel_off
 {8141233f-0535-4076-9376-1fb677b49eca} event:/Ambience/hyd
-{56c600a7-2aa1-4248-956f-ccd004b30053} event:/Ambience/in_wind
-{5e0909b5-6e3e-49c0-8047-60f8f2beb482} event:/Ambience/windX
+{729cd583-79a0-4fdb-a0ac-a152f14e7ef2} event:/Ambience/in_wind
+{4062441f-a17e-4b5b-b309-3e83678d324a} event:/Ambience/windX
 {c3556ead-5132-46a1-95dc-18c61ab3e278} event:/APU/apu
 {73386548-3f5c-4b74-a35f-7335ec7435cc} event:/APU/apu_ground_fire
 {d6bd600a-ffa2-4e79-babd-71dba832b0b1} event:/APU/apu_start
@@ -90,6 +90,7 @@
 {8d967c25-ce85-4b46-b637-1b17cc7ca9c1} event:/Cockpit/Switches/auto_spoiler
 {6387bbd2-79fa-4b71-ba2e-231d9fae4f3c} event:/Cockpit/Switches/auto_spoiler_retract
 {5bd2a3ea-53c6-4e0e-b782-1e6684d28046} event:/Cockpit/Switches/autobrake
+{3eac03fa-4e78-4d2d-a6f7-ac7a2c223030} event:/Cockpit/Switches/autobrake_disarm
 {d3d96e80-5f1d-4867-82bb-3552260ac9ea} event:/Cockpit/Switches/autobrake_reset
 {dc728e2b-e66e-4576-8cbc-82183b01b9b5} event:/Cockpit/Switches/autothrottle
 {560a2eaf-2d5f-4071-b7b9-c8bf6793a745} event:/Cockpit/Switches/autothrottle_motion
@@ -124,14 +125,21 @@
 {8a2e27b8-348c-4289-a181-84edbc2738de} event:/Cockpit/Switches/fmc button hold
 {94bea654-e22e-45ad-8941-7bc029e843ae} event:/Cockpit/Switches/fmc button release
 {d5320d63-8291-497e-b1a5-a6f06d3a908b} event:/Cockpit/Switches/fuel_control
+{1adea145-f22c-4e0c-a2c6-dc3f7b1cea7d} event:/Cockpit/Switches/fuel_control2
 {821f273f-3195-4fec-964b-318075419c48} event:/Cockpit/Switches/gear1
 {c01c8dfb-ced0-42fd-b901-0b0e39d367fd} event:/Cockpit/Switches/gear2
 {9eb68eb1-ba92-4821-be28-419414b83941} event:/Cockpit/Switches/gear3
+{b51ebed5-ef3a-41fe-8c0a-b1bf0693b9c5} event:/Cockpit/Switches/gear_rattle
 {571f1bb6-c3e8-4cb6-a296-44755a8ceeae} event:/Cockpit/Switches/park_brake_release
 {692c26d1-4eda-41ce-8a18-0d6fc954f7db} event:/Cockpit/Switches/park_brake_set
+{4a0ad8f5-5bc4-44e8-961d-11faadb6e57c} event:/Cockpit/Switches/rattle
+{68ae9722-42ba-41d2-82c0-e33b8e0c96a5} event:/Cockpit/Switches/rattle2
+{e35854ec-4e3d-4c81-b40d-e87008bea7e8} event:/Cockpit/Switches/rattle_main
+{53770f1c-2b48-4a54-9f66-5835f7de2ccc} event:/Cockpit/Switches/rev_click
 {6b2c694c-2490-46c7-ad3f-e250e4f9ff86} event:/Cockpit/Switches/reverse_deploy
 {b6777781-cbe5-41e0-9648-9270783a5070} event:/Cockpit/Switches/reverse_stow
 {88691473-2bbf-4803-aa88-fe03529b9d9d} event:/Cockpit/Switches/rhotery
+{b970af44-481e-4c96-baa2-179d1b434376} event:/Cockpit/Switches/rotate_rattle
 {12895419-6956-4739-b54e-3386799e825f} event:/Cockpit/Switches/rudder trim hold
 {2dc3bf38-9568-42da-8f93-8cbabd6311bc} event:/Cockpit/Switches/rudder trim release
 {7178a537-a0ea-41f0-b2d8-cad854042d0d} event:/Cockpit/Switches/speedbrake_lever_back
@@ -146,30 +154,43 @@
 {113e81c4-058e-4331-a683-28c9d90f6f33} event:/Cockpit/Switches/throttle at
 {7b02fca3-f6f0-4e0c-8f76-7cbf6b9f45b1} event:/Cockpit/Switches/toga
 {67b1af76-2832-41c5-9456-5e8b7f336555} event:/Cockpit/Switches/transponder
-{eb2a30a1-7a1e-444b-bd04-ad9cd093ecef} event:/Engines/GE/start/start1
+{ee4f2ac6-2393-4b95-8ccf-8fd5caf0549c} event:/Engines/Blast/blast1
+{9789bf3c-d9c9-4eb4-ba4b-7406d66d01e1} event:/Engines/Blast/blast2
+{faa07d80-5c2c-4023-a2dd-710ee2b7f927} event:/Engines/Blast/blast3
+{de4ae455-1359-4dd4-9ffb-5e83c62df790} event:/Engines/Blast/blast4
+{eb2a30a1-7a1e-444b-bd04-ad9cd093ecef} event:/Engines/GE/start/start1_1
+{24a5e5ef-062a-41f0-a497-932bce79ea1f} event:/Engines/GE/start/start1_2
+{ba86014e-d003-4645-a479-3ead68932212} event:/Engines/GE/start/start1_3
+{73ad54de-8a93-496f-9d89-c982912a4c95} event:/Engines/GE/start/start1_4
 {dcc7518e-9e92-4f42-89ba-b9c62b0e1050} event:/Engines/GE/start/start1_end
 {7c714455-5a24-471c-ae2f-c502e9f1da24} event:/Engines/GE/start/start2
-{000ba39f-8530-4f35-b527-e322995bc385} event:/Engines/GE/engine2
-{6ccf8dab-e205-479d-885b-b0a9ed03b462} event:/Engines/GE/engine3
-{65885b1e-3a4c-496f-95bd-52d1cb0d9307} event:/Engines/GE/engine4
-{7b12a32c-4225-474d-ad73-964aae385bef} event:/Engines/GE/shutdown
 {b84fb3c0-d59b-4552-869d-e861ece88a2a} event:/Engines/GE/engine1
-{233c0f79-d6a0-4c3a-8918-0da9448e8633} event:/Engines/PW/start/start1
+{7b12a32c-4225-474d-ad73-964aae385bef} event:/Engines/GE/shutdown
+{6e1a7277-87a5-4679-a7fc-286b41a00d2e} event:/Engines/GE/engine2
+{d4dccd77-be24-41da-abde-fb3b26556b4b} event:/Engines/GE/engine3
+{2e09e5f3-cf69-40da-837d-7ed243228b02} event:/Engines/GE/engine4
+{233c0f79-d6a0-4c3a-8918-0da9448e8633} event:/Engines/PW/start/start1_1
+{f64d8e07-2792-4e8f-8d3a-6ecefe988db1} event:/Engines/PW/start/start1_2
+{810acdf5-b948-4bd5-9eeb-e0778da5d54d} event:/Engines/PW/start/start1_3
+{4caa9548-2ac7-4101-a42d-01381892cbf5} event:/Engines/PW/start/start1_4
 {ec033c8f-2b79-4f32-b15d-4e3f7eb9b2f1} event:/Engines/PW/start/start1_end
 {914f36ce-af10-457e-ac06-2da400d29636} event:/Engines/PW/start/start2
 {b065f8d8-3684-4132-9f5f-4de3223470bb} event:/Engines/PW/engine1
+{72fcab86-3832-452d-85a3-6c0c416a572d} event:/Engines/PW/engine2
+{ad5de710-c534-4f3b-913e-532bb86728ca} event:/Engines/PW/engine3
+{5b0df4bf-6c7f-41df-b5f7-618bb6f7b295} event:/Engines/PW/engine4
 {623f8045-df33-46d3-adab-aeb6aa8a7522} event:/Engines/PW/shutdown
-{5340c188-a236-4452-aa70-fd20810b97f4} event:/Engines/PW/engine2
-{99eed09d-8f73-494c-92bf-4b845b0fae79} event:/Engines/PW/engine3
-{614e2d86-ea31-48f0-a2fc-e9eca4f096ba} event:/Engines/PW/engine4
-{fbd23b92-908d-4047-99a6-d9f9b7fca988} event:/Engines/RR/start/start1
+{fbd23b92-908d-4047-99a6-d9f9b7fca988} event:/Engines/RR/start/start1_1
+{09493e94-4484-43a3-8c4a-41596a5337fe} event:/Engines/RR/start/start1_2
+{770b8a03-6e52-4f2f-bf25-b506b8725870} event:/Engines/RR/start/start1_3
+{78c181bc-f7d2-4103-8e72-a716efc48607} event:/Engines/RR/start/start1_4
 {017bc7e4-0c9b-411a-86a7-5164df95960e} event:/Engines/RR/start/start1_end
 {162f29b8-ca25-4e94-b1f9-63f44aed813a} event:/Engines/RR/start/start2
 {37063010-6f0d-4409-8d91-ca950bb8a54d} event:/Engines/RR/engine1
+{ccd3a976-c163-4f8e-8374-b894640057a7} event:/Engines/RR/engine2
+{0f88fa90-7dee-45c2-a341-00eba6bd6f21} event:/Engines/RR/engine3
+{c63e765a-8e1b-4065-8c9b-324b6720043a} event:/Engines/RR/engine4
 {e853ecc2-3053-4609-a3a7-efc3e66ea4cd} event:/Engines/RR/shutdown
-{5c4572b2-9b3f-43c7-a305-9b4b6aa913f3} event:/Engines/RR/engine2
-{6140ba1f-35b0-4e05-bec9-479f18b9f169} event:/Engines/RR/engine3
-{13464733-20ce-4e99-81bd-a688207f0831} event:/Engines/RR/engine4
 {9a9db089-2878-43dd-a6e6-04ff1c62ff2a} event:/Warnings/GPWS/OLD/10
 {ee308590-513f-4b50-9825-de308274eea4} event:/Warnings/GPWS/OLD/100
 {6ecec5be-fc16-431a-b3d0-ad704ac20fa9} event:/Warnings/GPWS/OLD/1000
@@ -273,6 +294,7 @@
 {8c775274-3694-4d99-85f5-b95dd5222113} event:/Warnings/master_caution2
 {6b84edfd-7038-4ced-84f3-70cdf9ab2c48} event:/Warnings/master_caution3
 {327d8e20-870c-4de0-aff6-f949a543e035} event:/Warnings/stall
+{6ec6a4ad-6fba-452b-a30c-ece9f0166cd2} event:/Warnings/stall_end
 {9f08114d-36ec-44cc-b8bf-b2babda09f9e} bus:/
 {7f7c05a4-e05a-4d44-94fe-d4691147a9b7} bus:/Master
 {e3492bec-f854-4fbb-b2bc-23586269032e} bus:/Master/Copilot
@@ -289,23 +311,23 @@
 {cd7d9b5d-5310-405f-88a6-c16aaceae532} bus:/Master/Interior/Cabin/PA
 {537ceec6-f543-4090-8574-e9340ac87e80} bus:/Master/Interior/Cabin/PA/announce
 {ebb9390e-061b-458a-9581-f049195fb588} bus:/Master/Interior/Cockpit
-{64862f80-1bfe-4bc5-bdce-ed27c9f2599a} bus:/Master/Interior/Cockpit/New Alarms
+{64862f80-1bfe-4bc5-bdce-ed27c9f2599a} bus:/Master/Interior/Cockpit/Default Alarms
+{9e7c11c3-1203-4c96-b336-0bafd593d782} bus:/Master/Interior/Cockpit/New Alarms
 {d98a18aa-c066-4637-8409-5e306d751490} bus:/Master/Interior/Cockpit/Old Alarms
 {a89f52c6-579b-4f55-b24b-bdc968287ab7} bus:/Master/Interior/Gear
 {e52ea25e-b4cc-4807-b213-2f9382833d31} bus:/Master/Interior/Packs
 {d8526059-b27c-4eae-9b14-a1ee1cb3dfa1} bus:/Master/Radios
 {77575f3b-b9cd-4bff-9056-637cff744a14} bus:/Master/UI
 {b45856d7-41c3-499d-8db2-88fefad80e57} snapshot:/in_mute
-{94ab2a79-dff4-40c5-9686-91c3b455be69} snapshot:/init
 {0d03fb36-56a6-4128-b95f-be6e6031b233} snapshot:/lower_deck
-{7e6e66d8-08fb-45f5-ad3d-444c0c1fe7db} snapshot:/all
-{d3b9132e-1ed9-4821-9326-7181d7b6283e} snapshot:/flight_deck_door_cabin
 {566c92fb-3adb-4aa8-a07d-ed6a5091cf0a} snapshot:/old_vs_new_alarms
 {b6c81213-ec8c-49a8-b456-c191355ec6c3} snapshot:/EngineOption
+{f12504c0-203e-45a4-9fa8-0cf79eb0478e} snapshot:/all
 {e5a1fdba-6cfa-4169-89a0-7c97e382c7a1} bank:/ambience
 {70cfa2b8-fa37-43dc-9b35-64f6c52f0e54} bank:/apu
 {96d29e97-9aae-40b4-80a8-03806fd247a9} bank:/cabin
 {b8ef1611-04fc-43af-a47b-72e10f7ff39a} bank:/cockpit
+{d4bd2813-fc89-4fae-873e-c2280a26eabf} bank:/engine_other
 {073b5c08-f281-4ea7-b40f-fb026219fd47} bank:/engineGE
 {45f3cc7c-bc21-440f-96c3-15f4d2fc4006} bank:/enginePW
 {f7f8d8a5-4e11-4256-8fdd-e109b43e5815} bank:/engineRR

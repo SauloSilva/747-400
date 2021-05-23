@@ -148,7 +148,10 @@ simDR_wind_speed_kts                = find_dataref("sim/cockpit2/gauges/indicato
 simDR_position_mag_psi              = find_dataref("sim/flightmodel/position/mag_psi")
 
 simDR_gear_deploy_ratio             = find_dataref("sim/flightmodel2/gear/deploy_ratio")
-simDR_airspeed                      = find_dataref("sim/cockpit2/gauges/indicators/airspeed_kts_pilot")
+simDR_airspeed_pilot                = find_dataref("sim/cockpit2/gauges/indicators/airspeed_kts_pilot")
+simDR_airspeed_copilot              = find_dataref("sim/cockpit2/gauges/indicators/airspeed_kts_copilot")
+simDR_airspeed                      = find_dataref("laminar/B747/gauges/indicators/airspeed_kts_pilot")
+simDR_airspeed2                      = find_dataref("laminar/B747/gauges/indicators/airspeed_kts_copilot")
 simDR_airspeed_mach                 = find_dataref("sim/flightmodel/misc/machno")
 simDR_AOA_fail                      = find_dataref("sim/operation/failures/rel_AOA")
 simDR_battery_chg_watt_hr           = find_dataref("sim/cockpit/electrical/battery_charge_watt_hr")
@@ -270,6 +273,8 @@ B747DR_nd_pos_capt_switch_pos                   = deferred_dataref("laminar/B747
 B747DR_nd_terr_capt_switch_pos                  = deferred_dataref("laminar/B747/nd/terr/capt/switch_pos", "number")
 B747DR_nd_capt_traffic_Selected                 = deferred_dataref("laminar/B747/nd/traffic/capt/selected", "number")
 B747DR_nd_fo_traffic_Selected                   = deferred_dataref("laminar/B747/nd/traffic/fo/selected", "number")
+B747DR_nd_capt_terr                          = deferred_dataref("laminar/B747/nd/data/capt/terr", "number")
+B747DR_nd_fo_terr                          	= deferred_dataref("laminar/B747/nd/data/fo/terr", "number")
 B747DR_nd_capt_vor_ndb                          = deferred_dataref("laminar/B747/nd/data/capt/vor_ndb", "number")
 B747DR_nd_fo_vor_ndb                          	= deferred_dataref("laminar/B747/nd/data/fo/vor_ndb", "number")
 B747DR_nd_capt_wpt                          = deferred_dataref("laminar/B747/nd/data/capt/wpt", "number")
@@ -1163,6 +1168,7 @@ end
 function B747_nd_terr_capt_switch_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_nd_terr_capt_switch_pos = 1
+        B747DR_nd_capt_terr=1.0-B747DR_nd_capt_terr
     elseif phase == 2 then
         B747DR_nd_terr_capt_switch_pos = 0
     end
@@ -1316,6 +1322,7 @@ end
 function B747_nd_terr_fo_switch_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_nd_terr_fo_switch_pos = 1
+        B747DR_nd_fo_terr=1.0-B747DR_nd_fo_terr
     elseif phase == 2 then
         B747DR_nd_terr_fo_switch_pos = 0
     end
@@ -3093,6 +3100,18 @@ function B747_fltInst_EICAS_msg()
 
 end
 
+function fltInstsetASIs()
+    if simDR_airspeed_pilot>=30 then
+        simDR_airspeed=simDR_airspeed_pilot
+    else
+        simDR_airspeed=30
+    end
+    if simDR_airspeed_copilot>=30 then
+        simDR_airspeed2=simDR_airspeed_copilot
+    else
+        simDR_airspeed2=30
+    end   
+end
 
 function fltInstsetCRTs()
   
@@ -3326,7 +3345,8 @@ function B747_set_inst_all_modes()
     simDR_EFIS_2_sel_pilot = 1
     simDR_EFIS_1_sel_fo = 1
     simDR_EFIS_2_sel_fo = 1
-
+    B747DR_nd_capt_terr=0
+    B747DR_nd_fo_terr=0
     B747DR_nd_capt_vor_ndb = 0
     B747DR_nd_fo_vor_ndb = 0
     B747DR_nd_capt_wpt = 0
@@ -3475,6 +3495,7 @@ function after_physics()
 
     B747_inst_monitor_AI()
     fltInstsetCRTs()
+    fltInstsetASIs()
 end
 
 
