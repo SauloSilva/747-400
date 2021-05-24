@@ -100,7 +100,7 @@ B747DR_simDR_esys3              = deferred_dataref("laminar/B747/rel_esys4", "nu
 
 
 -- STANDBY POWER
-B747CMD_connect_power          = deferred_command("laminar/B747/electrical/connect_power", "Connect external power", B747_connect_power_CMDhandler)
+B747CMD_connect_power          = deferred_command("laminar/B747/electrical/connect_power", "Toggle external power", B747_connect_power_CMDhandler)
 B747CMD_elec_standby_power_sel_up = deferred_command("laminar/B747/electrical/standby_power/sel_dial_up", "Electrical Standby Power Selector Up", B747_elec_standby_power_sel_up_CMDhandler)
 B747CMD_elec_standby_power_sel_dn = deferred_command("laminar/B747/electrical/standby_power/sel_dial_dn", "Electrical Standby Power Selector Down", B747_elec_standby_power_sel_dn_CMDhandler)
 
