@@ -1,3 +1,4 @@
+{dbd292f3-6786-48bc-902c-89893631370a} event:/Ambience/Weather/rain
 {762a9b74-36fb-43c2-b58d-147a68eb1f91} event:/Ambience/Flaps/flaps
 {693b49b0-c635-4698-b6b5-3ec434a60fa1} event:/Ambience/Flaps/flaps_stop
 {5245b4e1-cbcd-4158-a437-5ef694a72485} event:/Ambience/gear/gear_wind1
@@ -165,10 +166,10 @@
 {dcc7518e-9e92-4f42-89ba-b9c62b0e1050} event:/Engines/GE/start/start1_end
 {7c714455-5a24-471c-ae2f-c502e9f1da24} event:/Engines/GE/start/start2
 {b84fb3c0-d59b-4552-869d-e861ece88a2a} event:/Engines/GE/engine1
+{dd54d9a2-2b63-44a7-a280-b3319ed7f471} event:/Engines/GE/engine2
+{bced8bae-47ce-44f0-bc6e-8ac2fe9480cf} event:/Engines/GE/engine3
+{8b53be66-b585-45cd-a128-2fa84b48084b} event:/Engines/GE/engine4
 {7b12a32c-4225-474d-ad73-964aae385bef} event:/Engines/GE/shutdown
-{6e1a7277-87a5-4679-a7fc-286b41a00d2e} event:/Engines/GE/engine2
-{d4dccd77-be24-41da-abde-fb3b26556b4b} event:/Engines/GE/engine3
-{2e09e5f3-cf69-40da-837d-7ed243228b02} event:/Engines/GE/engine4
 {233c0f79-d6a0-4c3a-8918-0da9448e8633} event:/Engines/PW/start/start1_1
 {f64d8e07-2792-4e8f-8d3a-6ecefe988db1} event:/Engines/PW/start/start1_2
 {810acdf5-b948-4bd5-9eeb-e0778da5d54d} event:/Engines/PW/start/start1_3
@@ -187,10 +188,10 @@
 {017bc7e4-0c9b-411a-86a7-5164df95960e} event:/Engines/RR/start/start1_end
 {162f29b8-ca25-4e94-b1f9-63f44aed813a} event:/Engines/RR/start/start2
 {37063010-6f0d-4409-8d91-ca950bb8a54d} event:/Engines/RR/engine1
-{ccd3a976-c163-4f8e-8374-b894640057a7} event:/Engines/RR/engine2
-{0f88fa90-7dee-45c2-a341-00eba6bd6f21} event:/Engines/RR/engine3
-{c63e765a-8e1b-4065-8c9b-324b6720043a} event:/Engines/RR/engine4
 {e853ecc2-3053-4609-a3a7-efc3e66ea4cd} event:/Engines/RR/shutdown
+{937fc2b7-37b7-4e12-8e40-ca994d346a27} event:/Engines/RR/engine2
+{c1949cb3-5ea9-4617-9348-1ca55f01268e} event:/Engines/RR/engine3
+{7362cb12-b921-438b-ad2c-913b6fa341f6} event:/Engines/RR/engine4
 {9a9db089-2878-43dd-a6e6-04ff1c62ff2a} event:/Warnings/GPWS/OLD/10
 {ee308590-513f-4b50-9825-de308274eea4} event:/Warnings/GPWS/OLD/100
 {6ecec5be-fc16-431a-b3d0-ad704ac20fa9} event:/Warnings/GPWS/OLD/1000
@@ -295,6 +296,7 @@
 {6b84edfd-7038-4ced-84f3-70cdf9ab2c48} event:/Warnings/master_caution3
 {327d8e20-870c-4de0-aff6-f949a543e035} event:/Warnings/stall
 {6ec6a4ad-6fba-452b-a30c-ece9f0166cd2} event:/Warnings/stall_end
+{edc9c353-e2d0-4075-86d9-0f214ec26ce8} event:/Warnings/master-warning_new
 {9f08114d-36ec-44cc-b8bf-b2babda09f9e} bus:/
 {7f7c05a4-e05a-4d44-94fe-d4691147a9b7} bus:/Master
 {e3492bec-f854-4fbb-b2bc-23586269032e} bus:/Master/Copilot

@@ -7,11 +7,11 @@ ACF_SOUNDS
 #                                                                                    #
 #     B o e i n g  7 4 7 - 4 0 0                                                     #
 #                                                                                    #
-#     V e r s i o n : v2.2                                                           #
+#     V e r s i o n : v2.3                                                           #
 #                                                                                    #
 #     B y :  M a t t 7 2 6                                                           #
 #                                                                                    #
-#     For DEFAULT Laminar/mSparks mod 747                                            #
+#     For DEFAULT mSparks 747                                                        #
 #                                                                                    #
 #     E M A I L : mfahrenheit135@gmail.com                                           #
 #                                                                                    #
@@ -5564,7 +5564,8 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/rattle_main
     VEH_XYZ 0 4.3 -27
-    EVENT_START_COND sim/flightmodel/position/true_airspeed > 0
+	EVENT_START_COND sim/flightmodel/failures/onground_any == 1
+	EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot > 10
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -7442,4 +7443,15 @@ BEGIN_SOUND_ATTACHMENT
         EVENT_NAME /Cabin/PA/PAseatbelt
         VEH_XYZ 0 0 0
     EVENT_START_COND laminar/B747/safety/seat_belts/sel_dial_pos == 2
+END_SOUND_ATTACHMENT
+
+##################
+#WEATHER
+##################
+
+BEGIN_SOUND_ATTACHMENT
+        EVENT_NAME /Ambience/Weather/rain
+        VEH_XYZ 0 0 0
+	EVENT_START_COND sim/weather/precipitation_on_aircraft_ratio > 0
+	EVENT_START_END sim/weather/precipitation_on_aircraft_ratio == 0
 END_SOUND_ATTACHMENT
