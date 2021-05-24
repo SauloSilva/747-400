@@ -1,9 +1,9 @@
 # Boeing 747-400 FMOD Soundpack
 by Matt726
 
-Available for: Default Laminar Research or mSparks 747 mod
+Available for: Default Laminar Research mSparks 747 mod
 
-Version: v2.2
+Version: v2.3
 
 Email: mfahrenheit135@gmail.com
 
@@ -27,6 +27,13 @@ Email: mfahrenheit135@gmail.com
 
 ---
 ## CHANGELOG:
+
+### v2.3:
+
+- added rain effect
+- updated RR engines
+- updated wind sound
+- updated GE engines
 
 ### v2.2:
 
