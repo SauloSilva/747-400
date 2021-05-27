@@ -153,10 +153,12 @@ B747DR_ap_FMA_active_pitch_mode     	= deferred_dataref("laminar/B747/autopilot/
 
 
 
-B747DR_ap_AFDS_mode_box_status      	= deferred_dataref("laminar/B747/autopilot/AFDS/mode_box_status", "number")
-B747DR_ap_AFDS_mode_box2_status     	= deferred_dataref("laminar/B747/autopilot/AFDS/mode_box2_status", "number")
-
-B747DR_ap_AFDS_status_annun            	= deferred_dataref("laminar/B747/autopilot/AFDS/status_annun", "number")
+B747DR_ap_AFDS_mode_box_status_pilot      	= deferred_dataref("laminar/B747/autopilot/AFDS/mode_box_status_pilot", "number")
+B747DR_ap_AFDS_mode_box_status_copilot      	= deferred_dataref("laminar/B747/autopilot/AFDS/mode_box_status_copilot", "number")
+B747DR_ap_AFDS_mode_box2_status_pilot     	= deferred_dataref("laminar/B747/autopilot/AFDS/mode_box2_status_pilot", "number")
+B747DR_ap_AFDS_mode_box2_status_copilot     	= deferred_dataref("laminar/B747/autopilot/AFDS/mode_box2_status_copilot", "number")
+B747DR_ap_AFDS_status_annun_pilot            	= deferred_dataref("laminar/B747/autopilot/AFDS/status_annun_pilot", "number")
+B747DR_ap_AFDS_status_annun_copilot            	= deferred_dataref("laminar/B747/autopilot/AFDS/status_annun_copilot", "number")
 --[[
     0 = NONE
     1 = FD

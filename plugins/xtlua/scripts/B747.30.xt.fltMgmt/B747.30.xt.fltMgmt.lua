@@ -64,7 +64,7 @@ function deferred_dataref(name,nilType,callFunction)
 end
 simDR_startup_running   = find_dataref("sim/operation/prefs/startup_running")
 simDR_xpdr_mode         = find_dataref("sim/cockpit2/radios/actuators/transponder_mode")    -- 0=OFF, 1=STANDBY, 2=ON, 3=ALT, 4=TEST, 5=GROUND
-simDR_airspeed                      = find_dataref("sim/cockpit2/gauges/indicators/airspeed_kts_pilot")
+simDR_airspeed                      = find_dataref("laminar/B747/gauges/indicators/airspeed_kts_pilot")
 --simDR_xpdr_code         = find_dataref("sim/cockpit2/radios/actuators/transponder_code")
 
 --*************************************************************************************--

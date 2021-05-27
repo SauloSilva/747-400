@@ -289,7 +289,7 @@ function des_aptres_setSpd()
     B747DR_ap_ias_dial_value = math.min(399.0, spdval)
     B747DR_lastap_dial_airspeed=B747DR_ap_ias_dial_value
     run_after_time(B747_updateIAS, 0.25)
-    if simDR_autopilot_autothrottle_enabled == 0 then							-- AUTOTHROTTLE IS "OFF"
+    if simDR_autopilot_autothrottle_enabled == 0 and simDR_ind_airspeed_kts_pilot < spdval+5 then							-- AUTOTHROTTLE IS "OFF"
         simCMD_autopilot_autothrottle_on:once()
         if B747DR_engine_TOGA_mode ==1 then B747DR_engine_TOGA_mode = 0 end	-- CANX ENGINE TOGA IF ACTIVE	
     end
@@ -301,7 +301,7 @@ function des_spcres_setSpd()
     B747DR_ap_ias_dial_value = math.min(399.0, spdval)
     B747DR_lastap_dial_airspeed=B747DR_ap_ias_dial_value
     run_after_time(B747_updateIAS, 0.25)
-    if simDR_autopilot_autothrottle_enabled == 0 then							-- AUTOTHROTTLE IS "OFF"
+    if simDR_autopilot_autothrottle_enabled == 0 and simDR_ind_airspeed_kts_pilot < spdval+5 then							-- AUTOTHROTTLE IS "OFF"
         simCMD_autopilot_autothrottle_on:once()	
         if B747DR_engine_TOGA_mode ==1 then B747DR_engine_TOGA_mode = 0 end	-- CANX ENGINE TOGA IF ACTIVE
     end

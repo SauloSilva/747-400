@@ -3155,7 +3155,7 @@ DREF sim/flightmodel/jetwash/DVinc[0]
 DREF sim/cockpit2/engine/indicators/N1_percent
 DREF sim/flightmodel2/engines/engine_is_burning_fuel[*]
 DREF sim/cockpit2/gauges/indicators/altitude_ft_pilot
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 DREF sim/aircraft/engine/acf_face_jet
 DREF sim/aircraft2/engine/exhaust_dirtiness_ratio
 END_EMITTER
@@ -3332,7 +3332,7 @@ DREF sim/flightmodel/jetwash/DVinc[0]
 DREF sim/cockpit2/engine/indicators/N1_percent
 DREF sim/flightmodel2/engines/engine_is_burning_fuel[*]
 DREF sim/cockpit2/gauges/indicators/altitude_ft_pilot
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 DREF sim/aircraft/engine/acf_face_jet
 END_EMITTER
 EMITTER
@@ -3573,7 +3573,7 @@ DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio
 DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio[*]
 DREF sim/cockpit2/annunciators/engine_fires
 DREF sim/cockpit2/annunciators/engine_fires[*]
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 DREF sim/cockpit2/gauges/indicators/altitude_ft_pilot
 DREF sim/cockpit2/engine/indicators/N1_percent[*]
 DREF sim/cockpit2/engine/indicators/N1_percent[0]
@@ -3741,7 +3741,7 @@ DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio
 DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio[*]
 DREF sim/cockpit2/annunciators/engine_fires
 DREF sim/cockpit2/annunciators/engine_fires[*]
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 DREF sim/cockpit2/gauges/indicators/altitude_ft_pilot
 DREF sim/cockpit2/engine/indicators/N1_percent[*]
 DREF sim/cockpit2/engine/indicators/N1_percent[0]
@@ -4162,7 +4162,7 @@ DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio
 DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio[*]
 DREF sim/cockpit2/annunciators/engine_fires
 DREF sim/cockpit2/annunciators/engine_fires[*]
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 DREF sim/cockpit2/engine/indicators/N1_percent
 DREF sim/cockpit2/engine/indicators/N1_percent[*]
 DREF sim/flightmodel2/engines/afterburner_ratio
@@ -4567,7 +4567,7 @@ DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio
 DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio[*]
 DREF sim/cockpit2/annunciators/engine_fires
 DREF sim/cockpit2/annunciators/engine_fires[*]
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 DREF sim/cockpit2/engine/indicators/N1_percent
 DREF sim/cockpit2/engine/indicators/N1_percent[*]
 DREF sim/cockpit2/annunciators/engine_fire
@@ -4738,7 +4738,7 @@ DREF sim/flightmodel/jetwash/DVinc[0]
 DREF sim/cockpit2/engine/indicators/N1_percent
 DREF sim/flightmodel2/engines/engine_is_burning_fuel[*]
 DREF sim/cockpit2/gauges/indicators/altitude_ft_pilot
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 DREF sim/aircraft2/engine/exhaust_dirtiness_ratio
 DREF sim/aircraft/prop/acf_prop_type
 DREF sim/aircraft/prop/acf_prop_type[*]
@@ -4894,7 +4894,7 @@ DREF sim/flightmodel/jetwash/DVinc[0]
 DREF sim/cockpit2/engine/indicators/N1_percent
 DREF sim/flightmodel2/engines/engine_is_burning_fuel[*]
 DREF sim/cockpit2/gauges/indicators/altitude_ft_pilot
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 END_EMITTER
 EMITTER
  NAME Turbo Contrails
@@ -5136,7 +5136,7 @@ DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio
 DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio[*]
 DREF sim/cockpit2/annunciators/engine_fires
 DREF sim/cockpit2/annunciators/engine_fires[*]
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 DREF sim/cockpit2/gauges/indicators/altitude_ft_pilot
 DREF sim/cockpit2/engine/indicators/N1_percent[*]
 DREF sim/cockpit2/engine/indicators/N1_percent[0]
@@ -5277,7 +5277,7 @@ DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio
 DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio[*]
 DREF sim/cockpit2/annunciators/engine_fires
 DREF sim/cockpit2/annunciators/engine_fires[*]
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 DREF sim/cockpit2/gauges/indicators/altitude_ft_pilot
 DREF sim/cockpit2/engine/indicators/N1_percent[*]
 DREF sim/cockpit2/engine/indicators/N1_percent[0]
@@ -5677,7 +5677,7 @@ DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio
 DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio[*]
 DREF sim/cockpit2/annunciators/engine_fires
 DREF sim/cockpit2/annunciators/engine_fires[*]
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 DREF sim/cockpit2/engine/indicators/N1_percent
 DREF sim/cockpit2/engine/indicators/N1_percent[*]
 DREF sim/cockpit2/annunciators/engine_fire
@@ -6057,7 +6057,7 @@ DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio
 DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio[*]
 DREF sim/cockpit2/annunciators/engine_fires
 DREF sim/cockpit2/annunciators/engine_fires[*]
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 DREF sim/cockpit2/engine/indicators/N1_percent
 DREF sim/cockpit2/engine/indicators/N1_percent[*]
 DREF sim/flightmodel2/engines/afterburner_ratio
@@ -6213,7 +6213,7 @@ DREF sim/flightmodel/jetwash/DVinc[0]
 DREF sim/cockpit2/engine/indicators/N1_percent
 DREF sim/flightmodel2/engines/engine_is_burning_fuel[*]
 DREF sim/cockpit2/gauges/indicators/altitude_ft_pilot
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 DREF sim/aircraft/engine/acf_face_rocket
 END_EMITTER
 EMITTER
@@ -6367,7 +6367,7 @@ DREF sim/flightmodel/jetwash/DVinc[0]
 DREF sim/cockpit2/engine/indicators/N1_percent
 DREF sim/flightmodel2/engines/engine_is_burning_fuel[*]
 DREF sim/cockpit2/gauges/indicators/altitude_ft_pilot
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 DREF sim/aircraft/engine/acf_face_rocket
 END_EMITTER
 EMITTER
@@ -6517,7 +6517,7 @@ DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio
 DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio[*]
 DREF sim/cockpit2/annunciators/engine_fires
 DREF sim/cockpit2/annunciators/engine_fires[*]
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 DREF sim/cockpit2/gauges/indicators/altitude_ft_pilot
 DREF sim/cockpit2/engine/indicators/N1_percent[*]
 DREF sim/cockpit2/engine/indicators/N1_percent[0]
@@ -6667,7 +6667,7 @@ DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio
 DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio[*]
 DREF sim/cockpit2/annunciators/engine_fires
 DREF sim/cockpit2/annunciators/engine_fires[*]
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 DREF sim/cockpit2/gauges/indicators/altitude_ft_pilot
 DREF sim/cockpit2/engine/indicators/N1_percent[*]
 DREF sim/cockpit2/engine/indicators/N1_percent[0]
@@ -7088,7 +7088,7 @@ DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio
 DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio[*]
 DREF sim/cockpit2/annunciators/engine_fires
 DREF sim/cockpit2/annunciators/engine_fires[*]
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 DREF sim/cockpit2/engine/indicators/N1_percent
 DREF sim/cockpit2/engine/indicators/N1_percent[*]
 DREF sim/cockpit2/annunciators/engine_fire
@@ -7256,7 +7256,7 @@ DREF sim/flightmodel/jetwash/DVinc[0]
 DREF sim/cockpit2/engine/indicators/N1_percent
 DREF sim/flightmodel2/engines/engine_is_burning_fuel[*]
 DREF sim/cockpit2/gauges/indicators/altitude_ft_pilot
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 DREF sim/aircraft2/engine/exhaust_dirtiness_ratio
 DREF sim/aircraft/prop/acf_prop_type
 DREF sim/aircraft/prop/acf_prop_type[*]
@@ -7408,7 +7408,7 @@ DREF sim/flightmodel/jetwash/DVinc[0]
 DREF sim/cockpit2/engine/indicators/N1_percent
 DREF sim/flightmodel2/engines/engine_is_burning_fuel[*]
 DREF sim/cockpit2/gauges/indicators/altitude_ft_pilot
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 DREF sim/cockpit2/engine/indicators/fuel_flow_kg_sec
 DREF sim/cockpit2/engine/indicators/fuel_flow_kg_sec[*]
 DREF sim/cockpit2/fuel/fuel_totalizer_init_kg
@@ -7651,7 +7651,7 @@ DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio
 DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio[*]
 DREF sim/cockpit2/annunciators/engine_fires
 DREF sim/cockpit2/annunciators/engine_fires[*]
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 DREF sim/cockpit2/gauges/indicators/altitude_ft_pilot
 DREF sim/cockpit2/engine/indicators/N1_percent[*]
 DREF sim/cockpit2/engine/indicators/N1_percent[0]
@@ -7792,7 +7792,7 @@ DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio
 DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio[*]
 DREF sim/cockpit2/annunciators/engine_fires
 DREF sim/cockpit2/annunciators/engine_fires[*]
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 DREF sim/cockpit2/gauges/indicators/altitude_ft_pilot
 DREF sim/cockpit2/engine/indicators/N1_percent[*]
 DREF sim/cockpit2/engine/indicators/N1_percent[0]
@@ -8184,7 +8184,7 @@ DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio
 DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio[*]
 DREF sim/cockpit2/annunciators/engine_fires
 DREF sim/cockpit2/annunciators/engine_fires[*]
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 DREF sim/cockpit2/engine/indicators/N1_percent
 DREF sim/cockpit2/engine/indicators/N1_percent[*]
 DREF sim/cockpit2/annunciators/engine_fire
@@ -8558,7 +8558,7 @@ DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio
 DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio[*]
 DREF sim/cockpit2/annunciators/engine_fires
 DREF sim/cockpit2/annunciators/engine_fires[*]
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 DREF sim/cockpit2/engine/indicators/N1_percent
 DREF sim/cockpit2/engine/indicators/N1_percent[*]
 DREF sim/cockpit2/annunciators/engine_fire
@@ -8705,7 +8705,7 @@ DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio
 DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio[*]
 DREF sim/cockpit2/annunciators/engine_fires
 DREF sim/cockpit2/annunciators/engine_fires[*]
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 DREF sim/cockpit2/gauges/indicators/altitude_ft_pilot
 DREF sim/cockpit2/engine/indicators/N1_percent[*]
 DREF sim/cockpit2/engine/indicators/N1_percent[0]
@@ -9038,7 +9038,7 @@ DREF sim/flightmodel2/gear/tire_skid_ratio[0]
 DREF sim/flightmodel2/gear/tire_skid_ratio[1]
 DREF sim/flightmodel2/gear/total_deflection_rate[0]
 DREF sim/flightmodel2/gear/total_deflection_rate[1]
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 DREF sim/weather/visibility_reported_m
 DREF sim/flightmodel2/misc/AoA_angle_degrees
 DREF sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot
@@ -9147,7 +9147,7 @@ DREF sim/flightmodel2/gear/tire_skid_ratio[0]
 DREF sim/flightmodel2/gear/tire_skid_ratio[1]
 DREF sim/flightmodel2/gear/total_deflection_rate[0]
 DREF sim/flightmodel2/gear/total_deflection_rate[1]
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 DREF sim/weather/visibility_reported_m
 DREF sim/flightmodel2/misc/AoA_angle_degrees
 DREF sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot
@@ -9463,7 +9463,7 @@ DREF sim/weather/runway_friction
 DREF sim/flightmodel2/gear/tire_rotation_speed_rad_sec
 DREF sim/flightmodel2/gear/tire_rotation_speed_rad_sec[*]
 DREF sim/flightmodel2/gear/tire_rotation_speed_rad_sec[0]
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 DREF sim/flightmodel2/gear/on_ground[*]
 DREF sim/flightmodel2/gear/on_noisy
 DREF sim/flightmodel2/gear/on_noisy[*]
@@ -9842,7 +9842,7 @@ DREF sim/flightmodel2/gear/tire_skid_ratio[0]
 DREF sim/flightmodel2/gear/tire_skid_ratio[1]
 DREF sim/flightmodel2/gear/total_deflection_rate[0]
 DREF sim/flightmodel2/gear/total_deflection_rate[1]
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 DREF sim/weather/visibility_reported_m
 DREF sim/flightmodel2/misc/AoA_angle_degrees
 DREF sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot
@@ -9980,7 +9980,7 @@ DREF sim/flightmodel2/gear/tire_skid_ratio[0]
 DREF sim/flightmodel2/gear/tire_skid_ratio[1]
 DREF sim/flightmodel2/gear/total_deflection_rate[0]
 DREF sim/flightmodel2/gear/total_deflection_rate[1]
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 DREF sim/weather/visibility_reported_m
 DREF sim/flightmodel2/misc/AoA_angle_degrees
 DREF sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot
@@ -10214,7 +10214,7 @@ DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio
 DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio[*]
 DREF sim/cockpit2/annunciators/engine_fires
 DREF sim/cockpit2/annunciators/engine_fires[*]
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 DREF sim/cockpit2/gauges/indicators/altitude_ft_pilot
 DREF sim/cockpit2/engine/indicators/N1_percent[*]
 DREF sim/cockpit2/engine/indicators/N1_percent[0]
@@ -10358,7 +10358,7 @@ DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio
 DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio[*]
 DREF sim/cockpit2/annunciators/engine_fires
 DREF sim/cockpit2/annunciators/engine_fires[*]
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 DREF sim/cockpit2/gauges/indicators/altitude_ft_pilot
 DREF sim/cockpit2/engine/indicators/N1_percent[*]
 DREF sim/cockpit2/engine/indicators/N1_percent[0]
@@ -10499,7 +10499,7 @@ DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio
 DREF sim/flightmodel2/engines/thrust_reverser_deploy_ratio[*]
 DREF sim/cockpit2/annunciators/engine_fires
 DREF sim/cockpit2/annunciators/engine_fires[*]
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 DREF sim/cockpit2/gauges/indicators/altitude_ft_pilot
 DREF sim/cockpit2/engine/indicators/N1_percent[*]
 DREF sim/cockpit2/engine/indicators/N1_percent[0]
@@ -10818,5 +10818,5 @@ DREF sim/weather/runway_friction
 DREF sim/flightmodel2/gear/on_grass[*]
 DREF sim/flightmodel2/gear/on_noisy
 DREF sim/flightmodel2/gear/on_noisy[*]
-DREF sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+DREF laminar/B747/gauges/indicators/airspeed_kts_pilot
 END_PARTICLE_SYSTEM

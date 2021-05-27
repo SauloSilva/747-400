@@ -284,7 +284,7 @@ function checkMCPAlt(dist)
 
     local diff3 = B747DR_autopilot_altitude_ft- simDR_pressureAlt1
     --print("checkMCPAlt "..eta.. " "..dist.. " "..diff3)
-    if diff3>-1000 then
+    if diff3>-1000 and B747DR_autopilot_altitude_ft>B747BR_cruiseAlt-1000 then
         B747DR_fmc_notifications[33]=1
     else
         B747DR_fmc_notifications[33]=0
@@ -454,7 +454,35 @@ function B747_updateApproachHeading(fmsO)
       end
     local ap2Heading=getHeading(simDR_latitude,simDR_longitude,fmsO[start][5],fmsO[start][6])
     if B747DR_ap_approach_mode~=0 and simDR_autopilot_nav_status~=2 and B747DR_ap_lnav_state>0 then
-        simDR_autopilot_heading_deg =	ap2Heading+simDR_variation
+        local tas = simDR_TAS_mps * 1.94384 -- true airspeed in knots
+
+        local wca=0
+        if B747DR_ND_Wind_Bearing<-90 then 
+            --rhs
+            local angle=math.rad(180-(B747DR_ND_Wind_Bearing*-1))
+            wca=(simDR_wind_speed_kts/tas)*math.sin(angle)
+            --local latWind=math.sin(angle)*simDR_wind_speed
+          elseif B747DR_ND_Wind_Bearing<0 then 
+            --rhs
+            local angle=math.rad(B747DR_ND_Wind_Bearing*-1)
+            wca=(simDR_wind_speed_kts/tas)*math.sin(angle)
+            --local latWind=math.sin(angle)*simDR_wind_speed
+          elseif B747DR_ND_Wind_Bearing>90 then
+            --lhs
+            local angle=math.rad(180-B747DR_ND_Wind_Bearing)
+            wca=-(simDR_wind_speed_kts/tas)*math.sin(angle)
+           --local latWind=-math.sin(angle)*simDR_wind_speed
+          else --0 to 90
+            --lhs
+            local angle=math.rad(B747DR_ND_Wind_Bearing)
+            wca=-(simDR_wind_speed_kts/tas)*math.sin(angle)
+            --local latWind=-math.sin(angle)*simDR_wind_speed
+          end
+          
+          --print("wca="..wca)
+          wca=math.deg(wca)
+          --print("wca_deg="..wca)
+        simDR_autopilot_heading_deg =	math.floor(ap2Heading+simDR_variation +wca)
     end
 end
 

@@ -201,6 +201,8 @@ simDR_EFIS_1_sel_pilot              = find_dataref("sim/cockpit2/EFIS/EFIS_1_sel
 simDR_EFIS_1_sel_fo              = find_dataref("sim/cockpit2/EFIS/EFIS_1_selection_copilot")
 simDR_EFIS_2_sel_pilot                 = find_dataref("sim/cockpit2/EFIS/EFIS_2_selection_pilot")
 simDR_EFIS_2_sel_fo                 = find_dataref("sim/cockpit2/EFIS/EFIS_2_selection_copilot")
+B747DR_nd_capt_terr                          = deferred_dataref("laminar/B747/nd/data/capt/terr", "number")
+B747DR_nd_fo_terr                          	= deferred_dataref("laminar/B747/nd/data/fo/terr", "number")
 B747DR_nd_capt_vor_ndb                          = find_dataref("laminar/B747/nd/data/capt/vor_ndb")
 B747DR_nd_capt_wpt							= find_dataref("laminar/B747/nd/data/capt/wpt")
 B747DR_nd_fo_vor_ndb                          	= find_dataref("laminar/B747/nd/data/fo/vor_ndb")
@@ -233,7 +235,7 @@ simDR_EFIS_map_mode                 = find_dataref("sim/cockpit2/EFIS/map_mode")
 simDR_EFIS_map_range                = find_dataref("sim/cockpit2/EFIS/map_range")
 
 simDR_groundspeed			= find_dataref("sim/flightmodel2/position/groundspeed")
-simDR_ias_pilot				= find_dataref("sim/cockpit2/gauges/indicators/airspeed_kts_pilot")
+simDR_ias_pilot				= find_dataref("laminar/B747/gauges/indicators/airspeed_kts_pilot")
 simDR_wind_degrees			= find_dataref("sim/cockpit2/gauges/indicators/wind_heading_deg_mag")
 simDR_wind_speed			= find_dataref("sim/cockpit2/gauges/indicators/wind_speed_kts")
 simDR_mach_pilot			= find_dataref("sim/cockpit2/gauges/indicators/mach_pilot")
@@ -995,6 +997,7 @@ function setNotifications()
   local diff=simDRTime-lastNotify
   if diff<10 then return end
   --print("FMS notify")
+  local hasNotify=false
   lastNotify=simDRTime
   for i =1,53,1 do
     --print("do FMS notify".." ".. i .." " ..B747DR_fmc_notifications[i])
@@ -1002,7 +1005,8 @@ function setNotifications()
       fmsModules["fmsL"]["notify"]=B747_FMCAlertMsg[i].name
       fmsModules["fmsC"]["notify"]=B747_FMCAlertMsg[i].name
       fmsModules["fmsR"]["notify"]=B747_FMCAlertMsg[i].name
-      print("do FMS notify "..B747_FMCAlertMsg[i].name)
+      --print("do FMS notify "..B747_FMCAlertMsg[i].name)
+	  hasNotify=true
       break
     else
       if fmsModules["fmsL"]["notify"]==B747_FMCAlertMsg[i].name then fmsModules["fmsL"]["notify"]="" end
@@ -1010,7 +1014,11 @@ function setNotifications()
       if fmsModules["fmsR"]["notify"]==B747_FMCAlertMsg[i].name then fmsModules["fmsR"]["notify"]="" end
     end
   end
-
+  if hasNotify==true then 
+	B747DR_CAS_advisory_status[145] = 1 
+  else
+	B747DR_CAS_advisory_status[145] = 0
+  end
 end
 function after_physics()
   if debug_fms>0 then return end
