@@ -408,37 +408,7 @@ B747DR_ap_AFDS_status_annun            	= deferred_dataref("laminar/B747/autopil
     5 = NO AUTOLAND
 --]]
 
---Marauder28
-B747DR_ref_thr_limit_mode		= deferred_dataref("laminar/B747/engines/ref_thr_limit_mode", "string")
---[[
-    ["NONE"]
-    ["TO"]
-    ["TO 1"]
-    ["TO 2"]
-    ["D-TO"]
-    ["D-TO 1"]
-    ["D-TO 2"]
-    ["CLB"]
-    ["CLB 1"]
-    ["CLB 2"]
-    ["CRZ"]
-    ["CON"]
-    ["GA"]
-]]
 
--- Holds all SimConfig options
-B747DR_simconfig_data				= deferred_dataref("laminar/B747/simconfig", "string")
-
---Simulator Config Options
-simConfigData = {}
-
---Marauder28
-if string.len(B747DR_simconfig_data) > 1 then
-	simConfigData["data"] = json.decode(B747DR_simconfig_data)
-end
---Marauder28
-
---Marauder28
 
 --*************************************************************************************--
 --** 				       READ-WRITE CUSTOM DATAREF HANDLERS     	        	     **--
@@ -2761,13 +2731,6 @@ function after_physics()
     end
 	local fmsSTR=fmsJSON
   	local fms=json.decode(fmsSTR)
-
---Marauder28
-if string.len(B747DR_simconfig_data) > 1 then
-	simConfigData["data"] = json.decode(B747DR_simconfig_data)
-end
---Marauder28
-
 	B747_getCurrentWayPoint(fms)
 	B747_monitorAP(fms)
     B747_ap_fma()
