@@ -15,6 +15,9 @@
 *****************************************************************************************
 --]]
 
+--Marauder28
+dofile("json/json.lua")
+
 
 --*************************************************************************************--
 --** 					              XLUA GLOBALS              				     **--
@@ -104,6 +107,10 @@ local B747_ref_thr_limit = {
 toderate=deferred_dataref("laminar/B747/engine/derate/TO","number") 
 
 throttlederate=find_dataref("sim/aircraft/engine/acf_throtmax_FWD")
+
+--Simulator Config Options
+simConfigData = {}
+
 --*************************************************************************************--
 --** 				              FIND X-PLANE DATAREFS              		    	 **--
 --*************************************************************************************--
@@ -640,6 +647,8 @@ B747DR_autothrottle_fail            = deferred_dataref("laminar/B747/engines/aut
 --*************************************************************************************--
 --** 				       CREATE READ-WRITE CUSTOM DATAREFS                         **--
 --*************************************************************************************--
+-- Holds all SimConfig options
+B747DR_simconfig_data					= deferred_dataref("laminar/B747/simconfig", "string")
 
 
 
@@ -2038,6 +2047,29 @@ end
 
 function after_physics()
 if debug_engines>0 then return end
+
+    --Marauder28
+    if string.len(B747DR_simconfig_data) > 1 then
+        simConfigData["data"] = json.decode(B747DR_simconfig_data)
+    else
+        simConfigData["data"] = json.decode("[]")
+    end
+
+    if string.match(simConfigData["data"].PLANE.engines, "CF6") then
+        EGT_start_limit = 870
+        EGT_continuous_limit = 925
+        EGT_max_limit = 960
+    elseif string.match(simConfigData["data"].PLANE.engines, "PW") then
+        EGT_start_limit = 535
+        EGT_continuous_limit = 629
+        EGT_max_limit = 654
+    elseif string.match(simConfigData["data"].PLANE.engines, "RB") then
+        EGT_start_limit = 600
+        EGT_continuous_limit = 733
+        EGT_max_limit = 785
+    end
+    --End Marauder28
+
     B747_startup_ignition()
 
     B747_prop_mode()
@@ -2055,7 +2087,7 @@ if debug_engines>0 then return end
     B747_secondary_EICAS2_engine_vibration()
 
     B747_EPR() 
-    B747_thrust_limit_mode_label()
+    --B747_thrust_limit_mode_label()
 
     B747_engines_EICAS_msg()
 
