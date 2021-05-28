@@ -2,7 +2,7 @@
 ****************************************************************************************
 * Program Script Name	:	B747.42.xt.EEC.lua
 * Author Name			:	Marauder28
-*
+*							(with SIGNIFICANT contributions from @kudosi for aeronautic formulas)
 *   Revisions:
 *   -- DATE --	--- REV NO ---		--- DESCRIPTION ---
 *   2021-01-11	0.01a				Start of Dev
