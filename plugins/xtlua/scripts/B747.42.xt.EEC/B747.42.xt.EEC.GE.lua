@@ -2,7 +2,7 @@
 ****************************************************************************************
 * Program Script Name	:	B747.42.xt.EEC.GE.lua
 * Author Name			:	Marauder28
-*
+*                   (with SIGNIFICANT contributions from @kudosi for aeronautic formulas)
 *   Revisions:
 *   -- DATE --	--- REV NO ---		--- DESCRIPTION ---
 *   2021-01-11	0.01a				      Start of Dev
@@ -412,7 +412,7 @@ function in_flight_N1_GE(altitude_ft_in, delta_t_isa_K_in)
     return N1_corrected, N1_actual, N1_corrected_raw_max_climb, N1_corrected_mod_max_climb, N1_real_max_climb, N1_corrected_raw_max_cruise, N1_corrected_mod_max_cruise, N1_real_max_cruise
 end
 
-function N1_display_GE(altitude_ft_in, thrust_N_in, n1_factor_in)
+function N1_display_GE(altitude_ft_in, thrust_N_in, n1_factor_in, engine_in)
     local N1_corrected = 0.0
     local N1_actual = 0.0
     local corrected_thrust_N = 0.0
@@ -430,13 +430,11 @@ function N1_display_GE(altitude_ft_in, thrust_N_in, n1_factor_in)
     N1_actual = N1_corrected * math.sqrt(temperature_ratio)
 
     if string.match(B747DR_ref_thr_limit_mode, "TO") or B747DR_ref_thr_limit_mode == "NONE" or B747DR_ref_thr_limit_mode == "" then
-      for i = 0, 3 do
-        N1_actual = simDR_N1[i] * n1_factor_in
-      end
+      N1_actual = simDR_N1[engine_in] * n1_factor_in
     end
 
-    --Since thrust_n from XP can calculate to negative, don't let the displayed N1 go below 20%
-    if N1_actual < 20.0 then
+    --Since thrust_n from XP can calculate to negative, don't let the displayed N1 go below 20% in flight
+    if simDR_onGround ~= 1 and N1_actual < 20.0 then
       N1_actual = 20.0
     end
 
@@ -457,6 +455,7 @@ function N1_display_GE(altitude_ft_in, thrust_N_in, n1_factor_in)
 end
 
 local takeoff_TOGA_n1 = 0.0
+
 function GE(altitude_ft_in)
 	local altitude = 0.0  --round_thrustcalc(simDR_altitude, "ALT")
 	local temperature = 0
@@ -583,7 +582,7 @@ function GE(altitude_ft_in)
 
 	for i = 0, 3 do
     --takeoff_TOGA_n1 (max TO) is used as a factor to compute N1 for TO based on the simDR_N1 to prevent N1 display loss during TO -- in flight it is calculated based on Newtons
-    N1_display[i] = string.format("%4.1f", N1_display_GE(altitude_ft_in, simDR_thrust_n[i], takeoff_TOGA_n1 / 100 * 1.007))
+    N1_display[i] = string.format("%4.1f", N1_display_GE(altitude_ft_in, simDR_thrust_n[i], takeoff_TOGA_n1 / 100 * 1.007, i))  --use i as a reference for engine number
     --print("Takeoff TOGA = ", takeoff_TOGA_n1)
     --print("N1 Display[0] = ", N1_display[0])
     B747DR_display_N1[i] = N1_display[i]
