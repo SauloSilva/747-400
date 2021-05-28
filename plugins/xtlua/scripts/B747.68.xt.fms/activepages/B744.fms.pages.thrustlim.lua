@@ -1,15 +1,31 @@
+simDR_EPR_target_bug		= find_dataref("sim/cockpit2/engine/actuators/EPR_target_bug")
+simDR_N1_target_bug			= find_dataref("sim/cockpit2/engine/actuators/N1_target_bug")
+
+thrust_text = ""
+to_mode = ""
+
 fmsPages["THRUSTLIM"]=createPage("THRUSTLIM")
 simDR_OAT=find_dataref("sim/weather/temperature_ambient_c")
 fmsPages["THRUSTLIM"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be this way
   local t1="     "
   local t2="     "
   local t3="     "
-  if toderate==0 then t1="<SEL>" end
-  if toderate==1 then t2="<SEL>" end
-  if toderate==2 then t3="<SEL>" end
+  if toderate==0 then t1="<SEL>" to_mode="TO" end
+  if toderate==1 then t2="<SEL>" to_mode="TO-1" end
+  if toderate==2 then t3="<SEL>" to_mode="TO-2" end
   local c1="     "
   local c2="     "
   local c3="     "
+  local thrust_ref = 0.0  --string.format("%4.2f", simDR_EPR_target_bug[0])
+  
+  if simConfigData["data"].PLANE.thrust_ref == "EPR" then
+	thrust_ref = string.format("%4.2f", simDR_EPR_target_bug[0])
+	thrust_text = "EPR"
+  elseif simConfigData["data"].PLANE.thrust_ref == "N1" then
+	thrust_ref = string.format("%5.1f", simDR_N1_target_bug[0]).."%"
+	thrust_text = "N1"
+  end
+  
   if simDR_onGround==1 then
     fmsFunctionsDefs["THRUSTLIM"]["R6"]={"setpage","TAKEOFF"}
 	  if clbderate==0 then c1="<ARM>" end
@@ -18,7 +34,8 @@ fmsPages["THRUSTLIM"].getPage=function(self,pgNo,fmsID)--dynamic pages need to b
 	    return{
 	"       THRUST LIM       ",
 	"                        ",
-	""..fmsModules["data"]["thrustsel"] .."`C      "..string.format("%02d",simDR_OAT).."`C         ",
+	--""..fmsModules["data"]["thrustsel"] .."`C      "..string.format("%02d",simDR_OAT).."`C         ",
+	""..fmsModules["data"]["thrustsel"] .."`C     "..string.format("%02d",simDR_OAT).."`C      "..thrust_ref,
 	"                        ",
 	"<TO   "..t1.." "..c1.."    CLB>",
 	"                        ",
@@ -56,7 +73,8 @@ fmsPages["THRUSTLIM"].getSmallPage=function(self,pgNo,fmsID)--dynamic pages need
 if simDR_onGround==1 then
   return {
 "                        ",
-" SEL      OAT D-TO 1 N1 ",
+--" SEL      OAT D-TO 1 N1 ",
+" SEL      OAT  "..string.format("%-6s", to_mode).." "..string.format("%3s", thrust_text),
 "                        ",
 "                        ",
 "                        ",
