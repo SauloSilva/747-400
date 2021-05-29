@@ -1956,27 +1956,37 @@ function fmsFunctions.setdata(fmsO,value)
     else
 		if simConfigData["data"].PLANE.engines == "CF6-80C2-B1F" then
 			fmsO["scratchpad"] = "CF6-80C2-B5F"
+			simConfigData["data"].PLANE.thrust_ref = "N1"
 		elseif simConfigData["data"].PLANE.engines == "CF6-80C2-B5F" then
 			fmsO["scratchpad"] = "CF6-80C2-B1F1"
+			simConfigData["data"].PLANE.thrust_ref = "N1"
 		elseif simConfigData["data"].PLANE.engines == "CF6-80C2-B1F1" then
 			fmsO["scratchpad"] = "PW4056"
+			simConfigData["data"].PLANE.thrust_ref = "EPR"
 		elseif simConfigData["data"].PLANE.engines == "PW4056" then
 			fmsO["scratchpad"] = "PW4060"
+			simConfigData["data"].PLANE.thrust_ref = "EPR"
 		elseif simConfigData["data"].PLANE.engines == "PW4060" then
 			fmsO["scratchpad"] = "PW4062"
+			simConfigData["data"].PLANE.thrust_ref = "EPR"
 		elseif simConfigData["data"].PLANE.engines == "PW4062" then
 			fmsO["scratchpad"] = "RB211-524G"
+			simConfigData["data"].PLANE.thrust_ref = "EPR"
 		elseif simConfigData["data"].PLANE.engines == "RB211-524G" then
 			fmsO["scratchpad"] = "RB211-524H"
+			simConfigData["data"].PLANE.thrust_ref = "EPR"
 		elseif simConfigData["data"].PLANE.engines == "RB211-524H" then
 			fmsO["scratchpad"] = "RB211-524H8T"
+			simConfigData["data"].PLANE.thrust_ref = "EPR"
 		else
 			fmsO["scratchpad"] = "CF6-80C2-B1F"
+			simConfigData["data"].PLANE.thrust_ref = "N1"
 		end
 		simConfigData["data"].PLANE.engines = fmsO.scratchpad
 		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
 	end
-   elseif value=="thrustRef" then
+   --Removed to allow engine code above to forcibly set the thrust_ref mode (i.e. don't let users select and mess things up)
+--[[   elseif value=="thrustRef" then
 	if string.len(fmsO["scratchpad"])>0 and not (fmsO["scratchpad"] == "EPR" or fmsO["scratchpad"] == "N1") then
       fmsO["notify"]="INVALID ENTRY"
 	elseif string.len(fmsO["scratchpad"]) > 0 then
@@ -1990,7 +2000,7 @@ function fmsFunctions.setdata(fmsO,value)
 		end
 		simConfigData["data"].PLANE.thrust_ref = fmsO.scratchpad
 		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
-	end
+	end]]
    elseif value=="airline" then
 		simConfigData["data"].PLANE.airline = fmsO.scratchpad
 		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
