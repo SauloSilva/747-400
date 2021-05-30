@@ -524,9 +524,9 @@ function GE(altitude_ft_in)
 
 		-- Set N1 Target Bugs & Reference Indicator
 		for i = 0, 3 do
-			simDR_N1_target_bug[i] = string.format("%4.1f",takeoff_thrust_n1)
-      B747DR_display_N1_ref[i] = string.format("%4.1f",takeoff_thrust_n1)
-      B747DR_display_N1_max[i] = string.format("%4.1f",takeoff_thrust_n1)
+			simDR_N1_target_bug[i] = string.format("%4.1f",takeoff_thrust_n1) + packs_adjustment_value + engine_anti_ice_adjustment_value
+      B747DR_display_N1_ref[i] = string.format("%4.1f",takeoff_thrust_n1) + packs_adjustment_value + engine_anti_ice_adjustment_value
+      B747DR_display_N1_max[i] = string.format("%4.1f",takeoff_thrust_n1) + packs_adjustment_value + engine_anti_ice_adjustment_value
       simDR_EPR_target_bug[i] = 0.0
 		end
 
@@ -540,26 +540,26 @@ function GE(altitude_ft_in)
 		for i = 0, 3 do
 				if simDR_flap_ratio <= 0.34 then --and B747DR_radio_altitude > 1500 then
           if N1_actual > N1_real_max_climb then
-  				  simDR_N1_target_bug[i] = string.format("%4.1f", N1_real_max_climb)
-            B747DR_display_N1_ref[i] = string.format("%4.1f", N1_real_max_climb)
+  				  simDR_N1_target_bug[i] = string.format("%4.1f", N1_real_max_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value
+            B747DR_display_N1_ref[i] = string.format("%4.1f", N1_real_max_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value
           else
-            simDR_N1_target_bug[i] = string.format("%4.1f", N1_actual)
-            B747DR_display_N1_ref[i] = string.format("%4.1f", N1_actual)
+            simDR_N1_target_bug[i] = string.format("%4.1f", N1_actual) + packs_adjustment_value + engine_anti_ice_adjustment_value
+            B747DR_display_N1_ref[i] = string.format("%4.1f", N1_actual) + packs_adjustment_value + engine_anti_ice_adjustment_value
           end
 				end
 
       simDR_EPR_target_bug[i] = 0.0
 
-      B747DR_display_N1_max[i] = string.format("%4.1f", N1_real_max_climb)
+      B747DR_display_N1_max[i] = string.format("%4.1f", N1_real_max_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value
     end
   elseif string.match(B747DR_ref_thr_limit_mode, "CRZ") then
     _, N1_actual, _, _, _, _, _, N1_real_max_cruise = in_flight_N1_GE(altitude_ft_in, 0)
 
 		--Set target bugs
 		for i = 0, 3 do
-        simDR_N1_target_bug[i] = string.format("%4.1f", N1_real_max_cruise)
-        B747DR_display_N1_ref[i] = string.format("%4.1f", N1_actual)
-        B747DR_display_N1_max[i] = simDR_N1_target_bug[i]
+        simDR_N1_target_bug[i] = string.format("%4.1f", N1_real_max_cruise) + packs_adjustment_value + engine_anti_ice_adjustment_value
+        B747DR_display_N1_ref[i] = string.format("%4.1f", N1_actual) + packs_adjustment_value + engine_anti_ice_adjustment_value
+        B747DR_display_N1_max[i] = simDR_N1_target_bug[i] + packs_adjustment_value + engine_anti_ice_adjustment_value
     end
   elseif B747DR_ref_thr_limit_mode == "G/A" then
     --Find current temperature rounded to the closest 5 degrees (for use in table lookups)
@@ -585,7 +585,7 @@ function GE(altitude_ft_in)
     N1_display[i] = string.format("%4.1f", N1_display_GE(altitude_ft_in, simDR_thrust_n[i], takeoff_TOGA_n1 / 100 * 1.007, i))  --use i as a reference for engine number
     --print("Takeoff TOGA = ", takeoff_TOGA_n1)
     --print("N1 Display[0] = ", N1_display[0])
-    B747DR_display_N1[i] = N1_display[i]
+    B747DR_display_N1[i] = tonumber(N1_display[i])
 	end
 
   if enable_logging then

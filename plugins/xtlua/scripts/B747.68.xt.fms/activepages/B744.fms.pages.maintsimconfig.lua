@@ -89,7 +89,7 @@ fmsPages["MAINTSIMCONFIG"].getPage=function(self,pgNo,fmsID)
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["L1"]={"setdata","model"}
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["L2"]={"setdata","aircraftType"}
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["L3"]={"setdata","engines"}
-	    fmsFunctionsDefs["MAINTSIMCONFIG"]["L4"]={"setdata","thrustRef"}
+	    --fmsFunctionsDefs["MAINTSIMCONFIG"]["L4"]={"setdata","thrustRef"}
     	fmsFunctionsDefs["MAINTSIMCONFIG"]["L5"]=nil
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["R1"]={"setdata","airline"}
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["R2"]={"setdata","civilRegistration"}
@@ -266,10 +266,10 @@ fmsPages["MAINTSIMCONFIG"].getSmallPage=function(self,pgNo,fmsID)
 		"                        ",
 		" TYPE           CIVIL REG",
 		"<                        ",
-		" ENGINES(X)       FIN NBR",
+		" ENGINES          FIN NBR",
 		"<                        ",
-		" THRUST REF(X)  PFD STYLE",
-		"<    "..thrust_ref       .."                >",
+		" THRUST REF     PFD STYLE",
+		"     "..thrust_ref       .."                >",
 		"              (X)ND STYLE",
 		"                         >",
 		"                        ",
