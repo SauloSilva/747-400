@@ -2803,7 +2803,7 @@ function B747_Vspeeds()
 
     -- Vf (FLAP DESIGN SPEED)
     B747DR_airspeed_Vf0 = B747DR_airspeed_Vref30+80                     --
-    if simDR_acf_weight_total_kg > 309000.0 then B747DR_airspeed_Vf0 = B747DR_airspeed_Vref30+100 end
+   -- if simDR_acf_weight_total_kg > 309000.0 then B747DR_airspeed_Vf0 = B747DR_airspeed_Vref30+100 end
     B747DR_airspeed_Vf1 = B747DR_airspeed_Vref30+60
     B747DR_airspeed_Vf5 = B747DR_airspeed_Vref30+40
     B747DR_airspeed_Vf10 = B747DR_airspeed_Vref30+20
