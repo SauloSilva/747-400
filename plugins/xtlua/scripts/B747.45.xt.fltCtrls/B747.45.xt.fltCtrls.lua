@@ -89,6 +89,7 @@ B747DR_CAS_memo_status          = find_dataref("laminar/B747/CAS/memo_status")
 -- crazytimtimtim
 B747DR_IRS_dial_pos             = find_dataref("laminar/B747/flt_mgmt/iru/mode_sel_dial_pos")
 B747DR_ELEC_BATT                = find_dataref("sim/cockpit/electrical/battery_array_on")
+B747DR_engines_throttle_ind     = find_dataref("sim/cockpit2/engine/actuators/throttle_ratio")
 -- crazytimtimtim end
 --*************************************************************************************--
 --** 				               FIND CUSTOM COMMANDS              			     **--
@@ -121,7 +122,7 @@ simDR_gear_vert_defl            = find_dataref("sim/flightmodel2/gear/tire_verti
 simDR_gear_deploy_ratio         = find_dataref("sim/flightmodel2/gear/deploy_ratio")
 simDR_wing_flap1_deg            = find_dataref("sim/flightmodel2/wing/flap1_deg")
 B747DR_airspeed_flapsRef        = find_dataref("laminar/B747/airspeed/flapsRef")
-simDR_ind_airspeed_kts_pilot    = find_dataref("laminar/B747/gauges/indicators/airspeed_kts_pilot")
+simDR_ind_airspeed_kts_pilot    = find_dataref("sim/cockpit2/gauges/indicators/airspeed_kts_pilot")
 simDR_engine_N1_pct             = find_dataref("sim/cockpit2/engine/indicators/N1_percent")
 simDR_radio_alt_height_capt     = find_dataref("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot")
 
@@ -150,6 +151,8 @@ B747DR_EICAS1_flap_display_status = deferred_dataref("laminar/B747/flt_ctrls/fla
 B747DR_elevator_trim_mid_ind    = deferred_dataref("laminar/B747/flt_ctrls/elevator_trim/mid/indicator", "number")
 B747DR__gear_chocked           = deferred_dataref("laminar/B747/gear/chocked", "number")
 B747DR_init_fltctrls_CD         = deferred_dataref("laminar/B747/fltctrls/init_CD", "number")
+B747DR_engines_numClimb         = deferred_dataref("laminar/B747/flt_ctrls/numClimb", "number")
+B747DR_engines_numLeverClimb    = deferred_dataref("laminar/B747/flt_ctrls/numLeverClimb", "number")
 --*************************************************************************************--
 --** 				       CREATE READ-WRITE CUSTOM DATAREFS                         **--
 --*************************************************************************************--
@@ -806,10 +809,7 @@ end
 local slatsRetract=false
 
 function B747_landing_slats()
-   if (B747DR_speedbrake_lever <1.0 and (simDR_prop_mode[0] == 3 or simDR_prop_mode[1] == 3 or simDR_prop_mode[2] == 3 or simDR_prop_mode[3] == 3)) then
-        B747DR_speedbrake_lever=B747_set_animation_position(math.max(B747DR_speedbrake_lever,0.30), 1.0, 0.0, 1.0, 1.0)
-        print("apply speedbrake") 
-   elseif simDR_flap_ratio_control==0 and simDR_innerslats_ratio==0 and simDR_outerslats_ratio==0 then
+   if simDR_flap_ratio_control==0 and simDR_innerslats_ratio==0 and simDR_outerslats_ratio==0 then
         simDR_autoslats_ratio=0
    elseif (B747DR_speedbrake_lever >0.5 and (simDR_prop_mode[0] == 3 or simDR_prop_mode[1] == 3 or simDR_prop_mode[2] == 3 or simDR_prop_mode[3] == 3)) 
        or (slatsRetract==true and B747DR_speedbrake_lever >0.5) then	
@@ -888,17 +888,25 @@ function B747_animate_value(current_value, target, min, max, speed)
     end
 
 end
+
+function setNumClimb()
+    if simDR_engine_N1_pct[0] > 90.0 then B747DR_engines_numClimb = B747DR_engines_numClimb + 1 end
+    if simDR_engine_N1_pct[1] > 90.0 then B747DR_engines_numClimb = B747DR_engines_numClimb + 1 end
+    if simDR_engine_N1_pct[2] > 90.0 then B747DR_engines_numClimb = B747DR_engines_numClimb + 1 end
+    if simDR_engine_N1_pct[3] > 90.0 then B747DR_engines_numClimb = B747DR_engines_numClimb + 1 end
+
+    if B747DR_engines_throttle_ind[0] > 0.9 then B747DR_engines_numLeverClimb = B747DR_engines_numLeverClimb + 1 end
+    if B747DR_engines_throttle_ind[1] > 0.9 then B747DR_engines_numLeverClimb = B747DR_engines_numLeverClimb + 1 end
+    if B747DR_engines_throttle_ind[2] > 0.9 then B747DR_engines_numLeverClimb = B747DR_engines_numLeverClimb + 1 end
+    if B747DR_engines_throttle_ind[3] > 0.9 then B747DR_engines_numLeverClimb = B747DR_engines_numLeverClimb + 1 end
+end
+
 function B747_speedbrake_warn()
     --if math.abs(B747DR_efis_baro_capt_set_dial_pos - B747DR_efis_baro_fo_set_dial_pos) > 0.01 then
   --print("do warning speedbrake"..simDR_engine_N1_pct[1].." "..simDR_engine_N1_pct[2]) 
-  local numClimb=0;
-    if simDR_engine_N1_pct[0]>90.0 then numClimb=numClimb+1 end
-    if simDR_engine_N1_pct[1]>90.0 then numClimb=numClimb+1 end
-    if simDR_engine_N1_pct[2]>90.0 then numClimb=numClimb+1 end
-    if simDR_engine_N1_pct[3]>90.0 then numClimb=numClimb+1 end
   if B747DR_speedbrake_lever >0.125 
   and simDR_all_wheels_on_ground == 0 
-        and numClimb>=2 then  
+        and B747DR_engines_numClimb>=2 then  
         B747DR_CAS_warning_status[6] = 1
     end
     
@@ -906,8 +914,10 @@ end
 local last_simDR_Brake=simDR_parking_brake_ratio
 local last_B747DR_Brake=B747DR_parking_brake_ratio
 
-function B747_fltCtrols_EICAS_msg()
 
+
+function B747_fltCtrols_EICAS_msg()
+    
     -- FUEL CONTROL SWITCH STATUS
     local num_fuel_ctrl_sw_on = 0
     for i = 0, 3 do
@@ -991,17 +1001,13 @@ function B747_fltCtrols_EICAS_msg()
         last_simDR_Brake=simDR_parking_brake_ratio
         last_B747DR_Brake=B747DR_parking_brake_ratio
     end
-    local numClimb=0;
-    if simDR_engine_N1_pct[0]>90.0 then numClimb=numClimb+1 end
-    if simDR_engine_N1_pct[1]>90.0 then numClimb=numClimb+1 end
-    if simDR_engine_N1_pct[2]>90.0 then numClimb=numClimb+1 end
-    if simDR_engine_N1_pct[3]>90.0 then numClimb=numClimb+1 end
     
     if simDR_parking_brake_ratio > 0.99
         and simDR_ind_airspeed_kts_pilot < B747DR_airspeed_V1
         and num_fuel_ctrl_sw_on >= 3
         and simDR_engine_N1_pct[1] > 90.0
         and simDR_engine_N1_pct[2] > 90.0
+	    and simDR_all_wheels_on_ground == 1
     then
         B747DR_CAS_warning_status[5] = 1
     else
@@ -1009,7 +1015,7 @@ function B747_fltCtrols_EICAS_msg()
     end
 
     -- >CONFIG SPOILERS
-    
+
     if B747DR_speedbrake_lever >0.01 --< 0.99
         and simDR_all_wheels_on_ground == 1
         and simDR_ind_airspeed_kts_pilot < B747DR_airspeed_V1
@@ -1021,11 +1027,11 @@ function B747_fltCtrols_EICAS_msg()
     elseif B747DR_speedbrake_lever >0.125 
         and simDR_all_wheels_on_ground == 0  
         and num_fuel_ctrl_sw_on >= 3
-        and numClimb>=2 
+        and B747DR_engines_numLeverClimb>=2
 	and is_timer_scheduled(B747_speedbrake_warn) == false then
 	--print("warning speedbrake")  
-        run_after_time(B747_speedbrake_warn, 3.0)
-    elseif is_timer_scheduled(B747_speedbrake_warn) == false or numClimb<=1 then 
+        run_after_time(B747_speedbrake_warn, 1.0)
+    elseif is_timer_scheduled(B747_speedbrake_warn) == false or B747DR_engines_numClimb<=1 then 
         B747DR_CAS_warning_status[6] = 0
     end
 
@@ -1263,6 +1269,8 @@ if debug_fltctrls>0 then return end
        then
        run_after_time(B747_autobrake_resetOnGround, 1.0)
     end
+	
+    setNumClimb()
 	
 end
 
