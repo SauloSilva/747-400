@@ -336,8 +336,13 @@ end
 --** 				                 CUSTOM COMMANDS                			     **--
 --*************************************************************************************--
 function B747_connect_power_CMDhandler()
-  B747DR_elec_ext_pwr1_available = 1
-  B747DR_elec_ext_pwr2_available = 1
+    if B747DR_elec_ext_pwr1_available ==0 then
+        B747DR_elec_ext_pwr1_available = 1
+        B747DR_elec_ext_pwr2_available = 1
+    else
+        B747DR_elec_ext_pwr1_available = 0
+        B747DR_elec_ext_pwr2_available = 0
+    end
 end
 B747CMD_connect_power          = deferred_command("laminar/B747/electrical/connect_power", "Connect external power", B747_connect_power_CMDhandler)
 -- STANDBY POWER

@@ -3,7 +3,7 @@ by Matt726
 
 Available for: Default Laminar Research or mSparks 747 mod
 
-Version: v2.2
+Version: v2.0
 
 Email: mfahrenheit135@gmail.com
 
@@ -28,24 +28,7 @@ Email: mfahrenheit135@gmail.com
 ---
 ## CHANGELOG:
 
-### v2.2:
-
-- updated GE engines
-- updated rattle effects
-- updated autopilot disconnect sound
-- updated wind sound
-
-### v2.1:
-
-- updated engines
-- updated gear effects
-- updated ground effects
-- added cockpit rattle during takeoff and landing
-- updated auto spoiler
-- corrected for sound config
-- updated autobrake reset sounds
-
-### v2.0:
+### v2.0
 
 - added RR engines
 - fixed PW engines
@@ -55,7 +38,7 @@ Email: mfahrenheit135@gmail.com
 - updated wind
 - added some touchdown effects
 
-### v1.7:
+### v1.7
 
 - updated PW engines
 - fixed parking brake

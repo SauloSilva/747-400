@@ -224,7 +224,14 @@ end
 local last_THR_REF=0
 
 function B747_monitor_THR_REF_AT()
-    
+    --Marauder28
+    --Temporarily skip this functionality for GE engines and manage THR REF in B747.42.xt.EEC.lua
+    if string.match(simConfigData["data"].PLANE.engines, "CF6") and
+        (string.match(B747DR_ref_thr_limit_mode, "TO") or string.match(B747DR_ref_thr_limit_mode, "CLB")) then
+        return
+    end
+    --Marauder28
+
     if B747DR_ap_FMA_autothrottle_mode~=5 or B747DR_toggle_switch_position[29] ~= 1 then return end
     
     local n1_pct=math.max(simDR_engine_N1_pct[0],simDR_engine_N1_pct[1],simDR_engine_N1_pct[2],simDR_engine_N1_pct[3])

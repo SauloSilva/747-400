@@ -553,7 +553,7 @@ function defaultFMSData()
   reserves="***.*",
   costindex="****",
   crzcg="20.0",
-  thrustsel="26",
+  thrustsel=string.rep(" ", 2), --"26",  --Initally "blank" per FCOM FMC Preflight 2B - Thrust Limit Page
   thrustn1="**.*",
   toflap="**",
   v1="***",

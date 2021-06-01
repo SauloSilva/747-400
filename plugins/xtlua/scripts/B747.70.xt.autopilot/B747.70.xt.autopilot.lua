@@ -413,7 +413,37 @@ B747DR_ap_AFDS_status_annun_copilot            	= deferred_dataref("laminar/B747
     5 = NO AUTOLAND
 --]]
 
+--Marauder28
+B747DR_ref_thr_limit_mode		= deferred_dataref("laminar/B747/engines/ref_thr_limit_mode", "string")
+--[[
+    ["NONE"]
+    ["TO"]
+    ["TO 1"]
+    ["TO 2"]
+    ["D-TO"]
+    ["D-TO 1"]
+    ["D-TO 2"]
+    ["CLB"]
+    ["CLB 1"]
+    ["CLB 2"]
+    ["CRZ"]
+    ["CON"]
+    ["GA"]
+]]
 
+-- Holds all SimConfig options
+B747DR_simconfig_data				= deferred_dataref("laminar/B747/simconfig", "string")
+
+--Simulator Config Options
+simConfigData = {}
+
+--Marauder28
+if string.len(B747DR_simconfig_data) > 1 then
+	simConfigData["data"] = json.decode(B747DR_simconfig_data)
+end
+--Marauder28
+
+--Marauder28
 
 --*************************************************************************************--
 --** 				       READ-WRITE CUSTOM DATAREF HANDLERS     	        	     **--
@@ -615,10 +645,15 @@ function B747_ap_alt_hold_mode_CMDhandler(phase, duration)
 		  B747DR_engine_TOGA_mode = 0 
 		
 		end
+		
+		if simDR_autopilot_alt_hold_status==2 and B747DR_ap_vnav_state>0 then
+			print("dont leave alt hold")
+		else
+			simCMD_autopilot_alt_hold_mode:once()
+		end
 		B747DR_ap_thrust_mode=0
 		B747DR_ap_vnav_state=0
 		B747DR_ap_inVNAVdescent =0
-		simCMD_autopilot_alt_hold_mode:once()
 	elseif phase == 2 then
 		B747_ap_button_switch_position_target[7] = 0					
 	end
@@ -2760,6 +2795,13 @@ function after_physics()
     end
 	local fmsSTR=fmsJSON
   	local fms=json.decode(fmsSTR)
+
+--Marauder28
+if string.len(B747DR_simconfig_data) > 1 then
+	simConfigData["data"] = json.decode(B747DR_simconfig_data)
+end
+--Marauder28
+
 	B747_getCurrentWayPoint(fms)
 	B747_monitorAP(fms)
     B747_ap_fma()
