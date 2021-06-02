@@ -156,7 +156,7 @@ function set_loaded_configs()
 	elseif simConfigData["data"].SIM.baro_indicator == "HPA" then
 		B747DR_efis_baro_ref_capt_sel_dial_pos = 1
 	end
-	
+
 	if simConfigData["data"].SIM.baro_sync == "YES" then
 		B747DR_efis_baro_ref_fo_sel_dial_pos = B747DR_efis_baro_ref_capt_sel_dial_pos
 	end
@@ -207,7 +207,7 @@ function aircraft_simConfig()
 		B747DR_simconfig_data = io.read()
 		io.close(file)	
 		
-		set_loaded_configs()  --Apply loaded configs
+		run_after_time(set_loaded_configs, 3)  --Apply loaded configs.  Wait a few seconds to ensure they load correctly.
 	end
 end
 
