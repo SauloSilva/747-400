@@ -244,7 +244,7 @@ function B747_safety_EICAS_msg()
 
     -- PASS SIGNS ON
    
-    if simDR_cockpit2_no_smoking_switch == 1 and simDR_cockpit2_seat_belt_switch == 1 then
+    if  B747DR_sfty_no_smoke_sel_dial_pos == 3 and B747DR_sfty_seat_belts_sel_dial_pos == 3 then
         B747DR_CAS_memo_status[27] = 1
     else
         B747DR_CAS_memo_status[27] = 0
