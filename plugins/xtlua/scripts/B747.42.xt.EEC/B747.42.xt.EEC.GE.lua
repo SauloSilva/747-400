@@ -591,7 +591,7 @@ function GE(altitude_ft_in)
     N1_display[i] = string.format("%4.1f", N1_display_GE(altitude_ft_in, simDR_thrust_n[i], takeoff_TOGA_n1 / 100, i))  --use i as a reference for engine number
     --print("Takeoff TOGA = ", takeoff_TOGA_n1)
     --print("N1 Display[0] = ", N1_display[0])
-    B747DR_display_N1[i] = N1_display[i]
+    B747DR_display_N1[i] = tonumber(N1_display[i])
 	end
 
   if enable_logging then
