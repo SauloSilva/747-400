@@ -125,7 +125,9 @@ B747DR_init_hyd_CD              = deferred_dataref("laminar/B747/hyd/init_CD", "
 --** 				       CREATE READ-WRITE CUSTOM DATAREFS                         **--
 --*************************************************************************************--
 
-
+--crazytimtimtim
+B747DR_EICAS2_STAT_RF         = deferred_dataref("laminar/B747/EICAS2/stat/RF", "array[5]")
+B747DR_EICAS2_STAT_LO         = deferred_dataref("laminar/B747/EICAS2/stat/LO", "array[5]")
 
 --*************************************************************************************--
 --** 				             X-PLANE COMMAND HANDLERS               	    	 **--
@@ -364,28 +366,6 @@ function B747_hyd_EICAS_msg()
     else
         B747DR_CAS_caution_status[43] = 0
     end
-    
-    
-
-    -- >HYD QTY LOW 1 / >HYD QTY LOW 2
-    
-    if simDR_hyd_fluid_level < 0.10 then
-        B747DR_CAS_advisory_status[218] = 1
-        B747DR_CAS_advisory_status[219] = 1
-    else
-        B747DR_CAS_advisory_status[218] = 0
-        B747DR_CAS_advisory_status[219] = 0
-    end
-
-    -- >HYD QTY LOW 3 / >HYD QTY LOW 4
-    
-    if simDR_hyd_fluid_level2 < 0.10 then
-        B747DR_CAS_advisory_status[220] = 1
-        B747DR_CAS_advisory_status[221] = 1
-    else
-        B747DR_CAS_advisory_status[220] = 0
-        B747DR_CAS_advisory_status[221] = 0
-    end
 
     -- PARK BRAKE SET
     
@@ -395,9 +375,48 @@ function B747_hyd_EICAS_msg()
       B747DR_CAS_memo_status[26] = 0
     end
 
+    -- RF and LO warnings by crazytimtimtim
+    local B747_hyd_sys_res = {B747DR_hyd_sys_res_1, B747DR_hyd_sys_res_2, B747DR_hyd_sys_res_3, B747DR_hyd_sys_res_4}
+    for i = 1, 4 do
+        if B747_hyd_sys_res[i] <= 0.75 and B747_hyd_sys_res[i] >= 0.35 then
+            B747DR_EICAS2_STAT_RF[i] = 1
+            B747DR_EICAS2_STAT_LO[i] = 0
+        elseif B747_hyd_sys_res[i] < 0.35 then
+            B747DR_EICAS2_STAT_RF[i] = 0
+            B747DR_EICAS2_STAT_LO[i] = 1
+        else
+            B747DR_EICAS2_STAT_RF[i] = 0
+            B747DR_EICAS2_STAT_LO[i] = 0
+        end
+    end
+    
+    -- ">HYD QTY LOW" eicas warnings
+    if B747DR_EICAS2_STAT_LO[1] == 1 then
+        
+        B747DR_CAS_advisory_status[218] = 1
+    else
+        B747DR_CAS_advisory_status[218] = 0
+    end
+    
+    if B747DR_EICAS2_STAT_LO[2] == 1 then
+        B747DR_CAS_advisory_status[219] = 1
+    else
+        B747DR_CAS_advisory_status[219] = 0
+    end
+    
+    if B747DR_EICAS2_STAT_LO[3] == 1 then
+        B747DR_CAS_advisory_status[220] = 1
+    else
+        B747DR_CAS_advisory_status[220] = 0
+    end
+    
+    if B747DR_EICAS2_STAT_LO[4] == 1 then
+        B747DR_CAS_advisory_status[221] = 1
+    else
+        B747DR_CAS_advisory_status[221] = 0
+    end
+
 end
-
-
 
 
 
