@@ -90,11 +90,4 @@ B747CMD_ai_hyd_quick_start		= deferred_command("laminar/B747/ai/hyd_quick_start"
 
 --crazytimtimtim
 B747DR_EICAS2_STAT_RF         = deferred_dataref("laminar/B747/EICAS2/stat/RF", "array[5]")
---[[B747DR_EICAS2_STAT_RF_2         = deferred_dataref("laminar/B747/EICAS2/stat/RF2", "number")
-B747DR_EICAS2_STAT_RF_3         = deferred_dataref("laminar/B747/EICAS2/stat/RF3", "number")
-B747DR_EICAS2_STAT_RF_4         = deferred_dataref("laminar/B747/EICAS2/stat/RF4", "number")]]
-
 B747DR_EICAS2_STAT_LO         = deferred_dataref("laminar/B747/EICAS2/stat/LO", "array[5]")
---[[47DR_EICAS2_STAT_LO_2         = deferred_dataref("laminar/B747/EICAS2/stat/LO2", "number")
-B747DR_EICAS2_STAT_LO_3         = deferred_dataref("laminar/B747/EICAS2/stat/LO3", "number")
-B747DR_EICAS2_STAT_LO_4         = deferred_dataref("laminar/B747/EICAS2/stat/LO4", "number")]]
