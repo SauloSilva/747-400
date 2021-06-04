@@ -160,6 +160,7 @@ B747DR_engines_numLeverClimb    = deferred_dataref("laminar/B747/flt_ctrls/numLe
 ----- SPEEDBRAKE HANDLE -----------------------------------------------------------------
 B747DR_speedbrake_lever     	= deferred_dataref("laminar/B747/flt_ctrls/speedbrake_lever", "number")--uses change handler B747_speedbrake_lever_DRhandler in xlua
 B747DR_speedbrake_lever_detent  = deferred_dataref("laminar/B747/flt_ctrls/speedbrake_lever_detent", "number")
+B747DR_speedbrake_auto_ext      = deferred_dataref("B747DR/speedbrake/auto_extend", "number")
 
 
 
@@ -668,7 +669,11 @@ end
 function B747_speedbrake_sync()
 
 	if B747_last_sim_sb_handle_pos ~= simDR_speedbrake_ratio_control then					-- SIM DR HAS CHANGED
-		if B747_sb_manip_changed == 0 then													-- THE CHANGE IN SIM DR VALUE WAS INITIATED BY THE SIM, NOT A COMMAND OR MANIP 
+		if B747_sb_manip_changed == 0 then													-- THE CHANGE IN SIM DR VALUE WAS INITIATED BY THE SIM, NOT A COMMAND OR MANIP
+            B747DR_speedbrake_auto_ext = 1
+            if not is_timer_scheduled(autoSpeedbrakeDRrst) then
+                run_after_time(autoSpeedbrakeDRrst, 1)
+            end
 			if simDR_speedbrake_ratio_control == -0.5 then
 				B747DR_speedbrake_lever = 0.125	
 			elseif simDR_speedbrake_ratio_control > -0.5 and simDR_speedbrake_ratio_control <= 0.0 then	
@@ -689,6 +694,9 @@ function B747_speedbrake_sync()
 	
 end	
 
+function autoSpeedbrakeDRrst()
+    B747DR_speedbrake_auto_ext = 0
+end
 
 
 
