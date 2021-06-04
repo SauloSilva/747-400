@@ -893,11 +893,13 @@ function B747_animate_value(current_value, target, min, max, speed)
 end
 
 function setNumClimb()
+    B747DR_engines_numClimb = 0
     if simDR_engine_N1_pct[0] > 90.0 then B747DR_engines_numClimb = B747DR_engines_numClimb + 1 end
     if simDR_engine_N1_pct[1] > 90.0 then B747DR_engines_numClimb = B747DR_engines_numClimb + 1 end
     if simDR_engine_N1_pct[2] > 90.0 then B747DR_engines_numClimb = B747DR_engines_numClimb + 1 end
     if simDR_engine_N1_pct[3] > 90.0 then B747DR_engines_numClimb = B747DR_engines_numClimb + 1 end
 
+    B747DR_engines_numLeverClimb = 0
     if B747DR_engines_throttle_ind[0] > 0.9 then B747DR_engines_numLeverClimb = B747DR_engines_numLeverClimb + 1 end
     if B747DR_engines_throttle_ind[1] > 0.9 then B747DR_engines_numLeverClimb = B747DR_engines_numLeverClimb + 1 end
     if B747DR_engines_throttle_ind[2] > 0.9 then B747DR_engines_numLeverClimb = B747DR_engines_numLeverClimb + 1 end
