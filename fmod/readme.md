@@ -3,7 +3,7 @@ by Matt726
 
 Available for: Default Laminar Research or mSparks 747 mod
 
-Version: v2.0
+Version: v2.4
 
 Email: mfahrenheit135@gmail.com
 
@@ -27,6 +27,12 @@ Email: mfahrenheit135@gmail.com
 
 ---
 ## CHANGELOG:
+
+### v2.4:
+
+- updated engines (slightly)
+- updated some switches
+- updated reverse lever effects
 
 ### v2.0
 

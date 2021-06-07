@@ -7,7 +7,7 @@ ACF_SOUNDS
 #                                                                                    #
 #     B o e i n g  7 4 7 - 4 0 0                                                     #
 #                                                                                    #
-#     V e r s i o n : v2.3                                                           #
+#     V e r s i o n : v2.4                                                           #
 #                                                                                    #
 #     B y :  M a t t 7 2 6                                                           #
 #                                                                                    #
@@ -552,25 +552,26 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/Switches/throttle at
+    EVENT_NAME /Cockpit/Switches/throttle at1
     VEH_XYZ 0 4.7 -26.2
     EVENT_CMND_DOWN laminar/B747/autopilot/button_switch/autothrottle_disco_L
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/Switches/throttle at
+    EVENT_NAME /Cockpit/Switches/throttle at2
     VEH_XYZ 0 4.7 -26.2
     EVENT_CMND_UP laminar/B747/autopilot/button_switch/autothrottle_disco_L
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/Switches/throttle at
+    EVENT_NAME /Cockpit/Switches/throttle at1
     VEH_XYZ 0 4.7 -26.2
     EVENT_CMND_DOWN laminar/B747/autopilot/button_switch/autothrottle_disco_R
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/Switches/throttle at
+    EVENT_NAME /Cockpit/Switches/throttle at2
+
     VEH_XYZ 0 4.7 -26.2
     EVENT_CMND_UP laminar/B747/autopilot/button_switch/autothrottle_disco_R
 END_SOUND_ATTACHMENT
@@ -5618,26 +5619,44 @@ BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Avionics/avionics fans
     VEH_XYZ 0 4.9 -26
     EVENT_START_COND sim/cockpit2/electrical/bus_volts[0] == 28
-    EVENT_END_COND sim/cockpit2/electrical/bus_volts[0] != 28
+    EVENT_START_COND laminar/B747/air/equip_cooling/sel_dial_pos > 0
+EVENT_AUTO_END_FROM_START_COND
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Avionics/avionics fans shutdown
     VEH_XYZ 0 4.9 -26
     EVENT_START_COND sim/cockpit2/electrical/bus_volts[0] != 28
+    EVENT_START_COND laminar/B747/air/equip_cooling/sel_dial_pos > 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Avionics/avionics fans shutdown
+    VEH_XYZ 0 4.9 -26
+    EVENT_START_COND sim/cockpit2/electrical/bus_volts[0] == 28
+    EVENT_START_COND laminar/B747/air/equip_cooling/sel_dial_pos == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Avionics/avionics fans_new
     VEH_XYZ 0 4.9 -26
     EVENT_START_COND sim/cockpit2/electrical/bus_volts[0] == 28
-    EVENT_END_COND sim/cockpit2/electrical/bus_volts[0] != 28
+    EVENT_START_COND laminar/B747/air/equip_cooling/sel_dial_pos > 0
+EVENT_AUTO_END_FROM_START_COND
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Avionics/avionics fans_new_shutdown
     VEH_XYZ 0 4.9 -26
     EVENT_START_COND sim/cockpit2/electrical/bus_volts[0] != 28
+    EVENT_START_COND laminar/B747/air/equip_cooling/sel_dial_pos > 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Avionics/avionics fans_new_shutdown
+    VEH_XYZ 0 4.9 -26
+    EVENT_START_COND sim/cockpit2/electrical/bus_volts[0] == 28
+    EVENT_START_COND laminar/B747/air/equip_cooling/sel_dial_pos == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
