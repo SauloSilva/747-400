@@ -234,7 +234,7 @@ function B747_safety_EICAS_msg()
 
     -- NO SMOKING ON
     
-    if  B747DR_sfty_no_smoke_sel_dial_pos == 3 and B747DR_sfty_seat_belts_sel_dial_pos ~= 3 then
+    if  B747DR_sfty_no_smoke_sel_dial_pos == 2 and B747DR_sfty_seat_belts_sel_dial_pos ~= 2 then
         B747DR_CAS_memo_status[17] = 1
     else
         B747DR_CAS_memo_status[17] = 0
@@ -242,7 +242,7 @@ function B747_safety_EICAS_msg()
 
     -- PASS SIGNS ON
    
-    if  B747DR_sfty_no_smoke_sel_dial_pos == 3 and B747DR_sfty_seat_belts_sel_dial_pos == 3 then
+    if  B747DR_sfty_no_smoke_sel_dial_pos == 2 and B747DR_sfty_seat_belts_sel_dial_pos == 2 then
         B747DR_CAS_memo_status[27] = 1
     else
         B747DR_CAS_memo_status[27] = 0
@@ -250,7 +250,7 @@ function B747_safety_EICAS_msg()
 
     -- SEATBELTS ON
 	
-    if  B747DR_sfty_no_smoke_sel_dial_pos ~= 3 and B747DR_sfty_seat_belts_sel_dial_pos == 3 then
+    if  B747DR_sfty_no_smoke_sel_dial_pos ~= 2 and B747DR_sfty_seat_belts_sel_dial_pos == 2 then
         B747DR_CAS_memo_status[33] = 1
     else
         B747DR_CAS_memo_status[33] = 0
