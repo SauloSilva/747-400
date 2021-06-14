@@ -33,6 +33,9 @@ Email: mfahrenheit135@gmail.com
 - updated engines (slightly)
 - updated some switches
 - updated reverse lever effects
+- added PM callouts
+- fixed master caution sound on startup
+- updated MCP knob sounds
 
 ### v2.0
 

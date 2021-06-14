@@ -39,7 +39,7 @@ DISABLE_LEGACY_ALERT_SOUNDS
 BEGIN_SOUND_ATTACHMENT
 	SNAPSHOT_NAME /in_mute
 	EVENT_START_COND sim/graphics/view/view_is_external == 1
-	EVENT_START_END sim/graphics/view/view_is_external == 0
+	EVENT_END_COND sim/graphics/view/view_is_external == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -374,6 +374,30 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/ap_disco1
+    VEH_XYZ -0.55 4.8 -26.26
+        EVENT_CMND_DOWN laminar/B747/autopilot/button_switch/yoke_disengage_capt
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/ap_disco2
+    VEH_XYZ -0.55 4.8 -26.26
+        EVENT_CMND_UP laminar/B747/autopilot/button_switch/yoke_disengage_capt
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/ap_disco1
+    VEH_XYZ 0.55 4.8 -26.26
+        EVENT_CMND_DOWN laminar/B747/autopilot/button_switch/yoke_disengage_fo
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/ap_disco2
+    VEH_XYZ 0.55 4.8 -26.26
+        EVENT_CMND_UP laminar/B747/autopilot/button_switch/yoke_disengage_fo
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/stab_trim
     VEH_XYZ -0.55 4.8 -26.26
         EVENT_CMND_DOWN sim/flight_controls/pitch_trim_down
@@ -428,115 +452,147 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/Switches/throttle
+    EVENT_NAME /Cockpit/Switches/throttle1
     VEH_XYZ 0 4.7 -26.2
         EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[0] == 0
-        EVENT_START_COND sim/cockpit2/annunciators/reverser_on[0] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/Switches/throttle
+    EVENT_NAME /Cockpit/Switches/throttle2
     VEH_XYZ 0 4.7 -26.2
         EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[1] == 0
-        EVENT_START_COND sim/cockpit2/annunciators/reverser_on[1] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/Switches/throttle
+    EVENT_NAME /Cockpit/Switches/throttle3
     VEH_XYZ 0 4.7 -26.2
         EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[2] == 0
-        EVENT_START_COND sim/cockpit2/annunciators/reverser_on[2] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/Switches/throttle
+    EVENT_NAME /Cockpit/Switches/throttle4
     VEH_XYZ 0 4.7 -26.2
         EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[3] == 0
-        EVENT_START_COND sim/cockpit2/annunciators/reverser_on[3] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/Switches/throttle
+    EVENT_NAME /Cockpit/Switches/throttle1
     VEH_XYZ 0 4.7 -26.2
         EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[0] == 1
-        EVENT_START_COND sim/cockpit2/annunciators/reverser_on[0] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/Switches/throttle
+    EVENT_NAME /Cockpit/Switches/throttle2
     VEH_XYZ 0 4.7 -26.2
         EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[1] == 1
-        EVENT_START_COND sim/cockpit2/annunciators/reverser_on[1] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/Switches/throttle
+    EVENT_NAME /Cockpit/Switches/throttle3
     VEH_XYZ 0 4.7 -26.2
         EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[2] == 1
-        EVENT_START_COND sim/cockpit2/annunciators/reverser_on[2] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/Switches/throttle
+    EVENT_NAME /Cockpit/Switches/throttle4
     VEH_XYZ 0 4.7 -26.2
         EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[3] == 1
-        EVENT_START_COND sim/cockpit2/annunciators/reverser_on[3] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/reverse_deploy
     VEH_XYZ 0 4.7 -26.2
-	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[0] != 0
-        EVENT_START_COND sim/cockpit2/annunciators/reverser_on[0] == 1
+	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_beta_rev_ratio[0] < 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/reverse_deploy
     VEH_XYZ 0 4.7 -26.2
-	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[1] != 0
-        EVENT_START_COND sim/cockpit2/annunciators/reverser_on[1] == 1
+	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_beta_rev_ratio[1] < 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/reverse_deploy
     VEH_XYZ 0 4.7 -26.2
-	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[2] != 0
-        EVENT_START_COND sim/cockpit2/annunciators/reverser_on[2] == 1
+	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_beta_rev_ratio[2] < 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/reverse_deploy
     VEH_XYZ 0 4.7 -26.2
-	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[3] != 0
-        EVENT_START_COND sim/cockpit2/annunciators/reverser_on[3] == 1
+	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_beta_rev_ratio[3] < 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/Switches/reverse_stow
+    EVENT_NAME /Cockpit/Switches/reverse_stow1
     VEH_XYZ 0 4.7 -26.2
-	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[0] == 0
-        EVENT_START_COND sim/cockpit2/annunciators/reverser_on[0] == 1
+	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_beta_rev_ratio[0] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/Switches/reverse_stow
+    EVENT_NAME /Cockpit/Switches/reverse_stow2
     VEH_XYZ 0 4.7 -26.2
-	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[1] == 0
-        EVENT_START_COND sim/cockpit2/annunciators/reverser_on[1] == 1
+	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_beta_rev_ratio[1] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/Switches/reverse_stow
+    EVENT_NAME /Cockpit/Switches/reverse_stow3
     VEH_XYZ 0 4.7 -26.2
-	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[2] == 0
-        EVENT_START_COND sim/cockpit2/annunciators/reverser_on[2] == 1
+	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_beta_rev_ratio[2] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/Switches/reverse_stow
+    EVENT_NAME /Cockpit/Switches/reverse_stow4
     VEH_XYZ 0 4.7 -26.2
-	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[3] == 0
-        EVENT_START_COND sim/cockpit2/annunciators/reverser_on[3] == 1
+	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_beta_rev_ratio[3] == 0
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/rev_lock
+    VEH_XYZ 0 4.7 -26.2
+    EVENT_START_COND sim/flightmodel2/engines/thrust_reverser_deploy_ratio[0] > 0.98
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/rev_lock
+    VEH_XYZ 0 4.7 -26.2
+    EVENT_START_COND sim/flightmodel2/engines/thrust_reverser_deploy_ratio[1] > 0.98
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/rev_lock
+    VEH_XYZ 0 4.7 -26.2
+    EVENT_START_COND sim/flightmodel2/engines/thrust_reverser_deploy_ratio[2] > 0.98
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/rev_lock
+    VEH_XYZ 0 4.7 -26.2
+    EVENT_START_COND sim/flightmodel2/engines/thrust_reverser_deploy_ratio[3] > 0.98
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/rev_lock
+    VEH_XYZ 0 4.7 -26.2
+    EVENT_START_COND sim/flightmodel2/engines/thrust_reverser_deploy_ratio[0] < 0.8
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/rev_lock
+    VEH_XYZ 0 4.7 -26.2
+    EVENT_START_COND sim/flightmodel2/engines/thrust_reverser_deploy_ratio[1] < 0.8
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/rev_lock
+    VEH_XYZ 0 4.7 -26.2
+    EVENT_START_COND sim/flightmodel2/engines/thrust_reverser_deploy_ratio[2] < 0.8
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+    EVENT_NAME /Cockpit/Switches/rev_lock
+    VEH_XYZ 0 4.7 -26.2
+    EVENT_START_COND sim/flightmodel2/engines/thrust_reverser_deploy_ratio[3] < 0.8
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -1399,21 +1455,21 @@ BEGIN_SOUND_ATTACHMENT
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/Switches/rhotery
+    EVENT_NAME /Cockpit/Switches/MCP_speed
     VEH_XYZ 0 4.3 -26.5
     EVENT_START_COND ABS_DELTA=laminar/B747/cockpit2/autopilot/vvi_dial_fpm > 10
     EVENT_END_COND ABS_DELTA=laminar/B747/cockpit2/autopilot/vvi_dial_fpm < 5
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/Switches/rhotery
+    EVENT_NAME /Cockpit/Switches/MCP_ALT
     VEH_XYZ 0 4.3 -26.5
     EVENT_START_COND ABS_DELTA=laminar/B747/autopilot/heading/altitude_dial_ft > 10
     EVENT_END_COND ABS_DELTA=laminar/B747/autopilot/heading/altitude_dial_ft < 5
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/Switches/rhotery
+    EVENT_NAME /Cockpit/Switches/MCP_HDG
     VEH_XYZ 0 4.3 -26.5
     EVENT_START_COND ABS_DELTA=laminar/B747/autopilot/heading/degrees > 10
     EVENT_END_COND ABS_DELTA=laminar/B747/autopilot/heading/degrees < 5
@@ -1427,7 +1483,7 @@ END_SOUND_ATTACHMENT
 #END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Cockpit/Switches/rhotery
+    EVENT_NAME /Cockpit/Switches/MCP_speed
     VEH_XYZ 0 4.3 -26.5
     EVENT_START_COND ABS_DELTA=laminar/B747/autopilot/ias_dial_value > 10
     EVENT_END_COND ABS_DELTA=laminar/B747/autopilot/ias_dial_value < 5
@@ -5572,10 +5628,10 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Switches/rev_click
     VEH_XYZ 0 4.5 -26.5
-    EVENT_START_COND sim/flightmodel2/engines/thrust_reverser_deploy_ratio[0] > 98
-    EVENT_START_COND sim/flightmodel2/engines/thrust_reverser_deploy_ratio[1] > 98
-    EVENT_START_COND sim/flightmodel2/engines/thrust_reverser_deploy_ratio[2] > 98
-    EVENT_START_COND sim/flightmodel2/engines/thrust_reverser_deploy_ratio[3] > 98
+    EVENT_START_COND sim/flightmodel2/engines/thrust_reverser_deploy_ratio[0] > 0.98
+    EVENT_START_COND sim/flightmodel2/engines/thrust_reverser_deploy_ratio[1] > 0.98
+    EVENT_START_COND sim/flightmodel2/engines/thrust_reverser_deploy_ratio[2] > 0.98
+    EVENT_START_COND sim/flightmodel2/engines/thrust_reverser_deploy_ratio[3] > 0.98
 END_SOUND_ATTACHMENT
 
 ############################
@@ -5627,7 +5683,6 @@ BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Avionics/avionics fans shutdown
     VEH_XYZ 0 4.9 -26
     EVENT_START_COND sim/cockpit2/electrical/bus_volts[0] != 28
-    EVENT_START_COND laminar/B747/air/equip_cooling/sel_dial_pos > 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -5641,7 +5696,6 @@ BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Cockpit/Avionics/avionics fans_new
     VEH_XYZ 0 4.9 -26
     EVENT_START_COND sim/cockpit2/electrical/bus_volts[0] == 28
-    EVENT_START_COND laminar/B747/air/equip_cooling/sel_dial_pos > 0
 EVENT_AUTO_END_FROM_START_COND
 END_SOUND_ATTACHMENT
 
@@ -5768,24 +5822,18 @@ BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Warnings/master_caution
     VEH_XYZ 0 4.2 -26.8
     EVENT_START_COND laminar/B747/warning/master_caution > 0.5
-    EVENT_START_COND sim/cockpit2/electrical/bus_volts[0] > 24
-    EVENT_END_COND laminar/B747/warning/master_caution < 0.5
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Warnings/master_caution2
     VEH_XYZ 0 4.2 -26.8
     EVENT_START_COND laminar/B747/warning/master_caution > 0.5
-    EVENT_START_COND sim/cockpit2/electrical/bus_volts[0] > 24
-    EVENT_END_COND laminar/B747/warning/master_caution < 0.5
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Warnings/master_caution3
     VEH_XYZ 0 4.2 -26.8
     EVENT_START_COND laminar/B747/warning/master_caution > 0.5
-    EVENT_START_COND sim/cockpit2/electrical/bus_volts[0] > 24
-    EVENT_END_COND laminar/B747/warning/master_caution < 0.5
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
@@ -7473,4 +7521,65 @@ BEGIN_SOUND_ATTACHMENT
         VEH_XYZ 0 0 0
 	EVENT_START_COND sim/weather/precipitation_on_aircraft_ratio > 0
 	EVENT_START_END sim/weather/precipitation_on_aircraft_ratio == 0
+END_SOUND_ATTACHMENT
+
+####################
+#PM CALLOUTS
+####################
+
+BEGIN_SOUND_ATTACHMENT
+        EVENT_NAME /PM Callouts/10000
+        VEH_XYZ 0.5 5.2 -26
+	EVENT_START_COND sim/cockpit2/gauges/indicators/altitude_ft_copilot > 10000
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+        EVENT_NAME /PM Callouts/10000
+        VEH_XYZ 0.5 5.2 -26
+	EVENT_START_COND sim/cockpit2/gauges/indicators/altitude_ft_copilot < 10000
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+        EVENT_NAME /PM Callouts/80
+        VEH_XYZ 0.5 5.2 -26
+	EVENT_START_COND laminar/B747/gauges/indicators/airspeed_kts_copilot > 80
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+        EVENT_NAME /PM Callouts/80
+        VEH_XYZ 0.5 5.2 -26
+	EVENT_START_COND laminar/B747/gauges/indicators/airspeed_kts_copilot < 80
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+        EVENT_NAME /PM Callouts/POS
+        VEH_XYZ 0.5 5.2 -26
+	EVENT_START_COND sim/cockpit2/tcas/targets/position/vertical_speed > 400
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+        EVENT_NAME /PM Callouts/REV_NORM
+        VEH_XYZ 0.5 5.2 -26
+    EVENT_START_COND sim/flightmodel2/engines/thrust_reverser_deploy_ratio[0] > 0.98
+    EVENT_START_COND sim/flightmodel2/engines/thrust_reverser_deploy_ratio[1] > 0.98
+    EVENT_START_COND sim/flightmodel2/engines/thrust_reverser_deploy_ratio[2] > 0.98
+    EVENT_START_COND sim/flightmodel2/engines/thrust_reverser_deploy_ratio[3] > 0.98
+END_SOUND_ATTACHMENT
+
+#BEGIN_SOUND_ATTACHMENT
+#        EVENT_NAME /PM Callouts/POS
+#        VEH_XYZ 0.5 5.2 -26
+#	EVENT_START_COND
+#END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+        EVENT_NAME /PM Callouts/SPEEDBRAKE
+        VEH_XYZ 0.5 5.2 -26
+	EVENT_START_COND laminar/B747/flt_ctrls/speedbrake_lever == 1
+END_SOUND_ATTACHMENT
+
+BEGIN_SOUND_ATTACHMENT
+        EVENT_NAME /PM Callouts/V1
+        VEH_XYZ 0.5 5.2 -26
+    EVENT_START_COND laminar/B747/alerts/v1 == 1
 END_SOUND_ATTACHMENT
