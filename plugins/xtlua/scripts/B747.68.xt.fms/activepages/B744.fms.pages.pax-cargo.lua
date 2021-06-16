@@ -25,6 +25,7 @@ fmsPages["PAXCARGO"].getPage=function(self,pgNo,fmsID)
 		fmsFunctionsDefs["PAXCARGO"]["R1"]={"setdata","cargoFwd"}
 		fmsFunctionsDefs["PAXCARGO"]["R2"]={"setdata","cargoAft"}
 		fmsFunctionsDefs["PAXCARGO"]["R3"]={"setdata","cargoBulk"}
+		fmsFunctionsDefs["PAXCARGO"]["R5"]={"setdata","paxPayload"}
 
 		local weight_factor = 0
 		local paxA = 0
@@ -62,6 +63,7 @@ fmsPages["PAXCARGO"].getPage=function(self,pgNo,fmsID)
 			fmsFunctionsDefs["PAXCARGO"]["R1"]=nil
 			fmsFunctionsDefs["PAXCARGO"]["R2"]=nil
 			fmsFunctionsDefs["PAXCARGO"]["R3"]=nil
+			fmsFunctionsDefs["PAXCARGO"]["R5"]=nil
 		else
 			fmsFunctionsDefs["PAXCARGO"]["L1"]={"setdata","paxFirstClassA"}
 			fmsFunctionsDefs["PAXCARGO"]["L2"]={"setdata","paxBusClassB"}
@@ -71,6 +73,7 @@ fmsPages["PAXCARGO"].getPage=function(self,pgNo,fmsID)
 			fmsFunctionsDefs["PAXCARGO"]["R1"]={"setdata","cargoFwd"}
 			fmsFunctionsDefs["PAXCARGO"]["R2"]={"setdata","cargoAft"}
 			fmsFunctionsDefs["PAXCARGO"]["R3"]={"setdata","cargoBulk"}
+			fmsFunctionsDefs["PAXCARGO"]["R5"]={"setdata","paxPayload"}
 		end
 		
 	  return {
@@ -98,6 +101,7 @@ fmsPages["PAXCARGO"].getPage=function(self,pgNo,fmsID)
 		fmsFunctionsDefs["PAXCARGO"]["R1"]={"setdata","cargoFwd"}
 		fmsFunctionsDefs["PAXCARGO"]["R2"]={"setdata","cargoAft"}
 		fmsFunctionsDefs["PAXCARGO"]["R3"]={"setdata","cargoBulk"}
+		fmsFunctionsDefs["PAXCARGO"]["R5"]={"setdata","freightPayload"}
 
 		local weight_factor = 0
 		local freightZoneA = 0
@@ -135,6 +139,7 @@ fmsPages["PAXCARGO"].getPage=function(self,pgNo,fmsID)
 			fmsFunctionsDefs["PAXCARGO"]["R1"]=nil
 			fmsFunctionsDefs["PAXCARGO"]["R2"]=nil
 			fmsFunctionsDefs["PAXCARGO"]["R3"]=nil
+			fmsFunctionsDefs["PAXCARGO"]["R5"]=nil
 		else
 			fmsFunctionsDefs["PAXCARGO"]["L1"]={"setdata","freightZoneA"}
 			fmsFunctionsDefs["PAXCARGO"]["L2"]={"setdata","freightZoneB"}
@@ -144,6 +149,7 @@ fmsPages["PAXCARGO"].getPage=function(self,pgNo,fmsID)
 			fmsFunctionsDefs["PAXCARGO"]["R1"]={"setdata","cargoFwd"}
 			fmsFunctionsDefs["PAXCARGO"]["R2"]={"setdata","cargoAft"}
 			fmsFunctionsDefs["PAXCARGO"]["R3"]={"setdata","cargoBulk"}
+			fmsFunctionsDefs["PAXCARGO"]["R5"]={"setdata","freightPayload"}
 		end
 		
 	  return {
@@ -169,6 +175,7 @@ fmsPages["PAXCARGO"].getSmallPage=function(self,pgNo,fmsID)
 	if pgNo == 1 then
 		local weight_factor = 0
 		local cargo_total = 0
+		local pax_total = 0
 
 		if simConfigData["data"].SIM.weight_display_units == "LBS" then
 			weight_factor = simConfigData["data"].SIM.kgs_to_lbs
@@ -196,6 +203,7 @@ fmsPages["PAXCARGO"].getSmallPage=function(self,pgNo,fmsID)
 	  }
 	elseif pgNo == 2 then
 		local weight_factor = 0
+		local freight_total = 0
 		local cargo_total = 0
 
 		if simConfigData["data"].SIM.weight_display_units == "LBS" then
