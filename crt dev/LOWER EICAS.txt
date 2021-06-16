@@ -1,4 +1,3 @@
-
 GROUP LOWER EICAS POWER
   SHOW_GREATER 0.100000 laminar/B747/electrical/display_has_power[5]
 GROUP Lower EICAS
@@ -53,7 +52,7 @@ GROUP Lower EICAS
     
     HIDE
     GROUP N2
-      
+      SHOW_EQUAL 0 laminar/B747/engines/thrust_ref
       HIDE
       
       gen_rotary Background
@@ -715,6 +714,671 @@ GROUP Lower EICAS
         END_GROUP
       END_GROUP
     END_GROUP
+
+    GROUP N2 NO EPR
+      SHOW_EQUAL 1 laminar/B747/engines/thrust_ref
+      HIDE
+      
+      gen_rotary Background
+        POS 1591.500000 318.500000
+        IMAGE CRT Displays/EICAS Lower/N2_bgnd
+        DATAREF 
+        
+        HIDE
+        LIGHT_MODE GLASS_AUTO
+        LIGHT_RHEOSTAT 10
+        BUS_SRC 2
+        KEY_FRAME 0.000000 0.000000 1.000000
+        KEY_FRAME 1.000000 6.000000
+        DIGITS 1
+        ROTARY_TYPE NO_CLICK
+        CLICK_RADIUS 0.000000
+        CLICK_RADIUS_DY 0.000000
+        OFFSET 0.000000
+        STEP1 1.000000
+        STEP2 1.000000
+        CURSOR DEFAULT
+        CLICK_DX 0
+        CLICK_DY 0
+
+      GROUP Tape
+        
+        HIDE
+        GROUP Red
+          
+          HIDE
+          gen_tape Ind 4
+            POS 1747.500000 305.000000
+            IMAGE CRT Displays/EICAS Lower/N2_tapeR
+            DATAREF laminar/B747/engines/display_N2[3]
+            SHOW_GREATER 105.510002 laminar/B747/engines/display_N2[3]
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 -52.000000 1.000000
+            KEY_FRAME 113.000000 52.000000
+
+          gen_tape Ind 3
+            POS 1642.500000 305.000000
+            IMAGE CRT Displays/EICAS Lower/N2_tapeR
+            DATAREF laminar/B747/engines/display_N2[2]
+            SHOW_GREATER 105.510002 laminar/B747/engines/display_N2[2]
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 -52.000000 1.000000
+            KEY_FRAME 113.000000 52.000000
+
+          gen_tape Ind 2
+            POS 1537.500000 305.000000
+            IMAGE CRT Displays/EICAS Lower/N2_tapeR
+            DATAREF laminar/B747/engines/display_N2[1]
+            SHOW_GREATER 105.510002 laminar/B747/engines/display_N2[1]
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 -52.000000 1.000000
+            KEY_FRAME 113.000000 52.000000
+
+          gen_tape Ind 1
+            POS 1432.500000 305.000000
+            IMAGE CRT Displays/EICAS Lower/N2_tapeR
+            DATAREF laminar/B747/engines/display_N2[0]
+            SHOW_GREATER 105.510002 laminar/B747/engines/display_N2[0]
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 -52.000000 1.000000
+            KEY_FRAME 113.000000 52.000000
+
+        END_GROUP
+        GROUP White
+          
+          HIDE
+          gen_tape Ind 4
+            POS 1747.500000 305.000000
+            IMAGE CRT Displays/EICAS Lower/N2_tapeW
+            DATAREF laminar/B747/engines/display_N2[3]
+            SHOW_LESS 105.500000 laminar/B747/engines/display_N2[3]
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 -52.000000 1.000000
+            KEY_FRAME 113.000000 52.000000
+
+          gen_tape Ind 3
+            POS 1642.500000 305.000000
+            IMAGE CRT Displays/EICAS Lower/N2_tapeW
+            DATAREF laminar/B747/engines/display_N2[2]
+            SHOW_LESS 105.500000 laminar/B747/engines/display_N2[2]
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 -52.000000 1.000000
+            KEY_FRAME 113.000000 52.000000
+
+          gen_tape Ind 2
+            POS 1537.500000 305.000000
+            IMAGE CRT Displays/EICAS Lower/N2_tapeW
+            DATAREF laminar/B747/engines/display_N2[1]
+            SHOW_LESS 105.500000 laminar/B747/engines/display_N2[1]
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 -52.000000 1.000000
+            KEY_FRAME 113.000000 52.000000
+
+          gen_tape Ind 1
+            POS 1432.500000 305.000000
+            IMAGE CRT Displays/EICAS Lower/N2_tapeW
+            DATAREF laminar/B747/engines/display_N2[0]
+            SHOW_LESS 105.500000 laminar/B747/engines/display_N2x[0]
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 -52.000000 1.000000
+            KEY_FRAME 113.000000 52.000000
+
+        END_GROUP
+        GROUP Fuel-On Ind
+          
+          HIDE
+          gen_rotary Engine 4
+            POS 1747.500000 267.000000
+            IMAGE CRT Displays/EICAS Lower/fuel_on_ind
+            DATAREF 
+            SHOW_EQUAL 1.000000 laminar/B747/engines/fuel_on_indicator_status[3]
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 0.000000 1.000000
+            KEY_FRAME 1.000000 6.000000
+            DIGITS 1
+            ROTARY_TYPE NO_CLICK
+            CLICK_RADIUS 0.000000
+            CLICK_RADIUS_DY 0.000000
+            OFFSET 0.000000
+            STEP1 1.000000
+            STEP2 1.000000
+            CURSOR DEFAULT
+            CLICK_DX 0
+            CLICK_DY 0
+
+          gen_rotary Engine 3
+            POS 1642.500000 267.000000
+            IMAGE CRT Displays/EICAS Lower/fuel_on_ind
+            DATAREF 
+            SHOW_EQUAL 1.000000 laminar/B747/engines/fuel_on_indicator_status[2]
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 0.000000 1.000000
+            KEY_FRAME 1.000000 6.000000
+            DIGITS 1
+            ROTARY_TYPE NO_CLICK
+            CLICK_RADIUS 0.000000
+            CLICK_RADIUS_DY 0.000000
+            OFFSET 0.000000
+            STEP1 1.000000
+            STEP2 1.000000
+            CURSOR DEFAULT
+            CLICK_DX 0
+            CLICK_DY 0
+
+          gen_rotary Engine 2
+            POS 1537.500000 267.000000
+            IMAGE CRT Displays/EICAS Lower/fuel_on_ind
+            DATAREF 
+            SHOW_EQUAL 1.000000 laminar/B747/engines/fuel_on_indicator_status[1]
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 0.000000 1.000000
+            KEY_FRAME 1.000000 6.000000
+            DIGITS 1
+            ROTARY_TYPE NO_CLICK
+            CLICK_RADIUS 0.000000
+            CLICK_RADIUS_DY 0.000000
+            OFFSET 0.000000
+            STEP1 1.000000
+            STEP2 1.000000
+            CURSOR DEFAULT
+            CLICK_DX 0
+            CLICK_DY 0
+
+          gen_rotary Engine 1
+            POS 1432.500000 267.000000
+            IMAGE CRT Displays/EICAS Lower/fuel_on_ind
+            DATAREF 
+            SHOW_EQUAL 1.000000 laminar/B747/engines/fuel_on_indicator_status[0]
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 0.000000 1.000000
+            KEY_FRAME 1.000000 6.000000
+            DIGITS 1
+            ROTARY_TYPE NO_CLICK
+            CLICK_RADIUS 0.000000
+            CLICK_RADIUS_DY 0.000000
+            OFFSET 0.000000
+            STEP1 1.000000
+            STEP2 1.000000
+            CURSOR DEFAULT
+            CLICK_DX 0
+            CLICK_DY 0
+
+        END_GROUP
+        GROUP Limit Marker
+          
+          HIDE
+          gen_rotary red line 4
+            POS 1747.500000 350.000000
+            IMAGE CRT Displays/EICAS Upper/N1.EGT_redLine
+            DATAREF 
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 0.000000 1.000000
+            KEY_FRAME 1.000000 6.000000
+            DIGITS 1
+            ROTARY_TYPE NO_CLICK
+            CLICK_RADIUS 0.000000
+            CLICK_RADIUS_DY 0.000000
+            OFFSET 0.000000
+            STEP1 1.000000
+            STEP2 1.000000
+            CURSOR DEFAULT
+            CLICK_DX 0
+            CLICK_DY 0
+
+          gen_rotary red line 3
+            POS 1642.500000 350.000000
+            IMAGE CRT Displays/EICAS Upper/N1.EGT_redLine
+            DATAREF 
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 0.000000 1.000000
+            KEY_FRAME 1.000000 6.000000
+            DIGITS 1
+            ROTARY_TYPE NO_CLICK
+            CLICK_RADIUS 0.000000
+            CLICK_RADIUS_DY 0.000000
+            OFFSET 0.000000
+            STEP1 1.000000
+            STEP2 1.000000
+            CURSOR DEFAULT
+            CLICK_DX 0
+            CLICK_DY 0
+
+          gen_rotary red line 2
+            POS 1537.500000 350.000000
+            IMAGE CRT Displays/EICAS Upper/N1.EGT_redLine
+            DATAREF 
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 0.000000 1.000000
+            KEY_FRAME 1.000000 6.000000
+            DIGITS 1
+            ROTARY_TYPE NO_CLICK
+            CLICK_RADIUS 0.000000
+            CLICK_RADIUS_DY 0.000000
+            OFFSET 0.000000
+            STEP1 1.000000
+            STEP2 1.000000
+            CURSOR DEFAULT
+            CLICK_DX 0
+            CLICK_DY 0
+
+          gen_rotary red line 1
+            POS 1432.500000 350.000000
+            IMAGE CRT Displays/EICAS Upper/N1.EGT_redLine
+            DATAREF 
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 0.000000 1.000000
+            KEY_FRAME 1.000000 6.000000
+            DIGITS 1
+            ROTARY_TYPE NO_CLICK
+            CLICK_RADIUS 0.000000
+            CLICK_RADIUS_DY 0.000000
+            OFFSET 0.000000
+            STEP1 1.000000
+            STEP2 1.000000
+            CURSOR DEFAULT
+            CLICK_DX 0
+            CLICK_DY 0
+
+        END_GROUP
+      END_GROUP
+      GROUP LED
+        
+        HIDE
+        GROUP Red
+          
+          HIDE
+          gen_LED LED 1
+            POS 1428.000000 380.000000
+            IMAGE CRT Displays/LED/LED_3.30B.xxx##0.red
+            DATAREF laminar/B747/engines/display_N2[0]
+            SHOW_GREATER 105.510002 laminar/B747/engines/display_N2[0]
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 0.000000 1.000000
+            KEY_FRAME 100.000000 100.000000
+            DIGITS 4
+            DECIMALS 1
+            PERIOD_WIDTH 5
+            LED_ROWS 3
+
+          gen_LED LED 2
+            POS 1533.000000 380.000000
+            IMAGE CRT Displays/LED/LED_3.30B.xxx##0.red
+            DATAREF laminar/B747/engines/display_N2[1]
+            SHOW_GREATER 105.510002 laminar/B747/engines/display_N2[1]
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 0.000000 1.000000
+            KEY_FRAME 100.000000 100.000000
+            DIGITS 4
+            DECIMALS 1
+            PERIOD_WIDTH 5
+            LED_ROWS 3
+
+          gen_LED LED 3
+            POS 1638.000000 380.000000
+            IMAGE CRT Displays/LED/LED_3.30B.xxx##0.red
+            DATAREF laminar/B747/engines/display_N2[2]
+            SHOW_GREATER 105.510002 laminar/B747/engines/display_N2[2]
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 0.000000 1.000000
+            KEY_FRAME 100.000000 100.000000
+            DIGITS 4
+            DECIMALS 1
+            PERIOD_WIDTH 5
+            LED_ROWS 3
+
+          gen_LED LED 4
+            POS 1743.000000 380.000000
+            IMAGE CRT Displays/LED/LED_3.30B.xxx##0.red
+            DATAREF laminar/B747/engines/display_N2[3]
+            SHOW_GREATER 105.510002 laminar/B747/engines/display_N2[3]
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 0.000000 1.000000
+            KEY_FRAME 100.000000 100.000000
+            DIGITS 4
+            DECIMALS 1
+            PERIOD_WIDTH 5
+            LED_ROWS 3
+
+          gen_rotary Box 4
+            POS 1747.500000 380.000000
+            IMAGE CRT Displays/EICAS Lower/N2_box-red-no-epr
+            DATAREF 
+            SHOW_GREATER 105.510002 laminar/B747/engines/display_N2[3]
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 0.000000 1.000000
+            KEY_FRAME 1.000000 6.000000
+            DIGITS 1
+            ROTARY_TYPE NO_CLICK
+            CLICK_RADIUS 0.000000
+            CLICK_RADIUS_DY 0.000000
+            OFFSET 0.000000
+            STEP1 1.000000
+            STEP2 1.000000
+            CURSOR DEFAULT
+            CLICK_DX 0
+            CLICK_DY 0
+
+          gen_rotary Box 3
+            POS 1642.500000 380.000000
+            IMAGE CRT Displays/EICAS Lower/N2_box-red-no-epr
+            DATAREF 
+            SHOW_GREATER 105.510002 laminar/B747/engines/display_N2[2]
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 0.000000 1.000000
+            KEY_FRAME 1.000000 6.000000
+            DIGITS 1
+            ROTARY_TYPE NO_CLICK
+            CLICK_RADIUS 0.000000
+            CLICK_RADIUS_DY 0.000000
+            OFFSET 0.000000
+            STEP1 1.000000
+            STEP2 1.000000
+            CURSOR DEFAULT
+            CLICK_DX 0
+            CLICK_DY 0
+
+          gen_rotary Box 2
+            POS 1537.500000 380.000000
+            IMAGE CRT Displays/EICAS Lower/N2_box-red-no-epr
+            DATAREF 
+            SHOW_GREATER 105.510002 laminar/B747/engines/display_N2[1]
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 0.000000 1.000000
+            KEY_FRAME 1.000000 6.000000
+            DIGITS 1
+            ROTARY_TYPE NO_CLICK
+            CLICK_RADIUS 0.000000
+            CLICK_RADIUS_DY 0.000000
+            OFFSET 0.000000
+            STEP1 1.000000
+            STEP2 1.000000
+            CURSOR DEFAULT
+            CLICK_DX 0
+            CLICK_DY 0
+
+          gen_rotary Box 1
+            POS 1432.500000 380.000000
+            IMAGE CRT Displays/EICAS Lower/N2_box-red-no-epr
+            DATAREF 
+            SHOW_GREATER 105.510002 laminar/B747/engines/display_N2[0]
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 0.000000 1.000000
+            KEY_FRAME 1.000000 6.000000
+            DIGITS 1
+            ROTARY_TYPE NO_CLICK
+            CLICK_RADIUS 0.000000
+            CLICK_RADIUS_DY 0.000000
+            OFFSET 0.000000
+            STEP1 1.000000
+            STEP2 1.000000
+            CURSOR DEFAULT
+            CLICK_DX 0
+            CLICK_DY 0
+
+        END_GROUP
+        GROUP White
+          
+          HIDE
+          gen_LED LED 1
+            POS 1428.000000 380.000000
+            IMAGE CRT Displays/LED/LED_3.30B.xxx##0.white
+            DATAREF laminar/B747/engines/display_N2[0]
+            SHOW_LESS 105.500000 laminar/B747/engines/display_N2[0]
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 0.000000 1.000000
+            KEY_FRAME 100.000000 100.000000
+            DIGITS 4
+            DECIMALS 1
+            PERIOD_WIDTH 5
+            LED_ROWS 3
+
+          gen_LED LED 2
+            POS 1533.000000 380.000000
+            IMAGE CRT Displays/LED/LED_3.30B.xxx##0.white
+            DATAREF laminar/B747/engines/display_N2[1]
+            SHOW_LESS 105.500000 laminar/B747/engines/display_N2[1]
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 0.000000 1.000000
+            KEY_FRAME 100.000000 100.000000
+            DIGITS 4
+            DECIMALS 1
+            PERIOD_WIDTH 5
+            LED_ROWS 3
+
+          gen_LED LED 3
+            POS 1638.000000 380.000000
+            IMAGE CRT Displays/LED/LED_3.30B.xxx##0.white
+            DATAREF laminar/B747/engines/display_N2[2]
+            SHOW_LESS 105.500000 laminar/B747/engines/display_N2[2]
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 0.000000 1.000000
+            KEY_FRAME 100.000000 100.000000
+            DIGITS 4
+            DECIMALS 1
+            PERIOD_WIDTH 5
+            LED_ROWS 3
+
+          gen_LED LED 4
+            POS 1743.000000 380.000000
+            IMAGE CRT Displays/LED/LED_3.30B.xxx##0.white
+            DATAREF laminar/B747/engines/display_N2[3]
+            SHOW_LESS 105.500000 laminar/B747/engines/display_N2[3]
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 0.000000 1.000000
+            KEY_FRAME 100.000000 100.000000
+            DIGITS 4
+            DECIMALS 1
+            PERIOD_WIDTH 5
+            LED_ROWS 3
+
+          gen_rotary Box 4
+            POS 1747.500000 380.000000
+            IMAGE CRT Displays/EICAS Lower/N2_box-no-epr
+            DATAREF 
+            SHOW_LESS 105.500000 laminar/B747/engines/display_N2[3]
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 0.000000 1.000000
+            KEY_FRAME 1.000000 6.000000
+            DIGITS 1
+            ROTARY_TYPE NO_CLICK
+            CLICK_RADIUS 0.000000
+            CLICK_RADIUS_DY 0.000000
+            OFFSET 0.000000
+            STEP1 1.000000
+            STEP2 1.000000
+            CURSOR DEFAULT
+            CLICK_DX 0
+            CLICK_DY 0
+
+          gen_rotary Box 3
+            POS 1642.500000 380.000000
+            IMAGE CRT Displays/EICAS Lower/N2_box-no-epr
+            DATAREF 
+            SHOW_LESS 105.500000 laminar/B747/engines/display_N2[2]
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 0.000000 1.000000
+            KEY_FRAME 1.000000 6.000000
+            DIGITS 1
+            ROTARY_TYPE NO_CLICK
+            CLICK_RADIUS 0.000000
+            CLICK_RADIUS_DY 0.000000
+            OFFSET 0.000000
+            STEP1 1.000000
+            STEP2 1.000000
+            CURSOR DEFAULT
+            CLICK_DX 0
+            CLICK_DY 0
+
+          gen_rotary Box 2
+            POS 1537.500000 380.000000
+            IMAGE CRT Displays/EICAS Lower/N2_box-no-epr
+            DATAREF 
+            SHOW_LESS 105.500000 laminar/B747/engines/display_N2[1]
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 0.000000 1.000000
+            KEY_FRAME 1.000000 6.000000
+            DIGITS 1
+            ROTARY_TYPE NO_CLICK
+            CLICK_RADIUS 0.000000
+            CLICK_RADIUS_DY 0.000000
+            OFFSET 0.000000
+            STEP1 1.000000
+            STEP2 1.000000
+            CURSOR DEFAULT
+            CLICK_DX 0
+            CLICK_DY 0
+
+          gen_rotary Box 1
+            POS 1432.500000 380.000000
+            IMAGE CRT Displays/EICAS Lower/N2_box-no-epr
+            DATAREF 
+            SHOW_LESS 105.500000 laminar/B747/engines/display_N2[0]
+            
+            HIDE
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 0.000000 1.000000
+            KEY_FRAME 1.000000 6.000000
+            DIGITS 1
+            ROTARY_TYPE NO_CLICK
+            CLICK_RADIUS 0.000000
+            CLICK_RADIUS_DY 0.000000
+            OFFSET 0.000000
+            STEP1 1.000000
+            STEP2 1.000000
+            CURSOR DEFAULT
+            CLICK_DX 0
+            CLICK_DY 0
+
+        END_GROUP
+      END_GROUP
+    END_GROUP
+
     GROUP FF
       
       HIDE
