@@ -37,9 +37,10 @@ end
 --** 				        CREATE READ-WRITE CUSTOM DATAREFS                        **--
 --*************************************************************************************--
 --THRUST CALC
---B747DR_packs 			= deferred_dataref("laminar/B747/air/pack_ctrl/sel_dial_pos", "array[3]")
 B747DR_TO_throttle		= deferred_dataref("laminar/B747/engines/thrustref_throttle", "number")
 B747DR_display_N1		= deferred_dataref("laminar/B747/engines/display_N1", "array[4]")
+B747DR_display_N2		= deferred_dataref("laminar/B747/engines/display_N2", "array[4]")
 B747DR_display_N1_ref	= deferred_dataref("laminar/B747/engines/display_N1_ref", "array[4]")
 B747DR_display_N1_max	= deferred_dataref("laminar/B747/engines/display_N1_max", "array[4]")
 B747DR_display_EPR		= deferred_dataref("laminar/B747/engines/display_EPR", "array[4]")
+B747DR_display_GE_EGT	= deferred_dataref("laminar/B747/engines/display_GE_EGT", "array[4]")

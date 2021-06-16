@@ -99,7 +99,8 @@ end
 ** 				              FIND X-PLANE DATAREFS              		    	   **
 *************************************************************************************
 ]]
-simDR_EEC_button			= find_dataref("laminar/B747/button_switch/position")  --array positions 7,8,9,10
+--simDR_EEC_button			= find_dataref("laminar/B747/button_switch/position")  --array positions 7,8,9,10
+simDRTime					= find_dataref("sim/time/total_running_time_sec")
 simDR_onGround				= find_dataref("sim/flightmodel/failures/onground_any")
 simDR_altitude				= find_dataref("sim/cockpit2/gauges/indicators/altitude_ft_pilot")
 simDR_temperature			= find_dataref("sim/cockpit2/temperature/outside_air_temp_degc")
@@ -107,11 +108,8 @@ simDR_TAT					= find_dataref("sim/cockpit2/temperature/outside_air_LE_temp_degc"
 simDR_EPR					= find_dataref("sim/flightmodel/engine/ENGN_EPR")
 simDR_EPR_target_bug		= find_dataref("sim/cockpit2/engine/actuators/EPR_target_bug")
 simDR_N1					= find_dataref("sim/flightmodel/engine/ENGN_N1_")
---simDR_N1_rpm				= find_dataref("sim/cockpit2/engine/indicators/engine_speed_rpm")
 simDR_N1_target_bug			= find_dataref("sim/cockpit2/engine/actuators/N1_target_bug")
 simDR_throttle_ratio		= find_dataref("sim/cockpit2/engine/actuators/throttle_ratio")
---simDR_throttle_ratio_all	= find_dataref("sim/cockpit2/engine/actuators/throttle_ratio_all")
---simDR_throttle_used_ratio	= find_dataref("sim/flightmodel2/engines/throttle_used_ratio")
 simDR_override_throttles	= find_dataref("sim/operation/override/override_throttles")
 simDR_engn_thro				= find_dataref("sim/flightmodel/engine/ENGN_thro")
 simDR_engn_thro_use			= find_dataref("sim/flightmodel/engine/ENGN_thro_use")
@@ -120,20 +118,19 @@ simDR_acf_weight_total_kg   = find_dataref("sim/flightmodel/weight/m_total")
 simDR_ias_pilot				= find_dataref("sim/cockpit2/gauges/indicators/airspeed_kts_pilot")
 simDR_vvi_fpm_pilot        	= find_dataref("sim/cockpit2/gauges/indicators/vvi_fpm_pilot")
 simDR_tas_pilot				= find_dataref("sim/cockpit2/gauges/indicators/true_airspeed_kts_pilot")
---simDR_flap_Cd				= find_dataref("sim/aircraft/controls/acf_flap_cd")
---simDR_flap_Cl				= find_dataref("sim/aircraft/controls/acf_flap_cl")
 simDR_flap_ratio			= find_dataref("sim/cockpit2/controls/flap_ratio")
 simDR_flap_handle_ratio		= find_dataref("sim/cockpit2/controls/flap_handle_deploy_ratio")
 simDR_thrust_max			= find_dataref("sim/aircraft/engine/acf_tmax")
 simDR_thrust_n				= find_dataref("sim/cockpit2/engine/indicators/thrust_dry_n")
 simDR_engine_anti_ice		= find_dataref("laminar/B747/antiice/nacelle/valve_pos")
---simDR_engine_sigma			= find_dataref("sim/flightmodel/engine/ENGN_sigma")
 simDR_autopilot_gs_status	= find_dataref("sim/cockpit2/autopilot/glideslope_status")
 simDR_acceleration_kts_sec_pilot    = find_dataref("sim/cockpit2/gauges/indicators/airspeed_acceleration_kts_sec_pilot")
---simDR_override_engn_ff		= find_dataref("sim/operation/override/override_fuel_flow")
---simDR_engn_ff_kgs			= find_dataref("sim/flightmodel/engine/ENGN_FF_")
 simDR_engn_EGT_c			= find_dataref("sim/flightmodel/engine/ENGN_EGT_c")
 simDR_engine_high_idle_ratio	= find_dataref("sim/aircraft2/engine/high_idle_ratio")
+simDR_rpm					= find_dataref("sim/cockpit2/engine/indicators/engine_speed_rpm")
+simDR_reverser_on			= find_dataref("sim/cockpit2/annunciators/reverser_on")
+simDR_reverser_deploy_ratio = find_dataref("sim/flightmodel2/engines/thrust_reverser_deploy_ratio")
+simDR_engine_running		= find_dataref("sim/flightmodel/engine/ENGN_running")
 
 --[[
 *************************************************************************************
@@ -148,7 +145,14 @@ simCMD_ThrottleUp			= find_command("sim/engines/throttle_up")
 ** 				              CUSTOM READ/WRITE DATAREFS           		    	   **
 *************************************************************************************
 ]]
-B747DR_packs 					= deferred_dataref("laminar/B747/air/pack_ctrl/sel_dial_pos", "array[3]")
+B747DR_button_switch_position	= deferred_dataref("laminar/B747/button_switch/position")
+--[[
+	7 - 10	= EEC buttons
+	44		= CONT button
+]]
+--array positions 7,8,9,10
+B747DR_pack_ctrl_sel_pos		= deferred_dataref("laminar/B747/air/pack_ctrl/sel_dial_pos", "array[3]")
+B747DR_nacelle_ai_valve_pos     = deferred_dataref("laminar/B747/antiice/nacelle/valve_pos", "array[4)")
 B747DR_TO_throttle				= deferred_dataref("laminar/B747/engines/thrustref_throttle", "number")
 B747DR_ap_FMA_autothrottle_mode	= deferred_dataref("laminar/B747/autopilot/FMA/autothrottle_mode", "number")
 --[[
@@ -161,7 +165,6 @@ B747DR_ap_FMA_autothrottle_mode	= deferred_dataref("laminar/B747/autopilot/FMA/a
 --]]
 B747DR_ap_autothrottle_armed	= deferred_dataref("laminar/B747/autothrottle/armed", "number")
 B747DR_engine_TOGA_mode			= deferred_dataref("laminar/B747/engines/TOGA_mode", "number")
---B747DR_ap_FMA_autothrottle_mode_box_status  = deferred_dataref("laminar/B747/autopilot/FMA/autothrottle/mode_box_status", "number")
 B747DR_ref_thr_limit_mode		= deferred_dataref("laminar/B747/engines/ref_thr_limit_mode", "string")
 --[[
     ["NONE"]
@@ -195,7 +198,9 @@ B747DR_ap_ias_bug_value            	= deferred_dataref("laminar/B747/autopilot/i
 B747DR_display_N1					= deferred_dataref("laminar/B747/engines/display_N1", "array[4]")
 B747DR_display_N1_ref				= deferred_dataref("laminar/B747/engines/display_N1_ref", "array[4]")
 B747DR_display_N1_max				= deferred_dataref("laminar/B747/engines/display_N1_max", "array[4]")
+B747DR_display_N2					= deferred_dataref("laminar/B747/engines/display_N2", "array[4]")
 B747DR_display_EPR					= deferred_dataref("laminar/B747/engines/display_EPR", "array[4]")
+B747DR_display_GE_EGT				= deferred_dataref("laminar/B747/engines/display_GE_EGT", "array[4]")
 B747DR_FMSdata						= deferred_dataref("laminar/B747/fms/data", "string")
 B747DR_radio_altitude				= deferred_dataref("laminar/B747/efis/radio_altitude")
 B747DR_altitude_dial				= deferred_dataref("laminar/B747/autopilot/heading/altitude_dial_ft")
@@ -395,8 +400,6 @@ end
 
 local previous_altitude = 0
 function throttle_management()
-	--local fms_data = {}
-	--local fmc_alt = 0
 
 	--Get FMC data for CRZ ALT
 	if string.len(B747DR_FMSdata) > 2 then
@@ -406,10 +409,10 @@ function throttle_management()
 	end
 
 	--Disconnect A/T if any of the EEC buttons move from NORMAL to ALTERNATE
-	if (simDR_EEC_button[7] == 0 or simDR_EEC_button[8] == 0 or simDR_EEC_button[9] == 0 or simDR_EEC_button[10] == 0) and EEC_status == 0 then
+	if (B747DR_button_switch_position[7] == 0 or B747DR_button_switch_position[8] == 0 or B747DR_button_switch_position[9] == 0 or B747DR_button_switch_position[10] == 0) and EEC_status == 0 then
 		simCMD_autopilot_AT_off:once()
 		EEC_status = 1
-	elseif (simDR_EEC_button[7] == 1 and simDR_EEC_button[8] == 1 and simDR_EEC_button[9] == 1 and simDR_EEC_button[10] == 1) then
+	elseif (B747DR_button_switch_position[7] == 1 and B747DR_button_switch_position[8] == 1 and B747DR_button_switch_position[9] == 1 and B747DR_button_switch_position[10] == 1) then
 		EEC_status = 0
 	end
 	
@@ -428,71 +431,77 @@ function throttle_management()
 	end
 
 	--Set EICAS Thrust Limit Mode
-	--Take-off
-	if B747DR_engine_TOGA_mode > 0 and B747DR_engine_TOGA_mode <= 1 then
-		B747DR_ref_thr_limit_mode = "TO"
-
-		--Initially set previous_altitude to the FMC cruise altitude
-		previous_altitude = fmc_alt
-
-		--Spool-up the engines for TO
-		if B747DR_display_N1[0] < B747DR_display_N1_ref[0] or B747DR_display_N1[1] < B747DR_display_N1_ref[1]
-			or B747DR_display_N1[2] < B747DR_display_N1_ref[2] or B747DR_display_N1[3] < B747DR_display_N1_ref[3] then
-			print("TOGA Engaged - Waiting for spool-up.....")
-			simCMD_ThrottleUp:once()
-			return
-		end
-	--Set Initial Climb based on Flap position (5 degrees) if occurs prior to FMC thrust reduction point
-	elseif simDR_onGround ~= 1 and ((simDR_flap_ratio < 0.34 and simDR_flap_handle_ratio > simDR_flap_ratio) or (string.match(B747DR_ref_thr_limit_mode, "TO") and B747DR_radio_altitude >= 1500 )) then
-		B747DR_ref_thr_limit_mode = "CLB"
-	--Cruise
-	elseif simDR_onGround ~= 1 and simDR_altitude >= (fmc_alt - 250) and fmc_alt > 0 then
-		B747DR_ref_thr_limit_mode = "CRZ"
-		--Reset local previous_altitude holder
-		if B747DR_altitude_dial < previous_altitude then
-			previous_altitude = B747DR_altitude_dial
-		else
-			previous_altitude = fmc_alt
-		end
-
-		if enable_logging then
-			print("Previous ALT = ", previous_altitude)
-		end
-	--Go-Around
-	elseif simDR_onGround ~= 1 and (simDR_flap_ratio > 0.0 and simDR_flap_handle_ratio < simDR_flap_ratio) or simDR_autopilot_gs_status == 2 then
-		B747DR_ref_thr_limit_mode = "GA"
-	--Climb
-	elseif simDR_onGround ~= 1 and (previous_altitude < B747DR_altitude_dial) and B747DR_ap_FMA_autothrottle_mode == 5 then
-		B747DR_ref_thr_limit_mode = "CLB"
-	end
-
-	--Remove De-rate above 15000 feet
-	if B747DR_clbderate > 0 and simDR_altitude >= 15000 then
-		B747DR_clbderate = 0
-	end
-	
-	--Set Specific sub-mode for TO or CLB
-	if string.match(B747DR_ref_thr_limit_mode, "TO") then
-		if B747DR_toderate == 0 then
+	if B747DR_ap_autothrottle_armed == 1 then
+		--Take-off
+		if B747DR_engine_TOGA_mode > 0 and B747DR_engine_TOGA_mode <= 1 then
 			B747DR_ref_thr_limit_mode = "TO"
-		elseif B747DR_toderate == 1 then
-			B747DR_ref_thr_limit_mode = "TO 1"
-		elseif B747DR_toderate == 2 then
-			B747DR_ref_thr_limit_mode = "TO 2"
-		end
-	elseif string.match(B747DR_ref_thr_limit_mode, "CLB") then
-		if B747DR_clbderate == 0 then
+
+			--Initially set previous_altitude to the FMC cruise altitude
+			previous_altitude = fmc_alt
+
+			--Spool-up the engines for TO
+			if B747DR_display_N1[0] < B747DR_display_N1_ref[0] or B747DR_display_N1[1] < B747DR_display_N1_ref[1]
+				or B747DR_display_N1[2] < B747DR_display_N1_ref[2] or B747DR_display_N1[3] < B747DR_display_N1_ref[3] then
+				print("TOGA Engaged - Waiting for spool-up.....")
+				simCMD_ThrottleUp:once()
+				return
+			end
+		--Set Initial Climb based on Flap position (5 degrees) if occurs prior to FMC thrust reduction point
+		elseif simDR_onGround ~= 1 and ((simDR_flap_ratio < 0.34 and simDR_flap_handle_ratio > simDR_flap_ratio) or (string.match(B747DR_ref_thr_limit_mode, "TO") and B747DR_radio_altitude >= 1500 )) then
 			B747DR_ref_thr_limit_mode = "CLB"
-		elseif B747DR_clbderate == 1 then
-			B747DR_ref_thr_limit_mode = "CLB 1"
-		elseif B747DR_clbderate == 2 then
-			B747DR_ref_thr_limit_mode = "CLB 2"
+		--Cruise
+		elseif simDR_onGround ~= 1 and simDR_altitude >= (fmc_alt - 250) and fmc_alt > 0 then
+			B747DR_ref_thr_limit_mode = "CRZ"
+			--Reset local previous_altitude holder
+			if B747DR_altitude_dial < previous_altitude then
+				previous_altitude = B747DR_altitude_dial
+			else
+				previous_altitude = fmc_alt
+			end
+
+			if enable_logging then
+				print("Previous ALT = ", previous_altitude)
+			end
+		--Go-Around
+		elseif simDR_onGround ~= 1 and (simDR_flap_ratio > 0.0 and simDR_flap_handle_ratio < simDR_flap_ratio) or simDR_autopilot_gs_status == 2 then
+			B747DR_ref_thr_limit_mode = "GA"
+		--Climb
+		elseif simDR_onGround ~= 1 and (previous_altitude < B747DR_altitude_dial) and B747DR_ap_FMA_autothrottle_mode == 5 then
+			B747DR_ref_thr_limit_mode = "CLB"
+		--After landing and reversers stowed reset mode to TO
+		elseif simDR_onGround == 1 and B747DR_ref_thr_limit_mode == "GA"
+			and math.max(simDR_reverser_on[0], simDR_reverser_on[1], simDR_reverser_on[2], simDR_reverser_on[3]) == 0
+			and math.max(simDR_reverser_deploy_ratio[0], simDR_reverser_deploy_ratio[1], simDR_reverser_deploy_ratio[2], simDR_reverser_deploy_ratio[3]) > 0 then
+				B747DR_ref_thr_limit_mode = "TO"
+		end
+
+		--Remove De-rate above 15000 feet
+		if B747DR_clbderate > 0 and simDR_altitude >= 15000 then
+			B747DR_clbderate = 0
+		end
+		
+		--Set Specific sub-mode for TO or CLB
+		if string.match(B747DR_ref_thr_limit_mode, "TO") then
+			if B747DR_toderate == 0 then
+				B747DR_ref_thr_limit_mode = "TO"
+			elseif B747DR_toderate == 1 then
+				B747DR_ref_thr_limit_mode = "TO 1"
+			elseif B747DR_toderate == 2 then
+				B747DR_ref_thr_limit_mode = "TO 2"
+			end
+		elseif string.match(B747DR_ref_thr_limit_mode, "CLB") then
+			if B747DR_clbderate == 0 then
+				B747DR_ref_thr_limit_mode = "CLB"
+			elseif B747DR_clbderate == 1 then
+				B747DR_ref_thr_limit_mode = "CLB 1"
+			elseif B747DR_clbderate == 2 then
+				B747DR_ref_thr_limit_mode = "CLB 2"
+			end
 		end
 	end
 
 
 	--Determine FMA Mode
-	--TO (TOGA)
 	--THR REF Mode
 	if B747DR_ap_autothrottle_armed == 1 and B747DR_ap_FMA_autothrottle_mode == 5 and EEC_status == 0 then
 		--Take control of the throttles from the user and manage via Thrust Ref targets
