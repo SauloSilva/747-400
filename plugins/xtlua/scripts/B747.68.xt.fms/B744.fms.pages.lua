@@ -687,6 +687,7 @@ function calc_pax_cargo()
 	local freight_weightB		= 0
 	local freight_weightC		= 0
 	local freight_weightD		= 0
+	local freight_weightE		= 0
 	local freight_weight_tot	= 0
 
 	pax_total		= 	tonumber(fmsModules["data"].paxFirstClassA) + tonumber(fmsModules["data"].paxBusClassB)
@@ -1382,6 +1383,80 @@ function fmsFunctions.setdata(fmsO,value)
 	else
 		fmsO["notify"] = "INVALID ENTRY"
 	end
+  elseif value == "paxPayload" then
+	if string.match(fmsO["scratchpad"], "%d") then
+		local weight_factor = 1
+
+		if simConfigData["data"].SIM.weight_display_units == "LBS" then
+			weight_factor = simConfigData["data"].SIM.kgs_to_lbs
+		else
+			weight_factor = 1
+		end
+
+		local pax_weight = math.abs(tonumber(fmsO["scratchpad"])) * 1000
+		local pax = 0
+		local paxA = 0
+		local paxB = 0
+		local paxC = 0
+		local paxD = 0
+		local paxE = 0
+	
+		pax = math.ceil(pax_weight / (simConfigData["data"].SIM.std_pax_weight * weight_factor))
+		if pax > 416 then
+			pax = 416
+		end
+
+		setFMSData("paxFirstClassA", "")
+		setFMSData("paxBusClassB", "")
+		setFMSData("paxEconClassC", "")
+		setFMSData("paxEconClassD", "")
+		setFMSData("paxEconClassE", "")
+		setFMSData("freightZoneA", "")
+		setFMSData("freightZoneB", "")
+		setFMSData("freightZoneC", "")
+		setFMSData("freightZoneD", "")
+		setFMSData("freightZoneE", "")
+
+		repeat
+			if pax > 0 and paxA < 23 then
+				paxA = paxA + 1
+				pax = pax - 1
+			end
+			if pax > 0 and paxB < 80 then
+				paxB = paxB + 1
+				pax = pax - 1
+			end
+			if pax > 0 and paxC < 77 then
+				paxC = paxC + 1
+				pax = pax - 1
+			end
+			if pax > 0 and paxD < 104 then
+				paxD = paxD + 1
+				pax = pax - 1
+			end
+			if pax > 0 and paxE < 132 then
+				paxE = paxE + 1
+				pax = pax - 1
+			end
+		until (pax == 0)
+		
+		fmsModules["data"].paxFirstClassA = string.format("%2d", paxA)
+		fmsModules["data"].paxBusClassB = string.format("%2d", paxB)
+		fmsModules["data"].paxEconClassC = string.format("%2d", paxC)
+		fmsModules["data"].paxEconClassD = string.format("%3d", paxD)
+		fmsModules["data"].paxEconClassE = string.format("%3d", paxE)
+
+		calc_pax_cargo()
+	elseif string.len(fmsO["scratchpad"]) < 1 then
+		setFMSData("paxFirstClassA", "0")
+		setFMSData("paxBusClassB", "0")
+		setFMSData("paxEconClassC", "0")
+		setFMSData("paxEconClassD", "0")
+		setFMSData("paxEconClassE", "0")
+		calc_pax_cargo()
+	else
+		fmsO["notify"] = "INVALID ENTRY"
+	end
   elseif value == "cargoFwd" then
 	local weight_factor = 1
 
@@ -1546,8 +1621,8 @@ function fmsFunctions.setdata(fmsO,value)
 		local zoneD = 0
 		local zoneE = 0
 		
-		if x > (112890 * weight_factor) then  --112,900 KGS is the MAX Revenue Payload.  112,890 KGS is the defined average pallet weight (3763) * 30 pallets
-			x = 112890 * weight_factor
+		if x > 112890 then  --112,900 KGS is the MAX Revenue Payload.  112,890 KGS is the defined average pallet weight (3763) * 30 pallets
+			x = 112890
 		end
 		repeat
 			if x > 0 and zoneA < 11289 then
@@ -1754,6 +1829,74 @@ function fmsFunctions.setdata(fmsO,value)
 		end
 		
 		setFMSData(value, string.format("%4d", fwt))
+		calc_pax_cargo()
+	else
+		fmsO["notify"] = "INVALID ENTRY"
+	end
+   elseif value == "freightPayload" then
+	if string.match(fmsO["scratchpad"], "%d") then --and not string.match(fmsO["scratchpad"], "%u") then
+		local weight_factor = 1
+
+		if simConfigData["data"].SIM.weight_display_units == "LBS" then
+			weight_factor = simConfigData["data"].SIM.kgs_to_lbs
+		else
+			weight_factor = 1
+		end
+
+		setFMSData("paxFirstClassA", "")
+		setFMSData("paxBusClassB", "")
+		setFMSData("paxEconClassC", "")
+		setFMSData("paxEconClassD", "")
+		setFMSData("paxEconClassE", "")
+		setFMSData("freightZoneA", "")
+		setFMSData("freightZoneB", "")
+		setFMSData("freightZoneC", "")
+		setFMSData("freightZoneD", "")
+		setFMSData("freightZoneE", "")
+
+		local x = math.abs(tonumber(fmsO["scratchpad"]) / weight_factor) * 1000  --convert to base units of KGS
+		local zoneA = 0
+		local zoneB = 0
+		local zoneC = 0
+		local zoneD = 0
+		local zoneE = 0
+		
+		if x > 112890 then  --112,900 KGS is the MAX Revenue Payload.  112,890 KGS is the defined average pallet weight (3763) * 30 pallets
+			x = 112890
+		end
+		
+		repeat
+			if x > 0 and zoneA < 11289 then
+				zoneA = zoneA + 1
+				x = x - 1
+			end
+			if x > 0 and zoneB < 30104 then
+				zoneB = zoneB + 1
+				x = x - 1
+			end
+			if x > 0 and zoneC < 22578 then
+				zoneC = zoneC + 1
+				x = x - 1
+			end
+			if x > 0 and zoneD < 45156 then
+				zoneD = zoneD + 1
+				x = x - 1
+			end
+			if x > 0 and zoneE < 3763 then
+				zoneE = zoneE + 1
+				x = x - 1
+			end
+			--print("X = "..x.." ZoneA = "..zoneA.." ZoneB = "..zoneB.." ZoneC = "..zoneC.." ZoneD = "..zoneD.." ZoneE = "..zoneE)
+		until (x <= 0)
+		
+		fmsModules["data"].freightZoneA = string.format("%5d", zoneA)
+		fmsModules["data"].freightZoneB = string.format("%5d", zoneB)
+		fmsModules["data"].freightZoneC = string.format("%5d", zoneC)
+		fmsModules["data"].freightZoneD = string.format("%5d", zoneD)
+		fmsModules["data"].freightZoneE = string.format("%4d", zoneE)
+		
+		fmsO["scratchpad"] = ""
+		
 		calc_pax_cargo()
 	else
 		fmsO["notify"] = "INVALID ENTRY"
