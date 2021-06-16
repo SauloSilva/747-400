@@ -187,7 +187,7 @@ B747DR_elec_standby_power_sel_pos   = find_dataref("laminar/B747/electrical/stan
 
 B747DR_autothrottle_fail            	= find_dataref("laminar/B747/engines/autothrottle_fail")
 
-B747DR_thrust_lever_position        = find_dataref("sim/cockpit2/engine/actuators/throttle_jet_rev_ratio_all") -- crazytimtimtim
+B747DR_toga_mode                 = find_dataref("sim/cockpit2/autopilot/TOGA_status")
 --*************************************************************************************--
 --** 				        CREATE READ-ONLY CUSTOM DATAREFS               	         **--
 --*************************************************************************************--
@@ -436,6 +436,7 @@ B747DR_glideslope_ptr_vis_fo                    = deferred_dataref("laminar/B747
 -- crazytimtimtim ( + Matt726)
 B747DR_v1_alert                                 = deferred_dataref("laminar/B747/alerts/v1", "number")
 B747DR_appDH_alert                              = deferred_dataref("laminar/B747/alerts/appDH", "number")
+B747DR_DH_alert                                 = deferred_dataref("laminar/B747/alerts/DH", "number")
 
 
 --*************************************************************************************--
@@ -2259,20 +2260,49 @@ function B747_decision_height_capt()
         end
     end
 	
-    -- "Approaching Minimums" Callout (crazytimtimtim + Matt726)
-    if simDR_radio_alt_height_capt <= simDR_radio_alt_DH_capt + 80 and -- RA less than/equal to 80 feet above DH
-    simDR_radio_alt_height_capt > simDR_radio_alt_DH_capt and -- RA greater than DH
-    simDR_all_wheels_on_ground == 0 and -- Aircraft not on ground
-    B747DR_thrust_lever_position < 0.80 then -- Thrust levers are lower than takeoff power.
-        B747DR_appDH_alert = 1
+    -- "Approaching Minimums" and "Minimums" Callouts (crazytimtimtim + Matt726)
+    if B747DR_toga_mode == 0
+    and simDR_all_wheels_on_ground == 0
+    then
+
+        if  B747DR_efis_min_ref_alt_capt_sel_dial_pos == 0                  -- RADIO mode
+        and simDR_radio_alt_DH_capt ~= 0
+        then
+
+            if simDR_radio_alt_height_capt <= simDR_radio_alt_DH_capt + 80 and simDR_radio_alt_height_capt > simDR_radio_alt_DH_capt then
+                B747DR_appDH_alert = 1
+            elseif simDR_radio_alt_height_capt <= simDR_radio_alt_DH_capt then
+                B747DR_DH_alert = 1
+                B747DR_appDH_alert = 0
+            else
+                B747DR_DH_alert = 0
+                B747DR_appDH_alert = 0
+            end
+
+        elseif B747DR_efis_min_ref_alt_capt_sel_dial_pos == 1               -- BARO mode
+        and B747DR_efis_baro_alt_ref_capt ~= 0
+        then
+
+            if simDR_altitude_ft_pilot <= B747DR_efis_baro_alt_ref_capt + 80 and simDR_altitude_ft_pilot > B747DR_efis_baro_alt_ref_capt then
+                B747DR_appDH_alert = 1
+            elseif simDR_altitude_ft_pilot <= B747DR_efis_baro_alt_ref_capt then
+                B747DR_DH_alert = 1
+                B747DR_appDH_alert = 0
+            else
+                B747DR_DH_alert = 0
+                B747DR_appDH_alert = 0
+            end
+			
+        else
+            B747DR_DH_alert = 0
+            B747DR_appDH_alert = 0
+        end
+		
     else
+        B747DR_DH_alert = 0
         B747DR_appDH_alert = 0
     end
 end
-
-    
-
-
 
 
 
@@ -2717,6 +2747,16 @@ function B747_setV1VrV2()
         B747DR_airspeed_V2 = 999.0
 
     end
+	
+    -- crazytimtimtim V1 callout
+    if simDR_airspeed >= B747DR_airspeed_V1 and
+    simDR_all_wheels_on_ground == 1 and
+    B747DR_airspeed_V1 > 0 and
+    B747DR_toga_mode ~= 0 then
+        B747DR_v1_alert = 1
+    else
+        B747DR_v1_alert = 0
+    end
 
 end
 
@@ -2763,7 +2803,7 @@ function B747_Vspeeds()
 
     -- Vf (FLAP DESIGN SPEED)
     B747DR_airspeed_Vf0 = B747DR_airspeed_Vref30+80                     --
-    if simDR_acf_weight_total_kg > 309000.0 then B747DR_airspeed_Vf0 = B747DR_airspeed_Vref30+100 end
+   -- if simDR_acf_weight_total_kg > 309000.0 then B747DR_airspeed_Vf0 = B747DR_airspeed_Vref30+100 end
     B747DR_airspeed_Vf1 = B747DR_airspeed_Vref30+60
     B747DR_airspeed_Vf5 = B747DR_airspeed_Vref30+40
     B747DR_airspeed_Vf10 = B747DR_airspeed_Vref30+20
