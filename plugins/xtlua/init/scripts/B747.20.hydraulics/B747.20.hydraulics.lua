@@ -88,6 +88,6 @@ B747CMD_hyd_dmd_pmp_sel_04_dn 	= deferred_command("laminar/B747/hydraulics/sel_d
 -- AI
 B747CMD_ai_hyd_quick_start		= deferred_command("laminar/B747/ai/hyd_quick_start", "number", B747_ai_hyd_quick_start_CMDhandler)
 
-
-
-
+--crazytimtimtim
+B747DR_EICAS2_STAT_RF         = deferred_dataref("laminar/B747/EICAS2/stat/RF", "array[5]")
+B747DR_EICAS2_STAT_LO         = deferred_dataref("laminar/B747/EICAS2/stat/LO", "array[5]")

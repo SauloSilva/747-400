@@ -2143,7 +2143,7 @@ function flight_start()
     simDR_generic_brightness_switch[63] = 1.0
     for i = 0, 15 do
         simDR_instrument_brightness_switch[i] = 0.0
-	B747DR_instrument_brightness_ratio[i] = 0.75
+	    B747DR_instrument_brightness_ratio[i] = 1.0
     end
     B747_flight_start_lighting()
     simDR_shadow=-1
