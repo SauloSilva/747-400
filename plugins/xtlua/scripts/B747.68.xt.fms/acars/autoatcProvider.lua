@@ -9,7 +9,16 @@ sendDataref=find_dataref("autoatc/acars/out")
 cduDataref=find_dataref("autoatc/cdu")
 execLightDataref=find_dataref("sim/cockpit2/radios/indicators/fms_exec_light_copilot")
 wasOnline=false
-
+function getCycle()
+  local file = io.open("Custom Data/earth_nav.dat", "r")
+  if file==nil then
+    return "1802 \n" 
+  end
+  file:read("*l")
+  local buildData=file:read("*l")
+  io.close(file)
+  return string.sub(buildData,27,30).." \n")
+end
 autoATCState={}
 autoATCState["initialised"]=false
 autoATCState["online"]=false
@@ -40,7 +49,7 @@ receive=function()
       print("flight plan=" .. newMessage["fp"])
       file = io.open("Output/FMS plans/".. getFMSData("fltno") ..".fms", "w")
       io.output(file)
-      io.write("I\n1100 Version\nCYCLE 1802 \n")
+      io.write("I\n1100 Version\nCYCLE "..getCycle())
       io.write(newMessage["fp"])
       io.close(file)
       newMessage["fp"]= nil
