@@ -645,7 +645,7 @@ function GE(altitude_ft_in)
 		--airport_altitude = altitude
 		--print("Closest Temp = ", temperature)
 		--print("Takeoff Parameters = ", temperature, altitude, packs_adjustment_value, engine_anti_ice_adjustment_value)
-		takeoff_thrust_n1, takeoff_thrust_n = take_off_N1_GE(altitude_ft_in)   --TOGA_N1_GE[temperature][altitude] + packs_adjustment_value + engine_anti_ice_adjustment_value
+		takeoff_thrust_n1, _ = take_off_N1_GE(altitude_ft_in)   --TOGA_N1_GE[temperature][altitude] + packs_adjustment_value + engine_anti_ice_adjustment_value
     
     if B747DR_toderate == 0 then
       takeoff_TOGA_n1 = takeoff_thrust_n1
