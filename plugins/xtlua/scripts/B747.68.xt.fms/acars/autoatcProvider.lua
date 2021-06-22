@@ -17,7 +17,7 @@ function getCycle()
   file:read("*l")
   local buildData=file:read("*l")
   io.close(file)
-  return string.sub(buildData,27,30).." \n")
+  return string.sub(buildData,27,30).." \n"
 end
 autoATCState={}
 autoATCState["initialised"]=false
