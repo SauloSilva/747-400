@@ -2104,7 +2104,7 @@ function B747_ap_fma()
     if runAutoland() then return end
     -- AUTOTHROTTLE
     -------------------------------------------------------------------------------------
-    if B747DR_toggle_switch_position[29] == 0 or B747DR_autothrottle_fail>0 or (B747DR_toggle_switch_position[23] == 0.0 and B747DR_toggle_switch_position[24] == 0.0) then
+    if B747DR_toggle_switch_position[29] == 0 or B747DR_autothrottle_fail>0 then
 		B747DR_ap_FMA_autothrottle_mode = 0
 	elseif (B747DR_engine_TOGA_mode >0 and simDR_ind_airspeed_kts_pilot<65) or B747DR_ap_autoland<0 or (B747DR_ap_vnav_state==0 and B747DR_ap_thrust_mode>0) then                                        
         B747DR_ap_FMA_autothrottle_mode = 5 --THR REF
@@ -2257,7 +2257,7 @@ function B747_ap_fma()
 
   -- (NONE) --
   --B747DR_ap_FMA_active_pitch_mode = 0
-  	if B747DR_toggle_switch_position[23] == 0.0 and B747DR_toggle_switch_position[24] == 0.0 then
+  	if B747DR_toggle_switch_position[23] == 0.0 and B747DR_toggle_switch_position[24] == 0.0 and numAPengaged ==0 then
 		
 		if simDR_autopilot_flight_dir_active>0 then
 			B747_ap_all_cmd_modes_off()	
@@ -2269,7 +2269,7 @@ function B747_ap_fma()
 		B747DR_ap_vnav_state=0 
 		B747DR_ap_lnav_state=0
 		B747DR_ap_inVNAVdescent =0
-		B747DR_ap_thrust_mode=0
+		--B747DR_ap_thrust_mode=0
 		B747DR_engine_TOGA_mode=0
 		B747DR_ap_approach_mode=0
 	-- (TOGA) --

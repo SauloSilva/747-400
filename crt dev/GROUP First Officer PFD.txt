@@ -672,7 +672,7 @@ GROUP First Officer PFD
       CLICK_DY 0
 
     GROUP AutoThrottle Modes
-      SHOW_EQUAL 1.000000 laminar/B747/toggle_switch/position[24]
+      #SHOW_EQUAL 1.000000 laminar/B747/toggle_switch/position[24]
       HIDE
       GROUP Active 2
         
@@ -4438,7 +4438,7 @@ GROUP First Officer PFD
       CLICK_DY 0
 
     GROUP AutoThrottle Modes
-      SHOW_EQUAL 1.000000 laminar/B747/toggle_switch/position[24]
+      #SHOW_EQUAL 1.000000 laminar/B747/toggle_switch/position[24]
       HIDE
       GROUP Active 2
         

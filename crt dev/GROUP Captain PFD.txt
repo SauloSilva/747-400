@@ -1539,7 +1539,7 @@ GROUP Captain PFD
       CLICK_DY 0
 
     GROUP AutoThrottle Modes
-      SHOW_EQUAL 1.000000 laminar/B747/toggle_switch/position[23]
+      #SHOW_EQUAL 1.000000 laminar/B747/toggle_switch/position[23]
       HIDE
       GROUP Active
         
@@ -5338,7 +5338,7 @@ GROUP Captain PFD
       CLICK_DY 0
 
     GROUP AutoThrottle Modes
-      SHOW_EQUAL 1.000000 laminar/B747/toggle_switch/position[23]
+      #SHOW_EQUAL 1.000000 laminar/B747/toggle_switch/position[23]
       HIDE
       GROUP Active
         
