@@ -207,6 +207,7 @@ B747DR_altitude_dial				= deferred_dataref("laminar/B747/autopilot/heading/altit
 
 B747DR_toderate						= deferred_dataref("laminar/B747/engine/derate/TO","number")
 B747DR_clbderate					= deferred_dataref("laminar/B747/engine/derate/CLB","number")
+B747DR_ref_line_magenta				= deferred_dataref("laminar/B747/engines/display_ref_line_magenta", "number")
 
 -- Holds all SimConfig options
 B747DR_simconfig_data				= deferred_dataref("laminar/B747/simconfig", "string")
@@ -286,6 +287,8 @@ if string.len(B747DR_FMSdata) > 1 then
 else
 	fmsModules["data"] = json.decode("[]")
 end
+
+B747DR_ref_line_magenta = 0
 
 --[[
 *************************************************************************************
@@ -510,6 +513,13 @@ function throttle_management()
 		or B747DR_ap_FMA_active_pitch_mode == 5 or B747DR_ap_FMA_active_pitch_mode == 6 then
 			simDR_override_throttles = 1
 		end
+
+		--Thrust ref target line should stay GREEN when in TOGA mod
+		if string.match(B747DR_ref_thr_limit_mode, "TO") then
+			B747DR_ref_line_magenta = 0
+		else
+			B747DR_ref_line_magenta = 1
+		end
 		
 		if enable_logging then
 			print("THR REF MODE")
@@ -520,6 +530,7 @@ function throttle_management()
 	elseif B747DR_ap_autothrottle_armed == 1 and B747DR_ap_FMA_autothrottle_mode == 1 and EEC_status == 0 then
 		--Give throttle control back to the user
 		simDR_override_throttles = 0
+		B747DR_ref_line_magenta = 0
 		--hold_mode = 1
 
 		if enable_logging then
@@ -532,6 +543,7 @@ function throttle_management()
 		--Give throttle control back to the user
 		--hold_mode = 0
 		simDR_override_throttles = 0
+		B747DR_ref_line_magenta = 0
 		--speed_mode = 1
 		
 		if enable_logging then
@@ -540,6 +552,7 @@ function throttle_management()
 		end
 	else
 		simDR_override_throttles = 0
+		B747DR_ref_line_magenta = 0
 		--hold_mode = 0
 		--speed_mode = 0
 
