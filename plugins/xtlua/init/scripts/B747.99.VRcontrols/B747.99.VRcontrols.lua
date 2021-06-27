@@ -174,6 +174,11 @@ simCMD_heading_press					= find_command("laminar/B747/autopilot/button_switch/he
 simCMD_altitude_down					= find_command("sim/autopilot/altitude_down")
 simCMD_altitude_up					= find_command("sim/autopilot/altitude_up")
 simCMD_altitude_press					= find_command("laminar/B747/button_switch/press_altitude")
+
+simCMD_vs_down					= find_command("sim/autopilot/vertical_speed_down")
+simCMD_vs_up					= find_command("sim/autopilot/vertical_speed_up")
+simCMD_vs_press					= find_command("laminar/B747/autopilot/button_switch/vs_mode")
+
 function useIAS(direction,phase, duration)
   --print(phase.." use useIAS "..direction)
   if phase==0 then
@@ -184,6 +189,8 @@ function useIAS(direction,phase, duration)
      else
       simCMD_airspeed_press:once()
      end
+    elseif phase==2 and direction==0 then 
+      simCMD_airspeed_press:once()
     end
 end
 function useHDG(direction,phase, duration)
@@ -196,6 +203,7 @@ function useHDG(direction,phase, duration)
      else
       simCMD_heading_press:once()
      end
+
     end
 end
 function useAlt(direction,phase, duration)
@@ -208,11 +216,25 @@ function useAlt(direction,phase, duration)
      else
       simCMD_altitude_press:once()
      end
+    elseif phase==2 and direction==0 then 
+      simCMD_altitude_press:once()
+    end
+end
+function useVS(direction,phase, duration)
+  --print(phase.." use useAlt "..direction)
+  if phase==0 then
+    if direction<0 then 
+      simCMD_vs_down:once()
+     elseif direction>0 then 
+      simCMD_vs_up:once()
+     else
+      simCMD_vs_press:once()
+     end
     end
 end
 local hotspots={{-0.166,4.53,-26.1612,nil,useNavCOM,nil}
 ,{-0.21,5.08,-26.38,useIAS,useHDG,nil}
-,{0.01,5.08,-26.38,useHDG,useAlt,nil}               
+,{-0.02,5.08,-26.38,useVS,useAlt,nil}               
 }
 --,{0.037,-0.201,-1.684,swapnav},{-0.037,-0.201,-1.684,swapcom}
 function closest_intercept(x1,y1,z1,x2,y2,z2,psi,pitch)

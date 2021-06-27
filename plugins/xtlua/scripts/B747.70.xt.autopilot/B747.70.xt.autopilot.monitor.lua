@@ -485,11 +485,13 @@ function B747_updateApproachHeading(fmsO)
             wca=-(simDR_wind_speed_kts/tas)*math.sin(angle)
             --local latWind=-math.sin(angle)*simDR_wind_speed
           end
-          
-          --print("wca="..wca)
           wca=math.deg(wca)
-          --print("wca_deg="..wca)
-        simDR_autopilot_heading_deg =	math.floor(ap2Heading+simDR_variation +wca)
+
+          local hV=math.floor(ap2Heading+simDR_variation +wca)
+          hV=math.fmod(hV,360)
+          if hV<0 then hV=hV+360 end
+          print("hV="..hV.." wca="..wca.." wca_deg="..wca )
+          simDR_autopilot_heading_deg =	 hV
     end
 end
 
