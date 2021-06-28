@@ -209,6 +209,9 @@ B747DR_toderate						= deferred_dataref("laminar/B747/engine/derate/TO","number"
 B747DR_clbderate					= deferred_dataref("laminar/B747/engine/derate/CLB","number")
 B747DR_ref_line_magenta				= deferred_dataref("laminar/B747/engines/display_ref_line_magenta", "number")
 
+-- Holds all SimConfig options
+B747DR_simconfig_data				= deferred_dataref("laminar/B747/simconfig", "string")
+B747DR_newsimconfig_data				= deferred_dataref("laminar/B747/newsimconfig", "number")
 --FMS data
 B747DR_FMSdata						= deferred_dataref("laminar/B747/fms/data", "string")
 
@@ -226,7 +229,7 @@ mtrs_per_sec = 1.94384
 enable_logging = false  --true / false
 
 --Simulator Config Options
-
+simConfigData = {}
 
 --FMS data
 fmsModules = {}
@@ -273,7 +276,11 @@ engine_max_thrust_n = 0
 ** 				              GLOBAL CODE                  		    	 		   **
 *************************************************************************************
 ]]
-
+if string.len(B747DR_simconfig_data) > 1 then
+	simConfigData["data"] = json.decode(B747DR_simconfig_data)
+else
+	simConfigData["data"] = json.decode("[]")
+end
 
 if string.len(B747DR_FMSdata) > 1 then
 	fmsModules["data"] = json.decode(B747DR_FMSdata)
@@ -558,10 +565,10 @@ end
 dofile("B747.42.xt.EEC.GE.lua")
 dofile("B747.42.xt.EEC.PW.lua")
 dofile("B747.42.xt.EEC.RR.lua")
-B747DR_engineType                                       = find_dataref("laminar/B747/engines/type")
+B747DR_engineType                               = deferred_dataref("laminar/B747/engines/type", "number")
 function set_engines()
 	--Engine Thrust Parameters based on selected engine
-	if sB747DR_engineType==1 then
+	if B747DR_engineType==1 then
 		GE(simDR_altitude)
 	elseif B747DR_engineType==0 then
 		PW(simDR_altitude)
@@ -580,16 +587,28 @@ function aircraft_load()
 	clear_thrust_targets()  --Set all thrust target bugs to 0
 end
 
-
+local setSimConfig=false
+function hasSimConfig()
+	if B747DR_newsimconfig_data==1 then
+		if string.len(B747DR_simconfig_data) > 1 then
+			simConfigData["data"] = json.decode(B747DR_simconfig_data)
+			setSimConfig=true
+		else
+			return false
+		end
+	end
+	return setSimConfig
+end
 function after_physics()
-
+    if hasSimConfig()==false then return end
 
     atmosphere(simDR_altitude, 0)
     flight_coefficients(simDR_acf_weight_total_kg, simDR_tas_pilot)
 
 	--fmsModules["data"] = json.decode(B747DR_FMSdata)
 	
-	set_engines()
-	
+	if string.len(B747DR_simconfig_data) > 1 then
+		set_engines()
+	end
 
 end
