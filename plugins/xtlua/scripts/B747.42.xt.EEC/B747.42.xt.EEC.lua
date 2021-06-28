@@ -562,7 +562,7 @@ function throttle_management()
 	end
 end
 
-dofile("B747.42.xt.EEC.GE.lua")
+dofile("B747.42.xt.EEC.GETemp.lua")
 dofile("B747.42.xt.EEC.PW.lua")
 dofile("B747.42.xt.EEC.RR.lua")
 B747DR_engineType                               = deferred_dataref("laminar/B747/engines/type", "number")
