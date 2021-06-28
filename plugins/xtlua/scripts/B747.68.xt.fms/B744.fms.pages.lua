@@ -1910,7 +1910,7 @@ function fmsFunctions.setdata(fmsO,value)
 	  fmsO["notify"]="NA - WAITING FOR FUEL TRUCK"
 	elseif string.len(fmsO["scratchpad"]) > 0 then
 		simConfigData["data"].SIM.weight_display_units = fmsO.scratchpad
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
+		pushSimConfig(simConfigData["data"]["values"])
     else
 		if simConfigData["data"].SIM.weight_display_units == "KGS" then
 			fmsO["scratchpad"] = "LBS"
@@ -1918,7 +1918,7 @@ function fmsFunctions.setdata(fmsO,value)
 			fmsO["scratchpad"] = "KGS"
 		end
 		simConfigData["data"].SIM.weight_display_units = fmsO.scratchpad
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
+		pushSimConfig(simConfigData["data"]["values"])
 	end
   elseif value == "irsAlignTime" and string.len(fmsO["scratchpad"]) > 0 then
 	if not string.match(fmsO["scratchpad"], "%d") or string.len(fmsO["scratchpad"]) > 2 then
@@ -1926,7 +1926,7 @@ function fmsFunctions.setdata(fmsO,value)
 	else
 		--setFMSData(value, tonumber(fmsO["scratchpad"]) * 60)
 		simConfigData["data"].SIM.irs_align_time = tonumber(fmsO["scratchpad"]) * 60
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
+		pushSimConfig(simConfigData["data"]["values"])
 		--print("FMC IRS = "..fmsO["scratchpad"] * 60)
 	end
    elseif value=="autoFuelMgmt" then
@@ -1934,7 +1934,7 @@ function fmsFunctions.setdata(fmsO,value)
       fmsO["notify"]="INVALID ENTRY"
 	elseif string.len(fmsO["scratchpad"]) > 0 then
 		simConfigData["data"].SIM.auto_fuel_mgmt = fmsO.scratchpad
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
+		pushSimConfig(simConfigData["data"]["values"])
     else
 		if simConfigData["data"].SIM.auto_fuel_mgmt == "NO" then
 			fmsO["scratchpad"] = "YES"
@@ -1942,14 +1942,14 @@ function fmsFunctions.setdata(fmsO,value)
 			fmsO["scratchpad"] = "NO"
 		end
 		simConfigData["data"].SIM.auto_fuel_mgmt = fmsO.scratchpad
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
+		pushSimConfig(simConfigData["data"]["values"])
 	end
    elseif value=="baroIndicator" then
 	if string.len(fmsO["scratchpad"])>0 and not (fmsO["scratchpad"] == "IN" or fmsO["scratchpad"] == "HPA") then
       fmsO["notify"]="INVALID ENTRY"
 	elseif string.len(fmsO["scratchpad"]) > 0 then
 		simConfigData["data"].SIM.baro_indicator = fmsO.scratchpad
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
+		pushSimConfig(simConfigData["data"]["values"])
     else
 		if simConfigData["data"].SIM.baro_indicator == "IN" then
 			fmsO["scratchpad"] = "HPA"
@@ -1957,14 +1957,14 @@ function fmsFunctions.setdata(fmsO,value)
 			fmsO["scratchpad"] = "IN"
 		end
 		simConfigData["data"].SIM.baro_indicator = fmsO.scratchpad
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
+		pushSimConfig(simConfigData["data"]["values"])
 	end
    elseif value=="baroSync" then
 	if string.len(fmsO["scratchpad"])>0 and not (fmsO["scratchpad"] == "YES" or fmsO["scratchpad"] == "NO") then
       fmsO["notify"]="INVALID ENTRY"
 	elseif string.len(fmsO["scratchpad"]) > 0 then
 		simConfigData["data"].SIM.baro_sync = fmsO.scratchpad
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
+		pushSimConfig(simConfigData["data"]["values"])
     else
 		if simConfigData["data"].SIM.baro_sync == "NO" then
 			fmsO["scratchpad"] = "YES"
@@ -1972,7 +1972,7 @@ function fmsFunctions.setdata(fmsO,value)
 			fmsO["scratchpad"] = "NO"
 		end
 		simConfigData["data"].SIM.baro_sync = fmsO.scratchpad
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
+		pushSimConfig(simConfigData["data"]["values"])
 	end
   elseif value == "stdPaxWeight" then
 	local weight_factor = 1
@@ -1989,7 +1989,7 @@ function fmsFunctions.setdata(fmsO,value)
 		pax_weight = string.format("%5.1f", math.abs(tonumber(fmsO["scratchpad"]) / weight_factor))  --store weight in KGS
 
 		simConfigData["data"].SIM.std_pax_weight = pax_weight
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])		
+		pushSimConfig(simConfigData["data"]["values"])		
 	else
 		fmsO["notify"] = "INVALID ENTRY"
 	end
@@ -1998,7 +1998,7 @@ function fmsFunctions.setdata(fmsO,value)
       fmsO["notify"]="INVALID ENTRY"
 	elseif string.len(fmsO["scratchpad"]) > 0 then
 		simConfigData["data"].SIM.capt_inbd = fmsO.scratchpad
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
+		pushSimConfig(simConfigData["data"]["values"])
     else
 		if simConfigData["data"].SIM.capt_inbd == "EICAS" then
 			fmsO["scratchpad"] = "NORM"
@@ -2008,14 +2008,14 @@ function fmsFunctions.setdata(fmsO,value)
 			fmsO["scratchpad"] = "EICAS"
 		end
 		simConfigData["data"].SIM.capt_inbd = fmsO.scratchpad
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
+		pushSimConfig(simConfigData["data"]["values"])
 	end
    elseif value=="captLwr" then
 	if string.len(fmsO["scratchpad"])>0 and not (fmsO["scratchpad"] == "EICAS PRI" or fmsO["scratchpad"] == "NORM" or fmsO["scratchpad"] == "ND") then
       fmsO["notify"]="INVALID ENTRY"
 	elseif string.len(fmsO["scratchpad"]) > 0 then
 		simConfigData["data"].SIM.capt_inbd = fmsO.scratchpad
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
+		pushSimConfig(simConfigData["data"]["values"])
     else
 		if simConfigData["data"].SIM.capt_lwr == "EICAS PRI" then
 			fmsO["scratchpad"] = "NORM"
@@ -2025,14 +2025,14 @@ function fmsFunctions.setdata(fmsO,value)
 			fmsO["scratchpad"] = "EICAS PRI"
 		end
 		simConfigData["data"].SIM.capt_lwr = fmsO.scratchpad
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
+		pushSimConfig(simConfigData["data"]["values"])
 	end
    elseif value=="foInbd" then
 	if string.len(fmsO["scratchpad"])>0 and not (fmsO["scratchpad"] == "PFD" or fmsO["scratchpad"] == "NORM" or fmsO["scratchpad"] == "EICAS") then
       fmsO["notify"]="INVALID ENTRY"
 	elseif string.len(fmsO["scratchpad"]) > 0 then
 		simConfigData["data"].SIM.fo_inbd = fmsO.scratchpad
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
+		pushSimConfig(simConfigData["data"]["values"])
     else
 		if simConfigData["data"].SIM.fo_inbd == "PFD" then
 			fmsO["scratchpad"] = "NORM"
@@ -2042,14 +2042,14 @@ function fmsFunctions.setdata(fmsO,value)
 			fmsO["scratchpad"] = "PFD"
 		end
 		simConfigData["data"].SIM.fo_inbd = fmsO.scratchpad
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
+		pushSimConfig(simConfigData["data"]["values"])
 	end
    elseif value=="foLwr" then
 	if string.len(fmsO["scratchpad"])>0 and not (fmsO["scratchpad"] == "ND" or fmsO["scratchpad"] == "NORM" or fmsO["scratchpad"] == "EICAS PRI") then
       fmsO["notify"]="INVALID ENTRY"
 	elseif string.len(fmsO["scratchpad"]) > 0 then
 		simConfigData["data"].SIM.fo_inbd = fmsO.scratchpad
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
+		pushSimConfig(simConfigData["data"]["values"])
     else
 		if simConfigData["data"].SIM.fo_lwr == "ND" then
 			fmsO["scratchpad"] = "NORM"
@@ -2059,7 +2059,7 @@ function fmsFunctions.setdata(fmsO,value)
 			fmsO["scratchpad"] = "ND"
 		end
 		simConfigData["data"].SIM.fo_lwr = fmsO.scratchpad
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
+		pushSimConfig(simConfigData["data"]["values"])
 	end
 	elseif value=="simConfigSave" then
 			local file_location = simDR_livery_path.."B747-400_simconfig.dat"
@@ -2074,13 +2074,13 @@ function fmsFunctions.setdata(fmsO,value)
 --Plane Config Page
 	elseif value=="model" then
 		simConfigData["data"].PLANE.model = fmsO.scratchpad
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
+		pushSimConfig(simConfigData["data"]["values"])
    elseif value=="aircraftType" then
 	if string.len(fmsO["scratchpad"])>0 and not (fmsO["scratchpad"] == "PASSENGER" or fmsO["scratchpad"] == "FREIGHTER") then
       fmsO["notify"]="INVALID ENTRY"
 	elseif string.len(fmsO["scratchpad"]) > 0 then
 		simConfigData["data"].PLANE.aircraft_type = fmsO.scratchpad
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
+		pushSimConfig(simConfigData["data"]["values"])
     else
 		if simConfigData["data"].PLANE.aircraft_type == "PASSENGER" then
 			fmsO["scratchpad"] = "FREIGHTER"
@@ -2088,14 +2088,14 @@ function fmsFunctions.setdata(fmsO,value)
 			fmsO["scratchpad"] = "PASSENGER"
 		end
 		simConfigData["data"].PLANE.aircraft_type = fmsO.scratchpad
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
+		pushSimConfig(simConfigData["data"]["values"])
 	end
    elseif value=="engines" then
 	--if string.len(fmsO["scratchpad"])>0 and not (fmsO["scratchpad"] == "PASSENGER" or fmsO["scratchpad"] == "FREIGHTER") then
       --fmsO["notify"]="INVALID ENTRY"
 	if string.len(fmsO["scratchpad"]) > 0 then  --elseif string.len(fmsO["scratchpad"]) > 0 then
 		simConfigData["data"].PLANE.engines = fmsO.scratchpad
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
+		pushSimConfig(simConfigData["data"]["values"])
     else
 		if simConfigData["data"].PLANE.engines == "CF6-80C2-B1F" then
 			fmsO["scratchpad"] = "CF6-80C2-B5F"
@@ -2126,7 +2126,7 @@ function fmsFunctions.setdata(fmsO,value)
 			simConfigData["data"].PLANE.thrust_ref = "N1"
 		end
 		simConfigData["data"].PLANE.engines = fmsO.scratchpad
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
+		pushSimConfig(simConfigData["data"]["values"])
 	end
    --Removed to allow engine code above to forcibly set the thrust_ref mode (i.e. don't let users select and mess things up)
 --[[   elseif value=="thrustRef" then
@@ -2134,7 +2134,7 @@ function fmsFunctions.setdata(fmsO,value)
       fmsO["notify"]="INVALID ENTRY"
 	elseif string.len(fmsO["scratchpad"]) > 0 then
 		simConfigData["data"].PLANE.thrust_ref = fmsO.scratchpad
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
+		pushSimConfig(simConfigData["data"]["values"])
     else
 		if simConfigData["data"].PLANE.thrust_ref == "EPR" then
 			fmsO["scratchpad"] = "N1"
@@ -2142,23 +2142,23 @@ function fmsFunctions.setdata(fmsO,value)
 			fmsO["scratchpad"] = "EPR"
 		end
 		simConfigData["data"].PLANE.thrust_ref = fmsO.scratchpad
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
+		pushSimConfig(simConfigData["data"]["values"])
 	end]]
    elseif value=="airline" then
 		simConfigData["data"].PLANE.airline = fmsO.scratchpad
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
+		pushSimConfig(simConfigData["data"]["values"])
    elseif value=="civilRegistration" then
 		simConfigData["data"].PLANE.civil_registration = fmsO.scratchpad
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
+		pushSimConfig(simConfigData["data"]["values"])
    elseif value=="finNbr" then
 		simConfigData["data"].PLANE.fin_nbr = fmsO.scratchpad
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
+		pushSimConfig(simConfigData["data"]["values"])
    elseif value=="pfdStyle" then
 	if string.len(fmsO["scratchpad"])>0 and not (fmsO["scratchpad"] == "CRT" or fmsO["scratchpad"] == "LCD") then
       fmsO["notify"]="INVALID ENTRY"
 	elseif string.len(fmsO["scratchpad"]) > 0 then
 		simConfigData["data"].PLANE.pfd_style = fmsO.scratchpad
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
+		pushSimConfig(simConfigData["data"]["values"])
     else
 		if simConfigData["data"].PLANE.pfd_style == "CRT" then
 			fmsO["scratchpad"] = "LCD"
@@ -2166,14 +2166,14 @@ function fmsFunctions.setdata(fmsO,value)
 			fmsO["scratchpad"] = "CRT"
 		end
 		simConfigData["data"].PLANE.pfd_style = fmsO.scratchpad
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
+		pushSimConfig(simConfigData["data"]["values"])
 	end
    elseif value=="ndStyle" then
 	if string.len(fmsO["scratchpad"])>0 and not (fmsO["scratchpad"] == "LCD" or fmsO["scratchpad"] == "CRT") then
       fmsO["notify"]="INVALID ENTRY"
 	elseif string.len(fmsO["scratchpad"]) > 0 then
 		simConfigData["data"].PLANE.nd_style = fmsO.scratchpad
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
+		pushSimConfig(simConfigData["data"]["values"])
     else
 		if simConfigData["data"].PLANE.nd_style == "CRT" then
 			fmsO["scratchpad"] = "LCD"
@@ -2181,7 +2181,7 @@ function fmsFunctions.setdata(fmsO,value)
 			fmsO["scratchpad"] = "CRT"
 		end
 		simConfigData["data"].PLANE.nd_style = fmsO.scratchpad
-		B747DR_simconfig_data=json.encode(simConfigData["data"]["values"])
+		pushSimConfig(simConfigData["data"]["values"])
 	end
 --Marauder28
    elseif value=="atc" then

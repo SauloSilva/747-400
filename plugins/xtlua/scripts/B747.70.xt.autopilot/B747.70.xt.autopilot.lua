@@ -433,7 +433,7 @@ B747DR_ref_thr_limit_mode		= deferred_dataref("laminar/B747/engines/ref_thr_limi
 
 -- Holds all SimConfig options
 B747DR_simconfig_data				= deferred_dataref("laminar/B747/simconfig", "string")
-
+B747DR_newsimconfig_data				= deferred_dataref("laminar/B747/newsimconfig", "number")
 --Simulator Config Options
 simConfigData = {}
 
@@ -2709,7 +2709,20 @@ end
 
 --function before_physics() end
 debug_autopilot     = deferred_dataref("laminar/B747/debug/autopilot", "number")
+local setSimConfig=false
+function hasSimConfig()
+	if B747DR_newsimconfig_data==1 then
+		if string.len(B747DR_simconfig_data) > 1 then
+			simConfigData["data"] = json.decode(B747DR_simconfig_data)
+			setSimConfig=true
+		else
+			return false
+		end
+	end
+	return setSimConfig
+end
 function after_physics()
+    if hasSimConfig()==false then return end
     if debug_autopilot>0 then return end
     local cHeading=simDR_AHARS_heading_deg_pilot --constant refresh of data
     local tHeading=simDR_autopilot_heading_deg --constant refresh of data
@@ -2729,12 +2742,6 @@ function after_physics()
     end
 	local fmsSTR=fmsJSON
   	local fms=json.decode(fmsSTR)
-
---Marauder28
-if string.len(B747DR_simconfig_data) > 1 then
-	simConfigData["data"] = json.decode(B747DR_simconfig_data)
-end
---Marauder28
 
 	B747_getCurrentWayPoint(fms)
 	B747_monitorAP(fms)

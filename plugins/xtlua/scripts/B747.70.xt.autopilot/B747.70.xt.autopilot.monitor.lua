@@ -224,13 +224,6 @@ end
 local last_THR_REF=0
 
 function B747_monitor_THR_REF_AT()
-    --Marauder28
-    --Temporarily skip this functionality for GE engines and manage THR REF in B747.42.xt.EEC.lua
-    if string.match(simConfigData["data"].PLANE.engines, "CF6") and
-        (string.match(B747DR_ref_thr_limit_mode, "TO") or string.match(B747DR_ref_thr_limit_mode, "CLB")) then
-        return
-    end
-    --Marauder28
 
     if B747DR_ap_FMA_autothrottle_mode~=5 or B747DR_toggle_switch_position[29] ~= 1 then return end
     
@@ -273,12 +266,17 @@ function B747_monitor_THR_REF_AT()
     --print("THR REF="..ref_throttle.. " simDR_allThrottle="..n1_pct.. " wait="..wait.. " B747DR_ap_thrust_mode="..B747DR_ap_thrust_mode)
     if lastChange<wait then return end --wait for engines to stabilise
     if simDR_autopilot_autothrottle_enabled == 1 and timediff>0.5 then B747DR_ap_thrust_mode=0 return end
+    last_THR_REF=simDRTime
+    if string.match(simConfigData["data"].PLANE.engines, "CF6") and
+        (string.match(B747DR_ref_thr_limit_mode, "TO") or string.match(B747DR_ref_thr_limit_mode, "CLB")) then
+        return
+    end
     if (n1_pct < (ref_throttle-0.2)) and simDR_allThrottle<0.99 then
 	    simCMD_ThrottleUp:once()
     elseif (n1_pct > (ref_throttle+0.8)) and simDR_allThrottle>0.0 then
         simCMD_ThrottleDown:once()
     end
-    last_THR_REF=simDRTime
+    
 end
 function checkMCPAlt(dist)
     local eta=dist/simDR_groundspeed

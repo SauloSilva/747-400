@@ -266,7 +266,7 @@ B747DR_fms1_display_brightness      = deferred_dataref("laminar/B747/fms1/displa
 --Marauder28
 -- Holds all SimConfig options
 B747DR_simconfig_data					= deferred_dataref("laminar/B747/simconfig", "string")
-
+B747DR_newsimconfig_data				= deferred_dataref("laminar/B747/newsimconfig", "number")
 -- Temp location for fuel preselect for displaying in correct units
 B747DR_fuel_preselect_temp				= deferred_dataref("laminar/B747/fuel/fuel_preselect_temp", "number")
 
@@ -307,11 +307,28 @@ B747DR_SNDoptions			        	= deferred_dataref("laminar/B747/fmod/options", "ar
 
 --Simulator Config Options
 simConfigData = {}
-if string.len(B747DR_simconfig_data) > 1 then
-	simConfigData["data"] = json.decode(B747DR_simconfig_data)
-else
-	simConfigData["data"] = json.decode("[]")
+function doneNewSimConfig()
+	B747DR_newsimconfig_data=0
 end
+function pushSimConfig(values)
+	B747DR_simconfig_data=json.encode(values)
+	B747DR_newsimconfig_data=1
+	run_after_time(doneNewSimConfig, 1)
+end
+
+local setSimConfig=false
+function hasSimConfig()
+	if B747DR_newsimconfig_data==1 then
+		if string.len(B747DR_simconfig_data) > 1 then
+			simConfigData["data"] = json.decode(B747DR_simconfig_data)
+			setSimConfig=true
+		else
+			return false
+		end
+	end
+	return setSimConfig
+end
+
 --Marauder28
 
 --Marauder28
@@ -638,7 +655,7 @@ function getFMSData(id)
   if hasChild(fmsModules["data"],id) then
     return fmsModules["data"][id]
   end
-  return fmsModules["data"][id]
+  return fmsModules["data"]["values"][id]
 end 
 fmsModules["lastcmd"]=" "
 fmsModules["cmds"]={}
@@ -1022,6 +1039,7 @@ function setNotifications()
 end
 function after_physics()
   if debug_fms>0 then return end
+  if hasSimConfig()==false then return end
 --     for i =1,24,1 do
 --       print(string.byte(fms_style,i))
 --     end
@@ -1070,7 +1088,8 @@ function after_physics()
 	nd_speed_wind_display()
 
 	--Ensure simConfig data is fresh
-	simConfigData["data"] = json.decode(B747DR_simconfig_data)
+	
+
 		
 	--Ensure DR's are updated in time for use in calc_CGMAC()
 	local payload_weight = B747DR_payload_weight

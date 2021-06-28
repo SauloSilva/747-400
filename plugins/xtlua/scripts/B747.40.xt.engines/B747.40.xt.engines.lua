@@ -648,7 +648,9 @@ B747DR_autothrottle_fail            = deferred_dataref("laminar/B747/engines/aut
 --** 				       CREATE READ-WRITE CUSTOM DATAREFS                         **--
 --*************************************************************************************--
 -- Holds all SimConfig options
+
 B747DR_simconfig_data					= deferred_dataref("laminar/B747/simconfig", "string")
+B747DR_newsimconfig_data				= deferred_dataref("laminar/B747/newsimconfig", "number")
 
 
 
@@ -2044,16 +2046,23 @@ function before_physics()
     B747_electronic_engine_control()
 
 end
-
+local setSimConfig=false
+function hasSimConfig()
+	if B747DR_newsimconfig_data==1 then
+		if string.len(B747DR_simconfig_data) > 1 then
+			simConfigData["data"] = json.decode(B747DR_simconfig_data)
+			setSimConfig=true
+		else
+			return false
+		end
+	end
+	return setSimConfig
+end
 function after_physics()
-if debug_engines>0 then return end
+    if hasSimConfig()==false then return end
+    if debug_engines>0 then return end
 
     --Marauder28
-    if string.len(B747DR_simconfig_data) > 1 then
-        simConfigData["data"] = json.decode(B747DR_simconfig_data)
-    else
-        simConfigData["data"] = json.decode("[]")
-    end
 
     if string.match(simConfigData["data"].PLANE.engines, "CF6") then
         EGT_start_limit = 870
@@ -2068,7 +2077,11 @@ if debug_engines>0 then return end
         EGT_continuous_limit = 733
         EGT_max_limit = 785
     end
-    --End Marauder28
+     --End Marauder28
+    
+
+
+   
 
     B747_startup_ignition()
 

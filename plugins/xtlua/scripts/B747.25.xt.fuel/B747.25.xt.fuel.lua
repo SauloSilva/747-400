@@ -528,6 +528,7 @@ B747DR_fuel_preselect_temp        = deferred_dataref("laminar/B747/fuel/fuel_pre
 
 -- Holds all SimConfig options
 B747DR_simconfig_data         = deferred_dataref("laminar/B747/simconfig", "string")
+B747DR_newsimconfig_data				= deferred_dataref("laminar/B747/newsimconfig", "number")
 
 --*************************************************************************************--
 --**                     X-PLANE COMMAND HANDLERS                        **--
@@ -3522,11 +3523,20 @@ function before_physics()
     B747_engine_fuel_source()
     B747_engine_has_fuel()
 end
-
+local setSimConfig=false
+function hasSimConfig()
+	if B747DR_newsimconfig_data==1 then
+		if string.len(B747DR_simconfig_data) > 1 then
+			simConfigData["data"] = json.decode(B747DR_simconfig_data)
+			setSimConfig=true
+		else
+			return false
+		end
+	end
+	return setSimConfig
+end
 function after_physics()
---     print("before" .. simDR_fuel_tank_weight_kg[0] .. " " .. simDR_fuel_tank_weight_kg[1].. " " .. simDR_fuel_tank_weight_kg[2].. " " .. 
---       simDR_fuel_tank_weight_kg[3].. " " .. simDR_fuel_tank_weight_kg[4].. " " .. simDR_fuel_tank_weight_kg[5].. " " .. 
---       simDR_fuel_tank_weight_kg[6].. " " .. simDR_fuel_tank_weight_kg[7])
+    if hasSimConfig()==false then return end
     if debug_fuel>11 then return end
     B747_fuel_pump_control()
     if debug_fuel>10 then return end
@@ -3559,11 +3569,7 @@ function after_physics()
 --       simDR_fuel_tank_weight_kg[3].. " " .. simDR_fuel_tank_weight_kg[4].. " " .. simDR_fuel_tank_weight_kg[5].. " " .. 
 --       simDR_fuel_tank_weight_kg[6].. " " .. simDR_fuel_tank_weight_kg[7])
 
-  if string.len(B747DR_simconfig_data) > 1 then
-    simConfigData["data"] = json.decode(B747DR_simconfig_data)
-  else
-    simConfigData["data"] = json.decode("[]")
-  end
+ 
 
   --Display Fuel Units
   B747_calculate_fuel_display_units()

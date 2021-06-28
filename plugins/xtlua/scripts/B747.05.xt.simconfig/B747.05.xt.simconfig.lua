@@ -44,7 +44,7 @@ simDR_baro_fo				= find_dataref("sim/cockpit/misc/barometer_setting2")
 --*************************************************************************************--
 -- Holds all SimConfig options
 B747DR_simconfig_data						= deferred_dataref("laminar/B747/simconfig", "string")
-
+B747DR_newsimconfig_data				= deferred_dataref("laminar/B747/newsimconfig", "number")
 B747DR_efis_baro_ref_capt_sel_dial_pos		= find_dataref("laminar/B747/efis/baro_ref/capt/sel_dial_pos", "number")
 B747DR_efis_baro_ref_fo_sel_dial_pos		= deferred_dataref("laminar/B747/efis/baro_ref/fo/sel_dial_pos", "number")
 B747DR_flt_inst_inbd_disp_capt_sel_dial_pos	= deferred_dataref("laminar/B747/flt_inst/capt_inbd_display/sel_dial_pos", "number")
@@ -149,7 +149,7 @@ end
 -- crazytimtimtim end
 
 function set_loaded_configs()
-
+	B747DR_newsimconfig_data=0
 	--Baro
 	if simConfigData["data"].SIM.baro_indicator == "IN" then
 		B747DR_efis_baro_ref_capt_sel_dial_pos = 0
@@ -219,16 +219,31 @@ end
 
 function flight_start()
 	local refreshLivery=simDR_livery_path
-	B747DR_simconfig_data=json.encode(simConfigData["data"]["values"]) --make the simConfig data available to other modules
+	--B747DR_simconfig_data=json.encode(simConfigData["data"]["values"]) --make the simConfig data available to other modules
+	B747DR_newsimconfig_data=1
 	run_after_time(aircraft_simConfig, 1)  --Load specific simConfig data for current livery
 end
 function livery_load()
 	local refreshLivery=simDR_livery_path
+	B747DR_newsimconfig_data=1
 	run_after_time(aircraft_simConfig, 1)  --Load specific simConfig data for current livery
+end
+
+local setSimConfig=false
+function hasSimConfig()
+	if B747DR_newsimconfig_data==1 then
+		if string.len(B747DR_simconfig_data) > 1 then
+			simConfigData["data"] = json.decode(B747DR_simconfig_data)
+			setSimConfig=true
+		else
+			return false
+		end
+	end
+	return setSimConfig
 end
 function after_physics()
 	--Keep the structure fresh
-	simConfigData["data"] = json.decode(B747DR_simconfig_data)
+	if hasSimConfig()==false then return end
 
 	--See if Baro's should be sync'd
 	baro_sync()
