@@ -2091,9 +2091,11 @@ function fmsFunctions.setdata(fmsO,value)
 		pushSimConfig(simConfigData["data"]["values"])
 	end
    elseif value=="engines" then
-	--if string.len(fmsO["scratchpad"])>0 and not (fmsO["scratchpad"] == "PASSENGER" or fmsO["scratchpad"] == "FREIGHTER") then
-      --fmsO["notify"]="INVALID ENTRY"
-	if string.len(fmsO["scratchpad"]) > 0 then  --elseif string.len(fmsO["scratchpad"]) > 0 then
+	if string.len(fmsO["scratchpad"])>0 and not (fmsO["scratchpad"] == "CF6-80C2-B1F" or fmsO["scratchpad"] == "CF6-80C2-B5F" or fmsO["scratchpad"] == "CF6-80C2-B1F1"
+		or fmsO["scratchpad"] == "PW4056" or fmsO["scratchpad"] == "PW4060" or fmsO["scratchpad"] == "PW4062"
+		or fmsO["scratchpad"] == "RB211-524G" or fmsO["scratchpad"] == "RB211-524H") then
+      fmsO["notify"]="INVALID ENTRY"
+	elseif string.len(fmsO["scratchpad"]) > 0 then
 		simConfigData["data"].PLANE.engines = fmsO.scratchpad
 		pushSimConfig(simConfigData["data"]["values"])
     else

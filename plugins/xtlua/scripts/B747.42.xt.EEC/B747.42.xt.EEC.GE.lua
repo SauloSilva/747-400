@@ -257,23 +257,13 @@ function take_off_thrust_corrected(altitude_ft_in, temperature_K_in)
   --  RR RB211-524H = 59450 lbf (Engine Max = 60600 lbf / 269600 Newtons)
 
   if simConfigData["data"].PLANE.engines == "CF6-80C2-B1F" then
-      approximate_max_TO_thrust_lbf = 57160
+    approximate_max_TO_thrust_lbf = 57160
   elseif simConfigData["data"].PLANE.engines == "CF6-80C2-B5F" then
-      approximate_max_TO_thrust_lbf = 60030
+    approximate_max_TO_thrust_lbf = 60030
   elseif simConfigData["data"].PLANE.engines == "CF6-80C2-B1F1" then
     approximate_max_TO_thrust_lbf = 60030
-  --elseif simConfigData["data"].PLANE.engines == "PW4056" then
-  --    approximate_max_TO_thrust_lbf = 56750
-  --elseif simConfigData["data"].PLANE.engines == "PW4060" then
-  --    approximate_max_TO_thrust_lbf = 60000
-  --elseif simConfigData["data"].PLANE.engines == "PW4062" then
-  --    approximate_max_TO_thrust_lbf = 62000
-  --elseif simConfigData["data"].PLANE.engines == "RB211-524G" then
-  --    approximate_max_TO_thrust_lbf = 56870
-  --elseif simConfigData["data"].PLANE.engines == "RB211-524H" then
-  --    approximate_max_TO_thrust_lbf = 59450
-  --else
-  --    approximate_max_TO_thrust_lbf = 56500  --failsafe option
+  else
+    approximate_max_TO_thrust_lbf = 57160  --failsafe option / assume B1F
   end
 
   if temperature_K_in > corner_temperature_K then
@@ -419,6 +409,18 @@ function in_flight_N1_GE(altitude_ft_in, delta_t_isa_K_in)
       end
     elseif simConfigData["data"].PLANE.engines == "CF6-80C2-B5F" or simConfigData["data"].PLANE.engines == "CF6-80C2-B1F1" then
       --For now, use the same climb rates as the B1F until we have specific information for B5F and others
+      if simDR_altitude < 10000 then
+        climb_rate_fpm = 2750
+      elseif simDR_altitude <= 20000 then
+        climb_rate_fpm = 2750
+      elseif simDR_altitude <= 30000 then
+        climb_rate_fpm = 2500
+      elseif simDR_altitude <= 40000 then
+        climb_rate_fpm = 2000
+      elseif simDR_altitude <= 50000 then
+        climb_rate_fpm = 1500
+      end
+    else --failsafe option / assume B1F
       if simDR_altitude < 10000 then
         climb_rate_fpm = 2750
       elseif simDR_altitude <= 20000 then
@@ -604,7 +606,7 @@ function GE(altitude_ft_in)
 
 	--Setup engine factors based on engine type
 	if simConfigData["data"].PLANE.engines == "CF6-80C2-B1F" then
-    engine_max_thrust_n = 258000 
+    engine_max_thrust_n = 258000
     simDR_throttle_max = 1.0
     simDR_thrust_max = 254260  --(57160 lbf)
 	elseif simConfigData["data"].PLANE.engines == "CF6-80C2-B5F" then
@@ -615,6 +617,10 @@ function GE(altitude_ft_in)
     engine_max_thrust_n = 276000
     simDR_throttle_max = 1.0
     simDR_thrust_max = 267028  --(60030 lbf)
+  else  --failsafe option / assume B1F
+    engine_max_thrust_n = 258000
+    simDR_throttle_max = 1.0
+    simDR_thrust_max = 254260  --(57160 lbf)
 	end
 
   --Find current altitude rounded to the closest 1000 feet (for use in table lookups)
