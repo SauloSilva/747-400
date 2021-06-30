@@ -655,7 +655,7 @@ function getFMSData(id)
   if hasChild(fmsModules["data"],id) then
     return fmsModules["data"][id]
   end
-  return fmsModules["data"]["values"][id]
+  return fmsModules["data"][id]
 end 
 fmsModules["lastcmd"]=" "
 fmsModules["cmds"]={}
