@@ -323,7 +323,6 @@ end
 
 irsSystem.align=function(systemID,instant)
 	--Simulator Config Options
-	simConfigData = {}
   if hasSimConfig()==true then 
 	  timeToAlign=simConfigData["data"].SIM.irs_align_time
   end
