@@ -210,6 +210,7 @@ function aircraft_simConfig()
 		run_after_time(set_loaded_configs, 3)  --Apply loaded configs.  Wait a few seconds to ensure they load correctly.
 	else
 		B747DR_simconfig_data = json.encode(simconfig_values())
+		run_after_time(set_loaded_configs, 3)  --Apply loaded configs.  Wait a few seconds to ensure they load correctly.
 	end
 
 end
