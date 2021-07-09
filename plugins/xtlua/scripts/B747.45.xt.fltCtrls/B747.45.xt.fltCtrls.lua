@@ -671,14 +671,22 @@ function B747_speedbrake_sync()
 	if B747_last_sim_sb_handle_pos ~= simDR_speedbrake_ratio_control then					-- SIM DR HAS CHANGED
 		if B747_sb_manip_changed == 0 then													-- THE CHANGE IN SIM DR VALUE WAS INITIATED BY THE SIM, NOT A COMMAND OR MANIP
             B747DR_speedbrake_auto_ext = 1
-            if not is_timer_scheduled(autoSpeedbrakeDRrst) then
+            --[[if not is_timer_scheduled(autoSpeedbrakeDRrst) then
                 run_after_time(autoSpeedbrakeDRrst, 1)
-            end
-			if simDR_speedbrake_ratio_control == -0.5 then
-				B747DR_speedbrake_lever = 0.125	
+            end]]
+            if is_timer_scheduled(autoSpeedbrakeDRrst) then
+                stop_timer(autoSpeedbrakeDRrst)    
+            end	
+            run_after_time(autoSpeedbrakeDRrst, 1.0)
+			if simDR_speedbrake_ratio_control == -0.5 or (simDR_speedbrake_ratio_control > 0.01 and simDR_speedbrake_ratio_control <= 0.05) then
+				B747DR_speedbrake_lever = 0.125
+                B747DR_CAS_memo_status[45] = 1
+                simDR_speedbrake_ratio_control = -0.5	
 			elseif simDR_speedbrake_ratio_control > -0.5 and simDR_speedbrake_ratio_control <= 0.0 then	
 				B747DR_speedbrake_lever = 0.0
+                B747DR_CAS_memo_status[45] = 0
 			else
+                B747DR_CAS_memo_status[45] = 0
 				if B747_speedbrake_stop == 0 then											-- ON GROUND
 					B747DR_speedbrake_lever = B747_rescale(0.0, 0.15, 1.0, 1.0, simDR_speedbrake_ratio_control)
 				elseif B747_speedbrake_stop == 1 then										-- IN FLIGHT
@@ -696,6 +704,21 @@ end
 
 function autoSpeedbrakeDRrst()
     B747DR_speedbrake_auto_ext = 0
+    if simDR_speedbrake_ratio_control == -0.5 or (simDR_speedbrake_ratio_control > 0.01 and simDR_speedbrake_ratio_control <= 0.05) then
+        B747DR_speedbrake_lever = 0.125
+        B747DR_CAS_memo_status[45] = 1
+        simDR_speedbrake_ratio_control = -0.5	
+    elseif simDR_speedbrake_ratio_control > -0.5 and simDR_speedbrake_ratio_control <= 0.0 then	
+        B747DR_speedbrake_lever = 0.0
+        B747DR_CAS_memo_status[45] = 0
+    else
+        B747DR_CAS_memo_status[45] = 0
+        if B747_speedbrake_stop == 0 then											-- ON GROUND
+            B747DR_speedbrake_lever = B747_rescale(0.0, 0.15, 1.0, 1.0, simDR_speedbrake_ratio_control)
+        elseif B747_speedbrake_stop == 1 then										-- IN FLIGHT
+            B747DR_speedbrake_lever = B747_rescale(0.0, 0.15, 1.0, 0.53, simDR_speedbrake_ratio_control)	
+        end		
+    end	
 end
 
 
@@ -818,7 +841,7 @@ local slatsRetract=false
 
 function B747_landing_slats()
    if (B747DR_speedbrake_lever <1.0 and (simDR_prop_mode[0] == 3 or simDR_prop_mode[1] == 3 or simDR_prop_mode[2] == 3 or simDR_prop_mode[3] == 3)) then
-        B747DR_speedbrake_lever=B747_set_animation_position(math.max(B747DR_speedbrake_lever,0.30), 1.0, 0.0, 1.0, 1.0)
+        B747DR_speedbrake_lever=B747_set_animation_position(math.max(B747DR_speedbrake_lever,0.30), 1.0, 0.0, 1.0, 20.0)
         print("apply speedbrake") 
    elseif simDR_flap_ratio_control==0 and simDR_innerslats_ratio==0 and simDR_outerslats_ratio==0 then
         simDR_autoslats_ratio=0
@@ -1010,7 +1033,7 @@ function B747_fltCtrols_EICAS_msg()
       last_B747DR_Brake=B747DR_parking_brake_ratio
     end
     if simDR_parking_brake_ratio==0 and B747DR_parking_brake_ratio>0 then
-        B747DR_parking_brake_ratio=B747_animate_value(B747DR_parking_brake_ratio,0,0,1,3)
+        B747DR_parking_brake_ratio=B747_animate_value(B747DR_parking_brake_ratio,0,0,1,30)
         last_simDR_Brake=simDR_parking_brake_ratio
         last_B747DR_Brake=B747DR_parking_brake_ratio
     end
