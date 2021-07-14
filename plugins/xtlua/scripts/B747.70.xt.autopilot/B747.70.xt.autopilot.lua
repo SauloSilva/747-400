@@ -1929,6 +1929,8 @@ B747CMD_ap_switch_loc_mode				= deferred_command("laminar/B747/autopilot/button_
 
 function B747_ap_appr_mode()
 	local diff=simDRTime-B747DR_ap_lastCommand
+	local appRefreshnav=simDR_autopilot_nav_status
+	local appRefreshgs=simDR_autopilot_gs_status
 	if B747DR_ap_approach_mode~=0 then --only if we'll need it
 		local refreshheading=simDR_autopilot_heading_status
 	end
@@ -1937,6 +1939,7 @@ function B747_ap_appr_mode()
 	if B747DR_ap_approach_mode==0 then
 		if simDR_autopilot_nav_status > 0 then
 			if simDR_autopilot_gs_status > 0 then
+				print("simCMD_autopilot_appr_mode in B747DR_ap_approach_mode=0")
 				simCMD_autopilot_appr_mode:once() --DEACTIVATE APP
 				B747DR_ap_lastCommand=simDRTime
 			else
@@ -1959,12 +1962,14 @@ function B747_ap_appr_mode()
 		elseif B747DR_ap_approach_mode==1 then --WANT APP
 			if simDR_autopilot_gs_status == 0
 			then
+				print("simCMD_autopilot_appr_mode in B747DR_ap_approach_mode=1")
 				simCMD_autopilot_appr_mode:once() --ACTIVATE APP
 				B747DR_ap_lastCommand=simDRTime
 			end
 		end
 	elseif simDR_autopilot_nav_status > 0 then
 		if simDR_autopilot_gs_status > 0 then
+			print("simCMD_autopilot_appr_mode in elseif")
 			simCMD_autopilot_appr_mode:once() --DEACTIVATE APP
 			B747DR_ap_lastCommand=simDRTime
 		else

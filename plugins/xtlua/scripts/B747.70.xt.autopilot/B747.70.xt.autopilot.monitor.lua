@@ -488,7 +488,7 @@ function B747_updateApproachHeading(fmsO)
           local hV=math.floor(ap2Heading+simDR_variation +wca)
           hV=math.fmod(hV,360)
           if hV<0 then hV=hV+360 end
-          print("hV="..hV.." wca="..wca.." wca_deg="..wca )
+          --print("hV="..hV.." wca="..wca.." wca_deg="..wca )
           simDR_autopilot_heading_deg =	 hV
     end
 end

@@ -128,6 +128,16 @@ simDR_engine_throttle_jet       = find_dataref("sim/cockpit2/engine/actuators/th
 simDR_engine_throttle_jet_all   = find_dataref("sim/cockpit2/engine/actuators/throttle_jet_rev_ratio_all")
 simCMD_autopilot_autothrottle_on		= find_command("sim/autopilot/autothrottle_on")
 simCMD_autopilot_autothrottle_off		= find_command("sim/autopilot/autothrottle_off")
+simCMD_autopilot_glideslope_mode		= find_command("sim/autopilot/glide_slope")
+B747DR_ap_approach_mode     	= deferred_dataref("laminar/B747/autopilot/approach_mode", "number")
+simDR_autopilot_nav_status          	= find_dataref("sim/cockpit2/autopilot/nav_status")
+simDR_autopilot_gs_status	= find_dataref("sim/cockpit2/autopilot/glideslope_status")
+simCMD_autopilot_appr_mode					= find_command("sim/autopilot/approach")
+simDR_autopilot_TOGA_vert_status    	= find_dataref("sim/cockpit2/autopilot/TOGA_status")
+simDR_autopilot_TOGA_lat_status     	= find_dataref("sim/cockpit2/autopilot/TOGA_lateral_status")
+simCMD_autopilot_TOGA_mode          = find_command("sim/autopilot/take_off_go_around")
+simDRTime					= find_dataref("sim/time/total_running_time_sec")
+B747DR_ap_lastCommand              		= deferred_dataref("laminar/B747/autopilot/lastCommand", "number")
 simDR_hydraulic_sys_press_01    = find_dataref("sim/operation/failures/hydraulic_pressure_ratio")
 simDR_hydraulic_sys_press_02    = find_dataref("sim/operation/failures/hydraulic_pressure_ratio2")
 
@@ -578,7 +588,20 @@ function B747_engine_TOGA_power_CMDhandler(phase, duration)
         if B747DR_toggle_switch_position[29] == 1 then
             --if simDR_allThrottle>0.25 then
 		    if simDR_all_wheels_on_ground==0 then
-		      B747DR_ap_autoland=-2
+		        B747DR_ap_autoland=-2
+                --[[if simDR_autopilot_nav_status > 0 then
+                    if simDR_autopilot_gs_status > 0 then
+                        print("simCMD_autopilot_appr_mode in TOGA POWER")
+                        simCMD_autopilot_appr_mode:once() --DEACTIVATE APP
+                    end
+                end]]
+                if simDR_autopilot_TOGA_vert_status == 0											-- TOGA VERTICAL MODE IS OFF 
+						or simDR_autopilot_TOGA_lat_status == 0											-- TOGA LATERAL MODE IS OFF 
+				then	
+                        B747DR_ap_lastCommand=simDRTime									
+						simCMD_autopilot_TOGA_mode:once()												-- ACTIVATE "TOGA" MODE
+				end	
+                
 		    end
 		    simCMD_autopilot_autothrottle_off:once()
 	            if B747DR_engine_TOGA_mode == 0 then
@@ -587,6 +610,12 @@ function B747_engine_TOGA_power_CMDhandler(phase, duration)
                 	simDR_engine_throttle_input[2] = 0.95
                 	simDR_engine_throttle_input[3] = 0.95]]
 				B747DR_engine_TOGA_mode = 0.9
+                B747DR_ap_approach_mode = 0
+                --[[if simDR_autopilot_gs_status > 0 then
+                    simCMD_autopilot_glideslope_mode:once()	-- CANX GLIDESLOPE MODE
+                    B747DR_ap_lastCommand=simDRTime
+                end]]
+                
 			end	
            -- end
         end		
