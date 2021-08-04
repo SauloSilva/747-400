@@ -715,14 +715,14 @@ function B747_efis_ref_alt_capt_set_dial_up_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_efis_ref_alt_capt_set_dial_pos = B747DR_efis_ref_alt_capt_set_dial_pos + 0.1
         if B747DR_efis_min_ref_alt_capt_sel_dial_pos == 0 then                                          -- RADIO ALT
-            simDR_radio_alt_DH_capt = simDR_radio_alt_DH_capt + 1.0
+            simDR_radio_alt_DH_capt = math.min(simDR_radio_alt_DH_capt + 1.0,1000)
         elseif B747DR_efis_min_ref_alt_capt_sel_dial_pos == 1 then                                      -- BARO ALT
             B747DR_efis_baro_alt_ref_capt = B747DR_efis_baro_alt_ref_capt + 1.0
         end
     elseif phase == 1 and duration > 1.0 then
         B747DR_efis_ref_alt_capt_set_dial_pos = B747DR_efis_ref_alt_capt_set_dial_pos + 0.1
         if B747DR_efis_min_ref_alt_capt_sel_dial_pos == 0 then                                          -- RADIO ALT
-            simDR_radio_alt_DH_capt = simDR_radio_alt_DH_capt + 10.0
+            simDR_radio_alt_DH_capt = math.min(simDR_radio_alt_DH_capt + 10.0,1000)
         elseif B747DR_efis_min_ref_alt_capt_sel_dial_pos == 1 then                                      -- BARO ALT
             B747DR_efis_baro_alt_ref_capt = B747DR_efis_baro_alt_ref_capt + 10.0
         end
