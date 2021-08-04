@@ -795,12 +795,12 @@ function B747_prop_mode()
     --[[if ((B747DR_engine_TOGA_mode >0 and B747DR_engine_TOGA_mode < 1) or B747DR_ap_autoland<0) and simDR_allThrottle<0.94 and B747DR_toggle_switch_position[29] == 1 then
 	    simCMD_ThrottleUp:once()--simDR_allThrottle = B747_set_animation_position(simDR_allThrottle,0.95,0,1,1)
     else]]
-    if B747DR_engine_TOGA_mode >0 and B747DR_engine_TOGA_mode < 1 then
+    --[[if B747DR_engine_TOGA_mode >0 and B747DR_engine_TOGA_mode < 1 then
       B747DR_engine_TOGA_mode = 1
       --[[if toderate==0 then throttlederate=1.0
       elseif toderate==1 then throttlederate=0.9
-      elseif toderate==2 then throttlederate=0.8 end]]--
-    end
+      elseif toderate==2 then throttlederate=0.8 end
+    end]]--
     
     
     -- AIRCRAFT IS "ON THE GROUND" 
@@ -1625,7 +1625,7 @@ function B747_flight_start_engines()
 
     -- ALL MODES ------------------------------------------------------------------------
 	B747_set_engines_all_modes()
-    B747DR_engine_TOGA_mode=0
+    B747DR_engine_TOGA_mode = 0
 
 
     -- COLD & DARK ----------------------------------------------------------------------

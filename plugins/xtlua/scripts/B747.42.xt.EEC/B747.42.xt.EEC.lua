@@ -437,7 +437,7 @@ function throttle_management()
 	--Set EICAS Thrust Limit Mode
 	if B747DR_ap_autothrottle_armed == 1 then
 		--Take-off
-		if B747DR_engine_TOGA_mode > 0 and B747DR_engine_TOGA_mode <= 1 then
+		if B747DR_engine_TOGA_mode > 0 and B747DR_engine_TOGA_mode <= 1 and B747DR_ap_FMA_autothrottle_mode==5 then
 			B747DR_ref_thr_limit_mode = "TO"
 
 			--Initially set previous_altitude to the FMC cruise altitude
