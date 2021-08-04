@@ -399,6 +399,7 @@ function clear_thrust_targets()
 		simDR_EPR_target_bug[i] = 0.0
 		simDR_N1_target_bug[i] = 0.0
 	end
+	GE_Init()
 end
 
 local previous_altitude = 0
@@ -607,9 +608,7 @@ function after_physics()
     flight_coefficients(simDR_acf_weight_total_kg, simDR_tas_pilot)
 
 	--fmsModules["data"] = json.decode(B747DR_FMSdata)
+	set_engines()
 	
-	if string.len(B747DR_simconfig_data) > 1 then
-		set_engines()
-	end
 
 end

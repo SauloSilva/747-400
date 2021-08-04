@@ -130,6 +130,8 @@ B747BR_eod_index 			= deferred_dataref("laminar/B747/autopilot/dist/eod_index", 
 B747BR_nextDistanceInFeet 		= find_dataref("laminar/B747/autopilot/dist/next_distance_feet")
 B747BR_cruiseAlt 			= find_dataref("laminar/B747/autopilot/dist/cruise_alt")
 B747BR_tod				= find_dataref("laminar/B747/autopilot/dist/top_of_descent")
+B747BR_todLat				= deferred_dataref("laminar/B747/autopilot/dist/top_of_descent_lat", "number")
+B747BR_todLong				= deferred_dataref("laminar/B747/autopilot/dist/top_of_descent_long", "number")
 B747DR_ND_Wind_Bearing					= find_dataref("laminar/B747/nd/wind_bearing")
 simDR_wind_speed_kts                = find_dataref("sim/cockpit2/gauges/indicators/wind_speed_kts")
 simDR_autopilot_course					= find_dataref("sim/cockpit/gps/course")
@@ -1781,22 +1783,64 @@ function setDistances(fmsO)
     print("empty data")
     return
   end
-  local totalDistance=getDistance(simDR_latitude,simDR_longitude,fmsO[start][5],fmsO[start][6])
+  local LastLeg=getDistance(simDR_latitude,simDR_longitude,fmsO[start][5],fmsO[start][6])
+  local iLat=simDR_latitude
+  local iLong=simDR_longitude
+  local eLat=fmsO[start][5]
+  local eLong=fmsO[start][6]
+  local totalDistance=LastLeg
   local nextDistanceInFeet=totalDistance*6076.12
   local endI =table.getn(fmsO)
   local eod=endI
+  local setTOD=false
+  local todDist=B747BR_totalDistance-B747BR_tod
   for i=1,endI-1,1 do
 	if i>=start then
-    	totalDistance=totalDistance+getDistance(fmsO[i][5],fmsO[i][6],fmsO[i+1][5],fmsO[i+1][6])
+		iLat=fmsO[i][5]
+  		iLong=fmsO[i][6]
+		eLat=fmsO[i+1][5]
+  		eLong=fmsO[i+1][6]
+		LastLeg=getDistance(fmsO[i][5],fmsO[i][6],fmsO[i+1][5],fmsO[i+1][6])
+    	totalDistance=totalDistance+LastLeg
+	end
+	
+	if totalDistance>todDist and setTOD==false and B747BR_totalDistance>0 and todDist>0 then
+		setTOD=true
+		--interpolate last leg
+		local backingDist=totalDistance-todDist
+		local legFrac=(LastLeg-backingDist)/LastLeg
+		if legFrac>=0 and legFrac<=1 and totalDistance-LastLeg<todDist then
+			B747BR_todLat=iLat+(eLat-iLat)*legFrac
+			B747BR_todLong=iLong+(eLong-iLong)*legFrac
+		end
+		--[[
+		local backingDist=totalDistance-todDist
+		local legFrac=(LastLeg-backingDist)/LastLeg
+
+		if legFrac>=0 and legFrac<=1 and totalDistance-LastLeg<todDist then
+			B747BR_todLat=fmsO[i][5]+(fmsO[i+1][5]-fmsO[i][5])*legFrac
+			B747BR_todLong=fmsO[i][6]+(fmsO[i+1][6]-fmsO[i][6])*legFrac
+		else
+			local prevLeg=getDistance(simDR_latitude,simDR_longitude,fmsO[i+1][5],fmsO[i+1][6])	
+			legFrac=(prevLeg-backingDist)/prevLeg
+			if legFrac>=0 and legFrac<=1 and totalDistance-prevLeg<todDist then
+				B747BR_todLat=simDR_latitude+(fmsO[i+1][5]-simDR_latitude)*legFrac
+				B747BR_todLong=simDR_longitude+(fmsO[i+1][6]-simDR_longitude)*legFrac
+				
+			end
+			print(" recalc backingDist="..backingDist .." LastLeg="..prevLeg .. " B747BR_todLong="..B747BR_todLong.. " legFrac="..legFrac)
+		end]]--
+		--print(" backingDist="..backingDist .." LastLeg="..LastLeg .. " B747BR_todLong="..B747BR_todLong.. " legFrac="..legFrac)
 	end
     dtoAirport=getDistance(fmsO[i][5],fmsO[i][6],fmsO[endI][5],fmsO[endI][6])
-    --print("i=".. i .." speed="..simDR_groundspeed .. " distance="..totalDistance.." dtoAirport="..dtoAirport.. " ".. fmsO[i][5].." ".. fmsO[i][6].." ".. fmsO[i+1][5].." ".. fmsO[i+1][6])
+    --print("i=".. i .." B747DR_fmscurrentIndex="..B747DR_fmscurrentIndex .." speed="..simDR_groundspeed .. " distance="..totalDistance.." dtoAirport="..dtoAirport.. " ".. fmsO[i][5].." ".. fmsO[i][6].." ".. fmsO[i+1][5].." ".. fmsO[i+1][6])
 	if dtoAirport<10 then 
 		eod=i
 		--print("end fms"..i.."=at alt "..fms[i][3])
 		break 
 	end
   end
+  --simDR_autopilot_altitude_ft
   B747BR_eod_index=eod
   B747BR_totalDistance=totalDistance
   B747BR_nextDistanceInFeet=nextDistanceInFeet
@@ -1808,6 +1852,8 @@ function setDistances(fmsO)
   else
   	B747BR_tod=cruiseTOD
   end
+
+
 end
 
 ----- ALTITUDE SELECTED -----------------------------------------------------------------

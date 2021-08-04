@@ -551,7 +551,7 @@ function defaultFMSData()
   transpd="272",
   spdtransalt="10000",
   transalt="18000",
-  clbrestspd="180",
+  clbrestspd="250",
   maxkts="420",
   clbrestalt="5000 ",
   stepalt="FL360",
