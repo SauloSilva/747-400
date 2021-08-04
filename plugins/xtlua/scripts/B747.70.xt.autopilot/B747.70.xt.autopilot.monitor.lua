@@ -336,7 +336,7 @@ function LNAV_modeSwitch()
     print("ap_state "..simDR_autopilot_state)]]
 end 
 function aileronTrim()
-    return
+    --[[return
     local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
     if numAPengaged==0 then return end
     --Flight envelope protection
@@ -344,7 +344,7 @@ function aileronTrim()
         simDR_ap_aileron_trim=B747_animate_value(simDR_ap_aileron_trim,B747DR_capt_ap_roll/5,-6,6,1)
     else
         simDR_ap_aileron_trim=B747_animate_value(simDR_ap_aileron_trim,0,-6,6,5)
-    end
+    end]]--
     --print("trim " .. B747DR_capt_ap_roll .. " " .. simDR_ap_aileron_trim)
 
 end
