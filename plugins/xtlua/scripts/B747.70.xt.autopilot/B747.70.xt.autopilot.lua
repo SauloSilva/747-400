@@ -1419,7 +1419,7 @@ function B747_fltmgmt_setILS(fms)
     if fms[table.getn(fms)][2] == 1 then
       --we have an airport as our dst
       local apdistance = getDistance(simDR_latitude,simDR_longitude,fms[table.getn(fms)][5],fms[table.getn(fms)][6])
-      if apdistance>50 then return end
+      if apdistance>45 then return end
 	  
 	  --Marauder28
 	  if original_distance == -1 then
