@@ -1840,6 +1840,7 @@ function setDistances(fmsO)
 		break 
 	end
   end
+  totalDistance=totalDistance+getDistance(fmsO[eod][5],fmsO[eod][6],fmsO[endI][5],fmsO[endI][6])
   --simDR_autopilot_altitude_ft
   B747BR_eod_index=eod
   B747BR_totalDistance=totalDistance
