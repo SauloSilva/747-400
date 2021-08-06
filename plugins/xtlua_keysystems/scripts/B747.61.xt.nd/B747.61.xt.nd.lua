@@ -329,7 +329,7 @@ function newIcons()
     end
   end
   --TODs
-  if B747BR_cruiseAlt>0 and B747BR_totalDistance>B747BR_tod+5 then
+  if B747BR_cruiseAlt>0 and B747BR_totalDistance-B747BR_tod>-3 then
     local toddist=getDistance(simDR_latitude,simDR_longitude,B747BR_todLat,B747BR_todLong)
     if B747DR_nd_mode_capt_sel_dial_pos==2 then
       if toddist < ranges[simDR_range_dial_capt + 1] then 
@@ -455,7 +455,7 @@ function after_physics()
   local diff=simDRTime-lastUpdate
   updateIcons()
   local diff2=simDRTime-lastUpdateIcon
-  if diff>2 then 
+  if diff>0.5 then 
     newIcons()
     lastUpdateIcon=simDRTime
   end
@@ -463,7 +463,7 @@ function after_physics()
   if diff2>10 then 
     read_fixes()
   end
-  if diff<10 then return end
+  if diff<2 then return end
   lastUpdate=simDRTime
   decodeNAVAIDS()
   decodeFlightPlan()

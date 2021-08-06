@@ -130,13 +130,15 @@ simDR_vvi_fpm_pilot                 = find_dataref("sim/cockpit2/gauges/indicato
 
 simDR_EFIS_wxr_on                   = find_dataref("sim/cockpit2/EFIS/EFIS_weather_on")
 simDR_EFIS_tcas_on                  = find_dataref("sim/cockpit2/EFIS/EFIS_tcas_on")
-B747DR_nd_capt_tfc	            = find_dataref("laminar/B747/nd/capt/tfc")
-B747DR_nd_fo_tfc	            = find_dataref("laminar/B747/nd/fo/tfc")
+B747DR_nd_capt_tfc	                = find_dataref("laminar/B747/nd/capt/tfc")
+B747DR_nd_fo_tfc	                = find_dataref("laminar/B747/nd/fo/tfc")
 B747DR_nd_capt_tcas_off             = find_dataref("laminar/B747/nd/capt/tcas_off")
 B747DR_nd_fo_tcas_off         	    = find_dataref("laminar/B747/nd/fo/tcas_off")
-B747DR_pfd_mode_capt		    = find_dataref("laminar/B747/pfd/capt/irs")
-B747DR_pfd_mode_fo		    = find_dataref("laminar/B747/pfd/fo/irs")
-
+B747DR_pfd_mode_capt		        = find_dataref("laminar/B747/pfd/capt/irs")
+B747DR_pfd_mode_fo                  = find_dataref("laminar/B747/pfd/fo/irs")
+B747DR_nd_fo_heading_bug            = find_dataref("laminar/B747/nd/mode/fo/show_heading_bug")
+B747DR_nd_capt_heading_bug          = find_dataref("laminar/B747/nd/mode/capt/show_heading_bug")
+B747DR_ap_heading_deg               = deferred_dataref("laminar/B747/autopilot/heading/degrees", "number")
 B747DR_xpdr_sel_pos                 = find_dataref("laminar/B747/flt_mgmt/txpdr/mode_sel_pos")
 --simDR_acf_weight_payload_kg         = find_dataref("sim/flightmodel/weight/m_fixed")
 simDR_acf_weight_total_kg           = find_dataref("sim/flightmodel/weight/m_total")
@@ -288,7 +290,8 @@ B747_nd_vorR_ID_flag_capt                       = deferred_dataref("laminar/B747
 B747_nd_adfL_ID_flag_capt                       = deferred_dataref("laminar/B747/nd/adfL_id_flag/capt", "number")
 B747_nd_adfR_ID_flag_capt                       = deferred_dataref("laminar/B747/nd/adfR_id_flag/capt", "number")
 
-B747_exp_nd_track_line_on                       = deferred_dataref("laminar/B747/nd/track_line_on", "number")
+B747_exp_fo_nd_track_line_on                       = deferred_dataref("laminar/B747/nd/fo/track_line_on", "number")
+B747_exp_capt_nd_track_line_on                       = deferred_dataref("laminar/B747/nd/capt/track_line_on", "number")
 
 B747DR_nd_wxr_fo_switch_pos                     = deferred_dataref("laminar/B747/nd/wxr/fo/switch_pos", "number")
 B747DR_nd_sta_fo_switch_pos                     = deferred_dataref("laminar/B747/nd/sta/fo/switch_pos", "number")
@@ -321,8 +324,19 @@ B747DR_dsp_synoptic_display                     = deferred_dataref("laminar/B747
 B747DR_STAT_msg_page                            = deferred_dataref("laminar/B747/STAT/msg_page", "number")
 B747DR_STAT_num_msg_pages                       = deferred_dataref("laminar/B747/STAT/num_msg_pages", "number")
 B747DR_simDR_captain_display              = find_dataref("laminar/B747/electrical/capt_display_power")
-B747DR_simDR_fo_display             = find_dataref("laminar/B747/electrical/fo_display_power")
-B747DR_elec_display_power   = find_dataref("laminar/B747/electrical/display_has_power")
+B747DR_simDR_fo_display                 = find_dataref("laminar/B747/electrical/fo_display_power")
+B747DR_elec_display_power               = find_dataref("laminar/B747/electrical/display_has_power")
+B747DR_ap_FMA_active_roll_mode      	= find_dataref("laminar/B747/autopilot/FMA/active_roll_mode", "number")
+--[[
+    0 = NONE
+    1 = TOGA
+    2 = LNAV
+    3 = LOC
+    4 = ROLLOUT
+    5 = ATT
+    6 = HDG SEL
+    7 = HDG HOLD
+--]]
 --[[
 B747DR_clock_captain_chrono_switch_pos          = deferred_dataref("laminar/B747/clock/captain/chrono_switch_pos", "number")
 B747DR_clock_captain_et_sel_switch_pos          = deferred_dataref("laminar/B747/clock/captain/et_sel_switch_pos", "number")
@@ -2560,11 +2574,18 @@ function B747_nd_track_line()
         or
         (B747DR_nd_mode_capt_sel_dial_pos == 2 and B747DR_nd_center_capt_switch_pos == 0)
     then
-        B747_exp_nd_track_line_on = 1
+        B747_exp_capt_nd_track_line_on = 1
     else
-      B747_exp_nd_track_line_on = 0
+      B747_exp_capt_nd_track_line_on = 0
     end
-
+    if (B747DR_nd_mode_fo_sel_dial_pos <= 1 and B747DR_nd_center_fo_switch_pos == 0 and (simDR_EFIS_wxr_on > 0.5 or simDR_EFIS_tcas_on > 0.5))
+        or
+        (B747DR_nd_mode_fo_sel_dial_pos == 2 and B747DR_nd_center_fo_switch_pos == 0)
+    then
+        B747_exp_fo_nd_track_line_on = 1
+    else
+      B747_exp_fo_nd_track_line_on = 0
+    end
 end
 
 
@@ -3376,7 +3397,8 @@ function B747_set_inst_all_modes()
 
     --if simDR_EFIS_map_mode == 3 then simDR_EFIS_map_mode = 0 end
     simDR_EFIS_map_mode = 1 
-    B747DR_nd_mode_capt_sel_dial_pos = simDR_EFIS_map_mode
+    B747DR_nd_mode_capt_sel_dial_pos = 2
+    B747DR_nd_mode_fo_sel_dial_pos = 2
 
     B747DR_nd_range_capt_sel_dial_pos = simDR_EFIS_map_range
     B747DR_nd_range_fo_sel_dial_pos = B747DR_nd_range_capt_sel_dial_pos
@@ -3488,8 +3510,50 @@ function flight_start()
     B747_flight_start_fltInst()
 
 end
-
-
+local lastHeading=0
+local lastRollMode=-1
+local mapHeading=false
+function clear_heading_bug()
+    mapHeading=false
+end
+function update_heading_bug()
+    if B747DR_ap_FMA_active_roll_mode<2 or B747DR_ap_FMA_active_roll_mode>4 then
+        if is_timer_scheduled(clear_heading_bug) == true then
+            stop_timer(clear_heading_bug)
+        end
+        mapHeading=true
+    elseif lastHeading~=B747DR_ap_heading_deg or lastRollMode~=B747DR_ap_FMA_active_roll_mode then
+        mapHeading=true
+        if is_timer_scheduled(clear_heading_bug) == true then
+            stop_timer(clear_heading_bug)
+        end
+        run_after_time(clear_heading_bug, 10.0)
+    end
+    if B747DR_nd_mode_capt_sel_dial_pos==2 then
+        if mapHeading==true then
+            B747DR_nd_capt_heading_bug=1
+        else
+            B747DR_nd_capt_heading_bug=0
+        end
+    elseif B747DR_nd_mode_capt_sel_dial_pos<=1 then
+        B747DR_nd_capt_heading_bug=1
+    else
+        B747DR_nd_capt_heading_bug=0
+    end
+    if B747DR_nd_mode_fo_sel_dial_pos==2 then
+        if mapHeading==true then
+            B747DR_nd_fo_heading_bug=1
+        else
+            B747DR_nd_fo_heading_bug=0
+        end
+    elseif B747DR_nd_mode_fo_sel_dial_pos<=1 then
+        B747DR_nd_fo_heading_bug=1
+    else
+        B747DR_nd_fo_heading_bug=0
+    end
+    lastHeading=B747DR_ap_heading_deg
+    lastRollMode=B747DR_ap_FMA_active_roll_mode
+end
 --function flight_crash() end
 
 
@@ -3536,6 +3600,7 @@ function after_physics()
     B747_inst_monitor_AI()
     fltInstsetCRTs()
     fltInstsetASIs()
+    update_heading_bug()
 end
 
 
