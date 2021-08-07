@@ -60,8 +60,8 @@ fmsPages["PROGRESS"].getPage=function(self,pgNo,fmsID)
     local ffkgs = (simDR_eng_fuel_flow_kg_sec[0] + simDR_eng_fuel_flow_kg_sec[1] + simDR_eng_fuel_flow_kg_sec[2] + simDR_eng_fuel_flow_kg_sec[3])
     local toFuel="---.-"
     local nextFuel="---.-"
-    local dtgTO="---"
-    local dtgNext="---"
+    local dtgTO=" ---"
+    local dtgNext=" ---"
     local meters_per_second_to_kts = 1.94384449
     local default_speed = 275 * meters_per_second_to_kts
     local actual_speed = simDR_groundspeed * meters_per_second_to_kts
@@ -95,7 +95,7 @@ fmsPages["PROGRESS"].getPage=function(self,pgNo,fmsID)
       time_to_TOD,hours,mins,secs = get_ETA_for_Distance(dist,0)
       todText=string.format("%12s",string.format("%02d%02dz/%dNM", hours, mins,dist))
     end
-    local destText="---- ----   --.-"
+    local destText=" --- ----   --.-"
     if B747BR_totalDistance>0 then
       local dist=B747BR_totalDistance
       local hours = 0
