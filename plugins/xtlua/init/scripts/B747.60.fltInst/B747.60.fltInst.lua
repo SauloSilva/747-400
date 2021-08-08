@@ -87,8 +87,10 @@ B747DR_efis_meters_fo_selected                  = deferred_dataref("laminar/B747
 
 B747DR_pfd_mode_capt		                	= deferred_dataref("laminar/B747/pfd/capt/irs", "number")
 B747DR_pfd_mode_fo		                		= deferred_dataref("laminar/B747/pfd/fo/irs", "number")
+B747DR_pfd_mode_show_mins          				= deferred_dataref("laminar/B747/pfd/show_mins", "number")
 B747DR_nd_fo_heading_bug            			= deferred_dataref("laminar/B747/nd/mode/fo/show_heading_bug", "number")
 B747DR_nd_capt_heading_bug          			= deferred_dataref("laminar/B747/nd/mode/capt/show_heading_bug", "number")
+
 
 B747DR_nd_mode_capt_sel_dial_pos                = deferred_dataref("laminar/B747/nd/mode/capt/sel_dial_pos", "number")
 B747DR_nd_range_capt_sel_dial_pos               = deferred_dataref("laminar/B747/nd/range/capt/sel_dial_pos", "number")

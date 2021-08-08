@@ -136,6 +136,8 @@ B747DR_nd_capt_tcas_off             = find_dataref("laminar/B747/nd/capt/tcas_of
 B747DR_nd_fo_tcas_off         	    = find_dataref("laminar/B747/nd/fo/tcas_off")
 B747DR_pfd_mode_capt		        = find_dataref("laminar/B747/pfd/capt/irs")
 B747DR_pfd_mode_fo                  = find_dataref("laminar/B747/pfd/fo/irs")
+B747DR_pfd_mode_show_mins          	= find_dataref("laminar/B747/pfd/show_mins")
+B747DR_ref_thr_limit_mode           = find_dataref("laminar/B747/engines/ref_thr_limit_mode")
 B747DR_nd_fo_heading_bug            = find_dataref("laminar/B747/nd/mode/fo/show_heading_bug")
 B747DR_nd_capt_heading_bug          = find_dataref("laminar/B747/nd/mode/capt/show_heading_bug")
 B747DR_ap_heading_deg               = deferred_dataref("laminar/B747/autopilot/heading/degrees", "number")
@@ -2816,7 +2818,12 @@ function setVmc(weight,flaps)
       flap_Vmc      =B747_rescale(10.0, 137, 30.0, 118, flaps) + weight_factor --0.95/1
     end
     B747DR_airspeed_Vmc = flap_Vmc 
-    --print(" " ..weight/1000 .. "t, " .. flaps .. "=" .. math.floor(B747DR_airspeed_Vmc))
+    if string.match(B747DR_ref_thr_limit_mode, "TO")==nil and B747DR_radio_altitude>10 then 
+        B747DR_pfd_mode_show_mins = 1
+    else
+        B747DR_pfd_mode_show_mins = 0
+    end
+    --print(" " ..weight/1000 .. "t, " .. flaps .. "=" .. math.floor(B747DR_airspeed_Vmc) .." ")
 end
 
 -- MISC V-SPEEDS
@@ -3034,9 +3041,9 @@ function B747_Vs()
         local vSAOA=0
         if numStalled > 0 then
             vSAOA=(target_airspeed_Vs-simDR_airspeed)*(0-numStalled)/10
-            vSAOA=math.min(vSAOA,simDR_airspeed+15-target_airspeed_Vs)
+            vSAOA=math.min(vSAOA,simDR_airspeed+12-target_airspeed_Vs)
             if simDR_all_wheels_on_ground==0 then
-                simDR_autopilot_TOGA_pitch_deg=15-(17*numStalled/10)
+                simDR_autopilot_TOGA_pitch_deg=12-(17*numStalled/10)
                 --print("simDR_autopilot_TOGA_pitch_deg1="..simDR_autopilot_TOGA_pitch_deg)
             end
 
@@ -3047,7 +3054,7 @@ function B747_Vs()
             if B747DR_airspeed_V2<900 then
                 tSpeed=B747DR_airspeed_V2+10
             end
-            simDR_autopilot_TOGA_pitch_deg=B747_rescale(target_airspeed_Vs,2,tSpeed,15,simDR_airspeed) 
+            simDR_autopilot_TOGA_pitch_deg=B747_rescale(target_airspeed_Vs,2,tSpeed,12,simDR_airspeed) 
             --print("simDR_autopilot_TOGA_pitch_deg2="..simDR_autopilot_TOGA_pitch_deg) 
         end
         B747DR_airspeed_Vs=B747_animate_value(B747DR_airspeed_Vs,target_airspeed_Vs+vSAOA,0,450,1)
