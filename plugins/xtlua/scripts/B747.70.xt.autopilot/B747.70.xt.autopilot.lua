@@ -130,6 +130,8 @@ B747BR_eod_index 			= deferred_dataref("laminar/B747/autopilot/dist/eod_index", 
 B747BR_nextDistanceInFeet 		= find_dataref("laminar/B747/autopilot/dist/next_distance_feet")
 B747BR_cruiseAlt 			= find_dataref("laminar/B747/autopilot/dist/cruise_alt")
 B747BR_tod				= find_dataref("laminar/B747/autopilot/dist/top_of_descent")
+B747BR_todLat				= deferred_dataref("laminar/B747/autopilot/dist/top_of_descent_lat", "number")
+B747BR_todLong				= deferred_dataref("laminar/B747/autopilot/dist/top_of_descent_long", "number")
 B747DR_ND_Wind_Bearing					= find_dataref("laminar/B747/nd/wind_bearing")
 simDR_wind_speed_kts                = find_dataref("sim/cockpit2/gauges/indicators/wind_speed_kts")
 simDR_autopilot_course					= find_dataref("sim/cockpit/gps/course")
@@ -853,7 +855,7 @@ function B747_ap_reset_CMDhandler(phase, duration)
 	if phase == 0 then
 		--simCMD_autopilot_pitch_sync:once()
 		
-		B747DR_engine_TOGA_mode=0
+		B747DR_engine_TOGA_mode = 0
 		--simDR_autopilot_fms_vnav = 0
 		--B747DR_ap_vnav_state=0
 		--B747DR_ap_thrust_mode=0
@@ -1417,7 +1419,7 @@ function B747_fltmgmt_setILS(fms)
     if fms[table.getn(fms)][2] == 1 then
       --we have an airport as our dst
       local apdistance = getDistance(simDR_latitude,simDR_longitude,fms[table.getn(fms)][5],fms[table.getn(fms)][6])
-      if apdistance>50 then return end
+      if apdistance>45 then return end
 	  
 	  --Marauder28
 	  if original_distance == -1 then
@@ -1781,22 +1783,65 @@ function setDistances(fmsO)
     print("empty data")
     return
   end
-  local totalDistance=getDistance(simDR_latitude,simDR_longitude,fmsO[start][5],fmsO[start][6])
+  local LastLeg=getDistance(simDR_latitude,simDR_longitude,fmsO[start][5],fmsO[start][6])
+  local iLat=simDR_latitude
+  local iLong=simDR_longitude
+  local eLat=fmsO[start][5]
+  local eLong=fmsO[start][6]
+  local totalDistance=LastLeg
   local nextDistanceInFeet=totalDistance*6076.12
   local endI =table.getn(fmsO)
   local eod=endI
+  local setTOD=false
+  local todDist=B747BR_totalDistance-B747BR_tod
   for i=1,endI-1,1 do
 	if i>=start then
-    	totalDistance=totalDistance+getDistance(fmsO[i][5],fmsO[i][6],fmsO[i+1][5],fmsO[i+1][6])
+		iLat=fmsO[i][5]
+  		iLong=fmsO[i][6]
+		eLat=fmsO[i+1][5]
+  		eLong=fmsO[i+1][6]
+		LastLeg=getDistance(fmsO[i][5],fmsO[i][6],fmsO[i+1][5],fmsO[i+1][6])
+    	totalDistance=totalDistance+LastLeg
+	end
+	
+	if totalDistance>todDist and setTOD==false and B747BR_totalDistance>0 and todDist>0 then
+		setTOD=true
+		--interpolate last leg
+		local backingDist=totalDistance-todDist
+		local legFrac=(LastLeg-backingDist)/LastLeg
+		if legFrac>=0 and legFrac<=1 and totalDistance-LastLeg<todDist then
+			B747BR_todLat=iLat+(eLat-iLat)*legFrac
+			B747BR_todLong=iLong+(eLong-iLong)*legFrac
+		end
+		--[[
+		local backingDist=totalDistance-todDist
+		local legFrac=(LastLeg-backingDist)/LastLeg
+
+		if legFrac>=0 and legFrac<=1 and totalDistance-LastLeg<todDist then
+			B747BR_todLat=fmsO[i][5]+(fmsO[i+1][5]-fmsO[i][5])*legFrac
+			B747BR_todLong=fmsO[i][6]+(fmsO[i+1][6]-fmsO[i][6])*legFrac
+		else
+			local prevLeg=getDistance(simDR_latitude,simDR_longitude,fmsO[i+1][5],fmsO[i+1][6])	
+			legFrac=(prevLeg-backingDist)/prevLeg
+			if legFrac>=0 and legFrac<=1 and totalDistance-prevLeg<todDist then
+				B747BR_todLat=simDR_latitude+(fmsO[i+1][5]-simDR_latitude)*legFrac
+				B747BR_todLong=simDR_longitude+(fmsO[i+1][6]-simDR_longitude)*legFrac
+				
+			end
+			print(" recalc backingDist="..backingDist .." LastLeg="..prevLeg .. " B747BR_todLong="..B747BR_todLong.. " legFrac="..legFrac)
+		end]]--
+		--print(" backingDist="..backingDist .." LastLeg="..LastLeg .. " B747BR_todLong="..B747BR_todLong.. " legFrac="..legFrac)
 	end
     dtoAirport=getDistance(fmsO[i][5],fmsO[i][6],fmsO[endI][5],fmsO[endI][6])
-    --print("i=".. i .." speed="..simDR_groundspeed .. " distance="..totalDistance.." dtoAirport="..dtoAirport.. " ".. fmsO[i][5].." ".. fmsO[i][6].." ".. fmsO[i+1][5].." ".. fmsO[i+1][6])
+    --print("i=".. i .." B747DR_fmscurrentIndex="..B747DR_fmscurrentIndex .." speed="..simDR_groundspeed .. " distance="..totalDistance.." dtoAirport="..dtoAirport.. " ".. fmsO[i][5].." ".. fmsO[i][6].." ".. fmsO[i+1][5].." ".. fmsO[i+1][6])
 	if dtoAirport<10 then 
 		eod=i
 		--print("end fms"..i.."=at alt "..fms[i][3])
 		break 
 	end
   end
+  totalDistance=totalDistance+getDistance(fmsO[eod][5],fmsO[eod][6],fmsO[endI][5],fmsO[endI][6])
+  --simDR_autopilot_altitude_ft
   B747BR_eod_index=eod
   B747BR_totalDistance=totalDistance
   B747BR_nextDistanceInFeet=nextDistanceInFeet
@@ -1808,6 +1853,8 @@ function setDistances(fmsO)
   else
   	B747BR_tod=cruiseTOD
   end
+
+
 end
 
 ----- ALTITUDE SELECTED -----------------------------------------------------------------
@@ -1929,6 +1976,8 @@ B747CMD_ap_switch_loc_mode				= deferred_command("laminar/B747/autopilot/button_
 
 function B747_ap_appr_mode()
 	local diff=simDRTime-B747DR_ap_lastCommand
+	local appRefreshnav=simDR_autopilot_nav_status
+	local appRefreshgs=simDR_autopilot_gs_status
 	if B747DR_ap_approach_mode~=0 then --only if we'll need it
 		local refreshheading=simDR_autopilot_heading_status
 	end
@@ -1937,6 +1986,7 @@ function B747_ap_appr_mode()
 	if B747DR_ap_approach_mode==0 then
 		if simDR_autopilot_nav_status > 0 then
 			if simDR_autopilot_gs_status > 0 then
+				print("simCMD_autopilot_appr_mode in B747DR_ap_approach_mode=0")
 				simCMD_autopilot_appr_mode:once() --DEACTIVATE APP
 				B747DR_ap_lastCommand=simDRTime
 			else
@@ -1959,12 +2009,14 @@ function B747_ap_appr_mode()
 		elseif B747DR_ap_approach_mode==1 then --WANT APP
 			if simDR_autopilot_gs_status == 0
 			then
+				print("simCMD_autopilot_appr_mode in B747DR_ap_approach_mode=1")
 				simCMD_autopilot_appr_mode:once() --ACTIVATE APP
 				B747DR_ap_lastCommand=simDRTime
 			end
 		end
 	elseif simDR_autopilot_nav_status > 0 then
 		if simDR_autopilot_gs_status > 0 then
+			print("simCMD_autopilot_appr_mode in elseif")
 			simCMD_autopilot_appr_mode:once() --DEACTIVATE APP
 			B747DR_ap_lastCommand=simDRTime
 		else
@@ -2040,11 +2092,18 @@ function B747_ap_fma()
     if B747DR_toggle_switch_position[29] == 0 or B747DR_autothrottle_fail>0 then
 		B747DR_ap_FMA_autothrottle_mode = 0
 	elseif (B747DR_engine_TOGA_mode >0 and simDR_ind_airspeed_kts_pilot<65) or B747DR_ap_autoland<0 or (B747DR_ap_vnav_state==0 and B747DR_ap_thrust_mode>0) then                                        
-        B747DR_ap_FMA_autothrottle_mode = 5 --THR REF
-    elseif (B747DR_engine_TOGA_mode == 1 and simDR_radarAlt1<50)  then                                        
+        
+		if B747DR_engine_TOGA_mode == 1 then 
+			B747DR_engine_TOGA_mode = 0
+			B747DR_ap_FMA_autothrottle_mode = 0
+		else
+			B747DR_ap_FMA_autothrottle_mode = 5 --THR REF
+		end
+    elseif (B747DR_engine_TOGA_mode >0 and simDR_radarAlt1<50)  then                                        
         B747DR_ap_FMA_autothrottle_mode = 1 --HOLD
+		B747DR_engine_TOGA_mode = 1 --reached hold state
     elseif (simDR_autopilot_fms_vnav == 1 or B747DR_ap_vnav_state ==2)
-      	and (simDR_autopilot_flch_status > 0 or B747DR_engine_TOGA_mode==1) then
+      	and ((simDR_autopilot_flch_status > 0 or B747DR_engine_TOGA_mode==1) and B747DR_ap_inVNAVdescent==0) then
 	  B747DR_ap_FMA_autothrottle_mode = 5  --THR REF
     elseif simDR_autopilot_autothrottle_on == 1 then
       if B747DR_ap_vnav_state > 0 and simDR_allThrottle<0.02 and B747DR_ap_inVNAVdescent>0 then

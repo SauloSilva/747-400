@@ -97,7 +97,9 @@ function VNAV_CLB(numAPengaged,fmsO)
         --computeVNAVAlt(fmsO)
         print("UPDATE VNAV_CLB "..waypointDiff .. " " .. mcpDiff.. " " .. waypointAlt .. " " .. start.. " " .. fmsO[start][9].. " " .. simDR_pressureAlt1) 
     end
-    if B747DR_engine_TOGA_mode == 1 and simDR_radarAlt1>1500 then B747DR_engine_TOGA_mode = 0 end
+    if B747DR_engine_TOGA_mode == 1 and simDR_radarAlt1>1500 then 
+        B747DR_engine_TOGA_mode = 0 
+    end
     if (simDR_pressureAlt1 < B747BR_cruiseAlt-300 or simDR_pressureAlt1 > B747BR_cruiseAlt+300) and simDR_radarAlt1>400 then 
         if simDR_autopilot_flch_status == 0 and 
         (simDR_autopilot_alt_hold_status == 0 or numAPengaged==0 or B747DR_ap_vnav_state == 1 or B747DR_ap_vnav_state == 3
@@ -153,22 +155,39 @@ function VNAV_DES_ALT(numAPengaged,fms)
     end 
     if B747DR_mcp_hold==0 then simDR_autopilot_altitude_ft=targetAlt end
 end
+
+
 function VNAV_DES(numAPengaged,fms)
     VNAV_DES_ALT(numAPengaged,fms)
     local diff2 = simDR_autopilot_altitude_ft - simDR_pressureAlt1
     local diff3 = B747DR_autopilot_altitude_ft- simDR_pressureAlt1
     local lastHold=simDRTime-B747DR_mcp_hold_pressed
+    local descentstatus=0
+    if B747DR_switchingIASMode==1 then return end
+    local upperAlt=math.max(tonumber(getFMSData("desspdtransalt")),tonumber(getFMSData("desrestalt")))
+    --print("upperAlt "..upperAlt)
+    if B747DR_ap_ias_mach_window_open == 1 then
+        
+        if simDR_pressureAlt1>upperAlt and simDR_ind_airspeed_kts_pilot>=B747DR_airspeed_Vmc+15 then
+            descentstatus = simDR_autopilot_flch_status
+        else
+            descentstatus = simDR_autopilot_vs_status
+        end
+    else
+        descentstatus = simDR_autopilot_vs_status
+    end
     --print("VNAV_DES B747DR_ap_inVNAVdescent=" .. " "..B747DR_ap_inVNAVdescent.. " "..diff2.. " "..diff3.. " "..B747DR_ap_vnav_state.. " " .. B747DR_mcp_hold)
-    if simDR_autopilot_vs_status == 0 then
+    if descentstatus == 0 then
         print("simDR_autopilot_vs_status  == 0 clear descent")
         B747DR_ap_inVNAVdescent = 0
     end
-
+    
     if B747DR_mcp_hold>0 then return end
+
     --Past TOD and MCP ALT at current alt - activate VNAV ALT
     if B747DR_ap_inVNAVdescent ==0 and diff2<=0 and (diff3>=-100 and diff3<=100)
             and B747BR_totalDistance>0 and B747BR_totalDistance-B747BR_tod<=0
-            and simDR_autopilot_vs_status == 0 
+            and descentstatus == 0 
             and simDR_radarAlt1>1000 
             and lastHold>30 then
         B747DR_mcp_hold=1
@@ -180,7 +199,7 @@ function VNAV_DES(numAPengaged,fms)
     --Not started descent, not in VNAV ALT, past TOD, begin descending
     if B747DR_ap_inVNAVdescent ==0 and diff2<=0 and (diff3<=-100 or diff3>=0) 
             and B747BR_totalDistance>0 and (B747BR_totalDistance-B747BR_tod<=0 or beganDescent()==true)
-            and simDR_autopilot_vs_status == 0 
+            and descentstatus == 0 
             and simDR_radarAlt1>1000 
                  then
         if diff3<=0 then           
@@ -193,16 +212,20 @@ function VNAV_DES(numAPengaged,fms)
             print("set B747DR_mcp_hold")
         end
     end
-    if B747DR_ap_inVNAVdescent ==1 and diff2<=0 and (diff3<=-500 or diff3>=500) and simDR_autopilot_vs_status == 0 and simDR_radarAlt1>1000 then
+    if B747DR_ap_inVNAVdescent ==1 and diff2<=0 and (diff3<=-500 or diff3>=500) and descentstatus == 0 and simDR_radarAlt1>1000 then
         if simDR_autopilot_gs_status < 1 then 
-            simCMD_autopilot_vert_speed_mode:once()
+            if B747DR_ap_ias_mach_window_open == 0 or simDR_pressureAlt1<=upperAlt or simDR_ind_airspeed_kts_pilot<B747DR_airspeed_Vmc+15 then
+                simCMD_autopilot_vert_speed_mode:once()
+            else
+                simCMD_autopilot_flch_mode:once()
+            end
             setDescent(true)
             print("Resume descent")
         end
     end
     local spdval=tonumber(getFMSData("desspd"))
     local forceOn=false
-    if B747DR_ap_ias_dial_value<=spdval and simDR_autopilot_airspeed_is_mach==0 then forceOn=true end
+    if B747DR_ap_ias_dial_value<=spdval and simDR_autopilot_airspeed_is_mach==0 and B747DR_ap_ias_mach_window_open == 0 then forceOn=true end
 
     if B747DR_ap_inVNAVdescent >0 and simDR_autopilot_autothrottle_enabled == 1 and simDR_allThrottle<0.02 and forceOn==false then							-- AUTOTHROTTLE IS "ON"
         simCMD_autopilot_autothrottle_off:once()									-- DEACTIVATE THE AUTOTHROTTLE
@@ -308,7 +331,7 @@ function VNAV_modeSwitch(fmsO)
     end --not requested 
     local dist=B747BR_totalDistance-B747BR_tod
     
-    if B747DR_ap_inVNAVdescent >0 and simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 and simDR_allThrottle>0 and simDR_radarAlt1>1000 then
+    if B747DR_ap_inVNAVdescent >0 and simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 and simDR_allThrottle>0 and simDR_radarAlt1>1000 and B747DR_ap_FMA_autothrottle_mode==5 then
         simCMD_ThrottleDown:once()
     else
         B747_monitor_THR_REF_AT()
@@ -341,6 +364,7 @@ function LNAV_modeSwitch()
     print("ap_state "..simDR_autopilot_state)]]
 end 
 function aileronTrim()
+    --[[return
     local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
     if numAPengaged==0 then return end
     --Flight envelope protection
@@ -348,7 +372,7 @@ function aileronTrim()
         simDR_ap_aileron_trim=B747_animate_value(simDR_ap_aileron_trim,B747DR_capt_ap_roll/5,-6,6,1)
     else
         simDR_ap_aileron_trim=B747_animate_value(simDR_ap_aileron_trim,0,-6,6,5)
-    end
+    end]]--
     --print("trim " .. B747DR_capt_ap_roll .. " " .. simDR_ap_aileron_trim)
 
 end
@@ -493,7 +517,7 @@ function B747_updateApproachHeading(fmsO)
           local hV=math.floor(ap2Heading+simDR_variation +wca)
           hV=math.fmod(hV,360)
           if hV<0 then hV=hV+360 end
-          print("hV="..hV.." wca="..wca.." wca_deg="..wca )
+          --print("hV="..hV.." wca="..wca.." wca_deg="..wca )
           simDR_autopilot_heading_deg =	 hV
     end
 end

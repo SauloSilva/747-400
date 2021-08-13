@@ -11,13 +11,20 @@ B747DR_text_capt_show 				= find_dataref("laminar/B747/nd/capt/text/show")
 B747DR_text_capt_heading			= find_dataref("laminar/B747/nd/capt/text/heading")
 B747DR_text_capt_distance			= find_dataref("laminar/B747/nd/capt/text/distance")
 --B747DR_text_capt_icon				= find_dataref("laminar/B747/nd/capt/text/icon","array[60]")
-
+B747DR_nd_mode_capt_sel_dial_pos                = find_dataref("laminar/B747/nd/mode/capt/sel_dial_pos", "number")
+B747DR_nd_mode_fo_sel_dial_pos                  = find_dataref("laminar/B747/nd/mode/fo/sel_dial_pos", "number")
 B747DR_text_fo_show 				= find_dataref("laminar/B747/nd/fo/text/show")
 B747DR_text_fo_heading			= find_dataref("laminar/B747/nd/fo/text/heading")
 B747DR_text_fo_distance			= find_dataref("laminar/B747/nd/fo/text/distance")
 --B747DR_text_fo_icon				= find_dataref("laminar/B747/nd/fo/text/icon","array[60]")
 B747DR_fmscurrentIndex      = find_dataref("laminar/B747/autopilot/ap_monitor/fmscurrentIndex")
-
+B747BR_totalDistance 			= find_dataref("laminar/B747/autopilot/dist/remaining_distance")
+B747BR_eod_index 			= find_dataref("laminar/B747/autopilot/dist/eod_index", "number")
+B747BR_nextDistanceInFeet 		= find_dataref("laminar/B747/autopilot/dist/next_distance_feet")
+B747BR_cruiseAlt 			= find_dataref("laminar/B747/autopilot/dist/cruise_alt")
+B747BR_tod				= find_dataref("laminar/B747/autopilot/dist/top_of_descent")
+B747BR_todLat				= find_dataref("laminar/B747/autopilot/dist/top_of_descent_lat", "number")
+B747BR_todLong				= find_dataref("laminar/B747/autopilot/dist/top_of_descent_long", "number")
 iconTextDataCapt={}
 iconTextDataCapt.icons=find_dataref("laminar/B747/nd/capt/text/icon")
 for n=0,59,1 do
@@ -202,6 +209,12 @@ function makeIcon(iconTextData,navtype,text,latitude,longitude,distance)
     iconTextData[lastNavaid].whitetext=" "
     iconTextData[lastNavaid].redtext=" "
     iconTextData[lastNavaid].greentext=" " 
+  elseif (navtype==3008) then --TOD
+    iconTextData.icons[lastNavaid]=8
+    iconTextData[lastNavaid].bluetext=" "
+    iconTextData[lastNavaid].whitetext=" " 
+    iconTextData[lastNavaid].redtext=" "
+    iconTextData[lastNavaid].greentext=text 
   elseif bit_and(navtype,4)>0 and vor_ndb>0 then
     iconTextData.icons[lastNavaid]=11
     if text==simDR_radio_nav03_ID or text==simDR_radio_nav04_ID then
@@ -312,6 +325,20 @@ function newIcons()
 	      makeIcon(iconTextDataFO,3003,fmsTable[n][8],fmsTable[n][5],fmsTable[n][6],distance)
       else
 	      makeIcon(iconTextDataFO,3005,fmsTable[n][8],fmsTable[n][5],fmsTable[n][6],distance)
+      end
+    end
+  end
+  --TODs
+  if B747BR_cruiseAlt>0 and B747BR_totalDistance-B747BR_tod>-3 then
+    local toddist=getDistance(simDR_latitude,simDR_longitude,B747BR_todLat,B747BR_todLong)
+    if B747DR_nd_mode_capt_sel_dial_pos==2 then
+      if toddist < ranges[simDR_range_dial_capt + 1] then 
+        makeIcon(iconTextDataCapt,3008,"T/D",B747BR_todLat,B747BR_todLong,toddist)
+      end
+    end
+    if B747DR_nd_mode_fo_sel_dial_pos==2 then
+      if toddist < ranges[simDR_range_dial_fo + 1] then 
+        makeIcon(iconTextDataFO,3008,"T/D",B747BR_todLat,B747BR_todLong,toddist)
       end
     end
   end
@@ -428,7 +455,7 @@ function after_physics()
   local diff=simDRTime-lastUpdate
   updateIcons()
   local diff2=simDRTime-lastUpdateIcon
-  if diff>2 then 
+  if diff>0.5 then 
     newIcons()
     lastUpdateIcon=simDRTime
   end
@@ -436,7 +463,7 @@ function after_physics()
   if diff2>10 then 
     read_fixes()
   end
-  if diff<10 then return end
+  if diff<2 then return end
   lastUpdate=simDRTime
   decodeNAVAIDS()
   decodeFlightPlan()

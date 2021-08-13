@@ -551,7 +551,7 @@ function defaultFMSData()
   transpd="272",
   spdtransalt="10000",
   transalt="18000",
-  clbrestspd="180",
+  clbrestspd="250",
   maxkts="420",
   clbrestalt="5000 ",
   stepalt="FL360",
@@ -655,7 +655,7 @@ function getFMSData(id)
   if hasChild(fmsModules["data"],id) then
     return fmsModules["data"][id]
   end
-  return fmsModules["data"]["values"][id]
+  return fmsModules["data"][id]
 end 
 fmsModules["lastcmd"]=" "
 fmsModules["cmds"]={}
