@@ -7576,7 +7576,7 @@ END_GROUP
         POS 1022.000000 137.000000
         IMAGE EFIS/Maps/Expanded/track_line
         DATAREF sim/cockpit2/gauges/indicators/ground_track_mag_copilot
-        SHOW_EQUAL 1.000000 laminar/B747/nd/track_line_on
+        SHOW_EQUAL 1.000000 laminar/B747/nd/fo/track_line_on
         
         HIDE
         LIGHT_MODE GLASS_AUTO
@@ -7841,7 +7841,7 @@ END_GROUP
       GROUP ND Heading Bug
         GROUP_WIDTH 677
       GROUP_HEIGHT 602
-        SHOW_LESS 1.000000 laminar/B747/nd/mode/fo/sel_dial_pos
+        SHOW_EQUAL 1.000000 laminar/B747/nd/mode/fo/show_heading_bug
          
       gen_needle Heading Bug
         POS 1022.000000 347.000000
@@ -9477,7 +9477,7 @@ END_GROUP
         OFFSET_Y -8.000000
 
 	gen_rotary MAP X FO
-	  POS 1019.50000 142.000000
+	  POS 1021.00000 83.000000
 	  IMAGE CRT Displays/ND/mapX
 	  DATAREF
 	  SHOW_EQUAL 2 laminar/B747/nd/mode/fo/sel_dial_pos

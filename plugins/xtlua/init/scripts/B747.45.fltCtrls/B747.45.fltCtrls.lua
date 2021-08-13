@@ -97,6 +97,24 @@ B747_speedbrake_stop = deferred_dataref("laminar/B747/flt_ctrls/speedbrake_stop"
 simDR_speedbrake_ratio_control  = find_dataref("sim/cockpit2/controls/speedbrake_ratio")
 
 function B747_speedbrake_manip_timeout()
+	if B747DR_speedbrake_lever < 0.01 then
+		B747DR_speedbrake_lever = 0.0
+		simDR_speedbrake_ratio_control = 0.0
+		B747DR_CAS_memo_status[45] = 0
+	-- ARMED DETENT
+	elseif B747DR_speedbrake_lever < 0.30 and
+		B747DR_speedbrake_lever > 0.07
+	then
+
+		B747DR_speedbrake_lever = 0.125 
+		simDR_speedbrake_ratio_control = -0.5
+		B747DR_CAS_memo_status[45] = 1
+	-- ALL OTHER POSITIONS    
+	else
+		B747DR_speedbrake_lever = math.min(1.0 - (B747_speedbrake_stop * 0.47), B747DR_speedbrake_lever)
+		simDR_speedbrake_ratio_control = B747_rescale(0.15, 0.0, 1.0 - (B747_speedbrake_stop * 0.47), 1.0, B747DR_speedbrake_lever) 	       
+		B747DR_CAS_memo_status[45] = 0
+	end	
 	B747_sb_manip_changed = 0 
 end
 function B747_rescale(in1, out1, in2, out2, x)
@@ -107,31 +125,34 @@ function B747_rescale(in1, out1, in2, out2, x)
 
 end
 function B747_speedbrake_lever_DRhandler()
-	
-    -- DOWN DETENT
-	if B747DR_speedbrake_lever < 0.01 then
-		B747DR_speedbrake_lever = 0.0
-		simDR_speedbrake_ratio_control = 0.0
-		B747DR_CAS_memo_status[45] = 0
-     -- ARMED DETENT
-    elseif B747DR_speedbrake_lever < 0.30 and
-        B747DR_speedbrake_lever > 0.07
-    then
-        B747DR_speedbrake_lever = 0.125 
-        simDR_speedbrake_ratio_control = -0.5
-		B747DR_CAS_memo_status[45] = 1
-    -- ALL OTHER POSITIONS    
-    else
-	    B747DR_speedbrake_lever = math.min(1.0 - (B747_speedbrake_stop * 0.47), B747DR_speedbrake_lever)
-		simDR_speedbrake_ratio_control = B747_rescale(0.15, 0.0, 1.0 - (B747_speedbrake_stop * 0.47), 1.0, B747DR_speedbrake_lever) 	       
-		B747DR_CAS_memo_status[45] = 0
-    end	   
-    
-    B747_sb_manip_changed = 1 
-    if is_timer_scheduled(B747_speedbrake_manip_timeout) then
-		stop_timer(B747_speedbrake_manip_timeout)    
-	end	
-	run_after_time(B747_speedbrake_manip_timeout, 2.0)
+	if  B747DR_speedbrake_auto_ext==0 then
+		B747_sb_manip_changed = 1 
+		-- DOWN DETENT
+		if B747DR_speedbrake_lever < 0.01 then
+			B747DR_speedbrake_lever = 0.0
+			simDR_speedbrake_ratio_control = 0.0
+			B747DR_CAS_memo_status[45] = 0
+		-- ARMED DETENT
+		elseif B747DR_speedbrake_lever < 0.30 and
+			B747DR_speedbrake_lever > 0.07
+		then
+
+			B747DR_speedbrake_lever = 0.125 
+			simDR_speedbrake_ratio_control = -0.5
+			B747DR_CAS_memo_status[45] = 1
+		-- ALL OTHER POSITIONS    
+		else
+			B747DR_speedbrake_lever = math.min(1.0 - (B747_speedbrake_stop * 0.47), B747DR_speedbrake_lever)
+			simDR_speedbrake_ratio_control = B747_rescale(0.15, 0.0, 1.0 - (B747_speedbrake_stop * 0.47), 1.0, B747DR_speedbrake_lever) 	       
+			B747DR_CAS_memo_status[45] = 0
+		end	   
+		
+		
+		if is_timer_scheduled(B747_speedbrake_manip_timeout) then
+			stop_timer(B747_speedbrake_manip_timeout)    
+		end	
+		run_after_time(B747_speedbrake_manip_timeout, 1.0)
+	end
 
 end
 

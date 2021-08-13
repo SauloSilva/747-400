@@ -462,6 +462,7 @@ function clear_thrust_targets()
 		simDR_EPR_target_bug[i] = 0.0
 		simDR_N1_target_bug[i] = 0.0
 	end
+	GE_Init()
 end
 
 function take_off_thrust_corrected(altitude_ft_in, temperature_K_in)
@@ -598,7 +599,7 @@ function throttle_management()
 	--Set EICAS Thrust Limit Mode
 	if B747DR_ap_autothrottle_armed == 1 then
 		--Take-off
-		if B747DR_engine_TOGA_mode > 0 and B747DR_engine_TOGA_mode <= 1 then
+		if B747DR_engine_TOGA_mode > 0 and B747DR_engine_TOGA_mode <= 1 and B747DR_ap_FMA_autothrottle_mode==5 then
 			B747DR_ref_thr_limit_mode = "TO"
 
 			--Initially set previous_altitude to the FMC cruise altitude
@@ -781,6 +782,7 @@ function after_physics()
     flight_coefficients(simDR_acf_weight_total_kg, simDR_tas_pilot)
 
 	--fmsModules["data"] = json.decode(B747DR_FMSdata)
+	set_engines()
 	
 	if string.len(B747DR_simconfig_data) > 1 then
 		set_engines()

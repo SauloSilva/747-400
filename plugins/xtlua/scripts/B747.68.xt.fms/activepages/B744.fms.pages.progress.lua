@@ -60,8 +60,8 @@ fmsPages["PROGRESS"].getPage=function(self,pgNo,fmsID)
     local ffkgs = (simDR_eng_fuel_flow_kg_sec[0] + simDR_eng_fuel_flow_kg_sec[1] + simDR_eng_fuel_flow_kg_sec[2] + simDR_eng_fuel_flow_kg_sec[3])
     local toFuel="---.-"
     local nextFuel="---.-"
-    local dtgTO="---"
-    local dtgNext="---"
+    local dtgTO=" ---"
+    local dtgNext=" ---"
     local meters_per_second_to_kts = 1.94384449
     local default_speed = 275 * meters_per_second_to_kts
     local actual_speed = simDR_groundspeed * meters_per_second_to_kts
@@ -69,7 +69,7 @@ fmsPages["PROGRESS"].getPage=function(self,pgNo,fmsID)
     --print("B747DR_ND_waypoint_distance "..string.sub(B747DR_ND_waypoint_distance,1,5))
     local time_to_waypoint=0
     if B747DR_ND_current_waypoint~="-----" and distToNext~=nil then
-      dtgTO=string.format("%3d",distToNext)
+      dtgTO=string.format("%4d",distToNext)
       
       time_to_waypoint = (distToNext / math.max(default_speed, actual_speed)) * 3600
       f_used_toNext=time_to_waypoint*ffkgs
@@ -80,7 +80,7 @@ fmsPages["PROGRESS"].getPage=function(self,pgNo,fmsID)
     if B747DR_next_waypoint~="-----" and B747DR_next_waypoint_dist>0 and B747DR_ND_current_waypoint~="-----" and distToNext~=nil then
       --print("B747DR_next_waypoint_dist "..B747DR_next_waypoint_dist)
       time_to_waypoint = time_to_waypoint+((B747DR_next_waypoint_dist / math.max(default_speed, actual_speed)) * 3600)
-      dtgNext=string.format("%3d",distToNext+B747DR_next_waypoint_dist)
+      dtgNext=string.format("%4d",distToNext+B747DR_next_waypoint_dist)
       f_used_toNext=time_to_waypoint*ffkgs
       nextFuel=string.format("%5.1f",((simDR_fueL_tank_weight_total_kg-f_used_toNext)*mult/1000))
       --print("time_next_waypoint "..time_to_waypoint)
@@ -95,7 +95,7 @@ fmsPages["PROGRESS"].getPage=function(self,pgNo,fmsID)
       time_to_TOD,hours,mins,secs = get_ETA_for_Distance(dist,0)
       todText=string.format("%12s",string.format("%02d%02dz/%dNM", hours, mins,dist))
     end
-    local destText="---- ----   --.-"
+    local destText=" --- ----   --.-"
     if B747BR_totalDistance>0 then
       local dist=B747BR_totalDistance
       local hours = 0
@@ -115,9 +115,9 @@ fmsPages["PROGRESS"].getPage=function(self,pgNo,fmsID)
     "                        ",
     "                        ",
     "                        ",
-    string.format("%-5s",B747DR_ND_current_waypoint).."    "..dtgTO.." ".. string.sub(B747DR_ND_waypoint_eta,1,4).."  "..toFuel ,
+    string.format("%-5s",B747DR_ND_current_waypoint).."   "..dtgTO.." ".. string.sub(B747DR_ND_waypoint_eta,1,4).."  "..toFuel ,
     "                        ",
-    string.format("%-5s", B747DR_next_waypoint).."    "..dtgNext.." ".. string.sub(B747DR_next_waypoint_eta,1,4).."  "..nextFuel,
+    string.format("%-5s", B747DR_next_waypoint).."   "..dtgNext.." ".. string.sub(B747DR_next_waypoint_eta,1,4).."  "..nextFuel,
     "                        ",
     B747DR_destination.."    "..destText,
     "                        ",

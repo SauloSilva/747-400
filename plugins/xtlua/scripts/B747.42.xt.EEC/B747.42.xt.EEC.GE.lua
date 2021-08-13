@@ -40,7 +40,7 @@ function engine_idle_control_GE(altitude_ft_in)
   --MINIMUM (LOW) Idle
   --------------------
   --When on ground and flaps not in landing configuration, low idle fluctuates based on temperature
-  if simDR_onGround == 1 then
+  if simDR_onGround == 1 or firstCall then
     if simDR_temperature < 15.0 then
       simDR_engine_high_idle_ratio = B747_rescale(-75.0, 1.04, 14.99, 1.249, simDR_temperature)
     else
@@ -66,7 +66,7 @@ function engine_idle_control_GE(altitude_ft_in)
   if (simDR_onGround == 0 and simDR_flap_ratio > 0.667)
     or (simDR_onGround == 0 and B747DR_button_switch_position[44] == 1)  --CONTinuous Ignition
     or (simDR_onGround == 0 and math.max(B747DR_nacelle_ai_valve_pos[0], B747DR_nacelle_ai_valve_pos[1], B747DR_nacelle_ai_valve_pos[2], B747DR_nacelle_ai_valve_pos[3]) == 1)  --Engine A/I
-    or (simDR_onGround == 1 and math.max(simDR_reverser_on[0], simDR_reverser_on[1], simDR_reverser_on[2], simDR_reverser_on[3]) == 1) then  --Reversers deployed
+    or ((simDR_onGround == 1  or firstCall) and math.max(simDR_reverser_on[0], simDR_reverser_on[1], simDR_reverser_on[2], simDR_reverser_on[3]) == 1) then  --Reversers deployed
       simDR_engine_high_idle_ratio = N1_high_idle_ratio
       
       --Reset to LOW Idle 5 seconds after touchdown (TBD)
@@ -445,7 +445,7 @@ function N1_display_GE(altitude_ft_in, thrust_N_in, n1_factor_in, engine_in)
     N1_actual = N1_corrected * math.sqrt(temperature_ratio)
 
     --Keep the N1 display steady during TO until we manage thrust or 2000 AGL unmanaged
-    if (string.match(B747DR_ref_thr_limit_mode, "TO") or (simDR_onGround == 1 and B747DR_ref_thr_limit_mode == "GA"))
+    if (string.match(B747DR_ref_thr_limit_mode, "TO") or ((simDR_onGround == 1 or firstCall) and B747DR_ref_thr_limit_mode == "GA"))
       or ((B747DR_ref_thr_limit_mode == "NONE" or B747DR_ref_thr_limit_mode == "") and B747DR_radio_altitude < 2000) then
         N1_actual = simDR_N1[engine_in] * n1_factor_in
     end
@@ -585,7 +585,7 @@ function GE(altitude_ft_in)
 	--print("Alt = "..altitude)
 	--print("Temp = "..temperature)
 
-	if simDR_onGround == 1 then
+  if simDR_onGround == 1 then
 		--temperature = find_closest_temperature(TOGA_N1_GE, simDR_temperature)
 		--airport_altitude = altitude
 		--print("Closest Temp = ", temperature)

@@ -25,7 +25,11 @@ fmsPages["TAKEOFF"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be 
   local v1="---"
   local vr="---"
   local v2="---"
-  
+  local clbV="*"
+  local clbF="FLAPS 5 "
+  if clbderate>0 then
+    clbV=""..clbderate
+  end
 	--Marauder28
 	if string.len(cg_lineLg) == 0 then
 		if fmsModules["data"].cg_mac == "--" then
@@ -52,7 +56,7 @@ fmsPages["TAKEOFF"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be 
   "                        ",
   string.format("                     %3d", vr),
   "                        ",
-  string.format("FLAPS *  CLB *       %3d", v2),
+  string.format("%s CLB %1s       %3d",clbF,clbV, v2),
   "                        ",
   "                     "..cg_lineLg,
   "                        ",
@@ -69,7 +73,7 @@ fmsPages["TAKEOFF"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be 
   "                        ",
   string.format("                     ---"),
   "                        ",
-  string.format("FLAPS *  CLB *       ---"),
+  string.format("%s CLB %1s       ---",clbF,clbV),
   "                        ",
   "                     "..cg_lineLg,
   "                        ",
