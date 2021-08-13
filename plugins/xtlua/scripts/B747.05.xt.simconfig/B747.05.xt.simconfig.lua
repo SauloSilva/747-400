@@ -44,7 +44,7 @@ simDR_baro_fo				= find_dataref("sim/cockpit/misc/barometer_setting2")
 --*************************************************************************************--
 -- Holds all SimConfig options
 B747DR_simconfig_data						= deferred_dataref("laminar/B747/simconfig", "string")
-B747DR_newsimconfig_data				= deferred_dataref("laminar/B747/newsimconfig", "number")
+B747DR_newsimconfig_data					= deferred_dataref("laminar/B747/newsimconfig", "number")
 B747DR_efis_baro_ref_capt_sel_dial_pos		= find_dataref("laminar/B747/efis/baro_ref/capt/sel_dial_pos", "number")
 B747DR_efis_baro_ref_fo_sel_dial_pos		= deferred_dataref("laminar/B747/efis/baro_ref/fo/sel_dial_pos", "number")
 B747DR_flt_inst_inbd_disp_capt_sel_dial_pos	= deferred_dataref("laminar/B747/flt_inst/capt_inbd_display/sel_dial_pos", "number")
@@ -63,6 +63,7 @@ B747DR_efis_baro_ref_fo_switch_pos			= deferred_dataref("laminar/B747/efis/baro_
 
 -- Engine Type (crazytimitmtim)
 B747DR_engineType                               = deferred_dataref("laminar/B747/engines/type", "number")
+
 --*************************************************************************************--
 --** 				        MAIN PROGRAM LOGIC                                       **--
 --*************************************************************************************--
@@ -87,7 +88,7 @@ function simconfig_values()
 			PLANE = {
 						model = "747-400",  --747-400, 747-400ER, 747-400F
 						aircraft_type = "PASSENGER", --Passenger, Freighter
-						engines = "CF6-80C2-B5F",  --PW4056, PW4060, PW4062, CF6-80C2-B1F, CF6-80C2-B5F, CF6-80C2-B1F1, RB211-524G, RB211-524H, RB211-524H8T
+						engines = "PW4056",  --PW4056, PW4060, PW4062, CF6-80C2-B1F, CF6-80C2-B5F, CF6-80C2-B1F1, RB211-524G, RB211-524H, RB211-524H8T
 						thrust_ref = "EPR",  --EPR, N1  Should be N1 for GE engines
 						pfd_style = "CRT",  --CRT, LCD  (used in Passenger & Combi Aircraft)
 						nd_style = "CRT",  --CRT, LCD  (used in Freighter Aircraft)
@@ -129,10 +130,12 @@ function check_pfd_nd_style()
 end
 
 function check_thrust_ref()
-	if simConfigData["data"].PLANE.thrust_ref == "EPR" then
+	if string.match(simConfigData["data"].PLANE.engines, "PW") or string.match(simConfigData["data"].PLANE.engines, "RR") then --  simConfigData["data"].PLANE.thrust_ref == "EPR" then
 		B747DR_thrust_ref = 0
-	elseif simConfigData["data"].PLANE.thrust_ref == "N1" then
+	elseif string.match(simConfigData["data"].PLANE.engines, "CF6") then --simConfigData["data"].PLANE.thrust_ref == "N1" then
 		B747DR_thrust_ref = 1
+	else --Asssume EPR if all else fails
+		B747DR_thrust_ref = 0
 	end
 end
 
@@ -144,6 +147,8 @@ function checkEngineType()
 		B747DR_engineType = 1
 	elseif string.match(simConfigData["data"].PLANE.engines, "RB") then
 		B747DR_engineType = 2
+	else --Assume PW if all else fails
+		B747DR_engineType = 0
 	end
 end
 -- crazytimtimtim end
@@ -223,7 +228,7 @@ end
 
 function flight_start()
 	local refreshLivery=simDR_livery_path
-	--B747DR_simconfig_data=json.encode(simConfigData["data"]["values"]) --make the simConfig data available to other modules
+	B747DR_simconfig_data=json.encode(simConfigData["data"]["values"]) --make the simConfig data available to other modules
 	B747DR_newsimconfig_data=1
 	run_after_time(aircraft_simConfig, 1)  --Load specific simConfig data for current livery
 end
