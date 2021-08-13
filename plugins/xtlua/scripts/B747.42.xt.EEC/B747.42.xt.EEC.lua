@@ -57,7 +57,7 @@ function round_thrustcalc(x, input_type)
       elseif x > 45000 then
         x = 45000
       end
-      print("x Corrected = "..x)
+      --print("x Corrected = "..x)
       return x >= 0 and math.floor((x / 5000) + 0.5) * 5000 or math.ceil((x / 5000) - 0.5) * 5000  --Alts in 5000s
     elseif input_type == "TEMP" then
   --    if x < 10 then
@@ -92,7 +92,60 @@ function round_thrustcalc(x, input_type)
 	end
 	
 	return closest_match
-end
+  end
+
+	function find_closest_weight(table_in, weight_target)
+		local temp_table = {}
+		local closest_match
+		local last_difference = 99999999
+		local counter = 1
+
+		for i, v in pairs(table_in) do
+			for i, v in pairs(v) do
+				table.insert(temp_table, i)
+			end
+		end
+		table.sort(temp_table)
+
+		for i,v in pairs(temp_table) do
+			--print("Weight i, v = ", i, v)
+			local distance = math.abs(weight_target - v) --Distance away
+			if distance < last_difference then
+				closest_match = v
+				last_difference = distance
+			end
+		end
+
+		return closest_match
+	end
+
+	function find_closest_altitude(table_in, alt_target)
+		local temp_table = {}
+		local closest_match
+		local last_difference = 99999999
+		local counter = 1
+
+		for i, v in pairs(table_in) do
+			for i, v in pairs(v) do
+				for i, v in pairs(v) do
+					table.insert(temp_table, i)
+				end
+			end
+--			table.insert(temp_table, i)
+		end
+		table.sort(temp_table)
+
+		for i,v in pairs(temp_table) do
+			--print("Alt i, v = ", i, v)
+			local distance = math.abs(alt_target - v) --Distance away
+			if distance < last_difference then
+				closest_match = v
+				last_difference = distance
+			end
+		end
+
+		return closest_match
+	end
 
 --[[
 *************************************************************************************
@@ -109,6 +162,7 @@ simDR_EPR					= find_dataref("sim/flightmodel/engine/ENGN_EPR")
 simDR_EPR_target_bug		= find_dataref("sim/cockpit2/engine/actuators/EPR_target_bug")
 simDR_N1					= find_dataref("sim/flightmodel/engine/ENGN_N1_")
 simDR_N1_target_bug			= find_dataref("sim/cockpit2/engine/actuators/N1_target_bug")
+simDR_N2					= find_dataref("sim/flightmodel/engine/ENGN_N2_")
 simDR_throttle_ratio		= find_dataref("sim/cockpit2/engine/actuators/throttle_ratio")
 simDR_override_throttles	= find_dataref("sim/operation/override/override_throttles")
 simDR_engn_thro				= find_dataref("sim/flightmodel/engine/ENGN_thro")
@@ -131,6 +185,7 @@ simDR_rpm					= find_dataref("sim/cockpit2/engine/indicators/engine_speed_rpm")
 simDR_reverser_on			= find_dataref("sim/cockpit2/annunciators/reverser_on")
 simDR_reverser_deploy_ratio = find_dataref("sim/flightmodel2/engines/thrust_reverser_deploy_ratio")
 simDR_engine_running		= find_dataref("sim/flightmodel/engine/ENGN_running")
+simDR_compressor_area		= find_dataref("sim/aircraft/engine/acf_face_jet")
 
 --[[
 *************************************************************************************
@@ -200,6 +255,8 @@ B747DR_display_N1_ref				= deferred_dataref("laminar/B747/engines/display_N1_ref
 B747DR_display_N1_max				= deferred_dataref("laminar/B747/engines/display_N1_max", "array[4]")
 B747DR_display_N2					= deferred_dataref("laminar/B747/engines/display_N2", "array[4]")
 B747DR_display_EPR					= deferred_dataref("laminar/B747/engines/display_EPR", "array[4]")
+B747DR_display_EPR_ref				= deferred_dataref("laminar/B747/engines/display_EPR_ref", "array[4]")
+B747DR_display_EPR_max				= deferred_dataref("laminar/B747/engines/display_EPR_max", "array[4]")
 B747DR_display_GE_EGT				= deferred_dataref("laminar/B747/engines/display_GE_EGT", "array[4]")
 B747DR_FMSdata						= deferred_dataref("laminar/B747/fms/data", "string")
 B747DR_radio_altitude				= deferred_dataref("laminar/B747/efis/radio_altitude")
@@ -208,6 +265,8 @@ B747DR_altitude_dial				= deferred_dataref("laminar/B747/autopilot/heading/altit
 B747DR_toderate						= deferred_dataref("laminar/B747/engine/derate/TO","number")
 B747DR_clbderate					= deferred_dataref("laminar/B747/engine/derate/CLB","number")
 B747DR_ref_line_magenta				= deferred_dataref("laminar/B747/engines/display_ref_line_magenta", "number")
+B747DR_throttle_resolver_angle 		= deferred_dataref("laminar/B747/engines/TRA", "array[4]")
+B747DR_engineType					= deferred_dataref("laminar/B747/engines/type", "number")
 
 -- Holds all SimConfig options
 B747DR_simconfig_data				= deferred_dataref("laminar/B747/simconfig", "string")
@@ -226,7 +285,7 @@ lbf_to_N = 4.4482216
 mtrs_per_sec = 1.94384
 
 --Logging On/Off
-enable_logging = false  --true / false
+enable_logging = true  --true / false
 
 --Simulator Config Options
 simConfigData = {}
@@ -248,6 +307,7 @@ corner_temperature_K = 0.0  --kelvin
 temperature_ratio = 0.0
 temperature_ratio_adapted = 0.0
 speed_of_sound = 0.0  --mtrs per sec
+sigma_density_ratio = 0.0
 
 --Flight Coefficients
 mach = 0.0
@@ -263,6 +323,9 @@ EEC_status = 0
 
 --General Engine Parameters
 engine_max_thrust_n = 0
+
+takeoff_TOGA_n1 = 0.0
+takeoff_TOGA_EPR = 0.0
 
 --[[
 *************************************************************************************
@@ -306,7 +369,7 @@ function atmosphere(altitude_ft_in, delta_t_isa_K_in)
         temperature_K = 216.65
     end
 
-
+	temperature_K = simDR_temperature + 273.15
     pressure_ratio = pressure_pa / 101325
     density = pressure_pa / (287 * temperature_K)
     temperature_C = temperature_K - 273.15
@@ -314,6 +377,7 @@ function atmosphere(altitude_ft_in, delta_t_isa_K_in)
     temperature_ratio = (temperature_K + delta_t_isa_K_in) / 288.15
     temperature_ratio_adapted = (temperature_K + delta_t_isa_K_in + 5) / 288.15
     speed_of_sound = math.sqrt(287 * 1.4 * temperature_K)
+	sigma_density_ratio = pressure_pa / (287.058 * temperature_K * 1.225)
 
     if enable_logging then
 		print("\t\t\t\t\t<<<--- ATMOSPHERE --->>>")
@@ -323,6 +387,7 @@ function atmosphere(altitude_ft_in, delta_t_isa_K_in)
 		print("Pressure PA = ", pressure_pa)
 		print("Pressure Ratio = ", pressure_ratio)
 		print("Density = ", density)
+		print("Sigma Density Ratio", sigma_density_ratio)
 		print("Temperature K = ", temperature_K)
 		print("Temperature C = ", temperature_C)
 		print("Corner Temperature K = ", corner_temperature_K)
@@ -370,8 +435,6 @@ function flight_coefficients(gw_kg_in, tas_kts_in)
 	if enable_logging then
 		print("\t\t\t\t\t<<<--- FLIGHT COEFFICIENTS --->>>")
 		print("Gross Weight IN = ", gw_kg_in)
-		--print("Climb Rate FPM IN = ", climb_rate_fpm_in)
-		--print("Acceleration KTS SEC IN = ", acceleration_kts_sec_in)
 		print("Mach = ", mach)
 		print("Coefficient of Lift = ", cL)
 		print("Coefficient of Drag = ", cD)
@@ -399,6 +462,105 @@ function clear_thrust_targets()
 		simDR_EPR_target_bug[i] = 0.0
 		simDR_N1_target_bug[i] = 0.0
 	end
+end
+
+function take_off_thrust_corrected(altitude_ft_in, temperature_K_in)
+	local TOGA_corrected_thrust_lbf = 0.0
+	local TOGA_actual_thrust_lbf = 0.0
+	local TOGA_actual_thrust_N = 0.0
+	local approximate_max_TO_thrust_lbf = 0
+
+	--Approximate TOGA Max thrust
+	--  GE CFG-802C-B1F = 57160 lbf (Engine Max = 58000 lbf / 258000 Newtons)
+	--  GE CFG-802C-B5F = 60030 lbf (Engine Max = 60800 lbf / 270500 Newtons)
+	--  PW4056 = 56750 lbf (Engine Max = 56750 lbf / 252500 Newtons)
+	--  PW4060 = 60000 lbf (Engine Max = 60000 lbf / 266900 Newtons)
+	--  PW4062 = 62000 lbf (Engine Max = 62000 lbf / 275800 Newtons)
+	--  RR RB211-524G = 56870 lbf (Engine Max = 58000 lbf / 258000 Newtons)
+	--  RR RB211-524H = 59450 lbf (Engine Max = 60600 lbf / 269600 Newtons)
+  
+	if string.match(simConfigData["data"].PLANE.engines, "B1F")  then
+		approximate_max_TO_thrust_lbf = 57160
+	elseif string.match(simConfigData["data"].PLANE.engines, "B5F")  then
+		approximate_max_TO_thrust_lbf = 60030
+	elseif string.match(simConfigData["data"].PLANE.engines, "B1F1")  then
+	  approximate_max_TO_thrust_lbf = 60030
+	elseif string.match(simConfigData["data"].PLANE.engines, "4056") then
+	    approximate_max_TO_thrust_lbf = 56750
+	elseif string.match(simConfigData["data"].PLANE.engines, "4060")  then
+	    approximate_max_TO_thrust_lbf = 60000
+	elseif string.match(simConfigData["data"].PLANE.engines, "4062")  then
+	    approximate_max_TO_thrust_lbf = 62000
+	elseif string.match(simConfigData["data"].PLANE.engines, "524G")  then
+	    approximate_max_TO_thrust_lbf = 56870
+	elseif string.match(simConfigData["data"].PLANE.engines, "524H")  then
+	    approximate_max_TO_thrust_lbf = 59450
+	else
+	    approximate_max_TO_thrust_lbf = 56500  --failsafe option
+	end
+
+	if temperature_K_in > corner_temperature_K then
+		TOGA_corrected_thrust_lbf = (-1.79545 * (temperature_K_in / corner_temperature_K) + 2.7874) * (-0.0000546 * altitude_ft_in^2 + 1.37 * altitude_ft_in + approximate_max_TO_thrust_lbf)
+	else
+		TOGA_corrected_thrust_lbf = (-0.0000546 * altitude_ft_in^2 + 1.37 * altitude_ft_in + approximate_max_TO_thrust_lbf)
+	end
+  
+	if B747DR_toderate == 1 then
+	  TOGA_corrected_thrust_lbf = TOGA_corrected_thrust_lbf * 0.9
+	elseif B747DR_toderate == 2 then
+	  TOGA_corrected_thrust_lbf = TOGA_corrected_thrust_lbf * 0.8
+	end
+  
+	TOGA_actual_thrust_lbf = TOGA_corrected_thrust_lbf * pressure_ratio
+	TOGA_actual_thrust_N = TOGA_actual_thrust_lbf * lbf_to_N
+  
+	if enable_logging then
+	  print("\t\t\t\t\t<<<--- Takeoff Calcs --->>>")
+	  print("Altitude IN = ", altitude_ft_in)
+	  print("Temperature K IN = ", temperature_K_in)
+	  print("Approximate Takeoff Thrust Required = ", approximate_max_TO_thrust_lbf)
+	  print("TOGA Corrected LBF = ", TOGA_corrected_thrust_lbf)
+	  print("TOGA Actual LBF = ", TOGA_actual_thrust_lbf)
+	  print("TOGA Actual N = ", TOGA_actual_thrust_N)
+	end
+  
+	return TOGA_corrected_thrust_lbf, TOGA_actual_thrust_lbf, TOGA_actual_thrust_N
+end
+  
+function in_flight_thrust(gw_kg_in, climb_angle_deg_in)
+	local total_thrust_required_N = 0.0
+	local thrust_per_engine_N = 0.0
+	local corrected_thrust_N = 0.0
+	local corrected_thrust_lbf = 0.0
+
+	total_thrust_required_N = 0.5 * cD * tas_mtrs_sec^2 * density * 511 + math.sin(climb_angle_deg_in / 180 * math.pi) * gw_kg_in * 9.81
+
+	if B747DR_clbderate == 1 then
+		total_thrust_required_N = total_thrust_required_N * B747_rescale(10000.0, 0.9, 15000.0, 1.0, simDR_altitude)  --0.9  --Scale linearly from CLB1 to CLB from 10K to 15K ft  FCOM 7/11.32.3
+	elseif B747DR_clbderate == 2 then
+		total_thrust_required_N = total_thrust_required_N * B747_rescale(10000.0, 0.8, 15000.0, 1.0, simDR_altitude)  --0.8  --Scale linearly from CLB1 to CLB from 10K to 15K ft
+	end
+
+	thrust_per_engine_N = total_thrust_required_N / 4
+
+	corrected_thrust_N = thrust_per_engine_N / pressure_ratio
+	corrected_thrust_lbf = corrected_thrust_N / lbf_to_N
+
+	if enable_logging then
+		print("\t\t\t\t<<<--- IN FLIGHT THRUST --->>>")
+		print("Gross Weight IN = ", gw_kg_in)
+		print("Climb Angle IN = ", climb_angle_deg_in)
+		print("Pressure Ratio = ", pressure_ratio)
+		print("Density = ", density)
+		print("Coefficient of Drag = ", cD)
+		print("TAS MTRS Sec = ", tas_mtrs_sec)
+		print("Total Thrust Required N = ", total_thrust_required_N)
+		print("Thrust per Engine N = ", thrust_per_engine_N)
+		print("Corrected Thrust N = ", corrected_thrust_N)
+		print("Corrected Thrust LBF = ", corrected_thrust_lbf)
+	end
+
+	return total_thrust_required_N, thrust_per_engine_N, corrected_thrust_N, corrected_thrust_lbf
 end
 
 local previous_altitude = 0
@@ -443,17 +605,26 @@ function throttle_management()
 			previous_altitude = fmc_alt
 
 			--Spool-up the engines for TO
-			if B747DR_display_N1[0] < B747DR_display_N1_ref[0] or B747DR_display_N1[1] < B747DR_display_N1_ref[1]
-				or B747DR_display_N1[2] < B747DR_display_N1_ref[2] or B747DR_display_N1[3] < B747DR_display_N1_ref[3] then
-				print("TOGA Engaged - Waiting for spool-up.....")
-				simCMD_ThrottleUp:once()
-				return
+			if simConfigData["data"].PLANE.thrust_ref == "N1" then
+				if B747DR_display_N1[0] < B747DR_display_N1_ref[0] or B747DR_display_N1[1] < B747DR_display_N1_ref[1]
+					or B747DR_display_N1[2] < B747DR_display_N1_ref[2] or B747DR_display_N1[3] < B747DR_display_N1_ref[3] then
+					print("TOGA Engaged - Waiting for spool-up.....")
+					simCMD_ThrottleUp:once()
+					return
+				end
+			elseif simConfigData["data"].PLANE.thrust_ref == "EPR" then
+				if B747DR_display_EPR[0] < B747DR_display_EPR_ref[0] or B747DR_display_EPR[1] < B747DR_display_EPR_ref[1]
+					or B747DR_display_EPR[2] < B747DR_display_EPR_ref[2] or B747DR_display_EPR[3] < B747DR_display_EPR_ref[3] then
+					print("TOGA Engaged - Waiting for spool-up.....")
+					simCMD_ThrottleUp:once()
+					return
+				end
 			end
 		--Set Initial Climb based on Flap position (5 degrees) if occurs prior to FMC thrust reduction point
 		elseif simDR_onGround ~= 1 and ((simDR_flap_ratio < 0.34 and simDR_flap_handle_ratio > simDR_flap_ratio) or (string.match(B747DR_ref_thr_limit_mode, "TO") and B747DR_radio_altitude >= 1500 )) then
 			B747DR_ref_thr_limit_mode = "CLB"
 		--Cruise
-		elseif simDR_onGround ~= 1 and simDR_altitude >= (fmc_alt - 250) and fmc_alt > 0 then
+		elseif simDR_onGround ~= 1 and simDR_altitude >= (fmc_alt - 200) and fmc_alt > 0 then
 			B747DR_ref_thr_limit_mode = "CRZ"
 			--Reset local previous_altitude holder
 			if B747DR_altitude_dial < previous_altitude then
@@ -471,11 +642,6 @@ function throttle_management()
 		--Climb
 		elseif simDR_onGround ~= 1 and (previous_altitude < B747DR_altitude_dial) and B747DR_ap_FMA_autothrottle_mode == 5 then
 			B747DR_ref_thr_limit_mode = "CLB"
-		--After landing and reversers stowed reset mode to TO
-		elseif simDR_onGround == 1 and B747DR_ref_thr_limit_mode == "GA"
-			and math.max(simDR_reverser_on[0], simDR_reverser_on[1], simDR_reverser_on[2], simDR_reverser_on[3]) == 0
-			and math.max(simDR_reverser_deploy_ratio[0], simDR_reverser_deploy_ratio[1], simDR_reverser_deploy_ratio[2], simDR_reverser_deploy_ratio[3]) > 0 then
-				B747DR_ref_thr_limit_mode = "TO"
 		end
 
 		--Remove De-rate above 15000 feet
@@ -503,6 +669,12 @@ function throttle_management()
 		end
 	end
 
+	--After landing and reversers stowed reset mode to TO
+	if simDR_onGround == 1 and B747DR_ref_thr_limit_mode == "GA"
+		and math.max(simDR_reverser_on[0], simDR_reverser_on[1], simDR_reverser_on[2], simDR_reverser_on[3]) == 0
+		and math.max(simDR_reverser_deploy_ratio[0], simDR_reverser_deploy_ratio[1], simDR_reverser_deploy_ratio[2], simDR_reverser_deploy_ratio[3]) > 0 then
+			B747DR_ref_thr_limit_mode = "TO"
+	end
 
 	--Determine FMA Mode
 	--THR REF Mode
@@ -514,7 +686,7 @@ function throttle_management()
 			simDR_override_throttles = 1
 		end
 
-		--Thrust ref target line should stay GREEN when in TOGA mod
+		--Thrust ref target line should stay GREEN when in TOGA mode
 		if string.match(B747DR_ref_thr_limit_mode, "TO") then
 			B747DR_ref_line_magenta = 0
 		else
@@ -562,11 +734,10 @@ function throttle_management()
 	end
 end
 
---dofile("B747.42.xt.EEC.GETemp.lua")
-dofile("B747.42.xt.EEC.GETemp.lua")
+dofile("B747.42.xt.EEC.GE.lua")
 dofile("B747.42.xt.EEC.PW.lua")
 dofile("B747.42.xt.EEC.RR.lua")
-B747DR_engineType                               = deferred_dataref("laminar/B747/engines/type", "number")
+
 function set_engines()
 	--Engine Thrust Parameters based on selected engine
 	if B747DR_engineType==1 then
@@ -575,6 +746,8 @@ function set_engines()
 		PW(simDR_altitude)
 	elseif B747DR_engineType==2 then
 		RR(simDR_altitude)
+	else  --Assume PW engine if all else fails
+		PW(simDR_altitude)
 	end
 end
 
@@ -600,6 +773,7 @@ function hasSimConfig()
 	end
 	return setSimConfig
 end
+
 function after_physics()
     if hasSimConfig()==false then return end
 
@@ -611,5 +785,4 @@ function after_physics()
 	if string.len(B747DR_simconfig_data) > 1 then
 		set_engines()
 	end
-
 end

@@ -267,10 +267,15 @@ function B747_monitor_THR_REF_AT()
     if lastChange<wait then return end --wait for engines to stabilise
     if simDR_autopilot_autothrottle_enabled == 1 and timediff>0.5 then B747DR_ap_thrust_mode=0 return end
     last_THR_REF=simDRTime
-    if string.match(simConfigData["data"].PLANE.engines, "CF6") and
+    
+    --Marauder28
+    --Defer throttle control to EEC module
+    if (string.match(simConfigData["data"].PLANE.engines, "CF6") or string.match(simConfigData["data"].PLANE.engines, "PW")) and
         (string.match(B747DR_ref_thr_limit_mode, "TO") or string.match(B747DR_ref_thr_limit_mode, "CLB")) then
         return
     end
+    --Marauder28
+
     if (n1_pct < (ref_throttle-0.2)) and simDR_allThrottle<0.99 then
 	    simCMD_ThrottleUp:once()
     elseif (n1_pct > (ref_throttle+0.8)) and simDR_allThrottle>0.0 then
