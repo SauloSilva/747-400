@@ -285,7 +285,7 @@ lbf_to_N = 4.4482216
 mtrs_per_sec = 1.94384
 
 --Logging On/Off
-enable_logging = true  --true / false
+enable_logging = false  --true / false
 
 --Simulator Config Options
 simConfigData = {}
