@@ -1,3 +1,4 @@
+
 GROUP LOWER EICAS POWER
   SHOW_GREATER 0.100000 laminar/B747/electrical/display_has_power[5]
 GROUP Lower EICAS
@@ -86,8 +87,8 @@ GROUP Lower EICAS
           gen_tape Ind 4
             POS 1747.500000 305.000000
             IMAGE CRT Displays/EICAS Lower/N2_tapeR
-            DATAREF sim/cockpit2/engine/indicators/N2_percent[3]
-            SHOW_GREATER 105.510002 sim/cockpit2/engine/indicators/N2_percent[3]
+            DATAREF laminar/B747/engines/display_N2[3]
+            SHOW_GREATER 111.400000 laminar/B747/engines/display_N2[3]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -99,8 +100,8 @@ GROUP Lower EICAS
           gen_tape Ind 3
             POS 1642.500000 305.000000
             IMAGE CRT Displays/EICAS Lower/N2_tapeR
-            DATAREF sim/cockpit2/engine/indicators/N2_percent[2]
-            SHOW_GREATER 105.510002 sim/cockpit2/engine/indicators/N2_percent[2]
+            DATAREF laminar/B747/engines/display_N2[2]
+            SHOW_GREATER 111.400000 laminar/B747/engines/display_N2[2]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -112,8 +113,8 @@ GROUP Lower EICAS
           gen_tape Ind 2
             POS 1537.500000 305.000000
             IMAGE CRT Displays/EICAS Lower/N2_tapeR
-            DATAREF sim/cockpit2/engine/indicators/N2_percent[1]
-            SHOW_GREATER 105.510002 sim/cockpit2/engine/indicators/N2_percent[1]
+            DATAREF laminar/B747/engines/display_N2[1]
+            SHOW_GREATER 111.400000 laminar/B747/engines/display_N2[1]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -125,8 +126,8 @@ GROUP Lower EICAS
           gen_tape Ind 1
             POS 1432.500000 305.000000
             IMAGE CRT Displays/EICAS Lower/N2_tapeR
-            DATAREF sim/cockpit2/engine/indicators/N2_percent[0]
-            SHOW_GREATER 105.510002 sim/cockpit2/engine/indicators/N2_percent[0]
+            DATAREF laminar/B747/engines/display_N2[0]
+            SHOW_GREATER 111.400000 laminar/B747/engines/display_N2[0]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -142,8 +143,8 @@ GROUP Lower EICAS
           gen_tape Ind 4
             POS 1747.500000 305.000000
             IMAGE CRT Displays/EICAS Lower/N2_tapeW
-            DATAREF sim/cockpit2/engine/indicators/N2_percent[3]
-            SHOW_LESS 105.500000 sim/cockpit2/engine/indicators/N2_percent[3]
+            DATAREF laminar/B747/engines/display_N2[3]
+            SHOW_LESS 111.400000 laminar/B747/engines/display_N2[3]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -155,8 +156,8 @@ GROUP Lower EICAS
           gen_tape Ind 3
             POS 1642.500000 305.000000
             IMAGE CRT Displays/EICAS Lower/N2_tapeW
-            DATAREF sim/cockpit2/engine/indicators/N2_percent[2]
-            SHOW_LESS 105.500000 sim/cockpit2/engine/indicators/N2_percent[2]
+            DATAREF laminar/B747/engines/display_N2[2]
+            SHOW_LESS 111.400000 laminar/B747/engines/display_N2[2]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -168,8 +169,8 @@ GROUP Lower EICAS
           gen_tape Ind 2
             POS 1537.500000 305.000000
             IMAGE CRT Displays/EICAS Lower/N2_tapeW
-            DATAREF sim/cockpit2/engine/indicators/N2_percent[1]
-            SHOW_LESS 105.500000 sim/cockpit2/engine/indicators/N2_percent[1]
+            DATAREF laminar/B747/engines/display_N2[1]
+            SHOW_LESS 111.400000 laminar/B747/engines/display_N2[1]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -181,8 +182,8 @@ GROUP Lower EICAS
           gen_tape Ind 1
             POS 1432.500000 305.000000
             IMAGE CRT Displays/EICAS Lower/N2_tapeW
-            DATAREF sim/cockpit2/engine/indicators/N2_percent[0]
-            SHOW_LESS 105.500000 sim/cockpit2/engine/indicators/N2_percent[0]
+            DATAREF laminar/B747/engines/display_N2[0]
+            SHOW_LESS 111.400000 laminar/B747/engines/display_N2[0]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -390,8 +391,8 @@ GROUP Lower EICAS
           gen_LED LED 1
             POS 1432.000000 380.000000
             IMAGE CRT Displays/LED/LED_3.30B.xxx##0.red
-            DATAREF sim/cockpit2/engine/indicators/N2_percent[0]
-            SHOW_GREATER 105.510002 sim/cockpit2/engine/indicators/N2_percent[0]
+            DATAREF laminar/B747/engines/display_N2[0]
+            SHOW_GREATER 111.400000 laminar/B747/engines/display_N2[0]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -407,8 +408,8 @@ GROUP Lower EICAS
           gen_LED LED 2
             POS 1537.000000 380.000000
             IMAGE CRT Displays/LED/LED_3.30B.xxx##0.red
-            DATAREF sim/cockpit2/engine/indicators/N2_percent[1]
-            SHOW_GREATER 105.510002 sim/cockpit2/engine/indicators/N2_percent[1]
+            DATAREF laminar/B747/engines/display_N2[1]
+            SHOW_GREATER 111.400000 laminar/B747/engines/display_N2[1]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -424,8 +425,8 @@ GROUP Lower EICAS
           gen_LED LED 3
             POS 1642.000000 380.000000
             IMAGE CRT Displays/LED/LED_3.30B.xxx##0.red
-            DATAREF sim/cockpit2/engine/indicators/N2_percent[2]
-            SHOW_GREATER 105.510002 sim/cockpit2/engine/indicators/N2_percent[2]
+            DATAREF laminar/B747/engines/display_N2[2]
+            SHOW_GREATER 111.400000 laminar/B747/engines/display_N2[2]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -441,8 +442,8 @@ GROUP Lower EICAS
           gen_LED LED 4
             POS 1748.000000 380.000000
             IMAGE CRT Displays/LED/LED_3.30B.xxx##0.red
-            DATAREF sim/cockpit2/engine/indicators/N2_percent[3]
-            SHOW_GREATER 105.510002 sim/cockpit2/engine/indicators/N2_percent[3]
+            DATAREF laminar/B747/engines/display_N2[3]
+            SHOW_GREATER 111.400000 laminar/B747/engines/display_N2[3]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -459,7 +460,7 @@ GROUP Lower EICAS
             POS 1747.500000 380.000000
             IMAGE CRT Displays/EICAS Lower/N2_box_red
             DATAREF 
-            SHOW_GREATER 105.510002 sim/cockpit2/engine/indicators/N2_percent[3]
+            SHOW_GREATER 111.400000 laminar/B747/engines/display_N2[3]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -482,7 +483,7 @@ GROUP Lower EICAS
             POS 1642.500000 380.000000
             IMAGE CRT Displays/EICAS Lower/N2_box_red
             DATAREF 
-            SHOW_GREATER 105.510002 sim/cockpit2/engine/indicators/N2_percent[2]
+            SHOW_GREATER 111.400000 laminar/B747/engines/display_N2[2]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -505,7 +506,7 @@ GROUP Lower EICAS
             POS 1537.500000 380.000000
             IMAGE CRT Displays/EICAS Lower/N2_box_red
             DATAREF 
-            SHOW_GREATER 105.510002 sim/cockpit2/engine/indicators/N2_percent[1]
+            SHOW_GREATER 111.400000 laminar/B747/engines/display_N2[1]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -528,7 +529,7 @@ GROUP Lower EICAS
             POS 1432.500000 380.000000
             IMAGE CRT Displays/EICAS Lower/N2_box_red
             DATAREF 
-            SHOW_GREATER 105.510002 sim/cockpit2/engine/indicators/N2_percent[0]
+            SHOW_GREATER 111.400000 laminar/B747/engines/display_N2[0]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -554,8 +555,8 @@ GROUP Lower EICAS
           gen_LED LED 1
             POS 1432.000000 380.000000
             IMAGE CRT Displays/LED/LED_3.30B.xxx##0.white
-            DATAREF sim/cockpit2/engine/indicators/N2_percent[0]
-            SHOW_LESS 105.500000 sim/cockpit2/engine/indicators/N2_percent[0]
+            DATAREF laminar/B747/engines/display_N2[0]
+            SHOW_LESS 111.400000 laminar/B747/engines/display_N2[0]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -571,8 +572,8 @@ GROUP Lower EICAS
           gen_LED LED 2
             POS 1537.000000 380.000000
             IMAGE CRT Displays/LED/LED_3.30B.xxx##0.white
-            DATAREF sim/cockpit2/engine/indicators/N2_percent[1]
-            SHOW_LESS 105.500000 sim/cockpit2/engine/indicators/N2_percent[1]
+            DATAREF laminar/B747/engines/display_N2[1]
+            SHOW_LESS 111.400000 laminar/B747/engines/display_N2[1]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -588,8 +589,8 @@ GROUP Lower EICAS
           gen_LED LED 3
             POS 1642.000000 380.000000
             IMAGE CRT Displays/LED/LED_3.30B.xxx##0.white
-            DATAREF sim/cockpit2/engine/indicators/N2_percent[2]
-            SHOW_LESS 105.500000 sim/cockpit2/engine/indicators/N2_percent[2]
+            DATAREF laminar/B747/engines/display_N2[2]
+            SHOW_LESS 111.400000 laminar/B747/engines/display_N2[2]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -605,8 +606,8 @@ GROUP Lower EICAS
           gen_LED LED 4
             POS 1748.000000 380.000000
             IMAGE CRT Displays/LED/LED_3.30B.xxx##0.white
-            DATAREF sim/cockpit2/engine/indicators/N2_percent[3]
-            SHOW_LESS 105.500000 sim/cockpit2/engine/indicators/N2_percent[3]
+            DATAREF laminar/B747/engines/display_N2[3]
+            SHOW_LESS 111.400000 laminar/B747/engines/display_N2[3]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -623,7 +624,7 @@ GROUP Lower EICAS
             POS 1747.500000 380.000000
             IMAGE CRT Displays/EICAS Lower/N2_box
             DATAREF 
-            SHOW_LESS 105.500000 sim/cockpit2/engine/indicators/N2_percent[3]
+            SHOW_LESS 111.400000 laminar/B747/engines/display_N2[3]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -646,7 +647,7 @@ GROUP Lower EICAS
             POS 1642.500000 380.000000
             IMAGE CRT Displays/EICAS Lower/N2_box
             DATAREF 
-            SHOW_LESS 105.500000 sim/cockpit2/engine/indicators/N2_percent[2]
+            SHOW_LESS 111.400000 laminar/B747/engines/display_N2[2]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -669,7 +670,7 @@ GROUP Lower EICAS
             POS 1537.500000 380.000000
             IMAGE CRT Displays/EICAS Lower/N2_box
             DATAREF 
-            SHOW_LESS 105.500000 sim/cockpit2/engine/indicators/N2_percent[1]
+            SHOW_LESS 111.400000 laminar/B747/engines/display_N2[1]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -692,7 +693,7 @@ GROUP Lower EICAS
             POS 1432.500000 380.000000
             IMAGE CRT Displays/EICAS Lower/N2_box
             DATAREF 
-            SHOW_LESS 105.500000 sim/cockpit2/engine/indicators/N2_percent[0]
+            SHOW_LESS 111.400000 laminar/B747/engines/display_N2[0]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -751,7 +752,7 @@ GROUP Lower EICAS
             POS 1747.500000 305.000000
             IMAGE CRT Displays/EICAS Lower/N2_tapeR
             DATAREF laminar/B747/engines/display_N2[3]
-            SHOW_GREATER 105.510002 laminar/B747/engines/display_N2[3]
+            SHOW_GREATER 112.500000 laminar/B747/engines/display_N2[3]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -759,12 +760,13 @@ GROUP Lower EICAS
             BUS_SRC 2
             KEY_FRAME 0.000000 -52.000000 1.000000
             KEY_FRAME 113.000000 52.000000
+            KEY_FRAME 113.000001 52.000000
 
           gen_tape Ind 3
             POS 1642.500000 305.000000
             IMAGE CRT Displays/EICAS Lower/N2_tapeR
             DATAREF laminar/B747/engines/display_N2[2]
-            SHOW_GREATER 105.510002 laminar/B747/engines/display_N2[2]
+            SHOW_GREATER 112.500000 laminar/B747/engines/display_N2[2]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -772,12 +774,13 @@ GROUP Lower EICAS
             BUS_SRC 2
             KEY_FRAME 0.000000 -52.000000 1.000000
             KEY_FRAME 113.000000 52.000000
+            KEY_FRAME 113.000001 52.000000
 
           gen_tape Ind 2
             POS 1537.500000 305.000000
             IMAGE CRT Displays/EICAS Lower/N2_tapeR
             DATAREF laminar/B747/engines/display_N2[1]
-            SHOW_GREATER 105.510002 laminar/B747/engines/display_N2[1]
+            SHOW_GREATER 112.500000 laminar/B747/engines/display_N2[1]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -785,12 +788,13 @@ GROUP Lower EICAS
             BUS_SRC 2
             KEY_FRAME 0.000000 -52.000000 1.000000
             KEY_FRAME 113.000000 52.000000
+            KEY_FRAME 113.000001 52.000000
 
           gen_tape Ind 1
             POS 1432.500000 305.000000
             IMAGE CRT Displays/EICAS Lower/N2_tapeR
             DATAREF laminar/B747/engines/display_N2[0]
-            SHOW_GREATER 105.510002 laminar/B747/engines/display_N2[0]
+            SHOW_GREATER 112.500000 laminar/B747/engines/display_N2[0]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -798,6 +802,7 @@ GROUP Lower EICAS
             BUS_SRC 2
             KEY_FRAME 0.000000 -52.000000 1.000000
             KEY_FRAME 113.000000 52.000000
+            KEY_FRAME 113.000001 52.000000
 
         END_GROUP
         GROUP White
@@ -807,7 +812,7 @@ GROUP Lower EICAS
             POS 1747.500000 305.000000
             IMAGE CRT Displays/EICAS Lower/N2_tapeW
             DATAREF laminar/B747/engines/display_N2[3]
-            SHOW_LESS 105.500000 laminar/B747/engines/display_N2[3]
+            SHOW_LESS 112.500000 laminar/B747/engines/display_N2[3]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -815,12 +820,13 @@ GROUP Lower EICAS
             BUS_SRC 2
             KEY_FRAME 0.000000 -52.000000 1.000000
             KEY_FRAME 113.000000 52.000000
+            KEY_FRAME 113.000001 52.000000
 
           gen_tape Ind 3
             POS 1642.500000 305.000000
             IMAGE CRT Displays/EICAS Lower/N2_tapeW
             DATAREF laminar/B747/engines/display_N2[2]
-            SHOW_LESS 105.500000 laminar/B747/engines/display_N2[2]
+            SHOW_LESS 112.500000 laminar/B747/engines/display_N2[2]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -828,12 +834,13 @@ GROUP Lower EICAS
             BUS_SRC 2
             KEY_FRAME 0.000000 -52.000000 1.000000
             KEY_FRAME 113.000000 52.000000
+            KEY_FRAME 113.000001 52.000000
 
           gen_tape Ind 2
             POS 1537.500000 305.000000
             IMAGE CRT Displays/EICAS Lower/N2_tapeW
             DATAREF laminar/B747/engines/display_N2[1]
-            SHOW_LESS 105.500000 laminar/B747/engines/display_N2[1]
+            SHOW_LESS 112.500000 laminar/B747/engines/display_N2[1]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -841,12 +848,13 @@ GROUP Lower EICAS
             BUS_SRC 2
             KEY_FRAME 0.000000 -52.000000 1.000000
             KEY_FRAME 113.000000 52.000000
+            KEY_FRAME 113.000001 52.000000
 
           gen_tape Ind 1
             POS 1432.500000 305.000000
             IMAGE CRT Displays/EICAS Lower/N2_tapeW
             DATAREF laminar/B747/engines/display_N2[0]
-            SHOW_LESS 105.500000 laminar/B747/engines/display_N2x[0]
+            SHOW_LESS 112.500000 laminar/B747/engines/display_N2[0]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -854,6 +862,7 @@ GROUP Lower EICAS
             BUS_SRC 2
             KEY_FRAME 0.000000 -52.000000 1.000000
             KEY_FRAME 113.000000 52.000000
+            KEY_FRAME 113.000001 52.000000
 
         END_GROUP
         GROUP Fuel-On Ind
@@ -1055,7 +1064,7 @@ GROUP Lower EICAS
             POS 1428.000000 380.000000
             IMAGE CRT Displays/LED/LED_3.30B.xxx##0.red
             DATAREF laminar/B747/engines/display_N2[0]
-            SHOW_GREATER 105.510002 laminar/B747/engines/display_N2[0]
+            SHOW_GREATER 112.500000 laminar/B747/engines/display_N2[0]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -1072,7 +1081,7 @@ GROUP Lower EICAS
             POS 1533.000000 380.000000
             IMAGE CRT Displays/LED/LED_3.30B.xxx##0.red
             DATAREF laminar/B747/engines/display_N2[1]
-            SHOW_GREATER 105.510002 laminar/B747/engines/display_N2[1]
+            SHOW_GREATER 112.500000 laminar/B747/engines/display_N2[1]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -1089,7 +1098,7 @@ GROUP Lower EICAS
             POS 1638.000000 380.000000
             IMAGE CRT Displays/LED/LED_3.30B.xxx##0.red
             DATAREF laminar/B747/engines/display_N2[2]
-            SHOW_GREATER 105.510002 laminar/B747/engines/display_N2[2]
+            SHOW_GREATER 112.500000 laminar/B747/engines/display_N2[2]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -1106,7 +1115,7 @@ GROUP Lower EICAS
             POS 1743.000000 380.000000
             IMAGE CRT Displays/LED/LED_3.30B.xxx##0.red
             DATAREF laminar/B747/engines/display_N2[3]
-            SHOW_GREATER 105.510002 laminar/B747/engines/display_N2[3]
+            SHOW_GREATER 112.500000 laminar/B747/engines/display_N2[3]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -1123,7 +1132,7 @@ GROUP Lower EICAS
             POS 1747.500000 380.000000
             IMAGE CRT Displays/EICAS Lower/N2_box-red-no-epr
             DATAREF 
-            SHOW_GREATER 105.510002 laminar/B747/engines/display_N2[3]
+            SHOW_GREATER 112.500000 laminar/B747/engines/display_N2[3]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -1146,7 +1155,7 @@ GROUP Lower EICAS
             POS 1642.500000 380.000000
             IMAGE CRT Displays/EICAS Lower/N2_box-red-no-epr
             DATAREF 
-            SHOW_GREATER 105.510002 laminar/B747/engines/display_N2[2]
+            SHOW_GREATER 112.500000 laminar/B747/engines/display_N2[2]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -1169,7 +1178,7 @@ GROUP Lower EICAS
             POS 1537.500000 380.000000
             IMAGE CRT Displays/EICAS Lower/N2_box-red-no-epr
             DATAREF 
-            SHOW_GREATER 105.510002 laminar/B747/engines/display_N2[1]
+            SHOW_GREATER 112.500000 laminar/B747/engines/display_N2[1]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -1192,7 +1201,7 @@ GROUP Lower EICAS
             POS 1432.500000 380.000000
             IMAGE CRT Displays/EICAS Lower/N2_box-red-no-epr
             DATAREF 
-            SHOW_GREATER 105.510002 laminar/B747/engines/display_N2[0]
+            SHOW_GREATER 112.500000 laminar/B747/engines/display_N2[0]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -1219,7 +1228,7 @@ GROUP Lower EICAS
             POS 1428.000000 380.000000
             IMAGE CRT Displays/LED/LED_3.30B.xxx##0.white
             DATAREF laminar/B747/engines/display_N2[0]
-            SHOW_LESS 105.500000 laminar/B747/engines/display_N2[0]
+            SHOW_LESS 112.500000 laminar/B747/engines/display_N2[0]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -1236,7 +1245,7 @@ GROUP Lower EICAS
             POS 1533.000000 380.000000
             IMAGE CRT Displays/LED/LED_3.30B.xxx##0.white
             DATAREF laminar/B747/engines/display_N2[1]
-            SHOW_LESS 105.500000 laminar/B747/engines/display_N2[1]
+            SHOW_LESS 112.500000 laminar/B747/engines/display_N2[1]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -1253,7 +1262,7 @@ GROUP Lower EICAS
             POS 1638.000000 380.000000
             IMAGE CRT Displays/LED/LED_3.30B.xxx##0.white
             DATAREF laminar/B747/engines/display_N2[2]
-            SHOW_LESS 105.500000 laminar/B747/engines/display_N2[2]
+            SHOW_LESS 112.500000 laminar/B747/engines/display_N2[2]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -1270,7 +1279,7 @@ GROUP Lower EICAS
             POS 1743.000000 380.000000
             IMAGE CRT Displays/LED/LED_3.30B.xxx##0.white
             DATAREF laminar/B747/engines/display_N2[3]
-            SHOW_LESS 105.500000 laminar/B747/engines/display_N2[3]
+            SHOW_LESS 112.500000 laminar/B747/engines/display_N2[3]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -1287,7 +1296,7 @@ GROUP Lower EICAS
             POS 1747.500000 380.000000
             IMAGE CRT Displays/EICAS Lower/N2_box-no-epr
             DATAREF 
-            SHOW_LESS 105.500000 laminar/B747/engines/display_N2[3]
+            SHOW_LESS 112.500000 laminar/B747/engines/display_N2[3]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -1310,7 +1319,7 @@ GROUP Lower EICAS
             POS 1642.500000 380.000000
             IMAGE CRT Displays/EICAS Lower/N2_box-no-epr
             DATAREF 
-            SHOW_LESS 105.500000 laminar/B747/engines/display_N2[2]
+            SHOW_LESS 112.500000 laminar/B747/engines/display_N2[2]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -1333,7 +1342,7 @@ GROUP Lower EICAS
             POS 1537.500000 380.000000
             IMAGE CRT Displays/EICAS Lower/N2_box-no-epr
             DATAREF 
-            SHOW_LESS 105.500000 laminar/B747/engines/display_N2[1]
+            SHOW_LESS 112.500000 laminar/B747/engines/display_N2[1]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
@@ -1356,7 +1365,7 @@ GROUP Lower EICAS
             POS 1432.500000 380.000000
             IMAGE CRT Displays/EICAS Lower/N2_box-no-epr
             DATAREF 
-            SHOW_LESS 105.500000 laminar/B747/engines/display_N2[0]
+            SHOW_LESS 112.500000 laminar/B747/engines/display_N2[0]
             
             HIDE
             LIGHT_MODE GLASS_AUTO
