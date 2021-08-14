@@ -1,3 +1,4 @@
+
 GROUP Upper EICAS
   SHOW_GREATER 0.100000 laminar/B747/electrical/display_has_power[4]
   GROUP Lower EICAS Horizontal
@@ -1768,12 +1769,12 @@ GROUP Upper EICAS
 
 	GROUP THRUST TARGET
 		GROUP Target EPR
-            SHOW_EQUAL 1 laminar/B747/engines/thrust_ref
+            SHOW_EQUAL 0 laminar/B747/engines/thrust_ref
 			gen_LED Thrust Target 1 EPR
 			  POS 1425.000000 1063.500000
 			  IMAGE CRT Displays/LED/LED_2.18R.xx###0.green
 			  DATAREF sim/cockpit2/engine/actuators/EPR_target_bug[0]
-              SHOW_EQUAL 1 laminar/B747/engines/thrust_ref
+              --SHOW_EQUAL 1 laminar/B747/engines/thrust_ref
 			  SHOW_GREATER 0.1 sim/cockpit2/engine/actuators/EPR_target_bug[0]
 			  SHOW_LESS 0.01 sim/flightmodel2/engines/thrust_reverser_deploy_ratio[0]
 			  LIGHT_MODE GLASS_AUTO
@@ -1790,7 +1791,7 @@ GROUP Upper EICAS
 			  POS 1531.000000 1063.500000
 			  IMAGE CRT Displays/LED/LED_2.18R.xx###0.green
 			  DATAREF sim/cockpit2/engine/actuators/EPR_target_bug[1]
-              SHOW_EQUAL 1 laminar/B747/engines/thrust_ref
+              --SHOW_EQUAL 1 laminar/B747/engines/thrust_ref
 			  SHOW_GREATER 0.1 sim/cockpit2/engine/actuators/EPR_target_bug[1]
 			  SHOW_LESS 0.01 sim/flightmodel2/engines/thrust_reverser_deploy_ratio[1]
 			  LIGHT_MODE GLASS_AUTO
@@ -1807,7 +1808,7 @@ GROUP Upper EICAS
 			  POS 1637.000000 1063.500000
 			  IMAGE CRT Displays/LED/LED_2.18R.xx###0.green
 			  DATAREF sim/cockpit2/engine/actuators/EPR_target_bug[2]
-              SHOW_EQUAL 1 laminar/B747/engines/thrust_ref
+              --SHOW_EQUAL 1 laminar/B747/engines/thrust_ref
 			  SHOW_GREATER 0.1 sim/cockpit2/engine/actuators/EPR_target_bug[2]
 			  SHOW_LESS 0.01 sim/flightmodel2/engines/thrust_reverser_deploy_ratio[2]
 			  LIGHT_MODE GLASS_AUTO
@@ -1824,7 +1825,7 @@ GROUP Upper EICAS
 			  POS 1744.000000 1063.500000
 			  IMAGE CRT Displays/LED/LED_2.18R.xx###0.green
 			  DATAREF sim/cockpit2/engine/actuators/EPR_target_bug[3]
-              SHOW_EQUAL 1 laminar/B747/engines/thrust_ref
+              --SHOW_EQUAL 1 laminar/B747/engines/thrust_ref
 			  SHOW_GREATER 0.1 sim/cockpit2/engine/actuators/EPR_target_bug[3]
 			  SHOW_LESS 0.01 sim/flightmodel2/engines/thrust_reverser_deploy_ratio[3]
 			  LIGHT_MODE GLASS_AUTO
@@ -2095,7 +2096,7 @@ GROUP Upper EICAS
         gen_LED EPR 4 LED Red
           POS 1745.000000 1031.000000
           IMAGE CRT Displays/LED/LED_3.30B.xxx000.red
-          DATAREF sim/cockpit2/engine/indicators/EPR_ratio[3]
+          DATAREF laminar/B747/engines/display_EPR[3]
           SHOW_GREATER 1.900001 laminar/B747/engines/display_EPR[3]
           
           LIGHT_MODE GLASS_AUTO
@@ -2111,7 +2112,7 @@ GROUP Upper EICAS
         gen_LED EPR 3 LED Red
           POS 1639.000000 1031.000000
           IMAGE CRT Displays/LED/LED_3.30B.xxx000.red
-          DATAREF sim/cockpit2/engine/indicators/EPR_ratio[2]
+          DATAREF laminar/B747/engines/display_EPR[2]
           SHOW_GREATER 1.900001 laminar/B747/engines/display_EPR[2]
           
           LIGHT_MODE GLASS_AUTO
@@ -2127,7 +2128,7 @@ GROUP Upper EICAS
         gen_LED EPR 2 LED Red
           POS 1533.000000 1031.000000
           IMAGE CRT Displays/LED/LED_3.30B.xxx000.red
-          DATAREF sim/cockpit2/engine/indicators/EPR_ratio[1]
+          DATAREF laminar/B747/engines/display_EPR[1]
           SHOW_GREATER 1.900001 laminar/B747/engines/display_EPR[1]
           
           LIGHT_MODE GLASS_AUTO
@@ -2143,7 +2144,7 @@ GROUP Upper EICAS
         gen_LED EPR 1 LED Red
           POS 1427.000000 1031.000000
           IMAGE CRT Displays/LED/LED_3.30B.xxx000.red
-          DATAREF sim/cockpit2/engine/indicators/EPR_ratio[0]
+          DATAREF laminar/B747/engines/display_EPR[0]
           SHOW_GREATER 1.900001 laminar/B747/engines/display_EPR[0]
           
           LIGHT_MODE GLASS_AUTO
@@ -2159,8 +2160,9 @@ GROUP Upper EICAS
         gen_LED EPR 4 LED White
           POS 1745.000000 1031.000000
           IMAGE CRT Displays/LED/LED_3.30B.xxx000.white
-          DATAREF sim/cockpit2/engine/indicators/EPR_ratio[3]
+          DATAREF laminar/B747/engines/display_EPR[3]
           SHOW_LESS 1.900000 laminar/B747/engines/display_EPR[3]
+          SHOW_GREATER 5.0 laminar/B747/engines/display_N2[3]
           
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -2175,8 +2177,9 @@ GROUP Upper EICAS
         gen_LED EPR 3 LED White
           POS 1639.000000 1031.000000
           IMAGE CRT Displays/LED/LED_3.30B.xxx000.white
-          DATAREF sim/cockpit2/engine/indicators/EPR_ratio[2]
+          DATAREF laminar/B747/engines/display_EPR[2]
           SHOW_LESS 1.900000 laminar/B747/engines/display_EPR[2]
+          SHOW_GREATER 5.0 laminar/B747/engines/display_N2[2]
           
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -2191,8 +2194,9 @@ GROUP Upper EICAS
         gen_LED EPR 2 LED White
           POS 1533.000000 1031.000000
           IMAGE CRT Displays/LED/LED_3.30B.xxx000.white
-          DATAREF sim/cockpit2/engine/indicators/EPR_ratio[1]
+          DATAREF laminar/B747/engines/display_EPR[1]
           SHOW_LESS 1.900000 laminar/B747/engines/display_EPR[1]
+          SHOW_GREATER 5.0 laminar/B747/engines/display_N2[1]
           
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -2207,9 +2211,9 @@ GROUP Upper EICAS
         gen_LED EPR 1 LED White
           POS 1427.000000 1031.000000
           IMAGE CRT Displays/LED/LED_3.30B.xxx000.white
-          DATAREF sim/cockpit2/engine/indicators/EPR_ratio[0]
+          DATAREF laminar/B747/engines/display_EPR[0]
           SHOW_LESS 1.900000 laminar/B747/engines/display_EPR[0]
-          SHOW_GREATER 2.190000 [3]
+          SHOW_GREATER 5.0 laminar/B747/engines/display_N2[0]
           
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -2224,204 +2228,408 @@ GROUP Upper EICAS
       END_GROUP
       GROUP EPR Tapes
         
-        
         gen_tape EPR 4 Tape Red
           POS 1748.500000 942.000000
           IMAGE CRT Displays/EICAS Upper/EPR_tapeR
-          DATAREF sim/cockpit2/engine/indicators/EPR_ratio[3]
-          SHOW_GREATER 2.190000 laminar/B747/engines/display_EPR[3]
+          DATAREF laminar/B747/engines/display_EPR[3]
+          SHOW_GREATER 1.900000 laminar/B747/engines/display_EPR[3]
           
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
           BUS_SRC 2
+          --KEY_FRAME 0.850000 -67.000000 1.000000
+          --KEY_FRAME 1.970000 67.000000
           KEY_FRAME 0.850000 -67.000000 1.000000
-          KEY_FRAME 1.970000 67.000000
+          KEY_FRAME 0.850001 -67.000000 1.000000
+          KEY_FRAME 1.750000 67.000000
+          KEY_FRAME 1.750001 67.000000
 
         gen_tape EPR 3 Tape Red
           POS 1642.500000 942.000000
           IMAGE CRT Displays/EICAS Upper/EPR_tapeR
-          DATAREF sim/cockpit2/engine/indicators/EPR_ratio[2]
-          SHOW_GREATER 2.190000 laminar/B747/engines/display_EPR[2]
+          DATAREF laminar/B747/engines/display_EPR[2]
+          SHOW_GREATER 1.900000 laminar/B747/engines/display_EPR[2]
           
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
           BUS_SRC 2
+          --KEY_FRAME 0.850000 -67.000000 1.000000
+          --KEY_FRAME 1.970000 67.000000
           KEY_FRAME 0.850000 -67.000000 1.000000
-          KEY_FRAME 1.970000 67.000000
+          KEY_FRAME 0.850001 -67.000000 1.000000
+          KEY_FRAME 1.750000 67.000000
+          KEY_FRAME 1.750001 67.000000
 
         gen_tape EPR 2 Tape Red
           POS 1536.500000 942.000000
           IMAGE CRT Displays/EICAS Upper/EPR_tapeR
-          DATAREF sim/cockpit2/engine/indicators/EPR_ratio[1]
-          SHOW_GREATER 2.190000 laminar/B747/engines/display_EPR[1]
+          DATAREF laminar/B747/engines/display_EPR[1]
+          SHOW_GREATER 1.900000 laminar/B747/engines/display_EPR[1]
           
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
           BUS_SRC 2
+          --KEY_FRAME 0.850000 -67.000000 1.000000
+          --KEY_FRAME 1.970000 67.000000
           KEY_FRAME 0.850000 -67.000000 1.000000
-          KEY_FRAME 1.970000 67.000000
+          KEY_FRAME 0.850001 -67.000000 1.000000
+          KEY_FRAME 1.750000 67.000000
+          KEY_FRAME 1.750001 67.000000
 
         gen_tape EPR 1 Tape Red
           POS 1430.500000 942.000000
           IMAGE CRT Displays/EICAS Upper/EPR_tapeR
-          DATAREF sim/cockpit2/engine/indicators/EPR_ratio[0]
-          SHOW_GREATER 2.190000 laminar/B747/engines/display_EPR[0]
+          DATAREF laminar/B747/engines/display_EPR[0]
+          SHOW_GREATER 1.900000 laminar/B747/engines/display_EPR[0]
           
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
           BUS_SRC 2
+          --KEY_FRAME 0.850000 -67.000000 1.000000
+          --KEY_FRAME 1.970000 67.000000
           KEY_FRAME 0.850000 -67.000000 1.000000
-          KEY_FRAME 1.970000 67.000000
+          KEY_FRAME 0.850001 -67.000000 1.000000
+          KEY_FRAME 1.750000 67.000000
+          KEY_FRAME 1.750001 67.000000
 
         gen_tape EPR 4 Tape White
           POS 1748.500000 942.000000
           IMAGE CRT Displays/EICAS Upper/EPR_tapeW
-          DATAREF sim/cockpit2/engine/indicators/EPR_ratio[3]
-          SHOW_LESS 2.190000 laminar/B747/engines/display_EPR[3]
+          DATAREF laminar/B747/engines/display_EPR[3]
+          SHOW_LESS 1.900000 laminar/B747/engines/display_EPR[3]
           
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
           BUS_SRC 2
+          --KEY_FRAME 0.850000 -67.000000 1.000000
+          --KEY_FRAME 1.970000 67.000000
           KEY_FRAME 0.850000 -67.000000 1.000000
-          KEY_FRAME 1.970000 67.000000
+          KEY_FRAME 0.850001 -67.000000 1.000000
+          KEY_FRAME 1.750000 67.000000
+          KEY_FRAME 1.750001 67.000000
 
         gen_tape EPR 3 Tape White
           POS 1642.500000 942.000000
           IMAGE CRT Displays/EICAS Upper/EPR_tapeW
-          DATAREF sim/cockpit2/engine/indicators/EPR_ratio[2]
-          SHOW_LESS 2.190000 laminar/B747/engines/display_EPR[2]
+          DATAREF laminar/B747/engines/display_EPR[2]
+          SHOW_LESS 1.900000 laminar/B747/engines/display_EPR[2]
           
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
           BUS_SRC 2
+          --KEY_FRAME 0.850000 -67.000000 1.000000
+          --KEY_FRAME 1.970000 67.000000
           KEY_FRAME 0.850000 -67.000000 1.000000
-          KEY_FRAME 1.970000 67.000000
+          KEY_FRAME 0.850001 -67.000000 1.000000
+          KEY_FRAME 1.750000 67.000000
+          KEY_FRAME 1.750001 67.000000
 
         gen_tape EPR 2 Tape White
           POS 1536.500000 942.000000
           IMAGE CRT Displays/EICAS Upper/EPR_tapeW
-          DATAREF sim/cockpit2/engine/indicators/EPR_ratio[1]
-          SHOW_LESS 2.190000 laminar/B747/engines/display_EPR[1]
+          DATAREF laminar/B747/engines/display_EPR[1]
+          SHOW_LESS 1.900000 laminar/B747/engines/display_EPR[1]
           
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
           BUS_SRC 2
+          --KEY_FRAME 0.850000 -67.000000 1.000000
+          --KEY_FRAME 1.970000 67.000000
           KEY_FRAME 0.850000 -67.000000 1.000000
-          KEY_FRAME 1.970000 67.000000
+          KEY_FRAME 0.850001 -67.000000 1.000000
+          KEY_FRAME 1.750000 67.000000
+          KEY_FRAME 1.750001 67.000000
 
         gen_tape EPR 1 Tape White
           POS 1430.500000 942.000000
           IMAGE CRT Displays/EICAS Upper/EPR_tapeW
-          DATAREF sim/cockpit2/engine/indicators/EPR_ratio[0]
-          SHOW_LESS 2.190000 laminar/B747/engines/display_EPR[0]
+          DATAREF laminar/B747/engines/display_EPR[0]
+          SHOW_LESS 1.900000 laminar/B747/engines/display_EPR[0]
           
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
           BUS_SRC 2
-          KEY_FRAME 0.850000 -75.000000 1.000000
-          KEY_FRAME 1.750000 65.000000
+          --KEY_FRAME 0.850000 -67.000000 1.000000
+          --KEY_FRAME 1.970000 67.000000
+          KEY_FRAME 0.850000 -67.000000 1.000000
+          KEY_FRAME 0.850001 -67.000000 1.000000
+          KEY_FRAME 1.750000 67.000000
+          KEY_FRAME 1.750001 67.000000
 
-        GROUP EPR Limit Markers
+
+        GROUP EPR Target Markers
+          SHOW_EQUAL 0.0 laminar/B747/engines/thrust_ref
           
-          
-          gen_rotary Max EPR 4 Amber
-            POS 1748.500000 1002.000000
-            IMAGE CRT Displays/EICAS Upper/EPR_maxLineA
-            DATAREF 
-            SHOW_LESS 2.190000 [3]
-            
+          gen_pointer Engine 4 REF
+            POS 1748.500000 942.000000
+            IMAGE CRT Displays/EICAS Upper/ref-line-epr
+            DATAREF laminar/B747/engines/display_EPR_ref[3]
+            SHOW_LESS 1.0 sim/cockpit2/annunciators/reverser_deployed
+            SHOW_EQUAL 0.0 laminar/B747/engines/display_ref_line_magenta
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 9
             BUS_SRC 2
-            KEY_FRAME 0.000000 0.000000 1.000000
-            KEY_FRAME 1.000000 6.000000
-            DIGITS 1
-            ROTARY_TYPE NO_CLICK
-            CLICK_RADIUS 0.000000
-            CLICK_RADIUS_DY 0.000000
+            KEY_FRAME 0.850000 -67.000000 1.000000
+            KEY_FRAME 0.850001 -67.000000 1.000000
+            KEY_FRAME 1.750000 67.000000
+            KEY_FRAME 1.760000 67.000000
+            IS_DRAGGABLE 0
+            IS_VERTICAL 1
             OFFSET 0.000000
-            STEP1 1.000000
-            STEP2 1.000000
-            CURSOR DEFAULT
-            CLICK_DX 0
-            CLICK_DY 0
 
-          gen_rotary Max EPR 3 Amber
-            POS 1642.500000 1002.000000
-            IMAGE CRT Displays/EICAS Upper/EPR_maxLineA
-            DATAREF 
-            SHOW_LESS 2.190000 [2]
-            
+          gen_pointer Engine 3 REF
+            POS 1642.500000 942.000000
+            IMAGE CRT Displays/EICAS Upper/ref-line-epr
+            DATAREF laminar/B747/engines/display_EPR_ref[2]
+            SHOW_LESS 1.0 sim/cockpit2/annunciators/reverser_deployed
+            SHOW_EQUAL 0.0 laminar/B747/engines/display_ref_line_magenta
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 9
             BUS_SRC 2
-            KEY_FRAME 0.000000 0.000000 1.000000
-            KEY_FRAME 1.000000 6.000000
-            DIGITS 1
-            ROTARY_TYPE NO_CLICK
-            CLICK_RADIUS 0.000000
-            CLICK_RADIUS_DY 0.000000
+            KEY_FRAME 0.850000 -67.000000 1.000000
+            KEY_FRAME 0.850001 -67.000000 1.000000
+            KEY_FRAME 1.750000 67.000000
+            KEY_FRAME 1.760000 67.000000
+            IS_DRAGGABLE 0
+            IS_VERTICAL 1
             OFFSET 0.000000
-            STEP1 1.000000
-            STEP2 1.000000
-            CURSOR DEFAULT
-            CLICK_DX 0
-            CLICK_DY 0
 
-          gen_rotary Max EPR 2 Amber
-            POS 1536.500000 1002.000000
-            IMAGE CRT Displays/EICAS Upper/EPR_maxLineA
-            DATAREF 
-            SHOW_LESS 2.190000 [1]
-            
+          gen_pointer Engine 2 REF
+            POS 1536.500000 942.000000
+            IMAGE CRT Displays/EICAS Upper/ref-line-epr
+            DATAREF laminar/B747/engines/display_EPR_ref[1]
+            SHOW_LESS 1.0 sim/cockpit2/annunciators/reverser_deployed
+            SHOW_EQUAL 0.0 laminar/B747/engines/display_ref_line_magenta
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 9
             BUS_SRC 2
-            KEY_FRAME 0.000000 0.000000 1.000000
-            KEY_FRAME 1.000000 6.000000
-            DIGITS 1
-            ROTARY_TYPE NO_CLICK
-            CLICK_RADIUS 0.000000
-            CLICK_RADIUS_DY 0.000000
+            KEY_FRAME 0.850000 -67.000000 1.000000
+            KEY_FRAME 0.850001 -67.000000 1.000000
+            KEY_FRAME 1.750000 67.000000
+            KEY_FRAME 1.760000 67.000000
+            IS_DRAGGABLE 0
+            IS_VERTICAL 1
             OFFSET 0.000000
-            STEP1 1.000000
-            STEP2 1.000000
-            CURSOR DEFAULT
-            CLICK_DX 0
-            CLICK_DY 0
 
-          gen_rotary Max EPR 1 Amber
-            POS 1430.500000 1002.000000
-            IMAGE CRT Displays/EICAS Upper/EPR_maxLineA
-            DATAREF 
-            SHOW_LESS 2.190000 [0]
-            
+          gen_pointer Engine 1 REF 
+            POS 1430.500000 942.000000
+            IMAGE CRT Displays/EICAS Upper/ref-line-epr
+            DATAREF laminar/B747/engines/display_EPR_ref[0]
+            SHOW_LESS 1.0 sim/cockpit2/annunciators/reverser_deployed
+            SHOW_EQUAL 0.0 laminar/B747/engines/display_ref_line_magenta
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 9
             BUS_SRC 2
-            KEY_FRAME 0.000000 0.000000 1.000000
-            KEY_FRAME 1.000000 6.000000
-            DIGITS 1
-            ROTARY_TYPE NO_CLICK
-            CLICK_RADIUS 0.000000
-            CLICK_RADIUS_DY 0.000000
-            OFFSET 0.000000
-            STEP1 1.000000
-            STEP2 1.000000
-            CURSOR DEFAULT
-            CLICK_DX 0
-            CLICK_DY 0
+            KEY_FRAME 0.850000 -67.000000 1.000000
+            KEY_FRAME 0.850001 -67.000000 1.000000
+            KEY_FRAME 1.750000 67.000000
+            KEY_FRAME 1.760000 67.000000
+            IS_DRAGGABLE 0
+            IS_VERTICAL 1
+            OFFSET 0.000000		
 
+          gen_pointer Engine 4 REF MAGENTA
+            POS 1748.500000 942.000000
+            IMAGE CRT Displays/EICAS Upper/ref-line-epr-magenta
+            DATAREF laminar/B747/engines/display_EPR_ref[3]
+            SHOW_LESS 1.0 sim/cockpit2/annunciators/reverser_deployed
+            SHOW_GREATER 0.1 laminar/B747/engines/display_ref_line_magenta
+            SHOW_EQUAL 5.0 laminar/B747/autopilot/FMA/autothrottle_mode
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 9
+            BUS_SRC 2
+            KEY_FRAME 0.850000 -67.000000 1.000000
+            KEY_FRAME 0.850001 -67.000000 1.000000
+            KEY_FRAME 1.750000 67.000000
+            KEY_FRAME 1.760000 67.000000
+            IS_DRAGGABLE 0
+            IS_VERTICAL 1
+            OFFSET 0.000000
+
+          gen_pointer Engine 3 REF MAGENTA
+            POS 1642.500000 942.000000
+            IMAGE CRT Displays/EICAS Upper/ref-line-epr-magenta
+            DATAREF laminar/B747/engines/display_EPR_ref[2]
+            SHOW_LESS 1.0 sim/cockpit2/annunciators/reverser_deployed
+            SHOW_GREATER 0.1 laminar/B747/engines/display_ref_line_magenta
+            SHOW_EQUAL 5.0 laminar/B747/autopilot/FMA/autothrottle_mode
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 9
+            BUS_SRC 2
+            KEY_FRAME 0.850000 -67.000000 1.000000
+            KEY_FRAME 0.850001 -67.000000 1.000000
+            KEY_FRAME 1.750000 67.000000
+            KEY_FRAME 1.760000 67.000000
+            IS_DRAGGABLE 0
+            IS_VERTICAL 1
+            OFFSET 0.000000
+
+          gen_pointer Engine 2 REF MAGENTA
+            POS 1536.500000 942.000000
+            IMAGE CRT Displays/EICAS Upper/ref-line-epr-magenta
+            DATAREF laminar/B747/engines/display_EPR_ref[1]
+            SHOW_LESS 1.0 sim/cockpit2/annunciators/reverser_deployed
+            SHOW_GREATER 0.1 laminar/B747/engines/display_ref_line_magenta
+            SHOW_EQUAL 5.0 laminar/B747/autopilot/FMA/autothrottle_mode
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 9
+            BUS_SRC 2
+            KEY_FRAME 0.850000 -67.000000 1.000000
+            KEY_FRAME 0.850001 -67.000000 1.000000
+            KEY_FRAME 1.750000 67.000000
+            KEY_FRAME 1.760000 67.000000
+            IS_DRAGGABLE 0
+            IS_VERTICAL 1
+            OFFSET 0.000000
+
+          gen_pointer Engine 1 REF MAGENTA
+            POS 1430.500000 942.000000
+            IMAGE CRT Displays/EICAS Upper/ref-line-epr-magenta
+            DATAREF laminar/B747/engines/display_EPR_ref[0]
+            SHOW_LESS 1.0 sim/cockpit2/annunciators/reverser_deployed
+            SHOW_GREATER 0.1 laminar/B747/engines/display_ref_line_magenta
+            SHOW_EQUAL 5.0 laminar/B747/autopilot/FMA/autothrottle_mode
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 9
+            BUS_SRC 2
+            KEY_FRAME 0.850000 -67.000000 1.000000
+            KEY_FRAME 0.850001 -67.000000 1.000000
+            KEY_FRAME 1.750000 67.000000
+            KEY_FRAME 1.760000 67.000000
+            IS_DRAGGABLE 0
+            IS_VERTICAL 1
+            OFFSET 0.000000		
+
+          gen_pointer Engine 4 MAX
+            POS 1748.500000 942.000000
+            IMAGE CRT Displays/EICAS Upper/EPR_maxLineA
+            DATAREF laminar/B747/engines/display_EPR_max[3]
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 9
+            BUS_SRC 2
+            KEY_FRAME 0.850000 -67.000000 1.000000
+            KEY_FRAME 0.850001 -67.000000 1.000000
+            KEY_FRAME 1.750000 67.000000
+            KEY_FRAME 1.760000 67.000000
+            IS_DRAGGABLE 0
+            IS_VERTICAL 1
+            OFFSET 0.000000
+
+          gen_pointer Engine 3 MAX
+            POS 1642.500000 942.000000
+            IMAGE CRT Displays/EICAS Upper/EPR_maxLineA
+            DATAREF laminar/B747/engines/display_EPR_max[2]
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 9
+            BUS_SRC 2
+            KEY_FRAME 0.850000 -67.000000 1.000000
+            KEY_FRAME 0.850001 -67.000000 1.000000
+            KEY_FRAME 1.750000 67.000000
+            KEY_FRAME 1.760000 67.000000
+            IS_DRAGGABLE 0
+            IS_VERTICAL 1
+            OFFSET 0.000000
+
+          gen_pointer Engine 2 MAX
+            POS 1536.500000 942.000000
+            IMAGE CRT Displays/EICAS Upper/EPR_maxLineA
+            DATAREF laminar/B747/engines/display_EPR_max[1]
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 9
+            BUS_SRC 2
+            KEY_FRAME 0.850000 -67.000000 1.000000
+            KEY_FRAME 0.850001 -67.000000 1.000000
+            KEY_FRAME 1.750000 67.000000
+            KEY_FRAME 1.760000 67.000000
+            IS_DRAGGABLE 0
+            IS_VERTICAL 1
+            OFFSET 0.000000
+
+          gen_pointer Engine 1 MAX 
+            POS 1430.500000 942.000000
+            IMAGE CRT Displays/EICAS Upper/EPR_maxLineA
+            DATAREF laminar/B747/engines/display_EPR_max[0]
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 9
+            BUS_SRC 2
+            KEY_FRAME 0.850000 -67.000000 1.000000
+            KEY_FRAME 0.850001 -67.000000 1.000000
+            KEY_FRAME 1.750000 67.000000
+            KEY_FRAME 1.760000 67.000000
+            IS_DRAGGABLE 0
+            IS_VERTICAL 1
+            OFFSET 0.000000		
         END_GROUP
       END_GROUP
+
+      GROUP EPR Thrust Command
+        SHOW_EQUAL 0 laminar/B747/engines/thrust_ref
+        SHOW_LESS 1.0 sim/cockpit2/annunciators/reverser_deployed
+        
+        gen_pointer Engine 4
+            POS 1748.500000 942.000000
+            IMAGE CRT Displays/EICAS Upper/N1_thrust
+            --DATAREF sim/cockpit2/engine/actuators/throttle_ratio[3]
+            DATAREF laminar/B747/engines/TRA[3]
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 -50.000000 2.500000
+            KEY_FRAME 1.000000 60.000000
+            IS_DRAGGABLE 0
+            IS_VERTICAL 1
+            OFFSET 0.00000
+
+          gen_pointer Engine 3
+            POS 1642.500000 942.000000
+            IMAGE CRT Displays/EICAS Upper/N1_thrust
+            --DATAREF sim/cockpit2/engine/actuators/throttle_ratio[2]
+            DATAREF laminar/B747/engines/TRA[2]
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 -50.000000 2.500000
+            KEY_FRAME 1.000000 60.000000
+            IS_DRAGGABLE 0
+            IS_VERTICAL 1
+            OFFSET 0.000000
+
+          gen_pointer Engine 2
+            POS 1536.500000 942.000000
+            IMAGE CRT Displays/EICAS Upper/N1_thrust
+            --DATAREF sim/cockpit2/engine/actuators/throttle_ratio[1]
+            DATAREF laminar/B747/engines/TRA[1]
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 -50.000000 2.500000
+            KEY_FRAME 1.000000 60.000000
+            IS_DRAGGABLE 0
+            IS_VERTICAL 1
+            OFFSET 0.000000
+
+          gen_pointer Engine 1
+            POS 1430.500000 942.000000
+            IMAGE CRT Displays/EICAS Upper/N1_thrust
+            --DATAREF sim/cockpit2/engine/actuators/throttle_ratio[0]
+            DATAREF laminar/B747/engines/TRA[0]
+            LIGHT_MODE GLASS_AUTO
+            LIGHT_RHEOSTAT 10
+            BUS_SRC 2
+            KEY_FRAME 0.000000 -50.000000 2.500000
+            KEY_FRAME 1.000000 60.000000
+            IS_DRAGGABLE 0
+            IS_VERTICAL 1
+            OFFSET 0.000000
+      END_GROUP  
     END_GROUP
     GROUP N1
       
@@ -2431,105 +2639,136 @@ GROUP Upper EICAS
         gen_tape Engine 4 Red
           POS 1748.500000 760.500000
           IMAGE CRT Displays/EICAS Upper/N1.EGT_tapeR
-          DATAREF sim/cockpit2/engine/indicators/N1_percent[3]
+          --DATAREF sim/cockpit2/engine/indicators/N1_percent[3]
+          DATAREF laminar/B747/engines/display_N1[3]
+          --SHOW_GREATER 111.410004 laminar/B747/engines/display_N1[3]
           SHOW_GREATER 111.410004 laminar/B747/engines/display_N1[3]
-
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
           BUS_SRC 2
           KEY_FRAME 0.000000 -55.500000 1.000000
-          KEY_FRAME 118.000000 55.500000
+          --KEY_FRAME 118.000000 55.500000
+          KEY_FRAME 112.000000 46.500000
+          KEY_FRAME 112.000001 46.500000
 
         gen_tape Engine 3 Red
           POS 1642.500000 760.500000
           IMAGE CRT Displays/EICAS Upper/N1.EGT_tapeR
-          DATAREF sim/cockpit2/engine/indicators/N1_percent[2]
+          --DATAREF sim/cockpit2/engine/indicators/N1_percent[2]
+          DATAREF laminar/B747/engines/display_N1[2]
+          --SHOW_GREATER 111.410004 laminar/B747/engines/display_N1[2]
           SHOW_GREATER 111.410004 laminar/B747/engines/display_N1[2]
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
           BUS_SRC 2
           KEY_FRAME 0.000000 -55.500000 1.000000
-          KEY_FRAME 118.000000 55.500000
+          --KEY_FRAME 118.000000 55.500000
+          KEY_FRAME 112.000000 46.500000
+          KEY_FRAME 112.000001 46.500000
 
         gen_tape Engine 2 Red
           POS 1536.500000 760.500000
           IMAGE CRT Displays/EICAS Upper/N1.EGT_tapeR
-          DATAREF sim/cockpit2/engine/indicators/N1_percent[1]
+          --DATAREF sim/cockpit2/engine/indicators/N1_percent[1]
+          DATAREF laminar/B747/engines/display_N1[1]
+          --SHOW_GREATER 111.410004 laminar/B747/engines/display_N1[1]
           SHOW_GREATER 111.410004 laminar/B747/engines/display_N1[1]
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
           BUS_SRC 2
           KEY_FRAME 0.000000 -55.500000 1.000000
-          KEY_FRAME 118.000000 55.500000
+          --KEY_FRAME 118.000000 55.500000
+          KEY_FRAME 112.000000 46.500000
+          KEY_FRAME 112.000001 46.500000
 
         gen_tape Engine 1 Red
           POS 1430.500000 760.500000
           IMAGE CRT Displays/EICAS Upper/N1.EGT_tapeR
-          DATAREF sim/cockpit2/engine/indicators/N1_percent[0]
+          --DATAREF sim/cockpit2/engine/indicators/N1_percent[0]
+          DATAREF laminar/B747/engines/display_N1[0]
+          --SHOW_GREATER 111.410004 laminar/B747/engines/display_N1[0]
           SHOW_GREATER 111.410004 laminar/B747/engines/display_N1[0]
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
           BUS_SRC 2
           KEY_FRAME 0.000000 -55.500000 1.000000
-          KEY_FRAME 118.000000 55.500000
+          --KEY_FRAME 118.000000 55.500000
+          KEY_FRAME 112.000000 46.500000
+          KEY_FRAME 112.000001 46.500000
 
         gen_tape Engine 4 White
           POS 1748.500000 760.500000
           IMAGE CRT Displays/EICAS Upper/N1.EGT_tapeW
-          DATAREF sim/cockpit2/engine/indicators/N1_percent[3]
+          --DATAREF sim/cockpit2/engine/indicators/N1_percent[3]
+          DATAREF laminar/B747/engines/display_N1[3]
+          --SHOW_LESS 111.400002 laminar/B747/engines/display_N1[3]
           SHOW_LESS 111.400002 laminar/B747/engines/display_N1[3]
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
           BUS_SRC 2
           KEY_FRAME 0.000000 -55.500000 1.000000
-          KEY_FRAME 118.000000 55.500000
+          --KEY_FRAME 118.000000 55.500000
+          KEY_FRAME 112.000000 46.500000
+          KEY_FRAME 112.000001 46.500000
 
         gen_tape Engine 3 White
           POS 1642.500000 760.500000
           IMAGE CRT Displays/EICAS Upper/N1.EGT_tapeW
-          DATAREF sim/cockpit2/engine/indicators/N1_percent[2]
+          --DATAREF sim/cockpit2/engine/indicators/N1_percent[2]
+          DATAREF laminar/B747/engines/display_N1[2]
+          --SHOW_LESS 111.400002 laminar/B747/engines/display_N1[2]
           SHOW_LESS 111.400002 laminar/B747/engines/display_N1[2]
-          SHOW_GREATER 100.000000 [3]
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
           BUS_SRC 2
           KEY_FRAME 0.000000 -55.500000 1.000000
-          KEY_FRAME 118.000000 55.500000
+          --KEY_FRAME 118.000000 55.500000
+          KEY_FRAME 112.000000 46.500000
+          KEY_FRAME 112.000001 46.500000
 
         gen_tape Engine 2 White
           POS 1536.500000 760.500000
           IMAGE CRT Displays/EICAS Upper/N1.EGT_tapeW
-          DATAREF sim/cockpit2/engine/indicators/N1_percent[1]
+          --DATAREF sim/cockpit2/engine/indicators/N1_percent[1]
+          DATAREF laminar/B747/engines/display_N1[1]
+          --SHOW_LESS 111.400002 laminar/B747/engines/display_N1[1]
           SHOW_LESS 111.400002 laminar/B747/engines/display_N1[1]
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
           BUS_SRC 2
           KEY_FRAME 0.000000 -55.500000 1.000000
-          KEY_FRAME 118.000000 55.500000
+          --KEY_FRAME 118.000000 55.500000
+          KEY_FRAME 112.000000 46.500000
+          KEY_FRAME 112.000001 46.500000
 
         gen_tape Engine 1 White
           POS 1430.500000 760.500000
           IMAGE CRT Displays/EICAS Upper/N1.EGT_tapeW
-          DATAREF sim/cockpit2/engine/indicators/N1_percent[0]
+          --DATAREF sim/cockpit2/engine/indicators/N1_percent[0]
+          DATAREF laminar/B747/engines/display_N1[0]
+          --SHOW_LESS 111.400002 laminar/B747/engines/display_N1[0]
           SHOW_LESS 111.400002 laminar/B747/engines/display_N1[0]
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
           BUS_SRC 2
           KEY_FRAME 0.000000 -55.500000 1.000000
-          KEY_FRAME 118.000000 55.500000
+          --KEY_FRAME 118.000000 55.500000
+          KEY_FRAME 112.000000 46.500000
+          KEY_FRAME 112.000001 46.500000
 
         GROUP Redline Markers
           
           gen_rotary Engine 4
-            POS 1748.500000 812.000000
+            --POS 1748.500000 812.000000
+            POS 1748.500000 806.000000
             IMAGE CRT Displays/EICAS Upper/N1.EGT_redLine
             DATAREF 
             LIGHT_MODE GLASS_AUTO
@@ -2549,7 +2788,8 @@ GROUP Upper EICAS
             CLICK_DY 0
 
           gen_rotary Engine 3
-            POS 1642.500000 812.000000
+            --POS 1642.500000 812.000000
+            POS 1642.500000 806.000000
             IMAGE CRT Displays/EICAS Upper/N1.EGT_redLine
             DATAREF 
             LIGHT_MODE GLASS_AUTO
@@ -2569,7 +2809,8 @@ GROUP Upper EICAS
             CLICK_DY 0
 
           gen_rotary Engine 2
-            POS 1536.500000 812.000000
+            --POS 1536.500000 812.000000
+            POS 1536.500000 806.000000
             IMAGE CRT Displays/EICAS Upper/N1.EGT_redLine
             DATAREF 
             LIGHT_MODE GLASS_AUTO
@@ -2589,7 +2830,8 @@ GROUP Upper EICAS
             CLICK_DY 0
 
           gen_rotary Engine 1
-            POS 1430.500000 812.000000
+            --POS 1430.500000 812.000000
+            POS 1430.500000 806.000000
             IMAGE CRT Displays/EICAS Upper/N1.EGT_redLine
             DATAREF 
             LIGHT_MODE GLASS_AUTO
@@ -3150,8 +3392,10 @@ GROUP Upper EICAS
         gen_LED N1 4 LED Red
           POS 1746.000000 841.000000
           IMAGE CRT Displays/LED/LED_3.30B.xx##00.red
-          DATAREF sim/cockpit2/engine/indicators/N1_percent[3]
-          SHOW_GREATER 111.410004 sim/cockpit2/engine/indicators/N1_percent[3]
+          --DATAREF sim/cockpit2/engine/indicators/N1_percent[3]
+          DATAREF laminar/B747/engines/display_N1[3]
+          --SHOW_GREATER 111.410004 sim/cockpit2/engine/indicators/N1_percent[3]
+          SHOW_GREATER 111.410004 laminar/B747/engines/display_N1[3]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
           BUS_SRC 2
@@ -3165,8 +3409,10 @@ GROUP Upper EICAS
         gen_LED N1 3 LED Red
           POS 1640.000000 841.000000
           IMAGE CRT Displays/LED/LED_3.30B.xx##00.red
-          DATAREF sim/cockpit2/engine/indicators/N1_percent[2]
-          SHOW_GREATER 111.410004 sim/cockpit2/engine/indicators/N1_percent[2]
+          --DATAREF sim/cockpit2/engine/indicators/N1_percent[2]
+          DATAREF laminar/B747/engines/display_N1[2]
+          --SHOW_GREATER 111.410004 sim/cockpit2/engine/indicators/N1_percent[2]
+          SHOW_GREATER 111.410004 laminar/B747/engines/display_N1[2]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
           BUS_SRC 2
@@ -3180,8 +3426,10 @@ GROUP Upper EICAS
         gen_LED N1 2 LED Red
           POS 1534.000000 841.000000
           IMAGE CRT Displays/LED/LED_3.30B.xx##00.red
-          DATAREF sim/cockpit2/engine/indicators/N1_percent[1]
-          SHOW_GREATER 111.410004 sim/cockpit2/engine/indicators/N1_percent[1]
+          --DATAREF sim/cockpit2/engine/indicators/N1_percent[1]
+          DATAREF laminar/B747/engines/display_N1[1]
+          --SHOW_GREATER 111.410004 sim/cockpit2/engine/indicators/N1_percent[1]
+          SHOW_GREATER 111.410004 laminar/B747/engines/display_N1[1]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
           BUS_SRC 2
@@ -3195,8 +3443,10 @@ GROUP Upper EICAS
         gen_LED N1 1 LED Red
           POS 1428.000000 841.000000
           IMAGE CRT Displays/LED/LED_3.30B.xx##00.red
-          DATAREF sim/cockpit2/engine/indicators/N1_percent[0]
-          SHOW_GREATER 111.410004 sim/cockpit2/engine/indicators/N1_percent[0]
+          --DATAREF sim/cockpit2/engine/indicators/N1_percent[0]
+          DATAREF laminar/B747/engines/display_N1[0]
+          --SHOW_GREATER 111.410004 sim/cockpit2/engine/indicators/N1_percent[0]
+          SHOW_GREATER 111.410004 laminar/B747/engines/display_N1[0]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
           BUS_SRC 2
@@ -3210,8 +3460,10 @@ GROUP Upper EICAS
         gen_LED N1 4 LED White
           POS 1746.000000 841.000000
           IMAGE CRT Displays/LED/LED_3.30B.xx##00.white
-          DATAREF sim/cockpit2/engine/indicators/N1_percent[3]
-          SHOW_LESS 111.400002 sim/cockpit2/engine/indicators/N1_percent[3]
+          --DATAREF sim/cockpit2/engine/indicators/N1_percent[3]
+          DATAREF laminar/B747/engines/display_N1[3]
+          --SHOW_LESS 111.400002 sim/cockpit2/engine/indicators/N1_percent[3]
+          SHOW_LESS 111.400002 laminar/B747/engines/display_N1[3]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
           BUS_SRC 2
@@ -3225,8 +3477,10 @@ GROUP Upper EICAS
         gen_LED N1 3 LED White
           POS 1640.000000 841.000000
           IMAGE CRT Displays/LED/LED_3.30B.xx##00.white
-          DATAREF sim/cockpit2/engine/indicators/N1_percent[2]
-          SHOW_LESS 111.400002 sim/cockpit2/engine/indicators/N1_percent[2]
+          --DATAREF sim/cockpit2/engine/indicators/N1_percent[2]
+          DATAREF laminar/B747/engines/display_N1[2]
+          --SHOW_LESS 111.400002 sim/cockpit2/engine/indicators/N1_percent[2]
+          SHOW_LESS 111.400002 laminar/B747/engines/display_N1[2]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
           BUS_SRC 2
@@ -3240,8 +3494,10 @@ GROUP Upper EICAS
         gen_LED N1 2 LED White
           POS 1534.000000 841.000000
           IMAGE CRT Displays/LED/LED_3.30B.xx##00.white
-          DATAREF sim/cockpit2/engine/indicators/N1_percent[1]
-          SHOW_LESS 111.400002 sim/cockpit2/engine/indicators/N1_percent[1]
+          --DATAREF sim/cockpit2/engine/indicators/N1_percent[1]
+          DATAREF laminar/B747/engines/display_N1[1]
+          --SHOW_LESS 111.400002 sim/cockpit2/engine/indicators/N1_percent[1]
+          SHOW_LESS 111.400002 laminar/B747/engines/display_N1[1]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
           BUS_SRC 2
@@ -3255,8 +3511,10 @@ GROUP Upper EICAS
         gen_LED N1 1 LED White
           POS 1428.000000 841.000000
           IMAGE CRT Displays/LED/LED_3.30B.xx##00.white
-          DATAREF sim/cockpit2/engine/indicators/N1_percent[0]
-          SHOW_LESS 111.400002 sim/cockpit2/engine/indicators/N1_percent[0]
+          --DATAREF sim/cockpit2/engine/indicators/N1_percent[0]
+          DATAREF laminar/B747/engines/display_N1[0]
+          --SHOW_LESS 111.400002 sim/cockpit2/engine/indicators/N1_percent[0]
+          SHOW_LESS 111.400002 laminar/B747/engines/display_N1[0]
           SHOW_GREATER 2.190000 [3]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -3563,68 +3821,7 @@ GROUP Upper EICAS
           LED_ROWS 4
 
       END_GROUP
-
-      GROUP N1 Thrust Command
-        SHOW_EQUAL 0 laminar/B747/engines/thrust_ref
-        
-        gen_pointer Engine 4
-            POS 1748.500000 812.000000
-            IMAGE CRT Displays/EICAS Upper/N1_thrust
-            DATAREF sim/cockpit2/engine/actuators/throttle_ratio[3]
-            SHOW_EQUAL 0 laminar/B747/engines/thrust_ref
-            LIGHT_MODE GLASS_AUTO
-            LIGHT_RHEOSTAT 10
-            BUS_SRC 2
-            KEY_FRAME 0.000000 -90.000000 1.000000
-            KEY_FRAME 1.000000 -15.000000
-            IS_DRAGGABLE 0
-            IS_VERTICAL 1
-            OFFSET 0.000000
-
-          gen_pointer Engine 3
-            POS 1642.500000 812.000000
-            IMAGE CRT Displays/EICAS Upper/N1_thrust
-            DATAREF sim/cockpit2/engine/actuators/throttle_ratio[2]
-            SHOW_EQUAL 0 laminar/B747/engines/thrust_ref
-            LIGHT_MODE GLASS_AUTO
-            LIGHT_RHEOSTAT 10
-            BUS_SRC 2
-            KEY_FRAME 0.000000 -90.000000 1.000000
-            KEY_FRAME 1.000000 -15.000000
-            IS_DRAGGABLE 0
-            IS_VERTICAL 1
-            OFFSET 0.000000
-
-          gen_pointer Engine 2
-            POS 1536.500000 812.000000
-            IMAGE CRT Displays/EICAS Upper/N1_thrust
-            DATAREF sim/cockpit2/engine/actuators/throttle_ratio[1]
-            SHOW_EQUAL 0 laminar/B747/engines/thrust_ref
-            LIGHT_MODE GLASS_AUTO
-            LIGHT_RHEOSTAT 10
-            BUS_SRC 2
-            KEY_FRAME 0.000000 -90.000000 1.000000
-            KEY_FRAME 1.000000 -15.000000
-            IS_DRAGGABLE 0
-            IS_VERTICAL 1
-            OFFSET 0.000000
-
-          gen_pointer Engine 1
-            POS 1430.500000 812.000000
-            IMAGE CRT Displays/EICAS Upper/N1_thrust
-            DATAREF sim/cockpit2/engine/actuators/throttle_ratio[0]
-            SHOW_EQUAL 0 laminar/B747/engines/thrust_ref
-            LIGHT_MODE GLASS_AUTO
-            LIGHT_RHEOSTAT 10
-            BUS_SRC 2
-            KEY_FRAME 0.000000 -90.000000 1.000000
-            KEY_FRAME 1.000000 -15.000000
-            IS_DRAGGABLE 0
-            IS_VERTICAL 1
-            OFFSET 0.000000
-            
-      END_GROUP  
-	  
+  
       GROUP N1 Thrust Command NO EPR
         SHOW_EQUAL 1 laminar/B747/engines/thrust_ref
         SHOW_LESS 1.0 sim/cockpit2/annunciators/reverser_deployed
@@ -3632,7 +3829,8 @@ GROUP Upper EICAS
         gen_pointer Engine 4
             POS 1748.500000 883.500000
             IMAGE CRT Displays/EICAS Upper/N1_thrust
-            DATAREF sim/cockpit2/engine/actuators/throttle_ratio[3]
+            --DATAREF sim/cockpit2/engine/actuators/throttle_ratio[3]
+            DATAREF laminar/B747/engines/TRA[3]
             SHOW_EQUAL 1 laminar/B747/engines/thrust_ref
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
@@ -3646,7 +3844,8 @@ GROUP Upper EICAS
           gen_pointer Engine 3
             POS 1642.500000 883.500000
             IMAGE CRT Displays/EICAS Upper/N1_thrust
-            DATAREF sim/cockpit2/engine/actuators/throttle_ratio[2]
+            --DATAREF sim/cockpit2/engine/actuators/throttle_ratio[2]
+            DATAREF laminar/B747/engines/TRA[2]
             SHOW_EQUAL 1 laminar/B747/engines/thrust_ref
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
@@ -3660,7 +3859,8 @@ GROUP Upper EICAS
           gen_pointer Engine 2
             POS 1536.500000 883.500000
             IMAGE CRT Displays/EICAS Upper/N1_thrust
-            DATAREF sim/cockpit2/engine/actuators/throttle_ratio[1]
+            --DATAREF sim/cockpit2/engine/actuators/throttle_ratio[1]
+            DATAREF laminar/B747/engines/TRA[1]
             SHOW_EQUAL 1 laminar/B747/engines/thrust_ref
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
@@ -3674,7 +3874,8 @@ GROUP Upper EICAS
           gen_pointer Engine 1
             POS 1430.500000 883.500000
             IMAGE CRT Displays/EICAS Upper/N1_thrust
-            DATAREF sim/cockpit2/engine/actuators/throttle_ratio[0]
+            --DATAREF sim/cockpit2/engine/actuators/throttle_ratio[0]
+            DATAREF laminar/B747/engines/TRA[0]
             SHOW_EQUAL 1 laminar/B747/engines/thrust_ref
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
@@ -3855,7 +4056,8 @@ GROUP Upper EICAS
           
           
           gen_rotary Engine 4
-            POS 1748.500000 641.000000
+            --POS 1748.500000 641.000000
+            POS 1748.500000 638.000000
             IMAGE CRT Displays/EICAS Upper/EPR_maxLineA
             DATAREF 
             SHOW_LESS 2.190000 [3]
@@ -3877,7 +4079,8 @@ GROUP Upper EICAS
             CLICK_DY 0
 
           gen_rotary Engine 3
-            POS 1642.500000 641.000000
+            --POS 1642.500000 641.000000
+            POS 1642.500000 638.000000
             IMAGE CRT Displays/EICAS Upper/EPR_maxLineA
             DATAREF 
             SHOW_LESS 2.190000 [2]
@@ -3899,7 +4102,8 @@ GROUP Upper EICAS
             CLICK_DY 0
 
           gen_rotary Engine 2
-            POS 1536.500000 641.000000
+            --POS 1536.500000 641.000000
+            POS 1536.500000 638.000000
             IMAGE CRT Displays/EICAS Upper/EPR_maxLineA
             DATAREF 
             SHOW_LESS 2.190000 [1]
@@ -3922,7 +4126,8 @@ GROUP Upper EICAS
             CLICK_DY 0
 
           gen_rotary Engine 1
-            POS 1430.500000 641.000000
+            --POS 1430.500000 641.000000
+            POS 1430.500000 638.000000
             IMAGE CRT Displays/EICAS Upper/EPR_maxLineA
             DATAREF 
             SHOW_LESS 2.190000 [0]
@@ -4041,7 +4246,8 @@ GROUP Upper EICAS
           
           
           gen_rotary Engine 4
-            POS 1748.500000 645.000000
+            --POS 1748.500000 645.000000
+            POS 1748.500000 642.000000
             IMAGE CRT Displays/EICAS Upper/N1.EGT_redLine
             DATAREF 
             
@@ -4062,7 +4268,8 @@ GROUP Upper EICAS
             CLICK_DY 0
 
           gen_rotary Engine 3
-            POS 1642.500000 645.000000
+            --POS 1642.500000 645.000000
+            POS 1642.500000 642.000000
             IMAGE CRT Displays/EICAS Upper/N1.EGT_redLine
             DATAREF 
             
@@ -4083,7 +4290,8 @@ GROUP Upper EICAS
             CLICK_DY 0
 
           gen_rotary Engine 2
-            POS 1536.500000 645.000000
+            --POS 1536.500000 645.000000
+            POS 1536.500000 642.000000
             IMAGE CRT Displays/EICAS Upper/N1.EGT_redLine
             DATAREF 
             
@@ -4104,7 +4312,8 @@ GROUP Upper EICAS
             CLICK_DY 0
 
           gen_rotary Engine 1
-            POS 1430.500000 645.000000
+            --POS 1430.500000 645.000000
+            POS 1430.500000 642.000000
             IMAGE CRT Displays/EICAS Upper/N1.EGT_redLine
             DATAREF 
             
@@ -5573,7 +5782,7 @@ GROUP Upper EICAS
           --SHOW_EQUAL 1.000000 laminar/B747/engines/EGT/white_on[3]
           DATAREF laminar/B747/engines/display_GE_EGT[3]
           SHOW_LESS 925.00 laminar/B747/engines/display_GE_EGT[3]
-          
+          SHOW_GREATER 0.03 laminar/B747/engines/display_N1[3]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
           BUS_SRC 2
@@ -5592,7 +5801,7 @@ GROUP Upper EICAS
           --SHOW_EQUAL 1.000000 laminar/B747/engines/EGT/white_on[2]
           DATAREF laminar/B747/engines/display_GE_EGT[2]
           SHOW_LESS 925.00 laminar/B747/engines/display_GE_EGT[2]
-          
+          SHOW_GREATER 0.03 laminar/B747/engines/display_N1[2]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
           BUS_SRC 2
@@ -5611,7 +5820,7 @@ GROUP Upper EICAS
           --SHOW_EQUAL 1.000000 laminar/B747/engines/EGT/white_on[1]
           DATAREF laminar/B747/engines/display_GE_EGT[1]
           SHOW_LESS 925.00 laminar/B747/engines/display_GE_EGT[1]
-          
+          SHOW_GREATER 0.03 laminar/B747/engines/display_N1[1]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
           BUS_SRC 2
@@ -5631,7 +5840,7 @@ GROUP Upper EICAS
           --SHOW_GREATER 2.190000 [3]
           DATAREF laminar/B747/engines/display_GE_EGT[0]
           SHOW_LESS 925.00 laminar/B747/engines/display_GE_EGT[0]
-          
+          SHOW_GREATER 0.03 laminar/B747/engines/display_N1[0]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
           BUS_SRC 2
