@@ -249,6 +249,11 @@ B747DR_ap_FMA_active_pitch_mode     	= deferred_dataref("laminar/B747/autopilot/
     8 = FLCH SPD
     9 = ALT
 --]]
+--[[mSparks, placeholder for RR displays]]
+simDR_engine_N1_pct                 = find_dataref("sim/cockpit2/engine/indicators/N1_percent")
+simDR_engine_N2_pct                 = find_dataref("sim/cockpit2/engine/indicators/N2_percent")
+simDR_engine_EPR					= find_dataref("sim/cockpit2/engine/indicators/EPR_ratio")
+--[[end mSparks]]
 B747DR_ap_ias_bug_value            	= deferred_dataref("laminar/B747/autopilot/ias_bug_value", "number")
 B747DR_display_N1					= deferred_dataref("laminar/B747/engines/display_N1", "array[4]")
 B747DR_display_N1_ref				= deferred_dataref("laminar/B747/engines/display_N1_ref", "array[4]")

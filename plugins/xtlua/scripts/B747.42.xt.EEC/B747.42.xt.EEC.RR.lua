@@ -14,8 +14,12 @@
 ]]
 
 function RR(altitude_ft_in)
-    if 1 == 1 then return end
-
+    
+    for i = 0, 3 do
+        B747DR_display_N1[i]=simDR_engine_N1_pct[i]
+        B747DR_display_N2[i]=simDR_engine_N2_pct[i]
+        B747DR_display_EPR[i]=simDR_engine_EPR[i]
+    end
     --[[local EPR = 0.0
 
     EPR = (-0.0000232 * mach^2 + 0.0000147 * mach + 0.0000144) * (thrust_N_in / 1000)^2 + (0.000998 * mach^2 + 0.00272 * mach - 0.00165)

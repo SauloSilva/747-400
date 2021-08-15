@@ -140,8 +140,9 @@ simDR_press_diff_psi                = find_dataref("sim/cockpit2/pressurization/
 --simDR_apu_running                   = find_dataref("sim/cockpit2/electrical/APU_running")
 simDR_apu_N1_pct                    = find_dataref("sim/cockpit2/electrical/APU_N1_percent")
 simDR_engine_running                = find_dataref("sim/flightmodel/engine/ENGN_running")
-simDR_engine_N1_pct                 = find_dataref("sim/cockpit2/engine/indicators/N1_percent")
---simDR_engine_N2_pct                 = find_dataref("sim/cockpit2/engine/indicators/N2_percent")
+B747DR_display_N1				= find_dataref("laminar/B747/engines/display_N1")
+B747DR_display_N2				= find_dataref("laminar/B747/engines/display_N2")
+
 
 
 
@@ -438,16 +439,16 @@ function B747_bleed_air_supply()
     B747bleedAir.apu.psi = B747_rescale(0, 0, 80.0, rndm_max_apu_bleed_psi, simDR_apu_N1_pct)
 
     -- ENGINE 1
-    B747bleedAir.engine1.psi = B747_rescale(0, 0, 50.0, rndm_max_eng1_bleed_psi, simDR_engine_N1_pct[0])
+    B747bleedAir.engine1.psi = B747_rescale(0, 0, 50.0, rndm_max_eng1_bleed_psi, B747DR_display_N1[0])
 
     -- ENGINE 1
-    B747bleedAir.engine2.psi = B747_rescale(0, 0, 50.0, rndm_max_eng2_bleed_psi, simDR_engine_N1_pct[1])
+    B747bleedAir.engine2.psi = B747_rescale(0, 0, 50.0, rndm_max_eng2_bleed_psi, B747DR_display_N1[1])
 
     -- ENGINE 1
-    B747bleedAir.engine3.psi = B747_rescale(0, 0, 50.0, rndm_max_eng3_bleed_psi, simDR_engine_N1_pct[2])
+    B747bleedAir.engine3.psi = B747_rescale(0, 0, 50.0, rndm_max_eng3_bleed_psi, B747DR_display_N1[2])
 
     -- ENGINE 1
-    B747bleedAir.engine4.psi = B747_rescale(0, 0, 50.0, rndm_max_eng4_bleed_psi, simDR_engine_N1_pct[3])
+    B747bleedAir.engine4.psi = B747_rescale(0, 0, 50.0, rndm_max_eng4_bleed_psi, B747DR_display_N1[3])
 
 end
 

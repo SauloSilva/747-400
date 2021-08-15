@@ -97,53 +97,8 @@ B747DR_autothrottle_fail            = deferred_dataref("laminar/B747/engines/aut
 B747CMD_ai_engines_quick_start		= deferred_command("laminar/B747/ai/engines_quick_start", "number", B747_ai_engines_quick_start_CMDhandler)
 
 
-
-B747DR_button_switch_position               = find_dataref("laminar/B747/button_switch/position")
-B747DR_toggle_switch_position               = find_dataref("laminar/B747/toggle_switch/position")
-
-B747DR_fuel_control_toggle_switch_pos       = find_dataref("laminar/B747/fuel/fuel_control/toggle_sw_pos")
-
-B747DR_bleedAir_engine1_start_valve_pos     = find_dataref("laminar/B747/air/engine1/bleed_start_valve_pos")
-B747DR_bleedAir_engine2_start_valve_pos     = find_dataref("laminar/B747/air/engine2/bleed_start_valve_pos")
-B747DR_bleedAir_engine3_start_valve_pos     = find_dataref("laminar/B747/air/engine3/bleed_start_valve_pos")
-B747DR_bleedAir_engine4_start_valve_pos     = find_dataref("laminar/B747/air/engine4/bleed_start_valve_pos")
-
 B747DR_engine_fire				= deferred_dataref("laminar/B747/annunciators/engine_fires", "array[5)")
 
-simDR_engine_N2_pct             = find_dataref("sim/cockpit2/engine/indicators/N2_percent")
-simDR_engine_fuel_mix_ratio     = find_dataref("sim/cockpit2/engine/actuators/mixture_ratio")
-simDR_engine_starter_status     = find_dataref("sim/cockpit2/engine/actuators/ignition_key")
-simDR_flap_deploy_ratio         = find_dataref("sim/flightmodel2/controls/flap_handle_deploy_ratio")
-simDR_engine_nacelle_heat_on    = find_dataref("sim/cockpit2/ice/ice_inlet_heat_on_per_engine")
-simDR_engine_igniter_on         = find_dataref("sim/cockpit2/annunciators/igniter_on")
-simCMD_igniter_on_1         = find_command("sim/igniters/igniter_contin_on_1")
-simCMD_igniter_on_2         = find_command("sim/igniters/igniter_contin_on_2")
-simCMD_igniter_on_3         = find_command("sim/igniters/igniter_contin_on_3")
-simCMD_igniter_on_4         = find_command("sim/igniters/igniter_contin_on_4")
-
-simCMD_igniter_off_1        = find_command("sim/igniters/igniter_contin_off_1")
-simCMD_igniter_off_2        = find_command("sim/igniters/igniter_contin_off_2")
-simCMD_igniter_off_3        = find_command("sim/igniters/igniter_contin_off_3")
-simCMD_igniter_off_4        = find_command("sim/igniters/igniter_contin_off_4")
-
-simCMD_starter_on_1         = find_command("sim/starters/engage_starter_1")
-simCMD_starter_on_2         = find_command("sim/starters/engage_starter_2")
-simCMD_starter_on_3         = find_command("sim/starters/engage_starter_3")
-simCMD_starter_on_4         = find_command("sim/starters/engage_starter_4")
-
-simCMD_starter_off_1        = find_command("sim/starters/shut_down_1")
-simCMD_starter_off_2        = find_command("sim/starters/shut_down_2")
-simCMD_starter_off_3        = find_command("sim/starters/shut_down_3")
-simCMD_starter_off_4        = find_command("sim/starters/shut_down_4")
-B747CMD_engine_start_switch1        = find_command("laminar/B747/toggle_switch/engine_start1")
-B747CMD_engine_start_switch2        = find_command("laminar/B747/toggle_switch/engine_start2")
-B747CMD_engine_start_switch3        = find_command("laminar/B747/toggle_switch/engine_start3")
-B747CMD_engine_start_switch4        = find_command("laminar/B747/toggle_switch/engine_start4")
-
-B747CMD_engine_start_switch1_off    = find_command("laminar/B747/toggle_switch/engine_start1_off")
-B747CMD_engine_start_switch2_off    = find_command("laminar/B747/toggle_switch/engine_start2_off")
-B747CMD_engine_start_switch3_off    = find_command("laminar/B747/toggle_switch/engine_start3_off")
-B747CMD_engine_start_switch4_off    = find_command("laminar/B747/toggle_switch/engine_start4_off")
 
 
 

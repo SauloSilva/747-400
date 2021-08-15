@@ -250,7 +250,7 @@ function B747_monitor_THR_REF_AT()
 
     if B747DR_ap_FMA_autothrottle_mode~=5 or B747DR_toggle_switch_position[29] ~= 1 then return end
     
-    local n1_pct=math.max(simDR_engine_N1_pct[0],simDR_engine_N1_pct[1],simDR_engine_N1_pct[2],simDR_engine_N1_pct[3])
+    local n1_pct=math.max(B747DR_display_N1[0],B747DR_display_N1[1],B747DR_display_N1[2],B747DR_display_N1[3])
     local lastChange=simDRTime-last_THR_REF
 
     
@@ -405,10 +405,10 @@ function B747_monitorAT()
     .. " index "..simDR_autopilot_destination_index)]]
     --disconnects if 2 more more (more than one) engine inop
     local numRun=0;
-    if simDR_engine_N1_pct[0]>15.0 then numRun=numRun+1 end
-    if simDR_engine_N1_pct[1]>15.0 then numRun=numRun+1 end
-    if simDR_engine_N1_pct[2]>15.0 then numRun=numRun+1 end
-    if simDR_engine_N1_pct[3]>15.0 then numRun=numRun+1 end
+    if B747DR_display_N1[0]>15.0 then numRun=numRun+1 end
+    if B747DR_display_N1[1]>15.0 then numRun=numRun+1 end
+    if B747DR_display_N1[2]>15.0 then numRun=numRun+1 end
+    if B747DR_display_N1[3]>15.0 then numRun=numRun+1 end
 
     if numRun<3 or B747DR_autothrottle_fail>0 then 
         if simDR_autopilot_autothrottle_enabled==1 then

@@ -16,7 +16,9 @@ function deferred_dataref(name,nilType,callFunction)
     return find_dataref(name)
 end
 B747DR_button_switch_position   = find_dataref("laminar/B747/button_switch/position")
-simDR_engine_N1_pct             = find_dataref("sim/cockpit2/engine/indicators/N1_percent")
+
+B747DR_display_N1					= deferred_dataref("laminar/B747/engines/display_N1", "array[4]")
+B747DR_display_N2					= deferred_dataref("laminar/B747/engines/display_N2", "array[4]")
 B747_duct_pressure_L                = deferred_dataref("laminar/B747/air/duct_pressure_L", "number")
 B747_duct_pressure_R                = deferred_dataref("laminar/B747/air/duct_pressure_R", "number")
 --B747DR_engine1psi    = deferred_dataref("laminar/B747/air/engine1/bleed_air_psi", "number")
@@ -132,25 +134,25 @@ function B747_engine_dem_modes()
 end
 function B747_edp_pressures()
     if B747DR_hyd_valve_1==1 then
-      B747DR_hyd_edp_pressure_1=30*simDR_engine_N1_pct[0]
+      B747DR_hyd_edp_pressure_1=30*B747DR_display_N1[0]
     else
       B747DR_hyd_edp_pressure_1=0;
     end
     
     if B747DR_hyd_valve_2==1 then
-      B747DR_hyd_edp_pressure_2=30*simDR_engine_N1_pct[1]
+      B747DR_hyd_edp_pressure_2=30*B747DR_display_N1[1]
     else
       B747DR_hyd_edp_pressure_2=0;
     end
     
     if B747DR_hyd_valve_3==1 then
-      B747DR_hyd_edp_pressure_3=30*simDR_engine_N1_pct[2]
+      B747DR_hyd_edp_pressure_3=30*B747DR_display_N1[2]
     else
       B747DR_hyd_edp_pressure_3=0;
     end
     
     if B747DR_hyd_valve_4==1 then
-      B747DR_hyd_edp_pressure_4=30*simDR_engine_N1_pct[3]
+      B747DR_hyd_edp_pressure_4=30*B747DR_display_N1[3]
     else
       B747DR_hyd_edp_pressure_4=0;
     end
