@@ -3898,8 +3898,10 @@ GROUP Upper EICAS
         gen_tape Engine 4 Red
           POS 1748.500000 596.500000
           IMAGE CRT Displays/EICAS Upper/N1.EGT_tapeR
-          DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[3]
-          SHOW_GREATER 654.000000 sim/cockpit2/engine/indicators/EGT_deg_C[3]
+          --DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[3]
+          --SHOW_GREATER 654.000000 sim/cockpit2/engine/indicators/EGT_deg_C[3]
+          DATAREF laminar/B747/engines/display_EGT[3]
+          SHOW_GREATER 654.000000 laminar/B747/engines/display_EGT[3]
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -3910,8 +3912,10 @@ GROUP Upper EICAS
         gen_tape Engine 3 Red
           POS 1642.500000 596.500000
           IMAGE CRT Displays/EICAS Upper/N1.EGT_tapeR
-          DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[2]
-          SHOW_GREATER 654.000000 sim/cockpit2/engine/indicators/EGT_deg_C[2]
+          --DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[2]
+          --SHOW_GREATER 654.000000 sim/cockpit2/engine/indicators/EGT_deg_C[2]
+          DATAREF laminar/B747/engines/display_EGT[2]
+          SHOW_GREATER 654.000000 laminar/B747/engines/display_EGT[2]
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -3922,8 +3926,10 @@ GROUP Upper EICAS
         gen_tape Engine 2 Red
           POS 1536.500000 596.500000
           IMAGE CRT Displays/EICAS Upper/N1.EGT_tapeR
-          DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[1]
-          SHOW_GREATER 654.000000 sim/cockpit2/engine/indicators/EGT_deg_C[1]
+          --DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[1]
+          --SHOW_GREATER 654.000000 sim/cockpit2/engine/indicators/EGT_deg_C[1]
+          DATAREF laminar/B747/engines/display_EGT[1]
+          SHOW_GREATER 654.000000 laminar/B747/engines/display_EGT[1]
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -3934,8 +3940,10 @@ GROUP Upper EICAS
         gen_tape Engine 1 Red
           POS 1430.500000 596.500000
           IMAGE CRT Displays/EICAS Upper/N1.EGT_tapeR
-          DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[0]
-          SHOW_GREATER 654.000000 sim/cockpit2/engine/indicators/EGT_deg_C[0]
+          --DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[0]
+          --SHOW_GREATER 654.000000 sim/cockpit2/engine/indicators/EGT_deg_C[0]
+          DATAREF laminar/B747/engines/display_EGT[0]
+          SHOW_GREATER 654.000000 laminar/B747/engines/display_EGT[0]
           CLIP
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
@@ -3946,7 +3954,8 @@ GROUP Upper EICAS
         gen_tape Engine 4 Amber
           POS 1748.500000 596.500000
           IMAGE CRT Displays/EICAS Upper/EGT_tapeA
-          DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[3]
+          --DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[3]
+          DATAREF laminar/B747/engines/display_EGT[3]
           SHOW_LESS 654.000000 [3]
           SHOW_EQUAL 1.000000 laminar/B747/engines/EGT/amber_on[3]
           SHOW_GREATER 629.000000 [3]
@@ -3960,7 +3969,8 @@ GROUP Upper EICAS
         gen_tape Engine 3 Amber
           POS 1642.500000 596.500000
           IMAGE CRT Displays/EICAS Upper/EGT_tapeA
-          DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[2]
+          --DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[2]
+          DATAREF laminar/B747/engines/display_EGT[2]
           SHOW_LESS 654.000000 [2]
           SHOW_EQUAL 1.000000 laminar/B747/engines/EGT/amber_on[2]
           SHOW_GREATER 629.000000 [2]
@@ -3974,7 +3984,8 @@ GROUP Upper EICAS
         gen_tape Engine 2 Amber
           POS 1536.500000 596.500000
           IMAGE CRT Displays/EICAS Upper/EGT_tapeA
-          DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[1]
+          --DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[1]
+          DATAREF laminar/B747/engines/display_EGT[1]
           SHOW_LESS 654.000000 [1]
           SHOW_EQUAL 1.000000 laminar/B747/engines/EGT/amber_on[1]
           SHOW_GREATER 629.000000 [1]
@@ -3988,7 +3999,8 @@ GROUP Upper EICAS
         gen_tape Engine 1 Amber
           POS 1430.500000 596.500000
           IMAGE CRT Displays/EICAS Upper/EGT_tapeA
-          DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[0]
+          --DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[0]
+          DATAREF laminar/B747/engines/display_EGT[0]
           SHOW_LESS 654.000000 [0]
           SHOW_EQUAL 1.000000 laminar/B747/engines/EGT/amber_on[0]
           SHOW_GREATER 629.000000 [0]
@@ -4002,7 +4014,8 @@ GROUP Upper EICAS
         gen_tape Engine 4 White
           POS 1748.500000 596.500000
           IMAGE CRT Displays/EICAS Upper/N1.EGT_tapeW
-          DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[3]
+          --DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[3]
+          DATAREF laminar/B747/engines/display_EGT[3]
           SHOW_LESS 1.000000 [3]
           SHOW_EQUAL 1.000000 laminar/B747/engines/EGT/white_on[3]
           CLIP
@@ -4015,7 +4028,8 @@ GROUP Upper EICAS
         gen_tape Engine 3 White
           POS 1642.500000 596.500000
           IMAGE CRT Displays/EICAS Upper/N1.EGT_tapeW
-          DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[2]
+          --DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[2]
+          DATAREF laminar/B747/engines/display_EGT[2]
           SHOW_LESS 1.000000 [2]
           SHOW_EQUAL 1.000000 laminar/B747/engines/EGT/white_on[2]
           SHOW_GREATER 100.000000 [3]
@@ -4029,7 +4043,8 @@ GROUP Upper EICAS
         gen_tape Engine 2 White
           POS 1536.500000 596.500000
           IMAGE CRT Displays/EICAS Upper/N1.EGT_tapeW
-          DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[1]
+          --DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[1]
+          DATAREF laminar/B747/engines/display_EGT[1]
           SHOW_LESS 1.000000 [1]
           SHOW_EQUAL 1.000000 laminar/B747/engines/EGT/white_on[1]
           CLIP
@@ -4042,7 +4057,8 @@ GROUP Upper EICAS
         gen_tape Engine 1 White
           POS 1430.500000 596.500000
           IMAGE CRT Displays/EICAS Upper/N1.EGT_tapeW
-          DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[0]
+          --DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[0]
+          DATAREF laminar/B747/engines/display_EGT[0]
           SHOW_LESS 1.000000 [0]
           SHOW_EQUAL 1.000000 laminar/B747/engines/EGT/white_on[0]
           CLIP
@@ -5107,9 +5123,10 @@ GROUP Upper EICAS
         gen_LED EGT 4 LED Red
           POS 1748.000000 674.000000
           IMAGE CRT Displays/LED/LED_3.30B.xxx##0.red
-          DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[3]
-          SHOW_GREATER 654.000000 sim/cockpit2/engine/indicators/EGT_deg_C[3]
-          
+          --DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[3]
+          --SHOW_GREATER 654.000000 sim/cockpit2/engine/indicators/EGT_deg_C[3]
+          DATAREF laminar/B747/engines/display_EGT[3]
+          SHOW_GREATER 654.000000 laminar/B747/engines/display_EGT[3]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
           BUS_SRC 2
@@ -5123,9 +5140,10 @@ GROUP Upper EICAS
         gen_LED EGT 3 LED Red
           POS 1642.000000 674.000000
           IMAGE CRT Displays/LED/LED_3.30B.xxx##0.red
-          DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[2]
-          SHOW_GREATER 654.000000 sim/cockpit2/engine/indicators/EGT_deg_C[2]
-          
+          --DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[2]
+          --SHOW_GREATER 654.000000 sim/cockpit2/engine/indicators/EGT_deg_C[2]
+          DATAREF laminar/B747/engines/display_EGT[2]
+          SHOW_GREATER 654.000000 laminar/B747/engines/display_EGT[2]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
           BUS_SRC 2
@@ -5139,9 +5157,10 @@ GROUP Upper EICAS
         gen_LED EGT 2 LED Red
           POS 1536.000000 674.000000
           IMAGE CRT Displays/LED/LED_3.30B.xxx##0.red
-          DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[1]
-          SHOW_GREATER 654.000000 sim/cockpit2/engine/indicators/EGT_deg_C[1]
-          
+          --DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[1]
+          --SHOW_GREATER 654.000000 sim/cockpit2/engine/indicators/EGT_deg_C[1]
+          DATAREF laminar/B747/engines/display_EGT[1]
+          SHOW_GREATER 654.000000 laminar/B747/engines/display_EGT[1]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
           BUS_SRC 2
@@ -5155,9 +5174,10 @@ GROUP Upper EICAS
         gen_LED EGT 1 LED Red
           POS 1430.000000 674.000000
           IMAGE CRT Displays/LED/LED_3.30B.xxx##0.red
-          DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[0]
-          SHOW_GREATER 654.000000 sim/cockpit2/engine/indicators/EGT_deg_C[0]
-          
+          --DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[0]
+          --SHOW_GREATER 654.000000 sim/cockpit2/engine/indicators/EGT_deg_C[0]
+          DATAREF laminar/B747/engines/display_EGT[0]
+          SHOW_GREATER 654.000000 laminar/B747/engines/display_EGT[0]
           LIGHT_MODE GLASS_AUTO
           LIGHT_RHEOSTAT 9
           BUS_SRC 2
@@ -5171,7 +5191,8 @@ GROUP Upper EICAS
         gen_LED EGT 4 LED Amber
           POS 1748.000000 674.000000
           IMAGE CRT Displays/LED/LED_3.30B.xxx##0.amber
-          DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[3]
+          --DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[3]
+          DATAREF laminar/B747/engines/display_EGT[3]
           SHOW_LESS 654.000000 [3]
           SHOW_EQUAL 1.000000 laminar/B747/engines/EGT/amber_on[3]
           SHOW_GREATER 629.000000 [3]
@@ -5189,7 +5210,8 @@ GROUP Upper EICAS
         gen_LED EGT 3 LED Amber
           POS 1642.000000 674.000000
           IMAGE CRT Displays/LED/LED_3.30B.xxx##0.amber
-          DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[2]
+          --DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[2]
+          DATAREF laminar/B747/engines/display_EGT[2]
           SHOW_LESS 654.000000 [2]
           SHOW_EQUAL 1.000000 laminar/B747/engines/EGT/amber_on[2]
           SHOW_GREATER 629.000000 [2]
@@ -5207,7 +5229,8 @@ GROUP Upper EICAS
         gen_LED EGT 2 LED Amber
           POS 1536.000000 674.000000
           IMAGE CRT Displays/LED/LED_3.30B.xxx##0.amber
-          DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[1]
+          --DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[1]
+          DATAREF laminar/B747/engines/display_EGT[1]
           SHOW_LESS 654.000000 [1]
           SHOW_EQUAL 1.000000 laminar/B747/engines/EGT/amber_on[1]
           SHOW_GREATER 629.000000 [1]
@@ -5225,7 +5248,8 @@ GROUP Upper EICAS
         gen_LED EGT 1 LED Amber
           POS 1430.000000 674.000000
           IMAGE CRT Displays/LED/LED_3.30B.xxx##0.amber
-          DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[0]
+          --DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[0]
+          DATAREF laminar/B747/engines/display_EGT[0]
           SHOW_LESS 654.000000 [0]
           SHOW_EQUAL 1.000000 laminar/B747/engines/EGT/amber_on[0]
           SHOW_GREATER 629.000000 [0]
@@ -5243,7 +5267,8 @@ GROUP Upper EICAS
         gen_LED EGT 4 LED White
           POS 1748.000000 674.000000
           IMAGE CRT Displays/LED/LED_3.30B.xxx##0.white
-          DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[3]
+          --DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[3]
+          DATAREF laminar/B747/engines/display_EGT[3]
           SHOW_LESS 629.000000 [3]
           SHOW_EQUAL 1.000000 laminar/B747/engines/EGT/white_on[3]
           
@@ -5260,7 +5285,8 @@ GROUP Upper EICAS
         gen_LED EGT 3 LED White
           POS 1642.000000 674.000000
           IMAGE CRT Displays/LED/LED_3.30B.xxx##0.white
-          DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[2]
+          --DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[2]
+          DATAREF laminar/B747/engines/display_EGT[2]
           SHOW_LESS 629.000000 [2]
           SHOW_EQUAL 1.000000 laminar/B747/engines/EGT/white_on[2]
           
@@ -5277,7 +5303,8 @@ GROUP Upper EICAS
         gen_LED EGT 2 LED White
           POS 1536.000000 674.000000
           IMAGE CRT Displays/LED/LED_3.30B.xxx##0.white
-          DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[1]
+          --DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[1]
+          DATAREF laminar/B747/engines/display_EGT[1]
           SHOW_LESS 629.000000 [1]
           SHOW_EQUAL 1.000000 laminar/B747/engines/EGT/white_on[1]
           
@@ -5294,7 +5321,8 @@ GROUP Upper EICAS
         gen_LED EGT 1 LED White
           POS 1430.000000 674.000000
           IMAGE CRT Displays/LED/LED_3.30B.xxx##0.white
-          DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[0]
+          --DATAREF sim/cockpit2/engine/indicators/EGT_deg_C[0]
+          DATAREF laminar/B747/engines/display_EGT[0]
           SHOW_LESS 629.000000 [0]
           SHOW_EQUAL 1.000000 laminar/B747/engines/EGT/white_on[0]
           --SHOW_GREATER 2.190000 [3]

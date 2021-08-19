@@ -19,6 +19,7 @@ function RR(altitude_ft_in)
         B747DR_display_N1[i]=simDR_engine_N1_pct[i]
         B747DR_display_N2[i]=simDR_engine_N2_pct[i]
         B747DR_display_EPR[i]=simDR_engine_EPR[i]
+        B747DR_display_EGT[i]=simDR_engine_EGT_degC[i]
     end
     --[[local EPR = 0.0
 

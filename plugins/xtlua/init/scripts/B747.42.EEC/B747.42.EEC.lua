@@ -46,5 +46,6 @@ B747DR_display_EPR				= deferred_dataref("laminar/B747/engines/display_EPR", "ar
 B747DR_display_EPR_ref			= deferred_dataref("laminar/B747/engines/display_EPR_ref", "array[4]")
 B747DR_display_EPR_max			= deferred_dataref("laminar/B747/engines/display_EPR_max", "array[4]")
 B747DR_display_GE_EGT			= deferred_dataref("laminar/B747/engines/display_GE_EGT", "array[4]")
+B747DR_display_EGT				= deferred_dataref("laminar/B747/engines/display_EGT", "array[4]")
 B747DR_ref_line_magenta 		= deferred_dataref("laminar/B747/engines/display_ref_line_magenta", "number")
 B747DR_throttle_resolver_angle 	= deferred_dataref("laminar/B747/engines/TRA", "array[4]")

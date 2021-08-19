@@ -497,7 +497,9 @@ function EGT_display_GE(engine_in)
   local EGT_display = 0.0
 
   --Use a scaled approach from the default XP (PW) EGT calcs to computing EGT.
-  if simDR_engn_EGT_c[engine_in] < 375 then
+  if simDR_engn_EGT_c[engine_in] <= simDR_temperature then
+    EGT_display = simDR_temperature
+  elseif simDR_engn_EGT_c[engine_in] < 375 then
     EGT_display = simDR_engn_EGT_c[engine_in]
   else
     EGT_display = B747_rescale(375.0, 375.0, 725.0, 985.0, simDR_engn_EGT_c[engine_in])
@@ -689,19 +691,6 @@ function GE(altitude_ft_in)
 
     EGT_display[i] = EGT_display_GE(i)
     B747DR_display_GE_EGT[i] = EGT_display[i]
-
-    --Keep the REF and MAX lines within tolerance
-    --[[if B747DR_display_N1_ref[i] > 117.5 then
-      B747DR_display_N1_ref[i] = 117.5
-    elseif B747DR_display_N1_ref[i] < 20.0 then
-      B747DR_display_N1_ref[i] = 20.0
-    end
-
-    if B747DR_display_N1_max[i] > 117.5 then
-      B747DR_display_N1_max[i] = 117.5
-    elseif B747DR_display_N1_max[i] < 20.0 then
-      B747DR_display_N1_max[i] = 20.0
-    end]]
 
     B747DR_throttle_resolver_angle[i] = throttle_resolver_angle_N1(i)
 	end
