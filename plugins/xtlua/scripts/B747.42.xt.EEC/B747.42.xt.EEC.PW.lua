@@ -496,7 +496,7 @@ function engine_idle_control_PW(altitude_ft_in)
     local N2_display = 0.0
     N2_display = (0.000798 * engine_N1_in^2 - 0.154 * engine_N1_in + 10.2) * engine_N1_in * (3600/9900)  --have to multiply by the 100% rotation speed of N1 / 100% rotation speed of N2
   
-    if N2_display < simDR_N2[engine_in] and N2_display < 30.0 then
+    if N2_display < simDR_N2[engine_in] then --and N2_display < 30.0 then
       N2_display = simDR_N2[engine_in]
     end
 
@@ -552,6 +552,22 @@ function engine_idle_control_PW(altitude_ft_in)
       return EPR_actual
   end
 
+  function EGT_display_PW(engine_in)
+    local EGT_display = 0.0
+  
+    if simDR_engn_EGT_c[engine_in] <= simDR_temperature then
+      EGT_display = simDR_temperature
+    else
+      EGT_display = simDR_engn_EGT_c[engine_in]
+    end
+  
+    if enable_logging then
+      print("EGT = ", EGT_display)
+    end
+  
+    return EGT_display
+  end
+  
   local orig_thrust_n = 0.0
   function PW(altitude_ft_in)
     local altitude = 0.0  --round_thrustcalc(simDR_altitude, "ALT")
@@ -567,6 +583,7 @@ function engine_idle_control_PW(altitude_ft_in)
     local EPR_display = {}
     local N1_display = {}
     local N2_display = {}
+    local EGT_display = {}
     local target_weight = 0.0
     local target_alt = 0.0
   
@@ -756,19 +773,9 @@ function engine_idle_control_PW(altitude_ft_in)
       N2_display[i] = string.format("%3.0f", N2_display_PW(B747DR_display_N1[i], i))
       B747DR_display_N2[i] = N2_display[i]
 
-      --Keep the REF and MAX lines within tolerance
-      --[[if B747DR_display_EPR_ref[i] > 1.71 then
-        B747DR_display_EPR_ref[i] = 1.71
-      elseif B747DR_display_EPR_ref[i] < 0.95 then
-        B747DR_display_EPR_ref[i] = 0.95
-      end
-
-      if B747DR_display_EPR_max[i] > 1.71 then
-        B747DR_display_EPR_max[i] = 1.71
-      elseif B747DR_display_EPR_max[i] < 0.95 then
-        B747DR_display_EPR_max[i] = 0.95
-      end]]
-
+      EGT_display[i] = EGT_display_PW(i)
+      B747DR_display_EGT[i] = EGT_display[i]
+  
       B747DR_throttle_resolver_angle[i] = throttle_resolver_angle_EPR(i)
 
     end

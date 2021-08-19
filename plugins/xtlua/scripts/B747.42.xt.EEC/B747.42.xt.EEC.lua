@@ -263,6 +263,7 @@ B747DR_display_EPR					= deferred_dataref("laminar/B747/engines/display_EPR", "a
 B747DR_display_EPR_ref				= deferred_dataref("laminar/B747/engines/display_EPR_ref", "array[4]")
 B747DR_display_EPR_max				= deferred_dataref("laminar/B747/engines/display_EPR_max", "array[4]")
 B747DR_display_GE_EGT				= deferred_dataref("laminar/B747/engines/display_GE_EGT", "array[4]")
+B747DR_display_EGT					= deferred_dataref("laminar/B747/engines/display_EGT", "array[4]")
 B747DR_FMSdata						= deferred_dataref("laminar/B747/fms/data", "string")
 B747DR_radio_altitude				= deferred_dataref("laminar/B747/efis/radio_altitude")
 B747DR_altitude_dial				= deferred_dataref("laminar/B747/autopilot/heading/altitude_dial_ft")
@@ -467,7 +468,6 @@ function clear_thrust_targets()
 		simDR_EPR_target_bug[i] = 0.0
 		simDR_N1_target_bug[i] = 0.0
 	end
-	GE_Init()
 end
 
 function take_off_thrust_corrected(altitude_ft_in, temperature_K_in)
