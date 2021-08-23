@@ -1379,7 +1379,7 @@ function B747_startup_ignition()
     -- IGNITION IS REQUIRED FOR STARTUP WITH ENGINES RUNNING
     -- IF USER SHUTS DOWN AN ENGINE THEY WILL NEED TO MANUALLY RE-START OR RE-LOAD THE SIM
     for i = 0, 3 do
-        if B747DR_display_N2[i] < 55.0                                            -- N2 is less than 55.0 %
+        if B747DR_display_N2[i] < 45.0                                            -- N2 is less than 55.0 %
             and B747_ignition_startup_flag[i+1] == 1                                -- ALLOWS ONLY ONE (1)) AUTO-IGNITE AT SIM LOAD
         then
             simDR_engine_auto_ignite_on[i] = 1                                      -- TURN ON AUTO-IGNITE
@@ -1444,7 +1444,7 @@ function B747_engines_EICAS_msg()
     -- STARTER CUTOUT 1
     
     if B747DR_bleedAir_engine1_start_valve_pos > 0.05
-        and B747DR_display_N2[0] > 50.0
+        and B747DR_display_N2[0] > 45.0
     then
         B747DR_CAS_caution_status[61] = 1
     else
@@ -1454,7 +1454,7 @@ function B747_engines_EICAS_msg()
     -- STARTER CUTOUT 2
     
     if B747DR_bleedAir_engine2_start_valve_pos > 0.05
-        and B747DR_display_N2[1] > 50.0
+        and B747DR_display_N2[1] > 45.0
     then
         B747DR_CAS_caution_status[62] = 1
     else
@@ -1464,7 +1464,7 @@ function B747_engines_EICAS_msg()
     -- STARTER CUTOUT 3
     
     if B747DR_bleedAir_engine3_start_valve_pos > 0.05
-        and B747DR_display_N2[2] > 50.0
+        and B747DR_display_N2[2] > 45.0
     then
         B747DR_CAS_caution_status[63] = 1
     else
@@ -1474,7 +1474,7 @@ function B747_engines_EICAS_msg()
     -- STARTER CUTOUT 4
     
     if B747DR_bleedAir_engine4_start_valve_pos > 0.05
-        and B747DR_display_N2[3] > 50.0
+        and B747DR_display_N2[3] > 45.0
     then
         B747DR_CAS_caution_status[64] = 1
     else
@@ -1733,7 +1733,7 @@ function B747_electronic_engine_control()
 
 
     --============================== ENGINE #1 ====================================--
-    if B747DR_display_N2[0] < 50.0 then
+    if B747DR_display_N2[0] < 45.0 then
 
         if B747DR_bleedAir_engine1_start_valve_pos > 0.95 then                      -- START VALVE IS OPENED (START SWITCH PULLED) AND SUPPLYING BLEED AIR
             B747_engine_starter_on(0)                                               -- ENGAGE STARTER MOTOR
@@ -1750,7 +1750,7 @@ function B747_electronic_engine_control()
 
 
     --============================== ENGINE #2 ====================================--
-    if B747DR_display_N2[1] < 50.0 then
+    if B747DR_display_N2[1] < 45.0 then
 
         if B747DR_bleedAir_engine2_start_valve_pos > 0.95 then                      -- START VALVE IS OPENED (START SWITCH PULLED) AND SUPPLYING BLEED AIR
             B747_engine_starter_on(1)                                               -- ENGAGE STARTER MOTOR
@@ -1767,7 +1767,7 @@ function B747_electronic_engine_control()
 
 
     --============================== ENGINE #3 ====================================--
-    if B747DR_display_N2[2] < 50.0 then
+    if B747DR_display_N2[2] < 45.0 then
 
         if B747DR_bleedAir_engine3_start_valve_pos > 0.95 then                      -- START VALVE IS OPENED (START SWITCH PULLED) AND SUPPLYING BLEED AIR
             B747_engine_starter_on(2)                                               -- ENGAGE STARTER MOTOR
@@ -1784,7 +1784,7 @@ function B747_electronic_engine_control()
 
 
     --============================== ENGINE #4 ====================================--
-    if B747DR_display_N2[3] < 50.0 then
+    if B747DR_display_N2[3] < 45.0 then
 
         if B747DR_bleedAir_engine4_start_valve_pos > 0.95 then                      -- START VALVE IS OPENED (START SWITCH PULLED) AND SUPPLYING BLEED AIR
             B747_engine_starter_on(3)                                               -- ENGAGE STARTER MOTOR
