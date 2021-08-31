@@ -378,7 +378,7 @@ function autobrake_check()
 	
 	--LANDING
     if simDR_aircraft_on_ground == 1 and B747DR_autobrakes_sel_dial_pos > 2 then
-        print("simDR_autobrakes_switch is " .. simDR_autobrakes_switch .. "B747DR_autobrakes_sel_dial_pos is " ..B747DR_autobrakes_sel_dial_pos)
+--        print("simDR_autobrakes_switch is " .. simDR_autobrakes_switch .. "B747DR_autobrakes_sel_dial_pos is " ..B747DR_autobrakes_sel_dial_pos)
 		--Braking
 		if (simDR_left_brake_add > 0 or simDR_right_brake_add > 0)  then
 			print("LANDING - Autobrakes DISARM - BRAKING")
@@ -402,6 +402,10 @@ function autobrake_check()
 		end
     end
     lastThrottle=math.max(simDR_throttle_ratio_all,simDR_joy_axis[4])
+
+    if B747DR_autobrakes_sel_dial_pos == 2 then
+        B747DR_CAS_advisory_status[17] = 1
+    end
 end
 --Marauder28
 
@@ -752,7 +756,7 @@ function B747_gear_EICAS_msg()
 
     -- AUTOBRAKES 1
     if B747DR_autobrakes_sel_dial_pos == 2 then 
-        B747DR_CAS_advisory_status[17] = 1 
+        B747DR_CAS_advisory_status[17] = 1
     else
         B747DR_CAS_advisory_status[17] = 0
     end
