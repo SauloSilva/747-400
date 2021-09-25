@@ -79,7 +79,25 @@ Additionally, the brake lever and X-Plane brakes are now separated, there is a n
 ### Changelog:
 See the [commit history](https://github.com/mSparks43/747-400/commits/master) for detailed changes.
 
-Release 2: 02/11/2020 - 23/09/2021:
+## Release 2:
+
+### Special Thanks
+**kudosi**:
+kudosi was extremely instrumental in providing all of the complicated engine and atmospheric formulas to calculate N1, N2, EPR, and EGT for both the GE and PW engine variants.  his tireless work to help model the engine behaviors was the key input needed to code the EEC module.  kudosi also helped with review and testing and compared XP results to real-world 747-400 flight data to ensure a realistic experience.
+
+**dyno**:
+dyno was a great help in testing the engine variants and providing feedback on technical issues and abnormal behaviors.  His efforts were greatly appreciated, especially on last-minute requests to test things prior to release.
+
+**v1rota7e**:
+v1rota7e provided valuable insight into real-world operations of a 747-400.  He gave guidance on engine and EICAS behaviors, and gave feedback during test flights on where he saw things that were both good and bad from a realism point of view.
+
+**jcomm**:
+jcomm helped considerably resolving vspeed and speed tape and other behaviours which proved difficult to resolve.
+
+**Everyone else**:
+A huge thank you to all the others who helped, tested, crashed, took her for long and short hauls and filed issues when they found things awry.
+
+**Changes 02/11/2020 - 23/09/2021:**
 
 - Reworked autopilot logic
 - New fmod sounds (Matt726-S and crazytimtimtim)
@@ -143,7 +161,7 @@ Release 2: 02/11/2020 - 23/09/2021:
 - "RF" and "LO" lower eicas warnings (crazytimtimtim)
 - Variable IRS align timing
 
-Release 1: up to 02/11/2020:
+**Release 1: up to 02/11/2020:**
 
 - fuel fixes
 - font, image and texture overhaul
