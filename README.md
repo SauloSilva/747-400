@@ -46,7 +46,7 @@ Head to the FMC MENU > ACMS > MAINT > SIMCONFIG. Here you can find many settings
 
 
 ### Installation
-Just extract the zip to your aircraft folder, with some caveats:
+Just extract the zip to your aircraft folder (delete any existing copy, **don't** overwite an existing installation), with some caveats:
 
 Windows users:
 Two executables are included in the release zip file, these are required to have been installed for the aircraft systems to function.
