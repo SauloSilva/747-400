@@ -502,7 +502,7 @@ B747_CASmemoMsg   = {
     {DRindex = 21, name = "PACKS 1 + 2 OFF", status = 0},       --
     {DRindex = 22, name = "PACKS 1 + 3 OFF", status = 0},       --
     {DRindex = 23, name = "PACKS 2 + 3 OFF", status = 0},       --
-    {DRindex = 24, name = "PACKS HIGH FLOW", status = 0},
+    {DRindex = 24, name = "PACKS HIGH FLOW", status = 0},	--
     {DRindex = 25, name = "PACKS OFF", status = 0},             --
     {DRindex = 26, name = "PARK BRAKE SET", status = 0},        --
     {DRindex = 27, name = "PASS SIGNS ON", status = 0},
