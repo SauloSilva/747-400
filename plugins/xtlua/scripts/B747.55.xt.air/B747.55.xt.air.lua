@@ -905,14 +905,14 @@ function B747_primary_EICAS_ECS_display()
     else
         B747DR_pressure_EICAS1_display_status = 0
     end
-
-end    -- PACKS HIGH FLOW
-
     if B747DR_button_switch_position[41] == 1 then
         B747DR_CAS_memo_status[24] = 1
     else
         B747DR_CAS_memo_status[24] = 0
     end
+end    -- PACKS HIGH FLOW
+
+    
 
 
 
