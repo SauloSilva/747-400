@@ -14,6 +14,10 @@ function deferred_dataref(name,type,notifier)
 	return wrap_dref_any(dref,type) 
 end
 debug_nd     = deferred_dataref("laminar/B747/debug/nd", "number")
+B747DR_nd_toc_distance                  		= deferred_dataref("laminar/B747/nd/toc/distance", "number")
+B747DR_nd_toc_fo_active			                = deferred_dataref("laminar/B747/nd/toc/fo_active", "number")
+B747DR_nd_toc_capt_active			                = deferred_dataref("laminar/B747/nd/toc/capt_active", "number")
+
 -- CAPT ND
 B747DR_text_capt_show 				= deferred_dataref("laminar/B747/nd/capt/text/show","array[60]")
 B747DR_text_capt_heading			= deferred_dataref("laminar/B747/nd/capt/text/heading","array[60]")

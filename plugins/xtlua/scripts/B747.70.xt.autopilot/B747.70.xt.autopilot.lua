@@ -1217,20 +1217,33 @@ function B747_ap_vertical_speed_down_CMDhandler(phase, duration)
 	end
 end	
 
-
+function setSimAlt()
+	if B747DR_ap_vnav_state ==0 then
+		simDR_autopilot_altitude_ft=B747DR_autopilot_altitude_ft
+		print("set sim alt")
+	end
+end
 
 
 function B747_ap_altitude_up_CMDhandler(phase, duration)
 	if phase == 0 then
 		B747DR_autopilot_altitude_ft = math.min(50000.0, B747DR_autopilot_altitude_ft + 100)
+		B747DR_ap_lastCommand=simDRTime+1
 		if B747DR_ap_vnav_state ==0 then
-		  simDR_autopilot_altitude_ft=B747DR_autopilot_altitude_ft
+			if is_timer_scheduled(setSimAlt) then
+				stop_timer(setSimAlt)
+			end
+			run_after_time(setSimAlt, 3.0)
 		end
 	elseif phase == 1 then
 		if duration > 0.5 then
 			B747DR_autopilot_altitude_ft = math.min(50000.0, B747DR_autopilot_altitude_ft + 100)
+			B747DR_ap_lastCommand=simDRTime+1
 			if B747DR_ap_vnav_state ==0 then
-			  simDR_autopilot_altitude_ft=B747DR_autopilot_altitude_ft
+				if is_timer_scheduled(setSimAlt) then
+					stop_timer(setSimAlt)
+				end
+				run_after_time(setSimAlt, 3.0)
 			end
 		end
 	end
@@ -1239,14 +1252,22 @@ end
 function B747_ap_altitude_down_CMDhandler(phase, duration)
 	if phase == 0 then
 		B747DR_autopilot_altitude_ft = math.max(0.0, B747DR_autopilot_altitude_ft - 100)
+		B747DR_ap_lastCommand=simDRTime+1
 		if B747DR_ap_vnav_state ==0 then
-		  simDR_autopilot_altitude_ft=B747DR_autopilot_altitude_ft
+			if is_timer_scheduled(setSimAlt) then
+				stop_timer(setSimAlt)
+			end
+			run_after_time(setSimAlt, 3.0)
 		end
 	elseif phase == 1 then
 		if	duration > 0.5 then
 			B747DR_autopilot_altitude_ft = math.max(0.0, B747DR_autopilot_altitude_ft - 100)
+			B747DR_ap_lastCommand=simDRTime+1
 			if B747DR_ap_vnav_state ==0 then
-			  simDR_autopilot_altitude_ft=B747DR_autopilot_altitude_ft
+				if is_timer_scheduled(setSimAlt) then
+					stop_timer(setSimAlt)
+				end
+				run_after_time(setSimAlt, 3.0)
 			end
 		end
 	end
@@ -1637,14 +1658,8 @@ function B747_ap_vs_mode()
     ----- WINDOW
 	B747DR_ap_vs_window_open = B747_ternary(simDR_autopilot_vs_status >= 1 and B747DR_ap_vnav_state<2, 1, 0)
     
-   -- print("simDR_autopilot_vs_fpm="..simDR_autopilot_vs_fpm)
     ----- VVI FOR ANIMATION 
 
-    --[[if B747DR_autopilot_altitude_ft > simDR_pressureAlt1+500 and simDR_autopilot_vs_fpm<0 then
-		  simDR_autopilot_vs_fpm=0
-    elseif B747DR_autopilot_altitude_ft < simDR_pressureAlt1-500 and simDR_autopilot_vs_fpm>0 then
-		  simDR_autopilot_vs_fpm=0
-    end]]
 
     B747DR_ap_vvi_fpm = math.abs(simDR_autopilot_vs_fpm)
     

@@ -69,6 +69,15 @@ B747DR_pfd_mode_capt		 = find_dataref("laminar/B747/pfd/capt/irs")
 B747DR_pfd_mode_fo		 = find_dataref("laminar/B747/pfd/fo/irs")
 B747DR_nd_capt_tfc	                        = find_dataref("laminar/B747/nd/capt/tfc")
 B747DR_nd_fo_tfc	                        = find_dataref("laminar/B747/nd/fo/tfc")
+
+simDR_groundspeed			                      = find_dataref("sim/flightmodel2/position/groundspeed")
+simDR_vvi_fpm_pilot        	                = find_dataref("sim/cockpit2/gauges/indicators/vvi_fpm_pilot")
+simDR_autopilot_altitude_ft    		          = find_dataref("sim/cockpit2/autopilot/altitude_dial_ft") -- alternate might better MCP which is B747DR_autopilot_altitude_ft
+simDR_pressureAlt1	                        = find_dataref("sim/cockpit2/gauges/indicators/altitude_ft_pilot")
+B747DR_nd_alt_distance                  		= find_dataref("laminar/B747/nd/toc/distance")
+B747DR_nd_alt_fo_active			                = find_dataref("laminar/B747/nd/toc/fo_active")
+B747DR_nd_alt_capt_active			              = find_dataref("laminar/B747/nd/toc/capt_active")
+
 local captIRS=0
 local foIRS=0
 local ranges = {10, 20, 40, 80, 160, 320, 640}
@@ -448,12 +457,41 @@ function read_fixes()
     lastUpdateFixes=simDRTime
   end
 end
+function compute_and_show_alt_range_arc()
+  local meters_per_second_to_kts = 1.94384449
+  local actual_speed = simDR_groundspeed * meters_per_second_to_kts
+  if simDR_autopilot_altitude_ft>simDR_pressureAlt1 and simDR_vvi_fpm_pilot>150 then
+    altDiff=simDR_autopilot_altitude_ft-simDR_pressureAlt1
+    minsToAlt=altDiff/simDR_vvi_fpm_pilot
+    distanceToAlt=(actual_speed*minsToAlt)/60
+    --print("distanceToAlt="..distanceToAlt.." minsToAlt="..minsToAlt.." altDiff="..altDiff.." actual_speed="..actual_speed)
+    if distanceToAlt < ranges[simDR_range_dial_capt + 1] then
+      B747DR_nd_alt_distance=distanceToAlt*(640/ranges[simDR_range_dial_capt + 1])
+    else
+      B747DR_nd_alt_distance=-99
+    end
+  else
+    B747DR_nd_alt_distance=-99
+  end
+  
 
+  if captIRS==0 or B747DR_nd_alt_distance<-90 or B747DR_nd_mode_capt_sel_dial_pos~=2 then 
+    B747DR_nd_alt_capt_active=0 
+  else
+    B747DR_nd_alt_capt_active=1
+  end
+  if foIRS==0 or B747DR_nd_alt_distance<-90 or B747DR_nd_mode_fo_sel_dial_pos~=2 then 
+    B747DR_nd_alt_fo_active=0
+  else
+    B747DR_nd_alt_fo_active=1
+   end
+end
 
 function after_physics()
   if debug_nd>0 then return end
   local diff=simDRTime-lastUpdate
   updateIcons()
+  compute_and_show_alt_range_arc()
   local diff2=simDRTime-lastUpdateIcon
   if diff>0.5 then 
     newIcons()
