@@ -46,7 +46,7 @@ gs1,
 "                        ",
 "<ACMS                   ", 
 "                        ",
-"<CMC                    "
+"<CMC             SELECT>"
 }
 end
 fmsPages["INDEX"].getSmallPage=function(self,pgNo,fmsID)
@@ -68,7 +68,7 @@ fmsPages["INDEX"].getSmallPage=function(self,pgNo,fmsID)
       "                        ",
       "                        ",
       "                        ",
-      "                        ",
+      "         AIRCRAFT CONFIG",
       "                        ",
       }
 end
@@ -80,12 +80,13 @@ fmsFunctionsDefs["INDEX"]["L6"]={"setpage","CMC"}
 fmsFunctionsDefs["INDEX"]["R1"]={"setpage","EFISCTL152"}
 fmsFunctionsDefs["INDEX"]["R2"]={"setpage","EICASMODES"}
 fmsFunctionsDefs["INDEX"]["R4"]={"setpage","GNDHNDL"}
+fmsFunctionsDefs["INDEX"]["R6"]={"setpage", "MAINTSIMCONFIG"}
 
 fmsPages["RTE1"]=createPage("RTE1")
 fmsPages["RTE1"].getPage=function(self,pgNo,fmsID)
   local l1=cleanFMSLine(B747DR_srcfms[fmsID][1])
   local pageNo=tonumber(string.sub(l1,21,22))
-  
+
   local lastLine="<RTE 2             PERF>"
   if simDR_onGround ==1 then
     fmsFunctionsDefs["RTE1"]["L6"]=nil
@@ -228,6 +229,8 @@ dofile("activepages/B744.fms.pages.pax-cargo.lua")
 dofile("activepages/B744.fms.pages.efisctl.lua")
 dofile("activepages/B744.fms.pages.eicasctl.lua")
 dofile("activepages/B744.fms.pages.doors.lua")
+dofile("activepages/B744.fms.pages.soundconfig.lua")
+
 --[[
 dofile("B744.fms.pages.actclb.lua")
 dofile("B744.fms.pages.actcrz.lua")
@@ -2242,23 +2245,7 @@ function fmsFunctions.setDref(fmsO,value)
 	B747DR_ap_vnav_pause=numVal
 	return 
   end
-	
--- sound options (crazytimtimtim + Matt726)    
-  if value == "alarmsOption" then
-	if B747DR_SNDoptions[0] == 0 then
-	  B747DR_SNDoptions[0] = 1
-	elseif B747DR_SNDoptions[0] == 1 then
-	  B747DR_SNDoptions[0] = 2
-	elseif B747DR_SNDoptions[0] == 2 then
-	  B747DR_SNDoptions[0] = 0
-	end
-	return
-  end  
-  if value == "seatBeltOption" then B747DR_SNDoptions[1] = 1 - B747DR_SNDoptions[1] return end
-  if value == "paOption" then B747DR_SNDoptions[2] = 1 - B747DR_SNDoptions[2] return end
-  if value == "musicOption" then B747DR_SNDoptions[3] = 1 - B747DR_SNDoptions[3] return end
--- end sound options
-	
+
   if value=="TO" then toderate=0 clbderate=0 return  end
   if value=="TO1" then toderate=1 clbderate=1 return  end
   if value=="TO2" then toderate=2 clbderate=2 return  end
@@ -2285,20 +2272,54 @@ function fmsFunctions.setDref(fmsO,value)
   if value=="ADFL" then simDR_radio_adf1_freq_hz=val end
   if value=="ADFR" then simDR_radio_adf2_freq_hz=val end
   if value=="flapsRef" then B747DR_airspeed_flapsRef=val end
-  
+
   fmsO["scratchpad"]=""
 end
 function fmsFunctions.showmessage(fmsO,value)
   acarsSystem.currentMessage=value
   fmsO["inCustomFMC"]=true
-  fmsO["targetPage"]="VIEWACARSMSG" 
+  fmsO["targetPage"]="VIEWACARSMSG"
   run_after_time(switchCustomMode, 0.5)
 end
 
 function fmsFunctions.doCMD(fmsO,value)
   print("do fmc command "..value)
-  if fmsModules["cmds"][value] ~= nil then 
-	fmsModules["cmds"][value]:once() 
-	fmsModules["lastcmd"]=fmsModules["cmdstrings"][value] 
+  if fmsModules["cmds"][value] ~= nil then
+	fmsModules["cmds"][value]:once()
+	fmsModules["lastcmd"]=fmsModules["cmdstrings"][value]
   end
+end
+
+function fmsFunctions.setSoundOption(fmsO,value) -- sound options (crazytimtimtim + Matt726)
+
+	if value == "alarmsOption" then
+		if B747DR_SNDoptions[0] ~= 2 then
+			B747DR_SNDoptions[0] = B747DR_SNDoptions[0] + 1
+		elseif B747DR_SNDoptions[0] == 2 then
+			B747DR_SNDoptions[0] = 0
+		end
+	end
+
+	if value == "seatBeltOption" then B747DR_SNDoptions[1] = 1 - B747DR_SNDoptions[1] return end
+	if value == "paOption" then B747DR_SNDoptions[2] = 1 - B747DR_SNDoptions[2] return end
+	if value == "musicOption" then B747DR_SNDoptions[3] = 1 - B747DR_SNDoptions[3] return end
+	if value == "PM_toggle" then B747DR_SNDoptions[4] = 1 - B747DR_SNDoptions[4] return end
+	if value == "V1Option" then B747DR_SNDoptions[5] = 1 - B747DR_SNDoptions[5] return end
+
+	if value == "GPWSminimums" then B747DR_SNDoptions_gpws[1] = 1 - B747DR_SNDoptions_gpws[1] return end
+	if value == "GPWSapproachingMinimums" then B747DR_SNDoptions_gpws[2] = 1 - B747DR_SNDoptions_gpws[2] return end
+	if value == "GPWS2500" then B747DR_SNDoptions_gpws[3] = 1 - B747DR_SNDoptions_gpws[3] return end
+	if value == "GPWS1000" then B747DR_SNDoptions_gpws[4] = 1 - B747DR_SNDoptions_gpws[4] return end
+	if value == "GPWS500" then B747DR_SNDoptions_gpws[5] = 1 - B747DR_SNDoptions_gpws[5] return end
+	if value == "GPWS400" then B747DR_SNDoptions_gpws[6] = 1 - B747DR_SNDoptions_gpws[6] return end
+	if value == "GPWS300" then B747DR_SNDoptions_gpws[7] = 1 - B747DR_SNDoptions_gpws[7] return end
+	if value == "GPWS200" then B747DR_SNDoptions_gpws[8] = 1 - B747DR_SNDoptions_gpws[8] return end
+	if value == "GPWS100" then B747DR_SNDoptions_gpws[9] = 1 - B747DR_SNDoptions_gpws[9] return end
+	if value == "GPWS50" then B747DR_SNDoptions_gpws[10] = 1 - B747DR_SNDoptions_gpws[10] return end
+	if value == "GPWS40" then B747DR_SNDoptions_gpws[11] = 1 - B747DR_SNDoptions_gpws[11] return end
+	if value == "GPWS30" then B747DR_SNDoptions_gpws[12] = 1 - B747DR_SNDoptions_gpws[12] return end
+	if value == "GPWS20" then B747DR_SNDoptions_gpws[13] = 1 - B747DR_SNDoptions_gpws[13] return end
+	if value == "GPWS10" then B747DR_SNDoptions_gpws[14] = 1 - B747DR_SNDoptions_gpws[14]return end
+	if value == "GPWS5" then B747DR_SNDoptions_gpws[15] = 1 - B747DR_SNDoptions_gpws[15] return end
+
 end
