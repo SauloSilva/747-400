@@ -43,7 +43,7 @@ fmsPages["MAINTSIMCONFIG"].getPage=function(self,pgNo,fmsID)
 		"                        ",
 		" "..baro_sync.."            "..fo_lwr_display,
 		"                        ",
-		"<MAINT               SAVE>"
+		"<MENU              SAVE>"
     }
   elseif pgNo == 2 then
     fmsFunctionsDefs["MAINTSIMCONFIG"]["L1"]={"setDref","VNAVSPAUSE"}
@@ -81,9 +81,9 @@ fmsPages["MAINTSIMCONFIG"].getPage=function(self,pgNo,fmsID)
     "                        ",
     "                        ",
     "                        ",
-    "                        ", 
     "                        ",
-    "<MAINT                  "
+    "                        ",
+    "<MENU                   "
     }
 	elseif pgNo == 3 then
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["L1"]={"setdata","model"}
@@ -106,7 +106,7 @@ fmsPages["MAINTSIMCONFIG"].getPage=function(self,pgNo,fmsID)
 		local fin_nbr = string.format("%5s", string.sub(simConfigData["data"].PLANE.fin_nbr,1, 5))
 		local pfd_style = string.format("%-3s", simConfigData["data"].PLANE.pfd_style)
 		local nd_style = string.format("%-3s", simConfigData["data"].PLANE.nd_style)
-		
+
 		return {
 		"      PLANE CONFIG      ",
 		"                        ",
@@ -120,72 +120,44 @@ fmsPages["MAINTSIMCONFIG"].getPage=function(self,pgNo,fmsID)
 		"                        ",
 		"                      "..nd_style,
 		"                        ",
-		"<MAINT               SAVE>"		
+		"<MENU              SAVE>"
 		}
 
-	elseif pgNo == 4 then
-		-- Sound options (crazytimtimtim + Matt726)
-	
-		local lineA = "         ALARMS          "
-		local lineB = "        SEAT BELT        "
-		local lineC = "           PA            "
-		local lineD = "          MUSIC          "
 
-		fmsFunctionsDefs["MAINTSIMCONFIG"]["L1"]={"setDref","alarmsOption"}
-		fmsFunctionsDefs["MAINTSIMCONFIG"]["L2"]={"setDref","seatBeltOption"}
-		fmsFunctionsDefs["MAINTSIMCONFIG"]["L3"]={"setDref","paOption"}
-		fmsFunctionsDefs["MAINTSIMCONFIG"]["L4"]={"setDref","musicOption"}
-		
+	elseif pgNo == 4 then
+
+		-- SOUND OPTIONS (CRAZYTIMTIMTIM + MATT726)
+
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["L1"]={"setpage","MISCSOUNDCONFIG"}
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["L2"]={"setpage","PASSENGERSOUNDCONFIG"}
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["L3"]={"setpage","GPWSSOUNDCONFIG"}
+		--fmsFunctionsDefs["MAINTSIMCONFIG"]["L4"]={"setpage","VOLUME"}
+
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["R1"] = nil
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["R2"] = nil
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["R3"] = nil
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["R4"] = nil
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["R5"] = nil
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["R6"] = nil
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["L4"] = nil
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["L5"] = nil
-
-		if B747DR_SNDoptions[0] == 0 then
-			lineA = "<USE NEW WARNINGS        "
-		elseif B747DR_SNDoptions[0] == 1 then
-			lineA = "<USE CLASSIC WARN        "
-		elseif B747DR_SNDoptions[0] == 2 then
-			lineA = "<USE DEFAULT WARN        "
-		end
-		
-		if B747DR_SNDoptions[1] == 0 then
-			lineB = "<USE SEATBELT SND 2      "
-		else
-			lineB = "<USE SEATBELT SND 1      "
-		end
-
-		if B747DR_SNDoptions[2] == 0 then
-			lineC = "<DISABLE PA             "
-		else
-			lineC = "<ENABLE PA              "
-		end
-
-		if B747DR_SNDoptions[3] == 0 then
-			lineD = "<DISABLE BRD MUSIC      "
-		else
-			lineD = "<ENABLE BRD MUSIC       "
-		end
 
 		return{
 		"      SOUND CONFIG      ",
 		"                        ",
-		lineA,
+		"<GENERAL                ",
 		"                        ",
-		lineB,
+		"<PASSENGERS             ",
 		"                        ",
-		lineC,
+		"<GPWS CALLOUTS          ",
 		"                        ",
-		lineD,
+		"<VOLUME (INOP.)         ",
 		"                        ",
 		"                        ",
 		"------------------------",
-		"<MAINT                  "
+		"<MENU                   "
 		}
 
-		-- Sound Options end
 	end
 end
 
@@ -277,60 +249,27 @@ fmsPages["MAINTSIMCONFIG"].getSmallPage=function(self,pgNo,fmsID)
 		}
 
 	elseif pgNo == 4 then
-		-- smallPage for SoundConfig
-
-		local lineA = "                 (ALARMS)"
-		local lineB = "                  (STBLT)"
-		local lineC = "                     (PA)"
-		local lineD = "                  (MUSIC)"
-
-		if B747DR_SNDoptions[0] == 0 then
-			lineA = "                      (DEF)"
-		elseif B747DR_SNDoptions[0] == 1 then
-			lineA = "                      (NEW)"
-		elseif B747DR_SNDoptions[0] == 2 then
-			lineA = "                      (OLD)"
-		end
-		
-		if B747DR_SNDoptions[1] == 0 then
-			lineB = "                      (1/2)"
-		else
-			lineB = "                      (2/2)"
-		end
-
-		if B747DR_SNDoptions[2] == 0 then
-			lineC = "                       (ON)"
-		else
-			lineC = "                      (OFF)"
-		end
-
-		if B747DR_SNDoptions[3] == 0 then
-			lineD = "                       (ON)"
-		else
-			lineD = "                      (OFF)"
-		end
 
 		return {
-		"                        4/4",
-		"OPTIONS           CURRENTLY",
-		lineA,
-		"                        ",
-		lineB,
-		"                        ",
-		lineC,
-		"                        ",
-		lineD,
-		"                        ",
-		"                        ",
-		"                        ",
-		"                        "
+			"                     4/4",
+			"                        ",
+			"                        ",
+			"                        ",
+			"                        ",
+			"                        ",
+			"                        ",
+			"                        ",
+			"                        ",
+			"                        ",
+			"                        ",
+			"                        ",
+			"                        "
 		}
 		
-		-- sound smallPage end
 	end
 end
 
 fmsPages["MAINTSIMCONFIG"].getNumPages=function(self)
   return 4
 end
-fmsFunctionsDefs["MAINTSIMCONFIG"]["L6"]={"setpage","MAINT"}
+fmsFunctionsDefs["MAINTSIMCONFIG"]["L6"]={"setpage","INDEX"}
