@@ -46,7 +46,9 @@ Head to the FMC MENU > ACMS > MAINT > SIMCONFIG. Here you can find many settings
 
 
 ### Installation
-Just extract the zip to your aircraft folder (delete any existing copy, **don't** overwite an existing installation), with some caveats:
+Just extract the zip to your aircraft folder (delete any existing copy, **do not overwite an existing aircraft installation**)
+
+Integration with [Terrain Radar](https://forums.x-plane.org/index.php?/files/file/37864-terrain-radar-vertical-situation-display/) and [AutoATC](https://forums.x-plane.org/index.php?/files/file/45663-main-installation-files-for-autoatc-for-xplane-11/) is included which require installing seperately. Make sure you are using the latest versions of both for the fullest experience.
 
 Windows users:
 Two executables are included in the release zip file, these are required to have been installed for the aircraft systems to function.
