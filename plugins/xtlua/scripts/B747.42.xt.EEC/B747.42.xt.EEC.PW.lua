@@ -115,7 +115,7 @@ function engine_idle_control_PW(altitude_ft_in)
           if B747DR_display_EPR[0] > (simDR_EPR_target_bug[0]) then
               tolerance_diff[0] = math.abs(simDR_EPR_target_bug[0] + target_tolerance_EPR - B747DR_display_EPR[0])
               if tolerance_diff[0] <= target_tolerance_EPR then
-                  throttle_move_units = 0.001
+                  throttle_move_units = 0.0001
               else
                   throttle_move_units = 0.001
               end
@@ -125,7 +125,7 @@ function engine_idle_control_PW(altitude_ft_in)
           if B747DR_display_EPR[1] > (simDR_EPR_target_bug[1]) then
               tolerance_diff[1] = math.abs(simDR_EPR_target_bug[1] + target_tolerance_EPR - B747DR_display_EPR[1])
               if tolerance_diff[1] <= target_tolerance_EPR then
-                  throttle_move_units = 0.001
+                  throttle_move_units = 0.0001
               else
                   throttle_move_units = 0.001
               end
@@ -135,7 +135,7 @@ function engine_idle_control_PW(altitude_ft_in)
           if B747DR_display_EPR[2] > (simDR_EPR_target_bug[2]) then
               tolerance_diff[2] = math.abs(simDR_EPR_target_bug[2] + target_tolerance_EPR - B747DR_display_EPR[2])
               if tolerance_diff[2] <= target_tolerance_EPR then
-                  throttle_move_units = 0.001
+                  throttle_move_units = 0.0001
               else
                   throttle_move_units = 0.001
               end
@@ -145,7 +145,7 @@ function engine_idle_control_PW(altitude_ft_in)
           if B747DR_display_EPR[3] > (simDR_EPR_target_bug[3]) then
               tolerance_diff[3] = math.abs(simDR_EPR_target_bug[3] + target_tolerance_EPR - B747DR_display_EPR[3])
               if tolerance_diff[3] <= target_tolerance_EPR then
-                  throttle_move_units = 0.001
+                  throttle_move_units = 0.0001
               else
                   throttle_move_units = 0.001
               end
@@ -157,7 +157,7 @@ function engine_idle_control_PW(altitude_ft_in)
       if (B747DR_display_EPR[0] < simDR_EPR_target_bug[0]) and (simDR_thrust_n[0] < engine_max_thrust_n) then
               tolerance_diff[0] = math.abs(simDR_EPR_target_bug[0] - target_tolerance_EPR - B747DR_display_EPR[0])
               if tolerance_diff[0] <= target_tolerance_EPR then
-                  throttle_move_units = 0.001
+                  throttle_move_units = 0.0001
               else
                   throttle_move_units = 0.001
               end
@@ -171,7 +171,7 @@ function engine_idle_control_PW(altitude_ft_in)
       if (B747DR_display_EPR[1] < simDR_EPR_target_bug[1]) and (simDR_thrust_n[1] < engine_max_thrust_n) then
               tolerance_diff[1] = math.abs(simDR_EPR_target_bug[1] - target_tolerance_EPR - B747DR_display_EPR[1])
               if tolerance_diff[1] <= target_tolerance_EPR then
-                  throttle_move_units = 0.001
+                  throttle_move_units = 0.0001
               else
                   throttle_move_units = 0.001
               end
@@ -184,7 +184,7 @@ function engine_idle_control_PW(altitude_ft_in)
       if (B747DR_display_EPR[2] < simDR_EPR_target_bug[2]) and (simDR_thrust_n[2] < engine_max_thrust_n) then
               tolerance_diff[2] = math.abs(simDR_EPR_target_bug[2] - target_tolerance_EPR - B747DR_display_EPR[2])
               if tolerance_diff[2] <= target_tolerance_EPR then
-                  throttle_move_units = 0.001
+                  throttle_move_units = 0.0001
               else
                   throttle_move_units = 0.001
               end
@@ -197,7 +197,7 @@ function engine_idle_control_PW(altitude_ft_in)
       if (B747DR_display_EPR[3] < simDR_EPR_target_bug[3]) and (simDR_thrust_n[3] < engine_max_thrust_n) then
               tolerance_diff[3] = math.abs(simDR_EPR_target_bug[3] - target_tolerance_EPR - B747DR_display_EPR[3])
               if tolerance_diff[3] <= target_tolerance_EPR then
-                  throttle_move_units = 0.001
+                  throttle_move_units = 0.0001
               else
                   throttle_move_units = 0.001
               end
