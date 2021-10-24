@@ -123,6 +123,7 @@ simDR_autopilot_hold_altitude_ft    		= find_dataref("sim/cockpit2/autopilot/alt
 simDR_autopilot_tod_index    		= find_dataref("sim/cockpit2/radios/indicators/fms_tod_before_index_pilot")
 simDR_autopilot_tod_distance    	= find_dataref("sim/cockpit2/radios/indicators/fms_distance_to_tod_pilot")
 
+B747BR_flight_phase 			= deferred_dataref("laminar/B747/autopilot/flight_phase", "number")
 B747DR_display_N1				= find_dataref("laminar/B747/engines/display_N1")
 B747DR_display_N2				= find_dataref("laminar/B747/engines/display_N2")
 B747DR_fmc_notifications            = find_dataref("laminar/B747/fms/notification")
