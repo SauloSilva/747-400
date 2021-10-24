@@ -450,9 +450,11 @@ B747DR_loc_scale_vis_fo                         = deferred_dataref("laminar/B747
 B747DR_glideslope_ptr_vis_fo                    = deferred_dataref("laminar/B747/glideslope_ptr/visibility_flag_fo", "number")
 
 -- crazytimtimtim ( + Matt726)
-B747DR_v1_alert                                 = deferred_dataref("laminar/B747/alerts/v1", "number")
-B747DR_appDH_alert                              = deferred_dataref("laminar/B747/alerts/appDH", "number")
-B747DR_DH_alert                                 = deferred_dataref("laminar/B747/alerts/DH", "number")
+B747DR_v1_alert                                 = deferred_dataref("laminar/B747/fmod/callouts/v1", "number")
+B747DR_vr_alert                                 = deferred_dataref("laminar/B747/fmod/callouts/vr", "number")
+B747DR_appDH_alert                              = deferred_dataref("laminar/B747/fmod/callouts/appDH", "number")
+B747DR_DH_alert                                 = deferred_dataref("laminar/B747/fmod/callouts/DH", "number")
+B747DR_10000_callout                            = deferred_dataref("laminar/B747/fmod/callouts/10000", "number")
 
 
 --*************************************************************************************--
@@ -2277,13 +2279,11 @@ function B747_decision_height_capt()
     end
 	
     -- "Approaching Minimums" and "Minimums" Callouts (crazytimtimtim + Matt726)
-    if B747DR_toga_mode == 0
-    and simDR_all_wheels_on_ground == 0
-    then
+    if B747DR_vertical_speed_fpm < 0
+    and simDR_all_wheels_on_ground == 0 then
 
         if  B747DR_efis_min_ref_alt_capt_sel_dial_pos == 0                  -- RADIO mode
-        and simDR_radio_alt_DH_capt ~= 0
-        then
+        and simDR_radio_alt_DH_capt ~= 0 then
 
             if simDR_radio_alt_height_capt <= simDR_radio_alt_DH_capt + 80 and simDR_radio_alt_height_capt > simDR_radio_alt_DH_capt then
                 B747DR_appDH_alert = 1
@@ -2296,8 +2296,7 @@ function B747_decision_height_capt()
             end
 
         elseif B747DR_efis_min_ref_alt_capt_sel_dial_pos == 1               -- BARO mode
-        and B747DR_efis_baro_alt_ref_capt ~= 0
-        then
+        and B747DR_efis_baro_alt_ref_capt ~= 0 then
 
             if simDR_altitude_ft_pilot <= B747DR_efis_baro_alt_ref_capt + 80 and simDR_altitude_ft_pilot > B747DR_efis_baro_alt_ref_capt then
                 B747DR_appDH_alert = 1
@@ -2308,18 +2307,26 @@ function B747_decision_height_capt()
                 B747DR_DH_alert = 0
                 B747DR_appDH_alert = 0
             end
-			
+
         else
             B747DR_DH_alert = 0
             B747DR_appDH_alert = 0
         end
-		
+
     else
         B747DR_DH_alert = 0
         B747DR_appDH_alert = 0
     end
 end
 
+-- PM 10,000ft Callout (crazytimtimtim + Matt726)
+function B747_10000_callout()
+    if simDR_altitude_ft_pilot <= 10050 and simDR_altitude_ft_pilot >= 9050 then
+        B747DR_10000_callout = 1
+    elseif simDR_altitude_ft_pilot <= 9000 or simDR_altitude_ft_pilot >= 11000 then
+        B747DR_10000_callout = 0
+    end
+end
 
 
 
@@ -2774,11 +2781,19 @@ function B747_setV1VrV2()
     -- crazytimtimtim V1 callout
     if simDR_airspeed >= B747DR_airspeed_V1 and
     simDR_all_wheels_on_ground == 1 and
-    B747DR_airspeed_V1 > 0 and
-    B747DR_toga_mode ~= 0 then
+    B747DR_airspeed_V1 > 0 then
         B747DR_v1_alert = 1
     else
         B747DR_v1_alert = 0
+    end
+
+    -- Rotate Callout
+    if simDR_airspeed >= B747DR_airspeed_Vr and
+    simDR_all_wheels_on_ground == 1 and
+    B747DR_airspeed_Vr > 0 then
+        B747DR_vr_alert = 1
+    else
+        B747DR_vr_alert = 0
     end
 
 end
@@ -3608,6 +3623,8 @@ function after_physics()
     fltInstsetCRTs()
     fltInstsetASIs()
     update_heading_bug()
+
+    B747_10000_callout()
 end
 
 
