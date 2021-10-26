@@ -109,103 +109,154 @@ function engine_idle_control_PW(altitude_ft_in)
       end
       
     --Manage throttle settings in THR REF mode (or HOLD mode during Takeoff)
-      if simDR_override_throttles == 1 or B747DR_ap_FMA_autothrottle_mode == 1 then
+    if simDR_override_throttles == 1 then --or B747DR_ap_FMA_autothrottle_mode == 1 then
           
       --DECREASE adjustments
           if B747DR_display_EPR[0] > (simDR_EPR_target_bug[0]) then
-              tolerance_diff[0] = math.abs(simDR_EPR_target_bug[0] + target_tolerance_EPR - B747DR_display_EPR[0])
-              if tolerance_diff[0] <= target_tolerance_EPR then
-                  throttle_move_units = 0.001
-              else
-                  throttle_move_units = 0.001
+              --tolerance_diff[0] = math.abs(simDR_EPR_target_bug[0] + target_tolerance_EPR - B747DR_display_EPR[0])
+              tolerance_diff[0] = math.abs(simDR_EPR_target_bug[0] - B747DR_display_EPR[0])
+              --if tolerance_diff[0] < 0.005 then
+              --  throttle_move_units = 0.0
+              if tolerance_diff[0] > 0.0 then
+                if tolerance_diff[0] <= target_tolerance_EPR then
+                    throttle_move_units = 0.0001
+                else
+                    throttle_move_units = 0.001
+                end
               end
               simDR_engn_thro_use[0] = simDR_engn_thro_use[0] - throttle_move_units
               simDR_throttle_ratio[0] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[0])
+              throttle_move_units = 0.0
           end
           if B747DR_display_EPR[1] > (simDR_EPR_target_bug[1]) then
-              tolerance_diff[1] = math.abs(simDR_EPR_target_bug[1] + target_tolerance_EPR - B747DR_display_EPR[1])
-              if tolerance_diff[1] <= target_tolerance_EPR then
-                  throttle_move_units = 0.001
-              else
-                  throttle_move_units = 0.001
+              --tolerance_diff[1] = math.abs(simDR_EPR_target_bug[1] + target_tolerance_EPR - B747DR_display_EPR[1])
+              tolerance_diff[1] = math.abs(simDR_EPR_target_bug[1] - B747DR_display_EPR[1])
+              --if tolerance_diff[1] < 0.005 then
+              --  throttle_move_units = 0.0
+              if tolerance_diff[1] > 0.0 then
+                if tolerance_diff[1] <= target_tolerance_EPR then
+                    throttle_move_units = 0.0001
+                else
+                    throttle_move_units = 0.001
+                end
               end
               simDR_engn_thro_use[1] = simDR_engn_thro_use[1] - throttle_move_units
               simDR_throttle_ratio[1] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[1])
+              throttle_move_units = 0.0
           end
           if B747DR_display_EPR[2] > (simDR_EPR_target_bug[2]) then
-              tolerance_diff[2] = math.abs(simDR_EPR_target_bug[2] + target_tolerance_EPR - B747DR_display_EPR[2])
-              if tolerance_diff[2] <= target_tolerance_EPR then
-                  throttle_move_units = 0.001
-              else
-                  throttle_move_units = 0.001
+              --tolerance_diff[2] = math.abs(simDR_EPR_target_bug[2] + target_tolerance_EPR - B747DR_display_EPR[2])
+              tolerance_diff[2] = math.abs(simDR_EPR_target_bug[2] - B747DR_display_EPR[2])
+              --if tolerance_diff[1] < 0.005 then
+              --  throttle_move_units = 0.0
+              if tolerance_diff[2] > 0.0 then
+                if tolerance_diff[2] <= target_tolerance_EPR then
+                    throttle_move_units = 0.0001
+                else
+                    throttle_move_units = 0.001
+                end
               end
               simDR_engn_thro_use[2] = simDR_engn_thro_use[2] - throttle_move_units
               simDR_throttle_ratio[2] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[2])
+              throttle_move_units = 0.0
           end
           if B747DR_display_EPR[3] > (simDR_EPR_target_bug[3]) then
-              tolerance_diff[3] = math.abs(simDR_EPR_target_bug[3] + target_tolerance_EPR - B747DR_display_EPR[3])
-              if tolerance_diff[3] <= target_tolerance_EPR then
-                  throttle_move_units = 0.001
-              else
-                  throttle_move_units = 0.001
+              --tolerance_diff[3] = math.abs(simDR_EPR_target_bug[3] + target_tolerance_EPR - B747DR_display_EPR[3])
+              tolerance_diff[3] = math.abs(simDR_EPR_target_bug[3] - B747DR_display_EPR[3])
+              --if tolerance_diff[1] < 0.005 then
+              --  throttle_move_units = 0.0
+              if tolerance_diff[3] > 0.0 then
+                if tolerance_diff[3] <= target_tolerance_EPR then
+                    throttle_move_units = 0.0001
+                else
+                    throttle_move_units = 0.001
+                end
               end
               simDR_engn_thro_use[3] = simDR_engn_thro_use[3] - throttle_move_units
               simDR_throttle_ratio[3] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[3])
+              throttle_move_units = 0.0
           end
   
           --INCREASE adjustments
-      if (B747DR_display_EPR[0] < simDR_EPR_target_bug[0]) and (simDR_thrust_n[0] < engine_max_thrust_n) then
-              tolerance_diff[0] = math.abs(simDR_EPR_target_bug[0] - target_tolerance_EPR - B747DR_display_EPR[0])
+          if (B747DR_display_EPR[0] < simDR_EPR_target_bug[0]) and (simDR_thrust_n[0] < engine_max_thrust_n) then
+            --tolerance_diff[0] = math.abs(simDR_EPR_target_bug[0] - target_tolerance_EPR - B747DR_display_EPR[0])
+            tolerance_diff[0] = math.abs(simDR_EPR_target_bug[0] - B747DR_display_EPR[0])
+            --if tolerance_diff[1] < 0.005 then
+            --  throttle_move_units = 0.0
+            if tolerance_diff[0] > 0.0 then
               if tolerance_diff[0] <= target_tolerance_EPR then
-                  throttle_move_units = 0.001
+                  throttle_move_units = 0.0001
               else
                   throttle_move_units = 0.001
               end
-              simDR_engn_thro_use[0] = simDR_engn_thro_use[0] + throttle_move_units
-              if simDR_engn_thro_use[0] >= simDR_throttle_max then
-                  --print("RESETTING THROTTLE TO MAX = 1")
-                  simDR_engn_thro_use[0] = simDR_throttle_max 
-              end
-              simDR_throttle_ratio[0] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[0])
+            end
+            simDR_engn_thro_use[0] = simDR_engn_thro_use[0] + throttle_move_units
+            if simDR_engn_thro_use[0] >= simDR_throttle_max then
+              --print("RESETTING THROTTLE TO MAX = 1")
+              simDR_engn_thro_use[0] = simDR_throttle_max 
+            end
+            simDR_throttle_ratio[0] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[0])
+            throttle_move_units = 0.0
           end
-      if (B747DR_display_EPR[1] < simDR_EPR_target_bug[1]) and (simDR_thrust_n[1] < engine_max_thrust_n) then
-              tolerance_diff[1] = math.abs(simDR_EPR_target_bug[1] - target_tolerance_EPR - B747DR_display_EPR[1])
+          if (B747DR_display_EPR[1] < simDR_EPR_target_bug[1]) and (simDR_thrust_n[1] < engine_max_thrust_n) then
+            --tolerance_diff[1] = math.abs(simDR_EPR_target_bug[1] - target_tolerance_EPR - B747DR_display_EPR[1])
+            tolerance_diff[1] = math.abs(simDR_EPR_target_bug[1] - B747DR_display_EPR[1])
+            --if tolerance_diff[1] < 0.005 then
+            --  throttle_move_units = 0.0
+            if tolerance_diff[1] > 0.0 then
               if tolerance_diff[1] <= target_tolerance_EPR then
-                  throttle_move_units = 0.001
+                  throttle_move_units = 0.0001
               else
                   throttle_move_units = 0.001
               end
-              simDR_engn_thro_use[1] = simDR_engn_thro_use[1] + throttle_move_units
-              if simDR_engn_thro_use[1] >= simDR_throttle_max then
-                  simDR_engn_thro_use[1] = simDR_throttle_max 
-              end
-              simDR_throttle_ratio[1] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[1])
+            end
+            simDR_engn_thro_use[1] = simDR_engn_thro_use[1] + throttle_move_units
+            if simDR_engn_thro_use[1] >= simDR_throttle_max then
+              --print("RESETTING THROTTLE TO MAX = 1")
+              simDR_engn_thro_use[1] = simDR_throttle_max 
+            end
+            simDR_throttle_ratio[1] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[1])
+            throttle_move_units = 0.0
           end
-      if (B747DR_display_EPR[2] < simDR_EPR_target_bug[2]) and (simDR_thrust_n[2] < engine_max_thrust_n) then
-              tolerance_diff[2] = math.abs(simDR_EPR_target_bug[2] - target_tolerance_EPR - B747DR_display_EPR[2])
+          if (B747DR_display_EPR[2] < simDR_EPR_target_bug[2]) and (simDR_thrust_n[2] < engine_max_thrust_n) then
+            --tolerance_diff[2] = math.abs(simDR_EPR_target_bug[2] - target_tolerance_EPR - B747DR_display_EPR[2])
+            tolerance_diff[2] = math.abs(simDR_EPR_target_bug[2] - B747DR_display_EPR[2])
+            --if tolerance_diff[2] < 0.005 then
+            --  throttle_move_units = 0.0
+            if tolerance_diff[2] > 0.0 then
               if tolerance_diff[2] <= target_tolerance_EPR then
-                  throttle_move_units = 0.001
+                  throttle_move_units = 0.0001
               else
                   throttle_move_units = 0.001
               end
-              simDR_engn_thro_use[2] = simDR_engn_thro_use[2] + throttle_move_units
-              if simDR_engn_thro_use[2] >= simDR_throttle_max then
-                  simDR_engn_thro_use[2] = simDR_throttle_max
-              end
-              simDR_throttle_ratio[2] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[2])
+            end
+            simDR_engn_thro_use[2] = simDR_engn_thro_use[2] + throttle_move_units
+            if simDR_engn_thro_use[2] >= simDR_throttle_max then
+              --print("RESETTING THROTTLE TO MAX = 1")
+              simDR_engn_thro_use[2] = simDR_throttle_max 
+            end
+            simDR_throttle_ratio[2] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[2])
+            throttle_move_units = 0.0
           end
-      if (B747DR_display_EPR[3] < simDR_EPR_target_bug[3]) and (simDR_thrust_n[3] < engine_max_thrust_n) then
-              tolerance_diff[3] = math.abs(simDR_EPR_target_bug[3] - target_tolerance_EPR - B747DR_display_EPR[3])
+          if (B747DR_display_EPR[3] < simDR_EPR_target_bug[3]) and (simDR_thrust_n[3] < engine_max_thrust_n) then
+            --tolerance_diff[3] = math.abs(simDR_EPR_target_bug[3] - target_tolerance_EPR - B747DR_display_EPR[3])
+            tolerance_diff[3] = math.abs(simDR_EPR_target_bug[3] - B747DR_display_EPR[3])
+            --if tolerance_diff[3] < 0.005 then
+            --  throttle_move_units = 0.0
+            if tolerance_diff[3] > 0.0 then
               if tolerance_diff[3] <= target_tolerance_EPR then
-                  throttle_move_units = 0.001
+                  throttle_move_units = 0.0001
               else
                   throttle_move_units = 0.001
               end
-              simDR_engn_thro_use[3] = simDR_engn_thro_use[3] + throttle_move_units
-              if simDR_engn_thro_use[3] >= simDR_throttle_max then
-                  simDR_engn_thro_use[3] = simDR_throttle_max 
-              end
-              simDR_throttle_ratio[3] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[3])
+            end
+            simDR_engn_thro_use[3] = simDR_engn_thro_use[3] + throttle_move_units
+            if simDR_engn_thro_use[3] >= simDR_throttle_max then
+              --print("RESETTING THROTTLE TO MAX = 1")
+              simDR_engn_thro_use[3] = simDR_throttle_max 
+            end
+            simDR_throttle_ratio[3] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[3])
+            throttle_move_units = 0.0
           end
       end
   end
@@ -323,19 +374,35 @@ function engine_idle_control_PW(altitude_ft_in)
         elseif simDR_altitude <= 50000 then
           climb_rate_fpm = 1500
         end
-      elseif string.match(simConfigData["data"].PLANE.engines, "4060") or string.match(simConfigData["data"].PLANE.engines, "4062") then --simConfigData["data"].PLANE.engines == "PW4062" then
+      elseif string.match(simConfigData["data"].PLANE.engines, "4060") then
         --For now, use the same climb rates as the PW4056 until we have specific information for PW4060 and others
         if simDR_altitude < 10000 then
-          climb_rate_fpm = 2750
+          climb_rate_fpm = 2875
         elseif simDR_altitude <= 20000 then
           --climb_rate_fpm = 2750
-          climb_rate_fpm = B747_rescale(10000.0, 2750.0, 20000.0, 2500.0, simDR_altitude)
+          climb_rate_fpm = B747_rescale(10000.0, 2875.0, 20000.0, 2625.0, simDR_altitude)
         elseif simDR_altitude <= 30000 then
-          --climb_rate_fpm = 2400
-          climb_rate_fpm = B747_rescale(20000.0, 2500.0, 30000.0, 2250.0, simDR_altitude)
+          --climb_rate_fpm = 2500
+          climb_rate_fpm = B747_rescale(10000.0, 2625.0, 20000.0, 2375.0, simDR_altitude)
         elseif simDR_altitude <= 40000 then
           --climb_rate_fpm = 2000
-          climb_rate_fpm = B747_rescale(30000.0, 2250.0, 40000.0, 1500.0, simDR_altitude)
+          climb_rate_fpm = B747_rescale(10000.0, 2375.0, 20000.0, 1625.0, simDR_altitude)
+        elseif simDR_altitude <= 50000 then
+          climb_rate_fpm = 1625
+        end
+      elseif string.match(simConfigData["data"].PLANE.engines, "4062") then --simConfigData["data"].PLANE.engines == "PW4062" then
+        --For now, use the same climb rates as the PW4056 until we have specific information for PW4060 and others
+        if simDR_altitude < 10000 then
+          climb_rate_fpm = 3000
+        elseif simDR_altitude <= 20000 then
+          --climb_rate_fpm = 2750
+          climb_rate_fpm = B747_rescale(10000.0, 3000.0, 20000.0, 2750.0, simDR_altitude)
+        elseif simDR_altitude <= 30000 then
+          --climb_rate_fpm = 2500
+          climb_rate_fpm = B747_rescale(10000.0, 2750.0, 20000.0, 2500.0, simDR_altitude)
+        elseif simDR_altitude <= 40000 then
+          --climb_rate_fpm = 2000
+          climb_rate_fpm = B747_rescale(10000.0, 2500.0, 20000.0, 1500.0, simDR_altitude)
         elseif simDR_altitude <= 50000 then
           climb_rate_fpm = 1500
         end
@@ -595,28 +662,28 @@ function engine_idle_control_PW(altitude_ft_in)
       engine_max_thrust_n = 254000
       simDR_throttle_max = 1.0
       if orig_thrust_n == 0.0 or B747DR_newsimconfig_data == 1 then
-        simDR_thrust_max = 252437  --(56750 lbf)
+        simDR_thrust_max = 254000  --252437  --(56750 lbf)
       end
       simDR_compressor_area = 4.47727  --(94-inch fan -- 48.19 sq. ft)
     elseif string.match(simConfigData["data"].PLANE.engines, "4060") then
       engine_max_thrust_n = 267000
       simDR_throttle_max = 1.0
       if orig_thrust_n == 0.0 or B747DR_newsimconfig_data == 1 then
-        simDR_thrust_max = 266893  --(60000 lbf)
+        simDR_thrust_max = 267000  --266893  --(60000 lbf)
       end
       simDR_compressor_area = 4.47727  --(94-inch fan -- 48.19 sq. ft)
     elseif string.match(simConfigData["data"].PLANE.engines, "4062")  then
       engine_max_thrust_n = 276000
       simDR_throttle_max = 1.0
       if orig_thrust_n == 0.0 or B747DR_newsimconfig_data == 1 then
-        simDR_thrust_max = 275790  --(62000 lbf)
+        simDR_thrust_max = 276000  --275790  --(62000 lbf)
       end
       simDR_compressor_area = 4.47727  --(94-inch fan -- 48.19 sq. ft)
     else  --Assume PW4056 if all else fails
       engine_max_thrust_n = 254000
       simDR_throttle_max = 1.0
       if orig_thrust_n == 0.0 or B747DR_newsimconfig_data == 1 then
-        simDR_thrust_max = 252437  --(56750 lbf)
+        simDR_thrust_max = 254000  --252437  --(56750 lbf)
       end
       simDR_compressor_area = 4.47727  --(94-inch fan -- 48.19 sq. ft)
     end
