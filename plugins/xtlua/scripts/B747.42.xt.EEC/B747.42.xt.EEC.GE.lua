@@ -81,7 +81,7 @@ function engine_idle_control_GE(altitude_ft_in)
 end
 
 function thrust_ref_control_N1()
-	local throttle_move_units = 0.001
+	local throttle_move_units = 0.0  --0.001
 	local target_tolerance_N1 = 0.5
 	local tolerance_diff = {}
 
@@ -95,100 +95,148 @@ function thrust_ref_control_N1()
 	if simDR_override_throttles == 1 or B747DR_ap_FMA_autothrottle_mode == 1 then
 		
     --DECREASE adjustments
-		if B747DR_display_N1[0] > (simDR_N1_target_bug[0]) then
-			tolerance_diff[0] = math.abs(simDR_N1_target_bug[0] + target_tolerance_N1 - B747DR_display_N1[0])
-			if tolerance_diff[0] <= target_tolerance_N1 then
-				throttle_move_units = 0.0001
-			else
-				throttle_move_units = 0.001
-			end
+		--if string.format("%4.1f", B747DR_display_N1[0]) > string.format("%4.1f", simDR_N1_target_bug[0]) then
+    if B747DR_display_N1[0] > simDR_N1_target_bug[0] then
+			--tolerance_diff[0] = math.abs(simDR_N1_target_bug[0] + target_tolerance_N1 - B747DR_display_N1[0])
+      tolerance_diff[0] = math.abs(simDR_N1_target_bug[0] - B747DR_display_N1[0])
+
+      if tolerance_diff[0] > 0.0 then
+        if tolerance_diff[0] <= target_tolerance_N1 then
+          throttle_move_units = 0.0001
+        else
+          throttle_move_units = 0.001
+        end
+      end
 			simDR_engn_thro_use[0] = simDR_engn_thro_use[0] - throttle_move_units
 			simDR_throttle_ratio[0] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[0])
-		end
-		if B747DR_display_N1[1] > (simDR_N1_target_bug[1]) then
-			tolerance_diff[1] = math.abs(simDR_N1_target_bug[1] + target_tolerance_N1 - B747DR_display_N1[1])
-			if tolerance_diff[1] <= target_tolerance_N1 then
-				throttle_move_units = 0.0001
-			else
-				throttle_move_units = 0.001
-			end
+      throttle_move_units = 0.0
+    end
+		--if string.format("%4.1f", B747DR_display_N1[0]) > string.format("%4.1f", simDR_N1_target_bug[0]) then
+    if B747DR_display_N1[1] > simDR_N1_target_bug[1] then
+			--tolerance_diff[1] = math.abs(simDR_N1_target_bug[1] + target_tolerance_N1 - B747DR_display_N1[1])
+      tolerance_diff[1] = math.abs(simDR_N1_target_bug[1] - B747DR_display_N1[1])
+
+      if tolerance_diff[1] > 0.0 then
+        if tolerance_diff[1] <= target_tolerance_N1 then
+          throttle_move_units = 0.0001
+        else
+          throttle_move_units = 0.001
+        end
+      end
 			simDR_engn_thro_use[1] = simDR_engn_thro_use[1] - throttle_move_units
 			simDR_throttle_ratio[1] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[1])
+      throttle_move_units = 0.0
 		end
-		if B747DR_display_N1[2] > (simDR_N1_target_bug[2]) then
-			tolerance_diff[2] = math.abs(simDR_N1_target_bug[2] + target_tolerance_N1 - B747DR_display_N1[2])
-			if tolerance_diff[2] <= target_tolerance_N1 then
-				throttle_move_units = 0.0001
-			else
-				throttle_move_units = 0.001
-			end
+		--if string.format("%4.1f", B747DR_display_N1[0]) > string.format("%4.1f", simDR_N1_target_bug[0]) then
+    if B747DR_display_N1[2] > simDR_N1_target_bug[2] then
+			--tolerance_diff[2] = math.abs(simDR_N1_target_bug[2] + target_tolerance_N1 - B747DR_display_N1[2])
+      tolerance_diff[2] = math.abs(simDR_N1_target_bug[2] - B747DR_display_N1[2])
+
+      if tolerance_diff[2] > 0.0 then
+        if tolerance_diff[2] <= target_tolerance_N1 then
+          throttle_move_units = 0.0001
+        else
+          throttle_move_units = 0.001
+        end
+      end
 			simDR_engn_thro_use[2] = simDR_engn_thro_use[2] - throttle_move_units
 			simDR_throttle_ratio[2] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[2])
+      throttle_move_units = 0.0
 		end
-		if B747DR_display_N1[3] > (simDR_N1_target_bug[3]) then
-			tolerance_diff[3] = math.abs(simDR_N1_target_bug[3] + target_tolerance_N1 - B747DR_display_N1[3])
-			if tolerance_diff[3] <= target_tolerance_N1 then
-				throttle_move_units = 0.0001
-			else
-				throttle_move_units = 0.001
-			end
+		--if string.format("%4.1f", B747DR_display_N1[0]) > string.format("%4.1f", simDR_N1_target_bug[0]) then
+    if B747DR_display_N1[3] > simDR_N1_target_bug[3] then
+			--tolerance_diff[3] = math.abs(simDR_N1_target_bug[3] + target_tolerance_N1 - B747DR_display_N1[3])
+      tolerance_diff[3] = math.abs(simDR_N1_target_bug[3] - B747DR_display_N1[3])
+
+      if tolerance_diff[3] > 0.0 then
+        if tolerance_diff[3] <= target_tolerance_N1 then
+          throttle_move_units = 0.0001
+        else
+          throttle_move_units = 0.001
+        end
+      end
 			simDR_engn_thro_use[3] = simDR_engn_thro_use[3] - throttle_move_units
 			simDR_throttle_ratio[3] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[3])
+      throttle_move_units = 0.0
 		end
 
 		--INCREASE adjustments
+    --if (string.format("%4.1f", B747DR_display_N1[0]) < string.format("%4.1f", simDR_N1_target_bug[0])) and (simDR_thrust_n[0] < engine_max_thrust_n) then
     if (B747DR_display_N1[0] < simDR_N1_target_bug[0]) and (simDR_thrust_n[0] < engine_max_thrust_n) then
-			tolerance_diff[0] = math.abs(simDR_N1_target_bug[0] - target_tolerance_N1 - B747DR_display_N1[0])
-			if tolerance_diff[0] <= target_tolerance_N1 then
-				throttle_move_units = 0.0001
-			else
-				throttle_move_units = 0.001
-			end
+			--tolerance_diff[0] = math.abs(simDR_N1_target_bug[0] - target_tolerance_N1 - B747DR_display_N1[0])
+      tolerance_diff[0] = math.abs(simDR_N1_target_bug[0] - B747DR_display_N1[0])
+
+      if tolerance_diff[0] > 0.0 then
+        if tolerance_diff[0] <= target_tolerance_N1 then
+          throttle_move_units = 0.0001
+        else
+          throttle_move_units = 0.001
+        end
+      end
 			simDR_engn_thro_use[0] = simDR_engn_thro_use[0] + throttle_move_units
 			if simDR_engn_thro_use[0] >= simDR_throttle_max then
 				--print("RESETTING THROTTLE TO MAX = 1")
 				simDR_engn_thro_use[0] = simDR_throttle_max
 			end
-			simDR_throttle_ratio[0] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[0])
+			--simDR_throttle_ratio[0] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[0])
+      simDR_throttle_ratio[0] = B747_rescale(0.0, 0.0, simDR_throttle_max, 0.9999, simDR_engn_thro_use[0])
 		end
+    --if (string.format("%4.1f", B747DR_display_N1[1]) < string.format("%4.1f", simDR_N1_target_bug[1])) and (simDR_thrust_n[1] < engine_max_thrust_n) then
     if (B747DR_display_N1[1] < simDR_N1_target_bug[1]) and (simDR_thrust_n[1] < engine_max_thrust_n) then
-			tolerance_diff[1] = math.abs(simDR_N1_target_bug[1] - target_tolerance_N1 - B747DR_display_N1[1])
-			if tolerance_diff[1] <= target_tolerance_N1 then
-				throttle_move_units = 0.0001
-			else
-				throttle_move_units = 0.001
-			end
+			--tolerance_diff[1] = math.abs(simDR_N1_target_bug[1] - target_tolerance_N1 - B747DR_display_N1[1])
+      tolerance_diff[1] = math.abs(simDR_N1_target_bug[1] - B747DR_display_N1[1])
+
+      if tolerance_diff[1] > 0.0 then
+        if tolerance_diff[1] <= target_tolerance_N1 then
+          throttle_move_units = 0.0001
+        else
+          throttle_move_units = 0.001
+        end
+      end
 			simDR_engn_thro_use[1] = simDR_engn_thro_use[1] + throttle_move_units
 			if simDR_engn_thro_use[1] >= simDR_throttle_max then
 				simDR_engn_thro_use[1] = simDR_throttle_max 
 			end
-			simDR_throttle_ratio[1] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[1])
+			--simDR_throttle_ratio[1] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[1])
+      simDR_throttle_ratio[1] = B747_rescale(0.0, 0.0, simDR_throttle_max, 0.9999, simDR_engn_thro_use[1])
 		end
+    --if (string.format("%4.1f", B747DR_display_N1[2]) < string.format("%4.1f", simDR_N1_target_bug[2])) and (simDR_thrust_n[2] < engine_max_thrust_n) then
     if (B747DR_display_N1[2] < simDR_N1_target_bug[2]) and (simDR_thrust_n[2] < engine_max_thrust_n) then
-			tolerance_diff[2] = math.abs(simDR_N1_target_bug[2] - target_tolerance_N1 - B747DR_display_N1[2])
-			if tolerance_diff[2] <= target_tolerance_N1 then
-				throttle_move_units = 0.0001
-			else
-				throttle_move_units = 0.001
-			end
+			--tolerance_diff[2] = math.abs(simDR_N1_target_bug[2] - target_tolerance_N1 - B747DR_display_N1[2])
+      tolerance_diff[2] = math.abs(simDR_N1_target_bug[2] - B747DR_display_N1[2])
+
+      if tolerance_diff[2] > 0.0 then
+        if tolerance_diff[2] <= target_tolerance_N1 then
+          throttle_move_units = 0.0001
+        else
+          throttle_move_units = 0.001
+        end
+      end
 			simDR_engn_thro_use[2] = simDR_engn_thro_use[2] + throttle_move_units
 			if simDR_engn_thro_use[2] >= simDR_throttle_max then
 				simDR_engn_thro_use[2] = simDR_throttle_max
 			end
-			simDR_throttle_ratio[2] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[2])
+			--simDR_throttle_ratio[2] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[2])
+      simDR_throttle_ratio[2] = B747_rescale(0.0, 0.0, simDR_throttle_max, 0.9999, simDR_engn_thro_use[2])
 		end
+    --if (string.format("%4.1f", B747DR_display_N1[3]) < string.format("%4.1f", simDR_N1_target_bug[3])) and (simDR_thrust_n[3] < engine_max_thrust_n) then
     if (B747DR_display_N1[3] < simDR_N1_target_bug[3]) and (simDR_thrust_n[3] < engine_max_thrust_n) then
-			tolerance_diff[3] = math.abs(simDR_N1_target_bug[3] - target_tolerance_N1 - B747DR_display_N1[3])
-			if tolerance_diff[3] <= target_tolerance_N1 then
-				throttle_move_units = 0.0001
-			else
-				throttle_move_units = 0.001
-			end
+			--tolerance_diff[3] = math.abs(simDR_N1_target_bug[3] - target_tolerance_N1 - B747DR_display_N1[3])
+      tolerance_diff[3] = math.abs(simDR_N1_target_bug[3] - B747DR_display_N1[3])
+
+      if tolerance_diff[3] > 0.0 then
+        if tolerance_diff[3] <= target_tolerance_N1 then
+          throttle_move_units = 0.0001
+        else
+          throttle_move_units = 0.001
+        end
+      end
 			simDR_engn_thro_use[3] = simDR_engn_thro_use[3] + throttle_move_units
 			if simDR_engn_thro_use[3] >= simDR_throttle_max then
 				simDR_engn_thro_use[3] = simDR_throttle_max 
 			end
-			simDR_throttle_ratio[3] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[3])
+			--simDR_throttle_ratio[3] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[3])
+      simDR_throttle_ratio[3] = B747_rescale(0.0, 0.0, simDR_throttle_max, 0.9999, simDR_engn_thro_use[3])
 		end
 	end
 end
@@ -304,19 +352,35 @@ function in_flight_N1_GE(altitude_ft_in, delta_t_isa_K_in)
       elseif simDR_altitude <= 50000 then
         climb_rate_fpm = 1500
       end
-    elseif string.match(simConfigData["data"].PLANE.engines, "B5F") or string.match(simConfigData["data"].PLANE.engines, "B1F1") then
+    elseif string.match(simConfigData["data"].PLANE.engines, "B1F1") then
       --For now, use the same climb rates as the B1F until we have specific information for B5F and others
       if simDR_altitude < 10000 then
-        climb_rate_fpm = 2750
+        climb_rate_fpm = 2875
       elseif simDR_altitude <= 20000 then
         --climb_rate_fpm = 2750
-        climb_rate_fpm = B747_rescale(10000.0, 2750.0, 20000.0, 2500.0, simDR_altitude)
+        climb_rate_fpm = B747_rescale(10000.0, 2875.0, 20000.0, 2625.0, simDR_altitude)
       elseif simDR_altitude <= 30000 then
         --climb_rate_fpm = 2500
-        climb_rate_fpm = B747_rescale(10000.0, 2500.0, 20000.0, 2250.0, simDR_altitude)
+        climb_rate_fpm = B747_rescale(10000.0, 2625.0, 20000.0, 2375.0, simDR_altitude)
       elseif simDR_altitude <= 40000 then
         --climb_rate_fpm = 2000
-        climb_rate_fpm = B747_rescale(10000.0, 2250.0, 20000.0, 1500.0, simDR_altitude)
+        climb_rate_fpm = B747_rescale(10000.0, 2375.0, 20000.0, 1625.0, simDR_altitude)
+      elseif simDR_altitude <= 50000 then
+        climb_rate_fpm = 1625
+      end
+    elseif string.match(simConfigData["data"].PLANE.engines, "B5F") then
+      --For now, use the same climb rates as the B1F until we have specific information for B5F and others
+      if simDR_altitude < 10000 then
+        climb_rate_fpm = 3000
+      elseif simDR_altitude <= 20000 then
+        --climb_rate_fpm = 2750
+        climb_rate_fpm = B747_rescale(10000.0, 3000.0, 20000.0, 2750.0, simDR_altitude)
+      elseif simDR_altitude <= 30000 then
+        --climb_rate_fpm = 2500
+        climb_rate_fpm = B747_rescale(10000.0, 2750.0, 20000.0, 2500.0, simDR_altitude)
+      elseif simDR_altitude <= 40000 then
+        --climb_rate_fpm = 2000
+        climb_rate_fpm = B747_rescale(10000.0, 2500.0, 20000.0, 1500.0, simDR_altitude)
       elseif simDR_altitude <= 50000 then
         climb_rate_fpm = 1500
       end
@@ -371,8 +435,8 @@ function in_flight_N1_GE(altitude_ft_in, delta_t_isa_K_in)
       N1_corrected_mod_max_cruise = N1_corrected_raw_max_cruise
     end
   
-    N1_real_max_climb = N1_corrected_mod_max_climb * math.sqrt(temperature_ratio_adapted)
-    N1_real_max_cruise = N1_corrected_mod_max_cruise * math.sqrt(temperature_ratio_adapted)
+    N1_real_max_climb = math.min(N1_corrected_mod_max_climb * math.sqrt(temperature_ratio_adapted), 117.5)
+    N1_real_max_cruise = math.min(N1_corrected_mod_max_cruise * math.sqrt(temperature_ratio_adapted), 117.5)
 
     if enable_logging then
       print("\t\t\t\t\t<<<--- IN FLIGHT N1 (GE) --->>>")
@@ -512,7 +576,7 @@ function EGT_display_GE(engine_in)
   return EGT_display
 end
 
---local takeoff_TOGA_n1 = 0.0
+local takeoff_TOGA_n1 = 0.0
 local orig_thrust_n = 0.0
 function GE(altitude_ft_in)
 	local altitude = 0.0  --round_thrustcalc(simDR_altitude, "ALT")
@@ -537,28 +601,28 @@ function GE(altitude_ft_in)
     engine_max_thrust_n = 258000
     simDR_throttle_max = 1.0
     if orig_thrust_n == 0.0 or B747DR_newsimconfig_data == 1 then
-      simDR_thrust_max = 254260  --(57160 lbf)
+      simDR_thrust_max = 258000  --254260  --(57160 lbf)
     end
     simDR_compressor_area = 4.38251 --(93-inch fan -- 47.17 sq. ft)
 	elseif string.match(simConfigData["data"].PLANE.engines, "B5F") then
     engine_max_thrust_n = 276000
     simDR_throttle_max = 1.0
     if orig_thrust_n == 0.0 or B747DR_newsimconfig_data == 1 then
-      simDR_thrust_max = 267028  --(60030 lbf)
+      simDR_thrust_max = 276000  --267028  --(60030 lbf)
     end
     simDR_compressor_area = 4.38251 --(93-inch fan -- 47.17 sq. ft)
 	elseif string.match(simConfigData["data"].PLANE.engines, "B1F1")  then
     engine_max_thrust_n = 276000
     simDR_throttle_max = 1.0
     if orig_thrust_n == 0.0 or B747DR_newsimconfig_data == 1 then
-      simDR_thrust_max = 267028  --(60030 lbf)
+      simDR_thrust_max = 276000  --267028  --(60030 lbf)
     end
     simDR_compressor_area = 4.38251 --(93-inch fan -- 47.17 sq. ft)
   else  --Assume CF6-802C-B1F if all else fails
     engine_max_thrust_n = 258000
     simDR_throttle_max = 1.0
     if orig_thrust_n == 0.0 or B747DR_newsimconfig_data == 1 then
-      simDR_thrust_max = 254260  --(57160 lbf)
+      simDR_thrust_max = 258000  --254260  --(57160 lbf)
     end
     simDR_compressor_area = 4.38251 --(93-inch fan -- 47.17 sq. ft)
 	end
@@ -602,7 +666,7 @@ function GE(altitude_ft_in)
     
 		-- Set N1 Target Bugs & Reference Indicator
     for i = 0, 3 do
-      simDR_N1_target_bug[i] = string.format("%4.1f",takeoff_thrust_n1) + packs_adjustment_value + engine_anti_ice_adjustment_value
+      simDR_N1_target_bug[i] = math.min(string.format("%4.1f",takeoff_thrust_n1) + packs_adjustment_value + engine_anti_ice_adjustment_value, 117.5)
       B747DR_display_N1_ref[i] = math.min(string.format("%4.1f",takeoff_thrust_n1) + packs_adjustment_value + engine_anti_ice_adjustment_value, 117.5)
       B747DR_display_N1_max[i] = math.min(string.format("%4.1f",takeoff_thrust_n1) + packs_adjustment_value + engine_anti_ice_adjustment_value, 117.5)
     end
@@ -621,16 +685,16 @@ function GE(altitude_ft_in)
 		--Set target bugs
 		for i = 0, 3 do
       if N1_actual > N1_real_max_climb and simDR_flap_ratio == 0 then
-        simDR_N1_target_bug[i] = string.format("%4.1f", N1_real_max_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value
+        simDR_N1_target_bug[i] = math.min(string.format("%4.1f", N1_real_max_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value, 117.5)
         B747DR_display_N1_ref[i] = math.min(string.format("%4.1f", N1_real_max_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value, 117.5)
       else
-        simDR_N1_target_bug[i] = string.format("%4.1f", N1_actual) + packs_adjustment_value + engine_anti_ice_adjustment_value
-        B747DR_display_N1_ref[i] = math.min(string.format("%4.1f", N1_actual) + packs_adjustment_value + engine_anti_ice_adjustment_value, 117.5)
+        simDR_N1_target_bug[i] = math.min(string.format("%4.1f", N1_actual) + packs_adjustment_value + engine_anti_ice_adjustment_value, takeoff_TOGA_n1)
+        B747DR_display_N1_ref[i] = math.min(string.format("%4.1f", N1_actual) + packs_adjustment_value + engine_anti_ice_adjustment_value, takeoff_TOGA_n1)
       end
 
       if B747DR_display_N1_max[i] < B747DR_display_N1_ref[i] then
         B747DR_display_N1_max[i] = B747DR_display_N1_ref[i]
-      else   
+      else
         B747DR_display_N1_max[i] = math.min(string.format("%4.1f", N1_real_max_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value, 117.5)
       end
     end
@@ -639,7 +703,7 @@ function GE(altitude_ft_in)
 
       --Set target bugs
       for i = 0, 3 do
-          simDR_N1_target_bug[i] = string.format("%4.1f", N1_real_max_cruise) + packs_adjustment_value + engine_anti_ice_adjustment_value
+          simDR_N1_target_bug[i] = math.min(string.format("%4.1f", N1_real_max_cruise) + packs_adjustment_value + engine_anti_ice_adjustment_value, 117.5)
           B747DR_display_N1_ref[i] = math.min(string.format("%4.1f", N1_real_max_cruise) + packs_adjustment_value + engine_anti_ice_adjustment_value, 117.5)
           B747DR_display_N1_max[i] = math.min(string.format("%4.1f", N1_real_max_climb), 117.5)
       end
