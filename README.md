@@ -76,7 +76,10 @@ Two executables are included in the release zip file, these are required to have
 
 Additionally, the brake lever and X-Plane brakes are now separated, there is a new command to engage the brakes by lifting the parking brake lever.
 
-**Why are my screens half black?** IRS alignment cannot complete until you set the IRS position in the FMC. (INIT REF -> POS -> R4 to copy GPS position, R5 to enter it into current position.
+**Why are my screens half blank?** IRS alignment cannot complete until you set the IRS position in the FMC. (INIT REF -> POS -> R4 to copy GPS position, R5 to enter it into current position. Make sure you don't move while it's aligning!
+
+**Why do I have flickering lights and sounds when connecting to Ground Power?**
+You may be experiencing this if you have SAM v3. To fix, disable the "Jetway External Power" option in SAM3 settings.
 
 ### Changelog:
 See the [commit history](https://github.com/mSparks43/747-400/commits/master) for detailed changes.
