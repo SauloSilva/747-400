@@ -11,7 +11,7 @@ Yes! Of course! This project is an open source project, consisting of developers
 
 **What are the differences between the default 747, and the Sparky 747?**
 
-This 747 currently includes new FMOD sounds, realistic textures, new systems and FMC, two of three engines variants are now accurately impliemented. Future changes will focus on fully simulating failures and continually focus on accurately recreating various 747-400 variants .
+This 747 currently includes new FMOD sounds, realistic textures, new systems and FMC, two of three engines variants are now accurately implemented. Future changes will focus on fully simulating failures and continually focus on accurately recreating various 747-400 variants .
 The github repository contains the latest versions, including the LCF model variant by Lee_Hyeon_Seo (with permission) with the existing improvements, check out the working his [A340 developements](https://forums.x-plane.org/index.php?/forums/topic/203381-3d-cockpit-for-a340/&)
 
 Custom sounds and display textures by [Matt726](https://youtube.com/c/matt726)
@@ -44,6 +44,8 @@ Feel free to join the conversation, fork this repository, and make the plane you
 
 Head to the FMC MENU > ACMS > MAINT > SIMCONFIG. Here you can find many settings for the aircraft, including sound options.
 
+**How do I connect ground power?**
+The GPU can be connected in the FMS ground handling menu.
 
 ### Installation
 Just extract the zip to your aircraft folder (delete any existing copy, **do not overwite an existing aircraft installation**)
