@@ -44,6 +44,8 @@ Feel free to join the conversation, fork this repository, and make the plane you
 
 Head to the FMC MENU > ACMS > MAINT > SIMCONFIG. Here you can find many settings for the aircraft, including sound options.
 
+**How do I connect ground power?**
+The GPU can be connected in the FMS ground handling menu.
 
 ### Installation
 Just extract the zip to your aircraft folder (delete any existing copy, **do not overwite an existing aircraft installation**)
