@@ -353,7 +353,7 @@ function B747_thrust_rev_toggle_4_CMDhandler(phase, duration)
 				
 			else																		-- ENGINE 4 THROTTLE IS AT IDLE, OK TO TOGGLE PROP MODE FOR ALL ENGINES
 				-- TOGGLE PROP MODE
-				simDR_prop_mode[3] = 4 - simDR_prop_mode[1]															
+				simDR_prop_mode[3] = 4 - simDR_prop_mode[3]															
 			end
 				    	
 		end					
