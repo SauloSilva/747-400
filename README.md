@@ -36,7 +36,7 @@ Please use the [github issue page](https://github.com/mSparks43/747-400/issues) 
 
 The 744 project was licenced as CC-BY-NC 4 on the 1st of May 2019, anyone with any confusion as to what this means should review the [licence](https://creativecommons.org/licenses/by-nc/4.0/)
 
-You can follow progress, make requests and generally chat about the 747 on the 747-400 channel on the [Go Ahead discord server.](https://discord.gg/cStTXy5)
+You can follow progress, make requests and generally chat about the 747 on the 747-400 channel on the [Go Ahead discord server.](https://discord.gg/cStTXy5) and follow the project on [twitter](https://twitter.com/GoAheadFly)
 
 Feel free to join the conversation, fork this repository, and make the plane your own.
 
