@@ -1,2 +1,6 @@
-747-400_prefs.txt
-plugins/sound3d/volume.txt
+*prefs.txt
+*/747-400_prefs.txt
+B747-400_lastpos.dat
+.DS_Store
+liveries/wunalu_dreaming/
+*.acf~
