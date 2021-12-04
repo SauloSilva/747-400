@@ -84,7 +84,8 @@ simDR_all_wheels_on_ground          = find_dataref("sim/flightmodel/failures/ong
 
 --simDR_HSI_source_sel                = find_dataref("sim/cockpit2/radios/actuators/HSI_source_select_pilot")
 simDR_autopilot_source              = find_dataref("sim/cockpit2/autopilot/autopilot_source")
-
+simDR_apu_start_switch_mode     = find_dataref("sim/cockpit2/electrical/APU_starter_switch")
+simDR_apu_N1_pct                = find_dataref("sim/cockpit2/electrical/APU_N1_percent")
 simDR_time_is_GMT                   = find_dataref("sim/cockpit2/clock_timer/timer_is_GMT")
 simDR_time_zulu_minutes             = find_dataref("sim/cockpit2/clock_timer/zulu_time_minutes")
 simDR_time_zulu_hours               = find_dataref("sim/cockpit2/clock_timer/zulu_time_hours")
@@ -3207,7 +3208,10 @@ function fltInstsetCRTs()
     
     local capt_power=6-B747DR_simDR_captain_display
     local fo_power=6-B747DR_simDR_fo_display
-    
+    local apu_startup_fail=1 --kill capt displays during apu startup on battery
+    if simDR_apu_N1_pct>5 and simDR_apu_N1_pct<95 and simDR_apu_start_switch_mode==1 and simDR_elec_bus_volts[0]<27 then
+        apu_startup_fail=0
+    end
     -- Captain PFD 0
     -- First Officer PFD 1
     -- First Officer ND 2
@@ -3224,10 +3228,10 @@ function fltInstsetCRTs()
      B747DR_flt_inst_fo_nd_pos      	= 0
      B747DR_flt_inst_eicas_pos      	= 0
      B747DR_flt_inst_pri_eicas_pos      = 0
-     B747DR_elec_display_power[0]=capt_power
+     B747DR_elec_display_power[0]=capt_power*apu_startup_fail
      B747DR_elec_display_power[1]=fo_power
      B747DR_elec_display_power[2]=fo_power
-     B747DR_elec_display_power[3]=capt_power
+     B747DR_elec_display_power[3]=capt_power*apu_startup_fail
      B747DR_elec_display_power[4]=capt_power
      B747DR_elec_display_power[5]=fo_power
     elseif crtState==39 then --capt inbd to eicas
@@ -3237,12 +3241,12 @@ function fltInstsetCRTs()
      B747DR_flt_inst_fo_nd_pos      	= 0
      B747DR_flt_inst_eicas_pos      	= 2 --EICAS to ND
      B747DR_flt_inst_pri_eicas_pos      = 0
-     B747DR_elec_display_power[0]=capt_power
+     B747DR_elec_display_power[0]=capt_power*apu_startup_fail
      B747DR_elec_display_power[1]=fo_power
      B747DR_elec_display_power[2]=fo_power
      B747DR_elec_display_power[3]=fo_power
      B747DR_elec_display_power[4]=capt_power
-     B747DR_elec_display_power[5]=capt_power
+     B747DR_elec_display_power[5]=capt_power*apu_startup_fail
     elseif crtState==41 then --capt inbd to PFD
      B747DR_flt_inst_capt_pfd_pos      	= 1 --PFD to ND
      B747DR_flt_inst_fo_pfd_pos      	= 0 
@@ -3250,12 +3254,12 @@ function fltInstsetCRTs()
      B747DR_flt_inst_fo_nd_pos      	= 0
      B747DR_flt_inst_eicas_pos      	= 3 --EICAS to PFD
      B747DR_flt_inst_pri_eicas_pos      = 0
-     B747DR_elec_display_power[0]=capt_power
+     B747DR_elec_display_power[0]=capt_power*apu_startup_fail
      B747DR_elec_display_power[1]=fo_power
      B747DR_elec_display_power[2]=fo_power
      B747DR_elec_display_power[3]=fo_power
      B747DR_elec_display_power[4]=capt_power
-     B747DR_elec_display_power[5]=capt_power
+     B747DR_elec_display_power[5]=capt_power*apu_startup_fail
     elseif crtState==37 then --capt lwr to eicas pri
      B747DR_flt_inst_capt_pfd_pos      	= 0
      B747DR_flt_inst_fo_pfd_pos      	= 0 
@@ -3263,10 +3267,10 @@ function fltInstsetCRTs()
      B747DR_flt_inst_fo_nd_pos      	= 0
      B747DR_flt_inst_eicas_pos      	= 5 --EICAS to Upper
      B747DR_flt_inst_pri_eicas_pos      = 1 --PRI EIACS to lower
-     B747DR_elec_display_power[0]=capt_power
+     B747DR_elec_display_power[0]=capt_power*apu_startup_fail
      B747DR_elec_display_power[1]=fo_power
      B747DR_elec_display_power[2]=fo_power
-     B747DR_elec_display_power[3]=capt_power
+     B747DR_elec_display_power[3]=capt_power*apu_startup_fail
      B747DR_elec_display_power[4]=fo_power
      B747DR_elec_display_power[5]=capt_power
     elseif crtState==43 then --capt lwr to ND
@@ -3276,11 +3280,11 @@ function fltInstsetCRTs()
      B747DR_flt_inst_fo_nd_pos      	= 0
      B747DR_flt_inst_eicas_pos      	= 5 --EICAS to Upper
      B747DR_flt_inst_pri_eicas_pos      = 2 --PRI EIACS to ND
-     B747DR_elec_display_power[0]=capt_power
+     B747DR_elec_display_power[0]=capt_power*apu_startup_fail
      B747DR_elec_display_power[1]=fo_power
      B747DR_elec_display_power[2]=fo_power
      B747DR_elec_display_power[3]=fo_power
-     B747DR_elec_display_power[4]=capt_power
+     B747DR_elec_display_power[4]=capt_power*apu_startup_fail
      B747DR_elec_display_power[5]=capt_power
     elseif crtState==49 then --fo inbd to eicas
      B747DR_flt_inst_capt_pfd_pos      	= 0
@@ -3289,10 +3293,10 @@ function fltInstsetCRTs()
      B747DR_flt_inst_fo_nd_pos      	= 1 --ND to Lower EICAS
      B747DR_flt_inst_eicas_pos      	= 1 --EICAS to FO ND
      B747DR_flt_inst_pri_eicas_pos      = 0
-     B747DR_elec_display_power[0]=capt_power
+     B747DR_elec_display_power[0]=capt_power*apu_startup_fail
      B747DR_elec_display_power[1]=fo_power
      B747DR_elec_display_power[2]=fo_power
-     B747DR_elec_display_power[3]=capt_power
+     B747DR_elec_display_power[3]=capt_power*apu_startup_fail
      B747DR_elec_display_power[4]=capt_power
      B747DR_elec_display_power[5]=fo_power
     elseif crtState==31 then --fo inbd to PFD
@@ -3302,10 +3306,10 @@ function fltInstsetCRTs()
      B747DR_flt_inst_fo_nd_pos      	= 1 --ND to Lower EICAS
      B747DR_flt_inst_eicas_pos      	= 4 --EICAS to PFD
      B747DR_flt_inst_pri_eicas_pos      = 0
-     B747DR_elec_display_power[0]=capt_power
+     B747DR_elec_display_power[0]=capt_power*apu_startup_fail
      B747DR_elec_display_power[1]=fo_power
      B747DR_elec_display_power[2]=fo_power
-     B747DR_elec_display_power[3]=capt_power
+     B747DR_elec_display_power[3]=capt_power*apu_startup_fail
      B747DR_elec_display_power[4]=capt_power
      B747DR_elec_display_power[5]=fo_power
     elseif crtState==67 then --fo lwr to eicas pri
@@ -3315,10 +3319,10 @@ function fltInstsetCRTs()
      B747DR_flt_inst_fo_nd_pos      	= 0
      B747DR_flt_inst_eicas_pos      	= 5 --EICAS to Upper
      B747DR_flt_inst_pri_eicas_pos      = 1 --PRI EIACS to lower
-     B747DR_elec_display_power[0]=capt_power
+     B747DR_elec_display_power[0]=capt_power*apu_startup_fail
      B747DR_elec_display_power[1]=fo_power
      B747DR_elec_display_power[2]=fo_power
-     B747DR_elec_display_power[3]=capt_power
+     B747DR_elec_display_power[3]=capt_power*apu_startup_fail
      B747DR_elec_display_power[4]=fo_power
      B747DR_elec_display_power[5]=capt_power
     elseif crtState==13 then --fo lwr to ND
@@ -3328,10 +3332,10 @@ function fltInstsetCRTs()
      B747DR_flt_inst_fo_nd_pos      	= 1 --ND to Lower EICAS
      B747DR_flt_inst_eicas_pos      	= 5 --EICAS to Upper
      B747DR_flt_inst_pri_eicas_pos      = 3 --PRI EIACS to ND
-     B747DR_elec_display_power[0]=capt_power
+     B747DR_elec_display_power[0]=capt_power*apu_startup_fail
      B747DR_elec_display_power[1]=fo_power
      B747DR_elec_display_power[2]=fo_power
-     B747DR_elec_display_power[3]=capt_power
+     B747DR_elec_display_power[3]=capt_power*apu_startup_fail
      B747DR_elec_display_power[4]=capt_power
      B747DR_elec_display_power[5]=capt_power
     elseif crtState==12 then --capt inbd to eicas - fo lwr to ND
@@ -3341,12 +3345,12 @@ function fltInstsetCRTs()
      B747DR_flt_inst_fo_nd_pos      	= 1 --ND to Lower EICAS
      B747DR_flt_inst_eicas_pos      	= 2 --EICAS to capt ND
      B747DR_flt_inst_pri_eicas_pos      = 3 --PRI EIACS to ND
-     B747DR_elec_display_power[0]=capt_power
+     B747DR_elec_display_power[0]=capt_power*apu_startup_fail
      B747DR_elec_display_power[1]=fo_power
      B747DR_elec_display_power[2]=fo_power
      B747DR_elec_display_power[3]=capt_power
      B747DR_elec_display_power[4]=fo_power
-     B747DR_elec_display_power[5]=capt_power
+     B747DR_elec_display_power[5]=capt_power*apu_startup_fail
      elseif crtState==52 then --fo inbd to eicas - capt lwr to ND
      B747DR_flt_inst_capt_pfd_pos      	= 0
      B747DR_flt_inst_fo_pfd_pos      	= 0 
@@ -3354,11 +3358,11 @@ function fltInstsetCRTs()
      B747DR_flt_inst_fo_nd_pos      	= -1 -- No FO ND
      B747DR_flt_inst_eicas_pos      	= 1 --EICAS to fo ND
      B747DR_flt_inst_pri_eicas_pos      = 2 --PRI EIACS to capt ND
-     B747DR_elec_display_power[0]=capt_power
+     B747DR_elec_display_power[0]=capt_power*apu_startup_fail
      B747DR_elec_display_power[1]=fo_power
      B747DR_elec_display_power[2]=fo_power
      B747DR_elec_display_power[3]=fo_power
-     B747DR_elec_display_power[4]=capt_power
+     B747DR_elec_display_power[4]=capt_power*apu_startup_fail
      B747DR_elec_display_power[5]=fo_power
     end
 end
