@@ -639,7 +639,7 @@ function B747_apu()
 
 	elseif B747DR_elec_apu_sel_pos == 2 then
         if simDR_apu_running == 0 then
-			if B747DR_elec_apu_inlet_door_pos > 0.95 then
+			if B747DR_elec_apu_inlet_door_pos > 0.13 then
 				B747_apu_start = 1
 				simDR_apu_start_switch_mode = 2                 -- START
 				run_after_time(B747_apu_selector_return_spring, 6.0)  				-- SHOULD RETURN THE APU SELECTOR SW TO RUN AFTER START, YMMV
@@ -654,7 +654,7 @@ function B747_apu()
 
 
     -- INLET DOOR ANIMATION
-    B747DR_elec_apu_inlet_door_pos = B747_set_animation_position(B747DR_elec_apu_inlet_door_pos, B747_apu_inlet_door_target_pos, 0.0, 1.0, 0.4)
+    B747DR_elec_apu_inlet_door_pos = B747_set_animation_position(B747DR_elec_apu_inlet_door_pos, B747_apu_inlet_door_target_pos, 0.0, 1.0, 0.04)
 
 
     -- APU GENERATOR
