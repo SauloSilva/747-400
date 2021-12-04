@@ -96,6 +96,7 @@ B747bleedAir.isolation_valve_R.pos              = deferred_dataref("laminar/B747
 
 B747DR_cabin_alt_auto_sel_pos       = deferred_dataref("laminar/B747/air/cabin_alt_auto/sel_dial_pos", "number")
 B747DR_equip_cooling_sel_pos        = deferred_dataref("laminar/B747/air/equip_cooling/sel_dial_pos", "number")
+B747DR_equip_cooling_state        = deferred_dataref("laminar/B747/air/equip_cooling/state", "number")
 B747DR_pack_ctrl_sel_pos            = deferred_dataref("laminar/B747/air/pack_ctrl/sel_dial_pos", "array[3]")
 B747DR_landing_alt_button_pos       = deferred_dataref("laminar/B747/air/landing_alt/button_pos", "number")
 

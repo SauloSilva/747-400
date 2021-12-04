@@ -170,6 +170,7 @@ B747DR_CAS_memo_status                  = find_dataref("laminar/B747/CAS/memo_st
 
 B747DR_cabin_alt_auto_sel_pos       = deferred_dataref("laminar/B747/air/cabin_alt_auto/sel_dial_pos", "number")
 B747DR_equip_cooling_sel_pos        = deferred_dataref("laminar/B747/air/equip_cooling/sel_dial_pos", "number")
+B747DR_equip_cooling_state        = deferred_dataref("laminar/B747/air/equip_cooling/state", "number")
 B747DR_pack_ctrl_sel_pos            = deferred_dataref("laminar/B747/air/pack_ctrl/sel_dial_pos", "array[3]")
 B747DR_landing_alt_button_pos       = deferred_dataref("laminar/B747/air/landing_alt/button_pos", "number")
 
@@ -781,7 +782,13 @@ function B747_bleed_air_mode()
 
 end
 
-
+function equipment_cooling()
+    if (simDR_elec_bus_volts[0] > 0.0) and B747DR_equip_cooling_sel_pos==1 then
+        B747DR_equip_cooling_state =1
+    else
+        B747DR_equip_cooling_state =0
+    end    
+end
 
 
 
@@ -1188,7 +1195,7 @@ function after_physics()
     B747_bleed_air_valve_animation()
     B747_bleed_air_duct_pressure()
     B747_bleed_air_mode()
-
+    equipment_cooling()
     B747_pressurization()
     B747_landing_alt()
     B747_primary_EICAS_ECS_display()
