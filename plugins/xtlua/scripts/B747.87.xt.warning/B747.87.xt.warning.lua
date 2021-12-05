@@ -609,9 +609,14 @@ B747DR_CAS_caut_adv_display     = deferred_dataref("laminar/B747/CAS/caut_adv_di
 
 
 B747DR_master_warning           = find_dataref("laminar/B747/warning/master_warning")
+B747DR_warning_bell           	= deferred_dataref("laminar/B747/warning/warning_bell")
+B747DR_warning_siren           	= deferred_dataref("laminar/B747/warning/warning_siren")
+B747DR_warning_wailer           = deferred_dataref("laminar/B747/warning/warning_wailer")
 B747DR_master_caution           = find_dataref("laminar/B747/warning/master_caution")
 B747DR_master_caution_audio     = find_dataref("laminar/B747/warning/master_caution_audio")
 B747DR_fire_ovht_button_pos     = deferred_dataref("laminar/B747/fire/fire_ovht/button_pos", "number")
+B747DR_engine_fire              = find_dataref("sim/cockpit2/annunciators/engine_fire")
+B747DR_apu_fire                 = find_dataref("sim/operation/failures/rel_apu_fire")
 B747DR_init_warning_CD          = deferred_dataref("laminar/B747/warning/init_CD", "number")
 
 
@@ -765,6 +770,10 @@ function cleanAllWhenOff()
     B747DR_master_caution = 0                                                   -- SET THE MASTER CAUTION
     B747DR_master_caution_audio     = 0
     B747DR_master_warning = 0
+    B747DR_warning_bell           	= 0
+    B747DR_warning_siren           	= 0
+    B747DR_warning_wailer           = 0
+    
 end
 
 function stop_caution_audio()
@@ -780,7 +789,11 @@ function B747_CAS_queue()
 
             if B747DR_CAS_warning_status[B747_CASwarningMsg[i].DRindex] == 1 then                       -- WARNING IS ACTIVE
                 table.insert(B747_CASwarning, B747_CASwarningMsg[i].name)                               -- ADD TO THE WARNING QUEUE
-                B747DR_master_warning = 1                                                               -- SET THE MASTER WARNING
+                B747DR_master_warning = 1
+                                                                               -- SET THE MASTER WARNING
+                if i==1 then --AP disconnect? 
+                    B747DR_warning_wailer = 1
+                end
             elseif B747DR_CAS_warning_status[B747_CASwarningMsg[i].DRindex] == 0 then                   -- WARNING IS INACTIVE
                 B747_removeWarning(B747_CASwarningMsg[i].name)                                          -- REMOVE FROM THE WARNING QUEUE
             end
@@ -794,7 +807,19 @@ function B747_CAS_queue()
     elseif B747DR_fire_ovht_button_pos==1 then 
       B747DR_master_warning = 1 
     end 
+    if B747DR_master_warning == 1 then
+        --is there fire?
+        if B747DR_fire_ovht_button_pos > 0 or B747DR_engine_fire > 0 or B747DR_apu_fire > 0 then
+            B747DR_warning_bell           	= 1
+        elseif B747DR_warning_wailer == 0 then
+            B747DR_warning_siren = 1
+        end   
 
+    else
+        B747DR_warning_bell           	= 0
+        B747DR_warning_siren           	= 0
+        B747DR_warning_wailer           = 0
+    end
     ----- CAUTIONS
     for i = 1, #B747_CAScautionMsg do                                                      -- ITERATE THE CAUTIONS DATA TABLE
 
