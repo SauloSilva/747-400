@@ -53,7 +53,7 @@ end
 --*************************************************************************************--
 --**                      GLOBAL VARIABLES                         **--
 --*************************************************************************************--
-
+simDR_time_now						= find_dataref("sim/time/total_running_time_sec")
 B747 = {}
 B747.fuel = {}
 
@@ -350,7 +350,7 @@ local engine2fuelSrc = {}
 local engine3fuelSrc = {}
 local engine4fuelSrc = {}
 
-local fuel_calc_rate = 0.10                             -- FREQUENCY OF FUEL CALCULATION (TIMER)
+local fuel_update_rate = 0.10                             -- FREQUENCY OF FUEL CALCULATION (TIMER)
 
 local fuel_tankToEngine = 0
 
@@ -2121,7 +2121,14 @@ local lastTotalFuel=0
 simDR_fuel_tank_weight_total_kg     = find_dataref("sim/flightmodel/weight/m_fuel_total")
 
 ------ FUEL TANK LEVELS --------------------------------------------------------------
+local lastFuelUpdate=0
 function B747_fuel_tank_levels()
+    if lastFuelUpdate==0 then
+        lastFuelUpdate=simDR_time_now
+    end
+    fuel_calc_rate=simDR_time_now-lastFuelUpdate
+    --print("B747_fuel_tank_levels "..(fuel_calc_rate))
+    lastFuelUpdate=simDR_time_now
     if lastTotalFuel==0 then 
         lastTotalFuel=simDR_fuel_tank_weight_total_kg 
         for i=0,7,1 do
@@ -3225,8 +3232,8 @@ function B747_refueling()
   return
   end
   
-  --local fuelIn=math.min(10.5*fuel_calc_rate,B747DR_refuel)
-  local fuelIn=math.min(100*fuel_calc_rate,B747DR_refuel)
+
+  local fuelIn=math.min(100*fuel_update_rate,B747DR_refuel)
   --print("sending fuel "..fuelIn)
   
   --Marauder28
@@ -3458,7 +3465,7 @@ function B747_flight_start_fuel()
         lastFuelLevels[i]=simDR_fuel_tank_weight_kg[i]
     end
     -- ALL MODES ------------------------------------------------------------------------
-    run_at_interval(B747_fuel_tank_levels, fuel_calc_rate)
+    run_at_interval(B747_fuel_tank_levels, fuel_update_rate)
   
     B747_set_fuel_all_modes()
 
