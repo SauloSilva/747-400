@@ -88,7 +88,7 @@ See the [commit history](https://github.com/mSparks43/747-400/commits/master) fo
 
 ## Release 2.1:
 
-On this day at 13:15 UTC, the last, the very last British Airways 747-400, G-BYGC took to the skies for one last flight from Cardiff (EGFF) to St. Athan (EGSY). Despite the short hop to the breaker's yard, it became an emotional farewell to an aircraft that was used by British Airways for over 50 years.
+On this day 11/12/2021 at 13:15 UTC, the last, the very last British Airways 747-400, G-BYGC took to the skies for one last flight from Cardiff (EGFF) to St. Athan (EGSY). Despite the short hop to the breaker's yard, it became an emotional farewell to an aircraft that was used by British Airways for over 50 years.
 
 G-BYGC is a 747-436 sporting RB211-524G engines- the aircraft first flew on 01/11/1999, and served with British Airways for another 21 years until its retirement on 12/11/20. The aircraft is now preserved at MOD St. Athan, and still lives on despite its official retirement.
 
