@@ -96,7 +96,7 @@ See the [commit history](https://github.com/mSparks43/747-400/commits/master) fo
 - fix fuel use during pause
 - fix floating light in LCF model
 - APU timing fixes
-- Fix engine 4 reverse thrust
+- Fix engine 4 reverse thrust (new contributor: LuckLP)
 - altitude range arc
 - Fix random throttle lever movements
 - minor HYD page tweaks
