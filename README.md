@@ -88,6 +88,18 @@ See the [commit history](https://github.com/mSparks43/747-400/commits/master) fo
 
 ## Release 2.1:
 
+### Special Thanks from **Dyno** (RB211 engine models)
+
+**BottleRocketeer**
+
+Bottle Rocketeer was the quintessential person in allowing me to succeed within 3D graphics, aircraft development, and the RB211's. He single-handedly taught me how to open a new file within Blender, add a cube, and shape it into what is now an engine.
+
+**SamWise**
+
+SamWise was one of the, if not the most important person in getting the visual element of the RB211's to modern-day standards. While I can make a boring, grey, shape, he added life and color to the grey shape- something I fail to do, and am incredibly lucky to have been able to work with him. Thank you for everything Sam!
+
+**Changes 02/11/2020 - 23/09/2021:**
+
 - New RB211-524 real-world data values, integration, performance tables, performance, behavior, EICAS indications
 - PW, RR, and GE engine code fixes (Marauder28)
 - RB211-524 model (Dyno), textures, paintkit
@@ -107,8 +119,8 @@ See the [commit history](https://github.com/mSparks43/747-400/commits/master) fo
 **kudosi**:
 kudosi was extremely instrumental in providing all of the complicated engine and atmospheric formulas to calculate N1, N2, EPR, and EGT for both the GE and PW engine variants.  his tireless work to help model the engine behaviors was the key input needed to code the EEC module.  kudosi also helped with review and testing and compared XP results to real-world 747-400 flight data to ensure a realistic experience.
 
-**dyno**:
-dyno was a great help in testing the engine variants and providing feedback on technical issues and abnormal behaviors.  His efforts were greatly appreciated, especially on last-minute requests to test things prior to release.
+**Dyno**:
+Dyno was a great help in testing the engine variants and providing feedback on technical issues and abnormal behaviors.  His efforts were greatly appreciated, especially on last-minute requests to test things prior to release.
 
 **v1rota7e**:
 v1rota7e provided valuable insight into real-world operations of a 747-400.  He gave guidance on engine and EICAS behaviors, and gave feedback during test flights on where he saw things that were both good and bad from a realism point of view.
