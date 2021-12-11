@@ -198,7 +198,7 @@ B747DR_CAS_caution_status                   = find_dataref("laminar/B747/CAS/cau
 B747DR_CAS_advisory_status                  = find_dataref("laminar/B747/CAS/advisory_status")
 B747DR_CAS_memo_status                      = find_dataref("laminar/B747/CAS/memo_status")
 B747DR_ap_autoland            	= find_dataref("laminar/B747/autopilot/autoland")
-
+B747DR_engineType					= deferred_dataref("laminar/B747/engines/type", "number")
 
 
 
@@ -1513,21 +1513,59 @@ function B747_engines_EICAS_msg()
     
     if simDR_thrust_rev_fail_04 == 6 then B747DR_CAS_advisory_status[129] = 1 else B747DR_CAS_advisory_status[129] = 0 end
 
-    -- >ENG 1 RPM LIM
-   
-    if B747DR_display_N1[0] >= 111.41 then B747DR_CAS_advisory_status[134] = 1 else B747DR_CAS_advisory_status[134] = 0 end
+    if B747DR_engineType == 0 then  --PW4000
+        -- >ENG 1 RPM LIM
 
-    -- >ENG 2 RPM LIM
-    
-    if B747DR_display_N1[1] >= 111.41 then B747DR_CAS_advisory_status[135] = 1 else B747DR_CAS_advisory_status[135] = 0 end
+        if B747DR_display_N1[0] >= 111.41 then B747DR_CAS_advisory_status[134] = 1 else B747DR_CAS_advisory_status[134] = 0 end
 
-    -- >ENG 3 RPM LIM
-    
-    if B747DR_display_N1[2] >= 111.41 then B747DR_CAS_advisory_status[136] = 1 else B747DR_CAS_advisory_status[136] = 0 end
+        -- >ENG 2 RPM LIM
+        
+        if B747DR_display_N1[1] >= 111.41 then B747DR_CAS_advisory_status[135] = 1 else B747DR_CAS_advisory_status[135] = 0 end
 
-    -- >ENG 4 RPM LIM
-    
-    if B747DR_display_N1[3] >= 111.41 then B747DR_CAS_advisory_status[137] = 1 else B747DR_CAS_advisory_status[137] = 0 end
+        -- >ENG 3 RPM LIM
+        
+        if B747DR_display_N1[2] >= 111.41 then B747DR_CAS_advisory_status[136] = 1 else B747DR_CAS_advisory_status[136] = 0 end
+
+        -- >ENG 4 RPM LIM
+        
+        if B747DR_display_N1[3] >= 111.41 then B747DR_CAS_advisory_status[137] = 1 else B747DR_CAS_advisory_status[137] = 0 end
+    end
+
+    if B747DR_engineType == 1 then  --GE CF6
+        -- >ENG 1 RPM LIM
+
+        if B747DR_display_N1[0] >= 117.51 then B747DR_CAS_advisory_status[134] = 1 else B747DR_CAS_advisory_status[134] = 0 end
+
+        -- >ENG 2 RPM LIM
+        
+        if B747DR_display_N1[1] >= 117.51 then B747DR_CAS_advisory_status[135] = 1 else B747DR_CAS_advisory_status[135] = 0 end
+
+        -- >ENG 3 RPM LIM
+        
+        if B747DR_display_N1[2] >= 117.51 then B747DR_CAS_advisory_status[136] = 1 else B747DR_CAS_advisory_status[136] = 0 end
+
+        -- >ENG 4 RPM LIM
+        
+        if B747DR_display_N1[3] >= 117.51 then B747DR_CAS_advisory_status[137] = 1 else B747DR_CAS_advisory_status[137] = 0 end
+    end
+
+    if B747DR_engineType == 2 then  --RR RB211
+        -- >ENG 1 RPM LIM
+
+        if B747DR_display_N1[0] >= 111.51 then B747DR_CAS_advisory_status[134] = 1 else B747DR_CAS_advisory_status[134] = 0 end
+
+        -- >ENG 2 RPM LIM
+        
+        if B747DR_display_N1[1] >= 111.51 then B747DR_CAS_advisory_status[135] = 1 else B747DR_CAS_advisory_status[135] = 0 end
+
+        -- >ENG 3 RPM LIM
+        
+        if B747DR_display_N1[2] >= 111.51 then B747DR_CAS_advisory_status[136] = 1 else B747DR_CAS_advisory_status[136] = 0 end
+
+        -- >ENG 4 RPM LIM
+        
+        if B747DR_display_N1[3] >= 111.51 then B747DR_CAS_advisory_status[137] = 1 else B747DR_CAS_advisory_status[137] = 0 end
+    end
 
     -- CON IGNITION ON
     

@@ -130,7 +130,7 @@ function check_pfd_nd_style()
 end
 
 function check_thrust_ref()
-	if string.match(simConfigData["data"].PLANE.engines, "PW") or string.match(simConfigData["data"].PLANE.engines, "RR") then --  simConfigData["data"].PLANE.thrust_ref == "EPR" then
+	if string.match(simConfigData["data"].PLANE.engines, "PW") or string.match(simConfigData["data"].PLANE.engines, "RB") then --  simConfigData["data"].PLANE.thrust_ref == "EPR" then
 		B747DR_thrust_ref = 0
 	elseif string.match(simConfigData["data"].PLANE.engines, "CF6") then --simConfigData["data"].PLANE.thrust_ref == "N1" then
 		B747DR_thrust_ref = 1
