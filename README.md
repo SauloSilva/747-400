@@ -88,6 +88,12 @@ See the [commit history](https://github.com/mSparks43/747-400/commits/master) fo
 
 ## Release 2.1:
 
+On this day at 13:15 UTC, the last, the very last British Airways 747-400, G-BYGC took to the skies for one last flight from Cardiff (EGFF) to St. Athan (EGSY). Despite the short hop to the breaker's yard, it became an emotional farewell to an aircraft that was used by British Airways for over 50 years.
+
+G-BYGC is a 747-436 sporting RB211-524G engines- the aircraft first flew on 01/11/1999, and served with British Airways for another 21 years until its retirement on 12/11/20. The aircraft is now preserved at MOD St. Athan, and still lives on despite its official retirement.
+
+The Sparky744 Release 2.1 celebrates this historic aircraft, bringing the RB211-524G engines into the simulator and enabling you to continue the task of recreating G-BYGC, and all the other 694 airframes built, with all their complex detail and history. 
+
 ### Special Thanks from **Dyno** (RB211 engine models)
 
 **BottleRocketeer**
@@ -98,7 +104,12 @@ Bottle Rocketeer was the quintessential person in allowing me to succeed within 
 
 SamWise was one of the, if not the most important person in getting the visual element of the RB211's to modern-day standards. While I can make a boring, grey, shape, he added life and color to the grey shape- something I fail to do, and am incredibly lucky to have been able to work with him. Thank you for everything Sam!
 
-**Changes 02/11/2020 - 23/09/2021:**
+**Pilot Mathews**
+
+Pilot Mathews- Pilot Mathews breathed completely new air into our 747, despite the limitations imposed by the paintkit. After working many hours a day, he delivered VH-OEJ and VH-OJM to the highest possible standard, picking up the smallest details such as patches on the wings, how straight the lines of the wings are, scuffs caused by jetways, and much more. VH-OEJ and VH-OJM are both included by default in Patch 2.1, but go check out his other excellent liveries on X-Plane ORG forum!
+
+
+**Changes 24/09/2021 - 11/12/2021:**
 
 - New RB211-524 real-world data values, integration, performance tables, performance, behavior, EICAS indications
 - PW, RR, and GE engine code fixes (Marauder28)
