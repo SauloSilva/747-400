@@ -42,6 +42,7 @@ B747DR_display_N1				= deferred_dataref("laminar/B747/engines/display_N1", "arra
 B747DR_display_N1_ref			= deferred_dataref("laminar/B747/engines/display_N1_ref", "array[4]")
 B747DR_display_N1_max			= deferred_dataref("laminar/B747/engines/display_N1_max", "array[4]")
 B747DR_display_N2				= deferred_dataref("laminar/B747/engines/display_N2", "array[4]")
+B747DR_display_N3				= deferred_dataref("laminar/B747/engines/display_N3", "array[4]")
 B747DR_display_EPR				= deferred_dataref("laminar/B747/engines/display_EPR", "array[4]")
 B747DR_display_EPR_ref			= deferred_dataref("laminar/B747/engines/display_EPR_ref", "array[4]")
 B747DR_display_EPR_max			= deferred_dataref("laminar/B747/engines/display_EPR_max", "array[4]")

@@ -184,8 +184,12 @@ simDR_engine_high_idle_ratio	= find_dataref("sim/aircraft2/engine/high_idle_rati
 simDR_rpm					= find_dataref("sim/cockpit2/engine/indicators/engine_speed_rpm")
 simDR_reverser_on			= find_dataref("sim/cockpit2/annunciators/reverser_on")
 simDR_reverser_deploy_ratio = find_dataref("sim/flightmodel2/engines/thrust_reverser_deploy_ratio")
+simDR_reverser_max			= find_dataref("sim/aircraft/engine/acf_throtmax_REV")
 simDR_engine_running		= find_dataref("sim/flightmodel/engine/ENGN_running")
 simDR_compressor_area		= find_dataref("sim/aircraft/engine/acf_face_jet")
+simDR_autothrottle_enabled	= find_dataref("sim/cockpit2/autopilot/autothrottle_enabled")
+simDR_autothrottle_on		= find_dataref("sim/cockpit2/autopilot/autothrottle_on")
+simDR_engine_starter_status	= find_dataref("sim/flightmodel2/engines/starter_is_running")
 
 --[[
 *************************************************************************************
@@ -194,6 +198,7 @@ simDR_compressor_area		= find_dataref("sim/aircraft/engine/acf_face_jet")
 ]]
 simCMD_autopilot_AT_off		= find_command("sim/autopilot/autothrottle_off")
 simCMD_ThrottleUp			= find_command("sim/engines/throttle_up")
+simCMD_ThrottleDown			= find_command("sim/engines/throttle_down")
 
 --[[
 *************************************************************************************
@@ -259,6 +264,7 @@ B747DR_display_N1					= deferred_dataref("laminar/B747/engines/display_N1", "arr
 B747DR_display_N1_ref				= deferred_dataref("laminar/B747/engines/display_N1_ref", "array[4]")
 B747DR_display_N1_max				= deferred_dataref("laminar/B747/engines/display_N1_max", "array[4]")
 B747DR_display_N2					= deferred_dataref("laminar/B747/engines/display_N2", "array[4]")
+B747DR_display_N3					= deferred_dataref("laminar/B747/engines/display_N3", "array[4]")
 B747DR_display_EPR					= deferred_dataref("laminar/B747/engines/display_EPR", "array[4]")
 B747DR_display_EPR_ref				= deferred_dataref("laminar/B747/engines/display_EPR_ref", "array[4]")
 B747DR_display_EPR_max				= deferred_dataref("laminar/B747/engines/display_EPR_max", "array[4]")
@@ -279,7 +285,10 @@ B747DR_simconfig_data				= deferred_dataref("laminar/B747/simconfig", "string")
 B747DR_newsimconfig_data				= deferred_dataref("laminar/B747/newsimconfig", "number")
 --FMS data
 B747DR_FMSdata						= deferred_dataref("laminar/B747/fms/data", "string")
-
+B747DR_autothrottle_fail			= deferred_dataref("laminar/B747/engines/autothrottle_fail", "number")
+B747DR_ap_vvi_fpm					= deferred_dataref("laminar/B747/autopilot/vvi_fpm")
+B747DR_ap_ias_bug_value				= deferred_dataref("laminar/B747/autopilot/ias_bug_value")
+B747DR_airspeed_pilot				= deferred_dataref("laminar/B747/gauges/indicators/airspeed_kts_pilot")			
 
 --[[
 *************************************************************************************
@@ -425,6 +434,13 @@ function flight_coefficients(gw_kg_in, tas_kts_in)
 		flaps_incremental_drag = 0.108
 	end
 
+	--Removed the above flaps drag code since it was doing weird things to the initial climb calculations.  Now just use minimal flaps drag regardless of the flaps setting.
+	--if tonumber(string.format("%4.3f", simDR_flap_ratio)) > 0.0 then
+	--	flaps_incremental_drag = 0.008
+	--else
+	--	flaps_incremental_drag = 0.0
+	--end
+
 	tas_mtrs_sec = tas_kts_in / mtrs_per_sec
     mach = tas_mtrs_sec / speed_of_sound
     cL = (gw_kg_in * 9.81) / (0.5 * density * tas_mtrs_sec^2 * 511)
@@ -517,7 +533,7 @@ function take_off_thrust_corrected(altitude_ft_in, temperature_K_in)
 	  TOGA_corrected_thrust_lbf = TOGA_corrected_thrust_lbf * 0.8
 	end
   
-	TOGA_actual_thrust_lbf = TOGA_corrected_thrust_lbf * pressure_ratio
+	TOGA_actual_thrust_lbf = TOGA_corrected_thrust_lbf * sigma_density_ratio  --pressure_ratio
 	TOGA_actual_thrust_N = TOGA_actual_thrust_lbf * lbf_to_N
   
 	if enable_logging then
@@ -581,8 +597,11 @@ function throttle_management()
 
 	--Disconnect A/T if any of the EEC buttons move from NORMAL to ALTERNATE
 	if (B747DR_button_switch_position[7] == 0 or B747DR_button_switch_position[8] == 0 or B747DR_button_switch_position[9] == 0 or B747DR_button_switch_position[10] == 0) and EEC_status == 0 then
-		simCMD_autopilot_AT_off:once()
+		--simCMD_autopilot_AT_off:once()
+		B747DR_autothrottle_fail = 1
 		EEC_status = 1
+		simDR_autothrottle_enabled = 0
+		simDR_autothrottle_on = 0
 	elseif (B747DR_button_switch_position[7] == 1 and B747DR_button_switch_position[8] == 1 and B747DR_button_switch_position[9] == 1 and B747DR_button_switch_position[10] == 1) then
 		EEC_status = 0
 	end
@@ -688,8 +707,12 @@ function throttle_management()
 		--Take control of the throttles from the user and manage via Thrust Ref targets
 		--hold_mode = 0
 		if B747DR_ap_FMA_active_pitch_mode == 1 or B747DR_ap_FMA_active_pitch_mode == 4
-		or B747DR_ap_FMA_active_pitch_mode == 5 or B747DR_ap_FMA_active_pitch_mode == 6 then
+		or B747DR_ap_FMA_active_pitch_mode == 5 or B747DR_ap_FMA_active_pitch_mode == 6 --then
+		or B747DR_ap_FMA_active_pitch_mode == 7 or B747DR_ap_FMA_active_pitch_mode == 8
+		or B747DR_ap_FMA_active_pitch_mode == 9 then
 			simDR_override_throttles = 1
+			simDR_autothrottle_enabled = 2
+			simDR_autothrottle_on = 1
 		end
 
 		--Thrust ref target line should stay GREEN when in TOGA mode
@@ -708,6 +731,10 @@ function throttle_management()
 	elseif B747DR_ap_autothrottle_armed == 1 and B747DR_ap_FMA_autothrottle_mode == 1 and EEC_status == 0 then
 		--Give throttle control back to the user
 		simDR_override_throttles = 0
+		if simDR_autothrottle_enabled == 2 and simDR_autothrottle_on == 1 then
+			simDR_autothrottle_enabled = 0
+			simDR_autothrottle_on = 0
+		end
 		B747DR_ref_line_magenta = 0
 		--hold_mode = 1
 
@@ -721,6 +748,10 @@ function throttle_management()
 		--Give throttle control back to the user
 		--hold_mode = 0
 		simDR_override_throttles = 0
+		if simDR_autothrottle_enabled == 2 and simDR_autothrottle_on == 1 then
+			simDR_autothrottle_enabled = 0
+			simDR_autothrottle_on = 0
+		end
 		B747DR_ref_line_magenta = 0
 		--speed_mode = 1
 		
@@ -728,8 +759,14 @@ function throttle_management()
 			print("SPEED MODE")
 			print("Override Throttles = ", simDR_override_throttles)
 		end
+	elseif B747DR_autothrottle_fail == 1 then
+		--Autothrottle has been disabled for some reason
+		simDR_autothrottle_enabled = 0
+		simDR_autothrottle_on = 0
 	else
 		simDR_override_throttles = 0
+		--simDR_autothrottle_enabled = 0
+		--simDR_autothrottle_on = 0
 		B747DR_ref_line_magenta = 0
 		--hold_mode = 0
 		--speed_mode = 0

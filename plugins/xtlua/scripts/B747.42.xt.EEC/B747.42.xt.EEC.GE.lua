@@ -8,17 +8,23 @@
 *   2021-01-11	0.01a				      Start of Dev
 *	  2021-05-27	0.1					      Initial Release
 *   2021-06-16  0.2               Added Engine Idle Control
-*
+*	  2021-12-11	0.3				        New Throttle Resolver Angle formula, various bug fixes
 *
 *****************************************************************************************
 ]]
 
-function throttle_resolver_angle_N1(engine_in)
+--This function calculates the target position of the throttle target on the Upper EICAS
+function throttle_resolver_angle_GE(engine_in)
   local throttle_angle = 0.0
+  local thrust_ratio_factor = 1.0
 
-	throttle_angle = B747_rescale(0.0, 0.0, 1.0, (B747DR_display_N1_max[engine_in] / 117.5), simDR_throttle_ratio[engine_in])
+  thrust_ratio_factor = B747DR_display_N1_max[engine_in] / 116.0  --117.5
+
+  throttle_angle = (3.022549485226715E-03  + 1.441727698320892E+00  * simDR_throttle_ratio[engine_in] + -9.568752920557220E-01  * simDR_throttle_ratio[engine_in]^2
+                  + 9.989724112918770E-01 * simDR_throttle_ratio[engine_in]^3 + -4.927345191979758E-01 * simDR_throttle_ratio[engine_in]^4) * thrust_ratio_factor
 
   if enable_logging then
+    print("Thrust Factor = ", thrust_ratio_factor)
     print("TRA = ", throttle_angle)
   end
 
@@ -40,7 +46,7 @@ function engine_idle_control_GE(altitude_ft_in)
   --MINIMUM (LOW) Idle
   --------------------
   --When on ground and flaps not in landing configuration, low idle fluctuates based on temperature
-  if simDR_onGround == 1 or firstCall then
+  if simDR_onGround == 1 then
     if simDR_temperature < 15.0 then
       simDR_engine_high_idle_ratio = B747_rescale(-75.0, 1.04, 14.99, 1.249, simDR_temperature)
     else
@@ -66,7 +72,7 @@ function engine_idle_control_GE(altitude_ft_in)
   if (simDR_onGround == 0 and simDR_flap_ratio > 0.667)
     or (simDR_onGround == 0 and B747DR_button_switch_position[44] == 1)  --CONTinuous Ignition
     or (simDR_onGround == 0 and math.max(B747DR_nacelle_ai_valve_pos[0], B747DR_nacelle_ai_valve_pos[1], B747DR_nacelle_ai_valve_pos[2], B747DR_nacelle_ai_valve_pos[3]) == 1)  --Engine A/I
-    or ((simDR_onGround == 1  or firstCall) and math.max(simDR_reverser_on[0], simDR_reverser_on[1], simDR_reverser_on[2], simDR_reverser_on[3]) == 1) then  --Reversers deployed
+    or (simDR_onGround == 1 and math.max(simDR_reverser_on[0], simDR_reverser_on[1], simDR_reverser_on[2], simDR_reverser_on[3]) == 1) then  --Reversers deployed
       simDR_engine_high_idle_ratio = N1_high_idle_ratio
       
       --Reset to LOW Idle 5 seconds after touchdown (TBD)
@@ -509,9 +515,15 @@ function N1_display_GE(altitude_ft_in, thrust_N_in, n1_factor_in, engine_in)
     N1_actual = N1_corrected * math.sqrt(temperature_ratio)
 
     --Keep the N1 display steady during TO until we manage thrust or 2000 AGL unmanaged
-    if (string.match(B747DR_ref_thr_limit_mode, "TO") or ((simDR_onGround == 1 or firstCall) and B747DR_ref_thr_limit_mode == "GA"))
+    if (string.match(B747DR_ref_thr_limit_mode, "TO") or (simDR_onGround == 1 and B747DR_ref_thr_limit_mode == "GA"))
       or ((B747DR_ref_thr_limit_mode == "NONE" or B747DR_ref_thr_limit_mode == "") and B747DR_radio_altitude < 2000) then
         N1_actual = simDR_N1[engine_in] * n1_factor_in
+    end
+
+    --Engine Idle Logic (Minimum / Approach)
+    N1_low_idle = engine_idle_control_GE(altitude_ft_in)
+    if tonumber(N1_actual) < tonumber(N1_low_idle) and simDR_engine_running[engine_in] == 1 then
+      N1_actual = N1_low_idle
     end
 
     if enable_logging then
@@ -527,12 +539,6 @@ function N1_display_GE(altitude_ft_in, thrust_N_in, n1_factor_in, engine_in)
       print("TO Factor = ", n1_factor_in)
       print("N1 Actual = ", N1_actual)
       print("Last Thrust In = ", last_thrust_n[engine_in])
-    end
-
-    --Engine Idle Logic (Minimum / Approach)
-    N1_low_idle = engine_idle_control_GE(altitude_ft_in)
-    if tonumber(N1_actual) < tonumber(N1_low_idle) and simDR_engine_running[engine_in] == 1 then
-      N1_actual = N1_low_idle
     end
 
     return N1_actual
@@ -756,7 +762,7 @@ function GE(altitude_ft_in)
     EGT_display[i] = EGT_display_GE(i)
     B747DR_display_GE_EGT[i] = EGT_display[i]
 
-    B747DR_throttle_resolver_angle[i] = throttle_resolver_angle_N1(i)
+    B747DR_throttle_resolver_angle[i] = throttle_resolver_angle_GE(i)
 	end
 
   if enable_logging then

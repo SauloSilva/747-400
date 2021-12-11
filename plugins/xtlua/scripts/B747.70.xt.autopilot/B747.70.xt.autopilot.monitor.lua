@@ -293,7 +293,7 @@ function B747_monitor_THR_REF_AT()
     
     --Marauder28
     --Defer throttle control to EEC module
-    if (string.match(simConfigData["data"].PLANE.engines, "CF6") or string.match(simConfigData["data"].PLANE.engines, "PW")) and
+    if (string.match(simConfigData["data"].PLANE.engines, "CF6") or string.match(simConfigData["data"].PLANE.engines, "PW") or string.match(simConfigData["data"].PLANE.engines, "RB")) and
         (string.match(B747DR_ref_thr_limit_mode, "TO") or string.match(B747DR_ref_thr_limit_mode, "CLB")) then
         return
     end

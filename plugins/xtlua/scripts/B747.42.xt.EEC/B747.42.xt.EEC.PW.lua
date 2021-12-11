@@ -2,41 +2,32 @@
 ****************************************************************************************
 * Program Script Name	:	B747.42.xt.EEC.PW.lua
 * Author Name			:	Marauder28
-*                           (with SIGNIFICANT contributions from @kudosi for aeronautic formulas)
+*                   (with SIGNIFICANT contributions from @kudosi for aeronautic formulas)
 *   Revisions:
 *   -- DATE --	--- REV NO ---		--- DESCRIPTION ---
 *   2021-01-11	0.01a				      Start of Dev
 *	  2021-08-13	0.1				        Initial Release
-*
+*	  2021-12-11	0.2				        New Throttle Resolver Angle formula, various bug fixes
 *
 *
 *****************************************************************************************
 ]]
 
-function throttle_resolver_angle_EPR(engine_in)
-  --[[  THIS MODULE IS A WORK-IN-PROGRESS!!!  ]]
+--This function calculates the target position of the throttle target on the Upper EICAS
+function throttle_resolver_angle_PW(engine_in)
   local throttle_angle = 0.0
-  local thrust_ratio = 0.0
-  local throttle_angle_calc = 0.0
-
   local thrust_ratio_factor = 1.0
 
-  --thrust_ratio_factor = B747DR_display_EPR_max[engine_in] / 1.76
-  --thrust_ratio_factor = B747_rescale(0.85, 0.0, 1.76, 1.0, B747DR_display_EPR_max[engine_in])
-  --thrust_ratio = math.min(0.00012 * (74.1 * simDR_engn_thro[engine_in] + 25.9)^2 - 0.00179 * (74.1 * simDR_engn_thro[engine_in] + 25.9), 1.0)
-  --thrust_ratio = math.max((193 * simDR_throttle_ratio[engine_in]^3 - 360 * simDR_throttle_ratio[engine_in]^2 + 258 * simDR_throttle_ratio[engine_in] + 11.3) * 0.0135 - 0.3495, 0.03495)
-  --throttle_angle = thrust_ratio * thrust_ratio_factor
+  thrust_ratio_factor = B747DR_display_EPR_max[engine_in] / 1.71
 
-  --<<Original>>
-  throttle_angle = B747_rescale(0.0, 0.0, 1.0, (B747DR_display_EPR_max[engine_in] / 1.7), simDR_throttle_ratio[engine_in])
-  
+  throttle_angle = (9.798811078790268E-02  + 2.547824079911253E+00  * simDR_throttle_ratio[engine_in] + -4.383605884770404E+00  * simDR_throttle_ratio[engine_in]^2
+                  + 3.710724888771679E+00 * simDR_throttle_ratio[engine_in]^3 + -9.728684894100634E-01 * simDR_throttle_ratio[engine_in]^4) * thrust_ratio_factor
 
   if throttle_angle > 1.0 then
     throttle_angle = 1.0
   end
 
   if enable_logging then
-    print("Thrust Ratio = ", thrust_ratio)
     print("Thrust Factor = ", thrust_ratio_factor)
     print("TRA = ", throttle_angle)
   end
@@ -98,8 +89,8 @@ function engine_idle_control_PW(altitude_ft_in)
   end
   
   function thrust_ref_control_EPR()
-      local throttle_move_units = 0.001
-      local target_tolerance_EPR = 0.03
+      local throttle_move_units = 0.0 --0.001
+      local target_tolerance_EPR = 0.015 --0.05
       local tolerance_diff = {}
   
       --If Dataref updates aren't current, then wait for another cycle
@@ -318,10 +309,11 @@ function engine_idle_control_PW(altitude_ft_in)
     TOGA_corrected_thrust_N = TOGA_actual_thrust_N / (1000 * sigma_density_ratio)
     --TOGA_corrected_thrust_N = TOGA_actual_thrust_N / (1000 * pressure_ratio)
     TOGA_corrected_thrust_calibrated_N = (-0.4795 * mach^2 + 0.5903 * mach + 0.925) * TOGA_corrected_thrust_N  --Sigma version 2
+    --TOGA_corrected_thrust_calibrated_N = (-0.0811 * mach^2 + 0.2349 * mach + 0.919) * TOGA_corrected_thrust_N  --Sigma version 2
   
     --Mach should always be 0 for purposes of this calculation
-    --mach = -0.0
-    mach = -0.046  --this seems to give a slightly better calculation as compared to the FCOM tables
+    mach = 0.0
+    --mach = -0.046  --this seems to give a slightly better calculation as compared to the FCOM tables
   
     EPR_actual = (-1.8E-08 * mach^2 - 5.87E-08 * mach + 7.179999999999999E-08) * TOGA_corrected_thrust_calibrated_N^3 + (-0.0000237 * mach^2 + 0.0000529 * mach - 0.0000218)
       * TOGA_corrected_thrust_calibrated_N^2 + (0.002 * mach^2 - 0.0036 * mach + 0.0034) * TOGA_corrected_thrust_calibrated_N + (-0.3287 * mach^2 - 0.0833 * mach + 0.9932)
@@ -516,7 +508,8 @@ function engine_idle_control_PW(altitude_ft_in)
     N1_corrected_thrust_n = thrust_N_in / (1000 * sigma_density_ratio)
     --N1_corrected_thrust_n = thrust_N_in / (1000 * pressure_ratio)
 
-    N1_corrected_thrust_calibrated_N = (-0.4795 * mach^2 + 0.5903 * mach + 0.925) * N1_corrected_thrust_n  --Sigma version 2
+    --N1_corrected_thrust_calibrated_N = (-0.4795 * mach^2 + 0.5903 * mach + 0.925) * N1_corrected_thrust_n  --Sigma version 2
+    N1_corrected_thrust_calibrated_N = (-0.0811 * mach^2 + 0.2349 * mach + 0.919) * N1_corrected_thrust_n  --Sigma version 2
 
     --N1_corrected_rpm = (0.0136 * mach^2 - 0.00905 * mach - 0.0107) * N1_corrected_thrust_calibrated_N^2 + (-5.84 * mach^2 + 0.512 * mach + 13.5) * N1_corrected_thrust_calibrated_N
     --  + (-508 * mach^2 + 1792.2 * mach + 1065.4)
@@ -532,15 +525,17 @@ function engine_idle_control_PW(altitude_ft_in)
     
     if N1_pct < 51 then 
       N1_actual = (51 - N1_low_idle) / (51 - N1_idle_capture) * (N1_pct - N1_idle_capture) + N1_low_idle
-      if N1_actual < simDR_N1[engine_in] then
-        N1_actual = simDR_N1[engine_in]
-      end
     else
       N1_actual = N1_pct
     end
 
     if N1_actual < N1_low_idle and N1_corrected_rpm >= 1065.4 then
       N1_actual = N1_low_idle
+    end
+
+    --During Startup / Shutdown track the XP N1 value if the formulas aren't reasonable
+    if N1_actual < simDR_N1[engine_in] then
+      N1_actual = simDR_N1[engine_in]
     end
 
     if enable_logging then
@@ -593,6 +588,7 @@ function engine_idle_control_PW(altitude_ft_in)
       --EPR_corrected_thrust_N = thrust_N_in / (1000 * pressure_ratio)
     
       EPR_corrected_thrust_calibrated_N = (-0.4795 * mach^2 + 0.5903 * mach + 0.925) * EPR_corrected_thrust_N  --Sigma version 2
+      --EPR_corrected_thrust_calibrated_N = (-0.0811 * mach^2 + 0.2349 * mach + 0.919) * EPR_corrected_thrust_N  --Sigma version 2
 
       EPR_actual = (-1.8E-08 * mach^2 - 5.87E-08 * mach + 7.179999999999999E-08) * EPR_corrected_thrust_calibrated_N^3 + (-0.0000237 * mach^2 + 0.0000529 * mach - 0.0000218)
         * EPR_corrected_thrust_calibrated_N^2 + (0.002 * mach^2 - 0.0036 * mach + 0.0034) * EPR_corrected_thrust_calibrated_N + (-0.3287 * mach^2 - 0.0833 * mach + 0.9932)
@@ -600,6 +596,11 @@ function engine_idle_control_PW(altitude_ft_in)
       --Ensure EPR doesn't drop to an unrealistic value during IDLE descent.  This also ensures that the EPR tapes don't fall off the display.
       if EPR_actual < 0.97 then
         EPR_actual = 0.97
+      --try to combat the formula issue where EPR increases due to mach rising faster than thrust decreases during TO
+      elseif B747DR_ref_thr_limit_mode ~= "GA" and simDR_flap_ratio > 0.0 then
+        if EPR_actual > B747DR_display_EPR_max[engine_in] then
+          EPR_actual = B747DR_display_EPR_max[engine_in]
+        end
       end
 
       if enable_logging then
@@ -732,12 +733,12 @@ function engine_idle_control_PW(altitude_ft_in)
 
       takeoff_thrust_epr_throttle = B747_rescale(0.0, 0.0, tonumber(takeoff_TOGA_epr), 1.0, tonumber(takeoff_thrust_epr))
       
-      -- Set N1 Target Bugs & Reference Indicator
+      -- Set EPR Target Bugs & Reference Indicator
       --Due to display issues on the EICAS, keep the REF and MAX limit lines at a max of 1.70 otherwise they get painted above the EPR tape
       for i = 0, 3 do
         simDR_EPR_target_bug[i] = string.format("%3.2f",takeoff_thrust_epr) + packs_adjustment_value + engine_anti_ice_adjustment_value
-        B747DR_display_EPR_ref[i] = math.min(string.format("%3.2f",takeoff_thrust_epr) + packs_adjustment_value + engine_anti_ice_adjustment_value, 1.70)
-        B747DR_display_EPR_max[i] = math.min(string.format("%3.2f",takeoff_thrust_epr) + packs_adjustment_value + engine_anti_ice_adjustment_value, 1.70)
+        B747DR_display_EPR_ref[i] = math.min(string.format("%3.2f",takeoff_thrust_epr) + packs_adjustment_value + engine_anti_ice_adjustment_value, 1.71)
+        B747DR_display_EPR_max[i] = math.min(string.format("%3.2f",takeoff_thrust_epr) + packs_adjustment_value + engine_anti_ice_adjustment_value, 1.71)
       end
 
       B747DR_TO_throttle = takeoff_thrust_epr_throttle
@@ -753,16 +754,16 @@ function engine_idle_control_PW(altitude_ft_in)
   
         --Set target bugs
       for i = 0, 3 do
-        if simDR_flap_ratio > 0.0 then
-          simDR_EPR_target_bug[i] = string.format("%3.2f", EPR_initial_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value
-          B747DR_display_EPR_ref[i] = math.min(string.format("%3.2f", EPR_initial_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value, 1.70)
-          B747DR_display_EPR_max[i] = math.min(string.format("%3.2f", EPR_initial_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value, 1.70)
-        elseif EPR_actual > EPR_max_climb then
+        --if simDR_flap_ratio > 0.0 then
+        --  simDR_EPR_target_bug[i] = string.format("%3.2f", EPR_initial_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value
+        --  B747DR_display_EPR_ref[i] = math.min(string.format("%3.2f", EPR_initial_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value, 1.71)
+        --  B747DR_display_EPR_max[i] = math.min(string.format("%3.2f", EPR_initial_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value, 1.71)
+        if EPR_actual > EPR_max_climb then
           simDR_EPR_target_bug[i] = string.format("%3.2f", EPR_max_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value
-          B747DR_display_EPR_ref[i] = math.min(string.format("%3.2f", EPR_max_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value, 1.70)
+          B747DR_display_EPR_ref[i] = math.min(string.format("%3.2f", EPR_max_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value, 1.71)
         else
           simDR_EPR_target_bug[i] = string.format("%3.2f", EPR_actual) + packs_adjustment_value + engine_anti_ice_adjustment_value
-          B747DR_display_EPR_ref[i] = math.min(string.format("%3.2f", EPR_actual) + packs_adjustment_value + engine_anti_ice_adjustment_value, 1.70)
+          B747DR_display_EPR_ref[i] = math.min(string.format("%3.2f", EPR_actual) + packs_adjustment_value + engine_anti_ice_adjustment_value, 1.71)
         end
 
         if B747DR_display_EPR_max[i] < B747DR_display_EPR_ref[i] then
@@ -773,10 +774,15 @@ function engine_idle_control_PW(altitude_ft_in)
       EPR_actual, _, EPR_max_climb = in_flight_EPR_PW(altitude_ft_in, 0)
 
       --Use LRC lookup tables from FCOM to determine approximate CRZ max EPR
-      target_weight = find_closest_weight(LRC_epr_PW4056, math.ceil(simDR_acf_weight_total_kg / 1000))
-      target_alt = find_closest_altitude(LRC_epr_PW4056, math.ceil(altitude_ft_in / 1000))
+      --target_weight = find_closest_weight(LRC_epr_PW4056, math.ceil(simDR_acf_weight_total_kg / 1000))
+      --target_alt = find_closest_altitude(LRC_epr_PW4056, math.ceil(altitude_ft_in / 1000))
 
-      EPR_max_cruise = LRC_epr_PW4056[target_weight][target_alt] + 0.10  --Add 0.10 EPR to the LRC table value as a guess
+      --EPR_max_cruise = LRC_epr_PW4056[target_weight][target_alt] + 0.10  --Add 0.10 EPR to the LRC table value as a guess
+
+      target_weight = find_closest_weight(P85M_epr_PW4062, math.ceil(simDR_acf_weight_total_kg / 1000))
+      target_alt = find_closest_altitude(P85M_epr_PW4062, math.ceil(altitude_ft_in / 1000))
+
+      EPR_max_cruise = P85M_epr_PW4062[target_weight][target_alt] --+ 0.10  --Add 0.10 EPR to the LRC table value as a guess
 
       --Set target bugs
       for i = 0, 3 do
@@ -804,8 +810,8 @@ function engine_idle_control_PW(altitude_ft_in)
           simDR_EPR_target_bug[i] = string.format("%3.2f", -0.00669 * simDR_TAT + 1.74 + packs_adjustment_value + engine_anti_ice_adjustment_value)
         end
         --simDR_EPR_target_bug[i] = TOGA_epr_PW4056[temperature][altitude] + packs_adjustment_value + engine_anti_ice_adjustment_value
-        B747DR_display_EPR_ref[i] = math.min(simDR_EPR_target_bug[i], 1.70)
-        B747DR_display_EPR_max[i] = math.min(simDR_EPR_target_bug[i], 1.70)
+        B747DR_display_EPR_ref[i] = math.min(simDR_EPR_target_bug[i], 1.71)
+        B747DR_display_EPR_max[i] = math.min(simDR_EPR_target_bug[i], 1.71)
       end
     end
 
@@ -843,7 +849,7 @@ function engine_idle_control_PW(altitude_ft_in)
       EGT_display[i] = EGT_display_PW(i)
       B747DR_display_EGT[i] = EGT_display[i]
   
-      B747DR_throttle_resolver_angle[i] = throttle_resolver_angle_EPR(i)
+      B747DR_throttle_resolver_angle[i] = throttle_resolver_angle_PW(i)
 
     end
   
