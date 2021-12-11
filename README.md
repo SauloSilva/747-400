@@ -86,6 +86,21 @@ You may be experiencing this if you have SAM v3. To fix, disable the "Jetway Ext
 ### Changelog:
 See the [commit history](https://github.com/mSparks43/747-400/commits/master) for detailed changes.
 
+## Release 2.1:
+
+- New RB211-524 real-world data values, integration, performance tables, performance, behavior, EICAS indications
+- PW, RR, and GE engine code fixes
+- RB211-524 model, textures, paintkit
+- G-BYGC, VH-OEJ, VH-OJM liveries
+- Engines selectable by livery or the FMC
+- fix fuel use during pause
+- fix floating light in LCF model
+- APU timing fixes
+- Fix engine 4 reverse thrust
+- altitude range arc
+- Fix random throttle lever movements
+- minor HYD page tweaks
+
 ## Release 2:
 
 ### Special Thanks
