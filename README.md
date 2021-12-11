@@ -89,9 +89,9 @@ See the [commit history](https://github.com/mSparks43/747-400/commits/master) fo
 ## Release 2.1:
 
 - New RB211-524 real-world data values, integration, performance tables, performance, behavior, EICAS indications
-- PW, RR, and GE engine code fixes
-- RB211-524 model, textures, paintkit
-- G-BYGC, VH-OEJ, VH-OJM liveries
+- PW, RR, and GE engine code fixes (Marauder28)
+- RB211-524 model (Dyno), textures, paintkit
+- VH-OEJ, VH-OJM liveries (Pilot Mathews)
 - Engines selectable by livery or the FMC
 - fix fuel use during pause
 - fix floating light in LCF model
