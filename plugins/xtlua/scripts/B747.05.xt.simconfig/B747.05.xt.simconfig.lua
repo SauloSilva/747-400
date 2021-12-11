@@ -63,7 +63,8 @@ B747DR_efis_baro_ref_fo_switch_pos			= deferred_dataref("laminar/B747/efis/baro_
 
 -- Engine Type (crazytimitmtim)
 B747DR_engineType                               = deferred_dataref("laminar/B747/engines/type", "number")
-
+B747DR_hideGE						= deferred_dataref("laminar/B747/engines/hideGE", "number") 
+B747DR_hideRR						= deferred_dataref("laminar/B747/engines/hideRR", "number") 
 --*************************************************************************************--
 --** 				        MAIN PROGRAM LOGIC                                       **--
 --*************************************************************************************--
@@ -143,12 +144,20 @@ end
 function checkEngineType()
 	if string.match(simConfigData["data"].PLANE.engines, "PW") then
 		B747DR_engineType = 0
+		B747DR_hideGE=0
+		B747DR_hideRR=1
 	elseif string.match(simConfigData["data"].PLANE.engines, "CF") then
 		B747DR_engineType = 1
+		B747DR_hideGE=0
+		B747DR_hideRR=1
 	elseif string.match(simConfigData["data"].PLANE.engines, "RB") then
 		B747DR_engineType = 2
+		B747DR_hideGE=1
+		B747DR_hideRR=0
 	else --Assume PW if all else fails
 		B747DR_engineType = 0
+		B747DR_hideGE=0
+		B747DR_hideRR=1
 	end
 end
 -- crazytimtimtim end
