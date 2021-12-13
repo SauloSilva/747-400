@@ -753,14 +753,14 @@ function GE(altitude_ft_in)
 
 	for i = 0, 3 do
     --takeoff_TOGA_n1 (max TO) is used as a factor to compute N1 for TO based on the simDR_N1 to prevent N1 display loss during TO -- in flight it is calculated based on Newtons
-    N1_display[i] = string.format("%4.1f", N1_display_GE(altitude_ft_in, simDR_thrust_n[i], takeoff_TOGA_n1 / 100, i))  --use i as a reference for engine number
-    B747DR_display_N1[i] = N1_display[i]
+    N1_display[i] = string.format("%4.1f", math.min(N1_display_GE(altitude_ft_in, simDR_thrust_n[i], takeoff_TOGA_n1 / 100, i), 118.0))  --use i as a reference for engine number
+    B747DR_display_N1[i] = math.max(N1_display[i], 0.0)
 
-    N2_display[i] = string.format("%4.1f", N2_display_GE(N1_display[i], i))  --use N1 as input for calcs
-    B747DR_display_N2[i] = N2_display[i]
+    N2_display[i] = string.format("%4.1f", math.min(N2_display_GE(N1_display[i], i), 112.5))  --use N1 as input for calcs
+    B747DR_display_N2[i] = math.max(N2_display[i], 0.0)
 
     EGT_display[i] = EGT_display_GE(i)
-    B747DR_display_GE_EGT[i] = EGT_display[i]
+    B747DR_display_GE_EGT[i] = math.max(EGT_display[i], 0.0)
 
     B747DR_throttle_resolver_angle[i] = throttle_resolver_angle_GE(i)
 	end
