@@ -581,18 +581,17 @@ function engine_idle_control_RR(altitude_ft_in)
     if N1_engine_start[engine_in] == nil then N1_engine_start[engine_in] = 0.0 end
     if last_N1[engine_in] == nil then last_N1[engine_in] = 0.0 end
 
-    if simDR_engine_running[engine_in] == 0 then
-      thrust_N_in = last_thrust_n[engine_in]
-    end
-
-    if thrust_N_in < 0.0 and simDR_engine_running[engine_in] == 1 then
-      thrust_N_in = 0.0
+    if simDR_engine_running[engine_in] == 0 and thrust_N_in >= 0.0 then
+      thrust_N_in = last_thrust_n[engine_in]-25
     end
 
     if simDR_engine_running[engine_in] == 1 and last_thrust_n[engine_in] < thrust_N_in and last_thrust_n[engine_in] < 3500 then
       thrust_N_in = last_thrust_n[engine_in]
     end
 
+    if thrust_N_in < 0.0 and simDR_engine_running[engine_in] == 1 then
+      thrust_N_in = 0.0
+    end
     N1_corrected_thrust_n = thrust_N_in / (1000 * sigma_density_ratio)
     --N1_corrected_thrust_n = thrust_N_in / (1000 * pressure_ratio)
 
@@ -601,7 +600,7 @@ function engine_idle_control_RR(altitude_ft_in)
 
     N1_corrected_rpm = (0.0136 * mach^2 - 0.00905 * mach - 0.0107) * N1_corrected_thrust_calibrated_N^2 + (-5.84 * mach^2 + 0.512 * mach + 13.5) * N1_corrected_thrust_calibrated_N
       + (-508 * mach^2 + 1792.2 * mach + 1065.4)
-
+    
     --N1_corrected_rpm = (0.0136 * mach^2 - 0.00905 * mach - 0.0107) * N1_corrected_thrust_calibrated_N^2 + (-5.84 * mach^2 + 0.512 * mach + 13.5) * N1_corrected_thrust_calibrated_N
     --  + (-508 * mach^2 + 1792.2 * mach + B747_rescale(0.0, 0.0, 750.0, 1065.4, simDR_rpm[engine_in]))  -- + 1065.4)
 
@@ -645,7 +644,7 @@ function engine_idle_control_RR(altitude_ft_in)
     elseif simDR_engine_running[engine_in] == 1 and last_thrust_n[engine_in] <= thrust_N_in and last_thrust_n[engine_in] < 3500 then
       last_thrust_n[engine_in] = last_thrust_n[engine_in] + 50  --+ 100
     --Handle display of an engine shutdown
-    elseif simDR_engine_running[engine_in] == 0 and simDR_engine_starter_status[engine_in] == 0 then
+    elseif simDR_engine_running[engine_in] == 0 and simDR_engine_starter_status[engine_in] == 0 and simDR_N1[engine_in] < 10 then
       thrust_N_in = last_thrust_n[engine_in]
       if N1_actual >= 20 then
         last_thrust_n[engine_in] = last_thrust_n[engine_in] - 75
@@ -686,8 +685,8 @@ function engine_idle_control_RR(altitude_ft_in)
         simDR_thrust_max = engine_max_thrust_n
     end
 
-    if enable_logging then
-      print("----- N1 Display -----")
+    --if enable_logging then
+      print("----- N1 Display ----- "..engine_in)
       print("N1 Corrected Thrust = ", N1_corrected_thrust_n)
       print("N1 Calibrated Thrust = ", N1_corrected_thrust_calibrated_N)
       print("N1 Corrected RPM = ", N1_corrected_rpm)
@@ -699,7 +698,7 @@ function engine_idle_control_RR(altitude_ft_in)
       print("Last Thrust In = ", last_thrust_n[engine_in])
       print("Last N1 = ", last_N1[engine_in])
       print("N1 Engine Start = ", N1_engine_start[engine_in])
-    end
+    --end
 
     last_N1[engine_in] = N1_actual
 
