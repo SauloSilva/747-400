@@ -488,6 +488,7 @@ function engine_idle_control_PW(altitude_ft_in)
     local N1_corrected_thrust_n = 0.0
     local N1_low_idle = 0.0
     local N1_idle_capture = 0.0
+    local N1_zero_thrust = 0.0
 
     --Handle display of an engine shutdown
     if simDR_engine_running[engine_in] == 0 then
@@ -522,11 +523,21 @@ function engine_idle_control_PW(altitude_ft_in)
     --Engine Idle Logic (Minimum / Approach)
     N1_low_idle = engine_idle_control_PW(altitude_ft_in)
     N1_idle_capture = -43.988 * mach^2 + 63.256 * mach + 28.896 + 0.7
-    
-    if N1_pct < 51 then 
-      N1_actual = (51 - N1_low_idle) / (51 - N1_idle_capture) * (N1_pct - N1_idle_capture) + N1_low_idle
+    N1_zero_thrust = (-508 * mach^2 + 1792.2 * mach + 1065.4) / 3600 * 100 * math.sqrt(temperature_K / 288.15)    
+
+    --Use slightly different formulas depending on ground versus air to prevent display anomalies
+    if simDR_onGround == 0 then
+      if N1_pct < N1_idle_capture then
+        N1_actual = math.max((N1_idle_capture - N1_low_idle) / (N1_idle_capture - N1_zero_thrust) * (N1_pct - N1_zero_thrust) + N1_low_idle, N1_low_idle)
+      else
+        N1_actual = N1_pct
+      end
     else
-      N1_actual = N1_pct
+      if N1_pct < 51 then
+        N1_actual = (51 - N1_low_idle) / (51 - N1_idle_capture) * (N1_pct - N1_idle_capture) + N1_low_idle
+      else
+        N1_actual = N1_pct
+      end
     end
 
     if N1_actual < N1_low_idle and N1_corrected_rpm >= 1065.4 then
@@ -830,6 +841,11 @@ function engine_idle_control_PW(altitude_ft_in)
       end
     end
 
+    --After manipulating simDR_thrust_max, ensure that it doesn't go below the max output
+    if simDR_thrust_max < engine_max_thrust_n then
+      simDR_thrust_max = engine_max_thrust_n
+    end
+  
     --Failsafe option in caser takeoff_thrust_epr isn't set
     if takeoff_thrust_epr == nil then
       takeoff_thrust_epr = 1.70
@@ -837,17 +853,17 @@ function engine_idle_control_PW(altitude_ft_in)
     end
   
     for i = 0, 3 do
-      EPR_display[i] = string.format("%3.2f", EPR_display_PW(altitude_ft_in, simDR_thrust_n[i], i))  --use i as a reference for engine number
-      B747DR_display_EPR[i] = EPR_display[i]
+      EPR_display[i] = string.format("%3.2f", math.min(EPR_display_PW(altitude_ft_in, simDR_thrust_n[i], i), 1.71))  --use i as a reference for engine number
+      B747DR_display_EPR[i] = math.max(EPR_display[i], 0.0)
 
-      N1_display[i] = string.format("%4.1f", N1_display_PW(altitude_ft_in, simDR_thrust_n[i], i))
-      B747DR_display_N1[i] = N1_display[i]
+      N1_display[i] = string.format("%4.1f", math.min(N1_display_PW(altitude_ft_in, simDR_thrust_n[i], i), 111.5))
+      B747DR_display_N1[i] = math.max(N1_display[i], 0.0)
 
-      N2_display[i] = string.format("%3.0f", N2_display_PW(B747DR_display_N1[i], i))
-      B747DR_display_N2[i] = N2_display[i]
+      N2_display[i] = string.format("%3.0f", math.min(N2_display_PW(B747DR_display_N1[i], i), 111.5))
+      B747DR_display_N2[i] = math.max(N2_display[i], 0.0)
 
       EGT_display[i] = EGT_display_PW(i)
-      B747DR_display_EGT[i] = EGT_display[i]
+      B747DR_display_EGT[i] = math.max(EGT_display[i], 0.0)
   
       B747DR_throttle_resolver_angle[i] = throttle_resolver_angle_PW(i)
 
