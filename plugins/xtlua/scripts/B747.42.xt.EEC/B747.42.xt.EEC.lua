@@ -367,7 +367,19 @@ else
 end
 
 B747DR_ref_line_magenta = 0
+function B747_animate_value(current_value, target, min, max, speed)
 
+    local fps_factor = math.min(0.1, speed * SIM_PERIOD)
+
+    if target >= (max - 0.001) and current_value >= (max - 0.01) then
+        return max
+    elseif target <= (min + 0.001) and current_value <= (min + 0.01) then
+       return min
+    else
+        return current_value + ((target - current_value) * fps_factor)
+    end
+
+end
 --[[
 *************************************************************************************
 ** 				              AERODYNAMIC FUNCTIONS (GLOBAL)	    	           **

@@ -581,7 +581,7 @@ function engine_idle_control_RR(altitude_ft_in)
     if N1_engine_start[engine_in] == nil then N1_engine_start[engine_in] = 0.0 end
     if last_N1[engine_in] == nil then last_N1[engine_in] = 0.0 end
 
-    if simDR_engine_running[engine_in] == 0 and thrust_N_in >= 0.0 then
+    if simDR_engine_running[engine_in] == 0 and thrust_N_in >= 0.0  and simDR_engine_starter_status[engine_in] == 0 then
       thrust_N_in = last_thrust_n[engine_in]-25
     end
 
@@ -610,8 +610,7 @@ function engine_idle_control_RR(altitude_ft_in)
     N1_low_idle = engine_idle_control_RR(altitude_ft_in)
     N1_idle_capture = -43.988 * mach^2 + 63.256 * mach + 28.896 + 0.7
     N1_zero_thrust = (-508 * mach^2 + 1792.2 * mach + 1065.4) / 3600 * 100 * math.sqrt(temperature_K / 288.15)
-    
-    N1_actual_temp = N1_pct
+
 
     --Use slightly different formulas depending on ground versus air to prevent display anomalies
     if simDR_onGround == 0 then
@@ -628,8 +627,13 @@ function engine_idle_control_RR(altitude_ft_in)
       end
     end
 
-    if N1_actual < N1_low_idle and N1_corrected_rpm >= 1065.4 then
-      N1_actual = N1_low_idle
+    if N1_actual < N1_low_idle and N1_corrected_rpm >= 1065.4 and simDR_engine_running[engine_in] == 1 then
+      
+      N1_actual = B747_animate_value(last_N1[engine_in],N1_low_idle,0,115,0.1) 
+      --print(" pin N1_actual 2 "..N1_actual)
+    elseif simDR_engine_running[engine_in] == 0 then
+      N1_actual = B747_animate_value(last_N1[engine_in],simDR_N1[engine_in],0,115,0.1) 
+      --print(" pin N1_actual 1 "..N1_actual.. " n1 "..simDR_N1[engine_in])
     end
 
     --Handle display of an engine startup
@@ -685,7 +689,7 @@ function engine_idle_control_RR(altitude_ft_in)
         simDR_thrust_max = engine_max_thrust_n
     end
 
-    --if enable_logging then
+    if enable_logging then
       print("----- N1 Display ----- "..engine_in)
       print("N1 Corrected Thrust = ", N1_corrected_thrust_n)
       print("N1 Calibrated Thrust = ", N1_corrected_thrust_calibrated_N)
@@ -698,7 +702,7 @@ function engine_idle_control_RR(altitude_ft_in)
       print("Last Thrust In = ", last_thrust_n[engine_in])
       print("Last N1 = ", last_N1[engine_in])
       print("N1 Engine Start = ", N1_engine_start[engine_in])
-    --end
+    end
 
     last_N1[engine_in] = N1_actual
 
@@ -720,10 +724,14 @@ function engine_idle_control_RR(altitude_ft_in)
       engine_N1_in = N1_engine_start[engine_in]
     end
 
-    N2_display = 0.0000663 * engine_N1_in^3 - 0.0163 * engine_N1_in^2 + 1.94 * engine_N1_in
-  
+    N2_display_target = 0.0000663 * engine_N1_in^3 - 0.0163 * engine_N1_in^2 + 1.94 * engine_N1_in
+    
     if last_N2[engine_in] == nil then last_N2[engine_in] = 0.0 end
-
+    if (simDR_engine_running[engine_in] == 0 ) then
+      N2_display = B747_animate_value(last_N2[engine_in],N2_display_target,0,115,0.01) 
+    else
+      N2_display = B747_animate_value(last_N2[engine_in],N2_display_target,0,115,10)
+    end
     if enable_logging then
       print("----- N2 Display -----")
       print("N1 in, N2 = ", engine_N1_in, N2_display)
