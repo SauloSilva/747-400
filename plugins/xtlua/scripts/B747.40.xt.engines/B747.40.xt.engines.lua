@@ -1403,8 +1403,8 @@ function B747_engines_EICAS_msg()
 
     -- ENG 1 SHUTDOWN
     
-    if B747DR_engine01_fire_ext_switch_pos_disch > 0.95
-        or B747DR_fuel_control_toggle_switch_pos[0] < 0.05
+    if (B747DR_engine01_fire_ext_switch_pos_disch > 0.95
+        or B747DR_fuel_control_toggle_switch_pos[0] < 0.05) and simDR_all_wheels_on_ground = 0
     then
         B747DR_CAS_caution_status[23] = 1
     else
@@ -1413,8 +1413,8 @@ function B747_engines_EICAS_msg()
 
     -- ENG 2 SHUTDOWN
     
-    if B747DR_engine02_fire_ext_switch_pos_disch > 0.95
-        or B747DR_fuel_control_toggle_switch_pos[1] < 0.05
+    if (B747DR_engine02_fire_ext_switch_pos_disch > 0.95
+        or B747DR_fuel_control_toggle_switch_pos[1] < 0.05) and simDR_all_wheels_on_ground = 0 
     then
         B747DR_CAS_caution_status[24] = 1
     else
@@ -1423,8 +1423,8 @@ function B747_engines_EICAS_msg()
 
     -- ENG 3 SHUTDOWN
     
-    if B747DR_engine03_fire_ext_switch_pos_disch > 0.95
-        or B747DR_fuel_control_toggle_switch_pos[2] < 0.05
+    if (B747DR_engine03_fire_ext_switch_pos_disch > 0.95
+        or B747DR_fuel_control_toggle_switch_pos[2] < 0.05) and simDR_all_wheels_on_ground = 0
     then
         B747DR_CAS_caution_status[25] = 1
     else
@@ -1433,8 +1433,8 @@ function B747_engines_EICAS_msg()
 
     -- ENG 4 SHUTDOWN
     
-    if B747DR_engine04_fire_ext_switch_pos_disch > 0.95
-        or B747DR_fuel_control_toggle_switch_pos[3] < 0.05
+    if (B747DR_engine04_fire_ext_switch_pos_disch > 0.95
+        or B747DR_fuel_control_toggle_switch_pos[3] < 0.05) and simDR_all_wheels_on_ground = 0
     then
         B747DR_CAS_caution_status[26] = 1
     else
