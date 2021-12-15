@@ -30,6 +30,10 @@ B747_CASwarningMsg   = {
     {DRindex = 25, name = ">VALVE TEST FAIL", status = 0},
     {DRindex = 26, name = ">VALVE TEST PASS", status = 0},
     {DRindex = 27, name = ">VLV TST IN PROG", status = 0},
+    {DRindex = 28, name = "ENG 1 FAIL", status = 0},            --
+    {DRindex = 29, name = "ENG 2 FAIL", status = 0},            --
+    {DRindex = 30, name = "ENG 3 FAIL", status = 0},            --
+    {DRindex = 31, name = "ENG 4 FAIL", status = 0}            --
 }
 
 B747_CAScautionMsg   = {

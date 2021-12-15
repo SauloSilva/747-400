@@ -826,9 +826,9 @@ function engine_idle_control_RR(altitude_ft_in)
       EGT_display = simDR_engn_EGT_c[engine_in]
     end
   
-    if enable_logging then
-      print("EGT = ", EGT_display)
-    end
+   -- if enable_logging then
+      print("EGT = "..engine_in.." ".. EGT_display)
+   -- end
   
     return EGT_display
   end
@@ -856,7 +856,7 @@ function engine_idle_control_RR(altitude_ft_in)
   
     --In-flight variables
     local EPR_actual = 0.0
-  
+    
     --Setup engine factors based on engine type
     if string.match(simConfigData["data"].PLANE.engines, "524G") then
       engine_max_thrust_n = 258000
@@ -1061,10 +1061,10 @@ function engine_idle_control_RR(altitude_ft_in)
 
       N3_display[i] = string.format("%4.1f", math.min(N3_display_RR(B747DR_display_N1[i], i), 102.5))
       B747DR_display_N3[i] = math.max(N3_display[i], 0.0)
-
+      print("RR EGT 1 "..i.." "..B747DR_display_EGT[i])
       EGT_display[i] = EGT_display_RR(i)
       B747DR_display_EGT[i] = math.max(EGT_display[i], 0.0)
-  
+      print("RR EGT 2 "..i.." "..B747DR_display_EGT[i])
       B747DR_throttle_resolver_angle[i] = throttle_resolver_angle_RR(i)
 
     end
