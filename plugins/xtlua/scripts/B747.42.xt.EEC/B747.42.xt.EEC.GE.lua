@@ -23,7 +23,7 @@ function throttle_resolver_angle_GE(engine_in)
   throttle_angle = (3.022549485226715E-03  + 1.441727698320892E+00  * simDR_throttle_ratio[engine_in] + -9.568752920557220E-01  * simDR_throttle_ratio[engine_in]^2
                   + 9.989724112918770E-01 * simDR_throttle_ratio[engine_in]^3 + -4.927345191979758E-01 * simDR_throttle_ratio[engine_in]^4) * thrust_ratio_factor
 
-  if enable_logging then
+  if B747DR_log_level >= 1 then
     print("Thrust Factor = ", thrust_ratio_factor)
     print("TRA = ", throttle_angle)
   end
@@ -78,7 +78,7 @@ function engine_idle_control_GE(altitude_ft_in)
       --Reset to LOW Idle 5 seconds after touchdown (TBD)
   end
   
-  if enable_logging then
+  if B747DR_log_level >= 1 then
     print("XP High Idle Ratio = ", simDR_engine_high_idle_ratio)
     print("N1 Low Idle - Flight = ", N1_low_idle)
   end
@@ -265,7 +265,7 @@ end
   TOGA_actual_thrust_lbf = TOGA_corrected_thrust_lbf * pressure_ratio
   TOGA_actual_thrust_N = TOGA_actual_thrust_lbf * lbf_to_N
 
-  if enable_logging then
+  if B747DR_log_level >= 1 then
     print("\t\t\t\t\t<<<--- Assumed Temp Takeoff Calcs --->>>")
     print("Altitude IN = ", altitude_ft_in)
     print("Temperature K IN = ", temperature_K_in)
@@ -309,7 +309,7 @@ function take_off_N1_GE(altitude_ft_in)
 
   N1_actual = string.format("%4.1f", N1_corrected * math.sqrt(temperature_ratio))
 
-  if enable_logging then
+  if B747DR_log_level >= 1 then
     print("\t\t\t\t\t<<<--- TAKEOFF N1 (GE) --->>>")
     print("Altitude IN = ", altitude_ft_in)
     print("Temperature K = ", temperature_K)
@@ -444,7 +444,7 @@ function in_flight_N1_GE(altitude_ft_in, delta_t_isa_K_in)
     N1_real_max_climb = math.min(N1_corrected_mod_max_climb * math.sqrt(temperature_ratio_adapted), 117.5)
     N1_real_max_cruise = math.min(N1_corrected_mod_max_cruise * math.sqrt(temperature_ratio_adapted), 117.5)
 
-    if enable_logging then
+    if B747DR_log_level >= 1 then
       print("\t\t\t\t\t<<<--- IN FLIGHT N1 (GE) --->>>")
       print("Altitude IN = ", altitude_ft_in)
       print("Delta T ISA IN = ", delta_t_isa_K_in)
@@ -526,7 +526,7 @@ function N1_display_GE(altitude_ft_in, thrust_N_in, n1_factor_in, engine_in)
       N1_actual = N1_low_idle
     end
 
-    if enable_logging then
+    if B747DR_log_level >= 1 then
       print("\t\t\t\t\t<<<--- N1 DISPLAY (GE) --->>>".."\t\tEngine # "..engine_in + 1)
       print("Altitude IN = ", altitude_ft_in)
       print("Thrust IN = ", thrust_N_in)
@@ -556,7 +556,7 @@ function N2_display_GE(engine_N1_in, engine_in)
     N2_display = B747_rescale(35.0, 35.0, 65.0, 48.0, simDR_N2[engine_in])
   end
 
-  if enable_logging then
+  if B747DR_log_level >= 1 then
     print("N1 in, N2, test = ", engine_N1_in, N2_display)
   end
 
@@ -575,7 +575,7 @@ function EGT_display_GE(engine_in)
     EGT_display = B747_rescale(375.0, 375.0, 725.0, 985.0, simDR_engn_EGT_c[engine_in])
   end
 
-  if enable_logging then
+  if B747DR_log_level >= 1 then
     print("EGT = ", EGT_display)
   end
 
@@ -765,7 +765,7 @@ function GE(altitude_ft_in)
     B747DR_throttle_resolver_angle[i] = throttle_resolver_angle_GE(i)
 	end
 
-  if enable_logging then
+  if B747DR_log_level >= 1 then
     print("Takeoff TOGA = ", takeoff_TOGA_n1)
   end
   --Manage Thrust

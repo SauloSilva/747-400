@@ -50,3 +50,4 @@ B747DR_display_GE_EGT			= deferred_dataref("laminar/B747/engines/display_GE_EGT"
 B747DR_display_EGT				= deferred_dataref("laminar/B747/engines/display_EGT", "array[4]")
 B747DR_ref_line_magenta 		= deferred_dataref("laminar/B747/engines/display_ref_line_magenta", "number")
 B747DR_throttle_resolver_angle 	= deferred_dataref("laminar/B747/engines/TRA", "array[4]")
+B747DR_log_level = deferred_dataref("laminar/B747/engines/logging", "number")  --true / false

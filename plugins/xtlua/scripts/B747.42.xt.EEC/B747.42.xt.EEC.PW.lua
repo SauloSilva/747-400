@@ -27,7 +27,7 @@ function throttle_resolver_angle_PW(engine_in)
     throttle_angle = 1.0
   end
 
-  if enable_logging then
+  if B747DR_log_level >= 1 then
     print("Thrust Factor = ", thrust_ratio_factor)
     print("TRA = ", throttle_angle)
   end
@@ -80,7 +80,7 @@ function engine_idle_control_PW(altitude_ft_in)
         --Reset to LOW Idle 5 seconds after touchdown (TBD)
     end
     
-    if enable_logging then
+    if B747DR_log_level >= 1 then
       print("XP High Idle Ratio = ", simDR_engine_high_idle_ratio)
       print("N1 Low Idle - Flight = ", N1_low_idle)
     end
@@ -270,7 +270,7 @@ function engine_idle_control_PW(altitude_ft_in)
     TOGA_actual_thrust_lbf = TOGA_corrected_thrust_lbf * pressure_ratio
     TOGA_actual_thrust_N = TOGA_actual_thrust_lbf * lbf_to_N
   
-    if enable_logging then
+    if B747DR_log_level >= 1 then
       print("\t\t\t\t\t<<<--- Assumed Temp Takeoff Calcs --->>>")
       print("Altitude IN = ", altitude_ft_in)
       print("Temperature K IN = ", temperature_K_in)
@@ -318,7 +318,7 @@ function engine_idle_control_PW(altitude_ft_in)
     EPR_actual = (-1.8E-08 * mach^2 - 5.87E-08 * mach + 7.179999999999999E-08) * TOGA_corrected_thrust_calibrated_N^3 + (-0.0000237 * mach^2 + 0.0000529 * mach - 0.0000218)
       * TOGA_corrected_thrust_calibrated_N^2 + (0.002 * mach^2 - 0.0036 * mach + 0.0034) * TOGA_corrected_thrust_calibrated_N + (-0.3287 * mach^2 - 0.0833 * mach + 0.9932)
 
-    if enable_logging then
+    if B747DR_log_level >= 1 then
       print("\t\t\t\t\t<<<--- TAKEOFF EPR (PW) --->>>")
       print("Altitude IN = ", altitude_ft_in)
       print("Temperature K = ", temperature_K)
@@ -458,7 +458,7 @@ function engine_idle_control_PW(altitude_ft_in)
         EPR_max_climb = 1.64
       end
 
-      if enable_logging then
+      if B747DR_log_level >= 1 then
         print("\t\t\t\t\t<<<--- IN FLIGHT EPR (PW) --->>>")
         print("Altitude IN = ", altitude_ft_in)
         print("Delta T ISA IN = ", delta_t_isa_K_in)
@@ -549,7 +549,7 @@ function engine_idle_control_PW(altitude_ft_in)
       N1_actual = simDR_N1[engine_in]
     end
 
-    if enable_logging then
+    if B747DR_log_level >= 1 then
       print("----- N1 Display -----")
       print("N1 Corrected Thrust = ", N1_corrected_thrust_n)
       print("N1 Calibrated Thrust = ", N1_corrected_thrust_calibrated_N)
@@ -573,7 +573,7 @@ function engine_idle_control_PW(altitude_ft_in)
       N2_display = simDR_N2[engine_in]
     end
 
-    if enable_logging then
+    if B747DR_log_level >= 1 then
       print("----- N2 Display -----")
       print("N1 in, N2 = ", engine_N1_in, N2_display)
     end
@@ -614,7 +614,7 @@ function engine_idle_control_PW(altitude_ft_in)
         end
       end
 
-      if enable_logging then
+      if B747DR_log_level >= 1 then
         print("\t\t\t\t\t<<<--- EPR DISPLAY (PW) --->>>".."\t\tEngine # "..engine_in + 1)
         print("Altitude IN = ", altitude_ft_in)
         print("Thrust IN = ", thrust_N_in)
@@ -640,7 +640,7 @@ function engine_idle_control_PW(altitude_ft_in)
       EGT_display = simDR_engn_EGT_c[engine_in]
     end
   
-    if enable_logging then
+    if B747DR_log_level >= 1 then
       print("EGT = ", EGT_display)
     end
   
@@ -802,7 +802,7 @@ function engine_idle_control_PW(altitude_ft_in)
           B747DR_display_EPR_max[i] = EPR_max_climb  --simDR_EPR_target_bug[i]
       end
 
-      if enable_logging then
+      if B747DR_log_level >= 1 then
         print("CRZ Lookup - Weight = ", target_weight)
         print("CRZ Lookup - Alt = ", target_alt)
       end
@@ -869,7 +869,7 @@ function engine_idle_control_PW(altitude_ft_in)
 
     end
   
-    if enable_logging then
+    if B747DR_log_level >= 1 then
       print("Takeoff TOGA = ", takeoff_TOGA_epr)
     end
     --Manage Thrust

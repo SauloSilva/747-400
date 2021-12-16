@@ -300,7 +300,7 @@ lbf_to_N = 4.4482216
 mtrs_per_sec = 1.94384
 
 --Logging On/Off
-enable_logging = false  --true / false
+B747DR_log_level = deferred_dataref("laminar/B747/engines/logging", "number")  --true / false
 
 --Simulator Config Options
 simConfigData = {}
@@ -406,7 +406,7 @@ function atmosphere(altitude_ft_in, delta_t_isa_K_in)
     speed_of_sound = math.sqrt(287 * 1.4 * temperature_K)
 	sigma_density_ratio = pressure_pa / (287.058 * temperature_K * 1.225)
 
-    if enable_logging then
+    if B747DR_log_level >= 1 then
 		print("\t\t\t\t\t<<<--- ATMOSPHERE --->>>")
 		print("Altitude IN = ", altitude_ft_in)
 		print("Delta T ISA K IN = ", delta_t_isa_K_in)
@@ -466,7 +466,7 @@ function flight_coefficients(gw_kg_in, tas_kts_in)
     --climb_angle_deg = math.asin(0.00508 * climb_rate_fpm_in / tas_mtrs_sec) * 180 / math.pi
     --acceleration_mtrs_sec = acceleration_kts_sec_in / 1.94384
 
-	if enable_logging then
+	if B747DR_log_level >= 1 then
 		print("\t\t\t\t\t<<<--- FLIGHT COEFFICIENTS --->>>")
 		print("Gross Weight IN = ", gw_kg_in)
 		print("Mach = ", mach)
@@ -548,7 +548,7 @@ function take_off_thrust_corrected(altitude_ft_in, temperature_K_in)
 	TOGA_actual_thrust_lbf = TOGA_corrected_thrust_lbf * sigma_density_ratio  --pressure_ratio
 	TOGA_actual_thrust_N = TOGA_actual_thrust_lbf * lbf_to_N
   
-	if enable_logging then
+	if B747DR_log_level >= 1 then
 	  print("\t\t\t\t\t<<<--- Takeoff Calcs --->>>")
 	  print("Altitude IN = ", altitude_ft_in)
 	  print("Temperature K IN = ", temperature_K_in)
@@ -580,7 +580,7 @@ function in_flight_thrust(gw_kg_in, climb_angle_deg_in)
 	corrected_thrust_N = thrust_per_engine_N / pressure_ratio
 	corrected_thrust_lbf = corrected_thrust_N / lbf_to_N
 
-	if enable_logging then
+	if B747DR_log_level >= 1 then
 		print("\t\t\t\t<<<--- IN FLIGHT THRUST --->>>")
 		print("Gross Weight IN = ", gw_kg_in)
 		print("Climb Angle IN = ", climb_angle_deg_in)
@@ -626,7 +626,7 @@ function throttle_management()
 		fmc_alt = tonumber(fms_data["data"].crzalt)
 	end
 	
-	if enable_logging then
+	if B747DR_log_level >= 1 then
 		print("EEC Status = ", EEC_status)
 		print("FMC CRZ ALT = ", fms_data["data"].crzalt)
 		print("temp FMC ALT = ", fmc_alt)
@@ -670,7 +670,7 @@ function throttle_management()
 				previous_altitude = fmc_alt
 			end
 
-			if enable_logging then
+			if B747DR_log_level >= 1 then
 				print("Previous ALT = ", previous_altitude)
 			end
 		--Go-Around
@@ -734,7 +734,7 @@ function throttle_management()
 			B747DR_ref_line_magenta = 1
 		end
 		
-		if enable_logging then
+		if B747DR_log_level >= 1 then
 			print("THR REF MODE")
 			print("Override Throttles = ", simDR_override_throttles)
 		end
@@ -750,7 +750,7 @@ function throttle_management()
 		B747DR_ref_line_magenta = 0
 		--hold_mode = 1
 
-		if enable_logging then
+		if B747DR_log_level >= 1 then
 			print("HOLD MODE")
 			print("Override REMOVED = ", simDR_override_throttles)
 		end
@@ -767,7 +767,7 @@ function throttle_management()
 		B747DR_ref_line_magenta = 0
 		--speed_mode = 1
 		
-		if enable_logging then
+		if B747DR_log_level >= 1 then
 			print("SPEED MODE")
 			print("Override Throttles = ", simDR_override_throttles)
 		end
@@ -783,7 +783,7 @@ function throttle_management()
 		--hold_mode = 0
 		--speed_mode = 0
 
-		if enable_logging then
+		if B747DR_log_level >= 1 then
 			print("---Setting Back to Normal---")
 		end
 	end
