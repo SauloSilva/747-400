@@ -190,7 +190,7 @@ simDR_compressor_area		= find_dataref("sim/aircraft/engine/acf_face_jet")
 simDR_autothrottle_enabled	= find_dataref("sim/cockpit2/autopilot/autothrottle_enabled")
 simDR_autothrottle_on		= find_dataref("sim/cockpit2/autopilot/autothrottle_on")
 simDR_engine_starter_status	= find_dataref("sim/flightmodel2/engines/starter_is_running")
-
+B747DR_ap_autoland            	= deferred_dataref("laminar/B747/autopilot/autoland", "number")
 --[[
 *************************************************************************************
 ** 				              FIND X-PLANE COMMANDS              		    	   **
@@ -674,10 +674,11 @@ function throttle_management()
 				print("Previous ALT = ", previous_altitude)
 			end
 		--Go-Around
-		elseif simDR_onGround ~= 1 and (simDR_flap_ratio > 0.0 and simDR_flap_handle_ratio < simDR_flap_ratio) or simDR_autopilot_gs_status == 2 then
+		--elseif simDR_onGround ~= 1 and (simDR_flap_ratio > 0.0 and simDR_flap_handle_ratio < simDR_flap_ratio) or simDR_autopilot_gs_status == 2 then
+		elseif B747DR_ap_autoland==-2 then
 			B747DR_ref_thr_limit_mode = "GA"
 		--Climb
-		elseif simDR_onGround ~= 1 and (previous_altitude < B747DR_altitude_dial) and B747DR_ap_FMA_autothrottle_mode == 5 then
+		elseif simDR_onGround ~= 1 and (previous_altitude < B747DR_altitude_dial or B747DR_ref_thr_limit_mode == "GA") and B747DR_ap_FMA_autothrottle_mode == 5 then
 			B747DR_ref_thr_limit_mode = "CLB"
 		end
 
