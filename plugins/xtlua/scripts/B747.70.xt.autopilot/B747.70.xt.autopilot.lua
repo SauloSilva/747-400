@@ -123,7 +123,7 @@ simDR_autopilot_hold_altitude_ft    		= find_dataref("sim/cockpit2/autopilot/alt
 simDR_autopilot_tod_index    		= find_dataref("sim/cockpit2/radios/indicators/fms_tod_before_index_pilot")
 simDR_autopilot_tod_distance    	= find_dataref("sim/cockpit2/radios/indicators/fms_distance_to_tod_pilot")
 
-B747BR_flight_phase 			= deferred_dataref("laminar/B747/autopilot/flight_phase", "number")
+
 B747DR_display_N1				= find_dataref("laminar/B747/engines/display_N1")
 B747DR_display_N2				= find_dataref("laminar/B747/engines/display_N2")
 B747DR_fmc_notifications            = find_dataref("laminar/B747/fms/notification")
@@ -320,6 +320,12 @@ B747DR_ap_vnav_target_alt            	= deferred_dataref("laminar/B747/autopilot
 B747DR_ap_vnav_state            	= deferred_dataref("laminar/B747/autopilot/vnav_state", "number")
 B747DR_ap_lnav_state            	= deferred_dataref("laminar/B747/autopilot/lnav_state", "number")
 B747DR_ap_inVNAVdescent 		= deferred_dataref("laminar/B747/autopilot/vnav_descent", "number")
+B747DR_ap_flightPhase 		= deferred_dataref("laminar/B747/autopilot/flightPhase", "number")
+-- 0 take off
+-- 1 climb
+-- 2 cruise
+-- 3 descend
+-- 4 landing
 B747DR_airspeed_Mms                             = deferred_dataref("laminar/B747/airspeed/Mms", "number")
 B747DR_ap_vvi_fpm						= deferred_dataref("laminar/B747/autopilot/vvi_fpm", "number")
 B747DR_ap_alt_show_thousands      		= deferred_dataref("laminar/B747/autopilot/altitude/show_thousands", "number")
@@ -513,6 +519,7 @@ function B747_ap_switch_speed_mode_CMDhandler(phase, duration)
 		end
 		B747DR_ap_vnav_state=0
 		B747DR_ap_inVNAVdescent =0
+		B747DR_ap_flightPhase=1
 		print("B747DR_ap_thrust_mode "..B747DR_ap_thrust_mode)
 		B747DR_ap_thrust_mode=0
 		print("B747DR_ap_thrust_mode "..B747DR_ap_thrust_mode)
@@ -573,6 +580,7 @@ function B747_ap_switch_vnavalt_mode_CMDhandler(phase, duration)
 		end
 		if B747BR_totalDistance-B747BR_tod<=50 then
 			B747DR_ap_inVNAVdescent=1
+			B747DR_ap_flightPhase=3
 			setDescent(true)
             print("Begin descent")
             getDescentTarget()
@@ -609,6 +617,7 @@ function B747_ap_switch_flch_mode_CMDhandler(phase, duration)
 		end
 		B747DR_ap_vnav_state=0
 		B747DR_ap_inVNAVdescent =0
+		B747DR_ap_flightPhase=1
 		B747DR_ap_thrust_mode=2	
 	elseif phase == 2 then
 		B747_ap_button_switch_position_target[4] = 0		
@@ -634,6 +643,7 @@ function B747_ap_switch_vs_mode_CMDhandler(phase, duration)
 		
 		B747DR_ap_thrust_mode=0
 		B747DR_ap_inVNAVdescent =0
+		B747DR_ap_flightPhase=1
 		if B747DR_ap_vnav_state==0 or (simDR_autopilot_vs_status == 0 and B747DR_ap_vnav_state>0) then
 			simCMD_autopilot_vert_speed_mode:once()
 			simDR_autopilot_vs_fpm=0
@@ -665,8 +675,9 @@ function B747_ap_alt_hold_mode_CMDhandler(phase, duration)
 			simCMD_autopilot_alt_hold_mode:once()
 		end
 		B747DR_ap_thrust_mode=0
-		B747DR_ap_vnav_state=0
+		B747DR_ap_vnav_state=0 
 		B747DR_ap_inVNAVdescent =0
+		B747DR_ap_flightPhase=2
 	elseif phase == 2 then
 		B747_ap_button_switch_position_target[7] = 0					
 	end
@@ -859,10 +870,6 @@ function B747_ap_reset_CMDhandler(phase, duration)
 		--simCMD_autopilot_pitch_sync:once()
 		
 		B747DR_engine_TOGA_mode = 0
-		--simDR_autopilot_fms_vnav = 0
-		--B747DR_ap_vnav_state=0
-		--B747DR_ap_thrust_mode=0
-		--B747DR_ap_inVNAVdescent =0
 		B747_ap_all_cmd_modes_off() --B747_ap_reset_CMDhandler
 		B747DR_ap_ias_mach_window_open = 0
 		
@@ -2295,6 +2302,7 @@ function B747_ap_fma()
         B747DR_ap_FMA_active_pitch_mode = 2
 		B747DR_ap_vnav_state=0
 		B747DR_ap_inVNAVdescent =0
+		B747DR_ap_flightPhase=4
 		B747DR_ap_thrust_mode=0
     -- (FLARE) --
     -- TODO: AUTOLAND LOGIC
@@ -2333,7 +2341,11 @@ function B747_ap_fma()
     elseif (simDR_autopilot_fms_vnav == 1 or B747DR_ap_vnav_state >= 2)
       and simDR_autopilot_vs_status == 2
     then
-      B747DR_ap_FMA_active_pitch_mode = 6  
+		if B747DR_ap_flightPhase==3 and simDR_autopilot_vs_fpm==-500 then
+			B747DR_ap_FMA_active_pitch_mode = 4  -- (VNAV SPD) --
+		else
+      		B747DR_ap_FMA_active_pitch_mode = 6  -- (VNAV PATH) --
+		end
     -- (V/S) --
     elseif simDR_autopilot_vs_status == 2 
       and simDR_autopilot_fms_vnav == 0 and B747DR_ap_vnav_state == 0

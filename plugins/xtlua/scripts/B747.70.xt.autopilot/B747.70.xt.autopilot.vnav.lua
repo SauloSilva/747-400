@@ -18,7 +18,9 @@ function deceleratedDesent(targetvspeed)
 
 
   local upperAlt=math.max(tonumber(getFMSData("desspdtransalt")),tonumber(getFMSData("desrestalt")))
-  if simDR_pressureAlt1>upperAlt+1000 then return targetvspeed end --nowhere near a restriction yet
+  if simDR_pressureAlt1>upperAlt+1000 then 
+    return targetvspeed 
+  end --nowhere near a restriction yet
   local lowerAlt=math.min(tonumber(getFMSData("desspdtransalt")),tonumber(getFMSData("desrestalt")))
   local upperAltspdval=tonumber(getFMSData("destranspd"))
   local lowerAltspdval=tonumber(getFMSData("desrestspd"))
@@ -38,6 +40,7 @@ function deceleratedDesent(targetvspeed)
     return -500 
   end --approximate 500fpm
 
+  return targetvspeed
   --print("oob deceleratedDesent upperAlt"..upperAlt.." lowerAlt=".. lowerAlt .." upperAltspdval=".. upperAltspdval .." simDR_pressureAlt1="..simDR_pressureAlt1.." simDR_ind_airspeed_kts_pilot="..simDR_ind_airspeed_kts_pilot)
 
 

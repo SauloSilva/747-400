@@ -180,6 +180,7 @@ function VNAV_DES(numAPengaged,fms)
     if descentstatus == 0 then
         print("simDR_autopilot_vs_status  == 0 clear descent")
         B747DR_ap_inVNAVdescent = 0
+        
     end
     
     if B747DR_mcp_hold>0 then return end
@@ -191,7 +192,7 @@ function VNAV_DES(numAPengaged,fms)
             and simDR_radarAlt1>1000 
             and lastHold>30 then
         B747DR_mcp_hold=1
-        
+        B747DR_ap_flightPhase=2
         print("set B747DR_mcp_hold")
         return 
     end
@@ -204,6 +205,7 @@ function VNAV_DES(numAPengaged,fms)
                  then
         if diff3<=0 then           
             B747DR_ap_inVNAVdescent =1
+            B747DR_ap_flightPhase=3
             setDescent(true)
             print("Begin descent")
             getDescentTarget()
@@ -219,6 +221,7 @@ function VNAV_DES(numAPengaged,fms)
             else
                 simCMD_autopilot_flch_mode:once()
             end
+            B747DR_ap_flightPhase=3
             setDescent(true)
             print("Resume descent")
         end
@@ -262,15 +265,18 @@ function B747_monitor_THR_REF_AT()
     local timediff=simDRTime-B747DR_ap_lastCommand
     if B747DR_ap_thrust_mode==2 and altDiff<0 then
         ref_throttle=math.floor(20+B747_rescale(-10000,0,0,30,altDiff))
-        print("THR REF descend at ref_throttle "..ref_throttle.." altDiff "..altDiff)
-    elseif simDR_radarAlt1<1000 and B747DR_ap_thrust_mode<3 then
+        B747DR_ap_flightPhase=3
+        --print("THR REF descend at ref_throttle "..ref_throttle.." altDiff "..altDiff)
+    elseif simDR_radarAlt1<1000 and B747DR_ap_thrust_mode<3 then --set acceleration height here
         if toderate==1 then ref_throttle=96
         elseif toderate==2 then ref_throttle=86  
-        end      
+        end   
+        B747DR_ap_flightPhase=0   
     else
         if B747DR_ap_thrust_mode==0 and timediff>0.5 then 
-            print("B747DR_ap_thrust_mode =1 @ "..timediff)
+            --print("B747DR_ap_thrust_mode =1 @ "..timediff)
             B747DR_ap_thrust_mode=1 
+            B747DR_ap_flightPhase=1
         end
         if clbderate==1 then ref_throttle=96
         elseif clbderate==2 then ref_throttle=86
@@ -288,7 +294,10 @@ function B747_monitor_THR_REF_AT()
     elseif thrustDiff<20 then wait=0.05 end
     --print("THR REF="..ref_throttle.. " simDR_allThrottle="..n1_pct.. " wait="..wait.. " B747DR_ap_thrust_mode="..B747DR_ap_thrust_mode)
     if lastChange<wait then return end --wait for engines to stabilise
-    if simDR_autopilot_autothrottle_enabled == 1 and timediff>0.5 then B747DR_ap_thrust_mode=0 return end
+    if simDR_autopilot_autothrottle_enabled == 1 and timediff>0.5 then 
+        B747DR_ap_thrust_mode=0 
+        return 
+    end
     last_THR_REF=simDRTime
     
     --Marauder28

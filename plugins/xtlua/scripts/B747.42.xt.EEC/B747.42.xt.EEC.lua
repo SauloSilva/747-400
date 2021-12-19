@@ -191,6 +191,7 @@ simDR_autothrottle_enabled	= find_dataref("sim/cockpit2/autopilot/autothrottle_e
 simDR_autothrottle_on		= find_dataref("sim/cockpit2/autopilot/autothrottle_on")
 simDR_engine_starter_status	= find_dataref("sim/flightmodel2/engines/starter_is_running")
 B747DR_ap_autoland            	= deferred_dataref("laminar/B747/autopilot/autoland", "number")
+debug_ecc     = deferred_dataref("laminar/B747/debug/ecc", "number")
 --[[
 *************************************************************************************
 ** 				              FIND X-PLANE COMMANDS              		    	   **
@@ -273,7 +274,7 @@ B747DR_display_EGT					= deferred_dataref("laminar/B747/engines/display_EGT", "a
 B747DR_FMSdata						= deferred_dataref("laminar/B747/fms/data", "string")
 B747DR_radio_altitude				= deferred_dataref("laminar/B747/efis/radio_altitude")
 B747DR_altitude_dial				= deferred_dataref("laminar/B747/autopilot/heading/altitude_dial_ft")
-
+B747DR_ap_flightPhase 				= deferred_dataref("laminar/B747/autopilot/flightPhase", "number")
 B747DR_toderate						= deferred_dataref("laminar/B747/engine/derate/TO","number")
 B747DR_clbderate					= deferred_dataref("laminar/B747/engine/derate/CLB","number")
 B747DR_ref_line_magenta				= deferred_dataref("laminar/B747/engines/display_ref_line_magenta", "number")
@@ -597,6 +598,32 @@ function in_flight_thrust(gw_kg_in, climb_angle_deg_in)
 	return total_thrust_required_N, thrust_per_engine_N, corrected_thrust_N, corrected_thrust_lbf
 end
 
+function ecc_mode_set()
+
+	--Set Specific sub-mode for TO or CLB
+	if B747DR_ap_autoland==-2 then
+		B747DR_ref_thr_limit_mode = "GA"
+	elseif B747DR_ap_flightPhase==0 then
+		if B747DR_toderate == 0 then
+			B747DR_ref_thr_limit_mode = "TO"
+		elseif B747DR_toderate == 1 then
+			B747DR_ref_thr_limit_mode = "TO 1"
+		elseif B747DR_toderate == 2 then
+			B747DR_ref_thr_limit_mode = "TO 2"
+		end
+	elseif B747DR_ap_flightPhase==1 then
+		if B747DR_clbderate == 0 then
+			B747DR_ref_thr_limit_mode = "CLB"
+		elseif B747DR_clbderate == 1 then
+			B747DR_ref_thr_limit_mode = "CLB 1"
+		elseif B747DR_clbderate == 2 then
+			B747DR_ref_thr_limit_mode = "CLB 2"
+		end
+	elseif B747DR_ap_flightPhase>=2 then
+		B747DR_ref_thr_limit_mode = "CRZ"
+	end
+end
+
 local previous_altitude = 0
 function throttle_management()
 
@@ -636,8 +663,8 @@ function throttle_management()
 	if B747DR_ap_autothrottle_armed == 1 then
 		--Take-off
 		if B747DR_engine_TOGA_mode > 0 and B747DR_engine_TOGA_mode <= 1 and B747DR_ap_FMA_autothrottle_mode==5 then
-			B747DR_ref_thr_limit_mode = "TO"
-
+			--B747DR_ref_thr_limit_mode = "TO"
+			B747DR_ap_flightPhase=0
 			--Initially set previous_altitude to the FMC cruise altitude
 			previous_altitude = fmc_alt
 
@@ -657,61 +684,25 @@ function throttle_management()
 					return
 				end
 			end
-		--Set Initial Climb based on Flap position (5 degrees) if occurs prior to FMC thrust reduction point
-		elseif simDR_onGround ~= 1 and ((simDR_flap_ratio < 0.34 and simDR_flap_handle_ratio > simDR_flap_ratio) or (string.match(B747DR_ref_thr_limit_mode, "TO") and B747DR_radio_altitude >= 1500 )) then
-			B747DR_ref_thr_limit_mode = "CLB"
-		--Cruise
-		elseif simDR_onGround ~= 1 and simDR_altitude >= (fmc_alt - 200) and fmc_alt > 0 then
-			B747DR_ref_thr_limit_mode = "CRZ"
-			--Reset local previous_altitude holder
-			if B747DR_altitude_dial < previous_altitude then
-				previous_altitude = B747DR_altitude_dial
-			else
-				previous_altitude = fmc_alt
-			end
-
-			if B747DR_log_level >= 1 then
-				print("Previous ALT = ", previous_altitude)
-			end
-		--Go-Around
-		--elseif simDR_onGround ~= 1 and (simDR_flap_ratio > 0.0 and simDR_flap_handle_ratio < simDR_flap_ratio) or simDR_autopilot_gs_status == 2 then
-		elseif B747DR_ap_autoland==-2 then
-			B747DR_ref_thr_limit_mode = "GA"
-		--Climb
-		elseif simDR_onGround ~= 1 and (previous_altitude < B747DR_altitude_dial or B747DR_ref_thr_limit_mode == "GA") and B747DR_ap_FMA_autothrottle_mode == 5 then
-			B747DR_ref_thr_limit_mode = "CLB"
 		end
-
+		--Set Initial Climb based on Flap position (5 degrees) if occurs prior to FMC thrust reduction point
+		
 		--Remove De-rate above 15000 feet
 		if B747DR_clbderate > 0 and simDR_altitude >= 15000 then
 			B747DR_clbderate = 0
 		end
+
 		
-		--Set Specific sub-mode for TO or CLB
-		if string.match(B747DR_ref_thr_limit_mode, "TO") then
-			if B747DR_toderate == 0 then
-				B747DR_ref_thr_limit_mode = "TO"
-			elseif B747DR_toderate == 1 then
-				B747DR_ref_thr_limit_mode = "TO 1"
-			elseif B747DR_toderate == 2 then
-				B747DR_ref_thr_limit_mode = "TO 2"
-			end
-		elseif string.match(B747DR_ref_thr_limit_mode, "CLB") then
-			if B747DR_clbderate == 0 then
-				B747DR_ref_thr_limit_mode = "CLB"
-			elseif B747DR_clbderate == 1 then
-				B747DR_ref_thr_limit_mode = "CLB 1"
-			elseif B747DR_clbderate == 2 then
-				B747DR_ref_thr_limit_mode = "CLB 2"
-			end
-		end
 	end
 
+	ecc_mode_set()
+
 	--After landing and reversers stowed reset mode to TO
-	if simDR_onGround == 1 and B747DR_ref_thr_limit_mode == "GA"
+	if simDR_onGround == 1 and simDR_ias_pilot<30 -- B747DR_ref_thr_limit_mode == "GA"
 		and math.max(simDR_reverser_on[0], simDR_reverser_on[1], simDR_reverser_on[2], simDR_reverser_on[3]) == 0
-		and math.max(simDR_reverser_deploy_ratio[0], simDR_reverser_deploy_ratio[1], simDR_reverser_deploy_ratio[2], simDR_reverser_deploy_ratio[3]) > 0 then
-			B747DR_ref_thr_limit_mode = "TO"
+		and math.max(simDR_reverser_deploy_ratio[0], simDR_reverser_deploy_ratio[1], simDR_reverser_deploy_ratio[2], simDR_reverser_deploy_ratio[3]) == 0 then
+			--B747DR_ref_thr_limit_mode = "TO"
+			B747DR_ap_flightPhase=0 
 	end
 
 	--Determine FMA Mode
@@ -831,15 +822,15 @@ function hasSimConfig()
 end
 
 function after_physics()
+	if debug_ecc>0 then return end
     if hasSimConfig()==false then return end
-
     atmosphere(simDR_altitude, 0)
     flight_coefficients(simDR_acf_weight_total_kg, simDR_tas_pilot)
 
 	--fmsModules["data"] = json.decode(B747DR_FMSdata)
 	set_engines()
 	
-	if string.len(B747DR_simconfig_data) > 1 then
+	--[[if string.len(B747DR_simconfig_data) > 1 then
 		set_engines()
-	end
+	end]]
 end

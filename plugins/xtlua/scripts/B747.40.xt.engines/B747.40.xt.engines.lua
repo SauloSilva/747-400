@@ -1359,7 +1359,7 @@ end
 function B747_thrust_limit_mode_label()
 
     if B747_ref_thr_limit_mode == "NONE" then
-        B747DR_ref_thr_limit_mode = ""
+        B747DR_ref_thr_limit_mode = " "
     else
         B747DR_ref_thr_limit_mode = B747_ref_thr_limit_mode
     end

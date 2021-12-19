@@ -460,7 +460,7 @@ end
 function compute_and_show_alt_range_arc()
   local meters_per_second_to_kts = 1.94384449
   local actual_speed = simDR_groundspeed * meters_per_second_to_kts
-  if (simDR_autopilot_altitude_ft>simDR_pressureAlt1 and simDR_vvi_fpm_pilot>150) or (simDR_autopilot_altitude_ft<simDR_pressureAlt1 and simDR_vvi_fpm_pilot<-150) then
+  if (simDR_autopilot_altitude_ft>simDR_pressureAlt1 and simDR_vvi_fpm_pilot>250) or (simDR_autopilot_altitude_ft<simDR_pressureAlt1 and simDR_vvi_fpm_pilot<-250) then
     altDiff=simDR_autopilot_altitude_ft-simDR_pressureAlt1
     minsToAlt=altDiff/simDR_vvi_fpm_pilot
     distanceToAlt=(actual_speed*minsToAlt)/60
@@ -486,23 +486,33 @@ function compute_and_show_alt_range_arc()
     B747DR_nd_alt_fo_active=1
    end
 end
-
+function aircraft_unload()
+  print("ND aircraft unload")
+  if fix_data_file~=nil then
+    print("ND close fix_data_file")
+    fix_data_file:close()
+    fix_data_file=nil
+  end
+end
 function after_physics()
   if debug_nd>0 then return end
   local diff=simDRTime-lastUpdate
   updateIcons()
   compute_and_show_alt_range_arc()
+  if debug_nd<-2 then return end
   local diff2=simDRTime-lastUpdateIcon
   if diff>0.5 then 
     newIcons()
     lastUpdateIcon=simDRTime
   end
+  if debug_nd<-1 then return end
   diff2=simDRTime-lastUpdateFixes
   if diff2>10 then 
     read_fixes()
   end
   if diff<2 then return end
   lastUpdate=simDRTime
+  if debug_nd<0 then return end
   decodeNAVAIDS()
   decodeFlightPlan()
   newIcons()

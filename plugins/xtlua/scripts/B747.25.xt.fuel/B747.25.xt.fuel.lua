@@ -2689,9 +2689,17 @@ function B747_fuel_jettison_time()
 end
 
 
+function eicas_caution_center_left()
+    if B747DR_button_switch_position[52] > 0.95 then
+        B747DR_CAS_caution_status[69] = 1
+    end
+end
 
-
-
+function eicas_caution_center_right()
+    if B747DR_button_switch_position[53] > 0.95 then
+        B747DR_CAS_caution_status[70] = 1
+    end
+end
 
 ----- FUEL SYSTEM EICAS MESSAGES --------------------------------------------------------
 function B747_fuel_EICAS_msg()
@@ -2728,7 +2736,7 @@ function B747_fuel_EICAS_msg()
     then
         B747DR_CAS_caution_status[36] = 1
     else
-  B747DR_CAS_caution_status[36] = 0
+        B747DR_CAS_caution_status[36] = 0
     end
 
     -- APU FUEL
@@ -2739,7 +2747,7 @@ function B747_fuel_EICAS_msg()
     then
         B747DR_CAS_advisory_status[15] = 1
     else
-      B747DR_CAS_advisory_status[15] = 0
+        B747DR_CAS_advisory_status[15] = 0
     end
 
     -- ENG 1 FUEL FILT
@@ -2875,6 +2883,37 @@ function B747_fuel_EICAS_msg()
       B747DR_CAS_advisory_status[158] = 0
     end
 
+    -- FUEL LOW CTR L
+    if B747DR_CAS_caution_status[37] == 0 and B747DR_CAS_caution_status[69] == 0 then
+        if B747DR_button_switch_position[52] > 0.95
+            and simDR_fuel_tank_weight_kg[0] <= 1300.0
+        then
+            B747DR_CAS_advisory_status[302] = 1 
+            if is_timer_scheduled(eicas_caution_center_left)==false then
+                run_after_time(eicas_caution_center_left,60)
+            end
+        else
+            B747DR_CAS_advisory_status[302] = 0
+        end
+    else
+        B747DR_CAS_advisory_status[302] = 0
+    end    
+    -- FUEL LOW CTR R
+    if B747DR_CAS_caution_status[37] == 0 and B747DR_CAS_caution_status[70] == 0 then
+        if B747DR_button_switch_position[53] > 0.95
+            and simDR_fuel_tank_weight_kg[0] <= 1300.0
+        then
+            B747DR_CAS_advisory_status[303] = 1
+            if is_timer_scheduled(eicas_caution_center_right)==false then
+                run_after_time(eicas_caution_center_right,60)
+            end
+            
+        else
+            B747DR_CAS_advisory_status[303] = 0
+        end
+    else
+        B747DR_CAS_advisory_status[303] = 0
+    end  
     -- FUEL PMP STAB L
     
     if B747DR_CAS_caution_status[37] == 0 then
@@ -2882,8 +2921,8 @@ function B747_fuel_EICAS_msg()
             or (B747DR_button_switch_position[54] < 0.05 and simDR_fuel_tank_weight_kg[7] > 500.0 and simDR_all_wheels_on_ground == 0)
         then
             B747DR_CAS_advisory_status[159] = 1
-  else
-    B747DR_CAS_advisory_status[159] = 0
+        else
+            B747DR_CAS_advisory_status[159] = 0
         end
     else
       B747DR_CAS_advisory_status[159] = 0
@@ -2897,7 +2936,7 @@ function B747_fuel_EICAS_msg()
         then
             B747DR_CAS_advisory_status[160] = 1
   else
-    B747DR_CAS_advisory_status[160] = 0
+        B747DR_CAS_advisory_status[160] = 0
         end
     else
       B747DR_CAS_advisory_status[160] = 0
@@ -3544,6 +3583,7 @@ function hasSimConfig()
 end
 function after_physics()
     if hasSimConfig()==false then return end
+    local onGround=simDR_all_wheels_on_ground
     if debug_fuel>11 then return end
     B747_fuel_pump_control()
     if debug_fuel>10 then return end
