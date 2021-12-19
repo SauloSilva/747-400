@@ -4,6 +4,7 @@ OBJ
 
 TEXTURE		../../objects/747_exterior/Exterior_engine_NEW.png
 TEXTURE_NORMAL ../../objects/747_exterior/Exterior_engine_NEW_NML.png
+PARTICLE_SYSTEM ../../objects/aircraft_system.pss
 GLOBAL_specular 1.0
 POINT_COUNTS	31878 0 0 147168
 
