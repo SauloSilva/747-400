@@ -2895,6 +2895,9 @@ function B747_fuel_EICAS_msg()
         else
             B747DR_CAS_advisory_status[302] = 0
         end
+    elseif B747DR_button_switch_position[52] < 0.95 then
+        B747DR_CAS_advisory_status[302] = 0
+        B747DR_CAS_caution_status[69] = 0
     else
         B747DR_CAS_advisory_status[302] = 0
     end    
@@ -2911,6 +2914,9 @@ function B747_fuel_EICAS_msg()
         else
             B747DR_CAS_advisory_status[303] = 0
         end
+    elseif B747DR_button_switch_position[53] < 0.95 then
+        B747DR_CAS_advisory_status[303] = 0
+        B747DR_CAS_caution_status[70] = 0
     else
         B747DR_CAS_advisory_status[303] = 0
     end  
