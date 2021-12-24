@@ -519,12 +519,13 @@ function fms:B747_fms_display()
       end
     else
       if self.pgNo>fmsPages[page]:getNumPages() then self.pgNo=fmsPages[page]:getNumPages() self.targetpgNo=fmsPages[page]:getNumPages() end
+      if self.pgNo<1 then self.pgNo=1 self.targetpgNo=1 end
       local fmsPage = fmsPages[page]:getPage(self.pgNo,thisID);
       local fmsPagesmall = fmsPages[page]:getSmallPage(self.pgNo,thisID);
       local tmpSRC
       for i=1,13,1 do
-	tmpSRC=B747DR_srcfms[thisID][i] -- make sure src is always fresh
-	B747DR_fms[thisID][i]=fmsPage[i]
+	      tmpSRC=B747DR_srcfms[thisID][i] -- make sure src is always fresh
+	      B747DR_fms[thisID][i]=fmsPage[i]
       end
       for i=1,13,1 do
 	B747DR_fms_s[thisID][i]=fmsPagesmall[i]
