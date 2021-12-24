@@ -302,7 +302,7 @@ function B747_monitor_THR_REF_AT()
     
     --Marauder28
     --Defer throttle control to EEC module
-    if (string.match(simConfigData["data"].PLANE.engines, "CF6") or string.match(simConfigData["data"].PLANE.engines, "PW") or string.match(simConfigData["data"].PLANE.engines, "RB")) and
+    --[[if (string.match(simConfigData["data"].PLANE.engines, "CF6") or string.match(simConfigData["data"].PLANE.engines, "PW") or string.match(simConfigData["data"].PLANE.engines, "RB")) and
         (string.match(B747DR_ref_thr_limit_mode, "TO") or string.match(B747DR_ref_thr_limit_mode, "CLB")  or string.match(B747DR_ref_thr_limit_mode, "GA")) then
         return
     end
@@ -310,9 +310,9 @@ function B747_monitor_THR_REF_AT()
 
     if (n1_pct < (ref_throttle-0.2)) and simDR_allThrottle<0.99 then
 	    simCMD_ThrottleUp:once()
-    elseif (n1_pct > (ref_throttle+0.8)) and simDR_allThrottle>0.0 then
-        simCMD_ThrottleDown:once()
-    end
+    elseif (n1_pct > (ref_throttle+0.8)) and simDR_allThrottle>0.0 and B747DR_ap_flightPhase>2 then
+        smCMD_ThrottleDown:once()
+    end]]
     
 end
 function checkMCPAlt(dist)
@@ -345,7 +345,9 @@ function VNAV_modeSwitch(fmsO)
     else
         B747_monitor_THR_REF_AT()
     end
-
+    if simDR_autopilot_alt_hold_status==2 then
+        B747DR_ap_flightPhase=2
+    end
     local diff=simDRTime-B747DR_ap_lastCommand
     if diff<0.5 then return end --mode switch at 0.5 second intervals
     

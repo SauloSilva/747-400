@@ -707,7 +707,8 @@ function throttle_management()
 
 	--Determine FMA Mode
 	--THR REF Mode
-	if B747DR_ap_autothrottle_armed == 1 and B747DR_ap_FMA_autothrottle_mode == 5 and EEC_status == 0 then
+	if B747DR_ap_autothrottle_armed == 1 and B747DR_ap_FMA_autothrottle_mode == 5 
+	and B747DR_ap_flightPhase<2 and EEC_status == 0 then
 		--Take control of the throttles from the user and manage via Thrust Ref targets
 		--hold_mode = 0
 		if B747DR_ap_FMA_active_pitch_mode == 1 or B747DR_ap_FMA_active_pitch_mode == 4
@@ -732,7 +733,7 @@ function throttle_management()
 		end
 
 	-- HOLD Mode
-	elseif B747DR_ap_autothrottle_armed == 1 and B747DR_ap_FMA_autothrottle_mode == 1 and EEC_status == 0 then
+	elseif (B747DR_ap_autothrottle_armed == 1  or simDR_override_throttles == 1 ) and B747DR_ap_FMA_autothrottle_mode == 1 and EEC_status == 0 then
 		--Give throttle control back to the user
 		simDR_override_throttles = 0
 		if simDR_autothrottle_enabled == 2 and simDR_autothrottle_on == 1 then

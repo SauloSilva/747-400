@@ -243,7 +243,7 @@ function clb_crz_setSpd()
         spdval = ci_mach/10
     end 
     print("convert to cruise speed in clb_crz_setSpd ".. spdval)
-    B747DR_ap_flightPhase=2
+    --B747DR_ap_flightPhase=2
     simDR_autopilot_airspeed_is_mach = 1
     B747DR_ap_ias_dial_value = spdval
     B747DR_lastap_dial_airspeed=spdval*0.01

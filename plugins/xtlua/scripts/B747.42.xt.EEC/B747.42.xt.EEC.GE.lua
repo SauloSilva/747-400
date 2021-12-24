@@ -98,7 +98,7 @@ function thrust_ref_control_N1()
 	end
 	
   --Manage throttle settings in THR REF mode (or HOLD mode during Takeoff)
-	if simDR_override_throttles == 1 or B747DR_ap_FMA_autothrottle_mode == 1 then
+	if simDR_override_throttles == 1 then -- or B747DR_ap_FMA_autothrottle_mode == 1 then
 		
     --DECREASE adjustments
 		--if string.format("%4.1f", B747DR_display_N1[0]) > string.format("%4.1f", simDR_N1_target_bug[0]) then
@@ -701,7 +701,7 @@ function GE(altitude_ft_in)
       if B747DR_display_N1_max[i] < B747DR_display_N1_ref[i] then
         B747DR_display_N1_max[i] = B747DR_display_N1_ref[i]
       else
-        B747DR_display_N1_max[i] = math.min(string.format("%4.1f", N1_real_max_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value, 117.5)
+        B747DR_display_N1_max[i] = math.max(B747DR_display_N1_ref[i],math.min(string.format("%4.1f", N1_real_max_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value, 117.5))
       end
     end
   elseif string.match(B747DR_ref_thr_limit_mode, "CRZ") then
