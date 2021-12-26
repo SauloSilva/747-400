@@ -683,10 +683,10 @@ function B747_landing_light_brightness()
     local gear_handle_factor = 0.5
     if B747DR_gear_handle < 0.05 then gear_handle_factor = 1.0 end
 
-    simDR_landing_light_switch[0] = B747DR_toggle_switch_position[1] * gear_handle_factor
-    simDR_landing_light_switch[1] = B747DR_toggle_switch_position[3] * gear_handle_factor
-    simDR_landing_light_switch[2] = B747DR_toggle_switch_position[4] * gear_handle_factor
-    simDR_landing_light_switch[3] = B747DR_toggle_switch_position[2] * gear_handle_factor
+    simDR_landing_light_switch[0] = 1 - B747DR_toggle_switch_position[1] * gear_handle_factor
+    simDR_landing_light_switch[1] = 1 - B747DR_toggle_switch_position[3] * gear_handle_factor
+    simDR_landing_light_switch[2] = 1 - B747DR_toggle_switch_position[4] * gear_handle_factor
+    simDR_landing_light_switch[3] = 1 - B747DR_toggle_switch_position[2] * gear_handle_factor
 
 end
 
@@ -704,9 +704,9 @@ function B747_turnoff_lights()
     if simDR_all_wheels_on_ground == 0
         and B747DR_toggle_switch_position[5] > 0.95
     then
-        simDR_generic_brightness_switch[0] = 0
+        simDR_generic_brightness_switch[0] = 1
     else
-        simDR_generic_brightness_switch[0] = B747DR_toggle_switch_position[5]
+        simDR_generic_brightness_switch[0] = 1 - B747DR_toggle_switch_position[5]
     end
 
 
@@ -714,9 +714,9 @@ function B747_turnoff_lights()
     if simDR_all_wheels_on_ground == 0
         and B747DR_toggle_switch_position[6] > 0.95
     then
-        simDR_generic_brightness_switch[1] = 0
+        simDR_generic_brightness_switch[1] = 1
     else
-        simDR_generic_brightness_switch[1] = B747DR_toggle_switch_position[6]
+        simDR_generic_brightness_switch[1] = 1 - B747DR_toggle_switch_position[6]
     end
 
 end
@@ -731,9 +731,9 @@ function B747_taxi_lights()
     if simDR_all_wheels_on_ground == 0
         and B747DR_toggle_switch_position[7] > 0.95
     then
-        simDR_taxi_light_switch_on = 0
+        simDR_taxi_light_switch_on = 1
     else
-        simDR_taxi_light_switch_on = B747DR_toggle_switch_position[7]
+        simDR_taxi_light_switch_on = 1 - B747DR_toggle_switch_position[7]
     end
 
 end
@@ -763,7 +763,7 @@ end
 ----- NAV LIGHTS ------------------------------------------------------------------------
 function B747_nav_lights()
 
-    simDR_nav_lights_switch = B747DR_toggle_switch_position[9]
+    simDR_nav_lights_switch = 1 - B747DR_toggle_switch_position[9]
 
 end
 
@@ -774,7 +774,7 @@ end
 ----- STROBE LIGHTS ---------------------------------------------------------------------
 function B747_strobe_lights()
 
-   	simDR_strobe_lights_switch = B747DR_toggle_switch_position[10]
+   	simDR_strobe_lights_switch = 1 - B747DR_toggle_switch_position[10]
 
 end
 
@@ -785,7 +785,7 @@ end
 ----- WING LIGHTS -----------------------------------------------------------------------
 function B747_wing_lights()
 
-    simDR_generic_brightness_switch[2] = B747DR_toggle_switch_position[11]
+    simDR_generic_brightness_switch[2] = 1 - B747DR_toggle_switch_position[11]
 
 end
 
@@ -796,7 +796,7 @@ end
 ----- LOGO LIGHTS -----------------------------------------------------------------------
 function B747_logo_lights()
 
-    simDR_generic_brightness_switch[3] = B747DR_toggle_switch_position[12]
+    simDR_generic_brightness_switch[3] = 1 - B747DR_toggle_switch_position[12]
 
 end
 
@@ -912,19 +912,19 @@ function B747_spill_lights()
     local storm_light_level = storm_light_brt_level * simDR_generic_brightness_ratio[63]
 
     -- SET THE SPILL LIGHT LEVELS
-    B747DR_spill_light_capt_panel_flood[3]      = B747_ternary((B747DR_toggle_switch_position[0] >= 0.95), storm_light_level, (B747DR_flood_light_rheo_capt_panel * simDR_generic_brightness_ratio[63]))
-    B747DR_spill_light_center_panel_flood[3]    = B747_ternary((B747DR_toggle_switch_position[0] >= 0.95), storm_light_level, (B747DR_flood_light_rheo_capt_panel * simDR_generic_brightness_ratio[63]))
+    B747DR_spill_light_capt_panel_flood[3]      = B747_ternary((B747DR_toggle_switch_position[0] <= 0.05), storm_light_level, (B747DR_flood_light_rheo_capt_panel * simDR_generic_brightness_ratio[63]))
+    B747DR_spill_light_center_panel_flood[3]    = B747_ternary((B747DR_toggle_switch_position[0] <= 0.05), storm_light_level, (B747DR_flood_light_rheo_capt_panel * simDR_generic_brightness_ratio[63]))
     B747DR_spill_light_capt_map[3]              = B747DR_map_light_rheo_capt * simDR_generic_brightness_ratio[63]
     B747DR_spill_light_capt_chart[3]            = B747DR_chart_light_rheo_capt * simDR_generic_brightness_ratio[63]
-    B747DR_spill_light_fo_panel_flood[3]        = B747_ternary((B747DR_toggle_switch_position[0] >= 0.95), storm_light_level, (B747DR_flood_light_rheo_fo_panel * simDR_generic_brightness_ratio[63]))
+    B747DR_spill_light_fo_panel_flood[3]        = B747_ternary((B747DR_toggle_switch_position[0] <= 0.05), storm_light_level, (B747DR_flood_light_rheo_fo_panel * simDR_generic_brightness_ratio[63]))
     B747DR_spill_light_fo_map[3]                = B747DR_map_light_rheo_fo * simDR_generic_brightness_ratio[63]
     B747DR_spill_light_fo_chart[3]              = B747DR_chart_light_rheo_fo * simDR_generic_brightness_ratio[63]
     B747DR_spill_light_observer_map[3]          = B747DR_map_light_rheo_observer * simDR_generic_brightness_ratio[63]
-    B747DR_spill_light_mcp_flood[3]             = B747_ternary((B747DR_toggle_switch_position[0] >= 0.95), storm_light_level, (B747DR_flood_light_rheo_mcp * simDR_generic_brightness_ratio[63]))
-    B747DR_spill_light_aisle_stand_flood[3]     = B747_ternary((B747DR_toggle_switch_position[0] >= 0.95), storm_light_level, (B747DR_flood_light_rheo_aisle_stand * simDR_generic_brightness_ratio[63]))
+    B747DR_spill_light_mcp_flood[3]             = B747_ternary((B747DR_toggle_switch_position[0] <= 0.05), storm_light_level, (B747DR_flood_light_rheo_mcp * simDR_generic_brightness_ratio[63]))
+    B747DR_spill_light_aisle_stand_flood[3]     = B747_ternary((B747DR_toggle_switch_position[0] <= 0.05), storm_light_level, (B747DR_flood_light_rheo_aisle_stand * simDR_generic_brightness_ratio[63]))
 
     --SET THE OVERHEAD FLOOD BRIGHTNESS LEVEL
-    simDR_panel_brightness_switch[0]            = B747_ternary((B747DR_toggle_switch_position[0] >= 0.95), storm_light_level, B747DR_flood_light_rheo_overhead)
+    simDR_panel_brightness_switch[0]            = B747_ternary((B747DR_toggle_switch_position[0] <= 0.05), storm_light_level, B747DR_flood_light_rheo_overhead)
 
     -- SET THE MAG COMPASS SPILL LIGHT LEVEL
     B747DR_spill_light_mag_compass_flood[3]     = simDR_panel_brightness_ratio[3]

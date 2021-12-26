@@ -1166,11 +1166,13 @@ end
 
 
 function B747_windshield_washer_switch_L_CMDhandler(phase, duration)
-    if phase == 0 then B747_toggle_switch_position_target[20] = 1.0 -  B747_toggle_switch_position_target[20] end
+    if phase == 0 then B747_toggle_switch_position_target[20] = 0
+    elseif phase == 2 then B747_toggle_switch_position_target[20] = 1 end
 end
 
 function B747_windshield_washer_switch_R_CMDhandler(phase, duration)
-    if phase == 0 then B747_toggle_switch_position_target[21] = 1.0 -  B747_toggle_switch_position_target[21] end
+    if phase == 0 then B747_toggle_switch_position_target[21] = 0
+    elseif phase == 2 then B747_toggle_switch_position_target[21] = 1 end
 end
 
 function B747_outflow_valve_switch_open_CMDhandler(phase, duration)
@@ -1955,19 +1957,35 @@ function B747_set_manip_CD()
 	-- BUTTON SWITCHES
 	for i = 0, 86 do
 		B747_button_switch_position_target[i] = 0
-		B747DR_button_switch_position[i] = 0		
-	end	
-	
+		B747DR_button_switch_position[i] = 0
+	end
+
 	B747DR_elec_ext_pwr_1_switch_mode = 0
 	B747DR_elec_apu_pwr_1_switch_mode = 0
 
 
 	-- TOGGLE SWITCHES
 	for j = 0, 37 do
-		B747_toggle_switch_position_target[j] = 0
-		B747DR_toggle_switch_position[j] = 0		
-	end	
+        if j < 13 then
+            B747_toggle_switch_position_target[j] = 1
+            B747DR_toggle_switch_position[j] = 1
+        else
+            B747_toggle_switch_position_target[j] = 0
+		    B747DR_toggle_switch_position[j] = 0
+        end
+    end
 
+    for k = 1, 12 do
+        B747_toggle_switch_position_target[k] = 1
+        B747DR_toggle_switch_position[k] = 1
+        --not 7
+    end
+    B747DR_toggle_switch_position[20] = 1
+    B747_toggle_switch_position_target[20] = 1
+    B747DR_toggle_switch_position[21] = 1
+    B747_toggle_switch_position_target[21] = 1
+    B747DR_toggle_switch_position[8] = 0
+    B747_toggle_switch_position_target[8] = 0
 end
 
 
@@ -1976,43 +1994,37 @@ end
 
 ----- SET STATE TO ENGINES RUNNING ------------------------------------------------------
 function B747_set_manip_ER()
-	
+
 	B747_set_manip_CD()
-    
+
     -- ELECTRICAL SYSTEM
-    B747_button_switch_position_target[11] = 1
-	B747DR_button_switch_position[11] = 1
     B747_button_switch_position_target[12] = 1
 	B747DR_button_switch_position[12] = 1
 	B747_button_switch_position_target[13] = 1
 	B747DR_button_switch_position[13] = 1
 	B747_button_switch_position_target[18] = 1
-	B747DR_button_switch_position[18] = 1	
+	B747DR_button_switch_position[18] = 1
 	B747_button_switch_position_target[19] = 1
-	B747DR_button_switch_position[19] = 1	
-	B747_button_switch_position_target[20] = 1
-	B747DR_button_switch_position[20] = 1	
-	B747_button_switch_position_target[21] = 1
-	B747DR_button_switch_position[21] = 1	
+	B747DR_button_switch_position[19] = 1
 	B747_button_switch_position_target[22] = 1
-	B747DR_button_switch_position[22] = 1	
+	B747DR_button_switch_position[22] = 1
 	B747_button_switch_position_target[23] = 1
-	B747DR_button_switch_position[23] = 1	
+	B747DR_button_switch_position[23] = 1
 	B747_button_switch_position_target[24] = 1
-	B747DR_button_switch_position[24] = 1	
+	B747DR_button_switch_position[24] = 1
 	B747_button_switch_position_target[25] = 1
-	B747DR_button_switch_position[25] = 1		
-	
-    -- HYDRAULIC SYSTEM	
+	B747DR_button_switch_position[25] = 1
+
+    -- HYDRAULIC SYSTEM
     B747_button_switch_position_target[30] = 1
-	B747DR_button_switch_position[30] = 1	
+	B747DR_button_switch_position[30] = 1
     B747_button_switch_position_target[31] = 1
 	B747DR_button_switch_position[31] = 1
 	B747_button_switch_position_target[32] = 1
 	B747DR_button_switch_position[32] = 1
 	B747_button_switch_position_target[33] = 1
-	B747DR_button_switch_position[33] = 1	
-	
+	B747DR_button_switch_position[33] = 1
+
     -- FUEL SYSTEM
     B747_button_switch_position_target[48] = 1
 	B747DR_button_switch_position[48] = 1
@@ -2050,17 +2062,17 @@ function B747_set_manip_ER()
 	B747DR_button_switch_position[66] = 1
 	B747_button_switch_position_target[67] = 1
 	B747DR_button_switch_position[67] = 1
-    
+
     -- YAW DAMPER    
 	B747_button_switch_position_target[82] = 1
 	B747DR_button_switch_position[82] = 1
 	B747_button_switch_position_target[83] = 1
-	B747DR_button_switch_position[83] = 1    
-    
+	B747DR_button_switch_position[83] = 1
+
      -- TEMPERATURE   
  	B747_button_switch_position_target[37] = 1
-	B747DR_button_switch_position[83] = 1     
-    
+	B747DR_button_switch_position[83] = 1 
+
     -- BLEED AIR
 	B747_button_switch_position_target[75] = 1
 	B747DR_button_switch_position[75] = 1
@@ -2074,8 +2086,8 @@ function B747_set_manip_ER()
 	B747DR_button_switch_position[79] = 1
 	B747_button_switch_position_target[80] = 1
 	B747DR_button_switch_position[80] = 1   
-   	
-end	
+
+end
 
 
 
