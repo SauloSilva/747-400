@@ -3,13 +3,13 @@ by Matt726
 
 Available for: Default Laminar Research or mSparks 747 mod
 
-Version: v2.4
+Version: v3.0
 
 Email: mfahrenheit135@gmail.com
 
 [YouTube](https://youtube.com/c/Matt726)
 
-[Discord](https://discord.gg/W4Uym2S)
+[Discord](https://discord.com/invite/eU2vWCtmFX)
 
 [mSparks Discord](https://discord.com/invite/cStTXy5)
 
@@ -27,6 +27,15 @@ Email: mfahrenheit135@gmail.com
 
 ---
 ## CHANGELOG:
+
+### v3.0:
+
+MAJOR UPDATE:
+- lots of things that i cant keep track of
+- RB211 MAJOR UPDATES
+- new knob sounds
+- improved recirculation fan sound logic
+- fixed lcd display fans
 
 ### v2.4:
 
