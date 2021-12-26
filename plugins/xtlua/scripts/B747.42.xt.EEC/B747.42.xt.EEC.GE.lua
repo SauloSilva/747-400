@@ -690,7 +690,7 @@ function GE(altitude_ft_in)
 
 		--Set target bugs
 		for i = 0, 3 do
-      if N1_actual > N1_real_max_climb and simDR_flap_ratio == 0 then
+      if N1_actual > N1_real_max_climb and simDR_flap_ratio == 0 or takeoff_TOGA_n1==0 then
         simDR_N1_target_bug[i] = math.min(string.format("%4.1f", N1_real_max_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value, 117.5)
         B747DR_display_N1_ref[i] = math.min(string.format("%4.1f", N1_real_max_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value, 117.5)
       else

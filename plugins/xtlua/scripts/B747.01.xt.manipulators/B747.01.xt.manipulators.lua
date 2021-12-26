@@ -1998,6 +1998,8 @@ function B747_set_manip_ER()
 	B747_set_manip_CD()
 
     -- ELECTRICAL SYSTEM
+    B747_button_switch_position_target[11] = 1
+	B747DR_button_switch_position[11] = 1
     B747_button_switch_position_target[12] = 1
 	B747DR_button_switch_position[12] = 1
 	B747_button_switch_position_target[13] = 1
@@ -2006,6 +2008,10 @@ function B747_set_manip_ER()
 	B747DR_button_switch_position[18] = 1
 	B747_button_switch_position_target[19] = 1
 	B747DR_button_switch_position[19] = 1
+    B747_button_switch_position_target[20] = 1
+	B747DR_button_switch_position[20] = 1	
+	B747_button_switch_position_target[21] = 1
+	B747DR_button_switch_position[21] = 1
 	B747_button_switch_position_target[22] = 1
 	B747DR_button_switch_position[22] = 1
 	B747_button_switch_position_target[23] = 1

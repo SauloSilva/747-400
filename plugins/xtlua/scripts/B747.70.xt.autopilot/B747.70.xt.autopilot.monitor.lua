@@ -313,6 +313,9 @@ function B747_monitor_THR_REF_AT()
     elseif (n1_pct > (ref_throttle+0.8)) and simDR_allThrottle>0.0 and B747DR_ap_flightPhase>2 then
         smCMD_ThrottleDown:once()
     end]]
+    if (n1_pct > (ref_throttle+0.8)) and simDR_allThrottle>0.0 and B747DR_ap_flightPhase>2 then
+        simCMD_ThrottleDown:once()
+    end
     
 end
 function checkMCPAlt(dist)
@@ -433,7 +436,7 @@ function B747_monitorAT()
             B747DR_autothrottle_fail=1
         end
         B747DR_engine_TOGA_mode = 0 
-        
+        simDR_override_throttles = 0
         return 
     end
 

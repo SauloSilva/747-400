@@ -96,7 +96,9 @@ local localFixes={}
 local scansize=1000
 dofile("json/json.lua")
 dofile("numberlua.lua")
-
+function livery_load()
+  scansize=1000
+end
 
 function decodeNAVAIDS()
   if string.len(navAidsJSON) ~= nLength then
@@ -299,7 +301,6 @@ function updateIcons()
 end
 
 function newIcons()
-
   lastCaptNavaid=0
   lastFONavaid=0
   captIRS=B747DR_pfd_mode_capt
@@ -443,7 +444,7 @@ function read_fixes()
     fix_data_file:close()
     fix_data_file=nil
     localFixes={}
-    scansize=100
+    scansize=50
     numFixes=numTempFixes
     for n=1 ,numTempFixes do
       localFixes[n]={}
@@ -486,6 +487,7 @@ function compute_and_show_alt_range_arc()
     B747DR_nd_alt_fo_active=1
    end
 end
+last_range_dial = 0
 function aircraft_unload()
   print("ND aircraft unload")
   if fix_data_file~=nil then
@@ -497,6 +499,13 @@ end
 function after_physics()
   if debug_nd>0 then return end
   local diff=simDRTime-lastUpdate
+
+  --force new icons if range dial changes (stop bleed into other displays)
+  if simDR_range_dial_capt~=last_range_dial then
+    last_range_dial=simDR_range_dial_capt
+    newIcons()
+  end
+
   updateIcons()
   compute_and_show_alt_range_arc()
   if debug_nd<-2 then return end
