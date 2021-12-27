@@ -657,7 +657,7 @@ function GE(altitude_ft_in)
 	--print("Alt = "..altitude)
 	--print("Temp = "..temperature)
 
-  if simDR_onGround == 1 then
+  if simDR_onGround == 1 or takeoff_thrust_n1==0.0 or B747DR_ref_thr_limit_mode == "" or B747DR_ref_thr_limit_mode == "NONE" then
 		--temperature = find_closest_temperature(TOGA_N1_GE, simDR_temperature)
 		--airport_altitude = altitude
 		--print("Closest Temp = ", temperature)
@@ -678,6 +678,8 @@ function GE(altitude_ft_in)
     end
 
 		B747DR_TO_throttle = takeoff_thrust_n1_throttle
+    --print("did init")
+    --simCMD_pause:once() 
   end
 
   if string.match(B747DR_ref_thr_limit_mode, "TO") or B747DR_ref_thr_limit_mode == "" then

@@ -189,6 +189,7 @@ simDR_pressureAlt1           	= find_dataref("sim/cockpit2/gauges/indicators/alt
 simDR_radarAlt1           	= find_dataref("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot")
 simDR_radarAlt2           	= find_dataref("sim/cockpit2/guages/indicators/radio_altimeter_height_ft_copilot")
 simDR_allThrottle           	= find_dataref("sim/cockpit2/engine/actuators/throttle_ratio_all")
+simDR_override_throttles	= find_dataref("sim/operation/override/override_throttles")
 simDR_descent           	= find_dataref("sim/cockpit2/autopilot/des_adjust")
 simDR_pitch           	= find_dataref("sim/cockpit2/autopilot/sync_hold_pitch_deg")
 simDR_touchGround=find_dataref("sim/flightmodel/failures/onground_any")
