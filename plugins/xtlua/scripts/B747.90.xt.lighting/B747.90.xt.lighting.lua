@@ -847,7 +847,6 @@ function B747_cabin_lights()
        brightnessPower[2]=B747_animate_value(brightnessPower[2],1,0,1,0.5)
        brightnessPower[9]=B747_animate_value(brightnessPower[9],1,0,1,0.5)
        brightnessPower[12]=B747_animate_value(brightnessPower[12],1,0,1,0.5)
-       print("b "..brightnessPower[12])
      end
      for i = 0, 32 do
 -- 	--print(i)
