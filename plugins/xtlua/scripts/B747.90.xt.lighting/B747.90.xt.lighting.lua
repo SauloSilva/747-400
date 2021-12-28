@@ -404,7 +404,8 @@ B747DR_master_caution               = find_dataref("laminar/B747/warning/master_
 
 B747DR_CAS_memo_status              = find_dataref("laminar/B747/CAS/memo_status")
 
-
+B747DR_simDR_captain_display              = deferred_dataref("laminar/B747/electrical/capt_display_power", "number")
+B747DR_simDR_fo_display             = deferred_dataref("laminar/B747/electrical/fo_display_power", "number")
 
 
 
@@ -824,28 +825,29 @@ for i = 0, 32 do
 end
 ----- CABIN LIGHTS ----------------------------------------------------------------------
 function B747_cabin_lights()
-     if simDR_esys2==6 then --FO Transfer bus
+     if B747DR_simDR_fo_display==6 then --FO Transfer bus
        brightnessPower[3]=0 --FO ND
        brightnessPower[5]=0 --FO PFD
        brightnessPower[10]=0 --LOWER EICAS
        brightnessPower[13]=0 --FMS R
      else
-       brightnessPower[3]=1
-       brightnessPower[5]=1
-       brightnessPower[10]=1
-       brightnessPower[13]=1
+       brightnessPower[3]=B747_animate_value(brightnessPower[3],1,0,1,0.5)
+       brightnessPower[5]=B747_animate_value(brightnessPower[5],1,0,1,0.5)
+       brightnessPower[10]=B747_animate_value(brightnessPower[10],1,0,1,0.5)
+       brightnessPower[13]=B747_animate_value(brightnessPower[13],1,0,1,0.5)
      end
      
-     if simDR_esys1==6 then --Capt Transfer bus
+     if B747DR_simDR_captain_display==6 then --Capt Transfer bus
        brightnessPower[0]=0 --C ND
        brightnessPower[2]=0 --C PFD
        brightnessPower[9]=0 --UPPER EICAS
        brightnessPower[12]=0 --FMS C/L
      else
-       brightnessPower[0]=1
-       brightnessPower[2]=1
-       brightnessPower[9]=1
-       brightnessPower[12]=1
+       brightnessPower[0]=B747_animate_value(brightnessPower[0],1,0,1,0.5)
+       brightnessPower[2]=B747_animate_value(brightnessPower[2],1,0,1,0.5)
+       brightnessPower[9]=B747_animate_value(brightnessPower[9],1,0,1,0.5)
+       brightnessPower[12]=B747_animate_value(brightnessPower[12],1,0,1,0.5)
+       print("b "..brightnessPower[12])
      end
      for i = 0, 32 do
 -- 	--print(i)
