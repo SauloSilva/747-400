@@ -117,7 +117,7 @@ simConfigData = {}
 
 simDR_startup_running           = find_dataref("sim/operation/prefs/startup_running")
 simDR_all_wheels_on_ground      = find_dataref("sim/flightmodel/failures/onground_any")
-
+simDR_reallyall_wheels_on_ground      = find_dataref("sim/flightmodel/failures/onground_all")
 simDR_thrust_rev_deploy_ratio   = find_dataref("sim/flightmodel2/engines/thrust_reverser_deploy_ratio")
 B747DR_reverser_lockout            = deferred_dataref("laminar/B747/engines/reverser_lockout", "number")
 simDR_autothrottle_on           = find_dataref("sim/cockpit2/autopilot/autothrottle_on")
@@ -781,7 +781,7 @@ function B747_prop_mode()
       elseif toderate==1 then throttlederate=0.9
       elseif toderate==2 then throttlederate=0.8 end
     end]]--
-    if simDR_all_wheels_on_ground==0 then
+    if simDR_reallyall_wheels_on_ground==0 then
         B747DR_reverser_lockout = 1
     else 
         B747DR_reverser_lockout = 0

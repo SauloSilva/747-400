@@ -1954,11 +1954,11 @@ function B747_ap_appr_mode_beforeCMDhandler(phase, duration)
 		if B747DR_ap_approach_mode<=0 then
 			B747DR_ap_approach_mode=1
 
-			if B747DR_ap_cmd_L_mode ==1 or B747DR_ap_cmd_C_mode ==1 or B747DR_ap_cmd_R_mode==1 then
+			--[[if B747DR_ap_cmd_L_mode ==1 or B747DR_ap_cmd_C_mode ==1 or B747DR_ap_cmd_R_mode==1 then
 				B747DR_ap_cmd_L_mode=1
 				B747DR_ap_cmd_C_mode=1
 				B747DR_ap_cmd_R_mode=1
-			end
+			end]]
 			print("arm APP approach")
 			--else
 			--	B747DR_ap_approach_mode=0
@@ -2008,7 +2008,15 @@ function B747_ap_appr_mode()
 		local refreshheading=simDR_autopilot_heading_status
 	end
 		--reactivate LNAV if required
+
 	if diff<0.2 then return end
+
+	if B747DR_ap_approach_mode~=0 and simDR_radarAlt1<1500  and simDR_autopilot_nav_status==2 and simDR_autopilot_gs_status==2 and 
+			(B747DR_ap_cmd_L_mode ==1 or B747DR_ap_cmd_C_mode ==1 or B747DR_ap_cmd_R_mode==1) then
+		B747DR_ap_cmd_L_mode=1
+		B747DR_ap_cmd_C_mode=1
+		B747DR_ap_cmd_R_mode=1
+	end
 	if B747DR_ap_approach_mode==0 then
 		if simDR_autopilot_nav_status > 0 then
 			if simDR_autopilot_gs_status > 0 then
@@ -2054,6 +2062,7 @@ function B747_ap_appr_mode()
 		B747DR_ap_lastCommand=simDRTime
 	end
 	if simDR_onGround==1 then
+		print("simDR_onGround to B747DR_ap_approach_mode=0")
 		B747DR_ap_approach_mode=0
 	end
 
@@ -2168,13 +2177,13 @@ function B747_ap_fma()
     -- (LNAV) --
     elseif simDR_autopilot_gpss == 1 or B747DR_ap_lnav_state==1 then
         B747DR_ap_FMA_armed_roll_mode = 2
-
-    -- (LOC) --
-    elseif simDR_autopilot_nav_status == 1 or (B747DR_ap_approach_mode~=0 and simDR_autopilot_nav_status~=2) then
+	elseif simDR_autopilot_nav_status == 1 or (B747DR_ap_approach_mode~=0 and simDR_autopilot_nav_status~=2) then
         B747DR_ap_FMA_armed_roll_mode = 3
-
-    -- (ROLLOUT) --
-    -- TODO: AUTOLAND LOGIC
+    -- (LOC) --
+    elseif simDR_radarAlt1>200 and (B747DR_ap_AFDS_status_annun_pilot==3 or B747DR_ap_AFDS_status_annun_pilot==4) then
+		-- ROLLOUT and FLARE ARMED
+		B747DR_ap_FMA_armed_roll_mode = 4
+		
     else
       B747DR_ap_FMA_armed_roll_mode = 0
 
@@ -2263,12 +2272,14 @@ function B747_ap_fma()
     -- (VNAV) --
     elseif B747DR_ap_vnav_state == 1 then
         B747DR_ap_FMA_armed_pitch_mode = 4
+	elseif simDR_radarAlt1>200 and (B747DR_ap_AFDS_status_annun_pilot==3 or B747DR_ap_AFDS_status_annun_pilot==4) then
+		-- ROLLOUT and FLARE ARMED (dont get here once in autoland)
+		B747DR_ap_FMA_armed_pitch_mode = 3	
     else
-	B747DR_ap_FMA_armed_pitch_mode = 0
+		B747DR_ap_FMA_armed_pitch_mode = 0
     -- (FLARE) --
-    -- TODO: AUTOLAND LOGIC
     
-  end
+  	end
 
     -- PITCH MODES: ACTIVE
     -- ----------------------------------------------------------------------------------
@@ -2394,6 +2405,9 @@ end
 
 local B747_ap_AFDS_status_annun
 function set_afds_status(value)
+	if value~=B747_ap_AFDS_status_annun then
+		print("Set AFDS="..value.." @ "..simDR_radarAlt1.."feet")
+	end
 	B747_ap_AFDS_status_annun=value
 	if value == 1 then 
 		if B747DR_toggle_switch_position[23] == 1.0 then 
@@ -2439,12 +2453,13 @@ function B747_ap_afds()
 
 		end
 	end		
-    
+    local diff=simDRTime-B747DR_ap_lastCommand
+	if diff<0.2 then return end
     
     local landAssist=false
     if simDR_autopilot_approach_status > 1 or B747DR_ap_autoland==1 then landAssist=true end
     if numAPengaged == 1 then                                                           	-- TODO:  CHANGE TO "==" WHEN AUTOLAND LOGIC (BELOW) IS IMPLEMENTED 
-        if  landAssist==true then
+        if  landAssist==true and simDR_radarAlt1<1500 then
             set_afds_status(5)                                             	-- AFDS MODE = "NO AUTOLAND" (NOT MODELED)
 		else
 			set_afds_status(2)   -- AFDS MODE = "CMD"
@@ -2452,7 +2467,7 @@ function B747_ap_afds()
 
     -- TODO: IF LOC OR APP CAPTURED ? THEN...
     elseif numAPengaged == 2  and landAssist==true  then
-        set_afds_status(3   )                                               	-- AFDS MODE = "LAND 2"
+        set_afds_status(3)                                               	-- AFDS MODE = "LAND 2"
         B747_AFDS_land2_EICAS_status = 1
 
     elseif numAPengaged == 3  and landAssist==true  then
@@ -2516,10 +2531,18 @@ function B747_ap_afds_fma_mode_change()
             B747DR_ap_AFDS_mode_box2_status_pilot = 0
 			B747DR_ap_AFDS_mode_box2_status_copilot = 0
         elseif B747_ap_AFDS_status_annun > 0 and B747_ap_AFDS_status_annun < 5 then     -- MODE IS NOT "NONE" AND NOT "NO AUTOLAND"
-            B747DR_ap_AFDS_mode_box2_status_pilot = 0
-			B747DR_ap_AFDS_mode_box2_status_copilot = 0
-            if B747DR_toggle_switch_position[23] == 1 then B747DR_ap_AFDS_mode_box_status_pilot = 1   end                                          -- SHOW THE MODE CHANGE BOX
-			if B747DR_toggle_switch_position[24] == 1 then B747DR_ap_AFDS_mode_box_status_copilot = 1   end                                          -- SHOW THE MODE CHANGE BOX                                          -- SHOW THE MODE CHANGE BOX
+            
+			
+            if B747DR_toggle_switch_position[23] == 1 then 
+				B747DR_ap_AFDS_mode_box_status_pilot = 1 
+			else
+				B747DR_ap_AFDS_mode_box2_status_pilot = 0
+			end                                          -- SHOW THE MODE CHANGE BOX
+			if B747DR_toggle_switch_position[24] == 1 then 
+				B747DR_ap_AFDS_mode_box_status_copilot = 1   
+			else
+				B747DR_ap_AFDS_mode_box2_status_copilot = 0
+			end                                          -- SHOW THE MODE CHANGE BOX                                          -- SHOW THE MODE CHANGE BOX
             if is_timer_scheduled(B747_AFDS_status_mode_chg_timeout) == false then          -- CHECK TIMEOUT STATUS
                 run_after_time(B747_AFDS_status_mode_chg_timeout, 10.0)                     -- SET TO TIMEOUT IN 10 SECONDS
             else
