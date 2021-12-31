@@ -266,7 +266,7 @@ function B747_thrust_rev_toggle_1_CMDhandler(phase, duration)
 		-- AIRCRAFT MUST BE ON THE GROUND
 		-- PREVENTS USER TOGGLING "REVERSE" MODE WHEN ANY THROTTLE LEVER IS NOT AT IDLE
 
-		if B747DR_reverser_lockout == 0 then											-- AIRCRAFT IS ON THE GRUOND
+		--if B747DR_reverser_lockout == 0 then											-- AIRCRAFT IS ON THE GRUOND
 			
 			if simDR_engine_throttle_jet[0] > 0.0 then									-- IS ENGINE 1 THROTTLE LEVER IN "THRUST" MODE
 				-- FORCE  PROP MODE TO "NORMAL"
@@ -281,7 +281,7 @@ function B747_thrust_rev_toggle_1_CMDhandler(phase, duration)
 				simDR_prop_mode[0] = 4 - simDR_prop_mode[0]															
 			end
 				    	
-		end					
+		--end					
 	end		
 end	
 
@@ -291,7 +291,7 @@ function B747_thrust_rev_toggle_2_CMDhandler(phase, duration)
 		-- AIRCRAFT MUST BE ON THE GROUND
 		-- PREVENTS USER TOGGLING "REVERSE" MODE WHEN ENGINE 1 THROTTLE LEVER IS NOT AT IDLE
 
-		if B747DR_reverser_lockout == 0 then											-- AIRCRAFT IS ON THE GRUOND
+		--if B747DR_reverser_lockout == 0 then											-- AIRCRAFT IS ON THE GRUOND
 			
 			if simDR_engine_throttle_jet[1] > 0.0 then									-- IS ENGINE 2 THROTTLE LEVER IN "THRUST" MODE
 				-- FORCE  PROP MODE TO "NORMAL"
@@ -306,7 +306,7 @@ function B747_thrust_rev_toggle_2_CMDhandler(phase, duration)
 				simDR_prop_mode[1] = 4 - simDR_prop_mode[1]															
 			end
 				    	
-		end					
+		--end					
 	end		
 end	
 
@@ -316,7 +316,7 @@ function B747_thrust_rev_toggle_3_CMDhandler(phase, duration)
 		-- AIRCRAFT MUST BE ON THE GROUND
 		-- PREVENTS USER TOGGLING "REVERSE" MODE WHEN ENGINE 2 THROTTLE LEVER IS NOT AT IDLE
 
-		if B747DR_reverser_lockout == 0 then											-- AIRCRAFT IS ON THE GRUOND
+		--if B747DR_reverser_lockout == 0 then											-- AIRCRAFT IS ON THE GRUOND
 			
 			if simDR_engine_throttle_jet[2] > 0.0 then									-- IS ENGINE 3 THROTTLE LEVER IN "THRUST" MODE
 				-- FORCE  PROP MODE TO "NORMAL"
@@ -331,7 +331,7 @@ function B747_thrust_rev_toggle_3_CMDhandler(phase, duration)
 				simDR_prop_mode[2] = 4 - simDR_prop_mode[2]															
 			end
 				    	
-		end					
+		--end					
 	end		
 end
 
@@ -341,7 +341,7 @@ function B747_thrust_rev_toggle_4_CMDhandler(phase, duration)
 		-- AIRCRAFT MUST BE ON THE GROUND
 		-- PREVENTS USER TOGGLING "REVERSE" MODE WHEN ENGINE 3 THROTTLE LEVER IS NOT AT IDLE
 
-		if B747DR_reverser_lockout == 0 then											-- AIRCRAFT IS ON THE GRUOND
+		--if B747DR_reverser_lockout == 0 then											-- AIRCRAFT IS ON THE GRUOND
 			
 			if simDR_engine_throttle_jet[3] > 0.0 then									-- IS ENGINE 4 THROTTLE LEVER IN "THRUST" MODE
 				-- FORCE  PROP MODE TO "NORMAL"
@@ -356,7 +356,7 @@ function B747_thrust_rev_toggle_4_CMDhandler(phase, duration)
 				simDR_prop_mode[3] = 4 - simDR_prop_mode[3]															
 			end
 				    	
-		end					
+		--end					
 	end		
 end
 
@@ -366,7 +366,7 @@ function B747_thrust_rev_toggle_all_CMDhandler(phase, duration)
 		-- AIRCRAFT MUST BE ON THE GROUND
 		-- PREVENTS USER TOGGLING "REVERSE" MODE WHEN ENGINE 4 THROTTLE LEVER IS NOT AT IDLE
 		
-		if B747DR_reverser_lockout == 0 then											-- AIRCRAFT IS ON THE GRUOND
+		--if B747DR_reverser_lockout == 0 then											-- AIRCRAFT IS ON THE GRUOND
 			
 			if simDR_engine_throttle_jet_all >= 0.0 then									-- IS ANY THROTTLE LEVER IN "THRUST" MODE
 				-- FORCE  PROP MODE TO "NORMAL"
@@ -390,7 +390,7 @@ function B747_thrust_rev_toggle_all_CMDhandler(phase, duration)
 				simDR_prop_mode[3] = 4 - simDR_prop_mode[3]								
 			end	 
 			   	
-		end 	
+		--end 	
 	end	
 end	
 
