@@ -403,8 +403,10 @@ end
 --custom autothrottle for THR REF
 
 function B747_monitorAT()
+
     local diff=simDRTime-B747DR_ap_lastCommand
     if diff<0.5 then return end --mode switch at 0.5 second intervals
+
     --make sure autothrottle is in the correct mode for the FMA
     --[[local ap_state=toBits(simDR_autopilot_state)
     local fmsArm=0
@@ -453,12 +455,17 @@ function B747_monitorAT()
 
     --ALT/VS/GS
     if simDR_autopilot_alt_hold_status == 2 then
-        
+        if B747DR_ap_thrust_mode~=0 then
+            B747DR_ap_lastCommand=simDRTime
+        end
+        B747DR_ap_thrust_mode=0
+        B747DR_engine_TOGA_mode = 0	-- CANX ENGINE TOGA IF ACTIVE
+        B747DR_ap_flightPhase=2
         if simDR_autopilot_autothrottle_enabled==0 then
             print("simDR_autopilot_alt_hold_status")
-            B747DR_ap_thrust_mode=0
+            
             simCMD_autopilot_autothrottle_on:once()
-            B747DR_engine_TOGA_mode = 0	-- CANX ENGINE TOGA IF ACTIVE
+            
             B747DR_ap_lastCommand=simDRTime
         end
         

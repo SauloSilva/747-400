@@ -259,104 +259,53 @@ simCMD_ThrottleUp=find_command("sim/engines/throttle_up")
 --*************************************************************************************--
 --** 				              CUSTOM COMMAND HANDLERS            			     **--
 --*************************************************************************************--
+local callEngineReverse={}
+callEngineReverse[0]=-1
+callEngineReverse[1]=-1
+callEngineReverse[2]=-1
+callEngineReverse[3]=-1
 
 function B747_thrust_rev_toggle_1_CMDhandler(phase, duration)
 	if phase == 0 then
 			
-		-- AIRCRAFT MUST BE ON THE GROUND
-		-- PREVENTS USER TOGGLING "REVERSE" MODE WHEN ANY THROTTLE LEVER IS NOT AT IDLE
-
-		--if B747DR_reverser_lockout == 0 then											-- AIRCRAFT IS ON THE GRUOND
-			
-			if simDR_engine_throttle_jet[0] > 0.0 then									-- IS ENGINE 1 THROTTLE LEVER IN "THRUST" MODE
-				-- FORCE  PROP MODE TO "NORMAL"
-				simDR_prop_mode[0] = 1																									
-				
-			elseif simDR_engine_throttle_jet[0] < 0.0 then								-- IS ENGINE 1 THROTTLE LEVER IN "REFVERSE" MODE	
-				-- FORCE  PROP MODE TO "REVERSE"										
-				simDR_prop_mode[0] = 3																									
-				
-			else																		-- ENGINE 1 THROTTLE IS AT IDLE, OK TO TOGGLE PROP MODE FOR ALL ENGINES
-				-- TOGGLE PROP MODE
-				simDR_prop_mode[0] = 4 - simDR_prop_mode[0]															
-			end
-				    	
-		--end					
+		if callEngineReverse[0]<=0 then 
+            callEngineReverse[0]=1
+        else
+            callEngineReverse[0]=0
+        end					
 	end		
 end	
 
 function B747_thrust_rev_toggle_2_CMDhandler(phase, duration)
 	if phase == 0 then
 			
-		-- AIRCRAFT MUST BE ON THE GROUND
-		-- PREVENTS USER TOGGLING "REVERSE" MODE WHEN ENGINE 1 THROTTLE LEVER IS NOT AT IDLE
-
-		--if B747DR_reverser_lockout == 0 then											-- AIRCRAFT IS ON THE GRUOND
-			
-			if simDR_engine_throttle_jet[1] > 0.0 then									-- IS ENGINE 2 THROTTLE LEVER IN "THRUST" MODE
-				-- FORCE  PROP MODE TO "NORMAL"
-				simDR_prop_mode[1] = 1																									
-				
-			elseif simDR_engine_throttle_jet[1] < 0.0 then								-- IS ENGINE 2 THROTTLE LEVER IN "REFVERSE" MODE	
-				-- FORCE  PROP MODE TO "REVERSE"										
-				simDR_prop_mode[1] = 3																									
-				
-			else																		-- ENGINE 2 THROTTLE IS AT IDLE, OK TO TOGGLE PROP MODE FOR ALL ENGINES
-				-- TOGGLE PROP MODE
-				simDR_prop_mode[1] = 4 - simDR_prop_mode[1]															
-			end
-				    	
-		--end					
+		if callEngineReverse[1]<=0 then 
+            callEngineReverse[1]=1
+        else
+            callEngineReverse[1]=0
+        end						
 	end		
 end	
 
 function B747_thrust_rev_toggle_3_CMDhandler(phase, duration)
 	if phase == 0 then
 			
-		-- AIRCRAFT MUST BE ON THE GROUND
-		-- PREVENTS USER TOGGLING "REVERSE" MODE WHEN ENGINE 2 THROTTLE LEVER IS NOT AT IDLE
-
-		--if B747DR_reverser_lockout == 0 then											-- AIRCRAFT IS ON THE GRUOND
-			
-			if simDR_engine_throttle_jet[2] > 0.0 then									-- IS ENGINE 3 THROTTLE LEVER IN "THRUST" MODE
-				-- FORCE  PROP MODE TO "NORMAL"
-				simDR_prop_mode[2] = 1																									
-				
-			elseif simDR_engine_throttle_jet[2] < 0.0 then								-- IS ENGINE 3 THROTTLE LEVER IN "REFVERSE" MODE	
-				-- FORCE  PROP MODE TO "REVERSE"										
-				simDR_prop_mode[2] = 3																									
-				
-			else																		-- ENGINE 3 THROTTLE IS AT IDLE, OK TO TOGGLE PROP MODE FOR ALL ENGINES
-				-- TOGGLE PROP MODE
-				simDR_prop_mode[2] = 4 - simDR_prop_mode[2]															
-			end
-				    	
-		--end					
+		if callEngineReverse[2]<=0 then 
+            callEngineReverse[2]=1
+        else
+            callEngineReverse[2]=0
+        end						
 	end		
 end
 
 function B747_thrust_rev_toggle_4_CMDhandler(phase, duration)
 	if phase == 0 then
 			
-		-- AIRCRAFT MUST BE ON THE GROUND
-		-- PREVENTS USER TOGGLING "REVERSE" MODE WHEN ENGINE 3 THROTTLE LEVER IS NOT AT IDLE
-
-		--if B747DR_reverser_lockout == 0 then											-- AIRCRAFT IS ON THE GRUOND
-			
-			if simDR_engine_throttle_jet[3] > 0.0 then									-- IS ENGINE 4 THROTTLE LEVER IN "THRUST" MODE
-				-- FORCE  PROP MODE TO "NORMAL"
-				simDR_prop_mode[3] = 1																									
-				
-			elseif simDR_engine_throttle_jet[3] < 0.0 then								-- IS ENGINE 4 THROTTLE LEVER IN "REFVERSE" MODE	
-				-- FORCE  PROP MODE TO "REVERSE"										
-				simDR_prop_mode[3] = 3																									
-				
-			else																		-- ENGINE 4 THROTTLE IS AT IDLE, OK TO TOGGLE PROP MODE FOR ALL ENGINES
-				-- TOGGLE PROP MODE
-				simDR_prop_mode[3] = 4 - simDR_prop_mode[3]															
-			end
-				    	
-		--end					
+		if callEngineReverse[3]<=0 then 
+            callEngineReverse[3]=1
+        else
+            callEngineReverse[3]=0
+        end					
 	end		
 end
 
@@ -365,32 +314,14 @@ function B747_thrust_rev_toggle_all_CMDhandler(phase, duration)
 		
 		-- AIRCRAFT MUST BE ON THE GROUND
 		-- PREVENTS USER TOGGLING "REVERSE" MODE WHEN ENGINE 4 THROTTLE LEVER IS NOT AT IDLE
-		
-		--if B747DR_reverser_lockout == 0 then											-- AIRCRAFT IS ON THE GRUOND
-			
-			if simDR_engine_throttle_jet_all >= 0.0 then									-- IS ANY THROTTLE LEVER IN "THRUST" MODE
-				-- FORCE  PROP MODE TO "NORMAL"
-				simDR_prop_mode[0] = 1													
-				simDR_prop_mode[1] = 1													
-				simDR_prop_mode[2] = 1													
-				simDR_prop_mode[3] = 1													
-				
-			elseif simDR_engine_throttle_jet_all < 0.0 then								-- IS ANY THROTTLE LEVER IN "REFVERSE" MODE	
-				-- FORCE  PROP MODE TO "REVERSE"										
-				simDR_prop_mode[0] = 3													
-				simDR_prop_mode[1] = 3													
-				simDR_prop_mode[2] = 3													
-				simDR_prop_mode[3] = 3													
-				
-			else																		-- ALL THROTTLES ARE AT IDLE, OK TO TOGGLE PROP MODE FOR ALL ENGINES
-				-- TOGGLE PROP MODE
-				simDR_prop_mode[0] = 4 - simDR_prop_mode[0]								
-				simDR_prop_mode[1] = 4 - simDR_prop_mode[1]								
-				simDR_prop_mode[2] = 4 - simDR_prop_mode[2]								
-				simDR_prop_mode[3] = 4 - simDR_prop_mode[3]								
-			end	 
-			   	
-		--end 	
+		print("toggle reverse")
+        for i = 0, 3 do
+            if callEngineReverse[i]<=0 then 
+                callEngineReverse[i]=1
+            else
+                callEngineReverse[i]=0
+            end
+        end
 	end	
 end	
 
@@ -400,6 +331,7 @@ end
 
 
 function B747_thrust_rev_hold_max_1_CMDhandler(phase, duration)
+    callEngineReverse[0]=-1
 
     if phase < 2 then
 	    
@@ -431,6 +363,7 @@ end
 
 function B747_thrust_rev_hold_max_2_CMDhandler(phase, duration)
 
+    callEngineReverse[1]=-1
     if phase < 2 then
 	    
 		-- AIRCRAFT MUST BE ON THE GROUND
@@ -459,7 +392,7 @@ function B747_thrust_rev_hold_max_2_CMDhandler(phase, duration)
 end
 
 function B747_thrust_rev_hold_max_3_CMDhandler(phase, duration)
-
+    callEngineReverse[2]=-1
     if phase < 2 then
 	    
 		-- AIRCRAFT MUST BE ON THE GROUND
@@ -488,7 +421,9 @@ function B747_thrust_rev_hold_max_3_CMDhandler(phase, duration)
 end
 
 function B747_thrust_rev_hold_max_4_CMDhandler(phase, duration)
-    
+
+    callEngineReverse[3]=-1
+
     if phase < 2 then
 	    
 		-- AIRCRAFT MUST BE ON THE GROUND
@@ -517,7 +452,10 @@ function B747_thrust_rev_hold_max_4_CMDhandler(phase, duration)
 end
 
 function B747_thrust_rev_hold_max_all_CMDhandler(phase, duration)
-	
+	callEngineReverse[0]=-1
+    callEngineReverse[1]=-1
+    callEngineReverse[2]=-1
+    callEngineReverse[3]=-1
     if phase < 2 then
 	    
 		-- AIRCRAFT MUST BE ON THE GROUND
@@ -563,7 +501,15 @@ end
 
 
 
-function B747_engine_TOGA_power_CMDhandler(phase, duration) 				
+function B747_engine_TOGA_power_CMDhandler(phase, duration) 
+    callEngineReverse[0]=-1
+    callEngineReverse[1]=-1
+    callEngineReverse[2]=-1
+    callEngineReverse[3]=-1	
+    simDR_prop_mode[0] = 1													
+    simDR_prop_mode[1] = 1													
+    simDR_prop_mode[2] = 1													
+    simDR_prop_mode[3] = 1		
 	if phase == 0 then
         if B747DR_toggle_switch_position[29] == 1 then
             --if simDR_allThrottle>0.25 then
@@ -786,6 +732,13 @@ function B747_prop_mode()
     else 
         B747DR_reverser_lockout = 0
     end
+    for i = 0, 3 do
+        if callEngineReverse[i]==0 then 
+            simDR_prop_mode[i] = 1
+        elseif callEngineReverse[i]==1 and B747DR_reverser_lockout == 0 then
+            simDR_prop_mode[i] = 3
+        end
+    end 
     -- AIRCRAFT IS "ON THE GROUND" 
 	if B747DR_reverser_lockout == 1 and B747_hold_rev_on_all<1 then		
 	    
@@ -797,8 +750,8 @@ function B747_prop_mode()
 		    simDR_prop_mode[1] = 1
 		    simDR_prop_mode[2] = 1
 		    simDR_prop_mode[3] = 1	]]
-            if simDR_engine_throttle_jet[i]<0 then
-                simDR_engine_throttle_jet[i]=B747_animate_value(simDR_engine_throttle_jet[i],0,-1,0,1)
+            if (simDR_engine_throttle_jet[i]<0 and callEngineReverse[i]~=0) or  callEngineReverse[i]==1 then
+                simDR_engine_throttle_jet[i]=B747_animate_value(simDR_engine_throttle_jet[i],0.0,-1,1,1)
             end
 		end 		
 		

@@ -942,7 +942,7 @@ end
 function B747_speedbrake_warn()
 
   if B747DR_speedbrake_lever >0.125 
-  and simDR_all_wheels_on_ground == 0 
+        and simDR_all_wheels_on_ground == 0 
         and B747DR_engines_numClimb>=2 then  
         B747DR_CAS_warning_status[6] = 1
     end
@@ -1044,6 +1044,7 @@ function B747_fltCtrols_EICAS_msg()
         and num_fuel_ctrl_sw_on >= 3
         and B747DR_display_N1[1] > 90.0
         and B747DR_display_N1[2] > 90.0
+        and simDR_engine_throttle_jet_all >= 0
 	    and simDR_all_wheels_on_ground == 1
     then
         B747DR_CAS_warning_status[5] = 1
@@ -1059,6 +1060,7 @@ function B747_fltCtrols_EICAS_msg()
         and num_fuel_ctrl_sw_on >= 3
         and B747DR_display_N1[1] > 90.0
         and B747DR_display_N1[2] > 90.0
+        and simDR_engine_throttle_jet_all >= 0
     then
         B747DR_CAS_warning_status[6] = 1
     elseif B747DR_speedbrake_lever >0.125 
@@ -1097,6 +1099,7 @@ function B747_fltCtrols_EICAS_msg()
         and num_fuel_ctrl_sw_on >= 3
         and B747DR_display_N1[1] > 90.0
         and B747DR_display_N1[2] > 90.0
+        and simDR_engine_throttle_jet_all >= 0
     then
         B747DR_CAS_warning_status[7] = 1
     else

@@ -520,7 +520,7 @@ function B747_ap_switch_speed_mode_CMDhandler(phase, duration)
 		end
 		B747DR_ap_vnav_state=0
 		B747DR_ap_inVNAVdescent =0
-		B747DR_ap_flightPhase=1
+		B747DR_ap_flightPhase=2
 		print("B747DR_ap_thrust_mode "..B747DR_ap_thrust_mode)
 		B747DR_ap_thrust_mode=0
 		print("B747DR_ap_thrust_mode "..B747DR_ap_thrust_mode)
