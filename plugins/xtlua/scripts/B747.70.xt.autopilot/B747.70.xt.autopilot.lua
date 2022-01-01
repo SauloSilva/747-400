@@ -238,6 +238,7 @@ simDR_GS_mps=find_dataref("sim/flightmodel/position/groundspeed") -- ground airs
 
 B747DR_toggle_switch_position       	= find_dataref("laminar/B747/toggle_switch/position")
 B747DR_CAS_caution_status       		= find_dataref("laminar/B747/CAS/caution_status")
+B747DR_CAS_advisory_status       = find_dataref("laminar/B747/CAS/advisory_status")
 B747DR_speedbrake_lever     	= find_dataref("laminar/B747/flt_ctrls/speedbrake_lever")
 B747DR_ap_autoland            	= deferred_dataref("laminar/B747/autopilot/autoland", "number")
 B747DR_ap_autoland=0
@@ -2114,59 +2115,9 @@ end
 
 dofile("B747.autoland.lua")
 dofile("B747.70.xt.autopilot.monitor.lua")
-function B747_ap_fma()
-	B747DR_capt_ap_roll=B747_animate_value(B747DR_capt_ap_roll,B747DR_ap_target_roll-simDR_capt_roll,-25,25,10)
-	B747DR_fo_ap_roll=B747_animate_value(B747DR_fo_ap_roll,B747DR_ap_target_roll-simDR_fo_roll,-25,25,10)
-	--B747DR_capt_ap_roll=B747DR_ap_target_roll-simDR_capt_roll
-	--B747DR_fo_ap_roll=B747DR_ap_target_roll-simDR_fo_roll
 
-    if runAutoland() then return end
-	local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
-    -- AUTOTHROTTLE
-    -------------------------------------------------------------------------------------
-    if B747DR_toggle_switch_position[29] == 0 or B747DR_autothrottle_fail>0 then
-		B747DR_ap_FMA_autothrottle_mode = 0
-	elseif (B747DR_engine_TOGA_mode >0 and simDR_ind_airspeed_kts_pilot<65) or B747DR_ap_autoland<0 or (B747DR_ap_vnav_state==0 and B747DR_ap_thrust_mode>0) then                                        
-        
-		if B747DR_engine_TOGA_mode == 1 then 
-			B747DR_engine_TOGA_mode = 0
-			B747DR_ap_FMA_autothrottle_mode = 0
-		else
-			B747DR_ap_FMA_autothrottle_mode = 5 --THR REF
-		end
-    elseif (B747DR_engine_TOGA_mode >0 and simDR_radarAlt1<50)  then                                        
-        B747DR_ap_FMA_autothrottle_mode = 1 --HOLD
-		B747DR_engine_TOGA_mode = 1 --reached hold state
-    elseif (simDR_autopilot_fms_vnav == 1 or B747DR_ap_vnav_state ==2)
-      	and ((simDR_autopilot_flch_status > 0 or B747DR_engine_TOGA_mode==1) and B747DR_ap_inVNAVdescent==0) then
-	  B747DR_ap_FMA_autothrottle_mode = 5  --THR REF
-    elseif simDR_autopilot_autothrottle_on == 1 then
-      if B747DR_ap_vnav_state > 0 and simDR_allThrottle<0.02 and B747DR_ap_inVNAVdescent>0 then
-	  	B747DR_ap_FMA_autothrottle_mode = 2 --IDLE
-	  elseif simDR_onGround==0 then
-        B747DR_ap_FMA_autothrottle_mode = 3 -- SPD
-      end
-    else
-         if B747DR_ap_vnav_state > 0 and simDR_allThrottle<0.02 and simDR_onGround==0 then
-	   B747DR_ap_FMA_autothrottle_mode = 2 --IDLE
-	elseif (B747DR_ap_vnav_state >0 or B747DR_toggle_switch_position[29]>0) and simDR_onGround==0 then
-	  B747DR_ap_FMA_autothrottle_mode = 1 --HOLD
-	else
-	  B747DR_ap_FMA_autothrottle_mode = 0
-	end
-	
-    end
-
-    if simDR_radarAlt1>50 and B747DR_ap_lnav_state==1 then
-      B747DR_ap_lnav_state=2
-	  print("simDR_radarAlt1>50 and B747DR_ap_lnav_state==1")
-	  if simDR_autopilot_gpss ==0 then simCMD_autopilot_gpss_mode:once() end
-	  simDR_autopilot_gpss=2
-     -- simCMD_autopilot_gpss_mode:once()
-      run_after_time(checkLNAV, 0.5)
-    end
-
-    -- ROLL MODES: ARMED
+function fma_rollModes()
+	-- ROLL MODES: ARMED
     -- ----------------------------------------------------------------------------------
 
     -- (NONE) --
@@ -2250,10 +2201,10 @@ function B747_ap_fma()
       B747DR_ap_FMA_active_roll_mode = 0
       if B747DR_ap_lnav_state ==2 then B747DR_ap_lnav_state=0 end
   end
+end
 
-
-
-    -- PITCH MODES: ARMED
+function fma_PitchModes()
+	-- PITCH MODES: ARMED
     -- ----------------------------------------------------------------------------------
 
     -- (NONE) --
@@ -2394,6 +2345,65 @@ function B747_ap_fma()
         B747DR_ap_FMA_active_pitch_mode = 0
 		--throttlederate=1.0
     end
+end
+
+function B747_ap_fma()
+	B747DR_capt_ap_roll=B747_animate_value(B747DR_capt_ap_roll,B747DR_ap_target_roll-simDR_capt_roll,-25,25,10)
+	B747DR_fo_ap_roll=B747_animate_value(B747DR_fo_ap_roll,B747DR_ap_target_roll-simDR_fo_roll,-25,25,10)
+	--B747DR_capt_ap_roll=B747DR_ap_target_roll-simDR_capt_roll
+	--B747DR_fo_ap_roll=B747DR_ap_target_roll-simDR_fo_roll
+
+    if (B747DR_ap_AFDS_status_annun_pilot==3 or B747DR_ap_AFDS_status_annun_pilot==4) and runAutoland() then 
+		return 
+	end
+	local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
+    -- AUTOTHROTTLE
+    -------------------------------------------------------------------------------------
+    if B747DR_toggle_switch_position[29] == 0 or B747DR_autothrottle_fail>0 then
+		B747DR_ap_FMA_autothrottle_mode = 0
+	elseif (B747DR_engine_TOGA_mode >0 and simDR_ind_airspeed_kts_pilot<65) or B747DR_ap_autoland<0 or (B747DR_ap_vnav_state==0 and B747DR_ap_thrust_mode>0) then                                        
+        
+		if B747DR_engine_TOGA_mode == 1 then 
+			B747DR_engine_TOGA_mode = 0
+			B747DR_ap_FMA_autothrottle_mode = 0
+		else
+			B747DR_ap_FMA_autothrottle_mode = 5 --THR REF
+		end
+    elseif (B747DR_engine_TOGA_mode >0 and simDR_radarAlt1<50)  then                                        
+        B747DR_ap_FMA_autothrottle_mode = 1 --HOLD
+		B747DR_engine_TOGA_mode = 1 --reached hold state
+    elseif (simDR_autopilot_fms_vnav == 1 or B747DR_ap_vnav_state ==2)
+      	and ((simDR_autopilot_flch_status > 0 or B747DR_engine_TOGA_mode==1) and B747DR_ap_inVNAVdescent==0) then
+	  B747DR_ap_FMA_autothrottle_mode = 5  --THR REF
+    elseif simDR_autopilot_autothrottle_on == 1 then
+      if B747DR_ap_vnav_state > 0 and simDR_allThrottle<0.02 and B747DR_ap_inVNAVdescent>0 then
+	  	B747DR_ap_FMA_autothrottle_mode = 2 --IDLE
+	  elseif simDR_onGround==0 then
+        B747DR_ap_FMA_autothrottle_mode = 3 -- SPD
+      end
+    else
+         if B747DR_ap_vnav_state > 0 and simDR_allThrottle<0.02 and simDR_onGround==0 then
+	   B747DR_ap_FMA_autothrottle_mode = 2 --IDLE
+	elseif (B747DR_ap_vnav_state >0 or B747DR_toggle_switch_position[29]>0) and simDR_onGround==0 then
+	  B747DR_ap_FMA_autothrottle_mode = 1 --HOLD
+	else
+	  B747DR_ap_FMA_autothrottle_mode = 0
+	end
+	
+    end
+
+    if simDR_radarAlt1>50 and B747DR_ap_lnav_state==1 then
+      B747DR_ap_lnav_state=2
+	  print("simDR_radarAlt1>50 and B747DR_ap_lnav_state==1")
+	  if simDR_autopilot_gpss ==0 then simCMD_autopilot_gpss_mode:once() end
+	  simDR_autopilot_gpss=2
+     -- simCMD_autopilot_gpss_mode:once()
+      run_after_time(checkLNAV, 0.5)
+    end
+
+    
+	fma_rollModes()
+    fma_PitchModes()
   
 end 	
 
@@ -2458,7 +2468,11 @@ function B747_ap_afds()
     
     local landAssist=false
     if simDR_autopilot_approach_status > 1 or B747DR_ap_autoland==1 then landAssist=true end
-    if numAPengaged == 1 then                                                           	-- TODO:  CHANGE TO "==" WHEN AUTOLAND LOGIC (BELOW) IS IMPLEMENTED 
+	noAutoLand=false
+	if numAPengaged > 0 and (B747DR_ap_approach_mode~=0) and simDR_radarAlt1>200 and simDR_radarAlt1<1000 and simDR_autopilot_nav_status ~= 2 and simDR_autopilot_gs_status ~= 2 then
+		set_afds_status(5)
+		noAutoLand=true
+	elseif numAPengaged == 1 then                                                           	-- TODO:  CHANGE TO "==" WHEN AUTOLAND LOGIC (BELOW) IS IMPLEMENTED 
         if  landAssist==true and simDR_radarAlt1<1500 then
             set_afds_status(5)                                             	-- AFDS MODE = "NO AUTOLAND" (NOT MODELED)
 		else
@@ -2487,7 +2501,11 @@ function B747_ap_afds()
 	    	set_afds_status(0)
         end
     end
-
+	if noAutoLand then
+		B747DR_CAS_advisory_status[246]=1
+	else
+		B747DR_CAS_advisory_status[246]=0
+	end
 end
 
 

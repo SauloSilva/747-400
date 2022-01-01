@@ -307,24 +307,25 @@ function runAutoland()
       B747DR_ap_autoland=0 
       simDR_overRideStab=0
       return false
-    end
-    if B747DR_ap_autoland<0 then
+  end
+  if B747DR_ap_autoland<0 then
       simDR_overRideStab=0
       return false --Go Around active
-    elseif B747DR_ap_autoland==1 then
+  elseif B747DR_ap_autoland==1 then
       if active_land  then
         do_touchdown()
-	return true
+	      return true
       end
      
       if simDR_radarAlt1 < 5 and not active_land then -- watch the bounce! 
         end_Flare()
-	return true
+	    return true
       end
       during_Flare()
-     return true 
-    
+     return true  
   end
+
+
   retval=false
   if (B747DR_ap_AFDS_status_annun_pilot==3 or B747DR_ap_AFDS_status_annun_pilot==4) then
     if simDR_radarAlt1>200 then
@@ -333,7 +334,7 @@ function runAutoland()
     end
     retval=true
   end 
-
+  
   if simDR_touchGround>0 then return true end
    -- print("prep autoland ".. simDR_radarAlt1 .. " "..B747DR_ap_FMA_active_roll_mode.. " "..B747DR_ap_FMA_active_pitch_mode.. " "..numAPengaged)
   pinThrottle=simDR_allThrottle

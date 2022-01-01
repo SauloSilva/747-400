@@ -119,6 +119,7 @@ simDR_startup_running           = find_dataref("sim/operation/prefs/startup_runn
 simDR_all_wheels_on_ground      = find_dataref("sim/flightmodel/failures/onground_any")
 simDR_reallyall_wheels_on_ground      = find_dataref("sim/flightmodel/failures/onground_all")
 simDR_thrust_rev_deploy_ratio   = find_dataref("sim/flightmodel2/engines/thrust_reverser_deploy_ratio")
+B747DR_speedbrake_lever     	= find_dataref("laminar/B747/flt_ctrls/speedbrake_lever")
 B747DR_reverser_lockout            = deferred_dataref("laminar/B747/engines/reverser_lockout", "number")
 simDR_autothrottle_on           = find_dataref("sim/cockpit2/autopilot/autothrottle_on")
 
@@ -709,6 +710,7 @@ function B747_set_animation_position(current_value, target, min, max, speed)
 
 end
 ----- PROP MODE -------------------------------------------------------------------------
+local LastSpeedBrake=0
 function B747_prop_mode()
 
     -- Mode 0 is feathered, 1 is normal, 2 is in beta, and reverse (prop or jet) is mode 3
@@ -735,6 +737,9 @@ function B747_prop_mode()
     for i = 0, 3 do
         if callEngineReverse[i]==0 then 
             simDR_prop_mode[i] = 1
+        elseif B747DR_speedbrake_lever<LastSpeedBrake and callEngineReverse[i]==1 and B747DR_reverser_lockout == 0 then
+            simDR_prop_mode[i] = 1
+            callEngineReverse[i]=-1
         elseif callEngineReverse[i]==1 and B747DR_reverser_lockout == 0 then
             simDR_prop_mode[i] = 3
         end
@@ -756,7 +761,7 @@ function B747_prop_mode()
 		end 		
 		
 	end
-	
+	LastSpeedBrake=B747DR_speedbrake_lever
 end	
 
 			
