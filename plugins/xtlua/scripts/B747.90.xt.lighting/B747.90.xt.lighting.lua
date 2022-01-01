@@ -684,10 +684,10 @@ function B747_landing_light_brightness()
     local gear_handle_factor = 0.5
     if B747DR_gear_handle < 0.05 then gear_handle_factor = 1.0 end
 
-    simDR_landing_light_switch[0] = 1 - B747DR_toggle_switch_position[1] * gear_handle_factor
-    simDR_landing_light_switch[1] = 1 - B747DR_toggle_switch_position[3] * gear_handle_factor
-    simDR_landing_light_switch[2] = 1 - B747DR_toggle_switch_position[4] * gear_handle_factor
-    simDR_landing_light_switch[3] = 1 - B747DR_toggle_switch_position[2] * gear_handle_factor
+    simDR_landing_light_switch[0] = (1 - B747DR_toggle_switch_position[1]) * gear_handle_factor
+    simDR_landing_light_switch[1] = (1 - B747DR_toggle_switch_position[3]) * gear_handle_factor
+    simDR_landing_light_switch[2] = (1 - B747DR_toggle_switch_position[4]) * gear_handle_factor
+    simDR_landing_light_switch[3] = (1 - B747DR_toggle_switch_position[2]) * gear_handle_factor
 
 end
 
