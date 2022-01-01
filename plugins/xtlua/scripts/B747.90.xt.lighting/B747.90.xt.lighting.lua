@@ -682,7 +682,7 @@ end
 function B747_landing_light_brightness()
 
     local gear_handle_factor = 0.5
-    if B747DR_gear_handle < 0.05 then gear_handle_factor = 1.0 end
+    if B747DR_gear_handle < 0.05 then gear_handle_factor = 1.0 else gear_handle_factor = 0.5 end
 
     simDR_landing_light_switch[0] = (1 - B747DR_toggle_switch_position[1]) * gear_handle_factor
     simDR_landing_light_switch[1] = (1 - B747DR_toggle_switch_position[3]) * gear_handle_factor
@@ -702,22 +702,17 @@ end
 function B747_turnoff_lights()
 
     -- LEFT TURNOFF LIGHT
-    if simDR_all_wheels_on_ground == 0
-        and B747DR_toggle_switch_position[5] > 0.95
-    then
+    if simDR_all_wheels_on_ground == 1 and B747DR_toggle_switch_position[5] < 0.05 then
         simDR_generic_brightness_switch[0] = 1
     else
-        simDR_generic_brightness_switch[0] = 1 - B747DR_toggle_switch_position[5]
+        simDR_generic_brightness_switch[0] = 0
     end
 
-
     -- RIGHT TURNOFF LIGHT
-    if simDR_all_wheels_on_ground == 0
-        and B747DR_toggle_switch_position[6] > 0.95
-    then
+    if simDR_all_wheels_on_ground == 1 and B747DR_toggle_switch_position[6] < 0.05 then
         simDR_generic_brightness_switch[1] = 1
     else
-        simDR_generic_brightness_switch[1] = 1 - B747DR_toggle_switch_position[6]
+        simDR_generic_brightness_switch[1] = 0
     end
 
 end
@@ -729,12 +724,10 @@ end
 ----- TAXI LIGHTS -----------------------------------------------------------------------
 function B747_taxi_lights()
 
-    if simDR_all_wheels_on_ground == 0
-        and B747DR_toggle_switch_position[7] > 0.95
-    then
+    if simDR_all_wheels_on_ground == 1 and B747DR_toggle_switch_position[7] < 0.05 then
         simDR_taxi_light_switch_on = 1
     else
-        simDR_taxi_light_switch_on = 1 - B747DR_toggle_switch_position[7]
+        simDR_taxi_light_switch_on = 0
     end
 
 end
