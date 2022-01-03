@@ -2706,7 +2706,7 @@ function B747_ap_EICAS_msg()
 	end
     --if B747DR_speedbrake_lever <0.3  and simDR_autopilot_vs_fpm<-2000 and simDR_autopilot_vs_status >= 1 and B747DR_ap_vnav_state>0 then 
 	if B747DR_speedbrake_lever <0.3  
-	and simDR_ind_airspeed_kts_pilot>(simDR_autopilot_airspeed_kts+20)
+	and simDR_ind_airspeed_kts_pilot>(simDR_autopilot_airspeed_kts+10)
 	and simDR_ind_airspeed_kts_pilot>last_airspeed
 	and simDR_autopilot_vs_status >= 1 
 	and B747DR_ap_vnav_state>0 then 
