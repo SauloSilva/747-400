@@ -2710,8 +2710,11 @@ function B747_ap_EICAS_msg()
 	and simDR_ind_airspeed_kts_pilot>last_airspeed
 	and simDR_autopilot_vs_status >= 1 
 	and B747DR_ap_vnav_state>0 then 
-	--just a simple one for now, min thrust and increasing speed in vs mode would be better
-      B747DR_fmc_notifications[9]=1
+		if simDR_allThrottle>0 and B747DR_toggle_switch_position[29] == 1 and simDR_autopilot_autothrottle_enabled == 0 and simDR_radarAlt1>1000 then
+			simCMD_ThrottleDown:once()
+		else
+			B747DR_fmc_notifications[9]=1
+		end
     elseif simDR_ind_airspeed_kts_pilot~=last_airspeed then --dont turn it off if airspeed didn't update
       B747DR_fmc_notifications[9]=0
     end
