@@ -601,7 +601,8 @@ end
 function ecc_mode_set()
 
 	--Set Specific sub-mode for TO or CLB
-	if B747DR_ap_autoland==-2 then
+	--if (B747DR_ap_autoland==-2 or B747DR_ap_FMA_active_roll_mode ==3 ) and simDR_flap_ratio_control>0 then
+	if B747DR_ap_flightPhase >= 2 and simDR_flap_ratio > 0 then
 		B747DR_ref_thr_limit_mode = "GA"
 	elseif B747DR_ap_flightPhase==0 then
 		if B747DR_toderate == 0 then
