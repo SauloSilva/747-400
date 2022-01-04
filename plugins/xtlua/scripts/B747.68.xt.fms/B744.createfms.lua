@@ -179,7 +179,7 @@ function keyDown(fmsModule,key)
        simCMD_FMS_key[fmsModule][key]:once()
        return  
      else
-       fmsModules[fmsModule].notify="KEY NOT ACTIVE"
+       fmsModules[fmsModule].notify="KEY/FUNCTION INOP"
      end
   end
 end
