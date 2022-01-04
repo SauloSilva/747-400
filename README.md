@@ -1,36 +1,18 @@
-# Boeing 747-400
+# Sparky744: The Boeing 747-400 fleet
 
 ## Major Overhaul of the Laminar Boeing 747-400
 
-Thank you all for your support! This overhaul is now at the "experimental" version 1 stage. Still more todo but now has enough flight test hours under its belt to be a stable daily driver for your short and long haul needs.
+This overhaul attempts to capture the life of the 747-400 aircraft in as much realistic, intricate detail as can be achieved by the flight simulator community.
 
-**Is the 747 free?**
+The latest release includes accurately recreated performance and displays for all three engine variants, new object models for RB211 engines, highly performant new systems, cross platform voice commands, VR support and all new FMC with integrated ACARS/CPDLC.
 
-Yes! Of course! This project is an open source project, consisting of developers gathering from all over the world wanting to create a 747.
+This project is an open source project, consisting of developers gathering from all over the world wanting to recreate the worlds fleet of 747-400s.
 
+Several accurately recreate 744 airframes are included, along with a 744LCF, 744BCF variants can be recreated by downloading an appropriate BCF livery. New fuselage models, including the 744F are a work in progress.
 
-**What are the differences between the default 747, and the Sparky 747?**
+The general concept is to bring each aircraft as close to the real version as is achievable, please refer to original 747-400 material such as the widely distributed FCOM for details on how the aircraft functions.
 
-This 747 currently includes new FMOD sounds, realistic textures, new systems and FMC, two of three engines variants are now accurately implemented. Future changes will focus on fully simulating failures and continually focus on accurately recreating various 747-400 variants .
-The github repository contains the latest versions, including the LCF model variant by Lee_Hyeon_Seo (with permission) with the existing improvements, check out the working his [A340 developements](https://forums.x-plane.org/index.php?/forums/topic/203381-3d-cockpit-for-a340/&)
-
-Custom sounds and display textures by [Matt726](https://youtube.com/c/matt726)
-
-Old custom sounds from [FTSim+](https://k-akai.blogspot.com/) (with permission)
-
-We greatly thank FTSim+ for the former soundpack, and wish them good luck on other soundpacks! [Check them out!](https://k-akai.blogspot.com/)
-
-The general concept is to bring the aircraft as close to the real version as is achievable, please refer to original 747-400 material such as the widely distributed FCOM for details on how the aircraft functions.
-
-**How did you acheive such high framerates?**
-
-This overhaul converts all the existing 744 systems, along with all the numerous additions from XLua, which is single threaded and directly impacts X-Plane framerates, to XTLua, a fork of XLua which maintains general compatibility with XLua, but takes all the aircraft systems off the X-Plane flight simulation thread and makes full use of a modern multithreaded operating system (use Linux for the best results, but Microsoft Windows and macOS are also supported).
-
-XTlua is described in more detail [here](https://forums.x-plane.org/index.php?/forums/topic/209883-xtlua-parallel-lua-for-complex-aircraft-systems/)
-
-XTlua source is [here](https://github.com/mSparks43/XLua/tree/xTLua)
-
-**How can I contribute?**
+## Contacts:
 
 Please use the [github issue page](https://github.com/mSparks43/747-400/issues) if you find a problem. If your issue is already listed please add your details, problems that can be recreated are generally fixed quickly.
 
@@ -38,29 +20,21 @@ The 744 project was licenced as CC-BY-NC 4 on the 1st of May 2019, anyone with a
 
 You can follow progress, make requests and generally chat about the 747 on the 747-400 channel on the [Go Ahead discord server.](https://discord.gg/cStTXy5) and follow the project on [twitter](https://twitter.com/GoAheadFly)
 
-Feel free to join the conversation, fork this repository, and make the plane your own.
+Feel free to join the conversation, fork the github repository, and make the plane your own.
 
-**How can I remove the boarding music or PA announcements?**
+## Installation
+To install, extract the zip into your aircraft folder (delete any existing copy, **do not overwite an existing aircraft installation**)
 
-Head to the FMC MENU > ACMS > MAINT > SIMCONFIG. Here you can find many settings for the aircraft, including sound options.
-
-**How do I connect ground power?**
-The GPU can be connected in the FMS ground handling menu.
-
-### Installation
-Just extract the zip to your aircraft folder (delete any existing copy, **do not overwite an existing aircraft installation**)
-
-Integration with [Terrain Radar](https://forums.x-plane.org/index.php?/files/file/37864-terrain-radar-vertical-situation-display/) and [AutoATC](https://forums.x-plane.org/index.php?/files/file/45663-main-installation-files-for-autoatc-for-xplane-11/) is included which require installing seperately. Make sure you are using the latest versions of both for the fullest experience.
+Integration with [Terrain Radar](https://forums.x-plane.org/index.php?/files/file/37864-terrain-radar-vertical-situation-display/) and [AutoATC](https://forums.x-plane.org/index.php?/files/file/45663-main-installation-files-for-autoatc-for-xplane-11/) is included which require installing separately. Make sure you are using the latest versions of both for the fullest experience.
 
 Windows users:
 Two executables are included in the release zip file, these are required to have been installed for the aircraft systems to function.
 
-### Troubleshooting
-**How do I go direct to a waypoint?** flight plan manipulation is currently a "best effort" wrap around the default flightplan fms pages to get it as close to what is in the FCOM without going completely back to square oue.
+## Troubleshooting and FAQ
 
 ***Some general notes***:
 
- - On the ground RTE and LEGS behaves the same as default X-Plane RTE and LEGS, except loading .FMS files (from the X-Plane Output/FMS Plans directory) can be achieved by pressing the right line select key (aka R3) on the RTE page
+ - On the ground RTE and LEGS behaves the same as default X-Plane RTE and LEGS, except loading .FMS files (from the X-Plane Output/FMS Plans directory) can be achieved by pressing the right line select key (aka R3) on the RTE page
 
  - _Once in the air_: the LEGS page becomes the default INTC_DIR page, you can use this to go direct to by pressing L2 to L5 on page one to select the direct to destination, then L1, then exec to make it active.
 
@@ -68,31 +42,101 @@ Two executables are included in the release zip file, these are required to have
 
  - _Once in the air_, the X-Plane LEGS page can be reached by pressing RTE, and then L6 (marked RTE 2)
 
-**What is the black console window that opens when I start the plane?** Don't close it. The console window is part of the systems monitoring and will give important information needed to report issues for example if the plane crashes to desktop. This and the X-Plane Log.txt are the two primary tools for investigating issues. **This can be disabled by deleting the xtlua_debugging.txt file from the aircrafts plugins/xtlua/64/ folder.**
 
-**All my cockpit is black and I can't click anything?** Windows users: Please install the installers described above. Also check that the plugins/xtlua/64/win.xpl extracted correctly. Some users have reported their antivirus blocking it from being extracted. Please send an angry email to your antivirus provider along with a copy of the file if you have your time wasted by this.
+**How did you achieve such high frame rates?**
 
-**Why is my FMC blank?** certain controllers have their switches automatically bound to avionics power, if these are off it turns off the avionics needed by the FMC, either switch on the switch on your controller, or bind a key to "avionics on" and use that to bring the FMC to life
+This overhaul converts all the existing 744 systems, along with all the numerous additions from XLua, which is single threaded and directly impacts X-Plane frame rates, to XTLua, a fork of XLua which maintains general compatibility with XLua, but takes all the aircraft systems off the X-Plane flight simulation thread and makes full use of a modern multi-threaded operating system (use Linux for the best results, but Microsoft Windows and macOS are also supported).
 
-**Why can't I move?** The aircraft brakes require hydraulic pressure to function, to prevent the aircraft rolling away before the hydraulics are pressurised the wheels are fitted with chocks when starting cold and dark, remove the from the ground services menu in an FMC.
+XTlua is described in more detail [here](https://forums.x-plane.org/index.php?/forums/topic/209883-xtlua-parallel-lua-for-complex-aircraft-systems/)
+
+XTlua source is [here](https://github.com/mSparks43/XLua/tree/xTLua)
+
+**How do I use ACARS/CPDLC**
+
+ACARS/CPDLC provides real world data to the FMC and as such requires a "provider" to be written and installed. An [AutoATC](https://forums.x-plane.org/index.php?/files/file/45663-main-installation-files-for-autoatc-for-xplane-11/) provider is included (Android connection required) which currently provides full flight planning, METAR and TAF reports along with ATC integration (AI ATC now with discord support a work in progress). Other networks, such as VATSIM/Hoppie and IVAO will require a similar provider integrating with the aircraft systems. You should refer to the [Go Ahead discord server.](https://discord.gg/cStTXy5) and the respective networks support channels for further information and help. 
+
+(Please note; providers that do not support all platforms will not be accepted into the aircraft distribution)
+
+**How can I remove the boarding music or PA announcements?**
+
+Head to the FMC MENU > ACMS > MAINT > SIMCONFIG. Here you can find many settings for the aircraft, including sound options.
+
+**How do I connect ground power?**
+
+The GPU can be connected in the FMS ground handling menu.
+
+**How do I go direct to a waypoint?** 
+
+Flight plan manipulation is currently a "best effort" wrap around the default flightplan fms pages to get it as close to what is in the FCOM without going completely back to square oue.
+
+**What is the black console window that opens when I start the plane?** 
+
+Don't close it. The console window is part of the systems monitoring used during development and will give important information needed to report issues. For example if the plane crashes to desktop. This and the X-Plane Log.txt are the two primary tools for investigating issues. **This can be disabled by deleting the xtlua_debugging.txt file from the aircraft's plugins/xtlua/64/ folder.**
+
+**All my cockpit is black and I can't click anything?**
+
+Windows users: Please install the installers described above. Also check that the plugins/xtlua/64/win.xpl extracted correctly. Some users have reported their antivirus blocking it from being extracted. Please send an angry email to your antivirus provider along with a copy of the file if you have your time wasted by this.
+
+**Why is my FMC blank?** 
+
+Certain controllers have their switches automatically bound to avionics power, if these are off it turns off the avionics needed by the FMC, either switch on the switch on your controller, or bind a key to "avionics on" and use that to bring the FMC to life
+
+**Why can't I move?** 
+
+The aircraft brakes require hydraulic pressure to function, to prevent the aircraft rolling away before the hydraulics are pressurized the wheels are fitted with chocks when starting cold and dark, remove the from the ground services menu in an FMC.
 
 Additionally, the brake lever and X-Plane brakes are now separated, there is a new command to engage the brakes by lifting the parking brake lever.
 
-**Why are my screens half blank?** IRS alignment cannot complete until you set the IRS position in the FMC. (INIT REF -> POS -> R4 to copy GPS position, R5 to enter it into current position. Make sure you don't move while it's aligning!
+**Why are my screens half blank?** 
+
+IRS alignment cannot complete until you set the IRS position in the FMC. (INIT REF -> POS -> R4 to copy GPS position, R5 to enter it into current position. Make sure you don't move while it's aligning!
 
 **Why do I have flickering lights and sounds when connecting to Ground Power?**
+
 You may be experiencing this if you have SAM v3. To fix, disable the "Jetway External Power" option in SAM3 settings.
 
-### Changelog:
-See the [commit history](https://github.com/mSparks43/747-400/commits/master) for detailed changes.
+## Changelog:
+See the [commit history](https://github.com/mSparks43/747-400/commits/master) for a detailed change log.
+
+_Thank you all for your support and contributions!_
+
+## Release 2.2:
+Release 2.2 focuses on enhancements and bug fixes to the existing systems and flight model.
+
+### Enhancements
+
+- New airfoils based on IRL data (zeta976 with special thanks to kudosi)
+- FMOD sounds v3.0 (Matt726-S)
+- New flight model for LCF variant
+- New wing dynamics and ailerons
+- More realistic aileron control surfaces and lockout
+- "No Autoland" display logic
+- RB211 object and livery updates (Dyno and Pilot Mathews)
+
+### Bug fixes
+
+- RR systems, ECC logic and display fixes (Marauder28)
+- Animate N1 when engines aren't running
+- Inhibit engine shutdown message on ground
+- Fix Go Around logic
+- Synchronize flight phase and ECC state
+- Prevent fms page numbers less than 1 (stop "prev page" CTD)
+- GE and PW ECC fixes
+- Flip light switches and windscreen washers (crazytimtimtim - code, Jcsk8 - textures)
+- Fix GE engines when starting on 10nm approach
+- Reverser fixes and lockout
+- Fix CRT fading during screen power up
+- Autoland ADFS and throttle fixes (with thanks to MCCVeen for issue reporting)
+- Allow thrust reverse toggle while airborne
+- Throttle down in vnav if have throttle and accelerating during descent
 
 ## Release 2.1:
 
 On 11/12/2020 at 13:15 UTC, the last, the very last British Airways 747-400, G-BYGC took to the skies for one last flight from Cardiff (EGFF) to St. Athan (EGSY). Despite the short hop to the breaker's yard, it became an emotional farewell to an aircraft that was used by British Airways for over 50 years.
 
-G-BYGC is a 747-436 sporting RB211-524G engines- the aircraft first flew on 01/11/1999, and served with British Airways for another 21 years until its retirement on 12/11/20. The aircraft is now preserved at MOD St. Athan, and still lives on despite its official retirement.
+[G-BYGC](https://forums.x-plane.org/index.php?/files/file/77441-british-airways-747-400-g-bygc-rr-rb211-msparks-747/) is a 747-436 sporting RB211-524G engines- the aircraft first flew on 01/11/1999, and served with British Airways for another 21 years until its retirement on 12/11/20. The aircraft is now preserved at MOD St. Athan, and still lives on despite its official retirement.
 
-The Sparky744 Release 2.1 celebrates this historic aircraft, bringing the RB211-524G engines into the simulator and enabling you to continue the task of recreating G-BYGC, and all the other 694 airframes built, with all their complex detail and history. 
+The Sparky744 Release 2.1 celebrates this historic aircraft, bringing the RB211-524G engines into the simulator and enabling you to continue the task of recreating [G-BYGC](https://forums.x-plane.org/index.php?/files/file/77441-british-airways-747-400-g-bygc-rr-rb211-msparks-747/), and all the other 694 airframes built, with all their complex detail and history. 
 
 ### Special Thanks from **Dyno** (RB211 engine models)
 
@@ -106,21 +150,21 @@ SamWise was one of the, if not the most important person in getting the visual e
 
 **Pilot Mathews**
 
-Pilot Mathews- Pilot Mathews breathed completely new air into our 747, despite the limitations imposed by the paintkit. After working many hours a day, he delivered VH-OEJ and VH-OJM to the highest possible standard, picking up the smallest details such as patches on the wings, how straight the lines of the wings are, scuffs caused by jetways, and much more. VH-OEJ and VH-OJM are both included by default in Patch 2.1, but go check out his other excellent liveries on X-Plane ORG forum!
+Pilot Mathews- Pilot Mathews breathed completely new air into our 747, despite the limitations imposed by the paint kit. After working many hours a day, he delivered VH-OEJ and VH-OJM to the highest possible standard, picking up the smallest details such as patches on the wings, how straight the lines of the wings are, scuffs caused by jetways, and much more. VH-OEJ and VH-OJM are both included by default in Patch 2.1, but go check out his other excellent liveries on X-Plane ORG forum!
 
 
 **Changes 24/09/2021 - 11/12/2021:**
 
 - New RB211-524 real-world data values, integration, performance tables, performance, behavior, EICAS indications
 - PW, RR, and GE engine code fixes (Marauder28)
-- RB211-524 model (Dyno), textures, paintkit
+- RB211-524 model (Dyno), textures, paint kit
 - VH-OEJ, VH-OJM liveries (Pilot Mathews)
 - Engines selectable by livery or the FMC
-- fix fuel use during pause
-- fix floating light in LCF model
+- Fix fuel use during pause
+- Fix floating light in LCF model
 - APU timing fixes
 - Fix engine 4 reverse thrust (new contributor: LuckLP)
-- altitude range arc
+- Altitude range arc
 - Fix random throttle lever movements
 - minor HYD page tweaks
 
@@ -145,13 +189,13 @@ A huge thank you to all the others who helped, tested, crashed, took her for lon
 **Changes 02/11/2020 - 23/09/2021:**
 
 - Reworked autopilot logic
-- New fmod sounds (Matt726-S and crazytimtimtim)
+- New FMOD sounds (Matt726-S and crazytimtimtim)
 - AutoATC integration (beta, WIP) - voice commands/ATC/ACARS/DPDLC/Flightplanning/Live METAR & TAF (full functionality requires Android application, turn off center radio to remove "ACARS NO COMM" message when not connected)
 - Updates for Terrain Radar integration (DrGluck)
 - Autothrottle improvments, speed up autothrottle to 5 seconds min to max
 - Updated approach/loc mode switching
 - Panel clipping fixes
-- xtlua bug fixes
+- XTlua bug fixes
 - ND updates - textures and icons (MCCVeen, Matt726-S)
 - Engines
   - spool up times (assistance from kudosi)
@@ -164,11 +208,11 @@ A huge thank you to all the others who helped, tested, crashed, took her for lon
 - ECS page
 - Autobrake CAS msgs (flfy)
 - Split rudder
-- transponder/tcas fixes
+- Transponder/TCAS fixes
 - Livery specific aircraft configuration (Marauder28)
-- cockpit panel textures overhaul (Matt726-S)
+- Cockpit panel textures overhaul (Matt726-S)
 - VR specific commands for home cockpit
-- Accurate slat behaviour
+- Accurate slat behavior
 - New VR configuration file. (bigoil7 Valtime)
 - CG% & TRIM calcs (Marauder28)
 - Slip/skid indicator fixes (flfy)
@@ -203,13 +247,20 @@ A huge thank you to all the others who helped, tested, crashed, took her for lon
 - HOLD FMA logic
 - Always deploy speedbrake when reverse thrust is applied
 - Numerous PFD and FMA fixes
-- "RF" and "LO" lower eicas warnings (crazytimtimtim)
+- "RF" and "LO" lower EICAS warnings (crazytimtimtim)
 - Variable IRS align timing
 
 **Release 1: up to 02/11/2020:**
 
-- fuel fixes
-- font, image and texture overhaul
+Introduce the LCF model variant by Lee_Hyeon_Seo (with permission) with the existing improvements, check out the working his [A340 developements](https://forums.x-plane.org/index.php?/forums/topic/203381-3d-cockpit-for-a340/&)
+
+
+Custom sounds from [FTSim+](https://k-akai.blogspot.com/) (with permission)
+
+We greatly thank FTSim+ for the former soundpack, and wish them good luck on other soundpacks! [Check them out!](https://k-akai.blogspot.com/)
+
+- Fuel fixes
+- Font, image and texture overhaul
 - Fuel Weights & ND Waypoint Display Tweaks
 - Speed tapes
 - CRT display selectors
@@ -224,35 +275,35 @@ A huge thank you to all the others who helped, tested, crashed, took her for lon
 - Custom parking brake command
 - Chocks
 - CRT selector implementation
-- autolatch flap handle
+- Autolatch flap handle
 - Autoland
 - Fixed VR manipulators
-- ground handling on FMC
+- Ground handling on FMC
 - TOGA implimentation
-- updated lighting
+- Updated lighting
 - ILS tuning and autotune
-- new TOD implimentation
-- engine sound banks
-- bug fixes to fuel, engines and autopilot
+- New TOD implimentation
+- Engine sound banks
+- Bug fixes to fuel, engines and autopilot
 - Numerous CAS and FMC messages
-- speed and altitude knob depress functionality
-- engine vibration
+- Speed and altitude knob depress functionality
+- Engine vibration
 - IRS simulation
-- blackened displays when IRS not aligned
+- Blackened displays when IRS not aligned
 - Nav radio autotuning
-- fix fire test button
+- Fix fire test button
 - Thrust limiting
-- fixed landing gear through floor
+- Fixed landing gear through floor
 - xlua depreciated for XTLua
-- 3 indpendant FMS objects
-- custom FMS
-- fix autobrake animating parking brake
-- brake source light
-- flight envelope protection
+- 3 independent FMS objects
+- Custom FMS
+- Fix autobrake animating parking brake
+- Brake source light
+- Flight envelope protection
 - Added sounds from https://k-akai.blogspot.com/ (with permission)
-- voice commands
-- engine 4 fuel consumption fixed
-- fixed FMS buttons
-- green screen CDUs
+- Voice commands (cross platform)
+- Engine 4 fuel consumption fixed
+- Fixed FMS buttons
+- Green screen CDUs
 - Hydraulic system simulation
 
