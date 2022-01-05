@@ -275,8 +275,11 @@ function B747_fltInst_fo_elapsed_timer()
 		if B747DR_fltInst_fo_clock_ET_sel_pos == 1 then
 			
 			if B747DR_fltInst_fo_clock_ET_hours < 100 then
-				
-				B747DR_fltInst_fo_clock_ET_seconds = B747DR_fltInst_fo_clock_ET_seconds + ((simDR_time_now - sim_et_old_time_fo) / (sim_et_new_time_fo - sim_et_old_time_fo) * 0.001)
+				if sim_et_new_time_fo - sim_et_old_time_fo >0 then
+					B747DR_fltInst_fo_clock_ET_seconds = B747DR_fltInst_fo_clock_ET_seconds + ((simDR_time_now - sim_et_old_time_fo) / (sim_et_new_time_fo - sim_et_old_time_fo) * 0.001)
+				else
+					B747DR_fltInst_fo_clock_ET_seconds = 0
+				end
 				B747DR_fltInst_fo_clock_ET_hours 		= math.modf(B747DR_fltInst_fo_clock_ET_seconds / 3600)
 				B747DR_fltInst_fo_clock_ET_minutes	= math.modf((B747DR_fltInst_fo_clock_ET_seconds % 3600) / 60)
 		
