@@ -1122,7 +1122,7 @@ function B747_fltCtrols_EICAS_msg()
         and 
         ((simDR_radio_alt_height_capt > 15.0 and simDR_radio_alt_height_capt < 800.0)
         or
-        (simDR_wing_flap1_deg[0] > 24.0 and simDR_wing_flap1_deg[0] < 31.0)
+        (simDR_wing_flap1_deg[0] > 24.0 and simDR_wing_flap1_deg[0] < 31.0 and simDR_all_wheels_on_ground == 0)
         and
         num_thrust_levers_open >= 1)
     then
