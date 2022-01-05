@@ -2040,10 +2040,12 @@ function B747_set_manip_ER()
 	B747DR_button_switch_position[52] = 1
 	B747_button_switch_position_target[53] = 1
 	B747DR_button_switch_position[53] = 1
-	B747_button_switch_position_target[54] = 1
-	B747DR_button_switch_position[54] = 1
-	B747_button_switch_position_target[55] = 1
-	B747DR_button_switch_position[55] = 1
+    if simDR_all_wheels_on_ground==0 then
+        B747_button_switch_position_target[54] = 1
+        B747DR_button_switch_position[54] = 1
+        B747_button_switch_position_target[55] = 1
+        B747DR_button_switch_position[55] = 1
+    end
 	B747_button_switch_position_target[56] = 1
 	B747DR_button_switch_position[56] = 1
 	B747_button_switch_position_target[57] = 1
@@ -2190,14 +2192,17 @@ function setACFType()
   else
       simDR_acf_m_jettison=0
   end
+  B747_flight_start_manip()
 end
 function flight_start()
     print("XTLua Flight Start "..simDR_livery)
+    local refreshOngroud=simDR_all_wheels_on_ground
     B747_flight_start_manip()
     run_after_time(setACFType,1)
 end
 function livery_load()
 	local refreshLivery=simDR_livery_path
+
 	run_after_time(setACFType, 1)  --Load specific simConfig data for current livery
 end
 --function flight_crash() end
