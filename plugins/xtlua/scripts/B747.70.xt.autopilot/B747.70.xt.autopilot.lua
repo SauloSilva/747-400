@@ -619,7 +619,11 @@ function B747_ap_switch_flch_mode_CMDhandler(phase, duration)
 		end
 		B747DR_ap_vnav_state=0
 		B747DR_ap_inVNAVdescent =0
-		B747DR_ap_flightPhase=1
+		if B747DR_autopilot_altitude_ft>simDR_pressureAlt1 then
+			B747DR_ap_flightPhase=1
+		else
+			B747DR_ap_flightPhase=3
+		end
 		B747DR_ap_thrust_mode=2	
 	elseif phase == 2 then
 		B747_ap_button_switch_position_target[4] = 0		
