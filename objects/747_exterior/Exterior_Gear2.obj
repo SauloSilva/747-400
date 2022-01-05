@@ -6,6 +6,7 @@ TEXTURE		../../objects/747_exterior/Exterior_Gear.png
 TEXTURE_NORMAL ../../objects/747_exterior/Exterior_Gear_NML.png
 GLOBAL_specular 1.0
 NORMAL_METALNESS
+TEXTURE_LIT ../../objects/747_exterior/Exterior_Gear_LIT.png
 POINT_COUNTS	16040 0 0 57660
 
 VT	  -0.3275    0.8715   -0.7306	-0.012  0.648  0.762	0.3541 0.1507
@@ -21815,7 +21816,7 @@ IDX10	15079 14929 14928 14986 14989 14932 15003 14989 15003 15063
 IDX10	15003 15002 15063 15002 15064 15065 15002 15065 15063 15002
 IDX10	15003 15004 15002 15004 15005 15058 15059 15005 15058 15005
 IDX10	15004 15057 15058 15004 15057 15004 14935 15057 14935 14983
-
+ATTR_light_level 0 400 laminar/B747/gear/brake_temp[16]
 ANIM_begin
 	ANIM_trans	   0.0422   -2.2790    7.6829	   0.0422   -2.2790    7.6829	0 0	no_ref
 	ANIM_rotate_begin	   1.0000   -0.0000   -0.0000	sim/flightmodel2/gear/deploy_ratio[0]
@@ -21894,6 +21895,7 @@ ANIM_begin
 		ANIM_end
 	ANIM_end
 ANIM_end
+ATTR_light_level 0 400 laminar/B747/gear/brake_temp[0]
 ANIM_begin
 	ANIM_trans	  -5.1713   -1.9693   32.1865	  -5.1713   -1.9693   32.1865	0 0	no_ref
 	ANIM_rotate_begin	   0.0000    0.0000    1.0000	sim/flightmodel2/gear/deploy_ratio[4]
@@ -22003,6 +22005,7 @@ ANIM_begin
 		ANIM_end
 	ANIM_end
 ANIM_end
+ATTR_light_level 0 400 laminar/B747/gear/brake_temp[12]
 ANIM_begin
 	ANIM_trans	   5.1705   -1.9693   32.1865	   5.1705   -1.9693   32.1865	0 0	no_ref
 	ANIM_rotate_begin	   0.0000   -0.0000   -1.0000	sim/flightmodel2/gear/deploy_ratio[3]
