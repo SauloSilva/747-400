@@ -692,7 +692,6 @@ end
 function fail_tire5()
     simDR_tire5_fail=6
 end
-max_temp=0
 function B747_brake_temp()
 
     -- DATAREF INDEXES SAME AS TIRE PRESSURE
@@ -804,10 +803,6 @@ function B747_brake_temp()
    
   for i = 0, 17 do
     B747DR_brake_temp_ind[i]=math.floor(B747DR_brake_temp[i]/100)
-    if B747DR_brake_temp[i]>max_temp then
-        max_temp=B747DR_brake_temp[i]
-    end
-    print("max temp "..max_temp)
   end
 
 
