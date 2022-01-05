@@ -128,6 +128,11 @@ B747DR_EICAS1_gear_display_status = deferred_dataref("laminar/B747/gear/EICAS1_d
 
 B747DR_tire_pressure            = deferred_dataref("laminar/B747/gear/tire_pressure", "array[18]")
 B747DR_brake_temp               = deferred_dataref("laminar/B747/gear/brake_temp", "array[18]")
+simDR_tire1_fail               = find_dataref("sim/operation/failures/rel_tire1")
+simDR_tire2_fail               = find_dataref("sim/operation/failures/rel_tire2")
+simDR_tire3_fail               = find_dataref("sim/operation/failures/rel_tire3")
+simDR_tire4_fail               = find_dataref("sim/operation/failures/rel_tire4")
+simDR_tire5_fail               = find_dataref("sim/operation/failures/rel_tire5")
 B747DR_brake_temp_ind               = deferred_dataref("laminar/B747/gear/brake_temp_ind", "array[18]")
 B747DR_init_gear_CD             = deferred_dataref("laminar/B747/gear/init_CD", "number")
 B747DR__gear_chocked           = deferred_dataref("laminar/B747/gear/chocked", "number")
@@ -581,11 +586,12 @@ end
 
 
 ----- TIRE PRESSURE ---------------------------------------------------------------------
+local initial_tire_Pressures={}
 function B747_tire_pressure()
 
     math.randomseed(os.time())
     for i = 0, 17 do
-        B747DR_tire_pressure[i] = math.random(198, 210)
+        initial_tire_Pressures[i] = math.random(198, 210)
     end
 
     --[[
@@ -623,7 +629,44 @@ function B747_tire_pressure()
     --]]
 end
 
+function B747_tire_pressures()
 
+    for i = 0, 3 do
+        target=initial_tire_Pressures[i]+simDR_aircraft_on_ground*10
+        if simDR_tire5_fail==6 then
+            target=5
+        end
+        B747DR_tire_pressure[i]=B747_animate_value(B747DR_tire_pressure[i],target,10,400,1)
+    end
+    for i = 4, 7 do
+        target=initial_tire_Pressures[i]+simDR_aircraft_on_ground*10
+        if simDR_tire3_fail==6 then
+            target=5
+        end
+        B747DR_tire_pressure[i]=B747_animate_value(B747DR_tire_pressure[i],target,10,400,1)
+    end
+    for i = 8, 11 do
+        target=initial_tire_Pressures[i]+simDR_aircraft_on_ground*10
+        if simDR_tire2_fail==6 then
+            target=5
+        end
+        B747DR_tire_pressure[i]=B747_animate_value(B747DR_tire_pressure[i],target,10,400,1)
+    end
+    for i = 12, 15 do
+        target=initial_tire_Pressures[i]+simDR_aircraft_on_ground*10
+        if simDR_tire4_fail==6 then
+            target=5
+        end
+        B747DR_tire_pressure[i]=B747_animate_value(B747DR_tire_pressure[i],target,10,400,1)
+    end
+    for i = 16, 17 do
+        target=initial_tire_Pressures[i]+simDR_aircraft_on_ground*10
+        if simDR_tire1_fail==6 then
+            target=5
+        end
+        B747DR_tire_pressure[i]=B747_animate_value(B747DR_tire_pressure[i],target,10,400,1)
+    end
+end
 
 
 
@@ -636,9 +679,20 @@ function B747_brake_temp_init()
 
 end
 
+function fail_tire2()
+    simDR_tire2_fail=6
+end
+function fail_tire3()
+    simDR_tire3_fail=6
 
-
-
+end
+function fail_tire4()
+    simDR_tire4_fail=6
+end
+function fail_tire5()
+    simDR_tire5_fail=6
+end
+max_temp=0
 function B747_brake_temp()
 
     -- DATAREF INDEXES SAME AS TIRE PRESSURE
@@ -667,7 +721,7 @@ function B747_brake_temp()
     -- BODY RIGHT GEAR
     if tireSpeed[2] > 0 then
         if brakingRatio_R > 0 then
-            local rate = brakingRatio_R * tireSpeed[2] * SIM_PERIOD * 160.0
+            local rate = brakingRatio_R * tireSpeed[2] * SIM_PERIOD * 130.0
             B747DR_brake_temp[8] = B747DR_brake_temp[8] + rate
             B747DR_brake_temp[9] = B747DR_brake_temp[8]
             B747DR_brake_temp[10] = B747DR_brake_temp[8]
@@ -684,7 +738,7 @@ function B747_brake_temp()
     -- BODY LEFT GEAR
     if tireSpeed[3] > 0 then
         if brakingRatio_L > 0 then
-            local rate = brakingRatio_L * tireSpeed[3] * SIM_PERIOD * 160.0
+            local rate = brakingRatio_L * tireSpeed[3] * SIM_PERIOD * 130.0
             B747DR_brake_temp[4] = B747DR_brake_temp[4] + rate
             B747DR_brake_temp[5] = B747DR_brake_temp[4]
             B747DR_brake_temp[6] = B747DR_brake_temp[4]
@@ -701,7 +755,7 @@ function B747_brake_temp()
     -- WING RIGHT GEAR
     if tireSpeed[4] > 0 then
         if brakingRatio_R > 0 then
-            local rate = brakingRatio_R * tireSpeed[4] * SIM_PERIOD * 160.0
+            local rate = brakingRatio_R * tireSpeed[4] * SIM_PERIOD * 130.0
             B747DR_brake_temp[12] = B747DR_brake_temp[12] + rate
             B747DR_brake_temp[13] = B747DR_brake_temp[12]
             B747DR_brake_temp[14] = B747DR_brake_temp[12]
@@ -718,7 +772,7 @@ function B747_brake_temp()
     -- WING LEFT GEAR
     if tireSpeed[5] > 0 then
         if brakingRatio_L > 0 then
-            local rate = brakingRatio_L * tireSpeed[5] * SIM_PERIOD * 160.0
+            local rate = brakingRatio_L * tireSpeed[5] * SIM_PERIOD * 130.0
             B747DR_brake_temp[0] = B747DR_brake_temp[0] + rate
             B747DR_brake_temp[1] = B747DR_brake_temp[0]
             B747DR_brake_temp[2] = B747DR_brake_temp[0]
@@ -731,13 +785,29 @@ function B747_brake_temp()
         B747DR_brake_temp[2] = B747DR_brake_temp[0]
         B747DR_brake_temp[3] = B747DR_brake_temp[0]
     end
-    
+    if B747DR_brake_temp[0]>500 and is_timer_scheduled(fail_tire5) == false then
+        run_after_time(fail_tire5, math.random(25, 45))
+    end
+    if B747DR_brake_temp[4]>500 and is_timer_scheduled(fail_tire3) == false then
+        run_after_time(fail_tire3, math.random(25, 45))
+    end
+    if B747DR_brake_temp[8]>500 and is_timer_scheduled(fail_tire2) == false then
+        run_after_time(fail_tire2, math.random(25, 45))
+    end
+    if B747DR_brake_temp[12]>500 and is_timer_scheduled(fail_tire4) == false then
+        run_after_time(fail_tire4, math.random(25, 45))
+    end
     --
     -- level 0 = to 100c
     -- level 5 = 482c
     -- level 9 = 864c
+   
   for i = 0, 17 do
-    B747DR_brake_temp_ind[i]=math.ceil(B747DR_brake_temp[i]/100)
+    B747DR_brake_temp_ind[i]=math.floor(B747DR_brake_temp[i]/100)
+    if B747DR_brake_temp[i]>max_temp then
+        max_temp=B747DR_brake_temp[i]
+    end
+    print("max temp "..max_temp)
   end
 
 
@@ -930,6 +1000,7 @@ function after_physics()
     B747_gear_EICAS_msg()
 
     B747_brake_temp()
+    B747_tire_pressures()
     runGear()
     B747_gear_monitor_AI()
 	
