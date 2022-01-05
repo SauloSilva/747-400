@@ -652,7 +652,7 @@ function B747_brake_temp()
     end
 
     -- NOSE GEAR
-    if tireSpeed[1] > 0 then
+    --[[if tireSpeed[1] > 0 then
         if brakingRatio_N > 0 then
             local rate = brakingRatio_N * tireSpeed[1] * SIM_PERIOD * 160.0
             B747DR_brake_temp[16] = B747DR_brake_temp[16] + rate
@@ -662,7 +662,7 @@ function B747_brake_temp()
         local rate = 1.8 * SIM_PERIOD
         B747DR_brake_temp[16] = math.max(B747DR_brake_temp[16] - rate, simDR_OAT_degC)
         B747DR_brake_temp[17] = B747DR_brake_temp[16]
-    end
+    end]]--
 
     -- BODY RIGHT GEAR
     if tireSpeed[2] > 0 then
