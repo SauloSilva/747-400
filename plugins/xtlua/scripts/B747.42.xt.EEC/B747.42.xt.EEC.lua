@@ -597,31 +597,40 @@ function in_flight_thrust(gw_kg_in, climb_angle_deg_in)
 
 	return total_thrust_required_N, thrust_per_engine_N, corrected_thrust_N, corrected_thrust_lbf
 end
-
+lastNewTargetModeTime=0
+lastNewTarget=""
 function ecc_mode_set()
-
+	newTarget=""
 	--Set Specific sub-mode for TO or CLB
 	--if (B747DR_ap_autoland==-2 or B747DR_ap_FMA_active_roll_mode ==3 ) and simDR_flap_ratio_control>0 then
 	if B747DR_ap_autoland==-2 or (B747DR_ap_flightPhase >= 2 and simDR_flap_ratio > 0) then
-		B747DR_ref_thr_limit_mode = "GA"
+		newTarget = "GA"
 	elseif B747DR_ap_flightPhase==0 then
 		if B747DR_toderate == 0 then
-			B747DR_ref_thr_limit_mode = "TO"
+			newTarget = "TO"
 		elseif B747DR_toderate == 1 then
-			B747DR_ref_thr_limit_mode = "TO 1"
+			newTarget = "TO 1"
 		elseif B747DR_toderate == 2 then
-			B747DR_ref_thr_limit_mode = "TO 2"
+			newTarget = "TO 2"
 		end
 	elseif B747DR_ap_flightPhase==1 then
 		if B747DR_clbderate == 0 then
-			B747DR_ref_thr_limit_mode = "CLB"
+			newTarget = "CLB"
 		elseif B747DR_clbderate == 1 then
-			B747DR_ref_thr_limit_mode = "CLB 1"
+			newTarget = "CLB 1"
 		elseif B747DR_clbderate == 2 then
-			B747DR_ref_thr_limit_mode = "CLB 2"
+			newTarget = "CLB 2"
 		end
 	elseif B747DR_ap_flightPhase>=2 then
-		B747DR_ref_thr_limit_mode = "CRZ"
+		newTarget = "CRZ"
+	end
+	if newTarget~=lastNewTarget then
+		lastNewTarget=newTarget
+		lastNewTargetModeTime=simDRTime
+	end
+
+	if simDRTime-lastNewTargetModeTime>0.25 then
+		B747DR_ref_thr_limit_mode=newTarget
 	end
 end
 

@@ -1202,10 +1202,14 @@ end
 function B747_ap_vertical_speed_up_CMDhandler(phase, duration)
 	if phase == 0 then
 		if B747DR_ap_vs_window_open == 1 then 
-		  
 		  simDR_autopilot_vs_fpm = math.min(6000.0, simDR_autopilot_vs_fpm + 100.0)
 		  B747DR_autopilot_vs_fpm = simDR_autopilot_vs_fpm
 		end	
+		if B747DR_autopilot_vs_fpm>0 then
+			B747DR_ap_flightPhase=1
+		  else
+			B747DR_ap_flightPhase=3
+		  end
 	elseif phase == 1 then	
 		if duration > 0.5 then
 			if B747DR_ap_vs_window_open == 1 then 
@@ -1220,6 +1224,13 @@ function B747_ap_vertical_speed_down_CMDhandler(phase, duration)
 		if B747DR_ap_vs_window_open == 1 then
 		  simDR_autopilot_vs_fpm = math.max(-8000.0, simDR_autopilot_vs_fpm - 100.0) 
 		  B747DR_autopilot_vs_fpm = simDR_autopilot_vs_fpm
+
+		  if B747DR_autopilot_vs_fpm>0 then
+			B747DR_ap_flightPhase=1
+		  else
+			B747DR_ap_flightPhase=3
+		  end	
+
 		end
 	elseif phase == 1 then
 		if duration > 0.5 then
