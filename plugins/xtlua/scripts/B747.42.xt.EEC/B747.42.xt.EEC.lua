@@ -684,6 +684,7 @@ function throttle_management()
 					or B747DR_display_N1[2] < B747DR_display_N1_ref[2] or B747DR_display_N1[3] < B747DR_display_N1_ref[3] then
 					print("TOGA Engaged - Waiting for spool-up.....")
 					simCMD_ThrottleUp:once()
+					simDR_autothrottle_enabled = 2
 					return
 				end
 			elseif simConfigData["data"].PLANE.thrust_ref == "EPR" then
@@ -691,6 +692,7 @@ function throttle_management()
 					or B747DR_display_EPR[2] < B747DR_display_EPR_ref[2] or B747DR_display_EPR[3] < B747DR_display_EPR_ref[3] then
 					print("TOGA Engaged - Waiting for spool-up.....")
 					simCMD_ThrottleUp:once()
+					simDR_autothrottle_enabled = 2
 					return
 				end
 			end
