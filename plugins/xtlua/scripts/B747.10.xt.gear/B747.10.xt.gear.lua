@@ -692,6 +692,9 @@ end
 function fail_tire5()
     simDR_tire5_fail=6
 end
+
+local excessiveBrakeTemp=0
+
 function B747_brake_temp()
 
     -- DATAREF INDEXES SAME AS TIRE PRESSURE
@@ -800,9 +803,12 @@ function B747_brake_temp()
     -- level 0 = to 100c
     -- level 5 = 482c
     -- level 9 = 864c
-   
+    excessiveBrakeTemp=0
   for i = 0, 17 do
     B747DR_brake_temp_ind[i]=math.floor(B747DR_brake_temp[i]/100)
+    if B747DR_brake_temp[i]>482 then
+        excessiveBrakeTemp=1
+    end
   end
 
 
@@ -824,6 +830,13 @@ function B747_gear_EICAS_msg()
         B747DR_CAS_advisory_status[17] = 1
     else
         B747DR_CAS_advisory_status[17] = 0
+    end
+
+    --BRAKE TEMP
+    if excessiveBrakeTemp == 1 then 
+        B747DR_CAS_advisory_status[46] = 1
+    else
+        B747DR_CAS_advisory_status[46] = 0
     end
 
     if B747DR_autobrakes_sel_dial_pos == 3 then 
@@ -872,6 +885,7 @@ function B747_gear_EICAS_msg()
         B747DR_CAS_memo_status[7] = 0
     end
 
+    
 end
 
 
