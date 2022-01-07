@@ -47,8 +47,6 @@ brakeConsumption=0
 local B747_pressureDRs={}
 local controlRatios={}
 controlRatios[0]=0
-controlRatios[1]=0
-controlRatios[2]=0
 B747_pressureDRs[0]=0
 function pressure_input()
     B747_pressureDRs[1]=B747DR_hyd_sys_pressure_1
@@ -56,9 +54,8 @@ function pressure_input()
     B747_pressureDRs[3]=B747DR_hyd_sys_pressure_3
     B747_pressureDRs[4]=B747DR_hyd_sys_pressure_4
     
-    --controlRatios[1]=simDR_rudder[10]
-
-    --controlRatios[2]=simDR_rudder[10]
+    controlRatios[1]=simDR_rudder[10]
+    controlRatios[2]=simDR_rudder[10]
 
     controlRatios[3]=simDR_elevator[0]
     controlRatios[4]=simDR_elevator[0]
@@ -94,7 +91,7 @@ end
 
 function hydraulics_consumer(src,consumption)
     local take_index=0
-    print("consume "..src[1].." "..src[2].." "..src[3].." "..src[4].." "..consumption)
+    --print("consume "..src[1].." "..src[2].." "..src[3].." "..src[4].." "..consumption)
     for i=1,4,1 do
         if src[i]==1 and B747_pressureDRs[i]>consumption and B747_pressureDRs[i]>B747_pressureDRs[take_index] and B747_pressureDRs[i]>900 then
             take_index=i
@@ -129,9 +126,9 @@ numSurfaces=10
 function flight_controls_consumption()
     controlDiff={}
     for i=1,numSurfaces,1 do
-        print(i.." getting")
-        print(controlRatios[i])
-        print(lastControlValue[i])
+        --print(i.." getting")
+        --print(controlRatios[i])
+        --print(lastControlValue[i])
         if controlRatios[i]>lastControlValue[i] then
             controlDiff[i]=(controlRatios[i]-lastControlValue[i])
         else
@@ -141,13 +138,10 @@ function flight_controls_consumption()
     end
 
     -- steering 
-    hydraulics_consumer({1,0,0,0},controlDiff[1]*2.5)
-    hydraulics_consumer({1,0,0,0},controlDiff[2]*2.5)
+    hydraulics_consumer({1,0,0,0},controlDiff[1]*5)
     --rudder lower 
     if hydraulics_consumer({0,1,0,1},controlDiff[1]*3)==0 then
         controlRatios[1]=B747_animate_value(lastControlValue[1],0,-100,100,1)
-    else
-        controlRatios[1]=simDR_rudder[10]
     end
 
     --[[if hydraulics_consumer({0,1,0,1},controlDiff[1]*3)==0 then
@@ -156,8 +150,6 @@ function flight_controls_consumption()
     -- rudder upper 
     if hydraulics_consumer({1,1,0,0},controlDiff[2]*3)==0 then
         controlRatios[2]=B747_animate_value(lastControlValue[2],0,-100,100,1)
-    else
-        controlRatios[2]=simDR_rudder[10]
     end
     
     --1,2 L inboard elev
