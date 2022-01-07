@@ -286,9 +286,9 @@ end
 
 -- ELECTRIC DEMAND PUMPS
 function B747_elec_hyd_pumps()
-
+    simDR_elec_hyd_pump_on = 1
     -- AUTO
-    if (((B747DR_hyd_dmd_pmp_sel_pos[0] > 0.95 and B747DR_hyd_dmd_pmp_sel_pos[0] < 1.05) and simDR_engine01_hyd_pump_fail == 6)
+    --[[if (((B747DR_hyd_dmd_pmp_sel_pos[0] > 0.95 and B747DR_hyd_dmd_pmp_sel_pos[0] < 1.05) and simDR_engine01_hyd_pump_fail == 6)
         or
         ((B747DR_hyd_dmd_pmp_sel_pos[1] > 0.95 and B747DR_hyd_dmd_pmp_sel_pos[1] < 1.05) and simDR_engine02_hyd_pump_fail == 6)
         or
@@ -322,7 +322,7 @@ function B747_elec_hyd_pumps()
     else
         simDR_elec_hyd_pump_on = 0
 
-    end
+    end]]
 
 end
 

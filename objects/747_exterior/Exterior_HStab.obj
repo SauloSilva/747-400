@@ -1420,12 +1420,12 @@ IDX	137
 TRIS	0 2646
 ANIM_begin
 	ANIM_trans	   1.3111    2.0371   64.5604	   1.3111    2.0371   64.5604	0 0	no_ref
-	ANIM_rotate	  -0.9038   -0.0479   -0.4253	  1.00  -1.00	-1.0 1	sim/flightmodel2/wing/elevator1_deg[9]
+	ANIM_rotate	  -0.9038   -0.0479   -0.4253	  1.00  -1.00	-1.0 1	laminar/B747/flt_ctrls/r_elev_outer
 	TRIS	2646 264
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -1.3309    2.0371   64.5604	  -1.3309    2.0371   64.5604	0 0	no_ref
-	ANIM_rotate	  -0.9038    0.0479    0.4253	  1.00  -1.00	-1.0 1	sim/flightmodel2/wing/elevator1_deg[8]
+	ANIM_rotate	  -0.9038    0.0479    0.4253	  1.00  -1.00	-1.0 1	laminar/B747/flt_ctrls/l_elev_outer
 	TRIS	2910 264
 ANIM_end
 ANIM_begin

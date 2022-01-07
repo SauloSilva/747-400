@@ -14895,7 +14895,7 @@ ANIM_begin
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.0082    4.2287   63.5843	  -0.0082    4.2287   63.5843	0 0	no_ref
-	ANIM_rotate	   0.0000   -0.8664   -0.4994	  1.00  -1.00	-1.0 1	sim/flightmodel2/wing/rudder1_deg[10]
+	ANIM_rotate	   0.0000   -0.8664   -0.4994	  1.00  -1.00	-1.0 1	laminar/B747/flt_ctrls/rudder_lwr_pos
 	TRIS	32331 264
 ANIM_end
 ANIM_begin

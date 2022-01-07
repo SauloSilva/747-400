@@ -2435,7 +2435,7 @@ function ap_reset()
 	B747CMD_ap_reset:once()
 end
 
-local B747_ap_AFDS_status_annun
+local B747_ap_AFDS_status_annun=0
 function set_afds_status(value)
 	if value~=B747_ap_AFDS_status_annun then
 		print("Set AFDS="..value.." @ "..simDR_radarAlt1.."feet")

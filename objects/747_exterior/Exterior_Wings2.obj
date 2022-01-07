@@ -18758,7 +18758,7 @@ ANIM_begin
 		ANIM_rotate_end
 		ANIM_begin
 			ANIM_trans	  -0.1709    0.1095    4.0025	  -0.1709    0.1095    4.0025	0 0	no_ref
-			ANIM_rotate	  -0.8487   -0.0382   -0.5275	  1.00  -1.00	-1.0 1	sim/flightmodel2/wing/aileron2_deg[7]
+			ANIM_rotate	  -0.8487   -0.0382   -0.5275	  1.00  -1.00	-1.0 1	laminar/B747/flt_ctrls/r_aileron_outer
 # Image: //objects/747_exterior/Exterior_Wings.png
 			TRIS	0 630
 		ANIM_end
@@ -18946,7 +18946,7 @@ ANIM_begin
 		ANIM_end
 		ANIM_begin
 			ANIM_trans	   0.1710    0.1095    4.0025	   0.1710    0.1095    4.0025	0 0	no_ref
-			ANIM_rotate	  -0.8487    0.0382    0.5275	 31.00  29.00	-1.0 1	sim/flightmodel2/wing/aileron2_deg[6]
+			ANIM_rotate	  -0.8487    0.0382    0.5275	 31.00  29.00	-1.0 1	laminar/B747/flt_ctrls/l_aileron_outer
 			TRIS	12642 630
 		ANIM_end
 	ANIM_end
@@ -19330,7 +19330,7 @@ ANIM_begin
 ANIM_end
 ANIM_begin
 	ANIM_trans	 -11.2279   -1.0828   35.9658	 -11.2279   -1.0828   35.9658	0 0	no_ref
-	ANIM_rotate	  -0.9903    0.1391   -0.0002	  1.00  -1.00	-1.0 1	sim/flightmodel2/wing/aileron1_deg[2]
+	ANIM_rotate	  -0.9903    0.1391   -0.0002	  1.00  -1.00	-1.0 1	laminar/B747/flt_ctrls/l_aileron_inner
 	TRIS	30696 36
 ANIM_end
 ANIM_begin
@@ -19429,7 +19429,7 @@ ANIM_begin
 ANIM_end
 ANIM_begin
 	ANIM_trans	  11.2082   -1.0828   35.9657	  11.2082   -1.0828   35.9657	0 0	no_ref
-	ANIM_rotate	  -0.9903   -0.1391    0.0002	  1.00  -1.00	-1.0 1	sim/flightmodel2/wing/aileron1_deg[3]
+	ANIM_rotate	  -0.9903   -0.1391    0.0002	  1.00  -1.00	-1.0 1	laminar/B747/flt_ctrls/r_aileron_inner
 	TRIS	34464 36
 ANIM_end
 ANIM_begin

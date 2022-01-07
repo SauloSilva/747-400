@@ -4622,7 +4622,7 @@ GROUP LOWER EICAS POWER
           gen_pointer Upper Rudder
             POS 1890.500000 33.500000
             IMAGE CRT Displays/EICAS Lower/STAT/ptr_down
-            DATAREF sim/flightmodel2/wing/rudder1_deg[0]
+            DATAREF laminar/B747/flt_ctrls/rudder_upr_pos
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
@@ -4636,7 +4636,7 @@ GROUP LOWER EICAS POWER
           gen_pointer Lower Rudder
             POS 1890.500000 6.500000
             IMAGE CRT Displays/EICAS Lower/STAT/ptr_up
-            DATAREF sim/flightmodel2/wing/rudder1_deg[0]
+            DATAREF laminar/B747/flt_ctrls/rudder_lwr_pos
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
