@@ -547,7 +547,8 @@ end
 function N2_display_GE(engine_N1_in, engine_in)
   local N2_display = 0.0
 
-  N2_display = (3.47E-04 * engine_N1_in^2 - 8.24E-02 * engine_N1_in + 7.71) * engine_N1_in * (3280 / 9827)  --have to multiply by the 100% rotation speed of N1 / 100% rotation speed of N2
+  --N2_display = (3.47E-04 * engine_N1_in^2 - 8.24E-02 * engine_N1_in + 7.71) * engine_N1_in * (3280 / 9827)  --have to multiply by the 100% rotation speed of N1 / 100% rotation speed of N2
+  N2_display = (7.85E-04 * engine_N1_in^2 - 0.162 * engine_N1_in + 11.1) * engine_N1_in * (3280 / 9827)  --have to multiply by the 100% rotation speed of N1 / 100% rotation speed of N2
 
   --When the XP N2 dataref drops below 35.0, use that instead of the N2 formula due to scaling inefficiencies with N1 as an input
   if simDR_N2[engine_in] < 35.0  then

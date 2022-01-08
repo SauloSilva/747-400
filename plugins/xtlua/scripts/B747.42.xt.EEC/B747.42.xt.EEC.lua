@@ -642,6 +642,7 @@ function throttle_management()
 		fms_data["data"] = json.decode(B747DR_FMSdata)
 	else
 		return
+		--fms_data["data"].crzalt = B747DR_altitude_dial
 	end
 
 	--Disconnect A/T if any of the EEC buttons move from NORMAL to ALTERNATE
@@ -710,12 +711,18 @@ function throttle_management()
 	ecc_mode_set()
 
 	--After landing and reversers stowed reset mode to TO
+	--print("-------< ATTEMPTING TO CLEAN-UP GA MODE >-----")
+	--print("On Ground = ", simDR_onGround)
+	--print("Speed = ", simDR_ias_pilot)
+	--print("Reverser On = ", simDR_reverser_on[1])
+	--print("Reverser Deployed = ", simDR_reverser_deploy_ratio[1])
 	if simDR_onGround == 1 and simDR_ias_pilot<30 -- B747DR_ref_thr_limit_mode == "GA"
 		and math.max(simDR_reverser_on[0], simDR_reverser_on[1], simDR_reverser_on[2], simDR_reverser_on[3]) == 0
-		and math.max(simDR_reverser_deploy_ratio[0], simDR_reverser_deploy_ratio[1], simDR_reverser_deploy_ratio[2], simDR_reverser_deploy_ratio[3]) == 0 then
+		and math.max(simDR_reverser_deploy_ratio[0], simDR_reverser_deploy_ratio[1], simDR_reverser_deploy_ratio[2], simDR_reverser_deploy_ratio[3]) <= 0.1 then
 			--B747DR_ref_thr_limit_mode = "TO"
-			B747DR_ap_flightPhase=0 
+			B747DR_ap_flightPhase=0
 	end
+	--print("Flight Phase = ", B747DR_ap_flightPhase)
 
 	--Determine FMA Mode
 	--THR REF Mode
@@ -792,6 +799,7 @@ function throttle_management()
 			print("---Setting Back to Normal---")
 		end
 	end
+
 end
 
 dofile("B747.42.xt.EEC.GE.lua")
