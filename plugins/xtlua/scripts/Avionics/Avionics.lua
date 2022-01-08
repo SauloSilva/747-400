@@ -20,7 +20,7 @@ Pack3_Sw = find_dataref("laminar/B747/air/pack_ctrl/sel_dial_pos[2]")
 
 Packs_EXT = find_dataref("sim/cockpit2/Cooling/Packs_EXT")
 Avionics_Power_on	= find_dataref("sim/cockpit2/electrical/Avionics_Power_on")
-
+B747DR_button_switch_position       = deferred_dataref("laminar/B747/button_switch/position", "array[" .. tostring(NUM_BTN_SW) .. "]")
 -- Exterior Packs--------------------------------------------------
 
 function Packs_EXT_On (phase, duration)
@@ -59,10 +59,10 @@ end
 end
 
 function Avionics_Power(phase, duration)
-  if Eng_Gen_on == 1 or Ext_Power_Av == 1  then
-	Avionics_Power_on = 1 
-	elseif Eng_Gen_on == 0 and Ext_Power_Av == 0  then
-	Avionics_Power_on = 0 
+  if B747DR_button_switch_position[13]==1  then
+		Avionics_Power_on = 1 
+	else
+		Avionics_Power_on = 0 
   end
 end
 
