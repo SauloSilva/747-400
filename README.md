@@ -77,10 +77,6 @@ Don't close it. The console window is part of the systems monitoring used during
 
 Windows users: Please install the installers described above. Also check that the plugins/xtlua/64/win.xpl extracted correctly. Some users have reported their antivirus blocking it from being extracted. Please send an angry email to your antivirus provider along with a copy of the file if you have your time wasted by this.
 
-**Why is my FMC blank?** 
-
-Certain controllers have their switches automatically bound to avionics power, if these are off it turns off the avionics needed by the FMC, either switch on the switch on your controller, or bind a key to "avionics on" and use that to bring the FMC to life
-
 **Why can't I move?** 
 
 The aircraft brakes require hydraulic pressure to function, to prevent the aircraft rolling away before the hydraulics are pressurized the wheels are fitted with chocks when starting cold and dark, remove the from the ground services menu in an FMC.

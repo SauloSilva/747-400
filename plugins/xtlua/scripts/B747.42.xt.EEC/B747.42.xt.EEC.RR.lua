@@ -674,7 +674,7 @@ function engine_idle_control_RR(altitude_ft_in)
       end
       --print("<<<*** STARTUP ***>>>")
     elseif simDR_engine_running[engine_in] == 1 and N1_actual < N1_engine_start[engine_in] and N1_actual < N1_low_idle then
-      N1_engine_start[engine_in] = N1_engine_start[engine_in] + 0.01
+      N1_engine_start[engine_in] = N1_engine_start[engine_in] + 0.05
       --print("<<<### EXTENDED STARTUP ###>>> -- N1_engine_start = ", N1_engine_start[engine_in])
     end
 
@@ -967,8 +967,13 @@ function engine_idle_control_RR(altitude_ft_in)
         --  B747DR_display_EPR_ref[i] = math.min(string.format("%3.2f", EPR_initial_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value, 1.90)
         --  B747DR_display_EPR_max[i] = math.min(string.format("%3.2f", EPR_initial_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value, 1.90)
         if EPR_actual > EPR_max_climb then
-          simDR_EPR_target_bug[i] = string.format("%3.2f", EPR_max_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value
-          B747DR_display_EPR_ref[i] = math.min(string.format("%3.2f", EPR_max_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value, 1.90)
+          if EPR_initial_climb > EPR_max_climb then
+            simDR_EPR_target_bug[i] = string.format("%3.2f", EPR_initial_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value
+            B747DR_display_EPR_ref[i] = math.min(string.format("%3.2f", EPR_initial_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value, 1.90)
+          else
+            simDR_EPR_target_bug[i] = string.format("%3.2f", EPR_max_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value
+            B747DR_display_EPR_ref[i] = math.min(string.format("%3.2f", EPR_max_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value, 1.90)
+          end
         else
           simDR_EPR_target_bug[i] = string.format("%3.2f", EPR_actual) + packs_adjustment_value + engine_anti_ice_adjustment_value
           B747DR_display_EPR_ref[i] = math.min(string.format("%3.2f", EPR_actual) + packs_adjustment_value + engine_anti_ice_adjustment_value, 1.90)
