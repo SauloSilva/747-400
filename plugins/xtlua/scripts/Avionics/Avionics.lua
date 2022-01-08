@@ -15,8 +15,23 @@ Pack2_Sw = find_dataref("laminar/B747/air/pack_ctrl/sel_dial_pos[1]")
 Pack3_Sw = find_dataref("laminar/B747/air/pack_ctrl/sel_dial_pos[2]")
 
 --*************************************************************************************--
+--** 				              CUSTOM COMMAND HANDLERS            			     **--
+--*************************************************************************************--
+
+function sim_avionics1_off_CMDhandler() end
+function sim_avionics1_on_CMDhandler() end
+
+--*************************************************************************************--
+--** 				               REPLACE X-PLANE COMMANDS                   	     **--
+--*************************************************************************************--
+
+simCMD_avionics_1_on = replace_command("sim/systems/avionics_on", sim_avionics1_on_CMDhandler)
+simCMD_avionics_1_off = replace_command("sim/systems/avionics_off", sim_avionics1_off_CMDhandler)
+
+--*************************************************************************************--
 --** 				        CREATE READ-ONLY CUSTOM DATAREFS               	         **--
 --*************************************************************************************--
+
 
 Packs_EXT = find_dataref("sim/cockpit2/Cooling/Packs_EXT")
 Avionics_Power_on	= find_dataref("sim/cockpit/electrical/avionics_on")
