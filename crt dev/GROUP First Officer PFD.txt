@@ -1977,7 +1977,7 @@ GROUP First Officer PFD
         gen_pointer Speed Bug 2
           POS 806.500000 767.000000
           IMAGE CRT Displays/PFD/ASI/ASIcmdSpdPtr
-          DATAREF laminar/B747/autopilot/ias_bug_value
+          DATAREF laminar/B747/autopilot/ias_bug_value_pfd
           
           HIDE
           LIGHT_MODE GLASS_AUTO
@@ -3130,7 +3130,7 @@ GROUP First Officer PFD
       gen_pointer Alt Set Bug 2
         POS 1201.500000 767.000000
         IMAGE CRT Displays/PFD/Altimeter/SelAltPtr
-        DATAREF laminar/B747/autopilot/heading/altitude_dial_ft
+        DATAREF laminar/B747/autopilot/heading/altitude_dial_ft_pfd
         
         HIDE
         LIGHT_MODE GLASS_AUTO
@@ -5743,7 +5743,7 @@ GROUP First Officer PFD
         gen_pointer Speed Bug 2
           POS 806.500000 767.000000
           IMAGE CRT Displays/PFD/ASI/ASIcmdSpdPtr
-          DATAREF laminar/B747/autopilot/ias_bug_value
+          DATAREF laminar/B747/autopilot/ias_bug_value_pfd
           
           HIDE
           LIGHT_MODE GLASS_AUTO
@@ -6896,7 +6896,7 @@ GROUP First Officer PFD
       gen_pointer Alt Set Bug 2
         POS 1201.500000 767.000000
         IMAGE CRT Displays/PFD/Altimeter/SelAltPtr
-        DATAREF laminar/B747/autopilot/heading/altitude_dial_ft
+        DATAREF laminar/B747/autopilot/heading/altitude_dial_ft_pfd
         
         HIDE
         LIGHT_MODE GLASS_AUTO

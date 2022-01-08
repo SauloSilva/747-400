@@ -311,10 +311,12 @@ B747DR_ap_vs_show_thousands         	= deferred_dataref("laminar/B747/autopilot/
 --B747DR_ap_hdg_hold_mode             	= deferred_dataref("laminar/B747/autopilot/heading_hold_mode", "number")
 --B747DR_ap_hdg_sel_mode              	= deferred_dataref("laminar/B747/autopilot/heading_sel_mode", "number")
 B747DR_autopilot_altitude_ft    			= find_dataref("laminar/B747/autopilot/heading/altitude_dial_ft")
+B747DR_autopilot_altitude_ft_pfd    	= deferred_dataref("laminar/B747/autopilot/heading/altitude_dial_ft_pfd", "number")
 B747DR_ap_heading_deg               	= deferred_dataref("laminar/B747/autopilot/heading/degrees", "number")
 B747DR_ap_target_heading_deg               	= deferred_dataref("laminar/B747/autopilot/heading/target", "number")
 B747DR_ap_ias_dial_value            	= deferred_dataref("laminar/B747/autopilot/ias_dial_value", "number")
 B747DR_ap_ias_bug_value            	= deferred_dataref("laminar/B747/autopilot/ias_bug_value", "number")
+B747DR_ap_ias_bug_value_pfd            	= deferred_dataref("laminar/B747/autopilot/ias_bug_value_pfd", "number")
 B747DR_ap_ias_mach_dial_value            	= deferred_dataref("laminar/B747/autopilot/ias_mach_dial_value", "number") -- display only
 B747DR_airspeed_V2                              = deferred_dataref("laminar/B747/airspeed/V2", "number")
 B747DR_ap_vnav_system            	= deferred_dataref("laminar/B747/autopilot/vnav_system", "number")
@@ -1815,6 +1817,20 @@ function B747_ap_ias_mach_mode()
 	    end
 	end
 	end
+
+	if simDR_ind_airspeed_kts_pilot < B747DR_ap_ias_bug_value then
+		if B747DR_ap_ias_bug_value-simDR_ind_airspeed_kts_pilot>60 then
+			B747DR_ap_ias_bug_value_pfd=simDR_ind_airspeed_kts_pilot+60
+		else
+			B747DR_ap_ias_bug_value_pfd=B747DR_ap_ias_bug_value
+		end
+	else
+		if simDR_ind_airspeed_kts_pilot-B747DR_ap_ias_bug_value>57.5 then
+			B747DR_ap_ias_bug_value_pfd=simDR_ind_airspeed_kts_pilot-57.5
+		else
+			B747DR_ap_ias_bug_value_pfd=B747DR_ap_ias_bug_value
+		end
+	end
 end	
 
 local fms
@@ -1932,6 +1948,19 @@ function B747_ap_altitude()
 	local vvi_status=simDR_autopilot_vs_status
 	local servoStatus=simDR_autopilot_servos_on
 	local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
+	if simDR_pressureAlt1 < B747DR_autopilot_altitude_ft then
+		if B747DR_autopilot_altitude_ft-simDR_pressureAlt1>400 then
+			B747DR_autopilot_altitude_ft_pfd=simDR_pressureAlt1+400
+		else
+			B747DR_autopilot_altitude_ft_pfd=B747DR_autopilot_altitude_ft
+		end
+	else
+		if simDR_pressureAlt1-B747DR_autopilot_altitude_ft>380 then
+			B747DR_autopilot_altitude_ft_pfd=simDR_pressureAlt1-380
+		else
+			B747DR_autopilot_altitude_ft_pfd=B747DR_autopilot_altitude_ft
+		end
+	end
 	
 	
 	
@@ -1954,7 +1983,6 @@ function B747_ap_altitude()
 	    B747DR_ap_vnav_state=0 
 		B747DR_ap_lnav_state=0
 		B747DR_ap_thrust_mode=0
-	    return
 	  end --no vnav
 	  
 	  --computeVNAVAlt(fms)
