@@ -20,7 +20,7 @@ lastPitch=0
 lastRoll=0
 lastYaw=0
 lastFlaps=0
-numSurfaces=22
+numSurfaces=26
 lastControlValue={}
 for i=0,numSurfaces,1 do
     lastControlValue[i]=0
@@ -75,6 +75,13 @@ function pressure_input()
     controlRatios[20]=simDR_spoiler910
     controlRatios[21]=simDR_spoiler1112
     controlRatios[22]=simDR_spoiler1112
+
+    --flaps left outer to right outer
+    controlRatios[23]=simDR_flap2[0]
+    controlRatios[24]=simDR_flap1[0]
+    controlRatios[25]=simDR_flap1[1]
+    controlRatios[26]=simDR_flap2[1]
+    
 end
 
 function pressure_output()
@@ -111,6 +118,12 @@ function pressure_output()
     end
     B747DR_outer_spoilers[0]=B747_animate_value(B747DR_outer_spoilers[0],outleft_spoilers/5,-100,100,10)
     B747DR_outer_spoilers[1]=B747_animate_value(B747DR_outer_spoilers[1],outright_spoilers/5,-100,100,10)
+
+    --flaps
+    B747DR_flaps[1]=B747_animate_value(B747DR_flaps[1],controlRatios[23],-100,100,0.1)
+    B747DR_flaps[2]=B747_animate_value(B747DR_flaps[2],controlRatios[24],-100,100,0.1)
+    B747DR_flaps[3]=B747_animate_value(B747DR_flaps[3],controlRatios[25],-100,100,0.1)
+    B747DR_flaps[4]=B747_animate_value(B747DR_flaps[4],controlRatios[26],-100,100,0.1)
 end
 
 
@@ -147,7 +160,20 @@ function brake_accumulator()
 
     brakeConsumption=brakeConsumption-hydraulics_consumer({1,1,0,1},brakeConsumption)  
 end
-
+function flap_consumption(controlDiff)
+    if hydraulics_consumer({0,0,0,1},controlDiff[23]*10)==0 then
+        controlRatios[23]=lastControlValue[23]
+    end
+    if hydraulics_consumer({1,0,0,0},controlDiff[24]*10)==0 then
+        controlRatios[24]=lastControlValue[24]
+    end
+    if hydraulics_consumer({1,0,0,0},controlDiff[25]*10)==0 then
+        controlRatios[25]=lastControlValue[25]
+    end
+    if hydraulics_consumer({0,0,0,1},controlDiff[26]*10)==0 then
+        controlRatios[26]=lastControlValue[26]
+    end
+end
 function spoiler_consumption(controlDiff)
     --system 2, spoilers 2,3,10,11
     if hydraulics_consumer({0,1,0,0},controlDiff[12]/2)==0 then
@@ -256,7 +282,7 @@ function flight_controls_consumption()
     end
 
     spoiler_consumption(controlDiff)
-
+    flap_consumption(controlDiff)
     for i=1,numSurfaces,1 do
         lastControlValue[i]=controlRatios[i]
     end

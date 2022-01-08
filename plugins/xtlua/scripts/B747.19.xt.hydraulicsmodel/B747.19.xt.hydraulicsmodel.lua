@@ -106,6 +106,9 @@ simDR_spoiler8  = find_dataref("sim/flightmodel/controls/wing1r_spo1def")
 simDR_spoiler910  = find_dataref("sim/flightmodel/controls/wing3r_spo2def")
 simDR_spoiler1112  = find_dataref("sim/flightmodel/controls/wing3r_spo1def")
 
+simDR_flap1  = find_dataref("sim/flightmodel2/wing/flap1_deg")-- inner array [0] left, [1] right
+simDR_flap2  = find_dataref("sim/flightmodel2/wing/flap2_deg")-- outer array [0] left, [1] right
+
 simDR_override_control_surfaces       = find_dataref("sim/operation/override/override_control_surfaces")
 simDR_override_steering               = find_dataref("sim/operation/override/override_wheel_steer")
 --simDR_hyd_press_2               = find_dataref("sim/cockpit2/hydraulics/indicators/hydraulic_pressure_2")
