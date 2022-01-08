@@ -493,22 +493,28 @@ for i = 0, NUM_BTN_SW_COVERS-1 do
 
     -- CREATE THE CLOSE COVER FUNCTIONS
     B747_close_button_cover[i] = function()
-        B747_button_switch_cover_position_target[i] = 0.0
+        if i==9 and B747DR_button_switch_position[13] == 0 then
+            B747_button_switch_cover_position_target[i] = 0.4
+        else
+            B747_button_switch_cover_position_target[i] = 0.0
+        end
     end
 
 
     -- CREATE THE COVER HANDLER FUNCTIONS
     B747_button_switch_cover_CMDhandler[i] = function(phase, duration)
-	print("cover com hander")
+	--print("cover com hander "..i)
+    closeTarget=0.0
+    if i==9 and B747DR_button_switch_position[13] == 0 then closeTarget=0.4 end
         if phase == 0 then
-            if B747_button_switch_cover_position_target[i] == 0.0 then
+            if B747_button_switch_cover_position_target[i] <0.6 then
                 B747_button_switch_cover_position_target[i] = 1.0
                 if is_timer_scheduled(B747_close_button_cover[i]) then
                     stop_timer(B747_close_button_cover[i])
                 end
                 run_after_time(B747_close_button_cover[i], 5.0)
             elseif B747_button_switch_cover_position_target[i] == 1.0 then
-                B747_button_switch_cover_position_target[i] = 0.0
+                B747_button_switch_cover_position_target[i] = closeTarget
                 if is_timer_scheduled(B747_close_button_cover[i]) then
                     stop_timer(B747_close_button_cover[i])
                 end
