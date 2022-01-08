@@ -20,19 +20,12 @@ lastPitch=0
 lastRoll=0
 lastYaw=0
 lastFlaps=0
-
+numSurfaces=22
 lastControlValue={}
-lastControlValue[0]=0
-lastControlValue[1]=0
-lastControlValue[2]=0
-lastControlValue[3]=0
-lastControlValue[4]=0
-lastControlValue[5]=0
-lastControlValue[6]=0
-lastControlValue[7]=0
-lastControlValue[8]=0
-lastControlValue[9]=0
-lastControlValue[10]=0
+for i=0,numSurfaces,1 do
+    lastControlValue[i]=0
+end
+
 -- 1 rudder lower 2,4
 -- 2 rudder upper 1,2
 -- 3 l elev inner
@@ -66,6 +59,22 @@ function pressure_input()
     controlRatios[8]=simDR_right_aileron_inner
     controlRatios[9]=simDR_left_aileron_outer
     controlRatios[10]=simDR_right_aileron_outer
+
+    --left wing
+    controlRatios[11]=simDR_spoiler12
+    controlRatios[12]=simDR_spoiler12
+    controlRatios[13]=simDR_spoiler34
+    controlRatios[14]=simDR_spoiler34
+    controlRatios[15]=simDR_spoiler5
+    controlRatios[16]=simDR_spoiler67[0]
+
+    --right wing
+    controlRatios[17]=simDR_spoiler67[1]
+    controlRatios[18]=simDR_spoiler8
+    controlRatios[19]=simDR_spoiler910
+    controlRatios[20]=simDR_spoiler910
+    controlRatios[21]=simDR_spoiler1112
+    controlRatios[22]=simDR_spoiler1112
 end
 
 function pressure_output()
@@ -74,18 +83,34 @@ function pressure_output()
     B747DR_hyd_sys_pressure_3=B747_pressureDRs[3]
     B747DR_hyd_sys_pressure_4=B747_pressureDRs[4]
 
-    B747DR_rudder_lwr_pos=controlRatios[1]
-    B747DR_rudder_upr_pos=controlRatios[2]
+    B747DR_rudder_lwr_pos=B747_animate_value(B747DR_rudder_lwr_pos,controlRatios[1],-100,100,10)
+    B747DR_rudder_upr_pos=B747_animate_value(B747DR_rudder_upr_pos,controlRatios[2],-100,100,10)
 
-    B747DR_l_elev_inner   = controlRatios[3]
-    B747DR_r_elev_inner   = controlRatios[4]
-    B747DR_l_elev_outer   = controlRatios[5]
-    B747DR_r_elev_outer   = controlRatios[6]
+    B747DR_l_elev_inner   = B747_animate_value(B747DR_l_elev_inner,controlRatios[3],-100,100,10)
+    B747DR_r_elev_inner   = B747_animate_value(B747DR_r_elev_inner,controlRatios[4],-100,100,10)
+    B747DR_l_elev_outer   = B747_animate_value(B747DR_l_elev_outer,controlRatios[5],-100,100,10)
+    B747DR_r_elev_outer   = B747_animate_value(B747DR_r_elev_outer,controlRatios[6],-100,100,10)
 
-    B747DR_l_aileron_inner   = controlRatios[7]
-    B747DR_r_aileron_inner   = controlRatios[8]
-    B747DR_l_aileron_outer   = controlRatios[9]
-    B747DR_r_aileron_outer   = controlRatios[10]
+    B747DR_l_aileron_inner   = B747_animate_value(B747DR_l_aileron_inner,controlRatios[7],-100,100,10)
+    B747DR_r_aileron_inner   = B747_animate_value(B747DR_r_aileron_inner,controlRatios[8],-100,100,10)
+    B747DR_l_aileron_outer   = B747_animate_value(B747DR_l_aileron_outer,controlRatios[9],-100,100,10)
+    B747DR_r_aileron_outer   = B747_animate_value(B747DR_r_aileron_outer,controlRatios[10],-100,100,10)
+
+    --spoilers
+    for i=1,12,1 do
+        B747DR_spoilers[i]=B747_animate_value(B747DR_spoilers[i],controlRatios[i+10],-100,100,10)
+    end
+    --spoiler stat
+    outleft_spoilers=0
+    for i=1,5,1 do
+        outleft_spoilers=outleft_spoilers+B747DR_spoilers[i]
+    end
+    outright_spoilers=0
+    for i=8,12,1 do
+        outright_spoilers=outright_spoilers+B747DR_spoilers[i]
+    end
+    B747DR_outer_spoilers[0]=B747_animate_value(B747DR_outer_spoilers[0],outleft_spoilers/5,-100,100,10)
+    B747DR_outer_spoilers[1]=B747_animate_value(B747DR_outer_spoilers[1],outright_spoilers/5,-100,100,10)
 end
 
 
@@ -122,7 +147,50 @@ function brake_accumulator()
 
     brakeConsumption=brakeConsumption-hydraulics_consumer({1,1,0,1},brakeConsumption)  
 end
-numSurfaces=10
+
+function spoiler_consumption(controlDiff)
+    --system 2, spoilers 2,3,10,11
+    if hydraulics_consumer({0,1,0,0},controlDiff[12]/2)==0 then
+        controlRatios[12]=B747_animate_value(lastControlValue[12],0,-100,100,1)
+    end
+    if hydraulics_consumer({0,1,0,0},controlDiff[13]/2)==0 then
+        controlRatios[13]=B747_animate_value(lastControlValue[13],0,-100,100,1)
+    end
+    if hydraulics_consumer({0,1,0,0},controlDiff[20]/2)==0 then
+        controlRatios[20]=B747_animate_value(lastControlValue[20],0,-100,100,1)
+    end
+    if hydraulics_consumer({0,1,0,0},controlDiff[21]/2)==0 then
+        controlRatios[21]=B747_animate_value(lastControlValue[21],0,-100,100,1)
+    end
+    --system 3, spoilers 1,4,9,12
+    if hydraulics_consumer({0,0,1,0},controlDiff[11]/2)==0 then
+        controlRatios[11]=B747_animate_value(lastControlValue[11],0,-100,100,1)
+    end
+    if hydraulics_consumer({0,0,1,0},controlDiff[14]/2)==0 then
+        controlRatios[14]=B747_animate_value(lastControlValue[14],0,-100,100,1)
+    end
+    if hydraulics_consumer({0,0,1,0},controlDiff[19]/2)==0 then
+        controlRatios[19]=B747_animate_value(lastControlValue[19],0,-100,100,1)
+    end
+    if hydraulics_consumer({0,0,1,0},controlDiff[22]/2)==0 then
+        controlRatios[22]=B747_animate_value(lastControlValue[22],0,-100,100,1)
+    end
+
+    --system 4, spoilers 5,6,7,8
+    if hydraulics_consumer({0,0,0,1},controlDiff[15]/2)==0 then
+        controlRatios[15]=B747_animate_value(lastControlValue[15],0,-100,100,1)
+    end
+    if hydraulics_consumer({0,0,0,1},controlDiff[16]/2)==0 then
+        controlRatios[16]=B747_animate_value(lastControlValue[16],0,-100,100,1)
+    end
+    if hydraulics_consumer({0,0,0,1},controlDiff[17]/2)==0 then
+        controlRatios[17]=B747_animate_value(lastControlValue[17],0,-100,100,1)
+    end
+    if hydraulics_consumer({0,0,0,1},controlDiff[1]/2)==0 then
+        controlRatios[18]=B747_animate_value(lastControlValue[18],0,-100,100,1)
+    end
+end
+
 function flight_controls_consumption()
     controlDiff={}
     for i=1,numSurfaces,1 do
@@ -186,6 +254,9 @@ function flight_controls_consumption()
     if hydraulics_consumer({0,1,1,1},controlDiff[10]*3)==0 then
         controlRatios[10]=B747_animate_value(lastControlValue[10],0,-100,100,1)
     end
+
+    spoiler_consumption(controlDiff)
+
     for i=1,numSurfaces,1 do
         lastControlValue[i]=controlRatios[i]
     end

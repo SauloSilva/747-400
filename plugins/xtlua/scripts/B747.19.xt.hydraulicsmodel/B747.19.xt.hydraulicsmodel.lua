@@ -94,6 +94,17 @@ B747DR_l_aileron_inner   = deferred_dataref("laminar/B747/flt_ctrls/l_aileron_in
 B747DR_r_aileron_inner   = deferred_dataref("laminar/B747/flt_ctrls/r_aileron_inner", "number")
 B747DR_l_aileron_outer   = deferred_dataref("laminar/B747/flt_ctrls/l_aileron_outer", "number")
 B747DR_r_aileron_outer   = deferred_dataref("laminar/B747/flt_ctrls/r_aileron_outer", "number")
+B747DR_spoilers      = deferred_dataref("laminar/B747/flt_ctrls/spoilers", "array[13]") --0 unused
+B747DR_outer_spoilers      = deferred_dataref("laminar/B747/flt_ctrls/outer_spoilers", "array[2]") --for stat display
+B747DR_flaps      = deferred_dataref("laminar/B747/flt_ctrls/flaps", "array[5]") --0 unuse
+
+simDR_spoiler12  = find_dataref("sim/flightmodel/controls/wing3l_spo1def")
+simDR_spoiler34  = find_dataref("sim/flightmodel/controls/wing3l_spo2def")
+simDR_spoiler5  = find_dataref("sim/flightmodel/controls/wing1l_spo1def")
+simDR_spoiler67  = find_dataref("sim/flightmodel2/wing/speedbrake1_deg") -- array [0] left, [1] right
+simDR_spoiler8  = find_dataref("sim/flightmodel/controls/wing1r_spo1def")
+simDR_spoiler910  = find_dataref("sim/flightmodel/controls/wing3r_spo2def")
+simDR_spoiler1112  = find_dataref("sim/flightmodel/controls/wing3r_spo1def")
 
 simDR_override_control_surfaces       = find_dataref("sim/operation/override/override_control_surfaces")
 simDR_override_steering               = find_dataref("sim/operation/override/override_wheel_steer")

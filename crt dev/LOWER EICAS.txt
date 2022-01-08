@@ -4650,7 +4650,7 @@ GROUP LOWER EICAS POWER
           gen_pointer Spoiler L_outer
             POS 1828.500000 -62.500000
             IMAGE CRT Displays/EICAS Lower/ptr_right
-            DATAREF sim/flightmodel2/wing/spoiler2_deg[0]
+            DATAREF laminar/B747/flt_ctrls/outer_spoilers[0]
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
@@ -4678,7 +4678,7 @@ GROUP LOWER EICAS POWER
           gen_pointer Spoiler R_outer
             POS 1952.500000 -62.500000
             IMAGE CRT Displays/EICAS Lower/ptr_left
-            DATAREF sim/flightmodel2/wing/spoiler2_deg[1]
+            DATAREF laminar/B747/flt_ctrls/outer_spoilers[1]
             HIDE
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 10
