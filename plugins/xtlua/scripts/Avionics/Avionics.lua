@@ -59,6 +59,7 @@ end
 end
 
 function Avionics_Power(phase, duration)
+	local cAV=Avionics_Power_on
   if B747DR_button_switch_position[13]==1  then
 		Avionics_Power_on = 1 
 	else
