@@ -19,7 +19,7 @@ dofile("acars/acars.lua")
 
 fmsPages["INDEX"]=createPage("INDEX")
 fmsPages["INDEX"].getPage=function(self,pgNo,fmsID)
-  local acarsS="      "
+  local acarsS="             "
   local gs1="                        "
 
   if simDR_onGround ==1 then
@@ -27,7 +27,7 @@ fmsPages["INDEX"].getPage=function(self,pgNo,fmsID)
 
   end
   if acars==1 and B747DR_rtp_C_off==0 then 
-	acarsS="<ACARS" 
+	acarsS="<ACARS  <REQ>" 
 	fmsFunctionsDefs["INDEX"]["L2"]={"setpage","ACARS"}
   else
 	fmsFunctionsDefs["INDEX"]["L2"]=nil
@@ -38,7 +38,7 @@ return {
 "                        ",
 "<FMC    <ACT>    SELECT>",
 "                        ",
-acarsS.."           SELECT>",
+acarsS.."    SELECT>",
 "                        ",
 "<SAT                    ",
 "                        ",
