@@ -1243,8 +1243,8 @@ function B747_annunciators()
     end
 
     annun.b.apu_bleed_air = 0.0
-    if (B747DR_button_switch_position[81] > 0.95 and B747DR_bleed_air_apu_vlv_pos < 1.0)
-        or (B747DR_button_switch_position[81] < 0.01 and B747DR_bleed_air_apu_vlv_pos > 0.0)
+    if simDR_apu_running==1 and ((B747DR_button_switch_position[81] > 0.95 and B747DR_bleed_air_apu_vlv_pos < 1.0)
+        or (B747DR_button_switch_position[81] < 0.01 and B747DR_bleed_air_apu_vlv_pos > 0.0))
     then
         annun.b.apu_bleed_air = 1.0
     end
