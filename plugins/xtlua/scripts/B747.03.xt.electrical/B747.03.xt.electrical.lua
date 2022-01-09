@@ -177,7 +177,7 @@ B747DR_elec_utilityright1      	= deferred_dataref("laminar/B747/electrical/util
 B747DR_elec_utilityleft2      	= deferred_dataref("laminar/B747/electrical/utilityleft2", "number")
 B747DR_elec_utilityright2      	= deferred_dataref("laminar/B747/electrical/utilityright2", "number")
 
-
+B747DR__gear_chocked           = deferred_dataref("laminar/B747/gear/chocked", "number")
 --*************************************************************************************--
 --** 				       READ-WRITE CUSTOM DATAREF HANDLERS     	         	     **--
 --*************************************************************************************--
@@ -452,12 +452,7 @@ function B747_external_power()
 --         B747DR_elec_ext_pwr1_available = 0
 -- 	B747DR_elec_ext_pwr2_available = 0
 --     end
-    if simDR_aircraft_on_ground == 0
-        or simDR_aircraft_groundspeed > 1.00
-        or simDR_engine_running[0] == 1
-        or simDR_engine_running[1] == 1
-        or simDR_engine_running[2] == 1
-        or simDR_engine_running[3] == 1
+    if B747DR__gear_chocked == 0
     then
         --print("disabled ground power at ".. simDR_aircraft_groundspeed .. " "..simDR_aircraft_on_ground)
         B747DR_elec_ext_pwr1_available = 0
@@ -472,7 +467,6 @@ function B747_external_power()
     else
         simDR_gpu_on = 0
     end
-
 end
 
 
@@ -589,7 +583,14 @@ function B747_bus_tie()
     B747DR_elec_display_power[6]=6-B747DR_simDR_fo_display
     B747DR_elec_display_power[7]=6-B747DR_simDR_fo_display
     B747DR_elec_display_power[8]=6-B747DR_simDR_captain_display
-    
+    if simDR_generator_off[0] ==0 or simDR_generator_off[1] ==0 then
+        B747DR_elec_apu_pwr_1_switch_mode = 0
+        B747DR_elec_ext_pwr_1_switch_mode = 0
+    end
+    if simDR_generator_off[2] ==0 or simDR_generator_off[3] ==0 then
+        B747DR_elec_apu_pwr_2_switch_mode = 0
+        B747DR_elec_ext_pwr_2_switch_mode = 0
+    end
     --[[B747DR_elec_toprightbus      	
 B747DR_elec_bus1hot      	
 B747DR_elec_bus2hot      	
