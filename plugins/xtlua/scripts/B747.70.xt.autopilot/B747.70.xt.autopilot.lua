@@ -644,6 +644,7 @@ end
 
 local switching_servos_on = simDRTime
 function B747_ap_switch_cmd_L_CMDhandler(phase, duration)
+	
 	if phase == 0 then
 		--B747CMD_ap_reset:once()
 		B747_ap_button_switch_position_target[10] = 1 -- SET THE BUTTON ANIMATION TO "DOWN"
@@ -651,7 +652,7 @@ function B747_ap_switch_cmd_L_CMDhandler(phase, duration)
 	elseif phase == 2 then
 		B747_ap_button_switch_position_target[10] = 0 -- SET THE BUTTON ANIMATION TO "UP"
 		if B747DR_ap_button_switch_position[14] == 0 then -- DISENGAGE BAR IS "UP/OFF"
-			if B747DR_ap_cmd_L_mode == 0 then -- LEFT CMD AP MODE IS "OFF"
+			if B747DR_ap_cmd_L_mode == 0 and simDR_radarAlt1>400 and (B747DR_ap_cmd_R_mode+B747DR_ap_cmd_C_mode)==0 then -- LEFT CMD AP MODE IS "OFF"
 				if simDR_autopilot_servos_on == 0 then -- AUTOPILOT IS NOT ENGAGED
 					simCMD_autopilot_servos_on:once()
 					switching_servos_on = simDRTime -- TURN THE AP SERVOS "ON"
@@ -670,7 +671,7 @@ function B747_ap_switch_cmd_C_CMDhandler(phase, duration)
 	elseif phase == 2 then
 		B747_ap_button_switch_position_target[11] = 0 -- SET THE BUTTON ANIMATION TO "UP"
 		if B747DR_ap_button_switch_position[14] == 0 then -- DISENGAGE BAR IS "UP/OFF"
-			if B747DR_ap_cmd_C_mode == 0 then -- CENTER CMD AP MODE IS "OFF"
+			if B747DR_ap_cmd_C_mode == 0 and simDR_radarAlt1>400 and (B747DR_ap_cmd_L_mode+B747DR_ap_cmd_R_mode)==0 then -- CENTER CMD AP MODE IS "OFF"
 				if simDR_autopilot_servos_on == 0 then -- AUTOPILOT IS NOT ENGAGED
 					--simCMD_autopilot_servos2_on:once()
 					simCMD_autopilot_servos_on:once()
@@ -689,7 +690,7 @@ function B747_ap_switch_cmd_R_CMDhandler(phase, duration)
 	elseif phase == 2 then
 		B747_ap_button_switch_position_target[12] = 0 -- SET THE BUTTON ANIMATION TO "UP"
 		if B747DR_ap_button_switch_position[14] == 0 then -- DISENGAGE BAR IS "UP/OFF"
-			if B747DR_ap_cmd_R_mode == 0 then -- RIGHT CMD AP MODE IS "OFF"
+			if B747DR_ap_cmd_R_mode == 0 and simDR_radarAlt1>400 and (B747DR_ap_cmd_L_mode+B747DR_ap_cmd_C_mode)==0 then -- RIGHT CMD AP MODE IS "OFF"
 				if simDR_autopilot_servos_on == 0 then -- AUTOPILOT IS NOT ENGAGED
 					--simCMD_autopilot_servos3_on:once()
 					simCMD_autopilot_servos_on:once()
