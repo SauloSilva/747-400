@@ -287,6 +287,7 @@ function do_touchdown()
         B747CMD_ap_reset:once()
 		    simCMD_autopilot_servos_off:once()
 		    B747_ap_all_cmd_modes_off()
+        B747DR_ap_lastCommand=simDRTime	
         simDR_overRideStab=0
         B747DR_ap_FMA_active_roll_mode=0
         simDR_autopilot_approach_status=0

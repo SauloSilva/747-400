@@ -274,9 +274,10 @@ B747DR_engine_TOGA_mode = find_dataref("laminar/B747/engines/TOGA_mode")
 
 B747DR_autothrottle_fail = find_dataref("laminar/B747/engines/autothrottle_fail")
 
---*************************************************************************************--
---** 				        CREATE READ-ONLY CUSTOM DATAREFS               	         **--
---*************************************************************************************--
+B747DR_hyd_sys_pressure_1      = deferred_dataref("laminar/B747/hydraulics/pressure_1", "number") -- AP C
+B747DR_hyd_sys_pressure_2      = deferred_dataref("laminar/B747/hydraulics/pressure_2", "number") -- AP R
+B747DR_hyd_sys_pressure_3      = deferred_dataref("laminar/B747/hydraulics/pressure_3", "number") -- AP L
+
 B747DR_radioModes = deferred_dataref("laminar/B747/radio/tuningmodes", "string")
 B747DR_FMSdata = deferred_dataref("laminar/B747/fms/data", "string")
 --B747DR_efis_baro_capt_set_dial_pos              = deferred_dataref("laminar/B747/efis/baro/capt/set_dial_pos", "number")
@@ -459,6 +460,11 @@ function B747_animate_value(current_value, target, min, max, speed)
 end
 
 dofile("B747.70.xt.autopilot.vnav.lua")
+function autothrottle_reengage()
+	if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 and simDR_onGround == 0 then
+		simCMD_autopilot_autothrottle_on:once()
+	end
+end
 
 function B747_ap_thrust_mode_CMDhandler(phase, duration) -- INOP, NO CORRESPONDING FUNCTIONALITY IN X-PLANE
 	if phase == 0 then
@@ -702,7 +708,7 @@ function B747_ap_switch_cmd_R_CMDhandler(phase, duration)
 	end
 end
 
-function B747_ap_switch_disengage_bar_CMDhandler(phase, duration)
+function B747_ap_switch_disengage_bar_CMDhandler(phase, duration) --disengage bar
 	if phase == 0 then
 		B747_ap_button_switch_position_target[14] = 1.0 - B747_ap_button_switch_position_target[14]
 		B747DR_ap_lastCommand = simDRTime
@@ -711,12 +717,17 @@ function B747_ap_switch_disengage_bar_CMDhandler(phase, duration)
 			if numAPengaged > 0 then
 				B747DR_CAS_warning_status[0] = 1
 			end
+			if simDR_autopilot_autothrottle_enabled == 1 then
+				run_after_time(autothrottle_reengage,0.5)
+			end
 			B747CMD_ap_reset:once() -- TURN FLIGHT DIRECTOR AND SERVOS "OFF"
 			B747_ap_all_cmd_modes_off()
+			B747DR_ap_lastCommand=simDRTime	
 			simCMD_autopilot_servos_off:once()
 			simCMD_autopilot_servos_fdir_off:once()
 			simCMD_autopilot_servos2_fdir_off:once()
 			simCMD_autopilot_servos3_fdir_off:once()
+			
 		else
 			B747DR_CAS_warning_status[0] = 0
 		end
@@ -732,10 +743,14 @@ function B747_ap_switch_yoke_disengage_capt_CMDhandler(phase, duration)
 		else
 			B747DR_CAS_warning_status[0] = 0
 		end
+		if simDR_autopilot_autothrottle_enabled == 1 then
+			run_after_time(autothrottle_reengage,0.5)
+		end
 		B747CMD_ap_reset:once()
 		simCMD_autopilot_servos_off:once()
 		--simCMD_autopilot_fdir_servos_down_one:once()							-- TURN ONLY THE SERVOS OFF, LEAVE FLIGHT DIRECTOR ON
 		B747_ap_all_cmd_modes_off()
+		B747DR_ap_lastCommand=simDRTime	
 	end
 end
 
@@ -748,10 +763,14 @@ function B747_ap_switch_yoke_disengage_fo_CMDhandler(phase, duration)
 		else
 			B747DR_CAS_warning_status[0] = 0
 		end
+		if simDR_autopilot_autothrottle_enabled == 1 then
+			run_after_time(autothrottle_reengage,0.5)
+		end
 		B747CMD_ap_reset:once()
 		simCMD_autopilot_servos_off:once()
 		--simCMD_autopilot_fdir_servos_down_one:once()							-- TURN ONLY THE SERVOS OFF, LEAVE FLIGHT DIRECTOR ON
 		B747_ap_all_cmd_modes_off()
+		B747DR_ap_lastCommand=simDRTime	
 	end
 end
 
@@ -1926,27 +1945,16 @@ function B747_ap_appr_mode_beforeCMDhandler(phase, duration)
 		--if diff>0.5 then
 		if B747DR_ap_approach_mode <= 0 then
 			B747DR_ap_approach_mode = 1
-
-			--[[if B747DR_ap_cmd_L_mode ==1 or B747DR_ap_cmd_C_mode ==1 or B747DR_ap_cmd_R_mode==1 then
-				B747DR_ap_cmd_L_mode=1
-				B747DR_ap_cmd_C_mode=1
-				B747DR_ap_cmd_R_mode=1
-			end]]
 			print("arm APP approach")
-		--else
-		--	B747DR_ap_approach_mode=0
 		end
-		--end
+
 		B747DR_ap_lastCommand = simDRTime
 		B747DR_ap_heading_deg = roundToIncrement(simDR_nav1_radio_course_deg, 1) -- SET THE SELECTED HEADING VALUE TO THE LOC COURSE
 	elseif phase == 2 then
 		B747_ap_button_switch_position_target[9] = 0 -- SET THE LOC SWITCH ANIMATION TO "OUT"
 	end
 end
---[[function B747_ap_appr_mode_beforeCMDhandler(phase, duration) 
-	print("B747_ap_appr_mode_beforeCMDhandler "..phase.." "..duration)
-	
-end]]
+
 function B747_ap_switch_loc_mode_CMDhandler(phase, duration)
 	if phase == 0 then
 		--simCMD_autopilot_nav_mode:once()
@@ -1995,9 +2003,25 @@ function B747_ap_appr_mode()
 			simDR_autopilot_gs_status == 2 and
 			(B747DR_ap_cmd_L_mode == 1 or B747DR_ap_cmd_C_mode == 1 or B747DR_ap_cmd_R_mode == 1)
 	 then
-		B747DR_ap_cmd_L_mode = 1
-		B747DR_ap_cmd_C_mode = 1
-		B747DR_ap_cmd_R_mode = 1
+		if B747DR_hyd_sys_pressure_3>1000 then 
+			B747DR_ap_cmd_L_mode = 1
+		end
+		if B747DR_hyd_sys_pressure_1>1000 then
+			B747DR_ap_cmd_C_mode = 1
+		end
+		if B747DR_hyd_sys_pressure_2>1000 then
+			B747DR_ap_cmd_R_mode = 1
+		end
+	end
+	print(B747DR_hyd_sys_pressure_1.." "..B747DR_hyd_sys_pressure_2.." "..B747DR_hyd_sys_pressure_3.." "..B747DR_ap_cmd_L_mode.." "..B747DR_ap_cmd_C_mode.." "..B747DR_ap_cmd_R_mode)
+	if B747DR_hyd_sys_pressure_3<1000 then 
+		B747DR_ap_cmd_L_mode = 0
+	end
+	if B747DR_hyd_sys_pressure_1<1000 then
+		B747DR_ap_cmd_C_mode = 0
+	end
+	if B747DR_hyd_sys_pressure_2<1000 then
+		B747DR_ap_cmd_R_mode = 0
 	end
 	if B747DR_ap_approach_mode == 0 then
 		if simDR_autopilot_nav_status > 0 then
@@ -2363,6 +2387,7 @@ end
 function ap_reset()
 	print("full reset AP in B747_ap_afds")
 	B747CMD_ap_reset:once()
+	B747DR_ap_lastCommand=simDRTime	
 end
 
 local B747_ap_AFDS_status_annun = 0
@@ -2404,11 +2429,15 @@ function B747_ap_afds()
 		landAssist = false
 	elseif simDR_autopilot_servos_on == 1 and (simDRTime - switching_servos_on) > 1 then
 		if numAPengaged == 0 then
-			--[[B747CMD_ap_reset:once()
-			B747DR_ap_cmd_L_mode = 0
-			B747DR_ap_cmd_C_mode = 0 
-			B747DR_ap_cmd_R_mode = 0]]
-			B747DR_ap_cmd_L_mode = 1
+			if simDR_autopilot_autothrottle_enabled == 1 then
+				run_after_time(autothrottle_reengage,0.5)
+			end
+			B747CMD_ap_reset:once()
+			simCMD_autopilot_servos_off:once()
+			B747_ap_all_cmd_modes_off()
+			B747DR_CAS_warning_status[0] = 1
+			B747DR_ap_lastCommand=simDRTime	
+			
 		end
 	end
 	local diff = simDRTime - B747DR_ap_lastCommand

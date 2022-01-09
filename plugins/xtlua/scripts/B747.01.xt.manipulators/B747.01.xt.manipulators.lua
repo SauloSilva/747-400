@@ -1242,7 +1242,7 @@ function B747_flight_dir_switch_L_CMDhandler(phase, duration)
 		
 		
 		----- SWITCH IS SET TO "OFF" POSITION
-		if B747_toggle_switch_position_target[23] == 0.0 												-- LEFT FLIGHT DIRECTOR SWITCH IS OFF
+		--[[if B747_toggle_switch_position_target[23] == 0.0 												-- LEFT FLIGHT DIRECTOR SWITCH IS OFF
 			and B747_toggle_switch_position_target[24] == 0.0 											-- RIGHT FLIGHT DIRECTOR SWITCH IS OFF
 		then
             if B747DR_autopilot_cmd_L_mode == 0 														-- LEFT CMD AP MODE IS "OFF"
@@ -1251,7 +1251,7 @@ function B747_flight_dir_switch_L_CMDhandler(phase, duration)
 			then
             	B747CMD_ap_reset:once()
             end			
-		end
+		end]]
 				
 	end
 end
@@ -1293,7 +1293,7 @@ function B747_flight_dir_switch_R_CMDhandler(phase, duration)
 		
 		
 		----- SWITCH IS SET TO "OFF" POSITION
-		if B747_toggle_switch_position_target[23] == 0.0 												-- LEFT FLIGHT DIRECTOR SWITCH IS OFF
+		--[[if B747_toggle_switch_position_target[23] == 0.0 												-- LEFT FLIGHT DIRECTOR SWITCH IS OFF
 			and B747_toggle_switch_position_target[24] == 0.0 											-- RIGHT FLIGHT DIRECTOR SWITCH IS OFF
 		then
             if B747DR_autopilot_cmd_L_mode == 0 														-- LEFT CMD AP MODE IS "OFF"
@@ -1302,7 +1302,7 @@ function B747_flight_dir_switch_R_CMDhandler(phase, duration)
 			then
             	B747CMD_ap_reset:once()
             end			
-		end
+		end]]
 				
 	end
 end
