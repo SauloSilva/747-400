@@ -406,7 +406,7 @@ B747DR_CAS_memo_status              = find_dataref("laminar/B747/CAS/memo_status
 
 B747DR_simDR_captain_display              = deferred_dataref("laminar/B747/electrical/capt_display_power", "number")
 B747DR_simDR_fo_display             = deferred_dataref("laminar/B747/electrical/fo_display_power", "number")
-
+B747DR_elec_display_power               = find_dataref("laminar/B747/electrical/display_has_power")
 
 
 --*************************************************************************************--
@@ -818,29 +818,32 @@ for i = 0, 32 do
 end
 ----- CABIN LIGHTS ----------------------------------------------------------------------
 function B747_cabin_lights()
+    --B747DR_elec_display_power
+        -- Captain PFD 0
+    -- First Officer PFD 1
+    -- First Officer ND 2
+    -- Captain ND 3
+    -- Upper EIACAS 4
+    -- Lower EICAS 5
+       brightnessPower[3]=B747_animate_value(brightnessPower[3],B747DR_elec_display_power[2],0,1,0.5) --FO ND
+       brightnessPower[5]=B747_animate_value(brightnessPower[5],B747DR_elec_display_power[1],0,1,0.5) --FO PFD
+       brightnessPower[10]=B747_animate_value(brightnessPower[10],B747DR_elec_display_power[5],0,1,0.5) --LOWER EICAS
+       brightnessPower[0]=B747_animate_value(brightnessPower[0],B747DR_elec_display_power[3],0,1,0.5) --C ND
+       brightnessPower[2]=B747_animate_value(brightnessPower[2],B747DR_elec_display_power[0],0,1,0.5) --C PFD
+       brightnessPower[9]=B747_animate_value(brightnessPower[9],B747DR_elec_display_power[4],0,1,0.5) --UPPER EICAS
      if B747DR_simDR_fo_display==6 then --FO Transfer bus
-       brightnessPower[3]=0 --FO ND
-       brightnessPower[5]=0 --FO PFD
-       brightnessPower[10]=0 --LOWER EICAS
        brightnessPower[13]=0 --FMS R
      else
-       brightnessPower[3]=B747_animate_value(brightnessPower[3],1,0,1,0.5)
-       brightnessPower[5]=B747_animate_value(brightnessPower[5],1,0,1,0.5)
-       brightnessPower[10]=B747_animate_value(brightnessPower[10],1,0,1,0.5)
        brightnessPower[13]=B747_animate_value(brightnessPower[13],1,0,1,0.5)
      end
      
      if B747DR_simDR_captain_display==6 then --Capt Transfer bus
-       brightnessPower[0]=0 --C ND
-       brightnessPower[2]=0 --C PFD
-       brightnessPower[9]=0 --UPPER EICAS
        brightnessPower[12]=0 --FMS C/L
      else
-       brightnessPower[0]=B747_animate_value(brightnessPower[0],1,0,1,0.5)
-       brightnessPower[2]=B747_animate_value(brightnessPower[2],1,0,1,0.5)
-       brightnessPower[9]=B747_animate_value(brightnessPower[9],1,0,1,0.5)
        brightnessPower[12]=B747_animate_value(brightnessPower[12],1,0,1,0.5)
      end
+     
+
      for i = 0, 32 do
 -- 	--print(i)
          simDR_instrument_brightness_switch[i] = B747_animate_value(simDR_instrument_brightness_switch[i],B747DR_instrument_brightness_ratio[i]* simDR_generic_brightness_ratio[63]*brightnessPower[i],0,1,brightnessRate[i])

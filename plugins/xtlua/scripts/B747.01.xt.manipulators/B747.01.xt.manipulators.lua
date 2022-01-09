@@ -62,6 +62,7 @@ end
 local B747_button_switch_cover_position_target = {}
 for i = 0, NUM_BTN_SW_COVERS-1 do
     B747_button_switch_cover_position_target[i] = 0
+
 end
 
 local B747_button_switch_position_target = {}
@@ -523,7 +524,10 @@ for i = 0, NUM_BTN_SW_COVERS-1 do
     end
 
 end
-
+for i = 0, NUM_BTN_SW_COVERS-1 do
+    run_after_time(B747_close_button_cover[i], 5.0)
+    
+end
 
 
 
