@@ -2013,7 +2013,7 @@ function B747_ap_appr_mode()
 			B747DR_ap_cmd_R_mode = 1
 		end
 	end
-	print(B747DR_hyd_sys_pressure_1.." "..B747DR_hyd_sys_pressure_2.." "..B747DR_hyd_sys_pressure_3.." "..B747DR_ap_cmd_L_mode.." "..B747DR_ap_cmd_C_mode.." "..B747DR_ap_cmd_R_mode)
+	--print(B747DR_hyd_sys_pressure_1.." "..B747DR_hyd_sys_pressure_2.." "..B747DR_hyd_sys_pressure_3.." "..B747DR_ap_cmd_L_mode.." "..B747DR_ap_cmd_C_mode.." "..B747DR_ap_cmd_R_mode)
 	if B747DR_hyd_sys_pressure_3<1000 then 
 		B747DR_ap_cmd_L_mode = 0
 	end
