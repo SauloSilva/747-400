@@ -50,10 +50,10 @@ function pressure_input()
     controlRatios[1]=simDR_rudder[10]
     controlRatios[2]=simDR_rudder[10]
 
-    controlRatios[3]=simDR_elevator[0]
-    controlRatios[4]=simDR_elevator[0]
-    controlRatios[5]=simDR_elevator[0]
-    controlRatios[6]=simDR_elevator[0]
+    controlRatios[3]=-simDR_elevator[0]
+    controlRatios[4]=-simDR_elevator[0]
+    controlRatios[5]=-simDR_elevator[0]
+    controlRatios[6]=-simDR_elevator[0]
 
     controlRatios[7]=simDR_left_aileron_inner
     controlRatios[8]=simDR_right_aileron_inner
