@@ -525,7 +525,7 @@ for i = 0, NUM_BTN_SW_COVERS-1 do
 
 end
 for i = 0, NUM_BTN_SW_COVERS-1 do
-    run_after_time(B747_close_button_cover[i], 5.0)
+    run_after_time(B747_close_button_cover[i], 1.0)
     
 end
 
@@ -585,7 +585,13 @@ function B747_elec_util_R_CMDhandler(phase, duration)
 end
 
 function B747_elec_battery_CMDhandler(phase, duration)
-    if phase == 0 then B747_button_switch_position_target[13] = 1.0 - B747_button_switch_position_target[13] end
+    if phase == 0 then 
+        B747_button_switch_position_target[13] = 1.0 - B747_button_switch_position_target[13] 
+        if is_timer_scheduled(B747_close_button_cover[9]) then
+            stop_timer(B747_close_button_cover[9])
+        end
+        run_after_time(B747_close_button_cover[9], 5.0)
+    end
 end
 
 function B747_elec_ext_pwr_1_CMDhandler(phase, duration)
