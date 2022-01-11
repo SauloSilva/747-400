@@ -15,6 +15,9 @@ function deferred_dataref(name,nilType,callFunction)
     end
     return find_dataref(name)
 end
+
+B747DR_controlOverrides   = find_dataref("xtlua/controlObject")
+
 B747DR_button_switch_position   = find_dataref("laminar/B747/button_switch/position")
 simDR_engine_N1_pct             = find_dataref("sim/cockpit2/engine/indicators/N1_percent")
 B747_duct_pressure_L                = deferred_dataref("laminar/B747/air/duct_pressure_L", "number")
@@ -256,6 +259,12 @@ function B747_set_hyd_model_ER()
   B747DR_hyd_sys_pressure_4=1700
 end  
 function flight_start() 
+  B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-30,"maxout":30,"srcDref":"sim/cockpit2/controls/total_heading_ratio","dstDref":"laminar/B747/testcontrols/total_heading_ratio"}';
+  B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-30,"maxout":30,"srcDref":"sim/cockpit2/controls/total_pitch_ratio","dstDref":"laminar/B747/testcontrols/total_pitch_ratio"}';
+  B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-30,"maxout":30,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/testcontrols/total_roll_ratio"}';
+  B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-30,"maxout":30,"srcDref":"laminar/B747/flt_ctrls/speedbrake_lever","dstDref":"laminar/B747/testcontrols/speedbrake_ratio"}';
+  B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-30,"maxout":30,"srcDref":"sim/cockpit2/controls/flap_ratio","dstDref":"laminar/B747/testcontrols/flap_ratio"}';
+  
     B747DR_hyd_sys_restotal_1=math.random()*0.2+0.8
     B747DR_hyd_sys_restotal_2=math.random()*0.2+0.8
     B747DR_hyd_sys_restotal_3=math.random()*0.2+0.8
