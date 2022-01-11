@@ -1946,7 +1946,7 @@ function B747_ap_appr_mode_beforeCMDhandler(phase, duration)
 		if B747DR_ap_approach_mode <= 0 then
 			B747DR_ap_approach_mode = 1
 			print("arm APP approach")
-		else
+		elseif simDR_autopilot_gs_status ~= 2 and simDR_autopilot_nav_status ~= 2 then
 			B747DR_ap_approach_mode = 0
 		end
 
