@@ -97651,11 +97651,11 @@ P acf/_elev1_v1 280.0
 P acf/_elev1_v2 400.0
 P acf/_elev2_cratR 0.0
 P acf/_elev2_cratT 0.0
-P acf/_elev2_dn 0.0
+P acf/_elev2_dn 17.0
 P acf/_elev2_max_sweep_rat 1.0
 P acf/_elev2_rat1 1.0
 P acf/_elev2_rat2 0.200000003
-P acf/_elev2_up 0.0
+P acf/_elev2_up 22.0
 P acf/_elev2_v1 280.0
 P acf/_elev2_v2 400.0
 P acf/_elev_def_time 0.500000000

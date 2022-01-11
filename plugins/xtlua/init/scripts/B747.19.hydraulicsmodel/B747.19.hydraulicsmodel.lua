@@ -27,6 +27,14 @@ B747_testcontrols_total_roll_ratio           = deferred_dataref("laminar/B747/te
 B747_testcontrols_total_flap_ratio           = deferred_dataref("laminar/B747/testcontrols/flap_ratio", "number")
 B747_testcontrols_total_speedbrake_ratio           = deferred_dataref("laminar/B747/testcontrols/speedbrake_ratio", "number")
 
+B747_controls_lower_rudder           = deferred_dataref("laminar/B747/cablecontrols/lower_rudder", "number")
+B747_controls_upper_rudder           = deferred_dataref("laminar/B747/cablecontrols/upper_rudder", "number")
+
+B747_controls_left_outer_elevator           = deferred_dataref("laminar/B747/cablecontrols/left_outer_elevator", "number")
+B747_controls_right_outer_elevator            = deferred_dataref("laminar/B747/cablecontrols/right_outer_elevator", "number")
+B747_controls_left_inner_elevator           = deferred_dataref("laminar/B747/cablecontrols/left_inner_elevator", "number")
+B747_controls_right_inner_elevator          = deferred_dataref("laminar/B747/cablecontrols/right_inner_elevator", "number")
+
 B747_duct_pressure_L           = deferred_dataref("laminar/B747/air/duct_pressure_L", "number")
 B747_duct_pressure_R           = deferred_dataref("laminar/B747/air/duct_pressure_R", "number")
 
@@ -84,6 +92,7 @@ simDR_hyd_press_1_2               = deferred_dataref("laminar/B747/hydraulics/in
 
 
 B747DR_hyd_dmd_pmp_sel_pos      = deferred_dataref("laminar/B747/hydraulics/dmd_pump/sel_dial_pos", "array[4]")
+B747DR_rudder_ratio   = deferred_dataref("laminar/B747/flt_ctrls/rudder_ratio", "number")
 B747DR_rudder_lwr_pos   = deferred_dataref("laminar/B747/flt_ctrls/rudder_lwr_pos", "number")
 B747DR_rudder_upr_pos   = deferred_dataref("laminar/B747/flt_ctrls/rudder_upr_pos", "number")
 B747DR_l_elev_inner   = deferred_dataref("laminar/B747/flt_ctrls/l_elev_inner", "number")

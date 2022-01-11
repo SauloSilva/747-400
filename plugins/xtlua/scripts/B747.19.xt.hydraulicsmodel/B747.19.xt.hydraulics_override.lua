@@ -47,13 +47,13 @@ function pressure_input()
     B747_pressureDRs[3]=B747DR_hyd_sys_pressure_3
     B747_pressureDRs[4]=B747DR_hyd_sys_pressure_4
     
-    controlRatios[1]=simDR_rudder[10]
-    controlRatios[2]=simDR_rudder[10]
+    controlRatios[1]=B747_controls_lower_rudder--simDR_rudder[10]
+    controlRatios[2]=B747_controls_upper_rudder*0.8--simDR_rudder[10]
 
-    controlRatios[3]=-simDR_elevator[0]
-    controlRatios[4]=-simDR_elevator[0]
-    controlRatios[5]=-simDR_elevator[0]
-    controlRatios[6]=-simDR_elevator[0]
+    controlRatios[3]=B747_controls_left_inner_elevator-- -simDR_elevator[0]
+    controlRatios[4]=B747_controls_right_inner_elevator-- -simDR_elevator[0]
+    controlRatios[5]=B747_controls_left_outer_elevator-- -simDR_elevator[0]
+    controlRatios[6]=B747_controls_right_outer_elevator-- -simDR_elevator[0]
 
     controlRatios[7]=simDR_left_aileron_inner
     controlRatios[8]=simDR_right_aileron_inner
@@ -250,8 +250,8 @@ function flight_controls_consumption()
     if hydraulics_consumer({1,1,0,0},controlDiff[3]*3)==0 then
         controlRatios[3]=B747_animate_value(lastControlValue[3],0,-100,100,1)
     end
-    --2,3,4 R inboard elev
-    if hydraulics_consumer({0,1,1,1},controlDiff[4]*3)==0 then
+    --3,4 R inboard elev
+    if hydraulics_consumer({0,0,1,1},controlDiff[4]*3)==0 then
         controlRatios[4]=B747_animate_value(lastControlValue[4],0,-100,100,1)
     end
     --1 L outboard elev
@@ -292,7 +292,7 @@ function flight_controls_override()
     override=1
     for i=1,4,1 do
         if B747_pressureDRs[i]>800 then
-            override=0
+            --override=0
         end
     end
     simDR_override_control_surfaces=override

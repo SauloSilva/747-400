@@ -82,6 +82,15 @@ simDR_parking_brake_ratio       = find_dataref("sim/cockpit2/controls/parking_br
 
 B747DR_rudder_lwr_pos   = deferred_dataref("laminar/B747/flt_ctrls/rudder_lwr_pos", "number")
 B747DR_rudder_upr_pos   = deferred_dataref("laminar/B747/flt_ctrls/rudder_upr_pos", "number")
+B747DR_rudder_ratio   = deferred_dataref("laminar/B747/flt_ctrls/rudder_ratio", "number")
+B747_controls_lower_rudder           = deferred_dataref("laminar/B747/cablecontrols/lower_rudder", "number")
+B747_controls_upper_rudder           = deferred_dataref("laminar/B747/cablecontrols/upper_rudder", "number")
+
+B747_controls_left_outer_elevator           = deferred_dataref("laminar/B747/cablecontrols/left_outer_elevator", "number")
+B747_controls_right_outer_elevator            = deferred_dataref("laminar/B747/cablecontrols/right_outer_elevator", "number")
+B747_controls_left_inner_elevator           = deferred_dataref("laminar/B747/cablecontrols/left_inner_elevator", "number")
+B747_controls_right_inner_elevator          = deferred_dataref("laminar/B747/cablecontrols/right_inner_elevator", "number")
+
 simDR_rudder            = find_dataref("sim/flightmodel2/wing/rudder1_deg")
 B747DR_l_elev_inner   = deferred_dataref("laminar/B747/flt_ctrls/l_elev_inner", "number")
 B747DR_r_elev_inner   = deferred_dataref("laminar/B747/flt_ctrls/r_elev_inner", "number")
@@ -296,12 +305,28 @@ function B747_set_hyd_model_ER()
   B747DR_hyd_sys_pressure_4=1700
 end  
 function flight_start() 
-  B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-30,"maxout":30,"srcDref":"sim/cockpit2/controls/total_heading_ratio","dstDref":"laminar/B747/testcontrols/total_heading_ratio"}';
+  --[[B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-30,"maxout":30,"srcDref":"sim/cockpit2/controls/total_heading_ratio","dstDref":"laminar/B747/testcontrols/total_heading_ratio"}';
   B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-30,"maxout":30,"srcDref":"sim/cockpit2/controls/total_pitch_ratio","dstDref":"laminar/B747/testcontrols/total_pitch_ratio"}';
   B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-30,"maxout":30,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/testcontrols/total_roll_ratio"}';
   B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-30,"maxout":30,"srcDref":"laminar/B747/flt_ctrls/speedbrake_lever","dstDref":"laminar/B747/testcontrols/speedbrake_ratio"}';
   B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-30,"maxout":30,"srcDref":"sim/cockpit2/controls/flap_ratio","dstDref":"laminar/B747/testcontrols/flap_ratio"}';
+  ]]--
+    B747DR_rudder_ratio=1.0
+    B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-32,"maxout":32,"scale":1.0,"srcDref":"sim/cockpit2/controls/total_heading_ratio","dstDref":"laminar/B747/cablecontrols/lower_rudder","scaledref":"laminar/B747/flt_ctrls/rudder_ratio"}';
+    B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-32,"maxout":32,"scale":1.0,"srcDref":"sim/cockpit2/controls/total_heading_ratio","dstDref":"laminar/B747/cablecontrols/upper_rudder","scaledref":"laminar/B747/flt_ctrls/rudder_ratio"}';
+
+    B747DR_controlOverrides = '{"minin":-32,"maxin":32,"minout":-32,"maxout":32,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/rudder_lwr_pos","dstDref":"sim/flightmodel/controls/vstab2_rud1def"}';
+    B747DR_controlOverrides = '{"minin":-32,"maxin":32,"minout":-32,"maxout":32,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/rudder_upr_pos","dstDref":"sim/flightmodel/controls/vstab2_rud2def"}';
   
+    B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-17,"maxout":22,"scale":-1.0,"srcDref":"sim/cockpit2/controls/total_pitch_ratio","dstDref":"laminar/B747/cablecontrols/left_outer_elevator"}';
+    B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-17,"maxout":22,"scale":-1.0,"srcDref":"sim/cockpit2/controls/total_pitch_ratio","dstDref":"laminar/B747/cablecontrols/right_outer_elevator"}';
+    B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-17,"maxout":22,"scale":-1.0,"srcDref":"sim/cockpit2/controls/total_pitch_ratio","dstDref":"laminar/B747/cablecontrols/left_inner_elevator"}';
+    B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-17,"maxout":22,"scale":-1.0,"srcDref":"sim/cockpit2/controls/total_pitch_ratio","dstDref":"laminar/B747/cablecontrols/right_inner_elevator"}';
+
+    B747DR_controlOverrides = '{"minin":-22,"maxin":17,"minout":-22,"maxout":17,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/l_elev_outer","dstDref":"sim/flightmodel/controls/hstab1_elv1def"}'; --left_outer_elevator
+    B747DR_controlOverrides = '{"minin":-22,"maxin":17,"minout":-22,"maxout":17,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/r_elev_outer","dstDref":"sim/flightmodel/controls/hstab2_elv1def"}'; --right_outer_elevator
+    B747DR_controlOverrides = '{"minin":-22,"maxin":17,"minout":-22,"maxout":17,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/l_elev_inner","dstDref":"sim/flightmodel/controls/hstab1_elv2def"}'; --left_inner_elevator
+    B747DR_controlOverrides = '{"minin":-22,"maxin":17,"minout":-22,"maxout":17,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/r_elev_inner","dstDref":"sim/flightmodel/controls/hstab2_elv2def"}'; --right_inner_elevator
     B747DR_hyd_sys_restotal_1=math.random()*0.2+0.8
     B747DR_hyd_sys_restotal_2=math.random()*0.2+0.8
     B747DR_hyd_sys_restotal_3=math.random()*0.2+0.8
