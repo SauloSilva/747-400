@@ -301,5 +301,6 @@ function flight_controls_override()
     else
         simDR_override_steering=1
     end
-
+    --Rudder ratio changer
+    B747DR_rudder_ratio=1.0-B747_rescale(150,0,450,0.84375,simDR_ias_pilot)
 end

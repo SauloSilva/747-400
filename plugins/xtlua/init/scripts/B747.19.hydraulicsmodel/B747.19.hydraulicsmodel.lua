@@ -21,6 +21,8 @@ function deferred_dataref(name,type,notifier)
 	dref=XLuaCreateDataRef(name, type,"yes",notifier)
 	return wrap_dref_any(dref,type) 
 end
+
+
 B747_testcontrols_total_heading_ratio         = deferred_dataref("laminar/B747/testcontrols/total_heading_ratio", "number")
 B747_testcontrols_total_pitch_ratio           = deferred_dataref("laminar/B747/testcontrols/total_pitch_ratio", "number")
 B747_testcontrols_total_roll_ratio           = deferred_dataref("laminar/B747/testcontrols/total_roll_ratio", "number")

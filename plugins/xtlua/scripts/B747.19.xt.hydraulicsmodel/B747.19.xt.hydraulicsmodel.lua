@@ -19,7 +19,7 @@ end
 B747DR_controlOverrides   = find_dataref("xtlua/controlObject")
 
 B747DR_button_switch_position   = find_dataref("laminar/B747/button_switch/position")
-
+simDR_ias_pilot				= find_dataref("laminar/B747/gauges/indicators/airspeed_kts_pilot")
 B747DR_display_N1					= deferred_dataref("laminar/B747/engines/display_N1", "array[4]")
 B747DR_display_N2					= deferred_dataref("laminar/B747/engines/display_N2", "array[4]")
 B747_duct_pressure_L                = deferred_dataref("laminar/B747/air/duct_pressure_L", "number")
@@ -138,6 +138,15 @@ function B747_animate_value(current_value, target, min, max, speed)
     end
 
 end
+----- RESCALE ---------------------------------------------------------------------------
+function B747_rescale(in1, out1, in2, out2, x)
+
+  if x < in1 then return out1 end
+  if x > in2 then return out2 end
+  return out1 + (out2 - out1) * (x - in1) / (in2 - in1)
+
+end
+
 dofile("B747.19.xt.hydraulics_override.lua")
 function B747_engine_hyd_valves()
 -- ENGINE #1
