@@ -1946,6 +1946,8 @@ function B747_ap_appr_mode_beforeCMDhandler(phase, duration)
 		if B747DR_ap_approach_mode <= 0 then
 			B747DR_ap_approach_mode = 1
 			print("arm APP approach")
+		else
+			B747DR_ap_approach_mode = 0
 		end
 
 		B747DR_ap_lastCommand = simDRTime
