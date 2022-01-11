@@ -64,7 +64,7 @@ function deferred_dataref(name,nilType,callFunction)
 end
 simDR_startup_running   = find_dataref("sim/operation/prefs/startup_running")
 simDR_xpdr_mode         = find_dataref("sim/cockpit2/radios/actuators/transponder_mode")    -- 0=OFF, 1=STANDBY, 2=ON, 3=ALT, 4=TEST, 5=GROUND
-simDR_airspeed                      = find_dataref("sim/cockpit2/gauges/indicators/airspeed_kts_pilot")
+simDR_airspeed                      = find_dataref("laminar/B747/gauges/indicators/airspeed_kts_pilot")
 --simDR_xpdr_code         = find_dataref("sim/cockpit2/radios/actuators/transponder_code")
 
 --*************************************************************************************--
@@ -412,13 +412,13 @@ function B747_fltmgmt_EICAS_msg()
   else
     B747DR_CAS_advisory_status[279] = 0
   end
-  if B747DR_radio_altitude>400 and B747DR_xpdrMode_sel_pos==3 then
+  --[[if B747DR_radio_altitude>400 and B747DR_xpdrMode_sel_pos==3 then
     B747DR_CAS_advisory_status[280] = 1
     B747DR_CAS_advisory_status[281] = 1
   else
     B747DR_CAS_advisory_status[280] = 0
     B747DR_CAS_advisory_status[281] = 0
-  end
+  end]]
 end
 debug_fltmgmt     = deferred_dataref("laminar/B747/debug/fltmgmt", "number")
 function after_physics()

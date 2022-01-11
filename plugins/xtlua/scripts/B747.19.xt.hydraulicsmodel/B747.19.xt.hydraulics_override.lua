@@ -36,7 +36,6 @@ end
 -- 8 r ail inner sim/flightmodel/controls/wing4r_ail1def[0]
 -- 9 l ail outer sim/flightmodel/controls/wing4l_ail2def[0]
 -- 10 r ail outer sim/flightmodel/controls/wing2r_ail2def[0]
-
 brakeConsumption=0
 local B747_pressureDRs={}
 local controlRatios={}

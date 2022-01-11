@@ -15,12 +15,27 @@ Pack2_Sw = find_dataref("laminar/B747/air/pack_ctrl/sel_dial_pos[1]")
 Pack3_Sw = find_dataref("laminar/B747/air/pack_ctrl/sel_dial_pos[2]")
 
 --*************************************************************************************--
+--** 				              CUSTOM COMMAND HANDLERS            			     **--
+--*************************************************************************************--
+
+function sim_avionics1_off_CMDhandler() end
+function sim_avionics1_on_CMDhandler() end
+
+--*************************************************************************************--
+--** 				               REPLACE X-PLANE COMMANDS                   	     **--
+--*************************************************************************************--
+
+simCMD_avionics_1_on = replace_command("sim/systems/avionics_on", sim_avionics1_on_CMDhandler)
+simCMD_avionics_1_off = replace_command("sim/systems/avionics_off", sim_avionics1_off_CMDhandler)
+
+--*************************************************************************************--
 --** 				        CREATE READ-ONLY CUSTOM DATAREFS               	         **--
 --*************************************************************************************--
 
-Packs_EXT = find_dataref("sim/cockpit2/Cooling/Packs_EXT")
-Avionics_Power_on	= find_dataref("sim/cockpit2/electrical/Avionics_Power_on")
 
+Packs_EXT = find_dataref("sim/cockpit2/Cooling/Packs_EXT")
+Avionics_Power_on	= find_dataref("sim/cockpit/electrical/avionics_on")
+B747DR_button_switch_position       = find_dataref("laminar/B747/button_switch/position")
 -- Exterior Packs--------------------------------------------------
 
 function Packs_EXT_On (phase, duration)
@@ -59,10 +74,11 @@ end
 end
 
 function Avionics_Power(phase, duration)
-  if Eng_Gen_on == 1 or Ext_Power_Av == 1  then
-	Avionics_Power_on = 1 
-	elseif Eng_Gen_on == 0 and Ext_Power_Av == 0  then
-	Avionics_Power_on = 0 
+	local cAV=Avionics_Power_on
+  if B747DR_button_switch_position[13]==1  then
+		Avionics_Power_on = 1 
+	else
+		Avionics_Power_on = 0 
   end
 end
 

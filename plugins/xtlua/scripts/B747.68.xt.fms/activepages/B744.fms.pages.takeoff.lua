@@ -6,6 +6,7 @@ B747DR_airspeed_Vr                              = deferred_dataref("laminar/B747
 B747DR_airspeed_V2                              = deferred_dataref("laminar/B747/airspeed/V2", "number")
 cg_lineLg	= ""
 cg_lineSm	= ""
+clbF_Sm = ""
 
 function roundToIncrement(number, increment)
 
@@ -25,7 +26,14 @@ fmsPages["TAKEOFF"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be 
   local v1="---"
   local vr="---"
   local v2="---"
-  
+  local clbV=" "
+  --local clbF="FLAPS 5 "
+  --local clbF=string.format("%-8s", "1500FT")
+  --local clbF=string.format("%-8s", "FLAPS 5")
+  local clbF=string.format("%-8s", "")
+  if clbderate>0 then
+    clbV=""..clbderate
+  end
 	--Marauder28
 	if string.len(cg_lineLg) == 0 then
 		if fmsModules["data"].cg_mac == "--" then
@@ -39,7 +47,7 @@ fmsPages["TAKEOFF"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be 
 	end
 	--Marauder28
 
-  if B747DR_airspeed_V1<999 then
+  if B747DR_airspeed_V1<998 then
     v1=B747DR_airspeed_V1
     vr=B747DR_airspeed_Vr
     v2=B747DR_airspeed_V2
@@ -52,7 +60,7 @@ fmsPages["TAKEOFF"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be 
   "                        ",
   string.format("                     %3d", vr),
   "                        ",
-  string.format("FLAPS *  CLB *       %3d", v2),
+  string.format("%s CLB %1s       %3d",clbF,clbV, v2),
   "                        ",
   "                     "..cg_lineLg,
   "                        ",
@@ -69,7 +77,7 @@ fmsPages["TAKEOFF"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be 
   "                        ",
   string.format("                     ---"),
   "                        ",
-  string.format("FLAPS *  CLB *       ---"),
+  string.format("%s CLB %1s       ---",clbF,clbV),
   "                        ",
   "                     "..cg_lineLg,
   "                        ",
@@ -93,6 +101,8 @@ fmsPages["TAKEOFF"].getSmallPage=function(self,pgNo,fmsID)
 	  end
   end
   --Marauder28
+
+  clbF_Sm = string.format("%-8s", "FLAPS 5")
   
     return{
 
@@ -102,7 +112,8 @@ fmsPages["TAKEOFF"].getSmallPage=function(self,pgNo,fmsID)
 " E/O ACCEL HT     REF VR",
 "1500FT                  ",
 " THR REDUCTION    REF V2",
-"                        ",
+clbF_Sm.."                 ",
+--"                        ",
 "               TRIM   CG",
 --"                        ",
 "                "..stab_trim.."     "..cg_lineSm,

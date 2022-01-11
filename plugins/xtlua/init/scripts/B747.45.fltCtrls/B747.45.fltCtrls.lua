@@ -81,18 +81,40 @@ B747DR_init_fltctrls_CD         = deferred_dataref("laminar/B747/fltctrls/init_C
 B747DR_parking_brake_ratio      = deferred_dataref("laminar/B747/flt_ctrls/parking_brake_ratio", "number")
 B747DR_CAS_memo_status          = find_dataref("laminar/B747/CAS/memo_status")
 
+B747DR_engines_numClimb         = deferred_dataref("laminar/B747/flt_ctrls/numClimb", "number")
+B747DR_engines_numLeverClimb    = deferred_dataref("laminar/B747/flt_ctrls/numLeverClimb", "number")
+
 --*************************************************************************************--
 --** 				       READ-WRITE CUSTOM DATAREF HANDLERS     	        	     **--
 --*************************************************************************************--
 ----- SPEEDBRAKE LEVER ------------------------------------------------------------------
 --local B747_sb_manip_changed = 0
 B747_sb_manip_changed = deferred_dataref("laminar/B747/flt_ctrls/speedbrake_lever_changed", "number")
+B747DR_speedbrake_auto_ext      = deferred_dataref("B747DR/speedbrake/auto_extend", "number")
 
 --local B747_speedbrake_stop = 0
 B747_speedbrake_stop = deferred_dataref("laminar/B747/flt_ctrls/speedbrake_stop", "number")
 simDR_speedbrake_ratio_control  = find_dataref("sim/cockpit2/controls/speedbrake_ratio")
 
 function B747_speedbrake_manip_timeout()
+	if B747DR_speedbrake_lever < 0.01 then
+		B747DR_speedbrake_lever = 0.0
+		simDR_speedbrake_ratio_control = 0.0
+		B747DR_CAS_memo_status[45] = 0
+	-- ARMED DETENT
+	elseif B747DR_speedbrake_lever < 0.30 and
+		B747DR_speedbrake_lever > 0.07
+	then
+
+		B747DR_speedbrake_lever = 0.125 
+		simDR_speedbrake_ratio_control = -0.5
+		B747DR_CAS_memo_status[45] = 1
+	-- ALL OTHER POSITIONS    
+	else
+		B747DR_speedbrake_lever = math.min(1.0 - (B747_speedbrake_stop * 0.47), B747DR_speedbrake_lever)
+		simDR_speedbrake_ratio_control = B747_rescale(0.15, 0.0, 1.0 - (B747_speedbrake_stop * 0.47), 1.0, B747DR_speedbrake_lever) 	       
+		B747DR_CAS_memo_status[45] = 0
+	end	
 	B747_sb_manip_changed = 0 
 end
 function B747_rescale(in1, out1, in2, out2, x)
@@ -103,31 +125,34 @@ function B747_rescale(in1, out1, in2, out2, x)
 
 end
 function B747_speedbrake_lever_DRhandler()
-	
-    -- DOWN DETENT
-	if B747DR_speedbrake_lever < 0.01 then
-		B747DR_speedbrake_lever = 0.0
-		simDR_speedbrake_ratio_control = 0.0
-		B747DR_CAS_memo_status[45] = 0
-     -- ARMED DETENT
-    elseif B747DR_speedbrake_lever < 0.15 and
-        B747DR_speedbrake_lever > 0.10
-    then
-        B747DR_speedbrake_lever = 0.125 
-        simDR_speedbrake_ratio_control = -0.5
-		B747DR_CAS_memo_status[45] = 1
-    -- ALL OTHER POSITIONS    
-    else
-	    B747DR_speedbrake_lever = math.min(1.0 - (B747_speedbrake_stop * 0.47), B747DR_speedbrake_lever)
-		simDR_speedbrake_ratio_control = B747_rescale(0.15, 0.0, 1.0 - (B747_speedbrake_stop * 0.47), 1.0, B747DR_speedbrake_lever) 	       
-		B747DR_CAS_memo_status[45] = 0
-    end	   
-    
-    B747_sb_manip_changed = 1 
-    if is_timer_scheduled(B747_speedbrake_manip_timeout) then
-		stop_timer(B747_speedbrake_manip_timeout)    
-	end	
-	run_after_time(B747_speedbrake_manip_timeout, 2.0)
+	if  B747DR_speedbrake_auto_ext==0 then
+		B747_sb_manip_changed = 1 
+		-- DOWN DETENT
+		if B747DR_speedbrake_lever < 0.01 then
+			B747DR_speedbrake_lever = 0.0
+			simDR_speedbrake_ratio_control = 0.0
+			B747DR_CAS_memo_status[45] = 0
+		-- ARMED DETENT
+		elseif B747DR_speedbrake_lever < 0.30 and
+			B747DR_speedbrake_lever > 0.07
+		then
+
+			B747DR_speedbrake_lever = 0.125 
+			simDR_speedbrake_ratio_control = -0.5
+			B747DR_CAS_memo_status[45] = 1
+		-- ALL OTHER POSITIONS    
+		else
+			B747DR_speedbrake_lever = math.min(1.0 - (B747_speedbrake_stop * 0.47), B747DR_speedbrake_lever)
+			simDR_speedbrake_ratio_control = B747_rescale(0.15, 0.0, 1.0 - (B747_speedbrake_stop * 0.47), 1.0, B747DR_speedbrake_lever) 	       
+			B747DR_CAS_memo_status[45] = 0
+		end	   
+		
+		
+		if is_timer_scheduled(B747_speedbrake_manip_timeout) then
+			stop_timer(B747_speedbrake_manip_timeout)    
+		end	
+		run_after_time(B747_speedbrake_manip_timeout, 1.0)
+	end
 
 end
 
@@ -162,5 +187,3 @@ B747CMD_ai_fltctrls_quick_start			= deferred_command("laminar/B747/ai/fltctrls_q
 B747CMD_parking_brake_on            = deferred_command("laminar/B747/flt_ctrls/parking_brake_on", "Parking brake on", B747CMD_parking_brake_on_CMDhandler)
 B747CMD_parking_brake_off            = deferred_command("laminar/B747/flt_ctrls/parking_brake_off", "Parking brake off", B747CMD_parking_brake_off_CMDhandler)
 B747CMD_parking_brake_toggle            = deferred_command("laminar/B747/flt_ctrls/parking_brake_toggle", "Parking brake toggle", B747CMD_parking_brake_toggle_CMDhandler)
-
-

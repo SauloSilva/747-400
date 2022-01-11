@@ -179,7 +179,7 @@ function keyDown(fmsModule,key)
        simCMD_FMS_key[fmsModule][key]:once()
        return  
      else
-       fmsModules[fmsModule].notify="KEY NOT ACTIVE"
+       fmsModules[fmsModule].notify="KEY/FUNCTION INOP"
      end
   end
 end
@@ -506,18 +506,26 @@ function fms:B747_fms_display()
     local page=self.currentPage
     if B747DR_srcfms[thisID][14]=="[NAV DATA OUT OF DATE  ]" then simCMD_FMS_key[thisID]["clear"]:once() return end
     if not inCustomFMC then
-      for i=1,14,1 do
-	B747DR_fms[thisID][i]=cleanFMSLine(B747DR_srcfms[thisID][i])
-	B747DR_fms_s[thisID][i]="                        "
+      for i=1,13,1 do
+	      B747DR_fms[thisID][i]=cleanFMSLine(B747DR_srcfms[thisID][i])
+	      B747DR_fms_s[thisID][i]="                        "
+      end
+      if string.len(self.notify)>0 then 
+        B747DR_fms[thisID][14]=self.notify
+        B747DR_fms_s[thisID][14]="                        "
+      else
+        B747DR_fms[thisID][14]=cleanFMSLine(B747DR_srcfms[thisID][14])
+	      B747DR_fms_s[thisID][14]="                        "
       end
     else
       if self.pgNo>fmsPages[page]:getNumPages() then self.pgNo=fmsPages[page]:getNumPages() self.targetpgNo=fmsPages[page]:getNumPages() end
+      if self.pgNo<1 then self.pgNo=1 self.targetpgNo=1 end
       local fmsPage = fmsPages[page]:getPage(self.pgNo,thisID);
       local fmsPagesmall = fmsPages[page]:getSmallPage(self.pgNo,thisID);
       local tmpSRC
       for i=1,13,1 do
-	tmpSRC=B747DR_srcfms[thisID][i] -- make sure src is always fresh
-	B747DR_fms[thisID][i]=fmsPage[i]
+	      tmpSRC=B747DR_srcfms[thisID][i] -- make sure src is always fresh
+	      B747DR_fms[thisID][i]=fmsPage[i]
       end
       for i=1,13,1 do
 	B747DR_fms_s[thisID][i]=fmsPagesmall[i]

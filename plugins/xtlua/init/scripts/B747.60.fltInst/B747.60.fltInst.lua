@@ -62,6 +62,7 @@ B747DR_efis_ref_alt_capt_set_dial_pos           = deferred_dataref("laminar/B747
 B747DR_efis_dh_reset_capt_switch_pos            = deferred_dataref("laminar/B747/efis/dh_reset/capt/switch_pos", "number")
 B747DR_efis_baro_ref_capt_sel_dial_pos          = deferred_dataref("laminar/B747/efis/baro_ref/capt/sel_dial_pos", "number")
 B747DR_efis_baro_std_capt_switch_pos            = deferred_dataref("laminar/B747/efis/baro_std/capt/switch_pos", "number")
+B747DR_efis_baro_std_capt_show_preselect            = deferred_dataref("laminar/B747/efis/baro_std/capt/show_preselect", "number")
 B747DR_efis_baro_capt_set_dial_pos              = deferred_dataref("laminar/B747/efis/baro/capt/set_dial_pos", "number")
 B747DR_efis_baro_capt_preselect                 = deferred_dataref("laminar/B747/efis/baro/capt/preselect", "number")
 B747DR_efis_baro_alt_ref_capt                   = deferred_dataref("laminar/B747/efis/baro_ref/capt", "number")
@@ -71,6 +72,7 @@ B747DR_efis_ref_alt_fo_set_dial_pos             = deferred_dataref("laminar/B747
 B747DR_efis_dh_reset_fo_switch_pos              = deferred_dataref("laminar/B747/efis/dh_reset/fo/switch_pos", "number")
 B747DR_efis_baro_ref_fo_sel_dial_pos            = deferred_dataref("laminar/B747/efis/baro_ref/fo/sel_dial_pos", "number")
 B747DR_efis_baro_std_fo_switch_pos              = deferred_dataref("laminar/B747/efis/baro_std/fo/switch_pos", "number")
+B747DR_efis_baro_std_fo_show_preselect              = deferred_dataref("laminar/B747/efis/baro_std/fo/show_preselect", "number")
 B747DR_efis_baro_fo_set_dial_pos                = deferred_dataref("laminar/B747/efis/baro/fo/set_dial_pos", "number")
 B747DR_efis_baro_fo_preselect                   = deferred_dataref("laminar/B747/efis/baro/fo/preselect", "number")
 B747DR_efis_baro_alt_ref_fo                     = deferred_dataref("laminar/B747/efis/baro_ref/fo", "number")
@@ -83,8 +85,12 @@ B747DR_efis_fpv_fo_switch_pos                   = deferred_dataref("laminar/B747
 B747DR_efis_meters_fo_switch_pos                = deferred_dataref("laminar/B747/efis/meters/fo/switch_pos", "number")
 B747DR_efis_meters_fo_selected                  = deferred_dataref("laminar/B747/efis/meters/fo/selected", "number")
 
-B747DR_pfd_mode_capt		                = deferred_dataref("laminar/B747/pfd/capt/irs", "number")
-B747DR_pfd_mode_fo		                = deferred_dataref("laminar/B747/pfd/fo/irs", "number")
+B747DR_pfd_mode_capt		                	= deferred_dataref("laminar/B747/pfd/capt/irs", "number")
+B747DR_pfd_mode_fo		                		= deferred_dataref("laminar/B747/pfd/fo/irs", "number")
+B747DR_pfd_mode_show_mins          				= deferred_dataref("laminar/B747/pfd/show_mins", "number")
+B747DR_nd_fo_heading_bug            			= deferred_dataref("laminar/B747/nd/mode/fo/show_heading_bug", "number")
+B747DR_nd_capt_heading_bug          			= deferred_dataref("laminar/B747/nd/mode/capt/show_heading_bug", "number")
+
 
 B747DR_nd_mode_capt_sel_dial_pos                = deferred_dataref("laminar/B747/nd/mode/capt/sel_dial_pos", "number")
 B747DR_nd_range_capt_sel_dial_pos               = deferred_dataref("laminar/B747/nd/range/capt/sel_dial_pos", "number")
@@ -110,8 +116,12 @@ B747DR_nd_data_capt_switch_pos                  = deferred_dataref("laminar/B747
 B747DR_nd_pos_capt_switch_pos                   = deferred_dataref("laminar/B747/nd/pos/capt/switch_pos", "number")
 B747DR_nd_terr_capt_switch_pos                  = deferred_dataref("laminar/B747/nd/terr/capt/switch_pos", "number")
 
+B747DR_nd_capt_terr                          = deferred_dataref("laminar/B747/nd/data/capt/terr", "number")
+B747DR_nd_fo_terr                          	= deferred_dataref("laminar/B747/nd/data/fo/terr", "number")
 B747DR_nd_capt_vor_ndb                          = deferred_dataref("laminar/B747/nd/data/capt/vor_ndb", "number")
 B747DR_nd_fo_vor_ndb                          	= deferred_dataref("laminar/B747/nd/data/fo/vor_ndb", "number")
+B747DR_nd_capt_wpt                          = deferred_dataref("laminar/B747/nd/data/capt/wpt", "number")
+B747DR_nd_fo_wpt                         	= deferred_dataref("laminar/B747/nd/data/fo/wpt", "number")
 B747DR_nd_capt_apt	                        = deferred_dataref("laminar/B747/nd/data/capt/apt", "number")
 B747DR_nd_fo_apt	                        = deferred_dataref("laminar/B747/nd/data/fo/apt", "number")
 B747DR_nd_capt_tfc	                        = deferred_dataref("laminar/B747/nd/capt/tfc", "number")
@@ -123,7 +133,8 @@ B747_nd_vorR_ID_flag_capt                       = deferred_dataref("laminar/B747
 B747_nd_adfL_ID_flag_capt                       = deferred_dataref("laminar/B747/nd/adfL_id_flag/capt", "number")
 B747_nd_adfR_ID_flag_capt                       = deferred_dataref("laminar/B747/nd/adfR_id_flag/capt", "number")
 
-B747_exp_nd_track_line_on                       = deferred_dataref("laminar/B747/nd/track_line_on", "number")
+B747_exp_fo_nd_track_line_on                       = deferred_dataref("laminar/B747/nd/fo/track_line_on", "number")
+B747_exp_capt_nd_track_line_on                       = deferred_dataref("laminar/B747/nd/capt/track_line_on", "number")
 
 B747DR_nd_wxr_fo_switch_pos                     = deferred_dataref("laminar/B747/nd/wxr/fo/switch_pos", "number")
 B747DR_nd_sta_fo_switch_pos                     = deferred_dataref("laminar/B747/nd/sta/fo/switch_pos", "number")
@@ -197,10 +208,16 @@ B747DR_airspeed_Vle                             = deferred_dataref("laminar/B747
 B747DR_airspeed_Mle                             = deferred_dataref("laminar/B747/airspeed/Mle", "number")
 B747DR_airspeed_Vmo                             = deferred_dataref("laminar/B747/airspeed/Vmo", "number")
 B747DR_airspeed_Mmo                             = deferred_dataref("laminar/B747/airspeed/Mmo", "number")
+B747DR_airspeed_Mms                             = deferred_dataref("laminar/B747/airspeed/Mms", "number")
 B747DR_airspeed_Vmc                             = deferred_dataref("laminar/B747/airspeed/Vmc", "number")
 B747DR_airspeed_Vne                             = deferred_dataref("laminar/B747/airspeed/Vne", "number")
 B747DR_airspeed_Mne                             = deferred_dataref("laminar/B747/airspeed/Mne", "number")
 B747DR_airspeed_Vref30                          = deferred_dataref("laminar/B747/airspeed/Vref30", "number")
+B747DR_airspeed_Vref                          = deferred_dataref("laminar/B747/airspeed/Vref", "number")
+B747DR_airspeed_VrefFlap                          = deferred_dataref("laminar/B747/airspeed/VrefFlap", "number")
+B747DR_airspeed_showVf25                            = deferred_dataref("laminar/B747/airspeed/showVf25", "number")
+B747DR_airspeed_showVf30                            = deferred_dataref("laminar/B747/airspeed/showVf30", "number")
+
 B747DR_airspeed_Vmax                            = deferred_dataref("laminar/B747/airspeed/Vmax", "number")
 B747DR_airspeed_Vmaxm                           = deferred_dataref("laminar/B747/airspeed/Vmaxm", "number")
 B747DR_airspeed_Vs                              = deferred_dataref("laminar/B747/airspeed/Vs", "number")
@@ -216,8 +233,11 @@ B747DR_loc_ptr_vis_fo                           = deferred_dataref("laminar/B747
 B747DR_loc_scale_vis_fo                         = deferred_dataref("laminar/B747/localizer_scale/visibility_flag_fo", "number")
 B747DR_glideslope_ptr_vis_fo                    = deferred_dataref("laminar/B747/glideslope_ptr/visibility_flag_fo", "number")
 
-
+B747DR_airspeed_pilot                      = deferred_dataref("laminar/B747/gauges/indicators/airspeed_kts_pilot", "number")
+B747DR_airspeed_copilot                      = deferred_dataref("laminar/B747/gauges/indicators/airspeed_kts_copilot", "number")
 -- INSTRUMENT SOURCE SELECTORS (CAPTAIN)
+
+
 B747CMD_flt_inst_fd_src_capt_dial_up        = deferred_command("laminar/B747/flt_inst/flt_dir_src/capt/sel_dial_up", "Flight Inst Flight Director Source Captain Up", B747_flt_inst_fd_src_capt_dial_up_CMDhandler)
 B747CMD_flt_inst_fd_src_capt_dial_dn        = deferred_command("laminar/B747/flt_inst/flt_dir_src/capt/sel_dial_dn", "Flight Inst Flight Director Source Captain Down", B747_flt_inst_fd_src_capt_dial_dn_CMDhandler)
 
@@ -429,3 +449,11 @@ B747CMD_fltInst_fo_clock_ET_sel_dn		= deferred_command("laminar/B747/fltInst/fo/
 B747CMD_fltInst_fo_clock_SET_sel_up		= deferred_command("laminar/B747/fltInst/fo/clock_set_sel_up", "First Officer Clock SET Selector Up", B747_fo_clock_SET_sel_up_CMDhandler)
 B747CMD_fltInst_fo_clock_SET_sel_dn		= deferred_command("laminar/B747/fltInst/fo/clock_set_sel_down", "First Officer Clock SET Selector Down", B747_fo_clock_SET_sel_dn_CMDhandler)
 
+--crazytimtimtim
+B747DR_v1_alert                                 = deferred_dataref("laminar/B747/fmod/callouts/v1", "number")
+B747DR_vr_alert                                 = deferred_dataref("laminar/B747/fmod/callouts/vr", "number")
+B747DR_appDH_alert                              = deferred_dataref("laminar/B747/fmod/callouts/appDH", "number")
+B747DR_DH_alert                                 = deferred_dataref("laminar/B747/fmod/callouts/DH", "number")
+B747DR_10000_callout                            = deferred_dataref("laminar/B747/fmod/callouts/10000", "number")
+B747DR_fltInst_capt_clock_ET_seconds            = deferred_dataref("laminar/B747/fltInst/capt/clock_et_seconds", "number")
+B747DR_fltInst_fo_clock_ET_seconds              = deferred_dataref("laminar/B747/fltInst/fo/clock_et_seconds", "number")

@@ -2,4 +2,7 @@
 */747-400_prefs.txt
 B747-400_lastpos.dat
 .DS_Store
-liveries/wunalu_dreaming/
+*/.DS_Store
+liveries/Qantas Wunala Dreaming VH-OJB (RR)/
+liveries/WAMOS*
+*.acf~

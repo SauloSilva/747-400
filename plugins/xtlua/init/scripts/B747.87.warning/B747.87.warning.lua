@@ -30,6 +30,10 @@ B747_CASwarningMsg   = {
     {DRindex = 25, name = ">VALVE TEST FAIL", status = 0},
     {DRindex = 26, name = ">VALVE TEST PASS", status = 0},
     {DRindex = 27, name = ">VLV TST IN PROG", status = 0},
+    {DRindex = 28, name = "ENG 1 FAIL", status = 0},            --
+    {DRindex = 29, name = "ENG 2 FAIL", status = 0},            --
+    {DRindex = 30, name = "ENG 3 FAIL", status = 0},            --
+    {DRindex = 31, name = "ENG 4 FAIL", status = 0}            --
 }
 
 B747_CAScautionMsg   = {
@@ -100,6 +104,10 @@ B747_CAScautionMsg   = {
     {DRindex = 64, name = "STARTER CUTOUT 4", status = 0},      --
     {DRindex = 65, name = "TIRE PRESSURE", status = 0},
     {DRindex = 66, name = "UNABLE RNP", status = 0},
+    {DRindex = 67, name = "FUEL PRES STAB L", status = 0},
+    {DRindex = 68, name = "FUEL PRES STAB L", status = 0},
+    {DRindex = 69, name = "FUEL PRESS CTR L", status = 0},
+    {DRindex = 70, name = "FUEL PRESS CTR R", status = 0}
 }
 
 B747_CASadvisoryMsg   = {
@@ -405,6 +413,8 @@ B747_CASadvisoryMsg   = {
     {DRindex = 299, name = ">X FEED CONFIG", status = 0},       --
     {DRindex = 300, name = ">YAW DAMPER LWR", status = 0},      --
     {DRindex = 301, name = ">YAW DAMPER UPR", status = 0},      --
+    {DRindex = 302, name = ">FUEL LOW CTR L", status = 0},      --
+    {DRindex = 303, name = ">FUEL LOW CTR R", status = 0} 
 }
 
 B747_CASmemoMsg   = {

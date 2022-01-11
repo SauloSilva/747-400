@@ -32079,7 +32079,7 @@ ATTR_light_level 0 1 sim/cockpit2/electrical/instrument_brightness_ratio_manual[
 TRIS	70278 8028
 ANIM_begin
 	ANIM_trans	  -0.1715    2.6786    4.7957	  -0.1715    2.6786    4.7957	0 0	no_ref
-	ANIM_rotate_begin	   0.0000   -0.3746   -0.9272	sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+	ANIM_rotate_begin	   0.0000   -0.3746   -0.9272	laminar/B747/gauges/indicators/airspeed_kts_pilot
 		ANIM_rotate_key	0	  0.00
 		ANIM_rotate_key	60.0	  9.78
 		ANIM_rotate_key	80.0	 29.89

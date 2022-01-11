@@ -22284,7 +22284,7 @@ ATTR_manip_command	button	laminar/B747/autopilot/approach	Autopilot APP Mode
 TRIS	16080 30
 ATTR_manip_command	button	laminar/B747/autopilot/button_switch/LNAV	Autopilot LNAV Mode
 TRIS	16110 30
-ATTR_manip_command	button	sim/autopilot/heading	Autopilot Heading Select Mode
+ATTR_manip_command	button	laminar/B747/autopilot/button_switch/heading_select	Autopilot Heading Select Mode
 TRIS	16140 72
 ATTR_manip_command	button	sim/autopilot/heading_hold	Autopilot Heading Hold Mode
 TRIS	16212 30

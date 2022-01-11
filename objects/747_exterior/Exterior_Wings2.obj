@@ -18758,7 +18758,7 @@ ANIM_begin
 		ANIM_rotate_end
 		ANIM_begin
 			ANIM_trans	  -0.1709    0.1095    4.0025	  -0.1709    0.1095    4.0025	0 0	no_ref
-			ANIM_rotate	  -0.8487   -0.0382   -0.5275	  1.00  -1.00	-1.0 1	sim/flightmodel2/wing/aileron2_deg[7]
+			ANIM_rotate	  -0.8487   -0.0382   -0.5275	  1.00  -1.00	-1.0 1	laminar/B747/flt_ctrls/r_aileron_outer
 # Image: //objects/747_exterior/Exterior_Wings.png
 			TRIS	0 630
 		ANIM_end
@@ -18770,7 +18770,7 @@ ANIM_begin
 	ANIM_end
 	ANIM_begin
 		ANIM_trans	   1.5378   -0.5812    6.5361	   1.5378   -0.5812    6.5361	0 0	no_ref
-		ANIM_rotate_begin	   0.9997   -0.0262   -0.0012	sim/flightmodel2/wing/flap2_deg[5]
+		ANIM_rotate_begin	   0.9997   -0.0262   -0.0012	laminar/B747/flt_ctrls/flaps[4]
 			ANIM_rotate_key	0	  0.00
 			ANIM_rotate_key	1.0	  0.00
 			ANIM_rotate_key	5.0	  3.00
@@ -18784,7 +18784,7 @@ ANIM_begin
 	ANIM_end
 	ANIM_begin
 		ANIM_trans	   5.9449   -0.1606    9.3283	   5.9449   -0.1606    9.3283	0 0	no_ref
-		ANIM_rotate_begin	   0.9997   -0.0262   -0.0012	sim/flightmodel2/wing/flap2_deg[5]
+		ANIM_rotate_begin	   0.9997   -0.0262   -0.0012	laminar/B747/flt_ctrls/flaps[4]
 			ANIM_rotate_key	0	  0.00
 			ANIM_rotate_key	1.0	  0.00
 			ANIM_rotate_key	5.0	  3.00
@@ -18798,7 +18798,7 @@ ANIM_begin
 	ANIM_end
 	ANIM_begin
 		ANIM_trans	   5.9270   -0.6011    8.8720	   5.9270   -0.6011    8.8720	0 0	no_ref
-		ANIM_rotate_begin	   0.9997   -0.0262   -0.0012	sim/flightmodel2/wing/flap2_deg[5]
+		ANIM_rotate_begin	   0.9997   -0.0262   -0.0012	laminar/B747/flt_ctrls/flaps[4]
 			ANIM_rotate_key	0	  0.00
 			ANIM_rotate_key	1.0	  0.00
 			ANIM_rotate_key	5.0	  8.48
@@ -18812,7 +18812,7 @@ ANIM_begin
 	ANIM_end
 	ANIM_begin
 		ANIM_trans	   1.5199   -1.0193    6.3361	   1.5199   -1.0193    6.3361	0 0	no_ref
-		ANIM_rotate_begin	   0.9997   -0.0262   -0.0012	sim/flightmodel2/wing/flap2_deg[5]
+		ANIM_rotate_begin	   0.9997   -0.0262   -0.0012	laminar/B747/flt_ctrls/flaps[4]
 			ANIM_rotate_key	0	  0.00
 			ANIM_rotate_key	1.0	  0.00
 			ANIM_rotate_key	5.0	  8.48
@@ -18825,7 +18825,7 @@ ANIM_begin
 		TRIS	4884 2370
 	ANIM_end
 	ANIM_begin
-		ANIM_trans_begin	sim/flightmodel2/wing/flap2_deg[5]
+		ANIM_trans_begin	laminar/B747/flt_ctrls/flaps[4]
 			ANIM_trans_key	0	   0.0220   -0.3154    5.4694
 			ANIM_trans_key	1.0	   0.0220   -0.3154    5.4694
 			ANIM_trans_key	5.0	  -0.0188   -0.3154    6.4104
@@ -18835,7 +18835,7 @@ ANIM_begin
 			ANIM_trans_key	25.0	  -0.0458   -0.3527    7.0950
 			ANIM_trans_key	30.0	  -0.0437   -0.3522    7.1066
 		ANIM_trans_end
-		ANIM_rotate_begin	0 0 1	sim/flightmodel2/wing/flap2_deg[5]
+		ANIM_rotate_begin	0 0 1	laminar/B747/flt_ctrls/flaps[4]
 			ANIM_rotate_key	0	  0.00
 			ANIM_rotate_key	1.0	  0.00
 			ANIM_rotate_key	5.0	  2.66
@@ -18845,7 +18845,7 @@ ANIM_begin
 			ANIM_rotate_key	25.0	 13.44
 			ANIM_rotate_key	30.0	 16.03
 		ANIM_rotate_end
-		ANIM_rotate_begin	0 1 0	sim/flightmodel2/wing/flap2_deg[5]
+		ANIM_rotate_begin	0 1 0	laminar/B747/flt_ctrls/flaps[4]
 			ANIM_rotate_key	0	 -0.00
 			ANIM_rotate_key	1.0	 -0.00
 			ANIM_rotate_key	5.0	  1.15
@@ -18855,7 +18855,7 @@ ANIM_begin
 			ANIM_rotate_key	25.0	  0.94
 			ANIM_rotate_key	30.0	  0.39
 		ANIM_rotate_end
-		ANIM_rotate_begin	1 0 0	sim/flightmodel2/wing/flap2_deg[5]
+		ANIM_rotate_begin	1 0 0	laminar/B747/flt_ctrls/flaps[4]
 			ANIM_rotate_key	0	  0.00
 			ANIM_rotate_key	1.0	  0.00
 			ANIM_rotate_key	5.0	  4.30
@@ -18867,7 +18867,7 @@ ANIM_begin
 		ANIM_rotate_end
 		TRIS	7254 672
 		ANIM_begin
-			ANIM_trans_begin	sim/flightmodel2/wing/flap2_deg[5]
+			ANIM_trans_begin	laminar/B747/flt_ctrls/flaps[4]
 				ANIM_trans_key	0	   0.0010   -0.0059    0.9676
 				ANIM_trans_key	1.0	   0.0010   -0.0059    0.9676
 				ANIM_trans_key	5.0	   0.0003    0.0072    1.1444
@@ -18877,7 +18877,7 @@ ANIM_begin
 				ANIM_trans_key	25.0	  -0.0073   -0.0396    1.2592
 				ANIM_trans_key	30.0	  -0.0015   -0.0439    1.2873
 			ANIM_trans_end
-			ANIM_rotate_begin	   0.8423    0.0761    0.5336	sim/flightmodel2/wing/flap2_deg[5]
+			ANIM_rotate_begin	   0.8423    0.0761    0.5336	laminar/B747/flt_ctrls/flaps[4]
 				ANIM_rotate_key	0	  0.00
 				ANIM_rotate_key	1.0	  0.00
 				ANIM_rotate_key	5.0	  0.00
@@ -18889,7 +18889,7 @@ ANIM_begin
 			ANIM_rotate_end
 			TRIS	7926 672
 			ANIM_begin
-				ANIM_trans_begin	sim/flightmodel2/wing/flap2_deg[5]
+				ANIM_trans_begin	laminar/B747/flt_ctrls/flaps[4]
 					ANIM_trans_key	0	   0.0014   -0.0779    1.7015
 					ANIM_trans_key	1.0	   0.0014   -0.0779    1.7015
 					ANIM_trans_key	5.0	   0.0014   -0.0779    1.7015
@@ -18899,7 +18899,7 @@ ANIM_begin
 					ANIM_trans_key	25.0	  -0.0054   -0.0987    1.7598
 					ANIM_trans_key	30.0	  -0.0122   -0.1195    1.8182
 				ANIM_trans_end
-				ANIM_rotate_begin	   0.8568    0.0828    0.5090	sim/flightmodel2/wing/flap2_deg[5]
+				ANIM_rotate_begin	   0.8568    0.0828    0.5090	laminar/B747/flt_ctrls/flaps[4]
 					ANIM_rotate_key	0	  0.00
 					ANIM_rotate_key	1.0	  0.00
 					ANIM_rotate_key	5.0	  0.00
@@ -18946,13 +18946,13 @@ ANIM_begin
 		ANIM_end
 		ANIM_begin
 			ANIM_trans	   0.1710    0.1095    4.0025	   0.1710    0.1095    4.0025	0 0	no_ref
-			ANIM_rotate	  -0.8487    0.0382    0.5275	 31.00  29.00	-1.0 1	sim/flightmodel2/wing/aileron2_deg[6]
+			ANIM_rotate	  -0.8487    0.0382    0.5275	 31.00  29.00	-1.0 1	laminar/B747/flt_ctrls/l_aileron_outer
 			TRIS	12642 630
 		ANIM_end
 	ANIM_end
 	ANIM_begin
 		ANIM_trans	  -5.9489   -0.1638    9.3295	  -5.9489   -0.1638    9.3295	0 0	no_ref
-		ANIM_rotate_begin	   0.9997    0.0262    0.0012	sim/flightmodel2/wing/flap2_deg[4]
+		ANIM_rotate_begin	   0.9997    0.0262    0.0012	laminar/B747/flt_ctrls/flaps[1]
 			ANIM_rotate_key	0	  0.00
 			ANIM_rotate_key	1.0	  0.00
 			ANIM_rotate_key	5.0	  3.00
@@ -18966,7 +18966,7 @@ ANIM_begin
 	ANIM_end
 	ANIM_begin
 		ANIM_trans	  -1.5367   -0.5809    6.5366	  -1.5367   -0.5809    6.5366	0 0	no_ref
-		ANIM_rotate_begin	   0.9997    0.0262    0.0012	sim/flightmodel2/wing/flap2_deg[4]
+		ANIM_rotate_begin	   0.9997    0.0262    0.0012	laminar/B747/flt_ctrls/flaps[1]
 			ANIM_rotate_key	0	  0.00
 			ANIM_rotate_key	1.0	  0.00
 			ANIM_rotate_key	5.0	  3.00
@@ -18980,7 +18980,7 @@ ANIM_begin
 	ANIM_end
 	ANIM_begin
 		ANIM_trans	  -5.9269   -0.6010    8.8719	  -5.9269   -0.6010    8.8719	0 0	no_ref
-		ANIM_rotate_begin	   0.9997    0.0262    0.0012	sim/flightmodel2/wing/flap2_deg[4]
+		ANIM_rotate_begin	   0.9997    0.0262    0.0012	laminar/B747/flt_ctrls/flaps[1]
 			ANIM_rotate_key	0	  0.00
 			ANIM_rotate_key	1.0	  0.00
 			ANIM_rotate_key	5.0	  8.48
@@ -18994,7 +18994,7 @@ ANIM_begin
 	ANIM_end
 	ANIM_begin
 		ANIM_trans	  -1.5198   -1.0197    6.3366	  -1.5198   -1.0197    6.3366	0 0	no_ref
-		ANIM_rotate_begin	   0.9997    0.0262    0.0012	sim/flightmodel2/wing/flap2_deg[4]
+		ANIM_rotate_begin	   0.9997    0.0262    0.0012	laminar/B747/flt_ctrls/flaps[1]
 			ANIM_rotate_key	0	  0.00
 			ANIM_rotate_key	1.0	  0.00
 			ANIM_rotate_key	5.0	  8.48
@@ -19007,7 +19007,7 @@ ANIM_begin
 		TRIS	15714 2370
 	ANIM_end
 	ANIM_begin
-		ANIM_trans_begin	sim/flightmodel2/wing/flap2_deg[4]
+		ANIM_trans_begin	laminar/B747/flt_ctrls/flaps[1]
 			ANIM_trans_key	0	  -0.0217   -0.3156    5.4699
 			ANIM_trans_key	1.0	  -0.0217   -0.3156    5.4699
 			ANIM_trans_key	5.0	   0.0207   -0.3153    6.4105
@@ -19017,7 +19017,7 @@ ANIM_begin
 			ANIM_trans_key	25.0	   0.0524   -0.3526    7.0951
 			ANIM_trans_key	30.0	   0.0501   -0.3520    7.1066
 		ANIM_trans_end
-		ANIM_rotate_begin	0 0 1	sim/flightmodel2/wing/flap2_deg[4]
+		ANIM_rotate_begin	0 0 1	laminar/B747/flt_ctrls/flaps[1]
 			ANIM_rotate_key	0	  0.00
 			ANIM_rotate_key	1.0	  0.00
 			ANIM_rotate_key	5.0	 -2.66
@@ -19027,7 +19027,7 @@ ANIM_begin
 			ANIM_rotate_key	25.0	-13.40
 			ANIM_rotate_key	30.0	-16.06
 		ANIM_rotate_end
-		ANIM_rotate_begin	0 1 0	sim/flightmodel2/wing/flap2_deg[4]
+		ANIM_rotate_begin	0 1 0	laminar/B747/flt_ctrls/flaps[1]
 			ANIM_rotate_key	0	 -0.00
 			ANIM_rotate_key	1.0	 -0.00
 			ANIM_rotate_key	5.0	 -1.15
@@ -19037,7 +19037,7 @@ ANIM_begin
 			ANIM_rotate_key	25.0	 -0.94
 			ANIM_rotate_key	30.0	 -0.37
 		ANIM_rotate_end
-		ANIM_rotate_begin	1 0 0	sim/flightmodel2/wing/flap2_deg[4]
+		ANIM_rotate_begin	1 0 0	laminar/B747/flt_ctrls/flaps[1]
 			ANIM_rotate_key	0	  0.00
 			ANIM_rotate_key	1.0	  0.00
 			ANIM_rotate_key	5.0	  4.30
@@ -19049,7 +19049,7 @@ ANIM_begin
 		ANIM_rotate_end
 		TRIS	18084 672
 		ANIM_begin
-			ANIM_trans_begin	sim/flightmodel2/wing/flap2_deg[4]
+			ANIM_trans_begin	laminar/B747/flt_ctrls/flaps[1]
 				ANIM_trans_key	0	  -0.0010   -0.0066    0.9677
 				ANIM_trans_key	1.0	  -0.0010   -0.0066    0.9677
 				ANIM_trans_key	5.0	   0.0017    0.0074    1.1443
@@ -19059,7 +19059,7 @@ ANIM_begin
 				ANIM_trans_key	25.0	   0.0169   -0.0385    1.2580
 				ANIM_trans_key	30.0	   0.0204   -0.0374    1.2847
 			ANIM_trans_end
-			ANIM_rotate_begin	0 0 1	sim/flightmodel2/wing/flap2_deg[4]
+			ANIM_rotate_begin	0 0 1	laminar/B747/flt_ctrls/flaps[1]
 				ANIM_rotate_key	0	  0.00
 				ANIM_rotate_key	1.0	  0.00
 				ANIM_rotate_key	5.0	  0.00
@@ -19069,7 +19069,7 @@ ANIM_begin
 				ANIM_rotate_key	25.0	 -2.40
 				ANIM_rotate_key	30.0	 -2.67
 			ANIM_rotate_end
-			ANIM_rotate_begin	0 1 0	sim/flightmodel2/wing/flap2_deg[4]
+			ANIM_rotate_begin	0 1 0	laminar/B747/flt_ctrls/flaps[1]
 				ANIM_rotate_key	0	 -0.00
 				ANIM_rotate_key	1.0	 -0.00
 				ANIM_rotate_key	5.0	 -0.00
@@ -19079,7 +19079,7 @@ ANIM_begin
 				ANIM_rotate_key	25.0	 -0.26
 				ANIM_rotate_key	30.0	 -0.28
 			ANIM_rotate_end
-			ANIM_rotate_begin	1 0 0	sim/flightmodel2/wing/flap2_deg[4]
+			ANIM_rotate_begin	1 0 0	laminar/B747/flt_ctrls/flaps[1]
 				ANIM_rotate_key	0	  0.00
 				ANIM_rotate_key	1.0	  0.00
 				ANIM_rotate_key	5.0	  0.00
@@ -19091,7 +19091,7 @@ ANIM_begin
 			ANIM_rotate_end
 			TRIS	18756 672
 			ANIM_begin
-				ANIM_trans_begin	sim/flightmodel2/wing/flap2_deg[4]
+				ANIM_trans_begin	laminar/B747/flt_ctrls/flaps[1]
 					ANIM_trans_key	0	  -0.0018   -0.0778    1.7014
 					ANIM_trans_key	1.0	  -0.0018   -0.0778    1.7014
 					ANIM_trans_key	5.0	  -0.0018   -0.0778    1.7014
@@ -19101,7 +19101,7 @@ ANIM_begin
 					ANIM_trans_key	25.0	   0.0118   -0.0985    1.7587
 					ANIM_trans_key	30.0	   0.0263   -0.1129    1.8158
 				ANIM_trans_end
-				ANIM_rotate_begin	   0.8568   -0.0830   -0.5089	sim/flightmodel2/wing/flap2_deg[4]
+				ANIM_rotate_begin	   0.8568   -0.0830   -0.5089	laminar/B747/flt_ctrls/flaps[1]
 					ANIM_rotate_key	0	  0.00
 					ANIM_rotate_key	1.0	  0.00
 					ANIM_rotate_key	5.0	  0.00
@@ -19143,7 +19143,7 @@ ANIM_begin
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -8.8556   -2.0993   33.5095	  -8.8556   -2.0993   33.5095	0 0	no_ref
-	ANIM_rotate_begin	   1.0000   -0.0000    0.0000	sim/flightmodel2/wing/flap1_deg[0]
+	ANIM_rotate_begin	   1.0000   -0.0000    0.0000	laminar/B747/flt_ctrls/flaps[2]
 		ANIM_rotate_key	0	  0.00
 		ANIM_rotate_key	1.0	  0.00
 		ANIM_rotate_key	5.0	  5.00
@@ -19157,7 +19157,7 @@ ANIM_begin
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -5.9235   -2.5859   32.4788	  -5.9235   -2.5859   32.4788	0 0	no_ref
-	ANIM_rotate_begin	   1.0000   -0.0000   -0.0000	sim/flightmodel2/wing/flap1_deg[0]
+	ANIM_rotate_begin	   1.0000   -0.0000   -0.0000	laminar/B747/flt_ctrls/flaps[2]
 		ANIM_rotate_key	0	  0.00
 		ANIM_rotate_key	1.0	  0.00
 		ANIM_rotate_key	5.0	  5.00
@@ -19171,7 +19171,7 @@ ANIM_begin
 ANIM_end
 ANIM_begin
 	ANIM_trans	   5.9030   -2.5857   32.4790	   5.9030   -2.5857   32.4790	0 0	no_ref
-	ANIM_rotate_begin	   1.0000    0.0000   -0.0000	sim/flightmodel2/wing/flap1_deg[1]
+	ANIM_rotate_begin	   1.0000    0.0000   -0.0000	laminar/B747/flt_ctrls/flaps[3]
 		ANIM_rotate_key	0	  0.00
 		ANIM_rotate_key	1.0	  0.00
 		ANIM_rotate_key	5.0	  5.00
@@ -19185,7 +19185,7 @@ ANIM_begin
 ANIM_end
 ANIM_begin
 	ANIM_trans	   8.8389   -2.0993   33.5093	   8.8389   -2.0993   33.5093	0 0	no_ref
-	ANIM_rotate_begin	   1.0000    0.0000   -0.0000	sim/flightmodel2/wing/flap1_deg[1]
+	ANIM_rotate_begin	   1.0000    0.0000   -0.0000	laminar/B747/flt_ctrls/flaps[3]
 		ANIM_rotate_key	0	  0.00
 		ANIM_rotate_key	1.0	  0.00
 		ANIM_rotate_key	5.0	  5.00
@@ -19199,7 +19199,7 @@ ANIM_begin
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -8.8528   -2.5777   33.0376	  -8.8528   -2.5777   33.0376	0 0	no_ref
-	ANIM_rotate_begin	   1.0000    0.0000    0.0000	sim/flightmodel2/wing/flap1_deg[0]
+	ANIM_rotate_begin	   1.0000    0.0000    0.0000	laminar/B747/flt_ctrls/flaps[2]
 		ANIM_rotate_key	0	  0.00
 		ANIM_rotate_key	1.0	  0.00
 		ANIM_rotate_key	5.0	  8.48
@@ -19213,7 +19213,7 @@ ANIM_begin
 ANIM_end
 ANIM_begin
 	ANIM_trans	   5.8963   -3.0335   32.2681	   5.8963   -3.0335   32.2681	0 0	no_ref
-	ANIM_rotate_begin	   1.0000    0.0000   -0.0000	sim/flightmodel2/wing/flap1_deg[1]
+	ANIM_rotate_begin	   1.0000    0.0000   -0.0000	laminar/B747/flt_ctrls/flaps[3]
 		ANIM_rotate_key	0	  0.00
 		ANIM_rotate_key	1.0	  0.00
 		ANIM_rotate_key	5.0	  8.13
@@ -19227,7 +19227,7 @@ ANIM_begin
 ANIM_end
 ANIM_begin
 	ANIM_trans	   8.8330   -2.5774   33.0376	   8.8330   -2.5774   33.0376	0 0	no_ref
-	ANIM_rotate_begin	   1.0000    0.0000   -0.0000	sim/flightmodel2/wing/flap1_deg[1]
+	ANIM_rotate_begin	   1.0000    0.0000   -0.0000	laminar/B747/flt_ctrls/flaps[3]
 		ANIM_rotate_key	0	  0.00
 		ANIM_rotate_key	1.0	  0.00
 		ANIM_rotate_key	5.0	  8.48
@@ -19240,7 +19240,7 @@ ANIM_begin
 	TRIS	26718 2370
 ANIM_end
 ANIM_begin
-	ANIM_trans_begin	sim/flightmodel2/wing/flap1_deg[0]
+	ANIM_trans_begin	laminar/B747/flt_ctrls/flaps[2]
 		ANIM_trans_key	0	  -3.1566   -2.4618   31.4161
 		ANIM_trans_key	1.0	  -3.1566   -2.4618   31.4161
 		ANIM_trans_key	5.0	  -3.1495   -2.4457   32.4165
@@ -19250,7 +19250,7 @@ ANIM_begin
 		ANIM_trans_key	25.0	  -3.0725   -2.4235   33.0292
 		ANIM_trans_key	30.0	  -3.0690   -2.4108   33.0585
 	ANIM_trans_end
-	ANIM_rotate_begin	0 0 1	sim/flightmodel2/wing/flap1_deg[0]
+	ANIM_rotate_begin	0 0 1	laminar/B747/flt_ctrls/flaps[2]
 		ANIM_rotate_key	0	  0.00
 		ANIM_rotate_key	1.0	  0.00
 		ANIM_rotate_key	5.0	 -1.63
@@ -19260,7 +19260,7 @@ ANIM_begin
 		ANIM_rotate_key	25.0	 -8.28
 		ANIM_rotate_key	30.0	-10.03
 	ANIM_rotate_end
-	ANIM_rotate_begin	0 1 0	sim/flightmodel2/wing/flap1_deg[0]
+	ANIM_rotate_begin	0 1 0	laminar/B747/flt_ctrls/flaps[2]
 		ANIM_rotate_key	0	 -0.00
 		ANIM_rotate_key	1.0	 -0.00
 		ANIM_rotate_key	5.0	 -0.61
@@ -19270,7 +19270,7 @@ ANIM_begin
 		ANIM_rotate_key	25.0	 -1.89
 		ANIM_rotate_key	30.0	 -1.78
 	ANIM_rotate_end
-	ANIM_rotate_begin	1 0 0	sim/flightmodel2/wing/flap1_deg[0]
+	ANIM_rotate_begin	1 0 0	laminar/B747/flt_ctrls/flaps[2]
 		ANIM_rotate_key	0	  0.00
 		ANIM_rotate_key	1.0	  0.00
 		ANIM_rotate_key	5.0	  4.69
@@ -19282,7 +19282,7 @@ ANIM_begin
 	ANIM_rotate_end
 	TRIS	29088 816
 	ANIM_begin
-		ANIM_trans_begin	sim/flightmodel2/wing/flap1_deg[0]
+		ANIM_trans_begin	laminar/B747/flt_ctrls/flaps[2]
 			ANIM_trans_key	0	  -0.0002   -0.0112    0.9676
 			ANIM_trans_key	1.0	  -0.0002   -0.0112    0.9676
 			ANIM_trans_key	5.0	   0.0021   -0.0147    1.1504
@@ -19292,7 +19292,7 @@ ANIM_begin
 			ANIM_trans_key	25.0	   0.0148   -0.0235    1.3258
 			ANIM_trans_key	30.0	   0.0169   -0.0232    1.3449
 		ANIM_trans_end
-		ANIM_rotate_begin	   0.9353   -0.1317   -0.3284	sim/flightmodel2/wing/flap1_deg[0]
+		ANIM_rotate_begin	   0.9353   -0.1317   -0.3284	laminar/B747/flt_ctrls/flaps[2]
 			ANIM_rotate_key	0	  0.00
 			ANIM_rotate_key	1.0	  0.00
 			ANIM_rotate_key	5.0	  0.00
@@ -19304,7 +19304,7 @@ ANIM_begin
 		ANIM_rotate_end
 		TRIS	29904 672
 		ANIM_begin
-			ANIM_trans_begin	sim/flightmodel2/wing/flap1_deg[0]
+			ANIM_trans_begin	laminar/B747/flt_ctrls/flaps[2]
 				ANIM_trans_key	0	  -0.0016   -0.1154    2.2348
 				ANIM_trans_key	1.0	  -0.0016   -0.1154    2.2348
 				ANIM_trans_key	5.0	  -0.0016   -0.1154    2.2348
@@ -19314,7 +19314,7 @@ ANIM_begin
 				ANIM_trans_key	25.0	   0.0109   -0.1355    2.3027
 				ANIM_trans_key	30.0	   0.0234   -0.1557    2.3705
 			ANIM_trans_end
-			ANIM_rotate_begin	   0.9553   -0.1428   -0.2587	sim/flightmodel2/wing/flap1_deg[0]
+			ANIM_rotate_begin	   0.9553   -0.1428   -0.2587	laminar/B747/flt_ctrls/flaps[2]
 				ANIM_rotate_key	0	  0.00
 				ANIM_rotate_key	1.0	  0.00
 				ANIM_rotate_key	5.0	  0.00
@@ -19330,7 +19330,7 @@ ANIM_begin
 ANIM_end
 ANIM_begin
 	ANIM_trans	 -11.2279   -1.0828   35.9658	 -11.2279   -1.0828   35.9658	0 0	no_ref
-	ANIM_rotate	  -0.9903    0.1391   -0.0002	  1.00  -1.00	-1.0 1	sim/flightmodel2/wing/aileron1_deg[2]
+	ANIM_rotate	  -0.9903    0.1391   -0.0002	  1.00  -1.00	-1.0 1	laminar/B747/flt_ctrls/l_aileron_inner
 	TRIS	30696 36
 ANIM_end
 ANIM_begin
@@ -19339,7 +19339,7 @@ ANIM_begin
 	TRIS	30732 2124
 ANIM_end
 ANIM_begin
-	ANIM_trans_begin	sim/flightmodel2/wing/flap1_deg[1]
+	ANIM_trans_begin	laminar/B747/flt_ctrls/flaps[3]
 		ANIM_trans_key	0	   3.1369   -2.4624   31.4162
 		ANIM_trans_key	1.0	   3.1369   -2.4624   31.4162
 		ANIM_trans_key	5.0	   3.1277   -2.4456   32.4162
@@ -19349,7 +19349,7 @@ ANIM_begin
 		ANIM_trans_key	25.0	   3.0376   -2.4236   33.0291
 		ANIM_trans_key	30.0	   3.0367   -2.4107   33.0582
 	ANIM_trans_end
-	ANIM_rotate_begin	0 0 1	sim/flightmodel2/wing/flap1_deg[1]
+	ANIM_rotate_begin	0 0 1	laminar/B747/flt_ctrls/flaps[3]
 		ANIM_rotate_key	0	  0.00
 		ANIM_rotate_key	1.0	  0.00
 		ANIM_rotate_key	5.0	  1.63
@@ -19359,7 +19359,7 @@ ANIM_begin
 		ANIM_rotate_key	25.0	  8.27
 		ANIM_rotate_key	30.0	 10.02
 	ANIM_rotate_end
-	ANIM_rotate_begin	0 1 0	sim/flightmodel2/wing/flap1_deg[1]
+	ANIM_rotate_begin	0 1 0	laminar/B747/flt_ctrls/flaps[3]
 		ANIM_rotate_key	0	 -0.00
 		ANIM_rotate_key	1.0	 -0.00
 		ANIM_rotate_key	5.0	  0.61
@@ -19369,7 +19369,7 @@ ANIM_begin
 		ANIM_rotate_key	25.0	  1.89
 		ANIM_rotate_key	30.0	  1.78
 	ANIM_rotate_end
-	ANIM_rotate_begin	1 0 0	sim/flightmodel2/wing/flap1_deg[1]
+	ANIM_rotate_begin	1 0 0	laminar/B747/flt_ctrls/flaps[3]
 		ANIM_rotate_key	0	  0.00
 		ANIM_rotate_key	1.0	  0.00
 		ANIM_rotate_key	5.0	  4.70
@@ -19381,7 +19381,7 @@ ANIM_begin
 	ANIM_rotate_end
 	TRIS	32856 816
 	ANIM_begin
-		ANIM_trans_begin	sim/flightmodel2/wing/flap1_deg[1]
+		ANIM_trans_begin	laminar/B747/flt_ctrls/flaps[3]
 			ANIM_trans_key	0	  -0.0001   -0.0112    0.9683
 			ANIM_trans_key	1.0	  -0.0001   -0.0112    0.9683
 			ANIM_trans_key	5.0	  -0.0010   -0.0146    1.1506
@@ -19391,7 +19391,7 @@ ANIM_begin
 			ANIM_trans_key	25.0	  -0.0019   -0.0250    1.3270
 			ANIM_trans_key	30.0	  -0.0044   -0.0248    1.3466
 		ANIM_trans_end
-		ANIM_rotate_begin	   0.9354    0.1318    0.3282	sim/flightmodel2/wing/flap1_deg[1]
+		ANIM_rotate_begin	   0.9354    0.1318    0.3282	laminar/B747/flt_ctrls/flaps[3]
 			ANIM_rotate_key	0	  0.00
 			ANIM_rotate_key	1.0	  0.00
 			ANIM_rotate_key	5.0	  0.00
@@ -19403,7 +19403,7 @@ ANIM_begin
 		ANIM_rotate_end
 		TRIS	33672 672
 		ANIM_begin
-			ANIM_trans_begin	sim/flightmodel2/wing/flap1_deg[1]
+			ANIM_trans_begin	laminar/B747/flt_ctrls/flaps[3]
 				ANIM_trans_key	0	   0.0021   -0.1153    2.2348
 				ANIM_trans_key	1.0	   0.0021   -0.1153    2.2348
 				ANIM_trans_key	5.0	   0.0021   -0.1153    2.2348
@@ -19413,7 +19413,7 @@ ANIM_begin
 				ANIM_trans_key	25.0	  -0.0036   -0.1365    2.3036
 				ANIM_trans_key	30.0	  -0.0092   -0.1578    2.3724
 			ANIM_trans_end
-			ANIM_rotate_begin	   0.9554    0.1429    0.2585	sim/flightmodel2/wing/flap1_deg[1]
+			ANIM_rotate_begin	   0.9554    0.1429    0.2585	laminar/B747/flt_ctrls/flaps[3]
 				ANIM_rotate_key	0	  0.00
 				ANIM_rotate_key	1.0	  0.00
 				ANIM_rotate_key	5.0	  0.00
@@ -19429,7 +19429,7 @@ ANIM_begin
 ANIM_end
 ANIM_begin
 	ANIM_trans	  11.2082   -1.0828   35.9657	  11.2082   -1.0828   35.9657	0 0	no_ref
-	ANIM_rotate	  -0.9903   -0.1391    0.0002	  1.00  -1.00	-1.0 1	sim/flightmodel2/wing/aileron1_deg[3]
+	ANIM_rotate	  -0.9903   -0.1391    0.0002	  1.00  -1.00	-1.0 1	laminar/B747/flt_ctrls/r_aileron_inner
 	TRIS	34464 36
 ANIM_end
 ANIM_begin
@@ -19439,7 +19439,7 @@ ANIM_begin
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -5.9160   -3.0336   32.2681	  -5.9160   -3.0336   32.2681	0 0	no_ref
-	ANIM_rotate_begin	   1.0000    0.0000   -0.0000	sim/flightmodel2/wing/flap1_deg[0]
+	ANIM_rotate_begin	   1.0000    0.0000   -0.0000	laminar/B747/flt_ctrls/flaps[2]
 		ANIM_rotate_key	0	  0.00
 		ANIM_rotate_key	1.0	  0.00
 		ANIM_rotate_key	5.0	  8.13

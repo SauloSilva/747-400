@@ -19,7 +19,9 @@ end
 B747DR_controlOverrides   = find_dataref("xtlua/controlObject")
 
 B747DR_button_switch_position   = find_dataref("laminar/B747/button_switch/position")
-simDR_engine_N1_pct             = find_dataref("sim/cockpit2/engine/indicators/N1_percent")
+
+B747DR_display_N1					= deferred_dataref("laminar/B747/engines/display_N1", "array[4]")
+B747DR_display_N2					= deferred_dataref("laminar/B747/engines/display_N2", "array[4]")
 B747_duct_pressure_L                = deferred_dataref("laminar/B747/air/duct_pressure_L", "number")
 B747_duct_pressure_R                = deferred_dataref("laminar/B747/air/duct_pressure_R", "number")
 --B747DR_engine1psi    = deferred_dataref("laminar/B747/air/engine1/bleed_air_psi", "number")
@@ -75,9 +77,44 @@ B747DR_hyd_valve_2      = deferred_dataref("laminar/B747/hydraulics/valve_2", "n
 B747DR_hyd_valve_3      = deferred_dataref("laminar/B747/hydraulics/valve_3", "number")
 B747DR_hyd_valve_4      = deferred_dataref("laminar/B747/hydraulics/valve_4", "number")
 simDR_hyd_press_1_2               = deferred_dataref("laminar/B747/hydraulics/indicators/hydraulic_pressure_1_2_4", "number")
+simDR_parking_brake_ratio       = find_dataref("sim/cockpit2/controls/parking_brake_ratio")
+--************ FLIGHT SURFACES **********
+
+B747DR_rudder_lwr_pos   = deferred_dataref("laminar/B747/flt_ctrls/rudder_lwr_pos", "number")
+B747DR_rudder_upr_pos   = deferred_dataref("laminar/B747/flt_ctrls/rudder_upr_pos", "number")
+simDR_rudder            = find_dataref("sim/flightmodel2/wing/rudder1_deg")
+B747DR_l_elev_inner   = deferred_dataref("laminar/B747/flt_ctrls/l_elev_inner", "number")
+B747DR_r_elev_inner   = deferred_dataref("laminar/B747/flt_ctrls/r_elev_inner", "number")
+B747DR_l_elev_outer   = deferred_dataref("laminar/B747/flt_ctrls/l_elev_outer", "number")
+B747DR_r_elev_outer   = deferred_dataref("laminar/B747/flt_ctrls/r_elev_outer", "number")
+simDR_elevator            = find_dataref("sim/flightmodel2/wing/elevator1_deg")
+
+simDR_left_aileron_inner = find_dataref("sim/flightmodel/controls/wing2l_ail1def")
+simDR_right_aileron_inner = find_dataref("sim/flightmodel/controls/wing2r_ail1def")
+simDR_left_aileron_outer = find_dataref("sim/flightmodel/controls/wing4l_ail2def")
+simDR_right_aileron_outer = find_dataref("sim/flightmodel/controls/wing4r_ail2def")
+B747DR_l_aileron_inner   = deferred_dataref("laminar/B747/flt_ctrls/l_aileron_inner", "number")
+B747DR_r_aileron_inner   = deferred_dataref("laminar/B747/flt_ctrls/r_aileron_inner", "number")
+B747DR_l_aileron_outer   = deferred_dataref("laminar/B747/flt_ctrls/l_aileron_outer", "number")
+B747DR_r_aileron_outer   = deferred_dataref("laminar/B747/flt_ctrls/r_aileron_outer", "number")
+B747DR_spoilers      = deferred_dataref("laminar/B747/flt_ctrls/spoilers", "array[13]") --0 unused
+B747DR_outer_spoilers      = deferred_dataref("laminar/B747/flt_ctrls/outer_spoilers", "array[2]") --for stat display
+B747DR_flaps      = deferred_dataref("laminar/B747/flt_ctrls/flaps", "array[5]") --0 unuse
+
+simDR_spoiler12  = find_dataref("sim/flightmodel/controls/wing3l_spo1def")
+simDR_spoiler34  = find_dataref("sim/flightmodel/controls/wing3l_spo2def")
+simDR_spoiler5  = find_dataref("sim/flightmodel/controls/wing1l_spo1def")
+simDR_spoiler67  = find_dataref("sim/flightmodel2/wing/speedbrake1_deg") -- array [0] left, [1] right
+simDR_spoiler8  = find_dataref("sim/flightmodel/controls/wing1r_spo1def")
+simDR_spoiler910  = find_dataref("sim/flightmodel/controls/wing3r_spo2def")
+simDR_spoiler1112  = find_dataref("sim/flightmodel/controls/wing3r_spo1def")
+
+simDR_flap1  = find_dataref("sim/flightmodel2/wing/flap1_deg")-- inner array [0] left, [1] right
+simDR_flap2  = find_dataref("sim/flightmodel2/wing/flap2_deg")-- outer array [0] left, [1] right
+
+simDR_override_control_surfaces       = find_dataref("sim/operation/override/override_control_surfaces")
+simDR_override_steering               = find_dataref("sim/operation/override/override_wheel_steer")
 --simDR_hyd_press_2               = find_dataref("sim/cockpit2/hydraulics/indicators/hydraulic_pressure_2")
-
-
 B747DR_hyd_dmd_pmp_sel_pos      = deferred_dataref("laminar/B747/hydraulics/dmd_pump/sel_dial_pos", "array[4]")
 function B747_animate_value(current_value, target, min, max, speed)
 
@@ -92,7 +129,7 @@ function B747_animate_value(current_value, target, min, max, speed)
     end
 
 end
-
+dofile("B747.19.xt.hydraulics_override.lua")
 function B747_engine_hyd_valves()
 -- ENGINE #1
     if B747DR_button_switch_position[30] > 0.95 then
@@ -135,25 +172,25 @@ function B747_engine_dem_modes()
 end
 function B747_edp_pressures()
     if B747DR_hyd_valve_1==1 then
-      B747DR_hyd_edp_pressure_1=30*simDR_engine_N1_pct[0]
+      B747DR_hyd_edp_pressure_1=30*B747DR_display_N1[0]
     else
       B747DR_hyd_edp_pressure_1=0;
     end
     
     if B747DR_hyd_valve_2==1 then
-      B747DR_hyd_edp_pressure_2=30*simDR_engine_N1_pct[1]
+      B747DR_hyd_edp_pressure_2=30*B747DR_display_N1[1]
     else
       B747DR_hyd_edp_pressure_2=0;
     end
     
     if B747DR_hyd_valve_3==1 then
-      B747DR_hyd_edp_pressure_3=30*simDR_engine_N1_pct[2]
+      B747DR_hyd_edp_pressure_3=30*B747DR_display_N1[2]
     else
       B747DR_hyd_edp_pressure_3=0;
     end
     
     if B747DR_hyd_valve_4==1 then
-      B747DR_hyd_edp_pressure_4=30*simDR_engine_N1_pct[3]
+      B747DR_hyd_edp_pressure_4=30*B747DR_display_N1[3]
     else
       B747DR_hyd_edp_pressure_4=0;
     end
@@ -216,16 +253,16 @@ function B747_dem_pressures()
 end
 function B747_system_pressures()
   --B747_animate_value(B747DR_hyd_sys_pressure_1,math.max(B747DR_hyd_dem_pressure_1,B747DR_hyd_edp_pressure_1),0,3000,1)
-  B747DR_hyd_sys_pressure_use_1=B747_animate_value(B747DR_hyd_sys_pressure_use_1,((B747DR_hyd_dem_pressure_1/2+B747DR_hyd_edp_pressure_1)/10)-50,-10,30,1)--math.max(B747DR_hyd_dem_pressure_1,B747DR_hyd_edp_pressure_1)
-  B747DR_hyd_sys_pressure_use_2=B747_animate_value(B747DR_hyd_sys_pressure_use_2,((B747DR_hyd_dem_pressure_2+B747DR_hyd_edp_pressure_2)/10)-50,-10,30,1)--math.max(B747DR_hyd_dem_pressure_2,B747DR_hyd_edp_pressure_2)
-  B747DR_hyd_sys_pressure_use_3=B747_animate_value(B747DR_hyd_sys_pressure_use_3,((B747DR_hyd_dem_pressure_3+B747DR_hyd_edp_pressure_3)/10)-50,-10,30,1)--math.max(B747DR_hyd_dem_pressure_3,B747DR_hyd_edp_pressure_3)
-  B747DR_hyd_sys_pressure_use_4=B747_animate_value(B747DR_hyd_sys_pressure_use_4,((B747DR_hyd_dem_pressure_4/2+B747DR_hyd_edp_pressure_4+B747DR_hyd_aux_pressure)/10)-50,-10,30,1)--math.max(B747DR_hyd_dem_pressure_4,B747DR_hyd_edp_pressure_4,B747DR_hyd_aux_pressure)
+  B747DR_hyd_sys_pressure_use_1=B747_animate_value(B747DR_hyd_sys_pressure_use_1,((B747DR_hyd_dem_pressure_1/2+B747DR_hyd_edp_pressure_1)/10)-1,-10,30,1)--math.max(B747DR_hyd_dem_pressure_1,B747DR_hyd_edp_pressure_1)
+  B747DR_hyd_sys_pressure_use_2=B747_animate_value(B747DR_hyd_sys_pressure_use_2,((B747DR_hyd_dem_pressure_2+B747DR_hyd_edp_pressure_2)/10)-1,-10,30,1)--math.max(B747DR_hyd_dem_pressure_2,B747DR_hyd_edp_pressure_2)
+  B747DR_hyd_sys_pressure_use_3=B747_animate_value(B747DR_hyd_sys_pressure_use_3,((B747DR_hyd_dem_pressure_3+B747DR_hyd_edp_pressure_3)/10)-1,-10,30,1)--math.max(B747DR_hyd_dem_pressure_3,B747DR_hyd_edp_pressure_3)
+  B747DR_hyd_sys_pressure_use_4=B747_animate_value(B747DR_hyd_sys_pressure_use_4,((B747DR_hyd_dem_pressure_4/2+B747DR_hyd_edp_pressure_4+B747DR_hyd_aux_pressure)/10)-1,-10,30,1)--math.max(B747DR_hyd_dem_pressure_4,B747DR_hyd_edp_pressure_4,B747DR_hyd_aux_pressure)
   
   --sys_pressure_use now contains how much pressure we can put into the system
-  B747DR_hyd_sys_pressure_1=B747_animate_value(B747DR_hyd_sys_pressure_1,B747DR_hyd_sys_pressure_1+B747DR_hyd_sys_pressure_use_1,0,3000-math.random()*50,1)
-  B747DR_hyd_sys_pressure_2=B747_animate_value(B747DR_hyd_sys_pressure_2,B747DR_hyd_sys_pressure_2+B747DR_hyd_sys_pressure_use_2,0,3000-math.random()*50,1)
-  B747DR_hyd_sys_pressure_3=B747_animate_value(B747DR_hyd_sys_pressure_3,B747DR_hyd_sys_pressure_3+B747DR_hyd_sys_pressure_use_3,0,3000-math.random()*50,1)
-  B747DR_hyd_sys_pressure_4=B747_animate_value(B747DR_hyd_sys_pressure_4,B747DR_hyd_sys_pressure_4+B747DR_hyd_sys_pressure_use_4,0,3000-math.random()*50,1)
+  B747DR_hyd_sys_pressure_1=B747_animate_value(B747DR_hyd_sys_pressure_1,B747DR_hyd_sys_pressure_1+B747DR_hyd_sys_pressure_use_1,0,3300-math.random()*50,10)
+  B747DR_hyd_sys_pressure_2=B747_animate_value(B747DR_hyd_sys_pressure_2,B747DR_hyd_sys_pressure_2+B747DR_hyd_sys_pressure_use_2,0,3300-math.random()*50,10)
+  B747DR_hyd_sys_pressure_3=B747_animate_value(B747DR_hyd_sys_pressure_3,B747DR_hyd_sys_pressure_3+B747DR_hyd_sys_pressure_use_3,0,3300-math.random()*50,10)
+  B747DR_hyd_sys_pressure_4=B747_animate_value(B747DR_hyd_sys_pressure_4,B747DR_hyd_sys_pressure_4+B747DR_hyd_sys_pressure_use_4,0,3300-math.random()*50,10)
   B747DR_hyd_sys_pressure_13=math.max(B747DR_hyd_sys_pressure_1,B747DR_hyd_sys_pressure_3) --12 remapped to 13
   B747DR_hyd_sys_pressure_23=math.max(B747DR_hyd_sys_pressure_2,B747DR_hyd_sys_pressure_3)
   B747DR_hyd_sys_pressure_24=math.max(B747DR_hyd_sys_pressure_2,B747DR_hyd_sys_pressure_4) 
@@ -234,7 +271,7 @@ function B747_system_pressures()
   B747DR_hyd_sys_res_2=B747DR_hyd_sys_restotal_2-(B747DR_hyd_sys_pressure_2/3000)*0.1
   B747DR_hyd_sys_res_3=B747DR_hyd_sys_restotal_3-(B747DR_hyd_sys_pressure_3/3000)*0.1
   B747DR_hyd_sys_res_4=B747DR_hyd_sys_restotal_4-(B747DR_hyd_sys_pressure_4/3000)*0.1
-  simDR_hyd_press_1_2 = math.max(B747DR_hyd_sys_pressure_1,B747DR_hyd_sys_pressure_2,B747DR_hyd_sys_pressure_4)
+  simDR_hyd_press_1_2 = math.max(simDR_hyd_press_1_2,B747DR_hyd_sys_pressure_1,B747DR_hyd_sys_pressure_2,B747DR_hyd_sys_pressure_4)
 
   B747DR_hyd_sys_temp_1=B747DR_hyd_temp+(1-B747DR_hyd_sys_res_1)*20
   B747DR_hyd_sys_temp_2=B747DR_hyd_temp+(1-B747DR_hyd_sys_res_2)*20
@@ -296,6 +333,12 @@ function after_physics()
    B747_edp_pressures()
    B747_dem_pressures()
    B747_system_pressures()
+   --consumers
+   pressure_input()
+   brake_accumulator()
+   flight_controls_consumption()
+   pressure_output()
+   flight_controls_override()
 end
 
 --function after_replay() end

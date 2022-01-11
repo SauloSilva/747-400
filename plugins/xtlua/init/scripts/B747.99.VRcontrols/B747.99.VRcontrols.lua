@@ -1,6 +1,8 @@
 simDR_headX=find_dataref("sim/graphics/view/pilots_head_x")
 simDR_headY=find_dataref("sim/graphics/view/pilots_head_y")
 simDR_headZ=find_dataref("sim/graphics/view/pilots_head_z")
+simDR_headpsi=find_dataref("sim/graphics/view/pilots_head_psi")
+simDR_headpitch=find_dataref("sim/graphics/view/pilots_head_the")
 simCMD_viewUP					= find_command("sim/general/up")
 simCMD_viewDOWN					= find_command("sim/general/down")
 simCMD_viewLEFT					= find_command("sim/general/left")
@@ -100,6 +102,11 @@ B747CMD_VR_toMCP 				= create_command("laminar/B747/VR/mcpView", "Move to MCP ho
 B747CMD_VR_toOCP 				= create_command("laminar/B747/VR/ocpView", "Move to OCP hotspot", B747CMD_VR_toOCP_CMDhandler)
 B747CMD_VR_stop 				= create_command("laminar/B747/VR/stopMove", "Stop move commands", B747CMD_VR_stop_CMDhandler)
 
+
+nextCom=find_command("AutoATC/NextCom")
+prevCom=find_command("AutoATC/PrevCom")
+swapCom=find_command("AutoATC/swapFreq")
+
 function after_physics()
   if movingtoTarget==false then 
     
@@ -142,3 +149,191 @@ function after_physics()
     if dZ<-0.1 then dZ=0 simCMD_viewFWD:stop()  end
   end
 end
+function useNavCOM(direction,phase, duration)
+  logPage=0
+ --print(phase.." use COM "..direction)
+ if phase==0 then
+ if direction>0 then 
+     nextCom:once()
+  elseif direction<0 then 
+      prevCom:once()
+  else
+     swapCom:once()
+  end
+ end
+end
+
+simCMD_airspeed_down					= find_command("sim/autopilot/airspeed_down")
+simCMD_airspeed_up					= find_command("sim/autopilot/airspeed_up")
+simCMD_airspeed_press					= find_command("laminar/B747/button_switch/press_airspeed")
+
+simCMD_heading_down					= find_command("sim/autopilot/heading_down")
+simCMD_heading_up				= find_command("sim/autopilot/heading_up")
+simCMD_heading_press					= find_command("laminar/B747/autopilot/button_switch/heading_select")
+
+simCMD_altitude_down					= find_command("sim/autopilot/altitude_down")
+simCMD_altitude_up					= find_command("sim/autopilot/altitude_up")
+simCMD_altitude_press					= find_command("laminar/B747/button_switch/press_altitude")
+
+simCMD_vs_down					= find_command("sim/autopilot/vertical_speed_down")
+simCMD_vs_up					= find_command("sim/autopilot/vertical_speed_up")
+simCMD_vs_press					= find_command("laminar/B747/autopilot/button_switch/vs_mode")
+
+function useIAS(direction,phase, duration)
+  --print(phase.." use useIAS "..direction)
+  if phase==0 then
+    if direction<0 then 
+      simCMD_airspeed_down:once()
+     elseif direction>0 then 
+      simCMD_airspeed_up:once()
+     else
+      simCMD_airspeed_press:once()
+     end
+    elseif phase==2 and direction==0 then 
+      simCMD_airspeed_press:once()
+    end
+end
+function useHDG(direction,phase, duration)
+  --print(phase.." use useHDG "..direction)
+  if phase==0 then
+    if direction<0 then 
+      simCMD_heading_down:once()
+     elseif direction>0 then 
+      simCMD_heading_up:once()
+     else
+      simCMD_heading_press:once()
+     end
+
+    end
+end
+function useAlt(direction,phase, duration)
+  --print(phase.." use useAlt "..direction)
+  if phase==0 then
+    if direction<0 then 
+      simCMD_altitude_down:once()
+     elseif direction>0 then 
+      simCMD_altitude_up:once()
+     else
+      simCMD_altitude_press:once()
+     end
+    elseif phase==2 and direction==0 then 
+      simCMD_altitude_press:once()
+    end
+end
+function useVS(direction,phase, duration)
+  --print(phase.." use useAlt "..direction)
+  if phase==0 then
+    if direction<0 then 
+      simCMD_vs_down:once()
+     elseif direction>0 then 
+      simCMD_vs_up:once()
+     else
+      simCMD_vs_press:once()
+     end
+    end
+end
+local hotspots={{-0.166,4.53,-26.1612,nil,useNavCOM,nil}
+,{-0.21,5.08,-26.38,useIAS,useHDG,nil}
+,{-0.02,5.08,-26.38,useVS,useAlt,nil}               
+}
+--,{0.037,-0.201,-1.684,swapnav},{-0.037,-0.201,-1.684,swapcom}
+function closest_intercept(x1,y1,z1,x2,y2,z2,psi,pitch)
+    dx=x1 - x2;
+    dy=y1 - y2;
+    dz=z1 - z2;
+    distance=math.sqrt(((dx*dx) + (dy*dy) + (dz*dz)));
+    psiI=psi;
+
+
+
+    pitchI=pitch;
+    pdistance=math.cos(pitchI*math.pi/180.0)*distance;
+    px=(-math.sin(psiI*math.pi/180.0))*pdistance;
+    pz=math.cos(psiI*math.pi/180.0)*pdistance;
+    py=(-math.sin(pitchI*math.pi/180.0))*distance;
+    
+    pdx=dx-px;
+    pdy=dy-py;
+    pdz=dz-pz;
+    --print(distance.. " " .. pdx .. " " .. pdy .. " " .. pdz)
+    loc=math.sqrt(((pdx*pdx) + (pdz*pdz) + (pdy*pdy)));
+    return loc
+end
+function findHotSpot(dial)
+  local bestDist=100
+  local retVal=nil
+  local psi=simDR_headpsi
+  local pitch=simDR_headpitch
+  if is_vr==1 then pitch=pitch-20 end
+  for i = 1, #hotspots do
+      local thisHit=closest_intercept(simDR_headX,simDR_headY,simDR_headZ,hotspots[i][1],hotspots[i][2],hotspots[i][3],psi,pitch)
+      --print(i.."="..closest_intercept(simDR_headX,simDR_headY,simDR_headZ,hotspots[i][1],hotspots[i][2],hotspots[i][3],psi,pitch))
+      if thisHit< bestDist then
+          
+          local reFunc=nil
+          if dial==0 then
+              reFunc=hotspots[i][4]
+          elseif dial==1 then
+              reFunc=hotspots[i][5]    
+          else
+              reFunc=hotspots[i][6]
+          end
+          if reFunc~=nil then
+              retVal=reFunc
+              bestDist= thisHit
+          end
+      end
+  end
+  return retVal
+end
+
+function VR_up_CMDhandler(phase, duration)
+  local functionCall=findHotSpot(0)
+  functionCall(1,phase, duration)
+end
+
+function VR_down_CMDhandler(phase, duration)
+  local functionCall=findHotSpot(0)
+  functionCall(-1,phase, duration)
+end
+function VR_use_CMDhandler(phase, duration)
+  local functionCall=findHotSpot(0)
+  functionCall(0,phase, duration)
+end
+B747CMD_VR_up 				= create_command("autoATC/VR/cmdup", "VR left command up", VR_up_CMDhandler)
+B747CMD_VR_use 				= create_command("autoATC/VR/cmduse", "VR left command use", VR_use_CMDhandler)
+B747CMD_VR_down 				= create_command("autoATC/VR/cmddown", "VR left command down", VR_down_CMDhandler)
+
+function VR_up_right_CMDhandler(phase, duration)
+  local functionCall=findHotSpot(1)
+  functionCall(1,phase, duration)
+end
+
+function VR_down_right_CMDhandler(phase, duration)
+  local functionCall=findHotSpot(1)
+  functionCall(-1,phase, duration)
+end
+function VR_use_right_CMDhandler(phase, duration)
+  local functionCall=findHotSpot(1)
+  functionCall(0,phase, duration)
+end
+B747CMD_VR_up_right				= create_command("autoATC/VR/cmdup_right", "VR right command up", VR_up_right_CMDhandler)
+B747CMD_VR_use_right 				= create_command("autoATC/VR/cmduse_right", "VR right command use", VR_use_right_CMDhandler)
+B747CMD_VR_down_right 				= create_command("autoATC/VR/cmddown_right", "VR right command down", VR_down_right_CMDhandler)
+
+function VR_up_key_CMDhandler(phase, duration)
+  local functionCall=findHotSpot(2)
+  functionCall(1,phase, duration)
+end
+
+function VR_down_key_CMDhandler(phase, duration)
+  local functionCall=findHotSpot(2)
+  functionCall(-1,phase, duration)
+end
+function VR_use_key_CMDhandler(phase, duration)
+  local functionCall=findHotSpot(2)
+  functionCall(0,phase, duration)
+end
+B747CMD_VR_up_right				= create_command("autoATC/VR/cmdup_key", "VR key command up", VR_up_key_CMDhandler)
+B747CMD_VR_use_right 				= create_command("autoATC/VR/cmduse_key", "VR key command use", VR_use_key_CMDhandler)
+B747CMD_VR_down_right 				= create_command("autoATC/VR/cmddown_key", "VR key command down", VR_down_key_CMDhandler)

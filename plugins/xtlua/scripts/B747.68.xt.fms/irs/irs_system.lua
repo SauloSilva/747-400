@@ -323,14 +323,9 @@ end
 
 irsSystem.align=function(systemID,instant)
 	--Simulator Config Options
-	simConfigData = {}
-	if string.len(B747DR_simconfig_data) > 1 then
-		simConfigData["data"] = json.decode(B747DR_simconfig_data)
-	else
-		simConfigData["data"] = json.decode("[]")
-	end
-	timeToAlign=simConfigData["data"].SIM.irs_align_time
-
+  if hasSimConfig()==true then 
+	  timeToAlign=simConfigData["data"].SIM.irs_align_time
+  end
   startLat=simDR_latitude
   startLon=simDR_longitude
   irsSystem[systemID]["aligned"]=false

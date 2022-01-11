@@ -100,6 +100,10 @@ B747_CASwarningMsg   = {
     {DRindex = 25, name = ">VALVE TEST FAIL", status = 0},
     {DRindex = 26, name = ">VALVE TEST PASS", status = 0},
     {DRindex = 27, name = ">VLV TST IN PROG", status = 0},
+    {DRindex = 28, name = "ENG 1 FAIL", status = 0},            --
+    {DRindex = 29, name = "ENG 2 FAIL", status = 0},            --
+    {DRindex = 30, name = "ENG 3 FAIL", status = 0},            --
+    {DRindex = 31, name = "ENG 4 FAIL", status = 0}            --
 }
 
 B747_CAScautionMsg   = {
@@ -170,6 +174,10 @@ B747_CAScautionMsg   = {
     {DRindex = 64, name = "STARTER CUTOUT 4", status = 0},      --
     {DRindex = 65, name = "TIRE PRESSURE", status = 0},
     {DRindex = 66, name = "UNABLE RNP", status = 0},
+    {DRindex = 67, name = "FUEL PRES STAB L", status = 0},
+    {DRindex = 68, name = "FUEL PRES STAB L", status = 0},
+    {DRindex = 69, name = "FUEL PRESS CTR L", status = 0},
+    {DRindex = 70, name = "FUEL PRESS CTR R", status = 0}
 }
 
 B747_CASadvisoryMsg   = {
@@ -475,6 +483,8 @@ B747_CASadvisoryMsg   = {
     {DRindex = 299, name = ">X FEED CONFIG", status = 0},       --
     {DRindex = 300, name = ">YAW DAMPER LWR", status = 0},      --
     {DRindex = 301, name = ">YAW DAMPER UPR", status = 0},      --
+    {DRindex = 302, name = ">FUEL LOW CTR L", status = 0},      --
+    {DRindex = 303, name = ">FUEL LOW CTR R", status = 0} 
 }
 
 B747_CASmemoMsg   = {
@@ -502,7 +512,7 @@ B747_CASmemoMsg   = {
     {DRindex = 21, name = "PACKS 1 + 2 OFF", status = 0},       --
     {DRindex = 22, name = "PACKS 1 + 3 OFF", status = 0},       --
     {DRindex = 23, name = "PACKS 2 + 3 OFF", status = 0},       --
-    {DRindex = 24, name = "PACKS HIGH FLOW", status = 0},
+    {DRindex = 24, name = "PACKS HIGH FLOW", status = 0},	--
     {DRindex = 25, name = "PACKS OFF", status = 0},             --
     {DRindex = 26, name = "PARK BRAKE SET", status = 0},        --
     {DRindex = 27, name = "PASS SIGNS ON", status = 0},
@@ -555,7 +565,7 @@ simDR_bus_volts               = find_dataref("sim/cockpit2/electrical/bus_volts"
 
 simDR_startup_running               = find_dataref("sim/operation/prefs/startup_running")
 simDR_all_wheels_on_ground          = find_dataref("sim/flightmodel/failures/onground_any")
-simDR_ind_airspeed_kts_pilot        = find_dataref("sim/cockpit2/gauges/indicators/airspeed_kts_pilot")
+simDR_ind_airspeed_kts_pilot        = find_dataref("laminar/B747/gauges/indicators/airspeed_kts_pilot")
 
 
 
@@ -609,9 +619,14 @@ B747DR_CAS_caut_adv_display     = deferred_dataref("laminar/B747/CAS/caut_adv_di
 
 
 B747DR_master_warning           = find_dataref("laminar/B747/warning/master_warning")
+B747DR_warning_bell           	= deferred_dataref("laminar/B747/warning/warning_bell")
+B747DR_warning_siren           	= deferred_dataref("laminar/B747/warning/warning_siren")
+B747DR_warning_wailer           = deferred_dataref("laminar/B747/warning/warning_wailer")
 B747DR_master_caution           = find_dataref("laminar/B747/warning/master_caution")
 B747DR_master_caution_audio     = find_dataref("laminar/B747/warning/master_caution_audio")
 B747DR_fire_ovht_button_pos     = deferred_dataref("laminar/B747/fire/fire_ovht/button_pos", "number")
+B747DR_engine_fire              = find_dataref("sim/cockpit2/annunciators/engine_fire")
+B747DR_apu_fire                 = find_dataref("sim/operation/failures/rel_apu_fire")
 B747DR_init_warning_CD          = deferred_dataref("laminar/B747/warning/init_CD", "number")
 
 
@@ -765,6 +780,10 @@ function cleanAllWhenOff()
     B747DR_master_caution = 0                                                   -- SET THE MASTER CAUTION
     B747DR_master_caution_audio     = 0
     B747DR_master_warning = 0
+    B747DR_warning_bell           	= 0
+    B747DR_warning_siren           	= 0
+    B747DR_warning_wailer           = 0
+    
 end
 
 function stop_caution_audio()
@@ -780,7 +799,11 @@ function B747_CAS_queue()
 
             if B747DR_CAS_warning_status[B747_CASwarningMsg[i].DRindex] == 1 then                       -- WARNING IS ACTIVE
                 table.insert(B747_CASwarning, B747_CASwarningMsg[i].name)                               -- ADD TO THE WARNING QUEUE
-                B747DR_master_warning = 1                                                               -- SET THE MASTER WARNING
+                B747DR_master_warning = 1
+                                                                               -- SET THE MASTER WARNING
+                if i==1 then --AP disconnect? 
+                    B747DR_warning_wailer = 1
+                end
             elseif B747DR_CAS_warning_status[B747_CASwarningMsg[i].DRindex] == 0 then                   -- WARNING IS INACTIVE
                 B747_removeWarning(B747_CASwarningMsg[i].name)                                          -- REMOVE FROM THE WARNING QUEUE
             end
@@ -794,7 +817,19 @@ function B747_CAS_queue()
     elseif B747DR_fire_ovht_button_pos==1 then 
       B747DR_master_warning = 1 
     end 
+    if B747DR_master_warning == 1 then
+        --is there fire?
+        if B747DR_fire_ovht_button_pos > 0 or B747DR_engine_fire > 0 or B747DR_apu_fire > 0 then
+            B747DR_warning_bell           	= 1
+        elseif B747DR_warning_wailer == 0 then
+            B747DR_warning_siren = 1
+        end   
 
+    else
+        B747DR_warning_bell           	= 0
+        B747DR_warning_siren           	= 0
+        B747DR_warning_wailer           = 0
+    end
     ----- CAUTIONS
     for i = 1, #B747_CAScautionMsg do                                                      -- ITERATE THE CAUTIONS DATA TABLE
 

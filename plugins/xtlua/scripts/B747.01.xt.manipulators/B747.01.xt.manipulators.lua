@@ -62,6 +62,7 @@ end
 local B747_button_switch_cover_position_target = {}
 for i = 0, NUM_BTN_SW_COVERS-1 do
     B747_button_switch_cover_position_target[i] = 0
+
 end
 
 local B747_button_switch_position_target = {}
@@ -100,7 +101,7 @@ simDR_autopilot_TOGA_lat_status     	= find_dataref("sim/cockpit2/autopilot/TOGA
 --simDR_autopilot_alt_hold_status     	= find_dataref("sim/cockpit2/autopilot/altitude_hold_status")
 simDR_autopilot_autothrottle_enabled	= find_dataref("sim/cockpit2/autopilot/autothrottle_enabled")
 
-
+B747DR_autothrottle_fail            	= find_dataref("laminar/B747/engines/autothrottle_fail")
 --*************************************************************************************--
 --** 				              FIND CUSTOM DATAREFS             			    	 **--
 --*************************************************************************************--
@@ -142,7 +143,7 @@ B747DR_elec_ext_pwr_2_switch_mode   = deferred_dataref("laminar/B747/elec_ext_pw
 B747DR_elec_apu_pwr_2_switch_mode   = deferred_dataref("laminar/B747/apu_pwr_2/switch_mode", "number")
 B747DR_gen_drive_disc_status        = deferred_dataref("laminar/B747/electrical/generator/drive_disc_status", "array[4]")
 
-
+B747DR_ap_FMA_autothrottle_mode     	= deferred_dataref("laminar/B747/autopilot/FMA/autothrottle_mode", "number")
 
 
 --*************************************************************************************--
@@ -426,7 +427,7 @@ end
 --*************************************************************************************--
 
 simCMD_autopilot_vert_speed_mode    = find_command("sim/autopilot/vertical_speed")
-simCMD_autopilot_heading_mode       = find_command("sim/autopilot/heading")
+simCMD_autopilot_heading_mode       = find_command("sim/autopilot/heading_hold")
 
 
 
@@ -493,22 +494,28 @@ for i = 0, NUM_BTN_SW_COVERS-1 do
 
     -- CREATE THE CLOSE COVER FUNCTIONS
     B747_close_button_cover[i] = function()
-        B747_button_switch_cover_position_target[i] = 0.0
+        if i==9 and B747DR_button_switch_position[13] == 0 then
+            B747_button_switch_cover_position_target[i] = 0.4
+        else
+            B747_button_switch_cover_position_target[i] = 0.0
+        end
     end
 
 
     -- CREATE THE COVER HANDLER FUNCTIONS
     B747_button_switch_cover_CMDhandler[i] = function(phase, duration)
-	print("cover com hander")
+	--print("cover com hander "..i)
+    closeTarget=0.0
+    if i==9 and B747DR_button_switch_position[13] == 0 then closeTarget=0.4 end
         if phase == 0 then
-            if B747_button_switch_cover_position_target[i] == 0.0 then
+            if B747_button_switch_cover_position_target[i] <0.6 then
                 B747_button_switch_cover_position_target[i] = 1.0
                 if is_timer_scheduled(B747_close_button_cover[i]) then
                     stop_timer(B747_close_button_cover[i])
                 end
                 run_after_time(B747_close_button_cover[i], 5.0)
             elseif B747_button_switch_cover_position_target[i] == 1.0 then
-                B747_button_switch_cover_position_target[i] = 0.0
+                B747_button_switch_cover_position_target[i] = closeTarget
                 if is_timer_scheduled(B747_close_button_cover[i]) then
                     stop_timer(B747_close_button_cover[i])
                 end
@@ -517,7 +524,10 @@ for i = 0, NUM_BTN_SW_COVERS-1 do
     end
 
 end
-
+for i = 0, NUM_BTN_SW_COVERS-1 do
+    run_after_time(B747_close_button_cover[i], 1.0)
+    
+end
 
 
 
@@ -575,7 +585,13 @@ function B747_elec_util_R_CMDhandler(phase, duration)
 end
 
 function B747_elec_battery_CMDhandler(phase, duration)
-    if phase == 0 then B747_button_switch_position_target[13] = 1.0 - B747_button_switch_position_target[13] end
+    if phase == 0 then 
+        B747_button_switch_position_target[13] = 1.0 - B747_button_switch_position_target[13] 
+        if is_timer_scheduled(B747_close_button_cover[9]) then
+            stop_timer(B747_close_button_cover[9])
+        end
+        run_after_time(B747_close_button_cover[9], 5.0)
+    end
 end
 
 function B747_elec_ext_pwr_1_CMDhandler(phase, duration)
@@ -1166,11 +1182,13 @@ end
 
 
 function B747_windshield_washer_switch_L_CMDhandler(phase, duration)
-    if phase == 0 then B747_toggle_switch_position_target[20] = 1.0 -  B747_toggle_switch_position_target[20] end
+    if phase == 0 then B747_toggle_switch_position_target[20] = 0
+    elseif phase == 2 then B747_toggle_switch_position_target[20] = 1 end
 end
 
 function B747_windshield_washer_switch_R_CMDhandler(phase, duration)
-    if phase == 0 then B747_toggle_switch_position_target[21] = 1.0 -  B747_toggle_switch_position_target[21] end
+    if phase == 0 then B747_toggle_switch_position_target[21] = 0
+    elseif phase == 2 then B747_toggle_switch_position_target[21] = 1 end
 end
 
 function B747_outflow_valve_switch_open_CMDhandler(phase, duration)
@@ -1230,7 +1248,7 @@ function B747_flight_dir_switch_L_CMDhandler(phase, duration)
 		
 		
 		----- SWITCH IS SET TO "OFF" POSITION
-		if B747_toggle_switch_position_target[23] == 0.0 												-- LEFT FLIGHT DIRECTOR SWITCH IS OFF
+		--[[if B747_toggle_switch_position_target[23] == 0.0 												-- LEFT FLIGHT DIRECTOR SWITCH IS OFF
 			and B747_toggle_switch_position_target[24] == 0.0 											-- RIGHT FLIGHT DIRECTOR SWITCH IS OFF
 		then
             if B747DR_autopilot_cmd_L_mode == 0 														-- LEFT CMD AP MODE IS "OFF"
@@ -1239,7 +1257,7 @@ function B747_flight_dir_switch_L_CMDhandler(phase, duration)
 			then
             	B747CMD_ap_reset:once()
             end			
-		end
+		end]]
 				
 	end
 end
@@ -1281,7 +1299,7 @@ function B747_flight_dir_switch_R_CMDhandler(phase, duration)
 		
 		
 		----- SWITCH IS SET TO "OFF" POSITION
-		if B747_toggle_switch_position_target[23] == 0.0 												-- LEFT FLIGHT DIRECTOR SWITCH IS OFF
+		--[[if B747_toggle_switch_position_target[23] == 0.0 												-- LEFT FLIGHT DIRECTOR SWITCH IS OFF
 			and B747_toggle_switch_position_target[24] == 0.0 											-- RIGHT FLIGHT DIRECTOR SWITCH IS OFF
 		then
             if B747DR_autopilot_cmd_L_mode == 0 														-- LEFT CMD AP MODE IS "OFF"
@@ -1290,7 +1308,7 @@ function B747_flight_dir_switch_R_CMDhandler(phase, duration)
 			then
             	B747CMD_ap_reset:once()
             end			
-		end
+		end]]
 				
 	end
 end
@@ -1379,10 +1397,17 @@ function B747_autothrottle_arm_switch_CMDhandler(phase, duration)
     if phase == 0 then
         B747_toggle_switch_position_target[29] = 1.0 - B747_toggle_switch_position_target[29]
         B747DR_ap_autothrottle_armed = B747_toggle_switch_position_target[29]
+        
         if B747_toggle_switch_position_target[29] == 0 then
+            if B747DR_ap_FMA_autothrottle_mode>0 then
+                print("B747_autothrottle_arm_switch_CMDhandler fail AT")
+                B747DR_autothrottle_fail=1
+            end
 	     	if simDR_autopilot_autothrottle_enabled == 1 then
 	     		simCMD_autopilot_autothrottle_off:once() 
-	     	end	  
+	     	end
+        else
+            B747DR_autothrottle_fail=0
 	    end    
     end
 end
@@ -1948,19 +1973,35 @@ function B747_set_manip_CD()
 	-- BUTTON SWITCHES
 	for i = 0, 86 do
 		B747_button_switch_position_target[i] = 0
-		B747DR_button_switch_position[i] = 0		
-	end	
-	
+		B747DR_button_switch_position[i] = 0
+	end
+
 	B747DR_elec_ext_pwr_1_switch_mode = 0
 	B747DR_elec_apu_pwr_1_switch_mode = 0
 
 
 	-- TOGGLE SWITCHES
 	for j = 0, 37 do
-		B747_toggle_switch_position_target[j] = 0
-		B747DR_toggle_switch_position[j] = 0		
-	end	
+        if j < 13 then
+            B747_toggle_switch_position_target[j] = 1
+            B747DR_toggle_switch_position[j] = 1
+        else
+            B747_toggle_switch_position_target[j] = 0
+		    B747DR_toggle_switch_position[j] = 0
+        end
+    end
 
+    for k = 1, 12 do
+        B747_toggle_switch_position_target[k] = 1
+        B747DR_toggle_switch_position[k] = 1
+        --not 7
+    end
+    B747DR_toggle_switch_position[20] = 1
+    B747_toggle_switch_position_target[20] = 1
+    B747DR_toggle_switch_position[21] = 1
+    B747_toggle_switch_position_target[21] = 1
+    B747DR_toggle_switch_position[8] = 0
+    B747_toggle_switch_position_target[8] = 0
 end
 
 
@@ -1969,9 +2010,9 @@ end
 
 ----- SET STATE TO ENGINES RUNNING ------------------------------------------------------
 function B747_set_manip_ER()
-	
+
 	B747_set_manip_CD()
-    
+
     -- ELECTRICAL SYSTEM
     B747_button_switch_position_target[11] = 1
 	B747DR_button_switch_position[11] = 1
@@ -1980,32 +2021,32 @@ function B747_set_manip_ER()
 	B747_button_switch_position_target[13] = 1
 	B747DR_button_switch_position[13] = 1
 	B747_button_switch_position_target[18] = 1
-	B747DR_button_switch_position[18] = 1	
+	B747DR_button_switch_position[18] = 1
 	B747_button_switch_position_target[19] = 1
-	B747DR_button_switch_position[19] = 1	
-	B747_button_switch_position_target[20] = 1
+	B747DR_button_switch_position[19] = 1
+    B747_button_switch_position_target[20] = 1
 	B747DR_button_switch_position[20] = 1	
 	B747_button_switch_position_target[21] = 1
-	B747DR_button_switch_position[21] = 1	
+	B747DR_button_switch_position[21] = 1
 	B747_button_switch_position_target[22] = 1
-	B747DR_button_switch_position[22] = 1	
+	B747DR_button_switch_position[22] = 1
 	B747_button_switch_position_target[23] = 1
-	B747DR_button_switch_position[23] = 1	
+	B747DR_button_switch_position[23] = 1
 	B747_button_switch_position_target[24] = 1
-	B747DR_button_switch_position[24] = 1	
+	B747DR_button_switch_position[24] = 1
 	B747_button_switch_position_target[25] = 1
-	B747DR_button_switch_position[25] = 1		
-	
-    -- HYDRAULIC SYSTEM	
+	B747DR_button_switch_position[25] = 1
+
+    -- HYDRAULIC SYSTEM
     B747_button_switch_position_target[30] = 1
-	B747DR_button_switch_position[30] = 1	
+	B747DR_button_switch_position[30] = 1
     B747_button_switch_position_target[31] = 1
 	B747DR_button_switch_position[31] = 1
 	B747_button_switch_position_target[32] = 1
 	B747DR_button_switch_position[32] = 1
 	B747_button_switch_position_target[33] = 1
-	B747DR_button_switch_position[33] = 1	
-	
+	B747DR_button_switch_position[33] = 1
+
     -- FUEL SYSTEM
     B747_button_switch_position_target[48] = 1
 	B747DR_button_switch_position[48] = 1
@@ -2015,10 +2056,12 @@ function B747_set_manip_ER()
 	B747DR_button_switch_position[52] = 1
 	B747_button_switch_position_target[53] = 1
 	B747DR_button_switch_position[53] = 1
-	B747_button_switch_position_target[54] = 1
-	B747DR_button_switch_position[54] = 1
-	B747_button_switch_position_target[55] = 1
-	B747DR_button_switch_position[55] = 1
+    if simDR_all_wheels_on_ground==0 then
+        B747_button_switch_position_target[54] = 1
+        B747DR_button_switch_position[54] = 1
+        B747_button_switch_position_target[55] = 1
+        B747DR_button_switch_position[55] = 1
+    end
 	B747_button_switch_position_target[56] = 1
 	B747DR_button_switch_position[56] = 1
 	B747_button_switch_position_target[57] = 1
@@ -2043,17 +2086,17 @@ function B747_set_manip_ER()
 	B747DR_button_switch_position[66] = 1
 	B747_button_switch_position_target[67] = 1
 	B747DR_button_switch_position[67] = 1
-    
+
     -- YAW DAMPER    
 	B747_button_switch_position_target[82] = 1
 	B747DR_button_switch_position[82] = 1
 	B747_button_switch_position_target[83] = 1
-	B747DR_button_switch_position[83] = 1    
-    
+	B747DR_button_switch_position[83] = 1
+
      -- TEMPERATURE   
  	B747_button_switch_position_target[37] = 1
-	B747DR_button_switch_position[83] = 1     
-    
+	B747DR_button_switch_position[83] = 1 
+
     -- BLEED AIR
 	B747_button_switch_position_target[75] = 1
 	B747DR_button_switch_position[75] = 1
@@ -2067,8 +2110,8 @@ function B747_set_manip_ER()
 	B747DR_button_switch_position[79] = 1
 	B747_button_switch_position_target[80] = 1
 	B747DR_button_switch_position[80] = 1   
-   	
-end	
+
+end
 
 
 
@@ -2165,14 +2208,17 @@ function setACFType()
   else
       simDR_acf_m_jettison=0
   end
+  B747_flight_start_manip()
 end
 function flight_start()
     print("XTLua Flight Start "..simDR_livery)
+    local refreshOngroud=simDR_all_wheels_on_ground
     B747_flight_start_manip()
     run_after_time(setACFType,1)
 end
 function livery_load()
 	local refreshLivery=simDR_livery_path
+
 	run_after_time(setACFType, 1)  --Load specific simConfig data for current livery
 end
 --function flight_crash() end

@@ -590,13 +590,25 @@ ANIM_show 0.5 1.1 laminar/B747/gear/chocked
 	# MESH: Cube.003	weight: 4
 	# MATERIAL: Material.001
 	TRIS	252 84
-	# 1 Mesh: Cube.004
-	# MESH: Cube.004	weight: 4
-	# MATERIAL: Material.001
-	TRIS	336 84
-	# 1 Mesh: Cube.005
-	# MESH: Cube.005	weight: 4
-	# MATERIAL: Material.001
-	TRIS	420 84
+	#
+	ANIM_begin
+			ANIM_trans_begin	sim/flightmodel2/gear/tire_vertical_deflection_mtr[0]
+				ANIM_trans_key	0	   0.0000   0.0    0.0000
+				ANIM_trans_key	0.083	   0.0000   0.083    0.0000
+				ANIM_trans_key	0.167	   0.0000   0.167    0.0000
+				ANIM_trans_key	0.25	   0.0000   0.25    0.0000
+				ANIM_trans_key	0.333	   0.0000   0.333    0.0000
+				ANIM_trans_key	0.417	   0.0000   0.417    0.0000
+				ANIM_trans_key	0.5	   0.0000   0.4767    0.0000
+			ANIM_trans_end
+			 1 Mesh: Cube.004
+			# MESH: Cube.004	weight: 4
+			# MATERIAL: Material.001
+			TRIS	336 84
+			# 1 Mesh: Cube.005
+			# MESH: Cube.005	weight: 4
+			# MATERIAL: Material.001
+			TRIS	420 84
+	ANIM_end
 ANIM_end
 # Build with Blender 2.83.7 (build b'192e591af9fb'). Exported with XPlane2Blender 4.0.0-rc.1+89.20200910152046

@@ -15,7 +15,9 @@ ilsData=deferred_dataref("laminar/B747/radio/ilsData", "string")
 acars=create_dataref("laminar/B747/comm/acars","number")  
 toderate=deferred_dataref("laminar/B747/engine/derate/TO","number") 
 clbderate=deferred_dataref("laminar/B747/engine/derate/CLB","number")
+
 radioModes=deferred_dataref("laminar/B747/radio/tuningmodes", "string")
+B747DR_TAS_pilot=deferred_dataref("laminar/B747/nd/TAS_pilot", "number")
 radioModes="AAAMM" --ils,vor l/r,adf l/r (ADF is manual only
 B747DR_FMSdata=deferred_dataref("laminar/B747/fms/data", "string")
 B747DR_FMSdata="{}"
@@ -74,7 +76,9 @@ B747DR_fms1_display_brightness      = create_dataref("laminar/B747/fms1/display_
 --pos data
 B747DR_waypoint_ata					= deferred_dataref("laminar/B747/nd/waypoint_ata", "string")
 B747DR_last_waypoint				= deferred_dataref("laminar/B747/nd/last_waypoint", "string")
+B747DR_destination					= deferred_dataref("laminar/B747/nd/dest", "string")
 B747DR_next_waypoint_eta					= deferred_dataref("laminar/B747/nd/next_waypoint_eta", "string")
+B747DR_next_waypoint_dist					= deferred_dataref("laminar/B747/nd/next_waypoint_dist", "number")
 B747DR_next_waypoint				= deferred_dataref("laminar/B747/nd/next_waypoint", "string")
 
 --Waypoint info for ND DISPLAY
@@ -99,6 +103,11 @@ B747DR_ND_Wind_Bearing					= deferred_dataref("laminar/B747/nd/wind_bearing", "n
 
 --STAB TRIM setting
 B747DR_elevator_trim				    = deferred_dataref("laminar/B747/fmc/elevator_trim", "number")
+
+--Sound Options (crazytimtimtim + Matt726)
+B747DR_SNDoptions			        	= deferred_dataref("laminar/B747/fmod/options", "array[7]")
+--B747DR_SNDoptions_volume				= deferred_dataref("laminar/B747/fmod/options/volume", "array[8]")
+B747DR_SNDoptions_gpws					= deferred_dataref("laminar/B747/fmod/options/gpws", "array[16]")
 
 function createFMSCommands(fmsO,cduid,fmsid,keyid,fmskeyid)
 B747CMD_fms1_ls_key_L1              = XLuaCreateCommand("laminar/B747/".. fmskeyid .. "/ls_key/L1", fmsO.." Line Select Key 1-Left")

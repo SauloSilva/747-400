@@ -3,13 +3,13 @@ by Matt726
 
 Available for: Default Laminar Research or mSparks 747 mod
 
-Version: v1.6.1
+Version: v3.0
 
 Email: mfahrenheit135@gmail.com
 
 [YouTube](https://youtube.com/c/Matt726)
 
-[Discord](https://discord.gg/W4Uym2S)
+[Discord](https://discord.com/invite/eU2vWCtmFX)
 
 [mSparks Discord](https://discord.com/invite/cStTXy5)
 
@@ -27,6 +27,52 @@ Email: mfahrenheit135@gmail.com
 
 ---
 ## CHANGELOG:
+
+### v3.0:
+
+MAJOR UPDATE:
+- lots of things that i cant keep track of
+- RB211 MAJOR UPDATES
+- new knob sounds
+- improved recirculation fan sound logic
+- fixed lcd display fans
+
+### v2.4:
+
+- updated engines (slightly)
+- updated some switches
+- updated reverse lever effects
+- added PM callouts
+- fixed master caution sound on startup
+- updated MCP knob sounds
+
+### v2.0
+
+- added RR engines
+- fixed PW engines
+- added reverse lever sounds
+- updated parameters for sound config
+- added "LCD" fan sound (changes when simconfig PFD display is changed to LCD
+- updated wind
+- added some touchdown effects
+
+### v1.7
+
+- updated PW engines
+- fixed parking brake
+- potential CTD error fixes
+- added cockpit door sounds
+- added OLD ALARMS
+- added altitude alert
+- added "777" alarms
+
+### v1.6.3:
+
+- potential fix for CTD issue
+
+### v1.6.2:
+
+- fixed "1000" gpws issue
 
 ### v1.6.1:
 

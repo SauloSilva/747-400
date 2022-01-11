@@ -98,7 +98,7 @@ local B747_CASmemo      = {}
 
 simDR_startup_running               = find_dataref("sim/operation/prefs/startup_running")
 simDR_all_wheels_on_ground          = find_dataref("sim/flightmodel/failures/onground_any")
-simDR_ind_airspeed_kts_pilot        = find_dataref("sim/cockpit2/gauges/indicators/airspeed_kts_pilot")
+simDR_ind_airspeed_kts_pilot        = find_dataref("laminar/B747/gauges/indicators/airspeed_kts_pilot")
 
 
 
@@ -152,6 +152,9 @@ B747DR_CAS_caut_adv_display     = deferred_dataref("laminar/B747/CAS/caut_adv_di
 
 
 B747DR_master_warning           = find_dataref("laminar/B747/warning/master_warning")
+B747DR_warning_bell           	= deferred_dataref("laminar/B747/warning/warning_bell", "number")
+B747DR_warning_siren           	= deferred_dataref("laminar/B747/warning/warning_siren", "number")
+B747DR_warning_wailer           = deferred_dataref("laminar/B747/warning/warning_wailer", "number")
 B747DR_master_caution           = find_dataref("laminar/B747/warning/master_caution")
 
 B747DR_init_warning_CD          = deferred_dataref("laminar/B747/warning/init_CD", "number")
