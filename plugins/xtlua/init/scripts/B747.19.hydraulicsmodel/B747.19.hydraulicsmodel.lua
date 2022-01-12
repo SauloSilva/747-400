@@ -37,6 +37,11 @@ B747_controls_right_outer_elevator            = deferred_dataref("laminar/B747/c
 B747_controls_left_inner_elevator           = deferred_dataref("laminar/B747/cablecontrols/left_inner_elevator", "number")
 B747_controls_right_inner_elevator          = deferred_dataref("laminar/B747/cablecontrols/right_inner_elevator", "number")
 
+B747_controls_left_outer_aileron           = deferred_dataref("laminar/B747/cablecontrols/left_outer_aileron", "number")
+B747_controls_right_outer_aileron            = deferred_dataref("laminar/B747/cablecontrols/right_outer_aileron", "number")
+B747_controls_left_inner_aileron           = deferred_dataref("laminar/B747/cablecontrols/left_inner_aileron", "number")
+B747_controls_right_inner_aileron          = deferred_dataref("laminar/B747/cablecontrols/right_inner_aileron", "number")
+
 B747_duct_pressure_L           = deferred_dataref("laminar/B747/air/duct_pressure_L", "number")
 B747_duct_pressure_R           = deferred_dataref("laminar/B747/air/duct_pressure_R", "number")
 
@@ -107,6 +112,29 @@ B747DR_r_aileron_inner   = deferred_dataref("laminar/B747/flt_ctrls/r_aileron_in
 B747DR_l_aileron_outer   = deferred_dataref("laminar/B747/flt_ctrls/l_aileron_outer", "number")
 B747DR_r_aileron_outer   = deferred_dataref("laminar/B747/flt_ctrls/r_aileron_outer", "number")
 
+B747DR_l_aileron_outer_lockout   = deferred_dataref("laminar/B747/flt_ctrls/left_outer_aileron_lockout", "number")
+B747DR_r_aileron_outer_lockout   = deferred_dataref("laminar/B747/flt_ctrls/right_outer_aileron_lockout", "number")
 B747DR_spoilers      = deferred_dataref("laminar/B747/flt_ctrls/spoilers", "array[13]") --0 unused
+
+B747DR_spoiler1 = deferred_dataref("laminar/B747/cablecontrols/spoiler1", "number")
+B747DR_spoiler2 = deferred_dataref("laminar/B747/cablecontrols/spoiler2", "number")
+B747DR_spoiler3 = deferred_dataref("laminar/B747/cablecontrols/spoiler3", "number")
+B747DR_spoiler4 = deferred_dataref("laminar/B747/cablecontrols/spoiler4", "number")
+B747DR_spoiler5 = deferred_dataref("laminar/B747/cablecontrols/spoiler5", "number")
+
+B747DR_spoiler6 = deferred_dataref("laminar/B747/cablecontrols/spoiler6", "number")
+B747DR_spoiler7 = deferred_dataref("laminar/B747/cablecontrols/spoiler7", "number")
+
+B747DR_spoiler8 = deferred_dataref("laminar/B747/cablecontrols/spoiler8", "number")
+B747DR_spoiler9 = deferred_dataref("laminar/B747/cablecontrols/spoiler9", "number")
+B747DR_spoiler10 = deferred_dataref("laminar/B747/cablecontrols/spoiler10", "number")
+B747DR_spoiler11 = deferred_dataref("laminar/B747/cablecontrols/spoiler11", "number")
+B747DR_spoiler12 = deferred_dataref("laminar/B747/cablecontrols/spoiler12", "number")
+
+B747DR_flap1 = deferred_dataref("laminar/B747/cablecontrols/flap1", "number")
+B747DR_flap2 = deferred_dataref("laminar/B747/cablecontrols/flap2", "number")
+B747DR_flap3 = deferred_dataref("laminar/B747/cablecontrols/flap3", "number")
+B747DR_flap4 = deferred_dataref("laminar/B747/cablecontrols/flap4", "number")
+
 B747DR_outer_spoilers      = deferred_dataref("laminar/B747/flt_ctrls/outer_spoilers", "array[2]") --for stat display
 B747DR_flaps      = deferred_dataref("laminar/B747/flt_ctrls/flaps", "array[5]") --0 unuse

@@ -55,32 +55,32 @@ function pressure_input()
     controlRatios[5]=B747_controls_left_outer_elevator-- -simDR_elevator[0]
     controlRatios[6]=B747_controls_right_outer_elevator-- -simDR_elevator[0]
 
-    controlRatios[7]=simDR_left_aileron_inner
-    controlRatios[8]=simDR_right_aileron_inner
-    controlRatios[9]=simDR_left_aileron_outer
-    controlRatios[10]=simDR_right_aileron_outer
+    controlRatios[7]=B747_controls_left_inner_aileron--simDR_left_aileron_inner
+    controlRatios[8]=B747_controls_right_inner_aileron--simDR_right_aileron_inner
+    controlRatios[9]=B747_controls_left_outer_aileron--simDR_left_aileron_outer
+    controlRatios[10]=B747_controls_right_outer_aileron--simDR_right_aileron_outer
 
     --left wing
-    controlRatios[11]=simDR_spoiler12
-    controlRatios[12]=simDR_spoiler12
-    controlRatios[13]=simDR_spoiler34
-    controlRatios[14]=simDR_spoiler34
-    controlRatios[15]=simDR_spoiler5
+    controlRatios[11]=B747DR_spoiler1
+    controlRatios[12]=B747DR_spoiler2
+    controlRatios[13]=B747DR_spoiler3
+    controlRatios[14]=B747DR_spoiler4
+    controlRatios[15]=B747DR_spoiler5--simDR_spoiler5
     controlRatios[16]=simDR_spoiler67[0]
 
     --right wing
     controlRatios[17]=simDR_spoiler67[1]
-    controlRatios[18]=simDR_spoiler8
-    controlRatios[19]=simDR_spoiler910
-    controlRatios[20]=simDR_spoiler910
-    controlRatios[21]=simDR_spoiler1112
-    controlRatios[22]=simDR_spoiler1112
+    controlRatios[18]=B747DR_spoiler8--simDR_spoiler8
+    controlRatios[19]=B747DR_spoiler9--simDR_spoiler910
+    controlRatios[20]=B747DR_spoiler10--simDR_spoiler910
+    controlRatios[21]=B747DR_spoiler11--simDR_spoiler1112
+    controlRatios[22]=B747DR_spoiler12--simDR_spoiler1112
 
     --flaps left outer to right outer
-    controlRatios[23]=simDR_flap2[0]
-    controlRatios[24]=simDR_flap1[0]
-    controlRatios[25]=simDR_flap1[1]
-    controlRatios[26]=simDR_flap2[1]
+    controlRatios[23]=B747DR_flap1--simDR_flap1
+    controlRatios[24]=B747DR_flap2--simDR_flap2
+    controlRatios[25]=B747DR_flap3--simDR_flap3
+    controlRatios[26]=B747DR_flap4--simDR_flap4
     
 end
 
@@ -107,6 +107,13 @@ function pressure_output()
     for i=1,12,1 do
         B747DR_spoilers[i]=B747_animate_value(B747DR_spoilers[i],controlRatios[i+10],-100,100,10)
     end
+    simDR_spoiler12=(B747DR_spoilers[1]+B747DR_spoilers[2])/2
+    simDR_spoiler34=(B747DR_spoilers[3]+B747DR_spoilers[4])/2
+    simDR_spoiler5=(B747DR_spoilers[5])
+
+    simDR_spoiler8=(B747DR_spoilers[8])
+    simDR_spoiler910=(B747DR_spoilers[9]+B747DR_spoilers[10])/2
+    simDR_spoiler1112=(B747DR_spoilers[11]+B747DR_spoilers[12])/2
     --spoiler stat
     outleft_spoilers=0
     for i=1,5,1 do
@@ -124,6 +131,10 @@ function pressure_output()
     B747DR_flaps[2]=B747_animate_value(B747DR_flaps[2],controlRatios[24],-100,100,0.1)
     B747DR_flaps[3]=B747_animate_value(B747DR_flaps[3],controlRatios[25],-100,100,0.1)
     B747DR_flaps[4]=B747_animate_value(B747DR_flaps[4],controlRatios[26],-100,100,0.1)
+    simDR_flap1=B747DR_flaps[1]
+    simDR_flap2=B747DR_flaps[2]
+    simDR_flap3=B747DR_flaps[3]
+    simDR_flap4=B747DR_flaps[4]
 end
 
 
@@ -303,4 +314,17 @@ function flight_controls_override()
     end
     --Rudder ratio changer
     B747DR_rudder_ratio=1.0-B747_rescale(150,0,450,0.84375,simDR_ias_pilot)
+
+    B747DR_l_aileron_outer_lockout   = 1.0-B747_rescale(232,0,238,1.0,simDR_ias_pilot)
+    B747DR_r_aileron_outer_lockout   = (1.0-B747_rescale(232,0,238,1.0,simDR_ias_pilot))*-1
+    if simDR_flap_ratio > 0.166 then
+        simDR_innerslats_ratio  	= B747_animate_value(simDR_innerslats_ratio,1,0,1,1)
+    elseif simDR_flap2+simDR_flap3 <2 then
+        simDR_innerslats_ratio  	= B747_animate_value(simDR_innerslats_ratio,0,0,1,1)
+    end
+    if simDR_flap_ratio > 0.332 then
+        simDR_outerslats_ratio  	= B747_animate_value(simDR_outerslats_ratio,1,0,1,1)
+    elseif  simDR_flap2+simDR_flap3 <8 then
+        simDR_outerslats_ratio  	= B747_animate_value(simDR_outerslats_ratio,0,0,1,1)
+    end
 end

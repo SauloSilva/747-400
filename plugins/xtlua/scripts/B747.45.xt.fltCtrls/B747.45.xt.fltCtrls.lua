@@ -1292,7 +1292,7 @@ if debug_fltctrls>0 then return end
     B747_fltCtrols_EICAS_msg()
 
     B747_fltctrls_monitor_AI()
-    B747_landing_slats()
+    --B747_landing_slats()
 	
     --print(collectgarbage("count")*1024)
 	
