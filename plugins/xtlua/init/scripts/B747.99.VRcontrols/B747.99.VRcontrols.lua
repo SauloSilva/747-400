@@ -36,6 +36,17 @@ ocpHotspot={}
 ocpHotspot[0]=-0.059938
 ocpHotspot[1]=5.153586
 ocpHotspot[2]=-25.635084
+
+docHotspot={}
+docHotspot[0]=-0.546462
+docHotspot[1]=5.301905
+docHotspot[2]=-26.0
+
+srcHotspot={}
+srcHotspot[0]=-0.059938
+srcHotspot[1]=5.153586
+srcHotspot[2]=-25.635084
+
 movingtoTarget=false
 targetHotspot=pilotSeatHotspot
 local dX=0
@@ -63,8 +74,8 @@ function B747CMD_VR_toPilot_CMDhandler(phase, duration)
     targetHotspot=pilotSeatHotspot
     movingtoTarget=true
   elseif phase==2 then 
-    movingtoTarget=false
-    killMoves()
+    --movingtoTarget=false
+    --killMoves()
   end
 end
 function B747CMD_VR_toFMC_CMDhandler(phase, duration)
@@ -72,8 +83,8 @@ function B747CMD_VR_toFMC_CMDhandler(phase, duration)
     targetHotspot=fmcLHotspot
     movingtoTarget=true
   elseif phase==2 then 
-    movingtoTarget=false
-    killMoves()
+    --movingtoTarget=false
+    --killMoves()
   end
 end
 function B747CMD_VR_toMCP_CMDhandler(phase, duration)
@@ -81,8 +92,8 @@ function B747CMD_VR_toMCP_CMDhandler(phase, duration)
     targetHotspot=mcpHotspot
     movingtoTarget=true
   elseif phase==2 then 
-    movingtoTarget=false
-    killMoves()
+    --movingtoTarget=false
+    --killMoves()
   end
 end
 function B747CMD_VR_toOCP_CMDhandler(phase, duration)
@@ -90,16 +101,31 @@ function B747CMD_VR_toOCP_CMDhandler(phase, duration)
     targetHotspot=ocpHotspot
     movingtoTarget=true
   elseif phase==2 then 
-    movingtoTarget=false
-    killMoves()
+    --movingtoTarget=false
+    --killMoves()
   end
 end
 
+function B747CMD_VR_toDOC_CMDhandler(phase, duration)
+  if phase ==0 then
+    srcHotspot[0]=simDR_headX
+    srcHotspot[1]=simDR_headY
+    srcHotspot[2]=simDR_headZ
+    targetHotspot=docHotspot
+    movingtoTarget=true
+  elseif phase==2 then 
+    --movingtoTarget=false
+    --killMoves()
+    targetHotspot=srcHotspot
+    movingtoTarget=true
+  end
+end
 
 B747CMD_VR_toPilot 				= create_command("laminar/B747/VR/pilotView", "Move to Pilot hotspot", B747CMD_VR_toPilot_CMDhandler)
 B747CMD_VR_toFMC 				= create_command("laminar/B747/VR/fmcView", "Move to FMC hotspot", B747CMD_VR_toFMC_CMDhandler)
 B747CMD_VR_toMCP 				= create_command("laminar/B747/VR/mcpView", "Move to MCP hotspot", B747CMD_VR_toMCP_CMDhandler)
 B747CMD_VR_toOCP 				= create_command("laminar/B747/VR/ocpView", "Move to OCP hotspot", B747CMD_VR_toOCP_CMDhandler)
+B747CMD_VR_toDoc 				= create_command("laminar/B747/VR/docView", "Move to Docking hotspot", B747CMD_VR_toDOC_CMDhandler)
 B747CMD_VR_stop 				= create_command("laminar/B747/VR/stopMove", "Stop move commands", B747CMD_VR_stop_CMDhandler)
 
 
@@ -114,6 +140,7 @@ function after_physics()
   end
   
   local diffX=targetHotspot[0]-simDR_headX
+  nox=false
   if diffX<-0.02 then 
     if dX>0.1 then dX=0 simCMD_viewRIGHT:stop()  end
     if dX>=0 then dX=-1 simCMD_viewLEFT:start()  end
@@ -123,8 +150,9 @@ function after_physics()
   else
     if dX>0.1 then dX=0 simCMD_viewRIGHT:stop()  end
     if dX<-0.1 then dX=0 simCMD_viewLEFT:stop()  end
+    nox=true
   end
-  
+  noy=false
   local diffY=targetHotspot[1]-simDR_headY
   if diffY<-0.02 then
     if dY>0.1 then dY=0 simCMD_viewUP:stop()  end
@@ -135,8 +163,9 @@ function after_physics()
   else
     if dY>0.1 then dY=0 simCMD_viewUP:stop()  end
     if dY<-0.1 then dY=0 simCMD_viewDOWN:stop()  end
+    noy=true
   end
-  
+  noz=false
   local diffZ=targetHotspot[2]-simDR_headZ
   if diffZ<-0.02 then 
     if dZ>0.1 then dZ=0 simCMD_viewBACK:stop()  end
@@ -147,6 +176,11 @@ function after_physics()
   else
     if dZ>0.1 then dZ=0 simCMD_viewBACK:stop()  end
     if dZ<-0.1 then dZ=0 simCMD_viewFWD:stop()  end
+    noz=true
+  end
+
+  if nox and noy and noz then
+    movingtoTarget=false
   end
 end
 function useNavCOM(direction,phase, duration)
