@@ -103,7 +103,7 @@ A very special thanks to MCCVeen and oMrSmith for their extensive testing and ac
 ### Enhancements
 
  - Completely override all control surfaces
- - Rudder Ratio Controller
+ - Rudder Ratio Changer
  - Controls now consume hydraulic systems pressure 
  - Latest textures from PilotMathews
  - Break heating visualizations and failures
