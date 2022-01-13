@@ -1,3 +1,13 @@
+---
+header-includes:
+  - \hypersetup{colorlinks=true,
+            urlcolor=blue,
+            linkcolor=blue,
+            allbordercolors={0 0 0},
+            pdfborderstyle={/S/U/W 1}}
+geometry: "left=1.5cm,right=1.5cm,top=2cm,bottom=2cm"          
+---
+
 # Sparky744: The Boeing 747-400 fleet
 
 ## Major Overhaul of the Laminar Boeing 747-400
@@ -32,7 +42,7 @@ Two executables are included in the release zip file, these are required to have
 
 ## Troubleshooting and FAQ
 
-***Some general notes***:
+### ***Some general notes***:
 
  - On the ground RTE and LEGS behaves the same as default X-Plane RTE and LEGS, except loading .FMS files (from the X-Plane Output/FMS Plans directory) can be achieved by pressing the right line select key (aka R3) on the RTE page
 
@@ -43,7 +53,11 @@ Two executables are included in the release zip file, these are required to have
  - _Once in the air_, the X-Plane LEGS page can be reached by pressing RTE, and then L6 (marked RTE 2)
 
 
-**How did you achieve such high frame rates?**
+### **Does this aircraft work in VR?**
+
+Yes! Very much so. A complex aircraft simulation working well in VR is a key motivation of many contributors and users. Once you try this plane in VR it is likely you will never want to go back to 2D.
+
+### **How did you achieve such high frame rates?**
 
 This overhaul converts all the existing 744 systems, along with all the numerous additions from XLua, which is single threaded and directly impacts X-Plane frame rates, to XTLua, a fork of XLua which maintains general compatibility with XLua, but takes all the aircraft systems off the X-Plane flight simulation thread and makes full use of a modern multi-threaded operating system (use Linux for the best results, but Microsoft Windows and macOS are also supported).
 
@@ -51,43 +65,43 @@ XTlua is described in more detail [here](https://forums.x-plane.org/index.php?/f
 
 XTlua source is [here](https://github.com/mSparks43/XLua/tree/xTLua)
 
-**How do I use ACARS/CPDLC**
+### **How do I use ACARS/CPDLC**
 
 ACARS/CPDLC provides real world data to the FMC and as such requires a "provider" to be written and installed. An [AutoATC](https://forums.x-plane.org/index.php?/files/file/45663-main-installation-files-for-autoatc-for-xplane-11/) provider is included (Android connection required) which currently provides full flight planning, METAR and TAF reports along with ATC integration (AI ATC now with discord support a work in progress). Other networks, such as VATSIM/Hoppie and IVAO will require a similar provider integrating with the aircraft systems. You should refer to the [Go Ahead discord server.](https://discord.gg/cStTXy5) and the respective networks support channels for further information and help. 
 
 (Please note; providers that do not support all platforms will not be accepted into the aircraft distribution)
 
-**How can I remove the boarding music or PA announcements?**
+### **How can I remove the boarding music or PA announcements?**
 
 Head to the FMC MENU > ACMS > MAINT > SIMCONFIG. Here you can find many settings for the aircraft, including sound options.
 
-**How do I connect ground power?**
+### **How do I connect ground power?**
 
 The GPU can be connected in the FMS ground handling menu.
 
-**How do I go direct to a waypoint?** 
+### **How do I go direct to a waypoint?** 
 
 Flight plan manipulation is currently a "best effort" wrap around the default flightplan fms pages to get it as close to what is in the FCOM without going completely back to square oue.
 
-**What is the black console window that opens when I start the plane?** 
+### **What is the black console window that opens when I start the plane?** 
 
 Don't close it. The console window is part of the systems monitoring used during development and will give important information needed to report issues. For example if the plane crashes to desktop. This and the X-Plane Log.txt are the two primary tools for investigating issues. **This can be disabled by deleting the xtlua_debugging.txt file from the aircraft's plugins/xtlua/64/ folder.**
 
-**All my cockpit is black and I can't click anything?**
+### **All my cockpit is black and I can't click anything?**
 
 Windows users: Please install the installers described above. Also check that the plugins/xtlua/64/win.xpl extracted correctly. Some users have reported their antivirus blocking it from being extracted. Please send an angry email to your antivirus provider along with a copy of the file if you have your time wasted by this.
 
-**Why can't I move?** 
+### **Why can't I move?** 
 
 The aircraft brakes require hydraulic pressure to function, to prevent the aircraft rolling away before the hydraulics are pressurized the wheels are fitted with chocks when starting cold and dark, remove the from the ground services menu in an FMC.
 
 Additionally, the brake lever and X-Plane brakes are now separated, there is a new command to engage the brakes by lifting the parking brake lever.
 
-**Why are my screens half blank?** 
+### **Why are half my screens blank?** 
 
 IRS alignment cannot complete until you set the IRS position in the FMC. (INIT REF -> POS -> R4 to copy GPS position, R5 to enter it into current position. Make sure you don't move while it's aligning!
 
-**Why do I have flickering lights and sounds when connecting to Ground Power?**
+### **Why do I have flickering lights and sounds when connecting to Ground Power?**
 
 You may be experiencing this if you have SAM v3. To fix, disable the "Jetway External Power" option in SAM3 settings.
 
@@ -111,11 +125,11 @@ A very special thanks to MCCVeen and oMrSmith for their extensive testing and ac
 ### Bug fixes
 
  - Throttle lockout during toga run up
- - missing ELEC BUS and brake EICAS messages
+ - Missing ELEC BUS and brake EICAS messages
  - Engine logic for PW and GE engines
- - ET clock fix
+ - ET clock not running
  - Remove brakes from nose gear
- - nose pitch after touchdown autoland logic
+ - Nose pitch after touchdown autoland logic
  - Fix "why is my FMS blank" issue
  - Keep speed and ALT bugs on PFDs
  - Fix battery switch guard closing completely when battery switch is off
