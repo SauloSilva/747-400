@@ -6011,7 +6011,7 @@ GROUP Upper EICAS
           gen_tape Ind Tape
             POS 1915.500000 604.000000
             IMAGE CRT Displays/EICAS Upper/flaps_tape
-            DATAREF sim/flightmodel2/controls/flap1_deploy_ratio[3]
+            DATAREF laminar/B747/gauges/indicators/flap_deployed_ratio
             SHOW_LESS 2.190000 [3]
             LIGHT_MODE GLASS_AUTO
             LIGHT_RHEOSTAT 9

@@ -19,7 +19,7 @@ local pinRoll=0
 local windCorrectAngle=0 
 local maxPitch=0
 local maxThrottle=1
-local flareAt=30
+local flareAt=25
 local zeroRatePitch=6
 local totalLift=0
 local liftMeasurements=0;
@@ -83,8 +83,8 @@ function doPitch()
   if simDR_radarAlt1 < flareAt and simDR_radarAlt1 > doRollout then
 
     local progressPitch=((55-(simDR_radarAlt1)))/(zeroRatePitch-0.5)
-    if progressPitch>zeroRatePitch+0.5 then 
-      targetPitch=zeroRatePitch+0.5
+    if progressPitch>zeroRatePitch-0.5 then 
+      targetPitch=zeroRatePitch-0.5
     elseif progressPitch<simDR_AHARS_pitch_heading_deg_pilot and simDR_AHARS_pitch_heading_deg_pilot>zeroRatePitch-2 and simDR_AHARS_pitch_heading_deg_pilot<zeroRatePitch then --dont nose down in final 50 feet
       targetPitch=simDR_AHARS_pitch_heading_deg_pilot
     elseif progressPitch<zeroRatePitch-2 then 
@@ -106,7 +106,7 @@ function doPitch()
      targetPitch=simDR_AHARS_pitch_heading_deg_pilot
     end
   end
-  if simDR_onGround==1 then targetPitch=-0.1 end
+  if simDR_onGround==1 then targetPitch=-3 end
   
   if simDR_AHARS_pitch_heading_deg_pilot>targetPitch+0.1 then
     initElevator=-0.1*(simDR_AHARS_pitch_heading_deg_pilot-targetPitch)

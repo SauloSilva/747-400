@@ -116,14 +116,20 @@ B747DR_reverser_lockout            = deferred_dataref("laminar/B747/engines/reve
 simDR_speedbrake_ratio_control  = find_dataref("sim/cockpit2/controls/speedbrake_ratio")
 simDR_flap_handle_deploy_ratio  = find_dataref("sim/cockpit2/controls/flap_handle_deploy_ratio")
 simDR_flap_ratio_control        = find_dataref("sim/cockpit2/controls/flap_ratio")                      -- FLAP HANDLE
-simDR_flap_deploy_ratio         = find_dataref("sim/flightmodel2/controls/flap1_deploy_ratio")
+B747DR_flap_ratio               = deferred_dataref("laminar/B747/cablecontrols/flap_ratio", "number") -- USED FLAP HANDLE
+B747DR_flap_deployed_ratio        = find_dataref("laminar/B747/gauges/indicators/flap_deployed_ratio")
+B747DR_flap_deployed_ratio1        = deferred_dataref("laminar/B747/gauges/indicators/flap_deployed_ratio1", "number")
+B747DR_flap_deployed_ratio2        = deferred_dataref("laminar/B747/gauges/indicators/flap_deployed_ratio2", "number")
+B747DR_flap_deployed_ratio3        = deferred_dataref("laminar/B747/gauges/indicators/flap_deployed_ratio3", "number")
+B747DR_flap_deployed_ratio4        = deferred_dataref("laminar/B747/gauges/indicators/flap_deployed_ratio4", "number")
+simDR_flap_deploy_ratio         = find_dataref("sim/flightmodel2/controls/flap_handle_deploy_ratio")
 simDR_yaw_damper_on             = find_dataref("sim/cockpit2/switches/yaw_damper_on")
 simDR_gear_vert_defl            = find_dataref("sim/flightmodel2/gear/tire_vertical_deflection_mtr")
 simDR_gear_deploy_ratio         = find_dataref("sim/flightmodel2/gear/deploy_ratio")
 simDR_wing_flap1_deg            = find_dataref("sim/flightmodel2/wing/flap1_deg")
 B747DR_airspeed_flapsRef        = find_dataref("laminar/B747/airspeed/flapsRef")
 simDR_ind_airspeed_kts_pilot    = find_dataref("laminar/B747/gauges/indicators/airspeed_kts_pilot")
-
+B747_testcontrols_airspeed         = find_dataref("laminar/B747/testcontrols/airspeed")
 B747DR_display_N1				= find_dataref("laminar/B747/engines/display_N1")
 B747DR_display_N2				= find_dataref("laminar/B747/engines/display_N2")
 simDR_radio_alt_height_capt     = find_dataref("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot")
@@ -184,34 +190,7 @@ end
 
 function B747_speedbrake_lever_DRhandler()
     -- Done in init/scripts
---[[	
-    -- DOWN DETENT
-	if B747DR_speedbrake_lever < 0.01 then
-		B747DR_speedbrake_lever = 0.0
-        simDR_speedbrake_ratio_control = 0.0
-        B747DR_CAS_memo_status[45] = 0
-		
-     -- ARMED DETENT
-    elseif B747DR_speedbrake_lever < 0.15 and
-        B747DR_speedbrake_lever > 0.10
-    then
-        B747DR_speedbrake_lever = 0.125 
-        simDR_speedbrake_ratio_control = -0.5
-        B747DR_CAS_memo_status[45] = 1
-    
-    -- ALL OTHER POSITIONS    
-    else
-	    B747DR_speedbrake_lever = math.min(1.0 - (B747_speedbrake_stop * 0.47), B747DR_speedbrake_lever)
-        simDR_speedbrake_ratio_control = B747_rescale(0.15, 0.0, 1.0 - (B747_speedbrake_stop * 0.47), 1.0, B747DR_speedbrake_lever)
-        B747DR_CAS_memo_status[45] = 0     
-    end	   
-    
-    B747_sb_manip_changed = 1 
-    if is_timer_scheduled(B747_speedbrake_manip_timeout) then
-		stop_timer(B747_speedbrake_manip_timeout)    
-	end	
-	run_after_time(B747_speedbrake_manip_timeout, 2.0)
-]]
+
 end
 
 
@@ -814,6 +793,7 @@ function FlapinSlot()
     return false
 end
 local last_flap_handle=-1
+local flap_relief=0
 ----- FLAP INDICATOR STATUS -------------------------------------------------------------
 function B747_flap_transition_status()
     if last_flap_handle~=simDR_flap_ratio_control then
@@ -830,13 +810,32 @@ function B747_flap_transition_status()
       --print("flap in slot")
        B747DR_flap_lever_detent = 0.0
     end
-    if math.abs(simDR_flap_handle_deploy_ratio - simDR_flap_ratio_control) > 0.01 then
+    B747DR_flap_deployed_ratio=math.max(B747DR_flap_deployed_ratio1,B747DR_flap_deployed_ratio2,B747DR_flap_deployed_ratio3,B747DR_flap_deployed_ratio4)
+    if math.abs(simDR_flap_ratio_control - B747DR_flap_deployed_ratio) > 0.01 then --simDR_flap_ratio_control
         B747DR_flap_trans_status = 1
 	
     else
 	
         B747DR_flap_trans_status = 0
     end
+    if simDR_flap_ratio_control<=0.667 then
+        flap_relief=0
+        B747DR_flap_ratio=simDR_flap_ratio_control
+    elseif simDR_flap_ratio_control>0.667 and simDR_ind_airspeed_kts_pilot>203 then
+        flap_relief=1
+        B747DR_flap_ratio=0.667
+    elseif simDR_flap_ratio_control>0.834 and simDR_ind_airspeed_kts_pilot>178 then
+        flap_relief=1
+        B747DR_flap_ratio=0.833
+    elseif flap_relief==1 and simDR_flap_ratio_control>0.834 and simDR_ind_airspeed_kts_pilot<170 then
+        flap_relief=0
+        B747DR_flap_ratio=simDR_flap_ratio_control
+    elseif flap_relief==1 and simDR_flap_ratio_control>0.668 and simDR_flap_ratio_control<=0.833 and simDR_ind_airspeed_kts_pilot<195 then
+        flap_relief=0
+        B747DR_flap_ratio=simDR_flap_ratio_control
+    elseif flap_relief==0 then
+        B747DR_flap_ratio=simDR_flap_ratio_control
+    end    
     
 end
 local slatsRetract=false
@@ -874,18 +873,22 @@ function B747_flap_display_shutoff()
 end
 
 function B747_primary_EICAS_flap_display()
-
-    if simDR_flap_deploy_ratio == 0 then
-        if B747DR_EICAS1_flap_display_status == 1 then
+    tStatus=1
+    if math.abs(((B747DR_flap_deployed_ratio1+B747DR_flap_deployed_ratio2+B747DR_flap_deployed_ratio3+B747DR_flap_deployed_ratio4)/4)
+         - B747DR_flap_deployed_ratio) > 0.01 then
+            tStatus=2  
+    end
+    if simDR_flap_deploy_ratio < 0.01 then
+        if B747DR_EICAS1_flap_display_status == 1 and B747DR_flap_trans_status == 0 then
             if is_timer_scheduled(B747_flap_display_shutoff) == false then
                 run_after_time(B747_flap_display_shutoff, 10.0)
             end
         end
     else
-         if is_timer_scheduled(B747_flap_display_shutoff) == true then
+        if is_timer_scheduled(B747_flap_display_shutoff) == true then
             stop_timer(B747_flap_display_shutoff)
         end
-        B747DR_EICAS1_flap_display_status = 1
+        B747DR_EICAS1_flap_display_status = tStatus
     end
 
 end
@@ -1147,6 +1150,12 @@ function B747_fltCtrols_EICAS_msg()
       B747DR_CAS_advisory_status[301] = 0
     end
 
+    -- >FLAP RELIEF
+    if flap_relief == 1 then
+      B747DR_CAS_advisory_status[142] = 1 
+    else
+      B747DR_CAS_advisory_status[142] = 0
+    end
 end
 
 -- crazytimmtimtim

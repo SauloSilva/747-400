@@ -469,6 +469,7 @@ function in_flight_N1_GE(altitude_ft_in, delta_t_isa_K_in)
 end
 
 local last_thrust_n = {0.0, 0.0, 0.0, 0.0}
+local last_N1 = {0.0, 0.0, 0.0, 0.0}
 function N1_display_GE(altitude_ft_in, thrust_N_in, n1_factor_in, engine_in)
     local N1_corrected = 0.0
     local N1_actual = 0.0
@@ -476,7 +477,7 @@ function N1_display_GE(altitude_ft_in, thrust_N_in, n1_factor_in, engine_in)
     local corrected_thrust_lbf = 0.0
     local actual_thrust_lbf = 0.0
     local N1_low_idle = 0.0
-
+    if last_N1[engine_in] == nil then last_N1[engine_in] = 0.0 end
     if last_thrust_n[engine_in] == nil then
       last_thrust_n[engine_in] = 0.0
     end
@@ -523,7 +524,12 @@ function N1_display_GE(altitude_ft_in, thrust_N_in, n1_factor_in, engine_in)
     --Engine Idle Logic (Minimum / Approach)
     N1_low_idle = engine_idle_control_GE(altitude_ft_in)
     if tonumber(N1_actual) < tonumber(N1_low_idle) and simDR_engine_running[engine_in] == 1 then
-      N1_actual = N1_low_idle
+     -- N1_actual = N1_low_idle
+      N1_actual = B747_animate_value(last_N1[engine_in],N1_low_idle,0,115,0.1) 
+      --print(" pin N1_actual 2 "..N1_actual)
+    elseif simDR_engine_running[engine_in] == 0 then
+      N1_actual = B747_animate_value(last_N1[engine_in],simDR_N1[engine_in],0,115,0.1) 
+      --print(" pin N1_actual 1 "..N1_actual.. " n1 "..simDR_N1[engine_in])
     end
 
     if B747DR_log_level >= 1 then
@@ -540,7 +546,7 @@ function N1_display_GE(altitude_ft_in, thrust_N_in, n1_factor_in, engine_in)
       print("N1 Actual = ", N1_actual)
       print("Last Thrust In = ", last_thrust_n[engine_in])
     end
-
+    last_N1[engine_in] = N1_actual
     return N1_actual
 end
 

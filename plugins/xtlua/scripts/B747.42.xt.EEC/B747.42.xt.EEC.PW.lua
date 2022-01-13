@@ -480,6 +480,7 @@ function engine_idle_control_PW(altitude_ft_in)
   end
   
   local last_thrust_n = {0.0, 0.0, 0.0, 0.0}
+  local last_N1 = {0.0, 0.0, 0.0, 0.0}
   function N1_display_PW(altitude_ft_in, thrust_N_in, engine_in)
     local N1_corrected_rpm = 0.0
     local N1_pct = 0.0
@@ -489,7 +490,7 @@ function engine_idle_control_PW(altitude_ft_in)
     local N1_low_idle = 0.0
     local N1_idle_capture = 0.0
     local N1_zero_thrust = 0.0
-
+    if last_N1[engine_in] == nil then last_N1[engine_in] = 0.0 end
     --Handle display of an engine shutdown
     if simDR_engine_running[engine_in] == 0 then
       thrust_N_in = last_thrust_n[engine_in]
@@ -540,13 +541,18 @@ function engine_idle_control_PW(altitude_ft_in)
       end
     end
 
-    if N1_actual < N1_low_idle and N1_corrected_rpm >= 1065.4 then
-      N1_actual = N1_low_idle
+    if N1_actual < N1_low_idle and N1_corrected_rpm >= 1065.4  and simDR_engine_running[engine_in] == 1 then 
+      -- N1_actual = N1_low_idle
+      N1_actual = B747_animate_value(last_N1[engine_in],N1_low_idle,0,115,0.1) 
+      --print(" pin N1_actual 2 "..N1_actual)
+    elseif simDR_engine_running[engine_in] == 0 then
+      N1_actual = B747_animate_value(last_N1[engine_in],simDR_N1[engine_in],0,115,0.1) 
+      --print(" pin N1_actual 1 "..N1_actual.. " n1 "..simDR_N1[engine_in])
     end
 
     --During Startup / Shutdown track the XP N1 value if the formulas aren't reasonable
     if N1_actual < simDR_N1[engine_in] then
-      N1_actual = simDR_N1[engine_in]
+      N1_actual = B747_animate_value(last_N1[engine_in],simDR_N1[engine_in],0,115,0.1) 
     end
 
     if B747DR_log_level >= 1 then
@@ -561,7 +567,7 @@ function engine_idle_control_PW(altitude_ft_in)
       print("ENGINE RUNNING = ", simDR_engine_running[engine_in])
       print("Last Thrust In = ", last_thrust_n[engine_in])
     end
-
+    last_N1[engine_in] = N1_actual
     return N1_actual
   end
 

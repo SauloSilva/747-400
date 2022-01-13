@@ -66,10 +66,10 @@ function pressure_input()
     controlRatios[13]=B747DR_spoiler3
     controlRatios[14]=B747DR_spoiler4
     controlRatios[15]=B747DR_spoiler5--simDR_spoiler5
-    controlRatios[16]=simDR_spoiler67[0]
+    controlRatios[16]=B747DR_speedbrake3--simDR_spoiler67[0]
 
     --right wing
-    controlRatios[17]=simDR_spoiler67[1]
+    controlRatios[17]=B747DR_speedbrake3--simDR_spoiler67[1]
     controlRatios[18]=B747DR_spoiler8--simDR_spoiler8
     controlRatios[19]=B747DR_spoiler9--simDR_spoiler910
     controlRatios[20]=B747DR_spoiler10--simDR_spoiler910
@@ -127,10 +127,10 @@ function pressure_output()
     B747DR_outer_spoilers[1]=B747_animate_value(B747DR_outer_spoilers[1],outright_spoilers/5,-100,100,10)
 
     --flaps
-    B747DR_flaps[1]=B747_animate_value(B747DR_flaps[1],controlRatios[23],-100,100,0.1)
-    B747DR_flaps[2]=B747_animate_value(B747DR_flaps[2],controlRatios[24],-100,100,0.1)
-    B747DR_flaps[3]=B747_animate_value(B747DR_flaps[3],controlRatios[25],-100,100,0.1)
-    B747DR_flaps[4]=B747_animate_value(B747DR_flaps[4],controlRatios[26],-100,100,0.1)
+    B747DR_flaps[1]=B747_animate_value(B747DR_flaps[1],controlRatios[23],-100,100,0.08)
+    B747DR_flaps[2]=B747_animate_value(B747DR_flaps[2],controlRatios[24],-100,100,0.08)
+    B747DR_flaps[3]=B747_animate_value(B747DR_flaps[3],controlRatios[25],-100,100,0.08)
+    B747DR_flaps[4]=B747_animate_value(B747DR_flaps[4],controlRatios[26],-100,100,0.08)
     simDR_flap1=B747DR_flaps[1]
     simDR_flap2=B747DR_flaps[2]
     simDR_flap3=B747DR_flaps[3]
@@ -300,13 +300,13 @@ function flight_controls_consumption()
 end
 
 function flight_controls_override()
-    override=1
+    --[[override=1
     for i=1,4,1 do
         if B747_pressureDRs[i]>800 then
             --override=0
         end
-    end
-    simDR_override_control_surfaces=override
+    end]] --this ver always overrides
+    simDR_override_control_surfaces=1--override
     if B747_pressureDRs[1]>1000 then
         simDR_override_steering=0
     else

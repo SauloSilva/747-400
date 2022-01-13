@@ -137,6 +137,7 @@ B747DR_elec_apu_pwr_2_switch_mode   = find_dataref("laminar/B747/apu_pwr_2/switc
 B747DR_gen_drive_disc_status        = find_dataref("laminar/B747/electrical/generator/drive_disc_status")
 
 B747DR_CAS_advisory_status          = find_dataref("laminar/B747/CAS/advisory_status")
+B747DR_CAS_caution_status       = find_dataref("laminar/B747/CAS/caution_status")
 B747DR_CAS_memo_status              = find_dataref("laminar/B747/CAS/memo_status")
 B747DR_simDR_esys0              = find_dataref("laminar/B747/rel_esys")
 B747DR_simDR_esys1              = find_dataref("laminar/B747/rel_esys2")
@@ -571,7 +572,28 @@ function B747_bus_tie()
     B747DR_elec_bus2hot = B747_ternary((B747DR_button_switch_position[19] > 0.95 and (simDR_generator_off[1] ==0 or B747DR_elec_topleftbus ==1)),1,0)
     B747DR_elec_bus3hot = B747_ternary((B747DR_button_switch_position[20] > 0.95 and (simDR_generator_off[2] ==0 or B747DR_elec_toprightbus ==1)),1,0)
     B747DR_elec_bus4hot = B747_ternary((B747DR_button_switch_position[21] > 0.95 and (simDR_generator_off[3] ==0 or B747DR_elec_toprightbus ==1)),1,0)
--- Captain PFD
+
+    if B747DR_elec_bus1hot==0 then 
+        B747DR_CAS_caution_status[15]=1
+    else
+        B747DR_CAS_caution_status[15]=0
+    end
+    if B747DR_elec_bus2hot==0 then 
+        B747DR_CAS_caution_status[16]=1
+    else
+        B747DR_CAS_caution_status[16]=0
+    end
+    if B747DR_elec_bus3hot==0 then 
+        B747DR_CAS_caution_status[17]=1
+    else
+        B747DR_CAS_caution_status[17]=0
+    end
+    if B747DR_elec_bus4hot==0 then 
+        B747DR_CAS_caution_status[18]=1
+    else
+        B747DR_CAS_caution_status[18]=0
+    end
+ -- Captain PFD
 -- First Officer PFD
 -- First Officer ND
 -- Captain ND

@@ -22,7 +22,7 @@ function deferred_dataref(name,type,notifier)
 	return wrap_dref_any(dref,type) 
 end
 
-
+B747_testcontrols_airspeed         = deferred_dataref("laminar/B747/testcontrols/airspeed", "number")
 B747_testcontrols_total_heading_ratio         = deferred_dataref("laminar/B747/testcontrols/total_heading_ratio", "number")
 B747_testcontrols_total_pitch_ratio           = deferred_dataref("laminar/B747/testcontrols/total_pitch_ratio", "number")
 B747_testcontrols_total_roll_ratio           = deferred_dataref("laminar/B747/testcontrols/total_roll_ratio", "number")
@@ -131,10 +131,20 @@ B747DR_spoiler10 = deferred_dataref("laminar/B747/cablecontrols/spoiler10", "num
 B747DR_spoiler11 = deferred_dataref("laminar/B747/cablecontrols/spoiler11", "number")
 B747DR_spoiler12 = deferred_dataref("laminar/B747/cablecontrols/spoiler12", "number")
 
+B747DR_speedbrake1 = deferred_dataref("laminar/B747/cablecontrols/speedbrake34", "number")
+B747DR_speedbrake2 = deferred_dataref("laminar/B747/cablecontrols/speedbrake58", "number")
+B747DR_speedbrake3 = deferred_dataref("laminar/B747/cablecontrols/speedbrake67", "number")
+B747DR_speedbrake4 = deferred_dataref("laminar/B747/cablecontrols/speedbrake12", "number")
+
+B747DR_flap_ratio = deferred_dataref("laminar/B747/cablecontrols/flap_ratio", "number")
 B747DR_flap1 = deferred_dataref("laminar/B747/cablecontrols/flap1", "number")
 B747DR_flap2 = deferred_dataref("laminar/B747/cablecontrols/flap2", "number")
 B747DR_flap3 = deferred_dataref("laminar/B747/cablecontrols/flap3", "number")
 B747DR_flap4 = deferred_dataref("laminar/B747/cablecontrols/flap4", "number")
-
+B747DR_flap_deployed_ratio        = deferred_dataref("laminar/B747/gauges/indicators/flap_deployed_ratio", "number")
+B747DR_flap_deployed_ratio1        = deferred_dataref("laminar/B747/gauges/indicators/flap_deployed_ratio1", "number")
+B747DR_flap_deployed_ratio2        = deferred_dataref("laminar/B747/gauges/indicators/flap_deployed_ratio2", "number")
+B747DR_flap_deployed_ratio3        = deferred_dataref("laminar/B747/gauges/indicators/flap_deployed_ratio3", "number")
+B747DR_flap_deployed_ratio4        = deferred_dataref("laminar/B747/gauges/indicators/flap_deployed_ratio4", "number")
 B747DR_outer_spoilers      = deferred_dataref("laminar/B747/flt_ctrls/outer_spoilers", "array[2]") --for stat display
 B747DR_flaps      = deferred_dataref("laminar/B747/flt_ctrls/flaps", "array[5]") --0 unuse
