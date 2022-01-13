@@ -96,6 +96,34 @@ See the [commit history](https://github.com/mSparks43/747-400/commits/master) fo
 
 _Thank you all for your support and contributions!_
 
+## Release 2.3:
+Release 2.3 focuses on flight model enhancements and bug fixes to the existing systems.
+A very special thanks to MCCVeen and oMrSmith for their extensive testing and accurate reporting of issues, a very large number of fixes in this release wouldn't have been possible without the detailed breakdowns they provided. 
+
+### Enhancements
+
+ - Completely override all control surfaces
+ - Rudder Ratio Controller
+ - Controls now consume hydraulic systems pressure 
+ - Latest textures from PilotMathews
+ - Break heating visualizations and failures
+
+### Bug fixes
+
+ - Throttle lockout during toga run up
+ - missing ELEC BUS and brake EICAS messages
+ - Engine logic for PW and GE engines
+ - ET clock fix
+ - Remove brakes from nose gear
+ - nose pitch after touchdown autoland logic
+ - Fix "why is my FMS blank" issue
+ - Keep speed and ALT bugs on PFDs
+ - Fix battery switch guard closing completely when battery switch is off
+ - Fix CRT fading
+ - ACT and REQ CDU items missing
+ - Engine generators disconnect APU
+ - Fix AP disconnect disconnecting AT
+
 ## Release 2.2:
 Release 2.2 focuses on enhancements and bug fixes to the existing systems and flight model.
 
