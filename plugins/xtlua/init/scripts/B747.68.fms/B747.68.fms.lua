@@ -195,4 +195,4 @@ createFMSCommands("FMS C","cdu1","fms1","sim/FMS/","fms3")
 
 createFMSCommands("FMS L","cdu1","fms3","sim/FMS/","fms1")
  
-createFMSCommands("FMS R","cdu2","fms2","sim/FMS2/","fms2")
+createFMSCommands("FMS R","cdu1","fms2","sim/FMS/","fms2")

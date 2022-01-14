@@ -746,7 +746,7 @@ fmsL.targetPage="INDEX"
 fmsR = {}
 setmetatable(fmsR, {__index = fms})
 fmsR.id="fmsR"
-setDREFs(fmsR,"cdu2","fms2","sim/FMS2/","fms2")
+setDREFs(fmsR,"cdu1","fms2","sim/FMS/","fms2")
 fmsR.inCustomFMC=true
 fmsR.targetCustomFMC=true
 fmsR.currentPage="INDEX"

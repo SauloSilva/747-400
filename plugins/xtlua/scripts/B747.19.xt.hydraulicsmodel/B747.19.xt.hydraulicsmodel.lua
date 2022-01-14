@@ -172,16 +172,58 @@ simDR_override_steering               = find_dataref("sim/operation/override/ove
 B747DR_hyd_dmd_pmp_sel_pos      = deferred_dataref("laminar/B747/hydraulics/dmd_pump/sel_dial_pos", "array[4]")
 function B747_animate_value(current_value, target, min, max, speed)
 
-    local fps_factor = math.min(0.1, speed * SIM_PERIOD)
+    
 
-    if target >= (max - 0.001) and current_value >= (max - 0.01) then
+    if target >= (max - 0.001) then
         return max
-    elseif target <= (min + 0.001) and current_value <= (min + 0.01) then
+    elseif target <= (min + 0.001) then
        return min
     else
+      local fps_factor = math.min(0.1, speed * SIM_PERIOD)
         return current_value + ((target - current_value) * fps_factor)
     end
 
+end
+
+function B747_interpolate_value(current_value, target, min, max, speed)--speed in sex min->max
+
+  --[[if math.abs(current_value-target) <0.01 then
+    return target
+  end]]
+
+  local change = ((max-min)/speed)*(SIM_PERIOD)
+  newValue=current_value
+  
+  if newValue<=target then
+    newValue=newValue+change
+    --print(current_value.." ->newValue<= "..newValue)
+    if newValue >= target then
+      newValue = B747_animate_value(current_value,target,-100,100,100)
+    end
+  elseif newValue>target then
+    newValue=newValue-change
+    --print(current_value.." ->newValue>= "..newValue)
+    if newValue <= target then
+      newValue = B747_animate_value(current_value,target,-100,100,100)
+    end
+  end
+  if newValue <= min then
+    newValue = B747_animate_value(current_value,min,-100,100,100)
+  elseif newValue >= max then
+    newValue = B747_animate_value(current_value,max,-100,100,100)
+  else
+    --print(current_value.." ->newValue== "..newValue)
+    --newValue = newValue
+    if math.abs(current_value-target) < change then
+      newValue = B747_animate_value(current_value,target,-100,100,100)
+    --  print(current_value.." ->newValue== "..newValue)
+    --else
+    --  print(current_value.." ->newValue=== "..newValue)
+    end
+
+    
+  end
+  return newValue
 end
 ----- RESCALE ---------------------------------------------------------------------------
 function B747_rescale(in1, out1, in2, out2, x)
