@@ -90,13 +90,13 @@ function pressure_output()
     B747DR_hyd_sys_pressure_3=B747_pressureDRs[3]
     B747DR_hyd_sys_pressure_4=B747_pressureDRs[4]
 
-    B747DR_rudder_lwr_pos=B747_animate_value(B747DR_rudder_lwr_pos,controlRatios[1],-100,100,10)
-    B747DR_rudder_upr_pos=B747_animate_value(B747DR_rudder_upr_pos,controlRatios[2],-100,100,10)
+    B747DR_rudder_lwr_pos=B747_animate_value(B747DR_rudder_lwr_pos,controlRatios[1],-100,100,20)
+    B747DR_rudder_upr_pos=B747_animate_value(B747DR_rudder_upr_pos,controlRatios[2],-100,100,20)
 
-    B747DR_l_elev_inner   = B747_animate_value(B747DR_l_elev_inner,controlRatios[3],-100,100,10)
-    B747DR_r_elev_inner   = B747_animate_value(B747DR_r_elev_inner,controlRatios[4],-100,100,10)
-    B747DR_l_elev_outer   = B747_animate_value(B747DR_l_elev_outer,controlRatios[5],-100,100,10)
-    B747DR_r_elev_outer   = B747_animate_value(B747DR_r_elev_outer,controlRatios[6],-100,100,10)
+    B747DR_l_elev_inner   = B747_animate_value(B747DR_l_elev_inner,controlRatios[3],-100,100,20)
+    B747DR_r_elev_inner   = B747_animate_value(B747DR_r_elev_inner,controlRatios[4],-100,100,20)
+    B747DR_l_elev_outer   = B747_animate_value(B747DR_l_elev_outer,controlRatios[5],-100,100,20)
+    B747DR_r_elev_outer   = B747_animate_value(B747DR_r_elev_outer,controlRatios[6],-100,100,20)
 
     B747DR_l_aileron_inner   = B747_animate_value(B747DR_l_aileron_inner,controlRatios[7],-100,100,10)
     B747DR_r_aileron_inner   = B747_animate_value(B747DR_r_aileron_inner,controlRatios[8],-100,100,10)
@@ -246,7 +246,7 @@ function flight_controls_consumption()
     hydraulics_consumer({1,0,0,0},controlDiff[1]*5)
     --rudder lower 
     if hydraulics_consumer({0,1,0,1},controlDiff[1]*3)==0 then
-        controlRatios[1]=B747_animate_value(lastControlValue[1],0,-100,100,1)
+        controlRatios[1]=B747_animate_value(lastControlValue[1],0,-100,100,10)
     end
 
     --[[if hydraulics_consumer({0,1,0,1},controlDiff[1]*3)==0 then
@@ -254,24 +254,24 @@ function flight_controls_consumption()
     end]]
     -- rudder upper 
     if hydraulics_consumer({1,1,0,0},controlDiff[2]*3)==0 then
-        controlRatios[2]=B747_animate_value(lastControlValue[2],0,-100,100,1)
+        controlRatios[2]=B747_animate_value(lastControlValue[2],0,-100,100,10)
     end
     
     --1,2 L inboard elev
     if hydraulics_consumer({1,1,0,0},controlDiff[3]*3)==0 then
-        controlRatios[3]=B747_animate_value(lastControlValue[3],0,-100,100,1)
+        controlRatios[3]=B747_animate_value(lastControlValue[3],0,-100,100,20)
     end
     --3,4 R inboard elev
     if hydraulics_consumer({0,0,1,1},controlDiff[4]*3)==0 then
-        controlRatios[4]=B747_animate_value(lastControlValue[4],0,-100,100,1)
+        controlRatios[4]=B747_animate_value(lastControlValue[4],0,-100,100,20)
     end
     --1 L outboard elev
     if hydraulics_consumer({1,0,0,0},controlDiff[5]*3)==0 then
-        controlRatios[5]=B747_animate_value(lastControlValue[5],0,-100,100,1)
+        controlRatios[5]=B747_animate_value(lastControlValue[5],0,-100,100,20)
     end
     --4 R outboard elev
     if hydraulics_consumer({0,0,0,1},controlDiff[6]*3)==0 then
-        controlRatios[6]=B747_animate_value(lastControlValue[6],0,-100,100,1)
+        controlRatios[6]=B747_animate_value(lastControlValue[6],0,-100,100,20)
     end
 
 
@@ -341,7 +341,7 @@ function flight_controls_override()
     end
     --Rudder ratio changer
     B747DR_rudder_ratio=1.0-B747_rescale(150,0,450,0.84375,simDR_ias_pilot)
-
+    B747DR_elevator_ratio=(1.0-B747_rescale(150,0,350,0.84375,simDR_ias_pilot))*-1
     B747DR_l_aileron_outer_lockout   = 1.0-B747_rescale(232,0,238,1.0,simDR_ias_pilot)
     B747DR_r_aileron_outer_lockout   = (1.0-B747_rescale(232,0,238,1.0,simDR_ias_pilot))*-1
     B747_slats()
