@@ -341,7 +341,7 @@ function flight_controls_override()
     end
     --Rudder ratio changer
     B747DR_rudder_ratio=1.0-B747_rescale(150,0,450,0.84375,simDR_ias_pilot)
-    B747DR_elevator_ratio=(1.0-B747_rescale(150,0,350,0.84375,simDR_ias_pilot))*-1
+    B747DR_elevator_ratio=-1.0--(1.0-B747_rescale(150,0,350,0.84375,simDR_ias_pilot))*-1
     B747DR_l_aileron_outer_lockout   = 1.0-B747_rescale(232,0,238,1.0,simDR_ias_pilot)
     B747DR_r_aileron_outer_lockout   = (1.0-B747_rescale(232,0,238,1.0,simDR_ias_pilot))*-1
     B747_slats()

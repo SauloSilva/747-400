@@ -98435,10 +98435,10 @@ P acf/_ott_psi_sec_into_future 0.750000000
 P acf/_ott_psi_sec_to_tune 15.0
 P acf/_ott_roll_rate 6.0
 P acf/_ott_roll_response 10.0
-P acf/_ott_the_deg_off_for_full_def 3.0
-P acf/_ott_the_deg_per_kt 0.150000001
-P acf/_ott_the_sec_into_future 4.5000000
-P acf/_ott_the_sec_to_trim 0.01
+P acf/_ott_the_deg_off_for_full_def 10.0
+P acf/_ott_the_deg_per_kt 0.150000006
+P acf/_ott_the_sec_into_future 4.500000000
+P acf/_ott_the_sec_to_trim 1.010000000
 P acf/_ott_the_sec_to_tune 2.0
 P acf/_otto_ah_source_type 10
 P acf/_otto_dg_source_type 10
