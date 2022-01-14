@@ -37,6 +37,10 @@ To install, extract the zip into your aircraft folder (delete any existing copy,
 
 Integration with [Terrain Radar](https://forums.x-plane.org/index.php?/files/file/37864-terrain-radar-vertical-situation-display/) and [AutoATC](https://forums.x-plane.org/index.php?/files/file/45663-main-installation-files-for-autoatc-for-xplane-11/) is included which require installing separately. Make sure you are using the latest versions of both for the fullest experience.
 
+### Linux users (and all others)
+
+Extract the contents of the zip file to your aircaft directory
+
 ### Windows users:
 
 Two executables are included in the release zip file, these are required to have been installed for the aircraft systems to function.
