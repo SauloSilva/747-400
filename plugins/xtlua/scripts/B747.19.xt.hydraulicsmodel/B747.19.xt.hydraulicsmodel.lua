@@ -17,7 +17,8 @@ function deferred_dataref(name,nilType,callFunction)
 end
 
 B747DR_controlOverrides   = find_dataref("xtlua/controlObject")
-
+B747DR_speedbrake_lever     	= deferred_dataref("laminar/B747/flt_ctrls/speedbrake_lever", "number")
+simDR_prop_mode                 = find_dataref("sim/cockpit2/engine/actuators/prop_mode")
 B747DR_button_switch_position   = find_dataref("laminar/B747/button_switch/position")
 simDR_ias_pilot				= find_dataref("laminar/B747/gauges/indicators/airspeed_kts_pilot")
 B747DR_display_N1					= deferred_dataref("laminar/B747/engines/display_N1", "array[4]")

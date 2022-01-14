@@ -692,6 +692,7 @@ function autoSpeedbrakeDRrst()
     elseif simDR_speedbrake_ratio_control > -0.5 and simDR_speedbrake_ratio_control <= 0.0 then	
         B747DR_speedbrake_lever = 0.0
         B747DR_CAS_memo_status[45] = 0
+        print("zero lever")
     else
         B747DR_CAS_memo_status[45] = 0
         if B747_speedbrake_stop == 0 then											-- ON GROUND
@@ -838,32 +839,26 @@ function B747_flap_transition_status()
     end    
     
 end
-local slatsRetract=false
-
-function B747_landing_slats()
-   if (B747DR_speedbrake_lever <1.0 and (simDR_prop_mode[0] == 3 or simDR_prop_mode[1] == 3 or simDR_prop_mode[2] == 3 or simDR_prop_mode[3] == 3)) and B747DR_reverser_lockout==0 then
+function clearOnreverse()
+    B747_sb_manip_changed=0
+    B747DR_speedbrake_auto_ext = 0
+end
+function B747_speedbrake_onreverse()
+    if (B747DR_speedbrake_lever <1.0 and (simDR_prop_mode[0] == 3 or simDR_prop_mode[1] == 3 or simDR_prop_mode[2] == 3 or simDR_prop_mode[3] == 3)) and B747DR_reverser_lockout==0 then
         B747DR_speedbrake_lever=B747_set_animation_position(math.max(B747DR_speedbrake_lever,0.30), 1.0, 0.0, 1.0, 20.0)
-        --print("apply speedbrake") 
-   elseif simDR_flap_ratio_control==0 and simDR_innerslats_ratio==0 and simDR_outerslats_ratio==0 then
-        simDR_autoslats_ratio=0
-   elseif (B747DR_speedbrake_lever >0.5 and (simDR_prop_mode[0] == 3 or simDR_prop_mode[1] == 3 or simDR_prop_mode[2] == 3 or simDR_prop_mode[3] == 3)) 
-       or (slatsRetract==true and B747DR_speedbrake_lever >0.5) then	
-     simDR_innerslats_ratio = B747_set_animation_position(simDR_innerslats_ratio, 0.0, 0.0, 1.0, 0.5)
-     simDR_autoslats_ratio=0
-     slatsRetract=true
-   elseif B747DR_speedbrake_lever <0.5 then 
-     slatsRetract=false
-     if simDR_flap_ratio_control>0 and simDR_autoslats_ratio==0 then
-	simDR_innerslats_ratio = B747_set_animation_position(simDR_innerslats_ratio, 1.0, 0.0, 1.0, 0.5)
-	if simDR_innerslats_ratio==1 then simDR_autoslats_ratio=1 end
-     else 
-       simDR_autoslats_ratio=1
-     end
-
-    else 
-        simDR_autoslats_ratio=1 
-   end
-  
+        B747_sb_manip_changed=1
+        B747DR_speedbrake_auto_ext = 1
+            --[[if not is_timer_scheduled(autoSpeedbrakeDRrst) then
+                run_after_time(autoSpeedbrakeDRrst, 1)
+            end]]
+        if is_timer_scheduled(autoSpeedbrakeDRrst) then
+                stop_timer(autoSpeedbrakeDRrst)    
+        end	
+        if is_timer_scheduled(clearOnreverse) then
+            stop_timer(clearOnreverse)    
+        end
+        run_after_time(clearOnreverse, 1.0)
+    end
 end
 
 
@@ -1301,8 +1296,8 @@ if debug_fltctrls>0 then return end
     B747_fltCtrols_EICAS_msg()
 
     B747_fltctrls_monitor_AI()
-    --B747_landing_slats()
-	
+
+	B747_speedbrake_onreverse()
     --print(collectgarbage("count")*1024)
 	
     --Marauder28

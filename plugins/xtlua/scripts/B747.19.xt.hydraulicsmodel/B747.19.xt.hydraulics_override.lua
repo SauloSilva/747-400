@@ -299,6 +299,33 @@ function flight_controls_consumption()
     end
 end
 
+function normal_slats()
+    if simDR_flap_ratio > 0.166 then
+        simDR_innerslats_ratio  	= B747_animate_value(simDR_innerslats_ratio,1,0,1,1)
+    elseif simDR_flap2+simDR_flap3 <2 then
+        simDR_innerslats_ratio  	= B747_animate_value(simDR_innerslats_ratio,0,0,1,1)
+    end
+    if simDR_flap_ratio > 0.332 then
+        simDR_outerslats_ratio  	= B747_animate_value(simDR_outerslats_ratio,1,0,1,1)
+    elseif  simDR_flap2+simDR_flap3 <8 then
+        simDR_outerslats_ratio  	= B747_animate_value(simDR_outerslats_ratio,0,0,1,1)
+    end
+end
+local slatsRetract=false
+function B747_slats()
+    
+    if simDR_flap_ratio==0 and simDR_innerslats_ratio==0 and simDR_outerslats_ratio==0 then
+         return;
+    elseif (B747DR_speedbrake_lever >0.5 and (simDR_prop_mode[0] == 3 or simDR_prop_mode[1] == 3 or simDR_prop_mode[2] == 3 or simDR_prop_mode[3] == 3)) 
+        or (slatsRetract==true and B747DR_speedbrake_lever >0.5) then	
+      simDR_innerslats_ratio = B747_animate_value(simDR_innerslats_ratio, 0.0, 0.0, 1.0, 0.5)
+      slatsRetract=true
+    else 
+      slatsRetract=false
+      normal_slats()
+    end
+   
+ end
 function flight_controls_override()
     --[[override=1
     for i=1,4,1 do
@@ -317,14 +344,6 @@ function flight_controls_override()
 
     B747DR_l_aileron_outer_lockout   = 1.0-B747_rescale(232,0,238,1.0,simDR_ias_pilot)
     B747DR_r_aileron_outer_lockout   = (1.0-B747_rescale(232,0,238,1.0,simDR_ias_pilot))*-1
-    if simDR_flap_ratio > 0.166 then
-        simDR_innerslats_ratio  	= B747_animate_value(simDR_innerslats_ratio,1,0,1,1)
-    elseif simDR_flap2+simDR_flap3 <2 then
-        simDR_innerslats_ratio  	= B747_animate_value(simDR_innerslats_ratio,0,0,1,1)
-    end
-    if simDR_flap_ratio > 0.332 then
-        simDR_outerslats_ratio  	= B747_animate_value(simDR_outerslats_ratio,1,0,1,1)
-    elseif  simDR_flap2+simDR_flap3 <8 then
-        simDR_outerslats_ratio  	= B747_animate_value(simDR_outerslats_ratio,0,0,1,1)
-    end
+    B747_slats()
+    
 end
