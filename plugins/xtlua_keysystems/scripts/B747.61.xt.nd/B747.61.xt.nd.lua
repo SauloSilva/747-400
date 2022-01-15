@@ -4,6 +4,7 @@
 
 simDR_tcas_lat                = find_dataref("sim/cockpit2/tcas/targets/position/lat")
 simDR_tcas_lon                = find_dataref("sim/cockpit2/tcas/targets/position/lon")
+simDR_radarAlt1 = find_dataref("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot")
 simDR_tcas_vs                = find_dataref("sim/cockpit2/tcas/targets/position/vertical_speed")
 simDR_radio_nav03_ID                = find_dataref("sim/cockpit2/radios/indicators/nav3_nav_id")
 simDR_radio_nav04_ID                = find_dataref("sim/cockpit2/radios/indicators/nav4_nav_id")
@@ -342,12 +343,12 @@ function newIcons()
   if B747BR_cruiseAlt>0 and B747BR_totalDistance-B747BR_tod>-3 then
     local toddist=getDistance(simDR_latitude,simDR_longitude,B747BR_todLat,B747BR_todLong)
     if B747DR_nd_mode_capt_sel_dial_pos==2 then
-      if toddist < ranges[simDR_range_dial_capt + 1] then 
+      if toddist < ranges[simDR_range_dial_capt + 1] and simDR_radarAlt1>5000 then 
         makeIcon(iconTextDataCapt,3008,"T/D",B747BR_todLat,B747BR_todLong,toddist)
       end
     end
     if B747DR_nd_mode_fo_sel_dial_pos==2 then
-      if toddist < ranges[simDR_range_dial_fo + 1] then 
+      if toddist < ranges[simDR_range_dial_fo + 1] and simDR_radarAlt1>5000 then 
         makeIcon(iconTextDataFO,3008,"T/D",B747BR_todLat,B747BR_todLong,toddist)
       end
     end
