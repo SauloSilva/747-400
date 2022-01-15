@@ -570,20 +570,25 @@ function engine_idle_control_PW(altitude_ft_in)
     last_N1[engine_in] = N1_actual
     return N1_actual
   end
-
+  local last_N2 = {0.0, 0.0, 0.0, 0.0}
   function N2_display_PW(engine_N1_in, engine_in)
     local N2_display = 0.0
     N2_display = (0.000798 * engine_N1_in^2 - 0.154 * engine_N1_in + 10.2) * engine_N1_in * (3600/9900)  --have to multiply by the 100% rotation speed of N1 / 100% rotation speed of N2
   
-    if N2_display < simDR_N2[engine_in] then --and N2_display < 30.0 then
-      N2_display = simDR_N2[engine_in]
+    if last_N2[engine_in] == nil then last_N2[engine_in] = 0.0 end
+    if (simDR_engine_running[engine_in] == 0 or simDR_N2[engine_in]<35) then
+      N2_display = B747_animate_value(last_N2[engine_in],simDR_N2[engine_in],0,115,0.1) 
+    elseif N2_display < simDR_N2[engine_in] then --and N2_display < 30.0 then
+      N2_display = B747_animate_value(last_N2[engine_in],simDR_N2[engine_in],0,115,0.1)
+    else
+      N2_display = B747_animate_value(last_N2[engine_in],N2_display,0,115,10)
     end
 
     if B747DR_log_level >= 1 then
       print("----- N2 Display -----")
       print("N1 in, N2 = ", engine_N1_in, N2_display)
     end
-  
+    last_N2[engine_in] = N2_display
     return N2_display
   end
   

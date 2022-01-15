@@ -549,24 +549,31 @@ function N1_display_GE(altitude_ft_in, thrust_N_in, n1_factor_in, engine_in)
     last_N1[engine_in] = N1_actual
     return N1_actual
 end
-
+local last_N2 = {0.0, 0.0, 0.0, 0.0}
 function N2_display_GE(engine_N1_in, engine_in)
   local N2_display = 0.0
 
   --N2_display = (3.47E-04 * engine_N1_in^2 - 8.24E-02 * engine_N1_in + 7.71) * engine_N1_in * (3280 / 9827)  --have to multiply by the 100% rotation speed of N1 / 100% rotation speed of N2
   N2_display = (7.85E-04 * engine_N1_in^2 - 0.162 * engine_N1_in + 11.1) * engine_N1_in * (3280 / 9827)  --have to multiply by the 100% rotation speed of N1 / 100% rotation speed of N2
 
-  --When the XP N2 dataref drops below 35.0, use that instead of the N2 formula due to scaling inefficiencies with N1 as an input
+  --[[--When the XP N2 dataref drops below 35.0, use that instead of the N2 formula due to scaling inefficiencies with N1 as an input
   if simDR_N2[engine_in] < 35.0  then
     N2_display = simDR_N2[engine_in]
   elseif N2_display < 48.0 then
     N2_display = B747_rescale(35.0, 35.0, 65.0, 48.0, simDR_N2[engine_in])
-  end
-
+  end]]--
+  if last_N2[engine_in] == nil then last_N2[engine_in] = 0.0 end
+    if (simDR_engine_running[engine_in] == 0 or simDR_N2[engine_in]<35) then
+      N2_display = B747_animate_value(last_N2[engine_in],simDR_N2[engine_in],0,115,0.1) 
+    elseif N2_display < simDR_N2[engine_in] then --and N2_display < 30.0 then
+      N2_display = B747_animate_value(last_N2[engine_in],simDR_N2[engine_in],0,115,0.1)
+    else
+      N2_display = B747_animate_value(last_N2[engine_in],N2_display,0,115,10)
+    end
   if B747DR_log_level >= 1 then
     print("N1 in, N2, test = ", engine_N1_in, N2_display)
   end
-
+  last_N2[engine_in] = N2_display
   return N2_display
 end
 
