@@ -213,7 +213,7 @@ end
 
 function aircraft_simConfig()
 	local file_location = simDR_livery_path.."B747-400_simconfig.dat"
-	--print("File = "..file_location)
+	print("File = "..file_location)
 	local file = io.open(file_location, "r")
 
 	if file ~= nil then
@@ -242,9 +242,10 @@ function flight_start()
 	run_after_time(aircraft_simConfig, 1)  --Load specific simConfig data for current livery
 end
 function livery_load()
+	--print("simcongfig livery_load")
 	local refreshLivery=simDR_livery_path
 	B747DR_newsimconfig_data=1
-	run_after_time(aircraft_simConfig, 1)  --Load specific simConfig data for current livery
+	run_after_time(aircraft_simConfig, 2)  --Load specific simConfig data for current livery
 end
 
 local setSimConfig=false
