@@ -28,11 +28,16 @@ B747_duct_pressure_R                = deferred_dataref("laminar/B747/air/duct_pr
 --B747DR_engine1psi    = deferred_dataref("laminar/B747/air/engine1/bleed_air_psi", "number")
 --B747DR_engine4psi    = deferred_dataref("laminar/B747/air/engine4/bleed_air_psi", "number")
 simDR_startup_running           = find_dataref("sim/operation/prefs/startup_running")
+simDRTime=find_dataref("sim/time/total_running_time_sec")
 B747DR_hyd_temp = find_dataref("sim/physics/earth_temp_c")
 B747DR_hyd_sys_pressure_1      = deferred_dataref("laminar/B747/hydraulics/pressure_1", "number")
 B747DR_hyd_sys_pressure_2      = deferred_dataref("laminar/B747/hydraulics/pressure_2", "number")
 B747DR_hyd_sys_pressure_3      = deferred_dataref("laminar/B747/hydraulics/pressure_3", "number")
 B747DR_hyd_sys_pressure_4      = deferred_dataref("laminar/B747/hydraulics/pressure_4", "number")
+B747DR_hyd_sys_pressure_dsp_1      = deferred_dataref("laminar/B747/hydraulics/pressure_dsp_1", "number")
+B747DR_hyd_sys_pressure_dsp_2      = deferred_dataref("laminar/B747/hydraulics/pressure_dsp_2", "number")
+B747DR_hyd_sys_pressure_dsp_3      = deferred_dataref("laminar/B747/hydraulics/pressure_dsp_3", "number")
+B747DR_hyd_sys_pressure_dsp_4      = deferred_dataref("laminar/B747/hydraulics/pressure_dsp_4", "number")
 B747DR_hyd_sys_pressure_13      = deferred_dataref("laminar/B747/hydraulics/pressure_13", "number")
 B747DR_hyd_sys_pressure_23      = deferred_dataref("laminar/B747/hydraulics/pressure_23", "number")
 B747DR_hyd_sys_pressure_24      = deferred_dataref("laminar/B747/hydraulics/pressure_24", "number")
@@ -356,6 +361,19 @@ function B747_dem_pressures()
   end
   
 end
+local lastpressureUpdate=0
+function B747_show_system_pressures()
+  local diff = simDRTime - lastpressureUpdate
+	if diff < 0.5 then
+		return
+	end
+  B747DR_hyd_sys_pressure_dsp_1=math.floor(B747DR_hyd_sys_pressure_1/10)*10
+  B747DR_hyd_sys_pressure_dsp_2=math.floor(B747DR_hyd_sys_pressure_2/10)*10
+  B747DR_hyd_sys_pressure_dsp_3=math.floor(B747DR_hyd_sys_pressure_3/10)*10
+  B747DR_hyd_sys_pressure_dsp_4=math.floor(B747DR_hyd_sys_pressure_4/10)*10
+
+  lastpressureUpdate=simDRTime
+end
 function B747_system_pressures()
   --B747_animate_value(B747DR_hyd_sys_pressure_1,math.max(B747DR_hyd_dem_pressure_1,B747DR_hyd_edp_pressure_1),0,3000,1)
   B747DR_hyd_sys_pressure_use_1=B747_animate_value(B747DR_hyd_sys_pressure_use_1,((B747DR_hyd_dem_pressure_1/2+B747DR_hyd_edp_pressure_1)/10),0,40,1)--math.max(B747DR_hyd_dem_pressure_1,B747DR_hyd_edp_pressure_1)
@@ -546,6 +564,7 @@ function after_physics()
    B747_edp_pressures()
    B747_dem_pressures()
    B747_system_pressures()
+   B747_show_system_pressures()
    --consumers
    pressure_input()
    brake_accumulator()
