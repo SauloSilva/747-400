@@ -1,4 +1,4 @@
---[[ 
+--[[
 *****************************************************************************************
 *        COPYRIGHT � 2020 Mark Parker/mSparks CC-BY-NC4
 *****************************************************************************************
@@ -46,7 +46,7 @@ gs1,
 "                        ",
 "<ACMS                   ", 
 "                        ",
-"<CMC                    "
+"<CMC             SELECT>"
 }
 end
 fmsPages["INDEX"].getSmallPage=function(self,pgNo,fmsID)
@@ -68,7 +68,7 @@ fmsPages["INDEX"].getSmallPage=function(self,pgNo,fmsID)
       "                        ",
       "                        ",
       "                        ",
-      "                        ",
+      "         AIRCRAFT CONFIG",
       "                        ",
       }
 end
@@ -80,6 +80,7 @@ fmsFunctionsDefs["INDEX"]["L6"]={"setpage","CMC"}
 fmsFunctionsDefs["INDEX"]["R1"]={"setpage","EFISCTL152"}
 fmsFunctionsDefs["INDEX"]["R2"]={"setpage","EICASMODES"}
 fmsFunctionsDefs["INDEX"]["R4"]={"setpage","GNDHNDL"}
+fmsFunctionsDefs["INDEX"]["R6"]={"setpage","MAINTSIMCONFIG"}
 --fmsFunctionsDefs["INDEX"]["R6"]={"setpage", "MAINTSIMCONFIG"}
 
 fmsPages["RTE1"]=createPage("RTE1")
