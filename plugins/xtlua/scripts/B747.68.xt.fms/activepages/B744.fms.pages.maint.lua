@@ -13,7 +13,7 @@ fmsPages["MAINT"]["template"]={
 "                        ",
 "                        ",
 "                        ",
-"<INDEX       SIM CONFIG>"
+"<INDEX                  "
 }
 
 
@@ -24,6 +24,6 @@ fmsFunctionsDefs["MAINT"]["L2"]={"setpage","MAINTPERFFACTOR"}
 fmsFunctionsDefs["MAINT"]["L3"]={"setpage","MAINTIRSMONITOR"}
 fmsFunctionsDefs["MAINT"]["L6"]={"setpage","ACMS"}
 fmsFunctionsDefs["MAINT"]["R1"]={"setpage","MAINTBITE"}
-fmsFunctionsDefs["MAINT"]["R6"]={"setpage","MAINTSIMCONFIG"}
+fmsFunctionsDefs["MAINT"]["R6"]=nil
 
 
