@@ -18,7 +18,7 @@ The latest release includes accurately recreated performance and displays for al
 
 This project is an open source project, consisting of developers gathering from all over the world wanting to recreate the worlds fleet of 747-400s.
 
-Several accurately recreate 744 airframes are included, along with a 744LCF, 744BCF variants can be recreated by downloading an appropriate BCF livery. New fuselage models, including the 744F are a work in progress.
+Several accurately recreated 744 airframes are included, along with a 744LCF, 744BCF variants can be recreated by downloading an appropriate BCF livery. New fuselage models, including the 744F are a work in progress.
 
 The general concept is to bring each aircraft as close to the real version as is achievable, please refer to original 747-400 material such as the widely distributed FCOM for details on how the aircraft functions.
 
