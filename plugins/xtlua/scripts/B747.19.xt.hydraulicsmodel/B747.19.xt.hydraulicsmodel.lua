@@ -460,7 +460,7 @@ function flight_start()
     B747DR_controlOverrides = '{"minin":-20,"maxin":20,"minout":-20,"maxout":20,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/l_aileron_inner","dstDref":"sim/flightmodel/controls/wing2l_ail1def"}';
     B747DR_controlOverrides = '{"minin":-20,"maxin":20,"minout":-20,"maxout":20,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/r_aileron_inner","dstDref":"sim/flightmodel/controls/wing2r_ail1def"}';
     B747DR_controlOverrides = '{"minin":-25,"maxin":15,"minout":-25,"maxout":15,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/l_aileron_outer","dstDref":"sim/flightmodel/controls/wing4l_ail2def"}';
-    B747DR_controlOverrides = '{"minin":-15,"maxin":25,"minout":-15,"maxout":25,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/r_aileron_outer","dstDref":"sim/flightmodel/controls/wing4r_ail2def"}';  
+    B747DR_controlOverrides = '{"minin":-25,"maxin":15,"minout":-25,"maxout":15,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/r_aileron_outer","dstDref":"sim/flightmodel/controls/wing4r_ail2def"}';  
     
     --spoilers
     B747DR_controlOverrides = '{"minin":-1,"maxin":0,"minout":-45,"maxout":0,"scale":-1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/spoiler1"}';
@@ -557,8 +557,12 @@ end
 
 --function before_physics() end
 debug_hydro     = deferred_dataref("laminar/B747/debug/hydro", "number")
+local lastStat=0
+local countFrame=0
 function after_physics()
   if debug_hydro>0 then return end
+  
+
    B747_engine_hyd_valves()
    B747_engine_dem_modes()
    B747_edp_pressures()
@@ -571,6 +575,15 @@ function after_physics()
    flight_controls_consumption()
    pressure_output()
    flight_controls_override()
+   if debug_hydro<0 then
+    local diff=simDRTime-lastStat
+    countFrame=countFrame+1
+    if diff>=1 then
+      print("Hydro fps="..countFrame)
+      lastStat=simDRTime
+      countFrame=0
+    end
+  end
 end
 
 --function after_replay() end
