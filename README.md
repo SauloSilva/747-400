@@ -86,7 +86,7 @@ ACARS/CPDLC provides real world data to the FMC and as such requires a "provider
 
 ### **How can I remove the boarding music or PA announcements?**
 
-Head to the FMC MENU > ACMS > MAINT > SIMCONFIG. Here you can find many settings for the aircraft, including sound options.
+Head to the FMC MENU > AIRCRAFT CONFIG (R6). Here you can find many settings for the aircraft, including sound options.
 
 ### **How do I connect ground power?**
 
