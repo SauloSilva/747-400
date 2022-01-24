@@ -22,12 +22,6 @@ function deferred_dataref(name,type,notifier)
 	return wrap_dref_any(dref,type) 
 end
 
-B747_testcontrols_airspeed         = deferred_dataref("laminar/B747/testcontrols/airspeed", "number")
-B747_testcontrols_total_heading_ratio         = deferred_dataref("laminar/B747/testcontrols/total_heading_ratio", "number")
-B747_testcontrols_total_pitch_ratio           = deferred_dataref("laminar/B747/testcontrols/total_pitch_ratio", "number")
-B747_testcontrols_total_roll_ratio           = deferred_dataref("laminar/B747/testcontrols/total_roll_ratio", "number")
-B747_testcontrols_total_flap_ratio           = deferred_dataref("laminar/B747/testcontrols/flap_ratio", "number")
-B747_testcontrols_total_speedbrake_ratio           = deferred_dataref("laminar/B747/testcontrols/speedbrake_ratio", "number")
 
 B747_controls_lower_rudder           = deferred_dataref("laminar/B747/cablecontrols/lower_rudder", "number")
 B747_controls_upper_rudder           = deferred_dataref("laminar/B747/cablecontrols/upper_rudder", "number")
@@ -111,6 +105,9 @@ B747DR_l_elev_inner   = deferred_dataref("laminar/B747/flt_ctrls/l_elev_inner", 
 B747DR_r_elev_inner   = deferred_dataref("laminar/B747/flt_ctrls/r_elev_inner", "number")
 B747DR_l_elev_outer   = deferred_dataref("laminar/B747/flt_ctrls/l_elev_outer", "number")
 B747DR_r_elev_outer   = deferred_dataref("laminar/B747/flt_ctrls/r_elev_outer", "number")
+
+B747DR_sim_pitch_ratio   = deferred_dataref("laminar/B747/flt_ctrls/sim_pitch_ratio", "number")
+B747DR_custom_pitch_ratio   = deferred_dataref("laminar/B747/flt_ctrls/custom_pitch_ratio", "number")
 
 B747DR_l_aileron_inner   = deferred_dataref("laminar/B747/flt_ctrls/l_aileron_inner", "number")
 B747DR_r_aileron_inner   = deferred_dataref("laminar/B747/flt_ctrls/r_aileron_inner", "number")

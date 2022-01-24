@@ -1417,18 +1417,35 @@ IDX	121
 IDX	137
 
 # Image: /Applications/X-Plane/XP10.45/Aircraft/Laminar/Desktop/Heavy Metal/B747-400 United/objects/747_exterior/Exterior_HStab.png
-TRIS	0 2646
 ANIM_begin
-	ANIM_trans	   1.3111    2.0371   64.5604	   1.3111    2.0371   64.5604	0 0	no_ref
-	ANIM_rotate	  -0.9038   -0.0479   -0.4253	  1.00  -1.00	-1.0 1	laminar/B747/flt_ctrls/r_elev_outer
-	TRIS	2646 264
-ANIM_end
+	ANIM_trans	   -10.0    1.0   60.5604	   0.0    0.0   60.5604	0 0	no_ref
+	ANIM_rotate	  -1.0   -0.00   -0.00	  6.50  -6.50	-1.0 1.0	sim/cockpit2/controls/elevator_trim
+	ANIM_begin
+		ANIM_trans	   10.0    -1.0   -60.5604	   0.0    0.0   -60.5604	0 0	no_ref
+		
+		TRIS	0 2646
+	ANIM_end
+ANIM_end	
+ANIM_begin	
+    #ANIM_trans	   0.0    0.0    -0.1     0.0    0.0    -0.1	0 0	no_ref
+	ANIM_trans	   0.0    0.0   60.4604	   0.0    0.0   60.4$604	0 0	no_ref
+	ANIM_rotate	  -1.0   -0.00   -0.00	  6.50  -6.50	-1.0 1.0	sim/cockpit2/controls/elevator_trim
+	
+	ANIM_begin
+		#ANIM_trans	   1.3111    2.0371   64.5604	   1.3111    2.0371   64.5604	0 0	no_ref
+		ANIM_trans	   1.3111    2.0371    4.1      1.3111    2.0371    4.1 0 0	no_ref
+		ANIM_rotate	  -0.9038   -0.0479   -0.4253	  1.00  -1.00	-1.0 1	laminar/B747/flt_ctrls/r_elev_outer
+		TRIS	2646 264
+	ANIM_end
+	ANIM_begin
+		#ANIM_trans	  -1.3309    2.0371   64.5604	  -1.3309    2.0371   64.5604	0 0	no_ref
+		ANIM_trans	  -1.3309     2.0371    4.1      -1.3309    2.0371    4.1 0 0	no_ref
+		ANIM_rotate	  -0.9038    0.0479    0.4253	  1.00  -1.00	-1.0 1	laminar/B747/flt_ctrls/l_elev_outer
+		TRIS	2910 264
+	ANIM_end
+ANIM_end	
 ANIM_begin
-	ANIM_trans	  -1.3309    2.0371   64.5604	  -1.3309    2.0371   64.5604	0 0	no_ref
-	ANIM_rotate	  -0.9038    0.0479    0.4253	  1.00  -1.00	-1.0 1	laminar/B747/flt_ctrls/l_elev_outer
-	TRIS	2910 264
-ANIM_end
-ANIM_begin
+
 	ANIM_trans	  -8.7199    2.4410   67.3122	  -8.7199    2.4410   67.3122	0 0	no_ref
 	ANIM_rotate	   0.1964   -0.8715    0.4494	 94.37  94.37	0 1	none
 # Image: None

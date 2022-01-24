@@ -343,6 +343,39 @@ function B747_slats()
     end
    
  end
+ local lastTrimmed=0
+function ap_pitch_assist()
+    --[[simDR_AHARS_pitch_heading_deg_pilot = find_dataref("sim/cockpit2/gauges/indicators/pitch_AHARS_deg_pilot")
+    simDR_flight_director_pitch = find_dataref("sim/cockpit2/autopilot/flight_director_pitch_deg")
+    simDR_autopilot_servos_on           	= find_dataref("sim/cockpit2/autopilot/servos_on")
+    B747DR_ap_FMA_active_pitch_mode     	= find_dataref("laminar/B747/autopilot/FMA/active_pitch_mode")]]
+
+    if simDR_autopilot_servos_on>0 and B747DR_ap_FMA_active_pitch_mode>0 then
+        if simDR_AHARS_pitch_heading_deg_pilot-simDR_flight_director_pitch > 3 and simDR_vvi_fpm_pilot>-2500 then
+            print("needs pitch down assist")
+            simDR_electric_trim=1
+            return B747_interpolate_value(B747DR_sim_pitch_ratio,-0.2,-1,1,35) 
+        elseif simDR_AHARS_pitch_heading_deg_pilot-simDR_flight_director_pitch < -3 and simDR_vvi_fpm_pilot<2500 then
+            print("needs pitch up assist") 
+            simDR_electric_trim=1
+            return B747_interpolate_value(B747DR_sim_pitch_ratio,0.2,-1,1,35) 
+        end
+    end
+
+    retval=B747_interpolate_value(B747DR_sim_pitch_ratio,simDR_total_pitch_ratio-simDR_yoke_pitch_ratio,-1,1,20)
+    if simDR_pitch_mistrim == 0 then
+        simDR_electric_trim=0
+        lastTrimmed=simDRTime
+        
+    elseif simDRTime-lastTrimmed>1 then
+        simDR_electric_trim=1
+        retval=B747DR_sim_pitch_ratio--B747_interpolate_value(B747DR_sim_pitch_ratio,0,-1,1,20)
+    end
+    
+    return retval
+end
+
+
 function flight_controls_override()
     --[[override=1
     for i=1,4,1 do
@@ -358,9 +391,11 @@ function flight_controls_override()
     end
     --Rudder ratio changer
     B747DR_rudder_ratio=1.0-B747_rescale(150,0,450,0.84375,simDR_ias_pilot)
-    B747DR_elevator_ratio=-1.0--(1.0-B747_rescale(150,0,350,0.84375,simDR_ias_pilot))*-1
+    B747DR_elevator_ratio=1.0--(1.0-B747_rescale(150,0,350,0.84375,simDR_ias_pilot))*-1
     B747DR_l_aileron_outer_lockout   = 1.0-B747_rescale(232,0,238,1.0,simDR_ias_pilot)
     B747DR_r_aileron_outer_lockout   = (1.0-B747_rescale(232,0,238,1.0,simDR_ias_pilot))*-1
     B747_slats()
+    B747DR_sim_pitch_ratio=ap_pitch_assist()
     
+
 end

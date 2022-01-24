@@ -129,7 +129,7 @@ simDR_gear_deploy_ratio         = find_dataref("sim/flightmodel2/gear/deploy_rat
 simDR_wing_flap1_deg            = find_dataref("sim/flightmodel2/wing/flap1_deg")
 B747DR_airspeed_flapsRef        = find_dataref("laminar/B747/airspeed/flapsRef")
 simDR_ind_airspeed_kts_pilot    = find_dataref("laminar/B747/gauges/indicators/airspeed_kts_pilot")
-B747_testcontrols_airspeed         = find_dataref("laminar/B747/testcontrols/airspeed")
+
 B747DR_display_N1				= find_dataref("laminar/B747/engines/display_N1")
 B747DR_display_N2				= find_dataref("laminar/B747/engines/display_N2")
 simDR_radio_alt_height_capt     = find_dataref("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot")
