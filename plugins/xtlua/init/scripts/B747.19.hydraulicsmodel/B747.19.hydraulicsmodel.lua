@@ -22,7 +22,7 @@ function deferred_dataref(name,type,notifier)
 	return wrap_dref_any(dref,type) 
 end
 
-
+B747DR_flight_director_pitch           = deferred_dataref("laminar/B747/autopilot/flight_director_pitch_deg", "number")
 B747_controls_lower_rudder           = deferred_dataref("laminar/B747/cablecontrols/lower_rudder", "number")
 B747_controls_upper_rudder           = deferred_dataref("laminar/B747/cablecontrols/upper_rudder", "number")
 

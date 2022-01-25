@@ -608,7 +608,7 @@ GROUP Captain PFD
         gen_pointer FD Bar - Pitch
           POS 315.500000 767.500000
           IMAGE CRT Displays/PFD/FD/FDbarVertical
-          DATAREF sim/cockpit2/autopilot/flight_director_pitch_deg
+          DATAREF laminar/B747/autopilot/flight_director_pitch_deg
           SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
           SHOW_GREATER 1.000000 laminar/B747/autopilot/FMA/active_pitch_mode
           HIDE
@@ -4407,7 +4407,7 @@ GROUP Captain PFD
         gen_pointer FD Bar - Pitch
           POS 315.500000 767.500000
           IMAGE CRT Displays/PFD/FD/FDbarVertical
-          DATAREF sim/cockpit2/autopilot/flight_director_pitch_deg
+          DATAREF laminar/B747/autopilot/flight_director_pitch_deg
           SHOW_GREATER 0.100000 laminar/B747/pfd/capt/irs
           SHOW_GREATER 1.000000 laminar/B747/autopilot/FMA/active_pitch_mode
           HIDE
