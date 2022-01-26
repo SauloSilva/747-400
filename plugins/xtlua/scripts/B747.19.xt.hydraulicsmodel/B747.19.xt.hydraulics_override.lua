@@ -483,7 +483,7 @@ function ap_pitch_assist()
     simDR_flight_director_pitch = find_dataref("sim/cockpit2/autopilot/flight_director_pitch_deg")
     simDR_autopilot_servos_on           	= find_dataref("sim/cockpit2/autopilot/servos_on")
     B747DR_ap_FMA_active_pitch_mode     	= find_dataref("laminar/B747/autopilot/FMA/active_pitch_mode")]]
-    local target=ap_pitch_integral()
+    local target=0--ap_pitch_integral()
     local retval=B747_interpolate_value(B747DR_sim_pitch_ratio,target,-1,1,20)
     --print("ap_pitch_assist retval 0 "..retval.." "..target)
     flight_director_pitch=ap_director_integral()
