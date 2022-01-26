@@ -1057,22 +1057,26 @@ function fmsFunctions.setdata(fmsO,value)
     updateFrom=fmsO.id
     local toGet=B747DR_srcfms[updateFrom][3] --make sure we update it
     run_after_time(updateCRZ,0.5)
-  elseif value=="irspos" and string.len(fmsO["scratchpad"])>10 then
-    print("set irs pos")
-    lat=string.sub(fmsO["scratchpad"],1,9)
-    lon=string.sub(fmsO["scratchpad"],-9)
-    --fmsModules["data"]["fltdep"]=dep
-    --fmsModules["data"]["fltdst"]=dst
-    print(getFMSData("irsLat").." "..lat)
-    print(getFMSData("irsLon").." "..lon)
-    setFMSData("irsLat",lat)
-    setFMSData("irsLon",lon)
-    irsSystem["irsLat"]=lat
-    irsSystem["irsLon"]=lon
-    irsSystem["setPos"]=true
-    fmsModules["data"]["initIRSLat"]=lat
-    fmsModules["data"]["initIRSLon"]=lon
-    B747DR_fmc_notifications[12]=0
+  elseif value=="irspos" then
+	if string.len(fmsO["scratchpad"])>10 then
+		print("set irs pos")
+		lat=string.sub(fmsO["scratchpad"],1,9)
+		lon=string.sub(fmsO["scratchpad"],-9)
+		--fmsModules["data"]["fltdep"]=dep
+		--fmsModules["data"]["fltdst"]=dst
+		print(getFMSData("irsLat").." "..lat)
+		print(getFMSData("irsLon").." "..lon)
+		setFMSData("irsLat",lat)
+		setFMSData("irsLon",lon)
+		irsSystem["irsLat"]=lat
+		irsSystem["irsLon"]=lon
+		irsSystem["setPos"]=true
+		fmsModules["data"]["initIRSLat"]=lat
+		fmsModules["data"]["initIRSLon"]=lon
+		B747DR_fmc_notifications[12]=0
+	else
+		fmsO["notify"]="INVALID ENTRY"
+	end
 --     if fmsModules["fmsL"].notify=="ENTER IRS POSITION" then fmsModules["fmsL"].notify="" end
 --     if fmsModules["fmsC"].notify=="ENTER IRS POSITION" then fmsModules["fmsC"].notify="" end
 --     if fmsModules["fmsR"].notify=="ENTER IRS POSITION" then fmsModules["fmsR"].notify="" end
