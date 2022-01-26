@@ -736,14 +736,14 @@ function B747_efis_ref_alt_capt_set_dial_up_CMDhandler(phase, duration)
         if B747DR_efis_min_ref_alt_capt_sel_dial_pos == 0 then                                          -- RADIO ALT
             simDR_radio_alt_DH_capt = math.min(simDR_radio_alt_DH_capt + 1.0,1000)
         elseif B747DR_efis_min_ref_alt_capt_sel_dial_pos == 1 then                                      -- BARO ALT
-            B747DR_efis_baro_alt_ref_capt = B747DR_efis_baro_alt_ref_capt + 1.0
+            B747DR_efis_baro_alt_ref_capt = math.min(B747DR_efis_baro_alt_ref_capt + 1.0,10000)
         end
     elseif phase == 1 and duration > 1.0 then
         B747DR_efis_ref_alt_capt_set_dial_pos = B747DR_efis_ref_alt_capt_set_dial_pos + 0.1
         if B747DR_efis_min_ref_alt_capt_sel_dial_pos == 0 then                                          -- RADIO ALT
             simDR_radio_alt_DH_capt = math.min(simDR_radio_alt_DH_capt + 10.0,1000)
         elseif B747DR_efis_min_ref_alt_capt_sel_dial_pos == 1 then                                      -- BARO ALT
-            B747DR_efis_baro_alt_ref_capt = B747DR_efis_baro_alt_ref_capt + 10.0
+            B747DR_efis_baro_alt_ref_capt = math.min(B747DR_efis_baro_alt_ref_capt + 10.0,10000)
         end
     end
 end
@@ -754,14 +754,14 @@ function B747_efis_ref_alt_capt_set_dial_dn_CMDhandler(phase, duration)
         if B747DR_efis_min_ref_alt_capt_sel_dial_pos == 0 then                                          -- RADIO ALT
             simDR_radio_alt_DH_capt = math.max(simDR_radio_alt_DH_capt - 1.0,-1)
         elseif B747DR_efis_min_ref_alt_capt_sel_dial_pos == 1 then                                      -- BARO ALT
-            B747DR_efis_baro_alt_ref_capt = B747DR_efis_baro_alt_ref_capt - 1.0
+            B747DR_efis_baro_alt_ref_capt = math.max(B747DR_efis_baro_alt_ref_capt - 1.0,-101)
         end
     elseif phase == 1 and duration > 1.0 then
         B747DR_efis_ref_alt_capt_set_dial_pos = B747DR_efis_ref_alt_capt_set_dial_pos - 0.1
         if B747DR_efis_min_ref_alt_capt_sel_dial_pos == 0 then                                          -- RADIO ALT
             simDR_radio_alt_DH_capt = math.max(simDR_radio_alt_DH_capt - 10.0,-1)
         elseif B747DR_efis_min_ref_alt_capt_sel_dial_pos == 1 then                                      -- BARO ALT
-            B747DR_efis_baro_alt_ref_capt = B747DR_efis_baro_alt_ref_capt - 10.0
+            B747DR_efis_baro_alt_ref_capt = math.max(B747DR_efis_baro_alt_ref_capt - 10.0,-101)
         end
     end
 end
@@ -770,10 +770,14 @@ end
 function B747_efis_dh_capt_reset_switch_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_efis_dh_reset_capt_switch_pos = 1
-        simDR_radio_alt_DH_capt=350
-        B747DR_efis_baro_alt_ref_capt=1000
-        simDR_radio_alt_DH_fo=350
-        B747DR_efis_baro_alt_ref_fo=1000
+        if B747DR_efis_min_ref_alt_capt_sel_dial_pos == 0 then
+            simDR_radio_alt_DH_capt=350
+            simDR_radio_alt_DH_fo=350
+        else
+            B747DR_efis_baro_alt_ref_capt=1000
+            B747DR_efis_baro_alt_ref_fo=1000
+        end
+   
     elseif phase == 2 then
         B747DR_efis_dh_reset_capt_switch_pos = 0
     end
@@ -901,16 +905,16 @@ function B747_efis_ref_alt_fo_set_dial_up_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_efis_ref_alt_fo_set_dial_pos = B747DR_efis_ref_alt_fo_set_dial_pos + 0.1
         if B747DR_efis_min_ref_alt_fo_sel_dial_pos == 0 then                                          -- RADIO ALT
-            simDR_radio_alt_DH_fo = simDR_radio_alt_DH_fo + 1.0
+            simDR_radio_alt_DH_fo = math.min(simDR_radio_alt_DH_fo + 1.0,1000)
         elseif B747DR_efis_min_ref_alt_fo_sel_dial_pos == 1 then                                      -- BARO ALT
-            B747DR_efis_baro_alt_ref_fo = B747DR_efis_baro_alt_ref_fo + 1.0
+            B747DR_efis_baro_alt_ref_fo = math.min(B747DR_efis_baro_alt_ref_fo + 1.0,10000)
         end
     elseif phase == 1 and duration > 1.0 then
         B747DR_efis_ref_alt_fo_set_dial_pos = B747DR_efis_ref_alt_fo_set_dial_pos + 0.1
         if B747DR_efis_min_ref_alt_fo_sel_dial_pos == 0 then                                          -- RADIO ALT
-            simDR_radio_alt_DH_fo = simDR_radio_alt_DH_fo + 10.0
+            simDR_radio_alt_DH_fo = math.min(simDR_radio_alt_DH_fo + 10.0,1000)
         elseif B747DR_efis_min_ref_alt_fo_sel_dial_pos == 1 then                                      -- BARO ALT
-            B747DR_efis_baro_alt_ref_fo = B747DR_efis_baro_alt_ref_fo + 10.0
+            B747DR_efis_baro_alt_ref_fo = math.min(B747DR_efis_baro_alt_ref_fo + 10.0,10000)
         end
     end
 end
@@ -921,14 +925,14 @@ function B747_efis_ref_alt_fo_set_dial_dn_CMDhandler(phase, duration)
         if B747DR_efis_min_ref_alt_fo_sel_dial_pos == 0 then                                          -- RADIO ALT
             simDR_radio_alt_DH_fo = math.max(simDR_radio_alt_DH_fo - 1.0,-1)
         elseif B747DR_efis_min_ref_alt_fo_sel_dial_pos == 1 then                                      -- BARO ALT
-            B747DR_efis_baro_alt_ref_fo = B747DR_efis_baro_alt_ref_fo - 1.0
+            B747DR_efis_baro_alt_ref_fo = math.max(B747DR_efis_baro_alt_ref_fo - 1.0,-101)
         end
     elseif phase == 1 and duration > 1.0 then
         B747DR_efis_ref_alt_fo_set_dial_pos = B747DR_efis_ref_alt_fo_set_dial_pos - 0.1
         if B747DR_efis_min_ref_alt_fo_sel_dial_pos == 0 then                                          -- RADIO ALT
             simDR_radio_alt_DH_fo = math.max(simDR_radio_alt_DH_fo - 10.0,-1)
         elseif B747DR_efis_min_ref_alt_fo_sel_dial_pos == 1 then                                      -- BARO ALT
-            B747DR_efis_baro_alt_ref_fo = B747DR_efis_baro_alt_ref_fo - 10.0
+            B747DR_efis_baro_alt_ref_fo = math.max(B747DR_efis_baro_alt_ref_fo - 10.0,-101)
         end
     end
 end
@@ -938,10 +942,13 @@ function B747_efis_dh_fo_reset_switch_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_efis_dh_reset_fo_switch_pos = 1
         B747DR_efis_dh_reset_capt_switch_pos = 1
-        simDR_radio_alt_DH_capt=350
-        B747DR_efis_baro_alt_ref_capt=1000
-        simDR_radio_alt_DH_fo=350
-        B747DR_efis_baro_alt_ref_fo=1000
+        if B747DR_efis_min_ref_alt_fo_sel_dial_pos == 0 then
+            simDR_radio_alt_DH_capt=350
+            simDR_radio_alt_DH_fo=350
+        else
+            B747DR_efis_baro_alt_ref_capt=1000
+            B747DR_efis_baro_alt_ref_fo=1000
+        end
     elseif phase == 2 then
         B747DR_efis_dh_reset_fo_switch_pos = 0
     end
@@ -2507,6 +2514,11 @@ function B747_baro_init()
     B747DR_efis_baro_fo_preselect = 29.92
     simDR_altimeter_baro_inHg_fo = 29.92
     B747DR_efis_baro_std_fo_show_preselect = 0
+    simDR_radio_alt_DH_capt=-1
+    simDR_radio_alt_DH_fo=-1
+    B747DR_efis_baro_alt_ref_capt=-101
+    B747DR_efis_baro_alt_ref_fo=-101
+
 end
 
 

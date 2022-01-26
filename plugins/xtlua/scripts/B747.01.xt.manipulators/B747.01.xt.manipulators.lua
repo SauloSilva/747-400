@@ -145,7 +145,10 @@ B747DR_gen_drive_disc_status        = deferred_dataref("laminar/B747/electrical/
 
 B747DR_ap_FMA_autothrottle_mode     	= deferred_dataref("laminar/B747/autopilot/FMA/autothrottle_mode", "number")
 
-
+simDR_radio_alt_DH_capt             = find_dataref("sim/cockpit2/gauges/actuators/radio_altimeter_bug_ft_pilot")
+simDR_radio_alt_DH_fo               = find_dataref("sim/cockpit2/gauges/actuators/radio_altimeter_bug_ft_copilot")
+B747DR_efis_baro_alt_ref_capt       = deferred_dataref("laminar/B747/efis/baro_ref/capt", "number")
+B747DR_efis_baro_alt_ref_fo                     = deferred_dataref("laminar/B747/efis/baro_ref/fo", "number")
 --*************************************************************************************--
 --** 				        READ-WRITE CUSTOM DATAREF HANDLERS     		    	     **--
 --*************************************************************************************--
@@ -587,6 +590,10 @@ end
 function B747_elec_battery_CMDhandler(phase, duration)
     if phase == 0 then 
         B747_button_switch_position_target[13] = 1.0 - B747_button_switch_position_target[13] 
+        simDR_radio_alt_DH_capt=-1
+        simDR_radio_alt_DH_fo=-1
+        B747DR_efis_baro_alt_ref_capt=-101
+        B747DR_efis_baro_alt_ref_fo=-101
         if is_timer_scheduled(B747_close_button_cover[9]) then
             stop_timer(B747_close_button_cover[9])
         end
