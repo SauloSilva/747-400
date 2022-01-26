@@ -1945,6 +1945,11 @@ function B747_ap_appr_mode_beforeCMDhandler(phase, duration)
 		--if diff>0.5 then
 		if B747DR_ap_approach_mode <= 0 then
 			B747DR_ap_approach_mode = 1
+			if (B747DR_ap_cmd_L_mode ==1 or B747DR_ap_cmd_C_mode ==1 or B747DR_ap_cmd_R_mode==1) and simDR_radarAlt1>1500 then
+				B747DR_ap_cmd_L_mode=1
+				B747DR_ap_cmd_C_mode=1
+				B747DR_ap_cmd_R_mode=1
+			end
 			print("arm APP approach")
 		elseif simDR_autopilot_gs_status ~= 2 and simDR_autopilot_nav_status ~= 2 then
 			B747DR_ap_approach_mode = 0
@@ -2448,7 +2453,7 @@ function B747_ap_afds()
 	end
 
 	local landAssist = false
-	if simDR_autopilot_approach_status > 1 or B747DR_ap_autoland == 1 then
+	if (simDR_autopilot_approach_status > 1 or B747DR_ap_autoland == 1) and simDR_radarAlt1<1500 then
 		landAssist = true
 	end
 	noAutoLand = false
