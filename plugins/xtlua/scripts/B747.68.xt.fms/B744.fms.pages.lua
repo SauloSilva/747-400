@@ -2292,35 +2292,137 @@ function fmsFunctions.doCMD(fmsO,value)
 end
 
 function fmsFunctions.setSoundOption(fmsO,value) -- sound options (crazytimtimtim + Matt726)
-
+	-- TODO, this would make more sense to use an array lookup of options, but copied pasted for now
 	if value == "alarmsOption" then
 		if B747DR_SNDoptions[0] ~= 2 then
 			B747DR_SNDoptions[0] = B747DR_SNDoptions[0] + 1
 		elseif B747DR_SNDoptions[0] == 2 then
 			B747DR_SNDoptions[0] = 0
 		end
+		simConfigData["data"].SOUND.alarmsOption = B747DR_SNDoptions[0]
+		pushSimConfig(simConfigData["data"]["values"])
 	end
 
-	if value == "seatBeltOption" then B747DR_SNDoptions[1] = 1 - B747DR_SNDoptions[1] return end
-	if value == "paOption" then B747DR_SNDoptions[2] = 1 - B747DR_SNDoptions[2] return end
-	if value == "musicOption" then B747DR_SNDoptions[3] = 1 - B747DR_SNDoptions[3] return end
-	if value == "PM_toggle" then B747DR_SNDoptions[4] = 1 - B747DR_SNDoptions[4] return end
-	if value == "V1Option" then B747DR_SNDoptions[5] = 1 - B747DR_SNDoptions[5] return end
+	if value == "seatBeltOption" then 
+		B747DR_SNDoptions[1] = 1 - B747DR_SNDoptions[1] 
+		simConfigData["data"].SOUND.seatBeltOption = B747DR_SNDoptions[1]
+		pushSimConfig(simConfigData["data"]["values"])
+		return 
+	end
+	if value == "paOption" then 
+		B747DR_SNDoptions[2] = 1 - B747DR_SNDoptions[2] 
+		simConfigData["data"].SOUND.paOption = B747DR_SNDoptions[2]
+		pushSimConfig(simConfigData["data"]["values"])
+		return 
+	end
+	if value == "musicOption" then 
+		B747DR_SNDoptions[3] = 1 - B747DR_SNDoptions[3] 
+		simConfigData["data"].SOUND.musicOption = B747DR_SNDoptions[3]
+		pushSimConfig(simConfigData["data"]["values"])
+		return 
+	end
+	if value == "PM_toggle" then 
+		B747DR_SNDoptions[4] = 1 - B747DR_SNDoptions[4] 
+		simConfigData["data"].SOUND.PM_toggle = B747DR_SNDoptions[4]
+		pushSimConfig(simConfigData["data"]["values"])
+		return 
+	end
+	if value == "V1Option" then 
+		B747DR_SNDoptions[5] = 1 - B747DR_SNDoptions[5] 
+		simConfigData["data"].SOUND.V1Option = B747DR_SNDoptions[5]
+		pushSimConfig(simConfigData["data"]["values"])
+		return 
+	end
 
-	if value == "GPWSminimums" then B747DR_SNDoptions_gpws[1] = 1 - B747DR_SNDoptions_gpws[1] return end
-	if value == "GPWSapproachingMinimums" then B747DR_SNDoptions_gpws[2] = 1 - B747DR_SNDoptions_gpws[2] return end
-	if value == "GPWS2500" then B747DR_SNDoptions_gpws[3] = 1 - B747DR_SNDoptions_gpws[3] return end
-	if value == "GPWS1000" then B747DR_SNDoptions_gpws[4] = 1 - B747DR_SNDoptions_gpws[4] return end
-	if value == "GPWS500" then B747DR_SNDoptions_gpws[5] = 1 - B747DR_SNDoptions_gpws[5] return end
-	if value == "GPWS400" then B747DR_SNDoptions_gpws[6] = 1 - B747DR_SNDoptions_gpws[6] return end
-	if value == "GPWS300" then B747DR_SNDoptions_gpws[7] = 1 - B747DR_SNDoptions_gpws[7] return end
-	if value == "GPWS200" then B747DR_SNDoptions_gpws[8] = 1 - B747DR_SNDoptions_gpws[8] return end
-	if value == "GPWS100" then B747DR_SNDoptions_gpws[9] = 1 - B747DR_SNDoptions_gpws[9] return end
-	if value == "GPWS50" then B747DR_SNDoptions_gpws[10] = 1 - B747DR_SNDoptions_gpws[10] return end
-	if value == "GPWS40" then B747DR_SNDoptions_gpws[11] = 1 - B747DR_SNDoptions_gpws[11] return end
-	if value == "GPWS30" then B747DR_SNDoptions_gpws[12] = 1 - B747DR_SNDoptions_gpws[12] return end
-	if value == "GPWS20" then B747DR_SNDoptions_gpws[13] = 1 - B747DR_SNDoptions_gpws[13] return end
-	if value == "GPWS10" then B747DR_SNDoptions_gpws[14] = 1 - B747DR_SNDoptions_gpws[14]return end
-	if value == "GPWS5" then B747DR_SNDoptions_gpws[15] = 1 - B747DR_SNDoptions_gpws[15] return end
+	if value == "GPWSminimums" then 
+		B747DR_SNDoptions_gpws[1] = 1 - B747DR_SNDoptions_gpws[1] 
+		simConfigData["data"].SOUND.GPWSminimums = B747DR_SNDoptions_gpws[1]
+		pushSimConfig(simConfigData["data"]["values"])
+		return 
+	end
+	if value == "GPWSapproachingMinimums" then 
+		B747DR_SNDoptions_gpws[2] = 1 - B747DR_SNDoptions_gpws[2] 
+		simConfigData["data"].SOUND.GPWSapproachingMinimums = B747DR_SNDoptions_gpws[2]
+		pushSimConfig(simConfigData["data"]["values"])
+		return 
+	end
+	if value == "GPWS2500" then 
+		B747DR_SNDoptions_gpws[3] = 1 - B747DR_SNDoptions_gpws[3] 
+		simConfigData["data"].SOUND.GPWS2500 = B747DR_SNDoptions_gpws[3]
+		pushSimConfig(simConfigData["data"]["values"])
+		return 
+	end
+	if value == "GPWS1000" then 
+		B747DR_SNDoptions_gpws[4] = 1 - B747DR_SNDoptions_gpws[4] 
+		simConfigData["data"].SOUND.GPWS1000 = B747DR_SNDoptions_gpws[4]
+		pushSimConfig(simConfigData["data"]["values"])
+		return 
+	end
+	if value == "GPWS500" then 
+		B747DR_SNDoptions_gpws[5] = 1 - B747DR_SNDoptions_gpws[5] 
+		simConfigData["data"].SOUND.GPWS500 = B747DR_SNDoptions_gpws[5]
+		pushSimConfig(simConfigData["data"]["values"])
+		return 
+	end
+	if value == "GPWS400" then 
+		B747DR_SNDoptions_gpws[6] = 1 - B747DR_SNDoptions_gpws[6] 
+		simConfigData["data"].SOUND.GPWS400 = B747DR_SNDoptions_gpws[6]
+		pushSimConfig(simConfigData["data"]["values"])
+		return 
+	end
+	if value == "GPWS300" then 
+		B747DR_SNDoptions_gpws[7] = 1 - B747DR_SNDoptions_gpws[7] 
+		simConfigData["data"].SOUND.GPWS300 = B747DR_SNDoptions_gpws[7]
+		pushSimConfig(simConfigData["data"]["values"])
+		return 
+	end
+	if value == "GPWS200" then
+		 B747DR_SNDoptions_gpws[8] = 1 - B747DR_SNDoptions_gpws[8] 
+		 simConfigData["data"].SOUND.GPWS200 = B747DR_SNDoptions_gpws[8]
+		pushSimConfig(simConfigData["data"]["values"])
+		 return 
+	end
+	if value == "GPWS100" then 
+		B747DR_SNDoptions_gpws[9] = 1 - B747DR_SNDoptions_gpws[9] 
+		simConfigData["data"].SOUND.GPWS100 = B747DR_SNDoptions_gpws[9]
+		pushSimConfig(simConfigData["data"]["values"])
+		return 
+	end
+	if value == "GPWS50" then 
+		B747DR_SNDoptions_gpws[10] = 1 - B747DR_SNDoptions_gpws[10] 
+		simConfigData["data"].SOUND.GPWS50 = B747DR_SNDoptions_gpws[10]
+		pushSimConfig(simConfigData["data"]["values"])
+		return 
+	end
+	if value == "GPWS40" then 
+		B747DR_SNDoptions_gpws[11] = 1 - B747DR_SNDoptions_gpws[11] 
+		simConfigData["data"].SOUND.GPWS40 = B747DR_SNDoptions_gpws[11]
+		pushSimConfig(simConfigData["data"]["values"])
+		return 
+	end
+	if value == "GPWS30" then 
+		B747DR_SNDoptions_gpws[12] = 1 - B747DR_SNDoptions_gpws[12] 
+		simConfigData["data"].SOUND.GPWS30 = B747DR_SNDoptions_gpws[12]
+		pushSimConfig(simConfigData["data"]["values"])
+		return 
+	end
+	if value == "GPWS20" then 
+		B747DR_SNDoptions_gpws[13] = 1 - B747DR_SNDoptions_gpws[13] 
+		simConfigData["data"].SOUND.GPWS20 = B747DR_SNDoptions_gpws[13]
+		pushSimConfig(simConfigData["data"]["values"])
+		return 
+	end
+	if value == "GPWS10" then 
+		B747DR_SNDoptions_gpws[14] = 1 - B747DR_SNDoptions_gpws[14]
+		simConfigData["data"].SOUND.GPWS10 = B747DR_SNDoptions_gpws[14]
+		pushSimConfig(simConfigData["data"]["values"])
+		return 
+	end
+	if value == "GPWS5" then 
+		B747DR_SNDoptions_gpws[15] = 1 - B747DR_SNDoptions_gpws[15] 
+		simConfigData["data"].SOUND.GPWS5 = B747DR_SNDoptions_gpws[15]
+		pushSimConfig(simConfigData["data"]["values"])
+		return 
+	end
 
 end

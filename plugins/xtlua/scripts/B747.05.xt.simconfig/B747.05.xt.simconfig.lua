@@ -65,6 +65,9 @@ B747DR_efis_baro_ref_fo_switch_pos			= deferred_dataref("laminar/B747/efis/baro_
 B747DR_engineType                               = deferred_dataref("laminar/B747/engines/type", "number")
 B747DR_hideGE						= deferred_dataref("laminar/B747/engines/hideGE", "number") 
 B747DR_hideRR						= deferred_dataref("laminar/B747/engines/hideRR", "number") 
+B747DR_SNDoptions			        	= deferred_dataref("laminar/B747/fmod/options", "array[7]")
+--B747DR_SNDoptions_volume				= deferred_dataref("laminar/B747/fmod/options/volume", "array[8]")
+B747DR_SNDoptions_gpws					= deferred_dataref("laminar/B747/fmod/options/gpws", "array[16]")
 --*************************************************************************************--
 --** 				        MAIN PROGRAM LOGIC                                       **--
 --*************************************************************************************--
@@ -105,6 +108,29 @@ function simconfig_values()
 								drag_ff = "+0.0/-0.0",
 					  },
 			},
+			SOUND = { --default 0 on
+				alarmsOption = 0,
+				seatBeltOption = 0,
+				paOption = 0,
+				musicOption = 0,  --EPR, N1  Should be N1 for GE engines
+				PM_toggle = 0,  --CRT, LCD  (used in Passenger & Combi Aircraft)
+				V1Option = 0,  --CRT, LCD  (used in Freighter Aircraft)
+				GPWSminimums = 0,
+				GPWSapproachingMinimums = 0,
+				GPWS2500 = 0,
+				GPWS1000 =0,
+				GPWS500 = 0,
+				GPWS400 = 0,
+				GPWS300 = 0,
+				GPWS200 = 0,
+				GPWS100 = 0,
+				GPWS50 = 0,
+				GPWS40 = 0,
+				GPWS30 = 0,
+				GPWS20 = 0,
+				GPWS10 = 0,
+				GPWS5 = 0
+			}
 	}
 end
 
@@ -161,9 +187,49 @@ function checkEngineType()
 	end
 end
 -- crazytimtimtim end
+function setSoundOption(key,value) 
 
+	if key == "alarmsOption" then
+		B747DR_SNDoptions[0] = value
+	end
+
+	if key == "seatBeltOption" then 
+		B747DR_SNDoptions[1] = value
+		return 
+	end
+	if key == "paOption" then 
+		B747DR_SNDoptions[2] = value
+		return 
+	end
+	if key == "musicOption" then 
+		B747DR_SNDoptions[3] = value
+		return 
+	end
+	if key == "PM_toggle" then 
+		B747DR_SNDoptions[4] = value
+		return 
+	end
+	if key == "V1Option" then B747DR_SNDoptions[5] = value return end
+
+	if key == "GPWSminimums" then B747DR_SNDoptions_gpws[1] = value return end
+	if key == "GPWSapproachingMinimums" then B747DR_SNDoptions_gpws[2] = value return end
+	if key == "GPWS2500" then B747DR_SNDoptions_gpws[3] = value return end
+	if key == "GPWS1000" then B747DR_SNDoptions_gpws[4] = value return end
+	if key == "GPWS500" then B747DR_SNDoptions_gpws[5] = value return end
+	if key == "GPWS400" then B747DR_SNDoptions_gpws[6] = value return end
+	if key == "GPWS300" then B747DR_SNDoptions_gpws[7] = value return end
+	if key == "GPWS200" then B747DR_SNDoptions_gpws[8] = value return end
+	if key == "GPWS100" then B747DR_SNDoptions_gpws[9] = value return end
+	if key == "GPWS50" then B747DR_SNDoptions_gpws[10] = value return end
+	if key == "GPWS40" then B747DR_SNDoptions_gpws[11] = value return end
+	if key == "GPWS30" then B747DR_SNDoptions_gpws[12] = value return end
+	if key == "GPWS20" then B747DR_SNDoptions_gpws[13] = value return end
+	if key == "GPWS10" then B747DR_SNDoptions_gpws[14] = value return end
+	if key == "GPWS5" then B747DR_SNDoptions_gpws[15] = value return end
+
+end
 function set_loaded_configs()
-	B747DR_newsimconfig_data=0
+	
 	--Baro
 	if simConfigData["data"].SIM.baro_indicator == "IN" then
 		B747DR_efis_baro_ref_capt_sel_dial_pos = 0
@@ -208,7 +274,11 @@ function set_loaded_configs()
 	elseif simConfigData["data"].SIM.fo_lwr == "EICAS PRI" then
 		B747DR_flt_inst_lwr_disp_fo_sel_dial_pos = 2
 	end
+	for key, value in pairs(simConfigData["data"].SOUND) do
+		setSoundOption(key,value)
+	end
 
+	B747DR_newsimconfig_data=0
 end
 
 function aircraft_simConfig()
@@ -218,9 +288,17 @@ function aircraft_simConfig()
 
 	if file ~= nil then
 		io.input(file)
-		B747DR_simconfig_data = io.read()
-		io.close(file)	
-		
+		local tmpDataS = io.read()
+		io.close(file)
+		--print("read "..tmpDataS)
+		local tmpData=json.decode(tmpDataS)
+		if (tmpData["SOUND"]==nil) then
+			tmpData["SOUND"]=simconfig_values()["SOUND"]
+		end
+		--print("encoding "..tmpDataS)
+		B747DR_simconfig_data = json.encode(tmpData)
+		--print("done encoding "..B747DR_simconfig_data)
+		B747DR_newsimconfig_data=1
 		run_after_time(set_loaded_configs, 3)  --Apply loaded configs.  Wait a few seconds to ensure they load correctly.
 	else
 		B747DR_simconfig_data = json.encode(simconfig_values())
@@ -263,6 +341,7 @@ end
 function after_physics()
 	--Keep the structure fresh
 	if hasSimConfig()==false then return end
+
 
 	--See if Baro's should be sync'd
 	baro_sync()
