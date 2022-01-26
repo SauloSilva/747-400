@@ -318,14 +318,14 @@ end
 
 function normal_slats()
     if simDR_flap_ratio > 0.166 then
-        simDR_innerslats_ratio  	= B747_animate_value(simDR_innerslats_ratio,1,0,1,1)
+        simDR_innerslats_ratio  	= B747_interpolate_value(simDR_innerslats_ratio,1,0,1,1)
     elseif simDR_flap2+simDR_flap3 <2 then
-        simDR_innerslats_ratio  	= B747_animate_value(simDR_innerslats_ratio,0,0,1,1)
+        simDR_innerslats_ratio  	= B747_interpolate_value(simDR_innerslats_ratio,0,0,1,1)
     end
     if simDR_flap_ratio > 0.332 then
-        simDR_outerslats_ratio  	= B747_animate_value(simDR_outerslats_ratio,1,0,1,1)
+        simDR_outerslats_ratio  	= B747_interpolate_value(simDR_outerslats_ratio,1,0,1,1)
     elseif  simDR_flap2+simDR_flap3 <8 then
-        simDR_outerslats_ratio  	= B747_animate_value(simDR_outerslats_ratio,0,0,1,1)
+        simDR_outerslats_ratio  	= B747_interpolate_value(simDR_outerslats_ratio,0,0,1,1)
     end
 end
 local slatsRetract=false
@@ -335,7 +335,7 @@ function B747_slats()
          return;
     elseif (B747DR_speedbrake_lever >0.5 and (simDR_prop_mode[0] == 3 or simDR_prop_mode[1] == 3 or simDR_prop_mode[2] == 3 or simDR_prop_mode[3] == 3)) 
         or (slatsRetract==true and B747DR_speedbrake_lever >0.5) then	
-      simDR_innerslats_ratio = B747_animate_value(simDR_innerslats_ratio, 0.0, 0.0, 1.0, 0.5)
+      simDR_innerslats_ratio = B747_interpolate_value(simDR_innerslats_ratio, 0.0, 0.0, 1.0, 1)
       slatsRetract=true
     else 
       slatsRetract=false
@@ -385,7 +385,9 @@ local last_simDR_AHARS_pitch_heading_deg_pilot=0
 local last_altitude=0
 local directorSampleRate=0.02
 function ap_director_pitch()
-    if (B747DR_ap_FMA_active_pitch_mode==4 or B747DR_ap_FMA_active_pitch_mode==8) and (simDR_pressureAlt1> simDR_autopilot_altitude_ft+1000 or simDR_pressureAlt1< simDR_autopilot_altitude_ft-1000) then
+    local alt_delta=simDR_pressureAlt1-last_altitude
+    last_altitude=simDR_pressureAlt1
+    if (B747DR_ap_FMA_active_pitch_mode==4 or B747DR_ap_FMA_active_pitch_mode==8) and (simDR_pressureAlt1> simDR_autopilot_altitude_ft+1000 or simDR_pressureAlt1< simDR_autopilot_altitude_ft-1000 or math.abs(alt_delta)<20) then
         local speed_delta=simDR_ind_airspeed_kts_pilot-last_simDR_ind_airspeed_kts_pilot
         last_simDR_ind_airspeed_kts_pilot=simDR_ind_airspeed_kts_pilot
         directorSampleRate=0.02
@@ -399,21 +401,20 @@ function ap_director_pitch()
         end
         return last_simDR_AHARS_pitch_heading_deg_pilot
     elseif B747DR_ap_FMA_active_pitch_mode~=2 and (B747DR_ap_FMA_active_pitch_mode==5 or B747DR_ap_FMA_active_pitch_mode==9 or (simDR_pressureAlt1< simDR_autopilot_altitude_ft+1000 and simDR_pressureAlt1> simDR_autopilot_altitude_ft-1000)) then
-        local alt_delta=simDR_pressureAlt1-last_altitude
-        last_altitude=simDR_pressureAlt1
-        directorSampleRate=1.0
-        if (simDR_pressureAlt1> simDR_autopilot_altitude_ft-950 and alt_delta>8) or (simDR_pressureAlt1> simDR_autopilot_altitude_ft and alt_delta>-0.1) then
+        
+        directorSampleRate=0.5
+        if (simDR_pressureAlt1 > simDR_autopilot_altitude_ft-100 and alt_delta>0.5) or (simDR_pressureAlt1> simDR_autopilot_altitude_ft-950 and alt_delta>8) or (simDR_pressureAlt1> simDR_autopilot_altitude_ft and alt_delta>-0.1) then
             print("-last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." alt_delta "..alt_delta)
             if last_simDR_AHARS_pitch_heading_deg_pilot>-1.5 then
-                delta=math.min(0.15,(math.abs(simDR_pressureAlt1-simDR_autopilot_altitude_ft)/4000)*math.min(math.abs(alt_delta),15))
+                delta=math.min(0.15,(math.abs(simDR_pressureAlt1-simDR_autopilot_altitude_ft)/3000)*math.min(math.abs(alt_delta),15))
                 print("-delta "..delta)
                 last_simDR_AHARS_pitch_heading_deg_pilot= (last_simDR_AHARS_pitch_heading_deg_pilot-delta)
             end
         end
-        if simDR_pressureAlt1 < simDR_autopilot_altitude_ft+650 and alt_delta<-8 or(simDR_pressureAlt1 < simDR_autopilot_altitude_ft and alt_delta<0.1) then
+        if (simDR_pressureAlt1 < simDR_autopilot_altitude_ft+100 and alt_delta<-0.5) or (simDR_pressureAlt1 < simDR_autopilot_altitude_ft+650 and alt_delta<-8) or (simDR_pressureAlt1 < simDR_autopilot_altitude_ft and alt_delta<0.1) then
             print("+last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." alt_delta "..alt_delta)
             if last_simDR_AHARS_pitch_heading_deg_pilot<10 then
-                delta=math.min(0.15,(math.abs(simDR_pressureAlt1-simDR_autopilot_altitude_ft)/4000)*math.min(math.abs(alt_delta),15))
+                delta=math.min(0.15,(math.abs(simDR_pressureAlt1-simDR_autopilot_altitude_ft)/3000)*math.min(math.abs(alt_delta),15))
                 print("+delta "..delta)
                 last_simDR_AHARS_pitch_heading_deg_pilot= (last_simDR_AHARS_pitch_heading_deg_pilot+delta)
             end
