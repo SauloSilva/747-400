@@ -1093,27 +1093,41 @@ function fmsFunctions.setdata(fmsO,value)
      end
      fmsModules["lastcmd"]=fmsModules["cmdstrings"]["sim/ground_ops/service_plane"]
      run_after_time(preselect_fuel,30)
-   elseif value=="fuelpreselect" and string.len(fmsO["scratchpad"])>0 then
+   elseif value=="fuelpreselect" then
+	if string.len(fmsO["scratchpad"])>0 then
      local fuel=tonumber(fmsO["scratchpad"])
      if fuel~=nil then
        B747DR_fuel_add=fuel
        
      end
-   elseif value=="origin" and string.len(fmsO["scratchpad"])>0 then
+	else
+		fmsO["notify"]="INVALID ENTRY"
+	end
+   elseif value=="origin" then
+	if string.len(fmsO["scratchpad"])>0 then
      fmsFunctions["custom2fmc"](fmsO,"L1")
      fmsModules:setData("crzalt","*****") -- clear cruise alt /crzalt when entering a new source airport (this is broken and currently disabled)
-   elseif value=="airportgate" and string.len(fmsO["scratchpad"])>0 then
-    local lat=toDMS(simDR_latitude,true)
-    local lon=toDMS(simDR_longitude,false)
-    irsSystem["irsLat"]=lat
-    irsSystem["irsLon"]=lon
-    setFMSData("irsLat",lat)
-    setFMSData("irsLon",lon)
-    setFMSData(value,fmsO["scratchpad"])
-
-  elseif value == "codata" and string.len(fmsO["scratchpad"]) > 0 then
+	else
+		fmsO["notify"]="INVALID ENTRY"
+	end
+   elseif value=="airportgate" then
+	if string.len(fmsO["scratchpad"])>0 then
+		local lat=toDMS(simDR_latitude,true)
+		local lon=toDMS(simDR_longitude,false)
+		irsSystem["irsLat"]=lat
+		irsSystem["irsLon"]=lon
+		setFMSData("irsLat",lat)
+		setFMSData("irsLon",lon)
+		setFMSData(value,fmsO["scratchpad"])
+	else
+		fmsO["notify"]="INVALID ENTRY"
+	end
+  elseif value == "codata" then
+	if string.len(fmsO["scratchpad"])>0 then
 		setFMSData(value, fmsO["scratchpad"])
-  
+	else
+		fmsO["notify"]="INVALID ENTRY"
+	end
   elseif value == "sethdg" then
 	if validate_sethdg(fmsO["scratchpad"]) == false then
 		fmsO["notify"]="INVALID ENTRY"
