@@ -7526,7 +7526,15 @@ GROUP Captain PFD
     GROUP CAPT IRS OFF PFD
       SHOW_LESS 0.100000 laminar/B747/pfd/capt/irs
       HIDE     
-      
+      GROUP_ANIMATE_MODE TRANSLATE
+      GROUP_WIDTH 0
+      GROUP_HEIGHT 0
+      DATAREF laminar/B747/flt_inst/display/capt/pfd_pos
+      POS 0.000000 0.000000
+      KEY_FRAME 0.000000 0.000000 1.000000
+      KEY_FRAME 1.000000 -683.000000
+      IS_VERTICAL 1
+      OFFSET 0.000000
         gen_rotary Airplane Symbol
           POS 315.500000 755.500000
           IMAGE CRT Displays/PFD/Artificial Horizon/HrznArplnSymbol
