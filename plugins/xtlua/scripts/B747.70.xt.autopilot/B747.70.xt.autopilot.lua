@@ -201,7 +201,7 @@ simDR_roll = find_dataref("sim/joystick/artstab_roll_ratio")
 
 simDR_reqHeading = find_dataref("sim/cockpit2/radios/actuators/hsi_obs_deg_mag_pilot")
 
-simDR_overRideStab = find_dataref("sim/operation/override/override_artstab")
+--simDR_overRideStab = find_dataref("sim/operation/override/override_artstab")
 simDR_nav1_radio_nav_type = find_dataref("sim/cockpit2/radios/indicators/nav1_type")
 toderate = deferred_dataref("laminar/B747/engine/derate/TO", "number")
 clbderate = deferred_dataref("laminar/B747/engine/derate/CLB", "number")
@@ -229,6 +229,7 @@ B747DR_CAS_advisory_status = find_dataref("laminar/B747/CAS/advisory_status")
 B747DR_speedbrake_lever = find_dataref("laminar/B747/flt_ctrls/speedbrake_lever")
 B747DR_ap_autoland = deferred_dataref("laminar/B747/autopilot/autoland", "number")
 B747DR_ap_autoland = 0
+B744DR_autolandPitch = find_dataref("laminar/B747/autopilot/autolandPitch")
 B747DR_lastap_dial_airspeed = deferred_dataref("laminar/B747/autopilot/ap_monitor/last_airspeed", "number")
 B747DR_max_dial_machspeed = deferred_dataref("laminar/B747/autopilot/ap_monitor/max_dial_machspeed", "number")
 B747DR_target_descentAlt = deferred_dataref("laminar/B747/autopilot/ap_monitor/target_descentAlt", "number")
@@ -2337,7 +2338,10 @@ function B747_ap_fma()
 	local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
 	-- AUTOTHROTTLE
 	-------------------------------------------------------------------------------------
-	if B747DR_toggle_switch_position[29] == 0 or B747DR_autothrottle_fail > 0 then
+	if B747DR_ap_autoland == 1 and simDR_radarAlt1 < 25 then
+		simDR_override_throttles = 0
+		B747DR_ap_FMA_autothrottle_mode = 2 --IDLE
+	elseif B747DR_toggle_switch_position[29] == 0 or B747DR_autothrottle_fail > 0 then
 		B747DR_ap_FMA_autothrottle_mode = 0
 		simDR_override_throttles = 0
 	elseif
@@ -2627,6 +2631,7 @@ function B747_ap_all_cmd_modes_off()
 	B747DR_ap_cmd_L_mode = 0
 	B747DR_ap_cmd_C_mode = 0
 	B747DR_ap_cmd_R_mode = 0
+	B747DR_ap_approach_mode = 0
 	switching_servos_on = simDRTime
 end
 
@@ -2734,7 +2739,7 @@ function B747_flight_start_autopilot()
 	B747_set_ap_all_modes()
 	simCMD_autopilot_set_nav1_as_nav_source:once()
 	simDR_autopilot_bank_limit = 4
-
+	B747DR_ap_approach_mode=0
 	-- COLD & DARK ----------------------------------------------------------------------
 	if simDR_startup_running == 0 then
 		-- ENGINES RUNNING ------------------------------------------------------------------

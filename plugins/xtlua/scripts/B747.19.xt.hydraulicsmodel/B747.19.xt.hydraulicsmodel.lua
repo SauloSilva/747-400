@@ -113,6 +113,8 @@ simDR_total_pitch_ratio           = find_dataref("sim/cockpit2/controls/total_pi
 simDR_yoke_pitch_ratio           = find_dataref("sim/cockpit2/controls/yoke_pitch_ratio")
 B747DR_sim_pitch_ratio   = find_dataref("laminar/B747/flt_ctrls/sim_pitch_ratio")
 B747DR_custom_pitch_ratio   = find_dataref("laminar/B747/flt_ctrls/custom_pitch_ratio")
+B747DR_ap_autoland            	= deferred_dataref("laminar/B747/autopilot/autoland", "number")
+B744DR_autolandPitch            = deferred_dataref("laminar/B747/autopilot/autolandPitch", "number")
 
 simDR_electric_trim   = find_dataref("sim/cockpit2/autopilot/electric_trim_on")
 simDR_pitch_mistrim   = find_dataref("sim/cockpit2/autopilot/pitch_mistrim")
@@ -437,130 +439,136 @@ function B747_set_hyd_model_ER()
   B747DR_hyd_sys_pressure_3=3100
   B747DR_hyd_sys_pressure_4=3100
 end  
+
+local initialiseControls=true
 function flight_start() 
 
     --rudder
     B747DR_rudder_ratio=1.0
     B747DR_elevator_ratio   = 1.0
-    B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-32,"maxout":32,"scale":1.0,"srcDref":"sim/cockpit2/controls/total_heading_ratio","dstDref":"laminar/B747/cablecontrols/lower_rudder","scaledref":"laminar/B747/flt_ctrls/rudder_ratio"}';
-    B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-32,"maxout":32,"scale":1.0,"srcDref":"sim/cockpit2/controls/total_heading_ratio","dstDref":"laminar/B747/cablecontrols/upper_rudder","scaledref":"laminar/B747/flt_ctrls/rudder_ratio"}';
+    if initialiseControls then
+      B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-32,"maxout":32,"scale":1.0,"srcDref":"sim/cockpit2/controls/total_heading_ratio","dstDref":"laminar/B747/cablecontrols/lower_rudder","scaledref":"laminar/B747/flt_ctrls/rudder_ratio"}';
+      B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-32,"maxout":32,"scale":1.0,"srcDref":"sim/cockpit2/controls/total_heading_ratio","dstDref":"laminar/B747/cablecontrols/upper_rudder","scaledref":"laminar/B747/flt_ctrls/rudder_ratio"}';
 
-    B747DR_controlOverrides = '{"minin":-32,"maxin":32,"minout":-32,"maxout":32,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/rudder_lwr_pos","dstDref":"sim/flightmodel/controls/vstab2_rud1def"}';
-    B747DR_controlOverrides = '{"minin":-32,"maxin":32,"minout":-32,"maxout":32,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/rudder_upr_pos","dstDref":"sim/flightmodel/controls/vstab2_rud2def"}';
-  
-    --elevators
-
-    B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-1,"maxout":1,"scale":1.0,"srcDref":"sim/cockpit2/controls/yoke_pitch_ratio","dstDref":"laminar/B747/flt_ctrls/custom_pitch_ratio"}';
-    B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-1,"maxout":1,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/sim_pitch_ratio","dstDref":"laminar/B747/flt_ctrls/custom_pitch_ratio","scaledref":"laminar/B747/flt_ctrls/elevator_ratio"}';
-
-    B747DR_controlOverrides = '{"minin":-1,"maxin":0,"minout":-17,"maxout":0,"scale":-1.0,"srcDref":"laminar/B747/flt_ctrls/custom_pitch_ratio","dstDref":"laminar/B747/cablecontrols/left_outer_elevator"}';
-    B747DR_controlOverrides = '{"minin":0,"maxin":1,"minout":0,"maxout":22,"scale":-1.0,"srcDref":"laminar/B747/flt_ctrls/custom_pitch_ratio","dstDref":"laminar/B747/cablecontrols/left_outer_elevator"}';
-
-    B747DR_controlOverrides = '{"minin":-1,"maxin":0,"minout":-17,"maxout":0,"scale":-1.0,"srcDref":"laminar/B747/flt_ctrls/custom_pitch_ratio","dstDref":"laminar/B747/cablecontrols/right_outer_elevator"}';
-    B747DR_controlOverrides = '{"minin":0,"maxin":1,"minout":0,"maxout":22,"scale":-1.0,"srcDref":"laminar/B747/flt_ctrls/custom_pitch_ratio","dstDref":"laminar/B747/cablecontrols/right_outer_elevator"}';
-
-    B747DR_controlOverrides = '{"minin":-1,"maxin":0,"minout":-17,"maxout":0,"scale":-1.0,"srcDref":"laminar/B747/flt_ctrls/custom_pitch_ratio","dstDref":"laminar/B747/cablecontrols/left_inner_elevator"}';
-    B747DR_controlOverrides = '{"minin":0,"maxin":1,"minout":0,"maxout":22,"scale":-1.0,"srcDref":"laminar/B747/flt_ctrls/custom_pitch_ratio","dstDref":"laminar/B747/cablecontrols/left_inner_elevator"}';
-
-    B747DR_controlOverrides = '{"minin":-1,"maxin":0,"minout":-17,"maxout":0,"scale":-1.0,"srcDref":"laminar/B747/flt_ctrls/custom_pitch_ratio","dstDref":"laminar/B747/cablecontrols/right_inner_elevator"}';
-    B747DR_controlOverrides = '{"minin":0,"maxin":1,"minout":0,"maxout":22,"scale":-1.0,"srcDref":"laminar/B747/flt_ctrls/custom_pitch_ratio","dstDref":"laminar/B747/cablecontrols/right_inner_elevator"}';
-
-    B747DR_controlOverrides = '{"minin":-22,"maxin":17,"minout":-22,"maxout":17,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/l_elev_outer","dstDref":"sim/flightmodel/controls/hstab1_elv1def"}'; --left_outer_elevator
-    B747DR_controlOverrides = '{"minin":-22,"maxin":17,"minout":-22,"maxout":17,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/r_elev_outer","dstDref":"sim/flightmodel/controls/hstab2_elv1def"}'; --right_outer_elevator
-    B747DR_controlOverrides = '{"minin":-22,"maxin":17,"minout":-22,"maxout":17,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/l_elev_inner","dstDref":"sim/flightmodel/controls/hstab1_elv2def"}'; --left_inner_elevator
-    B747DR_controlOverrides = '{"minin":-22,"maxin":17,"minout":-22,"maxout":17,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/r_elev_inner","dstDref":"sim/flightmodel/controls/hstab2_elv2def"}'; --right_inner_elevator
+      B747DR_controlOverrides = '{"minin":-32,"maxin":32,"minout":-32,"maxout":32,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/rudder_lwr_pos","dstDref":"sim/flightmodel/controls/vstab2_rud1def"}';
+      B747DR_controlOverrides = '{"minin":-32,"maxin":32,"minout":-32,"maxout":32,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/rudder_upr_pos","dstDref":"sim/flightmodel/controls/vstab2_rud2def"}';
     
-    --ailerons
-    B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-20,"maxout":20,"scale":1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/left_inner_aileron"}';
-    B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-20,"maxout":20,"scale":-1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/right_inner_aileron"}';
+      --elevators
 
-    B747DR_controlOverrides = '{"minin":-1,"maxin":0,"minout":-25,"maxout":0,"scale":1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/left_outer_aileron","scaledref":"laminar/B747/flt_ctrls/left_outer_aileron_lockout"}';
-    B747DR_controlOverrides = '{"minin":0,"maxin":1,"minout":0,"maxout":15,"scale":1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/left_outer_aileron","scaledref":"laminar/B747/flt_ctrls/left_outer_aileron_lockout"}';
+      B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-1,"maxout":1,"scale":1.0,"srcDref":"sim/cockpit2/controls/yoke_pitch_ratio","dstDref":"laminar/B747/flt_ctrls/custom_pitch_ratio"}';
+      B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-1,"maxout":1,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/sim_pitch_ratio","dstDref":"laminar/B747/flt_ctrls/custom_pitch_ratio","scaledref":"laminar/B747/flt_ctrls/elevator_ratio"}';
 
-    B747DR_controlOverrides = '{"minin":-1,"maxin":0,"minout":-15,"maxout":0,"scale":-1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/right_outer_aileron","scaledref":"laminar/B747/flt_ctrls/right_outer_aileron_lockout"}';  
-    B747DR_controlOverrides = '{"minin":0,"maxin":1,"minout":0,"maxout":25,"scale":-1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/right_outer_aileron","scaledref":"laminar/B747/flt_ctrls/right_outer_aileron_lockout"}'; 
+      B747DR_controlOverrides = '{"minin":-1,"maxin":0,"minout":-17,"maxout":0,"scale":-1.0,"srcDref":"laminar/B747/flt_ctrls/custom_pitch_ratio","dstDref":"laminar/B747/cablecontrols/left_outer_elevator"}';
+      B747DR_controlOverrides = '{"minin":0,"maxin":1,"minout":0,"maxout":22,"scale":-1.0,"srcDref":"laminar/B747/flt_ctrls/custom_pitch_ratio","dstDref":"laminar/B747/cablecontrols/left_outer_elevator"}';
+
+      B747DR_controlOverrides = '{"minin":-1,"maxin":0,"minout":-17,"maxout":0,"scale":-1.0,"srcDref":"laminar/B747/flt_ctrls/custom_pitch_ratio","dstDref":"laminar/B747/cablecontrols/right_outer_elevator"}';
+      B747DR_controlOverrides = '{"minin":0,"maxin":1,"minout":0,"maxout":22,"scale":-1.0,"srcDref":"laminar/B747/flt_ctrls/custom_pitch_ratio","dstDref":"laminar/B747/cablecontrols/right_outer_elevator"}';
+
+      B747DR_controlOverrides = '{"minin":-1,"maxin":0,"minout":-17,"maxout":0,"scale":-1.0,"srcDref":"laminar/B747/flt_ctrls/custom_pitch_ratio","dstDref":"laminar/B747/cablecontrols/left_inner_elevator"}';
+      B747DR_controlOverrides = '{"minin":0,"maxin":1,"minout":0,"maxout":22,"scale":-1.0,"srcDref":"laminar/B747/flt_ctrls/custom_pitch_ratio","dstDref":"laminar/B747/cablecontrols/left_inner_elevator"}';
+
+      B747DR_controlOverrides = '{"minin":-1,"maxin":0,"minout":-17,"maxout":0,"scale":-1.0,"srcDref":"laminar/B747/flt_ctrls/custom_pitch_ratio","dstDref":"laminar/B747/cablecontrols/right_inner_elevator"}';
+      B747DR_controlOverrides = '{"minin":0,"maxin":1,"minout":0,"maxout":22,"scale":-1.0,"srcDref":"laminar/B747/flt_ctrls/custom_pitch_ratio","dstDref":"laminar/B747/cablecontrols/right_inner_elevator"}';
+
+      B747DR_controlOverrides = '{"minin":-22,"maxin":17,"minout":-22,"maxout":17,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/l_elev_outer","dstDref":"sim/flightmodel/controls/hstab1_elv1def"}'; --left_outer_elevator
+      B747DR_controlOverrides = '{"minin":-22,"maxin":17,"minout":-22,"maxout":17,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/r_elev_outer","dstDref":"sim/flightmodel/controls/hstab2_elv1def"}'; --right_outer_elevator
+      B747DR_controlOverrides = '{"minin":-22,"maxin":17,"minout":-22,"maxout":17,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/l_elev_inner","dstDref":"sim/flightmodel/controls/hstab1_elv2def"}'; --left_inner_elevator
+      B747DR_controlOverrides = '{"minin":-22,"maxin":17,"minout":-22,"maxout":17,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/r_elev_inner","dstDref":"sim/flightmodel/controls/hstab2_elv2def"}'; --right_inner_elevator
+      
+      --ailerons
+      B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-20,"maxout":20,"scale":1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/left_inner_aileron"}';
+      B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-20,"maxout":20,"scale":-1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/right_inner_aileron"}';
+
+      B747DR_controlOverrides = '{"minin":-1,"maxin":0,"minout":-25,"maxout":0,"scale":1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/left_outer_aileron","scaledref":"laminar/B747/flt_ctrls/left_outer_aileron_lockout"}';
+      B747DR_controlOverrides = '{"minin":0,"maxin":1,"minout":0,"maxout":15,"scale":1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/left_outer_aileron","scaledref":"laminar/B747/flt_ctrls/left_outer_aileron_lockout"}';
+
+      B747DR_controlOverrides = '{"minin":-1,"maxin":0,"minout":-15,"maxout":0,"scale":-1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/right_outer_aileron","scaledref":"laminar/B747/flt_ctrls/right_outer_aileron_lockout"}';  
+      B747DR_controlOverrides = '{"minin":0,"maxin":1,"minout":0,"maxout":25,"scale":-1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/right_outer_aileron","scaledref":"laminar/B747/flt_ctrls/right_outer_aileron_lockout"}'; 
+      
+      B747DR_controlOverrides = '{"minin":-20,"maxin":20,"minout":-20,"maxout":20,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/l_aileron_inner","dstDref":"sim/flightmodel/controls/wing2l_ail1def"}';
+      B747DR_controlOverrides = '{"minin":-20,"maxin":20,"minout":-20,"maxout":20,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/r_aileron_inner","dstDref":"sim/flightmodel/controls/wing2r_ail1def"}';
+      B747DR_controlOverrides = '{"minin":-25,"maxin":15,"minout":-25,"maxout":15,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/l_aileron_outer","dstDref":"sim/flightmodel/controls/wing4l_ail2def"}';
+      B747DR_controlOverrides = '{"minin":-25,"maxin":15,"minout":-25,"maxout":15,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/r_aileron_outer","dstDref":"sim/flightmodel/controls/wing4r_ail2def"}';  
+      
+      --spoilers
+      B747DR_controlOverrides = '{"minin":-1,"maxin":0,"minout":-45,"maxout":0,"scale":-1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/spoiler1"}';
+      B747DR_controlOverrides = '{"minin":-1,"maxin":0,"minout":-45,"maxout":0,"scale":-1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/spoiler2"}';
+      B747DR_controlOverrides = '{"minin":-1,"maxin":0,"minout":-45,"maxout":0,"scale":-1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/spoiler3"}';
+      B747DR_controlOverrides = '{"minin":-1,"maxin":0,"minout":-45,"maxout":0,"scale":-1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/spoiler4"}';  
+      B747DR_controlOverrides = '{"minin":-1,"maxin":0,"minout":-20,"maxout":0,"scale":-1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/spoiler5"}';
     
-    B747DR_controlOverrides = '{"minin":-20,"maxin":20,"minout":-20,"maxout":20,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/l_aileron_inner","dstDref":"sim/flightmodel/controls/wing2l_ail1def"}';
-    B747DR_controlOverrides = '{"minin":-20,"maxin":20,"minout":-20,"maxout":20,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/r_aileron_inner","dstDref":"sim/flightmodel/controls/wing2r_ail1def"}';
-    B747DR_controlOverrides = '{"minin":-25,"maxin":15,"minout":-25,"maxout":15,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/l_aileron_outer","dstDref":"sim/flightmodel/controls/wing4l_ail2def"}';
-    B747DR_controlOverrides = '{"minin":-25,"maxin":15,"minout":-25,"maxout":15,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/r_aileron_outer","dstDref":"sim/flightmodel/controls/wing4r_ail2def"}';  
+      B747DR_controlOverrides = '{"minin":0,"maxin":1,"minout":0,"maxout":20,"scale":1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/spoiler8"}';
+      B747DR_controlOverrides = '{"minin":0,"maxin":1,"minout":0,"maxout":45,"scale":1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/spoiler9"}';
+      B747DR_controlOverrides = '{"minin":0,"maxin":1,"minout":0,"maxout":45,"scale":1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/spoiler10"}';
+      B747DR_controlOverrides = '{"minin":0,"maxin":1,"minout":0,"maxout":45,"scale":1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/spoiler11"}';
+      B747DR_controlOverrides = '{"minin":0,"maxin":1,"minout":0,"maxout":45,"scale":1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/spoiler12"}';  
+      
     
-    --spoilers
-    B747DR_controlOverrides = '{"minin":-1,"maxin":0,"minout":-45,"maxout":0,"scale":-1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/spoiler1"}';
-    B747DR_controlOverrides = '{"minin":-1,"maxin":0,"minout":-45,"maxout":0,"scale":-1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/spoiler2"}';
-    B747DR_controlOverrides = '{"minin":-1,"maxin":0,"minout":-45,"maxout":0,"scale":-1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/spoiler3"}';
-    B747DR_controlOverrides = '{"minin":-1,"maxin":0,"minout":-45,"maxout":0,"scale":-1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/spoiler4"}';  
-    B747DR_controlOverrides = '{"minin":-1,"maxin":0,"minout":-20,"maxout":0,"scale":-1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/spoiler5"}';
-   
-    B747DR_controlOverrides = '{"minin":0,"maxin":1,"minout":0,"maxout":20,"scale":1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/spoiler8"}';
-    B747DR_controlOverrides = '{"minin":0,"maxin":1,"minout":0,"maxout":45,"scale":1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/spoiler9"}';
-    B747DR_controlOverrides = '{"minin":0,"maxin":1,"minout":0,"maxout":45,"scale":1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/spoiler10"}';
-    B747DR_controlOverrides = '{"minin":0,"maxin":1,"minout":0,"maxout":45,"scale":1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/spoiler11"}';
-    B747DR_controlOverrides = '{"minin":0,"maxin":1,"minout":0,"maxout":45,"scale":1.0,"srcDref":"sim/cockpit2/controls/total_roll_ratio","dstDref":"laminar/B747/cablecontrols/spoiler12"}';  
+      --flaps
+      B747DR_controlOverrides = '{"minin":0.167,"maxin":0.5,"minout":0,"maxout":10,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap1"}';
+      B747DR_controlOverrides = '{"minin":0.167,"maxin":0.5,"minout":0,"maxout":10,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap2"}';
+      B747DR_controlOverrides = '{"minin":0.167,"maxin":0.5,"minout":0,"maxout":10,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap3"}';
+      B747DR_controlOverrides = '{"minin":0.167,"maxin":0.5,"minout":0,"maxout":10,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap4"}';  
+
+      B747DR_controlOverrides = '{"minin":0.5,"maxin":0.667,"minout":0,"maxout":10,"max":20,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap1"}';
+      B747DR_controlOverrides = '{"minin":0.5,"maxin":0.667,"minout":0,"maxout":10,"max":20,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap2"}';
+      B747DR_controlOverrides = '{"minin":0.5,"maxin":0.667,"minout":0,"maxout":10,"max":20,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap3"}';
+      B747DR_controlOverrides = '{"minin":0.5,"maxin":0.667,"minout":0,"maxout":10,"max":20,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap4"}';  
+
+      B747DR_controlOverrides = '{"minin":0.667,"maxin":1,"minout":0,"maxout":20,"scale":0.5,"max":30,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap1"}';
+      B747DR_controlOverrides = '{"minin":0.667,"maxin":1,"minout":0,"maxout":20,"scale":0.5,"max":30,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap2"}';
+      B747DR_controlOverrides = '{"minin":0.667,"maxin":1,"minout":0,"maxout":20,"scale":0.5,"max":30,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap3"}';
+      B747DR_controlOverrides = '{"minin":0.667,"maxin":1,"minout":0,"maxout":20,"scale":0.5,"max":30,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap4"}';  
+      --flap display
+      --flap 1 
+      B747DR_controlOverrides = '{"minin":0,"maxin":0.167,"minout":0,"maxout":0.167,"scale":1.0,"srcDref":"sim/cockpit2/controls/flap_ratio","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio1"}';
+      B747DR_controlOverrides = '{"minin":0,"maxin":10,"minout":0,"maxout":0.333,"scale":1.0,"max":1,"srcDref":"sim/flightmodel/controls/wing3l_fla2def","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio1"}';
+      B747DR_controlOverrides = '{"minin":10,"maxin":20,"minout":0,"maxout":0.167,"scale":1.0,"max":1,"srcDref":"sim/flightmodel/controls/wing3l_fla2def","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio1"}';
+      B747DR_controlOverrides = '{"minin":20,"maxin":30,"minout":0,"maxout":0.333,"scale":1.0,"max":1,"srcDref":"sim/flightmodel/controls/wing3l_fla2def","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio1"}';
+      
+      --flap 2 
+      B747DR_controlOverrides = '{"minin":0,"maxin":0.167,"minout":0,"maxout":0.167,"scale":1.0,"srcDref":"sim/cockpit2/controls/flap_ratio","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio2"}';
+      B747DR_controlOverrides = '{"minin":0,"maxin":10,"minout":0,"maxout":0.333,"scale":1.0,"max":1,"srcDref":"sim/flightmodel/controls/wing1l_fla1def","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio2"}';
+      B747DR_controlOverrides = '{"minin":10,"maxin":20,"minout":0,"maxout":0.167,"scale":1.0,"max":1,"srcDref":"sim/flightmodel/controls/wing1l_fla1def","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio2"}';
+      B747DR_controlOverrides = '{"minin":20,"maxin":30,"minout":0,"maxout":0.333,"scale":1.0,"max":1,"srcDref":"sim/flightmodel/controls/wing1l_fla1def","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio2"}';
+
+      --flap 3 
+      B747DR_controlOverrides = '{"minin":0,"maxin":0.167,"minout":0,"maxout":0.167,"scale":1.0,"srcDref":"sim/cockpit2/controls/flap_ratio","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio3"}';
+      B747DR_controlOverrides = '{"minin":0,"maxin":10,"minout":0,"maxout":0.333,"scale":1.0,"max":1,"srcDref":"sim/flightmodel/controls/wing1r_fla1def","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio3"}';
+      B747DR_controlOverrides = '{"minin":10,"maxin":20,"minout":0,"maxout":0.167,"scale":1.0,"max":1,"srcDref":"sim/flightmodel/controls/wing1r_fla1def","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio3"}';
+      B747DR_controlOverrides = '{"minin":20,"maxin":30,"minout":0,"maxout":0.333,"scale":1.0,"max":1,"srcDref":"sim/flightmodel/controls/wing1r_fla1def","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio3"}';
+
+      --flap 4 
+      B747DR_controlOverrides = '{"minin":0,"maxin":0.167,"minout":0,"maxout":0.167,"scale":1.0,"srcDref":"sim/cockpit2/controls/flap_ratio","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio4"}';
+      B747DR_controlOverrides = '{"minin":0,"maxin":10,"minout":0,"maxout":0.333,"scale":1.0,"max":1,"srcDref":"sim/flightmodel/controls/wing3r_fla2def","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio4"}';
+      B747DR_controlOverrides = '{"minin":10,"maxin":20,"minout":0,"maxout":0.167,"scale":1.0,"max":1,"srcDref":"sim/flightmodel/controls/wing3r_fla2def","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio4"}';
+      B747DR_controlOverrides = '{"minin":20,"maxin":30,"minout":0,"maxout":0.333,"scale":1.0,"max":1,"srcDref":"sim/flightmodel/controls/wing3r_fla2def","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio4"}';
+
+      --speedbrakes
+      B747DR_controlOverrides = '{"minin":0.125,"maxin":0.53,"minout":0,"maxout":45,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/speedbrake_lever","dstDref":"laminar/B747/cablecontrols/speedbrake34"}';
+      B747DR_controlOverrides = '{"minin":0.125,"maxin":0.53,"minout":0,"maxout":20,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/speedbrake_lever","dstDref":"laminar/B747/cablecontrols/speedbrake58"}';
+      B747DR_controlOverrides = '{"minin":0.40,"maxin":0.41,"minout":0,"maxout":20,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/speedbrake_lever","dstDref":"laminar/B747/cablecontrols/speedbrake67"}';
+      B747DR_controlOverrides = '{"minin":0.65,"maxin":0.66,"minout":0,"maxout":50,"scale":0.5,"srcDref":"laminar/B747/flt_ctrls/speedbrake_lever","dstDref":"laminar/B747/cablecontrols/speedbrake67"}';
+      B747DR_controlOverrides = '{"minin":0.6,"maxin":0.90,"minout":0,"maxout":45,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/speedbrake_lever","dstDref":"laminar/B747/cablecontrols/speedbrake12"}';
+      
+      B747DR_controlOverrides = '{"minin":0,"maxin":45,"minout":0,"maxout":45,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/speedbrake12","dstDref":"laminar/B747/cablecontrols/spoiler1"}';
+      B747DR_controlOverrides = '{"minin":0,"maxin":45,"minout":0,"maxout":45,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/speedbrake12","dstDref":"laminar/B747/cablecontrols/spoiler2"}';
+      B747DR_controlOverrides = '{"minin":0,"maxin":45,"minout":0,"maxout":45,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/speedbrake34","dstDref":"laminar/B747/cablecontrols/spoiler3"}';
+      B747DR_controlOverrides = '{"minin":0,"maxin":45,"minout":0,"maxout":45,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/speedbrake34","dstDref":"laminar/B747/cablecontrols/spoiler4"}';  
+      B747DR_controlOverrides = '{"minin":0,"maxin":20,"minout":0,"maxout":20,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/speedbrake58","dstDref":"laminar/B747/cablecontrols/spoiler5"}';
     
-  
-    --flaps
-    B747DR_controlOverrides = '{"minin":0.167,"maxin":0.5,"minout":0,"maxout":10,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap1"}';
-    B747DR_controlOverrides = '{"minin":0.167,"maxin":0.5,"minout":0,"maxout":10,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap2"}';
-    B747DR_controlOverrides = '{"minin":0.167,"maxin":0.5,"minout":0,"maxout":10,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap3"}';
-    B747DR_controlOverrides = '{"minin":0.167,"maxin":0.5,"minout":0,"maxout":10,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap4"}';  
+      B747DR_controlOverrides = '{"minin":0,"maxin":20,"minout":0,"maxout":20,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/speedbrake58","dstDref":"laminar/B747/cablecontrols/spoiler8"}';
+      B747DR_controlOverrides = '{"minin":0,"maxin":45,"minout":0,"maxout":45,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/speedbrake34","dstDref":"laminar/B747/cablecontrols/spoiler9"}';
+      B747DR_controlOverrides = '{"minin":0,"maxin":45,"minout":0,"maxout":45,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/speedbrake34","dstDref":"laminar/B747/cablecontrols/spoiler10"}';
+      B747DR_controlOverrides = '{"minin":0,"maxin":45,"minout":0,"maxout":45,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/speedbrake12","dstDref":"laminar/B747/cablecontrols/spoiler11"}';
+      B747DR_controlOverrides = '{"minin":0,"maxin":45,"minout":0,"maxout":45,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/speedbrake12","dstDref":"laminar/B747/cablecontrols/spoiler12"}';  
 
-    B747DR_controlOverrides = '{"minin":0.5,"maxin":0.667,"minout":0,"maxout":10,"max":20,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap1"}';
-    B747DR_controlOverrides = '{"minin":0.5,"maxin":0.667,"minout":0,"maxout":10,"max":20,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap2"}';
-    B747DR_controlOverrides = '{"minin":0.5,"maxin":0.667,"minout":0,"maxout":10,"max":20,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap3"}';
-    B747DR_controlOverrides = '{"minin":0.5,"maxin":0.667,"minout":0,"maxout":10,"max":20,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap4"}';  
-
-    B747DR_controlOverrides = '{"minin":0.667,"maxin":1,"minout":0,"maxout":20,"scale":0.5,"max":30,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap1"}';
-    B747DR_controlOverrides = '{"minin":0.667,"maxin":1,"minout":0,"maxout":20,"scale":0.5,"max":30,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap2"}';
-    B747DR_controlOverrides = '{"minin":0.667,"maxin":1,"minout":0,"maxout":20,"scale":0.5,"max":30,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap3"}';
-    B747DR_controlOverrides = '{"minin":0.667,"maxin":1,"minout":0,"maxout":20,"scale":0.5,"max":30,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap4"}';  
-    --flap display
-    --flap 1 
-    B747DR_controlOverrides = '{"minin":0,"maxin":0.167,"minout":0,"maxout":0.167,"scale":1.0,"srcDref":"sim/cockpit2/controls/flap_ratio","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio1"}';
-    B747DR_controlOverrides = '{"minin":0,"maxin":10,"minout":0,"maxout":0.333,"scale":1.0,"max":1,"srcDref":"sim/flightmodel/controls/wing3l_fla2def","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio1"}';
-    B747DR_controlOverrides = '{"minin":10,"maxin":20,"minout":0,"maxout":0.167,"scale":1.0,"max":1,"srcDref":"sim/flightmodel/controls/wing3l_fla2def","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio1"}';
-    B747DR_controlOverrides = '{"minin":20,"maxin":30,"minout":0,"maxout":0.333,"scale":1.0,"max":1,"srcDref":"sim/flightmodel/controls/wing3l_fla2def","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio1"}';
-    
-    --flap 2 
-    B747DR_controlOverrides = '{"minin":0,"maxin":0.167,"minout":0,"maxout":0.167,"scale":1.0,"srcDref":"sim/cockpit2/controls/flap_ratio","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio2"}';
-    B747DR_controlOverrides = '{"minin":0,"maxin":10,"minout":0,"maxout":0.333,"scale":1.0,"max":1,"srcDref":"sim/flightmodel/controls/wing1l_fla1def","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio2"}';
-    B747DR_controlOverrides = '{"minin":10,"maxin":20,"minout":0,"maxout":0.167,"scale":1.0,"max":1,"srcDref":"sim/flightmodel/controls/wing1l_fla1def","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio2"}';
-    B747DR_controlOverrides = '{"minin":20,"maxin":30,"minout":0,"maxout":0.333,"scale":1.0,"max":1,"srcDref":"sim/flightmodel/controls/wing1l_fla1def","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio2"}';
-
-    --flap 3 
-    B747DR_controlOverrides = '{"minin":0,"maxin":0.167,"minout":0,"maxout":0.167,"scale":1.0,"srcDref":"sim/cockpit2/controls/flap_ratio","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio3"}';
-    B747DR_controlOverrides = '{"minin":0,"maxin":10,"minout":0,"maxout":0.333,"scale":1.0,"max":1,"srcDref":"sim/flightmodel/controls/wing1r_fla1def","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio3"}';
-    B747DR_controlOverrides = '{"minin":10,"maxin":20,"minout":0,"maxout":0.167,"scale":1.0,"max":1,"srcDref":"sim/flightmodel/controls/wing1r_fla1def","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio3"}';
-    B747DR_controlOverrides = '{"minin":20,"maxin":30,"minout":0,"maxout":0.333,"scale":1.0,"max":1,"srcDref":"sim/flightmodel/controls/wing1r_fla1def","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio3"}';
-
-    --flap 4 
-    B747DR_controlOverrides = '{"minin":0,"maxin":0.167,"minout":0,"maxout":0.167,"scale":1.0,"srcDref":"sim/cockpit2/controls/flap_ratio","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio4"}';
-    B747DR_controlOverrides = '{"minin":0,"maxin":10,"minout":0,"maxout":0.333,"scale":1.0,"max":1,"srcDref":"sim/flightmodel/controls/wing3r_fla2def","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio4"}';
-    B747DR_controlOverrides = '{"minin":10,"maxin":20,"minout":0,"maxout":0.167,"scale":1.0,"max":1,"srcDref":"sim/flightmodel/controls/wing3r_fla2def","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio4"}';
-    B747DR_controlOverrides = '{"minin":20,"maxin":30,"minout":0,"maxout":0.333,"scale":1.0,"max":1,"srcDref":"sim/flightmodel/controls/wing3r_fla2def","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio4"}';
-
-    --speedbrakes
-    B747DR_controlOverrides = '{"minin":0.125,"maxin":0.53,"minout":0,"maxout":45,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/speedbrake_lever","dstDref":"laminar/B747/cablecontrols/speedbrake34"}';
-    B747DR_controlOverrides = '{"minin":0.125,"maxin":0.53,"minout":0,"maxout":20,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/speedbrake_lever","dstDref":"laminar/B747/cablecontrols/speedbrake58"}';
-    B747DR_controlOverrides = '{"minin":0.40,"maxin":0.41,"minout":0,"maxout":20,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/speedbrake_lever","dstDref":"laminar/B747/cablecontrols/speedbrake67"}';
-    B747DR_controlOverrides = '{"minin":0.65,"maxin":0.66,"minout":0,"maxout":50,"scale":0.5,"srcDref":"laminar/B747/flt_ctrls/speedbrake_lever","dstDref":"laminar/B747/cablecontrols/speedbrake67"}';
-    B747DR_controlOverrides = '{"minin":0.6,"maxin":0.90,"minout":0,"maxout":45,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/speedbrake_lever","dstDref":"laminar/B747/cablecontrols/speedbrake12"}';
-    
-    B747DR_controlOverrides = '{"minin":0,"maxin":45,"minout":0,"maxout":45,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/speedbrake12","dstDref":"laminar/B747/cablecontrols/spoiler1"}';
-    B747DR_controlOverrides = '{"minin":0,"maxin":45,"minout":0,"maxout":45,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/speedbrake12","dstDref":"laminar/B747/cablecontrols/spoiler2"}';
-    B747DR_controlOverrides = '{"minin":0,"maxin":45,"minout":0,"maxout":45,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/speedbrake34","dstDref":"laminar/B747/cablecontrols/spoiler3"}';
-    B747DR_controlOverrides = '{"minin":0,"maxin":45,"minout":0,"maxout":45,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/speedbrake34","dstDref":"laminar/B747/cablecontrols/spoiler4"}';  
-    B747DR_controlOverrides = '{"minin":0,"maxin":20,"minout":0,"maxout":20,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/speedbrake58","dstDref":"laminar/B747/cablecontrols/spoiler5"}';
-   
-    B747DR_controlOverrides = '{"minin":0,"maxin":20,"minout":0,"maxout":20,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/speedbrake58","dstDref":"laminar/B747/cablecontrols/spoiler8"}';
-    B747DR_controlOverrides = '{"minin":0,"maxin":45,"minout":0,"maxout":45,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/speedbrake34","dstDref":"laminar/B747/cablecontrols/spoiler9"}';
-    B747DR_controlOverrides = '{"minin":0,"maxin":45,"minout":0,"maxout":45,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/speedbrake34","dstDref":"laminar/B747/cablecontrols/spoiler10"}';
-    B747DR_controlOverrides = '{"minin":0,"maxin":45,"minout":0,"maxout":45,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/speedbrake12","dstDref":"laminar/B747/cablecontrols/spoiler11"}';
-    B747DR_controlOverrides = '{"minin":0,"maxin":45,"minout":0,"maxout":45,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/speedbrake12","dstDref":"laminar/B747/cablecontrols/spoiler12"}';  
-
-    B747DR_controlOverrides = '{"minin":20,"maxin":45,"minout":0,"maxout":50,"scale":0.5,"srcDref":"laminar/B747/cablecontrols/speedbrake67","dstDref":"laminar/B747/cablecontrols/spoiler5"}';
-    B747DR_controlOverrides = '{"minin":20,"maxin":45,"minout":0,"maxout":50,"scale":0.5,"srcDref":"laminar/B747/cablecontrols/speedbrake67","dstDref":"laminar/B747/cablecontrols/spoiler8"}';
-
+      B747DR_controlOverrides = '{"minin":20,"maxin":45,"minout":0,"maxout":50,"scale":0.5,"srcDref":"laminar/B747/cablecontrols/speedbrake67","dstDref":"laminar/B747/cablecontrols/spoiler5"}';
+      B747DR_controlOverrides = '{"minin":20,"maxin":45,"minout":0,"maxout":50,"scale":0.5,"srcDref":"laminar/B747/cablecontrols/speedbrake67","dstDref":"laminar/B747/cablecontrols/spoiler8"}';
+      initialiseControls=false
+    else 
+      print("not reinitialising controls!!!")
+    end
     B747DR_hyd_sys_restotal_1=math.random()*0.2+0.8
     B747DR_hyd_sys_restotal_2=math.random()*0.2+0.8
     B747DR_hyd_sys_restotal_3=math.random()*0.2+0.8

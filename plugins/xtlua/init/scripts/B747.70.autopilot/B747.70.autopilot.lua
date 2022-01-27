@@ -175,7 +175,7 @@ B747DR_ap_AFDS_status_annun_copilot            	= deferred_dataref("laminar/B747
     5 = NO AUTOLAND
 --]]
 B747DR_ap_autoland            	= deferred_dataref("laminar/B747/autopilot/autoland", "number")
-
+B744DR_autolandPitch            = deferred_dataref("laminar/B747/autopilot/autolandPitch", "number")
 B747DR_lastap_dial_airspeed 	= deferred_dataref("laminar/B747/autopilot/ap_monitor/last_airspeed", "number")
 B747DR_max_dial_machspeed       = deferred_dataref("laminar/B747/autopilot/ap_monitor/max_dial_machspeed", "number")
 B747DR_target_descentAlt        = deferred_dataref("laminar/B747/autopilot/ap_monitor/target_descentAlt", "number")

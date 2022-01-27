@@ -199,6 +199,7 @@ B747DR_CAS_caution_status                   = find_dataref("laminar/B747/CAS/cau
 B747DR_CAS_advisory_status                  = find_dataref("laminar/B747/CAS/advisory_status")
 B747DR_CAS_memo_status                      = find_dataref("laminar/B747/CAS/memo_status")
 B747DR_ap_autoland            	= find_dataref("laminar/B747/autopilot/autoland")
+
 B747DR_engineType					= deferred_dataref("laminar/B747/engines/type", "number")
 
 

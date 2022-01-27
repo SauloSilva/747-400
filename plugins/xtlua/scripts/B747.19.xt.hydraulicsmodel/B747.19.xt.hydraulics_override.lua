@@ -390,6 +390,12 @@ local directorSampleRate=0.02
 function ap_director_pitch()
     local alt_delta=simDR_pressureAlt1-last_altitude
     last_altitude=simDR_pressureAlt1
+
+    if B747DR_ap_autoland == 1 then 
+        print("pitching for autoland "..B744DR_autolandPitch)
+        directorSampleRate=0.02
+        return  B744DR_autolandPitch
+    end
     if (B747DR_ap_FMA_active_pitch_mode==4 or B747DR_ap_FMA_active_pitch_mode==8) and (simDR_pressureAlt1> simDR_autopilot_altitude_ft+1000 or simDR_pressureAlt1< simDR_autopilot_altitude_ft-1000 or math.abs(alt_delta)<20) then
         local speed_delta=simDR_ind_airspeed_kts_pilot-last_simDR_ind_airspeed_kts_pilot
         last_simDR_ind_airspeed_kts_pilot=simDR_ind_airspeed_kts_pilot
@@ -423,6 +429,8 @@ function ap_director_pitch()
             end
         end
         return last_simDR_AHARS_pitch_heading_deg_pilot
+    elseif B747DR_ap_FMA_active_pitch_mode==2 then
+        directorSampleRate=0.1
     end
     local retval=simDR_flight_director_pitch
     if retval<simDR_AHARS_pitch_heading_deg_pilot-5 then
@@ -487,7 +495,7 @@ function ap_pitch_assist()
     local retval=B747_interpolate_value(B747DR_sim_pitch_ratio,target,-1,1,20)
     --print("ap_pitch_assist retval 0 "..retval.." "..target)
     flight_director_pitch=ap_director_integral()
-    if simDR_autopilot_servos_on>0 and B747DR_ap_FMA_active_pitch_mode>0 then
+    if simDR_autopilot_servos_on>0 and (B747DR_ap_FMA_active_pitch_mode>0 or B747DR_ap_autoland == 1) then
         
         if simDR_AHARS_pitch_heading_deg_pilot-flight_director_pitch > 3 and simDRTime-lastUp>1 then
             --print("needs pitch down assist "..simDR_elevator_trim .. " "..flight_director_pitch)
