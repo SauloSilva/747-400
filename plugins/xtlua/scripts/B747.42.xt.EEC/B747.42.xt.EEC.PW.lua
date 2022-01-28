@@ -615,6 +615,7 @@ function engine_idle_control_PW(altitude_ft_in)
       EPR_actual = (-1.8E-08 * mach^2 - 5.87E-08 * mach + 7.179999999999999E-08) * EPR_corrected_thrust_calibrated_N^3 + (-0.0000237 * mach^2 + 0.0000529 * mach - 0.0000218)
         * EPR_corrected_thrust_calibrated_N^2 + (0.002 * mach^2 - 0.0036 * mach + 0.0034) * EPR_corrected_thrust_calibrated_N + (-0.3287 * mach^2 - 0.0833 * mach + 0.9932)
 
+        
       --Ensure EPR doesn't drop to an unrealistic value during IDLE descent.  This also ensures that the EPR tapes don't fall off the display.
       if EPR_actual < 0.97 then
         EPR_actual = 0.97
@@ -676,10 +677,16 @@ function engine_idle_control_PW(altitude_ft_in)
     local EGT_display = {}
     local target_weight = 0.0
     local target_alt = 0.0
-  
+    local EPR_target_bug = {}
+    local display_EPR_ref = {}
+    local display_EPR_max = {}
     --In-flight variables
     local EPR_actual = 0.0
-  
+    for i = 0, 3 do
+      EPR_target_bug[i] = simDR_EPR_target_bug[i]
+      display_EPR_ref[i] = B747DR_display_EPR_ref[i]
+      display_EPR_max[i] = B747DR_display_EPR_max[i]
+    end
     --Setup engine factors based on engine type
     if string.match(simConfigData["data"].PLANE.engines, "4056") then
       engine_max_thrust_n = 254000
@@ -758,9 +765,9 @@ function engine_idle_control_PW(altitude_ft_in)
       -- Set EPR Target Bugs & Reference Indicator
       --Due to display issues on the EICAS, keep the REF and MAX limit lines at a max of 1.70 otherwise they get painted above the EPR tape
       for i = 0, 3 do
-        simDR_EPR_target_bug[i] = string.format("%3.2f",takeoff_thrust_epr) + packs_adjustment_value + engine_anti_ice_adjustment_value
-        B747DR_display_EPR_ref[i] = math.min(string.format("%3.2f",takeoff_thrust_epr) + packs_adjustment_value + engine_anti_ice_adjustment_value, 1.71)
-        B747DR_display_EPR_max[i] = math.min(string.format("%3.2f",takeoff_thrust_epr) + packs_adjustment_value + engine_anti_ice_adjustment_value, 1.71)
+        EPR_target_bug[i] = string.format("%3.2f",takeoff_thrust_epr) + packs_adjustment_value + engine_anti_ice_adjustment_value
+        display_EPR_ref[i] = math.min(string.format("%3.2f",takeoff_thrust_epr) + packs_adjustment_value + engine_anti_ice_adjustment_value, 1.71)
+        display_EPR_max[i] = math.min(string.format("%3.2f",takeoff_thrust_epr) + packs_adjustment_value + engine_anti_ice_adjustment_value, 1.71)
       end
 
       B747DR_TO_throttle = takeoff_thrust_epr_throttle
@@ -776,25 +783,21 @@ function engine_idle_control_PW(altitude_ft_in)
   
         --Set target bugs
       for i = 0, 3 do
-        --if simDR_flap_ratio > 0.0 then
-        --  simDR_EPR_target_bug[i] = string.format("%3.2f", EPR_initial_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value
-        --  B747DR_display_EPR_ref[i] = math.min(string.format("%3.2f", EPR_initial_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value, 1.71)
-        --  B747DR_display_EPR_max[i] = math.min(string.format("%3.2f", EPR_initial_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value, 1.71)
         if EPR_actual > EPR_max_climb then
           if EPR_initial_climb > EPR_max_climb then
-            simDR_EPR_target_bug[i] = string.format("%3.2f", EPR_initial_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value
-            B747DR_display_EPR_ref[i] = math.min(string.format("%3.2f", EPR_initial_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value, 1.71)
+            EPR_target_bug[i] = string.format("%3.2f", EPR_initial_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value
+            display_EPR_ref[i] = math.min(string.format("%3.2f", EPR_initial_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value, 1.71)
           else
-            simDR_EPR_target_bug[i] = string.format("%3.2f", EPR_max_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value
-            B747DR_display_EPR_ref[i] = math.min(string.format("%3.2f", EPR_max_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value, 1.71)
+            EPR_target_bug[i] = string.format("%3.2f", EPR_max_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value
+            display_EPR_ref[i] = math.min(string.format("%3.2f", EPR_max_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value, 1.71)
           end
         else
-          simDR_EPR_target_bug[i] = string.format("%3.2f", EPR_actual) + packs_adjustment_value + engine_anti_ice_adjustment_value
-          B747DR_display_EPR_ref[i] = math.min(string.format("%3.2f", EPR_actual) + packs_adjustment_value + engine_anti_ice_adjustment_value, 1.71)
+          EPR_target_bug[i] = string.format("%3.2f", EPR_actual) + packs_adjustment_value + engine_anti_ice_adjustment_value
+          display_EPR_ref[i] = math.min(string.format("%3.2f", EPR_actual) + packs_adjustment_value + engine_anti_ice_adjustment_value, 1.71)
         end
 
         if B747DR_display_EPR_max[i] < B747DR_display_EPR_ref[i] then
-          B747DR_display_EPR_max[i] = B747DR_display_EPR_ref[i]
+          display_EPR_max[i] = B747DR_display_EPR_ref[i]
         end
       end
     elseif string.match(B747DR_ref_thr_limit_mode, "CRZ") then
@@ -813,9 +816,9 @@ function engine_idle_control_PW(altitude_ft_in)
 
       --Set target bugs
       for i = 0, 3 do
-          simDR_EPR_target_bug[i] = string.format("%3.2f", EPR_max_cruise) + packs_adjustment_value + engine_anti_ice_adjustment_value
-          B747DR_display_EPR_ref[i] = string.format("%3.2f", EPR_max_cruise) + packs_adjustment_value + engine_anti_ice_adjustment_value
-          B747DR_display_EPR_max[i] = EPR_max_climb  --simDR_EPR_target_bug[i]
+          EPR_target_bug[i] = string.format("%3.2f", EPR_max_cruise) + packs_adjustment_value + engine_anti_ice_adjustment_value
+          display_EPR_ref[i] = string.format("%3.2f", EPR_max_cruise) + packs_adjustment_value + engine_anti_ice_adjustment_value
+          display_EPR_max[i] = EPR_max_climb  --simDR_EPR_target_bug[i]
       end
 
       if B747DR_log_level >= 1 then
@@ -832,13 +835,12 @@ function engine_idle_control_PW(altitude_ft_in)
       --Set G/A N1 targets
       for i = 0, 3 do
         if altitude_ft_in < (-10.15 * simDR_TAT^2 + 57.654 * simDR_TAT + 9526.4) then
-          simDR_EPR_target_bug[i] = string.format("%3.2f", 0.000017 * altitude_ft_in + 1.5 + packs_adjustment_value + engine_anti_ice_adjustment_value)
+          EPR_target_bug[i] = string.format("%3.2f", 0.000017 * altitude_ft_in + 1.5 + packs_adjustment_value + engine_anti_ice_adjustment_value)
         else
-          simDR_EPR_target_bug[i] = string.format("%3.2f", -0.00669 * simDR_TAT + 1.74 + packs_adjustment_value + engine_anti_ice_adjustment_value)
+          EPR_target_bug[i] = string.format("%3.2f", -0.00669 * simDR_TAT + 1.74 + packs_adjustment_value + engine_anti_ice_adjustment_value)
         end
-        --simDR_EPR_target_bug[i] = TOGA_epr_PW4056[temperature][altitude] + packs_adjustment_value + engine_anti_ice_adjustment_value
-        B747DR_display_EPR_ref[i] = math.min(simDR_EPR_target_bug[i], 1.71)
-        B747DR_display_EPR_max[i] = math.min(simDR_EPR_target_bug[i], 1.71)
+        display_EPR_ref[i] = math.min(simDR_EPR_target_bug[i], 1.71)
+        display_EPR_max[i] = math.min(simDR_EPR_target_bug[i], 1.71)
       end
     end
 
@@ -869,6 +871,9 @@ function engine_idle_control_PW(altitude_ft_in)
     end
   
     for i = 0, 3 do
+      simDR_EPR_target_bug[i] = EPR_target_bug[i]
+      B747DR_display_EPR_ref[i] = display_EPR_ref[i]
+      B747DR_display_EPR_max[i] = display_EPR_max[i]
       EPR_display[i] = string.format("%3.2f", math.min(EPR_display_PW(altitude_ft_in, simDR_thrust_n[i], i), 1.71))  --use i as a reference for engine number
       B747DR_display_EPR[i] = math.max(EPR_display[i], 0.0)
 
