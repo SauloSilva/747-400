@@ -69,7 +69,7 @@ function doPitch()
     B747DR_ap_FMA_armed_roll_mode=0
     --B747DR_ap_FMA_active_pitch_mode=0 
   elseif simDR_radarAlt1 < doRollout then 
-    targetPitch=zeroRatePitch-0.5 
+    targetPitch=0.1--zeroRatePitch-0.5 
     maxPitch=4 
     inrollout=true 
     B747DR_ap_FMA_active_roll_mode=4
@@ -94,7 +94,7 @@ function doPitch()
       targetPitch=progressPitch
     end]]--
 
-    targetPitch=zeroRatePitch+1.0
+    targetPitch=zeroRatePitch+0.5
   end
   --[[if inrollout==true then 
     local tP=(simDR_radarAlt1-4.0)

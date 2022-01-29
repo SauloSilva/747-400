@@ -444,7 +444,7 @@ function ap_director_pitch()
         directorSampleRate=0.1
     end
     local retval=simDR_flight_director_pitch
-    print("+simDR_flight_director_pitch "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_flight_director_pitch "..simDR_flight_director_pitch)
+    --print("+simDR_flight_director_pitch "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_flight_director_pitch "..simDR_flight_director_pitch)
     if retval<simDR_AHARS_pitch_heading_deg_pilot-5 then
         retval=simDR_AHARS_pitch_heading_deg_pilot-5
     elseif retval>simDR_AHARS_pitch_heading_deg_pilot+5 then 
@@ -495,7 +495,7 @@ function ap_director_integral()
     end
     retval=retval/10
     B747DR_flight_director_pitch=retval
-    if displayUpdate then print("retval "..retval.." "..simDRTime) end
+   -- if displayUpdate then print("retval "..retval.." "..simDRTime) end
     return retval
 end
 function doTrim()
@@ -528,7 +528,7 @@ function ap_pitch_assist()
         local targetElevator=alpha*elevatorRequest+beta*pitchChange
         local elevatorRate=60/math.abs(targetElevator)
 
-        print("elevatorRequest "..elevatorRequest .." pitchChange "..pitchChange .." targetElevator "..targetElevator .." elevatorRate "..elevatorRate)
+        --print("elevatorRequest "..elevatorRequest .." pitchChange "..pitchChange .." targetElevator "..targetElevator .." elevatorRate "..elevatorRate)
         doTrim()
         if elevatorRate<0.5 then elevatorRate=0.5
         elseif elevatorRate>1000 then elevatorRate=1000 
