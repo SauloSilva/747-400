@@ -23,12 +23,13 @@ function throttle_resolver_angle_GE(engine_in)
   throttle_angle = (3.022549485226715E-03  + 1.441727698320892E+00  * simDR_throttle_ratio[engine_in] + -9.568752920557220E-01  * simDR_throttle_ratio[engine_in]^2
                   + 9.989724112918770E-01 * simDR_throttle_ratio[engine_in]^3 + -4.927345191979758E-01 * simDR_throttle_ratio[engine_in]^4) * thrust_ratio_factor
 
-  if B747DR_log_level >= 1 then
+  local N1_target=B747_rescale(0.0, 0.75, 0.88, 2.05, throttle_angle)
+  if B747DR_log_level == -1 then
     print("Thrust Factor = ", thrust_ratio_factor)
     print("TRA = ", throttle_angle)
+    print("N1_target = ", N1_target)
   end
-
-  return throttle_angle
+  return N1_target
 end
 
 function engine_idle_control_GE(altitude_ft_in)

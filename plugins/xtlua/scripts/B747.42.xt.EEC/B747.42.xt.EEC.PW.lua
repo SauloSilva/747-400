@@ -15,7 +15,7 @@
 
 --This function calculates the target position of the throttle target on the Upper EICAS
 function throttle_resolver_angle_PW(engine_in)
-  local throttle_angle = 0.0
+ --[[ local throttle_angle = 0.0
   local thrust_ratio_factor = 1.0
 
   thrust_ratio_factor = B747DR_display_EPR_max[engine_in] / 1.71
@@ -23,16 +23,43 @@ function throttle_resolver_angle_PW(engine_in)
   throttle_angle = (9.798811078790268E-02  + 2.547824079911253E+00  * simDR_throttle_ratio[engine_in] + -4.383605884770404E+00  * simDR_throttle_ratio[engine_in]^2
                   + 3.710724888771679E+00 * simDR_throttle_ratio[engine_in]^3 + -9.728684894100634E-01 * simDR_throttle_ratio[engine_in]^4) * thrust_ratio_factor
 
+  
   if throttle_angle > 1.0 then
     throttle_angle = 1.0
   end
-
-  if B747DR_log_level >= 1 then
+  throttle_angle =throttle_angle*0.6+1
+  if B747DR_log_level== -1 then
     print("Thrust Factor = ", thrust_ratio_factor)
     print("TRA = ", throttle_angle)
   end
 
-  return throttle_angle
+  return throttle_angle]]
+    local thrust_ratio_factor = 1.63 / 2.75
+    local commandThrust=engine_max_thrust_n*simDR_throttle_ratio[engine_in]* thrust_ratio_factor
+    local EPR_corrected_thrust_N = commandThrust / (1000 * sigma_density_ratio)
+    --EPR_corrected_thrust_N = thrust_N_in / (1000 * sigma_density_ratio)
+      --EPR_corrected_thrust_N = thrust_N_in / (1000 * pressure_ratio)
+    
+      local EPR_corrected_thrust_calibrated_N = (-0.4795 * mach^2 + 0.5903 * mach + 0.925) * EPR_corrected_thrust_N  --Sigma version 2
+      --EPR_corrected_thrust_calibrated_N = (-0.0811 * mach^2 + 0.2349 * mach + 0.919) * EPR_corrected_thrust_N  --Sigma version 2
+
+      local  EPR_actual = (-1.8E-08 * mach^2 - 5.87E-08 * mach + 7.179999999999999E-08) * EPR_corrected_thrust_calibrated_N^3 + (-0.0000237 * mach^2 + 0.0000529 * mach - 0.0000218)
+        * EPR_corrected_thrust_calibrated_N^2 + (0.002 * mach^2 - 0.0036 * mach + 0.0034) * EPR_corrected_thrust_calibrated_N + (-0.3287 * mach^2 - 0.0833 * mach + 0.9932)
+
+     EPR_actual = EPR_actual 
+     if EPR_actual < 1.0 then EPR_actual=1.0 end
+     if B747DR_log_level == -1 then
+        print("\t\t\t\t\t<<<--- throttle_resolver_angle_PW --->>> "..engine_in)
+        print("commandThrustN = ", commandThrust)
+        print("EPR_corrected_thrust_N = ", EPR_corrected_thrust_N)
+        print("simDR_thrust_n[i] = ", simDR_thrust_n[engine_in])
+        print("engine_max_thrust_n = ", engine_max_thrust_n)
+        print("simDR_throttle_ratio[engine_in] = ", simDR_throttle_ratio[engine_in])
+        print("EPR_actual = ", EPR_actual)
+        print("Mach = ", mach)
+    
+      end
+      return math.min(EPR_actual,1.71) --top of PW is 1.95, 1.75 for RR ??
 end
 
 function engine_idle_control_PW(altitude_ft_in)
@@ -626,7 +653,7 @@ function engine_idle_control_PW(altitude_ft_in)
         end
       end
 
-      if B747DR_log_level >= 1 then
+      if B747DR_log_level ==-2 then
         print("\t\t\t\t\t<<<--- EPR DISPLAY (PW) --->>>".."\t\tEngine # "..engine_in + 1)
         print("Altitude IN = ", altitude_ft_in)
         print("Thrust IN = ", thrust_N_in)
