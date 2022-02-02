@@ -12,7 +12,7 @@ wasOnline=false
 function getCycle()
   local file = io.open("Custom Data/earth_nav.dat", "r")
   if file==nil then
-    return "1802 \n" 
+    return "2107 \n" 
   end
   file:read("*l")
   local buildData=file:read("*l")

@@ -387,12 +387,13 @@ local last_simDR_ind_airspeed_kts_pilot=0
 local last_simDR_AHARS_pitch_heading_deg_pilot=0
 local last_altitude=0
 local directorSampleRate=0.02
+
 function ap_director_pitch()
     local alt_delta=simDR_pressureAlt1-last_altitude
     last_altitude=simDR_pressureAlt1
 
     if B747DR_ap_autoland == 1 then 
-        print("pitching for autoland "..B744DR_autolandPitch)
+        print("pitching for autoland "..B744DR_autolandPitch .. " simDR_AHARS_pitch_heading_deg_pilot "..simDR_AHARS_pitch_heading_deg_pilot.. "simDR_touchGround "..simDR_touchGround)
         directorSampleRate=0.02
         return  B744DR_autolandPitch
     end

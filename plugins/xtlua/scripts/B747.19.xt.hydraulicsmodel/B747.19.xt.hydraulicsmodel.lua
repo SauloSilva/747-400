@@ -104,6 +104,7 @@ simDR_autopilot_airspeed_kts = find_dataref("sim/cockpit2/autopilot/airspeed_dia
 simDR_ind_airspeed_kts_pilot = find_dataref("laminar/B747/gauges/indicators/airspeed_kts_pilot")
 simDR_autopilot_altitude_ft = find_dataref("sim/cockpit2/autopilot/altitude_dial_ft")
 simDR_pressureAlt1 = find_dataref("sim/cockpit2/gauges/indicators/altitude_ft_pilot")
+simDR_touchGround = find_dataref("sim/flightmodel/failures/onground_any")
 B747DR_l_elev_inner   = deferred_dataref("laminar/B747/flt_ctrls/l_elev_inner", "number")
 B747DR_r_elev_inner   = deferred_dataref("laminar/B747/flt_ctrls/r_elev_inner", "number")
 B747DR_l_elev_outer   = deferred_dataref("laminar/B747/flt_ctrls/l_elev_outer", "number")
