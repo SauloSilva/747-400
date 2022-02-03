@@ -1482,8 +1482,8 @@ function B747_fltmgmt_setILS(fms)
 				local ap2Heading = getHeading(fms[i - 1][5], fms[i - 1][6], fms[table.getn(fms)][5], fms[table.getn(fms)][6])
 				local diffap = getHeadingDifference(ap1Heading, ap2Heading)
 				local distance = getDistance(fms[i][5], fms[i][6], fms[table.getn(fms)][5], fms[table.getn(fms)][6])
-				print("finding ils FMS i=" .. i .. ":" .. ap1Heading .. ":" .. ap2Heading .. ":" .. diffap .. ":" .. distance)
-				if diffap < 10 and diffap > -10 and fms[i][8] ~= fms[i - 1][8] and distance < 11 then
+				print("finding ils FMS i=" .. i .. ":" .. ap1Heading .. ":" .. ap2Heading .. ":" .. diffap .. ":" .. distance.. ":" .. fms[i][8].. ":" .. fms[i - 1][8] )
+				if diffap < 10 and diffap > -10 and distance < 11 then
 					print("potential matched from" .. i)
 					for n = table.getn(navAids), 1, -1 do
 						--now find an ils
@@ -2245,7 +2245,9 @@ function fma_PitchModes()
 		B747DR_ap_inVNAVdescent = 0
 		--B747DR_ap_thrust_mode=0
 		B747DR_engine_TOGA_mode = 0
-		B747DR_ap_approach_mode = 0
+		if simDR_autopilot_gs_status ~= 2 and simDR_autopilot_nav_status ~= 2 then
+			B747DR_ap_approach_mode = 0
+		end
 	elseif simDR_autopilot_TOGA_vert_status == 2 then
 		--if B747DR_engine_TOGA_mode == 1 then
 
