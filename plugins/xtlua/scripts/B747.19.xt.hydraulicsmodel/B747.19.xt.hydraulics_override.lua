@@ -442,7 +442,7 @@ function ap_director_pitch()
         last_simDR_AHARS_pitch_heading_deg_pilot=retval
         return retval
     elseif B747DR_ap_FMA_active_pitch_mode==2 then
-        directorSampleRate=0.1
+        directorSampleRate=0.5
     end
     local retval=simDR_flight_director_pitch
     --print("+simDR_flight_director_pitch "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_flight_director_pitch "..simDR_flight_director_pitch)

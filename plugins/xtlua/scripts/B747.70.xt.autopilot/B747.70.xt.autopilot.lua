@@ -2245,7 +2245,9 @@ function fma_PitchModes()
 		B747DR_ap_inVNAVdescent = 0
 		--B747DR_ap_thrust_mode=0
 		B747DR_engine_TOGA_mode = 0
-		B747DR_ap_approach_mode = 0
+		if simDR_autopilot_gs_status ~= 2 and simDR_autopilot_nav_status ~= 2 then
+			B747DR_ap_approach_mode = 0
+		end
 	elseif simDR_autopilot_TOGA_vert_status == 2 then
 		--if B747DR_engine_TOGA_mode == 1 then
 
