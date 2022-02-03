@@ -232,6 +232,7 @@ end
 -- STABLIZER TRIM
 function B747_stablizer_trim_up_capt_CMDhandler(phase, duration)
     simCMD_stablizer_trim_up:once()
+    simDR_electric_trim=1
     --[[if phase == 0 then
         simCMD_stablizer_trim_up:once()
     end
@@ -245,6 +246,7 @@ end
 
 function B747_stablizer_trim_dn_capt_CMDhandler(phase, duration)
     simCMD_stablizer_trim_dn:once()
+    simDR_electric_trim=1
     --[[if phase == 0 then
         simCMD_stablizer_trim_dn:once()
     end
@@ -260,6 +262,7 @@ end
 
 function B747_stablizer_trim_up_fo_CMDhandler(phase, duration)
     simCMD_stablizer_trim_up:once()
+    simDR_electric_trim=1
    --[[ if phase == 0 then
         simCMD_stablizer_trim_up:once()
     end
@@ -273,6 +276,7 @@ end
 
 function B747_stablizer_trim_dn_fo_CMDhandler(phase, duration)
     simCMD_stablizer_trim_dn:once()
+    simDR_electric_trim=1
   --[[  if phase == 0 then
         simCMD_stablizer_trim_dn:once()
     end

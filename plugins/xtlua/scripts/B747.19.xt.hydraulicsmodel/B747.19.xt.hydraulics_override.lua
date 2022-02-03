@@ -517,9 +517,10 @@ function ap_pitch_assist()
     local target=0
     local retval=B747_interpolate_value(B747DR_sim_pitch_ratio,target,-1,1,20)
     local refreshsimDR_electric_trim=simDR_electric_trim
-    simDR_electric_trim=0
+    
     
     if simDR_autopilot_servos_on>0 and (B747DR_ap_FMA_active_pitch_mode>0 or B747DR_ap_autoland == 1) then
+        simDR_electric_trim=0
         local elevatorRequest=simDR_AHARS_pitch_heading_deg_pilot-flight_director_pitch
         local pitchChange=simDR_AHARS_pitch_heading_deg_pilot-previous_simDR_AHARS_pitch_heading_deg_pilot
         previous_simDR_AHARS_pitch_heading_deg_pilot=simDR_AHARS_pitch_heading_deg_pilot
@@ -541,6 +542,8 @@ function ap_pitch_assist()
             retval=B747_interpolate_value(B747DR_sim_pitch_ratio,1.0,-1,1,elevatorRate) 
         end
 
+    else
+        simDR_electric_trim=1
     end
 
     return retval
