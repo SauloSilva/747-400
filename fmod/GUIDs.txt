@@ -241,7 +241,7 @@
 {0a80c071-bba7-4ca4-be87-c57f7a894a14} event:/Boeing/747/-400/Warnings/GPWS/OLD/approaching_minimums
 {7c51eeb7-b320-4fac-8636-c02aeb89ca67} event:/Boeing/747/-400/Warnings/GPWS/OLD/bankangle
 {22908878-a65c-4825-9ad2-216596e1c576} event:/Boeing/747/-400/Warnings/GPWS/OLD/decision_height
-{ab0e7ae5-3fa6-49e2-a5fc-110ede1d063f} event:/Boeing/747/-400/Warnings/GPWS/OLD/dontsink
+#{ab0e7ae5-3fa6-49e2-a5fc-110ede1d063f} event:/Boeing/747/-400/Warnings/GPWS/OLD/dontsink
 {780531fc-4f5a-4b83-84ca-44c92e804522} event:/Boeing/747/-400/Warnings/GPWS/OLD/glideslope
 {42330b7f-034c-48a9-b235-40305059a970} event:/Boeing/747/-400/Warnings/GPWS/OLD/GPWC_TEST
 {cf1a2223-1c86-4224-a450-4915f96ddf9b} event:/Boeing/747/-400/Warnings/GPWS/OLD/minimums
@@ -270,7 +270,7 @@
 {62071752-08fd-4aba-a2d2-e74edbb70ac7} event:/Boeing/747/-400/Warnings/GPWS/approaching_minimums
 {714ffe1d-e1ba-4f32-8d9d-8b1b12b8a78a} event:/Boeing/747/-400/Warnings/GPWS/bankangle
 {97ebba70-e64c-4537-8aac-a6fb748eebd4} event:/Boeing/747/-400/Warnings/GPWS/decision_height
-{efa352e6-60c1-474a-bb55-f96c0ff71646} event:/Boeing/747/-400/Warnings/GPWS/dontsink
+#{efa352e6-60c1-474a-bb55-f96c0ff71646} event:/Boeing/747/-400/Warnings/GPWS/dontsink
 {6fee73b6-f15b-4896-9042-a4d6a77611c2} event:/Boeing/747/-400/Warnings/GPWS/glideslope
 {2f29f07f-f982-4ea1-95f4-da9158e643a2} event:/Boeing/747/-400/Warnings/GPWS/GPWC_TEST
 {4c29961b-dcd6-416b-af6a-8155f2160e6d} event:/Boeing/747/-400/Warnings/GPWS/minimums
