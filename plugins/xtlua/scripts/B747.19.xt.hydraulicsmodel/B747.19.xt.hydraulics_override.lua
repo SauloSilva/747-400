@@ -352,30 +352,7 @@ local lastPitchRecordUpdate=0
 for i=1,10,1 do
     pitchRecord[i]=0
 end
-function ap_pitch_integral()
-    local displayUpdate=false
-    if (simDRTime-lastPitchRecordUpdate)>0.1 then
-        displayUpdate=true
-        lastPitchRecordUpdate=simDRTime
-        pitchRecord[currentPitchRecord]=simDR_total_pitch_ratio-simDR_yoke_pitch_ratio
-        currentPitchRecord=currentPitchRecord+1
-        --print("currentPitchRecord "..currentPitchRecord)
-        if currentPitchRecord>10 then
-            currentPitchRecord=1
-        end
-    end
-    local retval=0
-    for i=1,10,1 do
-        retval=retval+pitchRecord[i]
-       -- if displayUpdate then print("i "..i.." = " ..pitchRecord[i].. " " ..retval) end
-    end
-    retval=retval/10
-    if displayUpdate then 
-        --print("ap_pitch_integral in "..simDR_total_pitch_ratio.." "..simDR_yoke_pitch_ratio)
-        --print("ap_pitch_integral retval "..retval.." "..simDRTime) 
-    end
-    return retval
-end
+
 
 local director_pitchRecord={}
 local director_currentPitchRecord=1
@@ -383,21 +360,32 @@ local director_lastPitchRecordUpdate=0
 for i=1,10,1 do
     director_pitchRecord[i]=0
 end
+local director_rollRecord={}
+local director_currentrollRecord=1
+local director_lastrollRecordUpdate=0
+for i=1,10,1 do
+    director_rollRecord[i]=0
+end
 local last_simDR_ind_airspeed_kts_pilot=0
 local last_simDR_AHARS_pitch_heading_deg_pilot=0
 local last_altitude=0
 local directorSampleRate=0.02
+local directorRollSampleRate=1.0
+
+function ap_director_roll()
+    return B747DR_ap_target_roll
+end
 
 function ap_director_pitch()
     local alt_delta=simDR_pressureAlt1-last_altitude
     last_altitude=simDR_pressureAlt1
-
+    
     if B747DR_ap_autoland == 1 then 
         print("pitching for autoland "..B744DR_autolandPitch .. " simDR_AHARS_pitch_heading_deg_pilot "..simDR_AHARS_pitch_heading_deg_pilot.. "simDR_touchGround "..simDR_touchGround)
         directorSampleRate=0.02
         return  B744DR_autolandPitch
     end
-    if (B747DR_ap_FMA_active_pitch_mode==4 or B747DR_ap_FMA_active_pitch_mode==8) and (simDR_pressureAlt1> simDR_autopilot_altitude_ft+1000 or simDR_pressureAlt1< simDR_autopilot_altitude_ft-1000 or math.abs(alt_delta)<20) then
+    if (B747DR_ap_FMA_active_pitch_mode==4 or B747DR_ap_FMA_active_pitch_mode==8) and (simDR_pressureAlt1> simDR_autopilot_altitude_ft+1000 or simDR_pressureAlt1< simDR_autopilot_altitude_ft-1000) then
         local speed_delta=simDR_ind_airspeed_kts_pilot-last_simDR_ind_airspeed_kts_pilot
         --FLCH
         last_simDR_ind_airspeed_kts_pilot=simDR_ind_airspeed_kts_pilot
@@ -406,12 +394,13 @@ function ap_director_pitch()
         else
             directorSampleRate=0.5
         end
+
         if simDR_autopilot_airspeed_kts> simDR_ind_airspeed_kts_pilot+1 and speed_delta<0 then
-            --print("-simDR_AHARS_pitch_heading_deg_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." simDR_ind_airspeed_kts_pilot "..simDR_ind_airspeed_kts_pilot)
+            print("-simDR_AHARS_pitch_heading_deg_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." simDR_ind_airspeed_kts_pilot "..simDR_ind_airspeed_kts_pilot.." simDR_ind_airspeed_kts_pilot "..speed_delta)
             
             last_simDR_AHARS_pitch_heading_deg_pilot= (last_simDR_AHARS_pitch_heading_deg_pilot-0.01)
         elseif simDR_autopilot_airspeed_kts< simDR_ind_airspeed_kts_pilot-1 and speed_delta>0 then
-            --print("+simDR_AHARS_pitch_heading_deg_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." simDR_ind_airspeed_kts_pilot "..simDR_ind_airspeed_kts_pilot)
+            print("+simDR_AHARS_pitch_heading_deg_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." simDR_ind_airspeed_kts_pilot "..simDR_ind_airspeed_kts_pilot.." speed_delta "..speed_delta)
             last_simDR_AHARS_pitch_heading_deg_pilot= (last_simDR_AHARS_pitch_heading_deg_pilot+0.01)
         end
         last_altitude=simDR_pressureAlt1
@@ -419,24 +408,50 @@ function ap_director_pitch()
         last_simDR_AHARS_pitch_heading_deg_pilot=retval
         return retval
     elseif B747DR_ap_FMA_active_pitch_mode~=2 and (B747DR_ap_FMA_active_pitch_mode==5 or B747DR_ap_FMA_active_pitch_mode==9 or (simDR_pressureAlt1< simDR_autopilot_altitude_ft+1000 and simDR_pressureAlt1> simDR_autopilot_altitude_ft-1000)) then
-        
-        directorSampleRate=0.5
-        if (simDR_pressureAlt1 > simDR_autopilot_altitude_ft-100 and alt_delta>0.5) or (simDR_pressureAlt1> simDR_autopilot_altitude_ft-950 and alt_delta>8) or (simDR_pressureAlt1> simDR_autopilot_altitude_ft and alt_delta>-0.1) then
-            --print("-last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." alt_delta "..alt_delta)
+        --ALT
+        local altDiff=math.abs(simDR_pressureAlt1-simDR_autopilot_altitude_ft)
+        directorSampleRate=0.1
+        local rog=0.005+0.01*altDiff/100
+        local maxFPM=math.min(altDiff*5,1000)
+        local minFPM=maxFPM/50
+        if simDR_pressureAlt1 > simDR_autopilot_altitude_ft then
+            minFPM=(-1*maxFPM)
+            maxFPM=minFPM/50
+        end
+        local pitchError=math.abs(simDR_AHARS_pitch_heading_deg_pilot-last_simDR_AHARS_pitch_heading_deg_pilot)
+
+        if simDR_vvi_fpm_pilot>maxFPM and pitchError<0.5 then
+            last_simDR_AHARS_pitch_heading_deg_pilot=last_simDR_AHARS_pitch_heading_deg_pilot-rog
+            print("-last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." minFPM "..minFPM.." maxFPM "..maxFPM)
+        end
+        if simDR_vvi_fpm_pilot<minFPM and pitchError<0.5 then
+            print("+last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." minFPM "..minFPM.." maxFPM "..maxFPM)
+            last_simDR_AHARS_pitch_heading_deg_pilot=last_simDR_AHARS_pitch_heading_deg_pilot+rog
+        end
+        if last_simDR_AHARS_pitch_heading_deg_pilot<-1.5 then
+            last_simDR_AHARS_pitch_heading_deg_pilot=-1.5
+        elseif last_simDR_AHARS_pitch_heading_deg_pilot>10 then 
+            last_simDR_AHARS_pitch_heading_deg_pilot=10
+        end
+
+        --[[if (simDR_pressureAlt1 > simDR_autopilot_altitude_ft-100 and alt_delta>0.5) or (simDR_pressureAlt1> simDR_autopilot_altitude_ft-950 and alt_delta>8) or (simDR_pressureAlt1> simDR_autopilot_altitude_ft and alt_delta>-0.1) then
+            print("-last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." alt_delta "..alt_delta)
             if last_simDR_AHARS_pitch_heading_deg_pilot>-1.5 then
                 delta=math.min(0.15,(math.abs(simDR_pressureAlt1-simDR_autopilot_altitude_ft)/3000)*math.min(math.abs(alt_delta),15))
-                --print("-delta "..delta)
+                print("-delta "..delta)
                 last_simDR_AHARS_pitch_heading_deg_pilot= (last_simDR_AHARS_pitch_heading_deg_pilot-delta)
             end
         end
         if (simDR_pressureAlt1 < simDR_autopilot_altitude_ft+100 and alt_delta<-0.5) or (simDR_pressureAlt1 < simDR_autopilot_altitude_ft+650 and alt_delta<-8) or (simDR_pressureAlt1 < simDR_autopilot_altitude_ft and alt_delta<0.1) then
-            --print("+last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." alt_delta "..alt_delta)
+            print("+last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." alt_delta "..alt_delta)
             if last_simDR_AHARS_pitch_heading_deg_pilot<10 then
                 delta=math.min(0.15,(math.abs(simDR_pressureAlt1-simDR_autopilot_altitude_ft)/3000)*math.min(math.abs(alt_delta),15))
-                --print("+delta "..delta)
+                print("+delta "..delta)
                 last_simDR_AHARS_pitch_heading_deg_pilot= (last_simDR_AHARS_pitch_heading_deg_pilot+delta)
             end
-        end
+        end]]--
+
+
         last_altitude=simDR_pressureAlt1
         retval=last_simDR_AHARS_pitch_heading_deg_pilot
         last_simDR_AHARS_pitch_heading_deg_pilot=retval
@@ -476,8 +491,30 @@ function ap_director_pitch()
     return retval
 end
 
-
-function ap_director_integral()
+function ap_director_roll_integral()
+    --return B747DR_ap_target_roll
+    local displayUpdate=false
+    if (simDRTime-director_lastrollRecordUpdate)>directorRollSampleRate then
+        displayUpdate=true
+        director_lastrollRecordUpdate=simDRTime
+        director_rollRecord[director_currentrollRecord]=ap_director_roll()
+        director_currentrollRecord=director_currentrollRecord+1
+        --print("currentPitchRecord "..director_currentPitchRecord)
+        if director_currentrollRecord>10 then
+            director_currentrollRecord=1
+        end
+    end
+    local retval=0
+    for i=1,10,1 do
+        retval=retval+director_rollRecord[i]
+       --if displayUpdate then print("i "..i.." = " ..pitchRecord[i].. " " ..retval) end
+    end
+    retval=retval/10
+    B747DR_flight_director_roll=retval
+   -- if displayUpdate then print("retval "..retval.." "..simDRTime) end
+    return retval
+end
+function ap_director_pitch_integral()
     local displayUpdate=false
     if (simDRTime-director_lastPitchRecordUpdate)>directorSampleRate then
         displayUpdate=true
@@ -513,7 +550,7 @@ function doTrim()
 end
 local previous_simDR_AHARS_pitch_heading_deg_pilot=0
 function ap_pitch_assist()
-    local flight_director_pitch=ap_director_integral()
+    local flight_director_pitch=ap_director_pitch_integral()
     local target=0
     local retval=B747_interpolate_value(B747DR_sim_pitch_ratio,target,-1,1,20)
     local refreshsimDR_electric_trim=simDR_electric_trim
@@ -549,6 +586,45 @@ function ap_pitch_assist()
     return retval
 end
 
+local previous_simDR_AHARS_roll_heading_deg_pilot=0
+function ap_roll_assist()
+    local flight_director_roll=ap_director_roll_integral()
+    local target=0
+    local retval=B747_interpolate_value(B747DR_sim_roll_ratio,target,-1,1,20)
+  
+    
+    if simDR_autopilot_servos_on>0 and (B747DR_ap_FMA_active_roll_mode>0) then
+
+        local rollRequest=simDR_AHARS_roll_heading_deg_pilot-flight_director_roll
+        local rollChange=simDR_AHARS_roll_heading_deg_pilot-previous_simDR_AHARS_roll_heading_deg_pilot
+        previous_simDR_AHARS_roll_heading_deg_pilot=simDR_AHARS_roll_heading_deg_pilot
+        
+        local alpha=0.2
+        local beta=0.4
+        local charlie=20.0
+        local rollDamp=beta*rollChange
+        local targetRoll=alpha*rollRequest+rollDamp
+        local nextRoll=rollRequest+charlie*rollChange
+        local rollRate=1/math.abs(rollDamp*2)
+
+       
+
+        if rollRate<0.5 then rollRate=0.5
+        elseif rollRate>10 then rollRate=10
+        end
+        retval=B747_interpolate_value(B747DR_sim_roll_ratio,rollRequest/-20,-1,1,rollRate) 
+        --[[if nextRoll > 0.1 then
+            retval=B747_interpolate_value(B747DR_sim_roll_ratio,-1,-1,1,rollRate) 
+        elseif nextRoll < -0.1 then
+            retval=B747_interpolate_value(B747DR_sim_roll_ratio,1.0,-1,1,rollRate)
+        else
+            retval=B747_interpolate_value(B747DR_sim_roll_ratio,0.0,-1,1,rollRate)
+        end]]
+        --print("rollRequest "..rollRequest .." rollChange "..rollChange .." targetRoll "..targetRoll .." rollRate "..rollRate.." retval "..retval.." nextRoll "..nextRoll)
+    end
+
+    return retval
+end
 function flight_controls_override()
     --[[override=1
     for i=1,4,1 do
@@ -569,6 +645,6 @@ function flight_controls_override()
     B747DR_r_aileron_outer_lockout   = (1.0-B747_rescale(232,0,238,1.0,simDR_ias_pilot))*-1
     B747_slats()
     B747DR_sim_pitch_ratio=ap_pitch_assist()
-    
+    B747DR_sim_roll_ratio=ap_roll_assist()
 
 end

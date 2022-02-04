@@ -365,7 +365,7 @@ simDR_startup_running               = find_dataref("sim/operation/prefs/startup_
 simDR_override_fuel_system          = find_dataref("sim/operation/override/override_fuel_system")
 
 simDR_elec_bus_volts                = find_dataref("sim/cockpit2/electrical/bus_volts")
-simDR_flap_deploy_ratio             = find_dataref("sim/flightmodel2/controls/flap_handle_deploy_ratio")
+simDR_flap_deploy_ratio             = find_dataref("laminar/B747/cablecontrols/flap_ratio")
 simDR_wing_flap1_deg                = find_dataref("sim/flightmodel2/wing/flap1_deg")
 simDR_all_wheels_on_ground          = find_dataref("sim/flightmodel/failures/onground_any")
 simDR_TAT                           = find_dataref("sim/cockpit2/temperature/outside_air_LE_temp_degc")

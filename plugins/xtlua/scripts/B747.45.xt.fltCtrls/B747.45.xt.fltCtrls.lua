@@ -122,7 +122,7 @@ B747DR_flap_deployed_ratio1        = deferred_dataref("laminar/B747/gauges/indic
 B747DR_flap_deployed_ratio2        = deferred_dataref("laminar/B747/gauges/indicators/flap_deployed_ratio2", "number")
 B747DR_flap_deployed_ratio3        = deferred_dataref("laminar/B747/gauges/indicators/flap_deployed_ratio3", "number")
 B747DR_flap_deployed_ratio4        = deferred_dataref("laminar/B747/gauges/indicators/flap_deployed_ratio4", "number")
-simDR_flap_deploy_ratio         = find_dataref("sim/flightmodel2/controls/flap_handle_deploy_ratio")
+simDR_flap_deploy_ratio         = find_dataref("laminar/B747/cablecontrols/flap_ratio")
 simDR_yaw_damper_on             = find_dataref("sim/cockpit2/switches/yaw_damper_on")
 simDR_gear_vert_defl            = find_dataref("sim/flightmodel2/gear/tire_vertical_deflection_mtr")
 simDR_gear_deploy_ratio         = find_dataref("sim/flightmodel2/gear/deploy_ratio")
@@ -872,7 +872,9 @@ function B747_flap_display_shutoff()
 end
 
 function B747_primary_EICAS_flap_display()
-    tStatus=1
+    local lastStatus=B747DR_EICAS1_flap_display_status
+    local tStatus=1
+    
     if math.abs(((B747DR_flap_deployed_ratio1+B747DR_flap_deployed_ratio2+B747DR_flap_deployed_ratio3+B747DR_flap_deployed_ratio4)/4)
          - B747DR_flap_deployed_ratio) > 0.01 then
             tStatus=2  
@@ -882,12 +884,17 @@ function B747_primary_EICAS_flap_display()
             if is_timer_scheduled(B747_flap_display_shutoff) == false then
                 run_after_time(B747_flap_display_shutoff, 10.0)
             end
+        elseif B747DR_flap_trans_status == 1 then  
+            B747DR_EICAS1_flap_display_status = tStatus
         end
+
     else
+        B747DR_EICAS1_flap_display_status = tStatus
+        --print("tStatus "..tStatus)
         if is_timer_scheduled(B747_flap_display_shutoff) == true then
             stop_timer(B747_flap_display_shutoff)
         end
-        B747DR_EICAS1_flap_display_status = tStatus
+        
     end
 
 end

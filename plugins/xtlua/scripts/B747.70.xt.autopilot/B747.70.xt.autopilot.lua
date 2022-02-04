@@ -2075,7 +2075,7 @@ function B747_ap_appr_mode()
 		print("simDR_onGround to B747DR_ap_approach_mode=0")
 		B747DR_ap_approach_mode = 0
 	end
-
+	
 	if B747DR_ap_lnav_state > 0 and simDR_autopilot_heading_status == 0 then
 		simCMD_autopilot_heading_select:once()
 		B747DR_ap_lastCommand = simDRTime
@@ -2123,6 +2123,10 @@ dofile("B747.autoland.lua")
 dofile("B747.70.xt.autopilot.monitor.lua")
 
 function fma_rollModes()
+	local diff = simDRTime - B747DR_ap_lastCommand
+	if diff < 0.2 then
+		return
+	end
 	-- ROLL MODES: ARMED
 	-- ----------------------------------------------------------------------------------
 
@@ -2200,8 +2204,14 @@ function fma_rollModes()
 		end
 	end
 end
+local restoreAlt=0
+function restoreAltFunc()
+	simDR_autopilot_altitude_ft=restoreAlt
+end
 
 function fma_PitchModes()
+
+	
 	-- PITCH MODES: ARMED
 	-- ----------------------------------------------------------------------------------
 
@@ -2265,15 +2275,10 @@ function fma_PitchModes()
 		B747DR_ap_flightPhase = 4
 		B747DR_ap_thrust_mode = 0
 	elseif (simDR_autopilot_fms_vnav == 1 or B747DR_ap_vnav_state >= 2) and simDR_autopilot_flch_status == 2 then
-		--[[if clbderate==0 then 
-			throttlederate=1.0
-		elseif clbderate==1 then 
-			throttlederate=0.9
-		elseif clbderate==2 then 
-			throttlederate=0.8 
-		end]]
+
 		-- (VNAV ALT) --
 		B747DR_ap_FMA_active_pitch_mode = 4
+		
 	 --
 	elseif (simDR_autopilot_fms_vnav == 1 or B747DR_ap_vnav_state >= 2) and simDR_autopilot_alt_hold_status == 2 then
 		--[[if clbderate==0 then 
@@ -2305,7 +2310,16 @@ function fma_PitchModes()
 			throttlederate=0.8 
 		end ]]
 		-- (FLCH SPD) --
-		B747DR_ap_FMA_active_pitch_mode = 7
+		B747DR_ap_FMA_active_pitch_mode = 7 --VS
+		local altDiff=math.abs(simDR_pressureAlt1-simDR_autopilot_altitude_ft)
+    	--print("VS altDiff "..altDiff)
+    	if simDR_autopilot_alt_hold_status == 0 and altDiff<500 then
+        	simCMD_autopilot_alt_hold_mode:once()
+			restoreAlt=simDR_autopilot_altitude_ft
+			run_after_time(restoreAltFunc,0.1)
+        	print("alt hold +/-1000 simDR_autopilot_altitude_ft")
+			B747DR_ap_lastCommand=simDRTime	
+    	end
 	 --
 	elseif simDR_autopilot_flch_status == 2 and simDR_autopilot_fms_vnav == 0 and B747DR_ap_vnav_state == 0 then
 		--[[if clbderate==0 then 
@@ -2316,13 +2330,23 @@ function fma_PitchModes()
 			throttlederate=0.8  
 		end]]
 		-- (ALT) --
-		B747DR_ap_FMA_active_pitch_mode = 8
+		B747DR_ap_FMA_active_pitch_mode = 8 --FLCH
+		local altDiff=math.abs(simDR_pressureAlt1-simDR_autopilot_altitude_ft)
+		--print("FLCH altDiff "..altDiff)
+    	if simDR_autopilot_alt_hold_status == 0 and altDiff<500 then
+        	simCMD_autopilot_alt_hold_mode:once()
+			restoreAlt=simDR_autopilot_altitude_ft
+			run_after_time(restoreAltFunc,0.1)
+        	print("alt hold +/-1000 simDR_autopilot_altitude_ft")
+			B747DR_ap_lastCommand=simDRTime	
+    	end
 	 --
 	elseif simDR_autopilot_alt_hold_status == 2 and simDR_autopilot_fms_vnav == 0 and B747DR_ap_vnav_state == 0 then
 		--throttlederate=1.0
-		-- (NONE) --
-		B747DR_ap_FMA_active_pitch_mode = 9
+		
+		B747DR_ap_FMA_active_pitch_mode = 9 -- ALT
 	else
+		-- (NONE) --
 		--throttlederate=1.0
 		B747DR_ap_FMA_active_pitch_mode = 0
 	end
@@ -2427,6 +2451,10 @@ function set_afds_status(value)
 end
 ---- AFDS STATUS -------------------------------------------------------------------------
 function B747_ap_afds()
+	local diff = simDRTime - B747DR_ap_lastCommand
+	if diff < 0.2 then
+		return
+	end
 	local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
 	if simDR_autopilot_servos_on == 0 then
 		if numAPengaged > 0 and (simDRTime - switching_servos_on) > 1 then

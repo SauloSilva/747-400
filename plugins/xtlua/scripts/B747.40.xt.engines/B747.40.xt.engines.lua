@@ -156,7 +156,7 @@ simDR_engine_oil_temp           = find_dataref("sim/cockpit2/engine/indicators/o
 simDR_engine_oil_qty_ratio      = find_dataref("sim/cockpit2/engine/indicators/oil_quantity_ratio")
 
 simDR_engine_fire		= find_dataref("sim/flightmodel2/engines/is_on_fire")
-simDR_flap_deploy_ratio         = find_dataref("sim/flightmodel2/controls/flap_handle_deploy_ratio")
+simDR_flap_deploy_ratio         = find_dataref("laminar/B747/cablecontrols/flap_ratio")
 simDR_allThrottle           	= find_dataref("sim/cockpit2/engine/actuators/throttle_ratio_all")
 simDR_engine_running            = find_dataref("sim/flightmodel/engine/ENGN_running")
 simDR_apu_running            	= find_dataref("sim/cockpit/engine/APU_running")
