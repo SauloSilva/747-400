@@ -107,7 +107,7 @@ local B747_ref_thr_limit = {
 toderate=deferred_dataref("laminar/B747/engine/derate/TO","number") 
 
 throttlederate=find_dataref("sim/aircraft/engine/acf_throtmax_FWD")
-
+simDR_version=find_dataref("sim/version/xplane_internal_version")
 --Simulator Config Options
 simConfigData = {}
 
@@ -1240,11 +1240,18 @@ function B747_secondary_EICAS2_engine_vibration()
     local timeNow=0
     local phaseNow=0
     local thrust=0
-    local disturbance=math.sqrt((B747DR_EICAS2_wingFlex-lastWingFlex)*(B747DR_EICAS2_wingFlex-lastWingFlex))
+    local wingFlex=0
+    
+    if simDR_version<115602 then
+        wingFlex=B747DR_EICAS2_wingFlex[0]
+    else
+        wingFlex=B747DR_EICAS2_wingFlex
+    end
+    local disturbance=math.sqrt((wingFlex-lastWingFlex)*(wingFlex-lastWingFlex))
     
     B747DR_EICAS2_engine_disturbance=B747_animate_value(B747DR_EICAS2_engine_disturbance,1,1,5,10)+disturbance
     B747DR_EICAS2_engine_disturbance=math.min(B747DR_EICAS2_engine_disturbance,4)
-    lastWingFlex=B747_animate_value(lastWingFlex,B747DR_EICAS2_wingFlex,-30,30,20)
+    lastWingFlex=B747_animate_value(lastWingFlex,wingFlex,-30,30,20)
     local airspeedReduction=(400-simDR_ind_airspeed_kts_pilot)/400
     for i = 0, 3 do
     B747DR_EICAS2_engine_vibration[i] = B747_rescale(0.0, 0.0, 100.0, B747_engine_maxVib[i], B747DR_display_N2[i])

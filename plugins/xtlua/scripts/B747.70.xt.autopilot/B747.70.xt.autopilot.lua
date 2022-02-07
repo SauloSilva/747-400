@@ -2238,7 +2238,7 @@ function fma_PitchModes()
 
 	-- PITCH MODES: ACTIVE
 	-- ----------------------------------------------------------------------------------
-
+	local altDiff=math.abs(simDR_pressureAlt1-simDR_autopilot_altitude_ft)
 	-- (NONE) --
 	--B747DR_ap_FMA_active_pitch_mode = 0
 	if B747DR_toggle_switch_position[23] == 0.0 and B747DR_toggle_switch_position[24] == 0.0 and numAPengaged == 0 then
@@ -2301,7 +2301,7 @@ function fma_PitchModes()
 		else
 			B747DR_ap_FMA_active_pitch_mode = 6 -- (VNAV PATH) --
 		end
-	elseif simDR_autopilot_vs_status == 2 and simDR_autopilot_fms_vnav == 0 and B747DR_ap_vnav_state == 0 then
+	elseif (simDR_autopilot_vs_status == 2 and altDiff>1000) and simDR_autopilot_fms_vnav == 0 and B747DR_ap_vnav_state == 0 then
 		--[[if clbderate==0 then 
 			throttlederate=1.0
 	  	elseif clbderate==1 then 
@@ -2311,7 +2311,7 @@ function fma_PitchModes()
 		end ]]
 		-- (FLCH SPD) --
 		B747DR_ap_FMA_active_pitch_mode = 7 --VS
-		local altDiff=math.abs(simDR_pressureAlt1-simDR_autopilot_altitude_ft)
+		
     	--print("VS altDiff "..altDiff)
     	if simDR_autopilot_alt_hold_status == 0 and altDiff<500 then
         	simCMD_autopilot_alt_hold_mode:once()
@@ -2321,7 +2321,7 @@ function fma_PitchModes()
 			B747DR_ap_lastCommand=simDRTime	
     	end
 	 --
-	elseif simDR_autopilot_flch_status == 2 and simDR_autopilot_fms_vnav == 0 and B747DR_ap_vnav_state == 0 then
+	elseif (simDR_autopilot_flch_status == 2 and altDiff>1000) and simDR_autopilot_fms_vnav == 0 and B747DR_ap_vnav_state == 0 then
 		--[[if clbderate==0 then 
 			throttlederate=1.0
 		elseif clbderate==1 then 
@@ -2341,7 +2341,7 @@ function fma_PitchModes()
 			B747DR_ap_lastCommand=simDRTime	
     	end
 	 --
-	elseif simDR_autopilot_alt_hold_status == 2 and simDR_autopilot_fms_vnav == 0 and B747DR_ap_vnav_state == 0 then
+	elseif (simDR_autopilot_alt_hold_status == 2 or altDiff<1000) and simDR_autopilot_fms_vnav == 0 and B747DR_ap_vnav_state == 0 then
 		--throttlederate=1.0
 		
 		B747DR_ap_FMA_active_pitch_mode = 9 -- ALT
@@ -2386,7 +2386,7 @@ function B747_ap_fma()
 		B747DR_engine_TOGA_mode = 1 --reached hold state
 	elseif
 		(simDR_autopilot_fms_vnav == 1 or B747DR_ap_vnav_state == 2) and
-			((simDR_autopilot_flch_status > 0 or B747DR_engine_TOGA_mode == 1) and B747DR_ap_inVNAVdescent == 0)
+			(((simDR_autopilot_flch_status > 0 and (simDR_pressureAlt1> simDR_autopilot_altitude_ft+1000 or simDR_pressureAlt1< simDR_autopilot_altitude_ft-1000)) or B747DR_engine_TOGA_mode == 1) and B747DR_ap_inVNAVdescent == 0)
 	 then
 		B747DR_ap_FMA_autothrottle_mode = 5 --THR REF
 	elseif simDR_autopilot_autothrottle_on == 1 then
@@ -2451,10 +2451,6 @@ function set_afds_status(value)
 end
 ---- AFDS STATUS -------------------------------------------------------------------------
 function B747_ap_afds()
-	local diff = simDRTime - B747DR_ap_lastCommand
-	if diff < 0.2 then
-		return
-	end
 	local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
 	if simDR_autopilot_servos_on == 0 then
 		if numAPengaged > 0 and (simDRTime - switching_servos_on) > 1 then
@@ -2482,7 +2478,7 @@ function B747_ap_afds()
 		end
 	end
 	local diff = simDRTime - B747DR_ap_lastCommand
-	if diff < 0.2 then
+	if diff < 0.1 then
 		return
 	end
 
