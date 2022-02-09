@@ -56,6 +56,8 @@ simDR_mag_heading			= find_dataref("sim/cockpit/gyros/psi_ind_ahars_pilot_degm")
 simDR_ground_track			= find_dataref("sim/cockpit2/gauges/indicators/ground_track_mag_pilot")
 simDR_map_range				= find_dataref("sim/cockpit2/EFIS/map_range")
 simDR_map_mode				= find_dataref("sim/cockpit2/EFIS/map_mode")
+simDR_map_range_copilot				= find_dataref("sim/cockpit2/EFIS/map_range_copilot")
+simDR_map_mode_copilot				= find_dataref("sim/cockpit2/EFIS/map_mode_copilot")
 simDR_range_dial_capt			= find_dataref("laminar/B747/nd/range/capt/sel_dial_pos")
 simDR_range_dial_fo			= find_dataref("laminar/B747/nd/range/fo/sel_dial_pos")
 B747_nd_map_center_capt                 = find_dataref("laminar/B747/nd/map_center/capt")
@@ -462,7 +464,7 @@ end
 function compute_and_show_alt_range_arc()
   local meters_per_second_to_kts = 1.94384449
   local actual_speed = simDR_groundspeed * meters_per_second_to_kts
-  if (simDR_autopilot_altitude_ft>simDR_pressureAlt1 and simDR_vvi_fpm_pilot>250) or (simDR_autopilot_altitude_ft<simDR_pressureAlt1 and simDR_vvi_fpm_pilot<-250) then
+  if (simDR_autopilot_altitude_ft>simDR_pressureAlt1 and simDR_vvi_fpm_pilot>500) or (simDR_autopilot_altitude_ft<simDR_pressureAlt1 and simDR_vvi_fpm_pilot<-500) then
     altDiff=simDR_autopilot_altitude_ft-simDR_pressureAlt1
     minsToAlt=altDiff/simDR_vvi_fpm_pilot
     distanceToAlt=(actual_speed*minsToAlt)/60

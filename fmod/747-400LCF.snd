@@ -6035,12 +6035,12 @@ BEGIN_SOUND_ATTACHMENT
     EVENT_END_COND sim/cockpit2/gauges/indicators/roll_electric_deg_pilot > -32
 END_SOUND_ATTACHMENT
 
-BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Boeing/747/-400/Warnings/GPWS/dontsink
-    VEH_XYZ 0 4.2 -26.8
-    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 5000
-    EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot > 5000
-END_SOUND_ATTACHMENT
+#BEGIN_SOUND_ATTACHMENT
+#    EVENT_NAME /Boeing/747/-400/Warnings/GPWS/dontsink
+#    VEH_XYZ 0 4.2 -26.8
+#    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 5000
+#    EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot > 5000
+#END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Boeing/747/-400/Warnings/GPWS/glideslope
@@ -6225,12 +6225,12 @@ BEGIN_SOUND_ATTACHMENT
     EVENT_END_COND sim/cockpit2/gauges/indicators/roll_electric_deg_pilot > -32
 END_SOUND_ATTACHMENT
 
-BEGIN_SOUND_ATTACHMENT
-    EVENT_NAME /Boeing/747/-400/Warnings/GPWS/OLD/dontsink
-    VEH_XYZ 0 4.2 -26.8
-    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 5000
-    EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot > 5000
-END_SOUND_ATTACHMENT
+#BEGIN_SOUND_ATTACHMENT
+#    EVENT_NAME /Boeing/747/-400/Warnings/GPWS/OLD/dontsink
+#    VEH_XYZ 0 4.2 -26.8
+#    EVENT_START_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot < 5000
+#   EVENT_END_COND sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot > 5000
+#END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Boeing/747/-400/Warnings/GPWS/OLD/glideslope

@@ -68,6 +68,7 @@ B747DR_hideRR						= deferred_dataref("laminar/B747/engines/hideRR", "number")
 B747DR_SNDoptions			        	= deferred_dataref("laminar/B747/fmod/options", "array[7]")
 --B747DR_SNDoptions_volume				= deferred_dataref("laminar/B747/fmod/options/volume", "array[8]")
 B747DR_SNDoptions_gpws					= deferred_dataref("laminar/B747/fmod/options/gpws", "array[16]")
+B747DR_modernAlarms						= deferred_dataref("laminar/B747/fmod/options/modernAlarms", "number")
 --*************************************************************************************--
 --** 				        MAIN PROGRAM LOGIC                                       **--
 --*************************************************************************************--
@@ -229,7 +230,7 @@ function setSoundOption(key,value)
 
 end
 function set_loaded_configs()
-	
+	B747DR_modernAlarms = 1
 	--Baro
 	if simConfigData["data"].SIM.baro_indicator == "IN" then
 		B747DR_efis_baro_ref_capt_sel_dial_pos = 0

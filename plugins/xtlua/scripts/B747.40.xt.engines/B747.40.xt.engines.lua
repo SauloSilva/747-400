@@ -107,7 +107,7 @@ local B747_ref_thr_limit = {
 toderate=deferred_dataref("laminar/B747/engine/derate/TO","number") 
 
 throttlederate=find_dataref("sim/aircraft/engine/acf_throtmax_FWD")
-
+simDR_version=find_dataref("sim/version/xplane_internal_version")
 --Simulator Config Options
 simConfigData = {}
 
@@ -156,7 +156,7 @@ simDR_engine_oil_temp           = find_dataref("sim/cockpit2/engine/indicators/o
 simDR_engine_oil_qty_ratio      = find_dataref("sim/cockpit2/engine/indicators/oil_quantity_ratio")
 
 simDR_engine_fire		= find_dataref("sim/flightmodel2/engines/is_on_fire")
-simDR_flap_deploy_ratio         = find_dataref("sim/flightmodel2/controls/flap_handle_deploy_ratio")
+simDR_flap_deploy_ratio         = find_dataref("laminar/B747/cablecontrols/flap_ratio")
 simDR_allThrottle           	= find_dataref("sim/cockpit2/engine/actuators/throttle_ratio_all")
 simDR_engine_running            = find_dataref("sim/flightmodel/engine/ENGN_running")
 simDR_apu_running            	= find_dataref("sim/cockpit/engine/APU_running")
@@ -582,7 +582,7 @@ B747DR_EICAS2_fuel_on_ind_status    = deferred_dataref("laminar/B747/engines/fue
 B747DR_EICAS2_oil_press_status      = deferred_dataref("laminar/B747/engines/EICAS2_oil_press_status", "array[4)")
 B747DR_EICAS2_engine_vibration      = deferred_dataref("laminar/B747/engines/vibration", "array[4)")
 B747DR_EICAS2_engine_disturbance    = deferred_dataref("laminar/B747/engines/disturbance", "number")
-B747DR_EICAS2_wingFlex			=find_dataref("sim/flightmodel2/wing/wing_tip_deflection_deg")
+B747DR_EICAS2_wingFlex			    =find_dataref("sim/flightmodel2/wing/wing_tip_deflection_deg")
 B747DR_engine_vibration_position    = deferred_dataref("laminar/B747/engine/vibration_position", "array[4)")
 B747DR_engine_oil_press_psi         = deferred_dataref("laminar/B747/engines/oil_press_psi", "array[4)")
 B747DR_engine_oil_temp_degC         = deferred_dataref("laminar/B747/engines/oil_temp_degC", "array[4)")
@@ -1240,11 +1240,18 @@ function B747_secondary_EICAS2_engine_vibration()
     local timeNow=0
     local phaseNow=0
     local thrust=0
-    local disturbance=math.sqrt((B747DR_EICAS2_wingFlex[0]-lastWingFlex)*(B747DR_EICAS2_wingFlex[0]-lastWingFlex))
+    local wingFlex=0
+    
+    if simDR_version<115602 then
+        wingFlex=B747DR_EICAS2_wingFlex[0]
+    else
+        wingFlex=B747DR_EICAS2_wingFlex
+    end
+    local disturbance=math.sqrt((wingFlex-lastWingFlex)*(wingFlex-lastWingFlex))
     
     B747DR_EICAS2_engine_disturbance=B747_animate_value(B747DR_EICAS2_engine_disturbance,1,1,5,10)+disturbance
     B747DR_EICAS2_engine_disturbance=math.min(B747DR_EICAS2_engine_disturbance,4)
-    lastWingFlex=B747_animate_value(lastWingFlex,B747DR_EICAS2_wingFlex[0],-30,30,20)
+    lastWingFlex=B747_animate_value(lastWingFlex,wingFlex,-30,30,20)
     local airspeedReduction=(400-simDR_ind_airspeed_kts_pilot)/400
     for i = 0, 3 do
     B747DR_EICAS2_engine_vibration[i] = B747_rescale(0.0, 0.0, 100.0, B747_engine_maxVib[i], B747DR_display_N2[i])

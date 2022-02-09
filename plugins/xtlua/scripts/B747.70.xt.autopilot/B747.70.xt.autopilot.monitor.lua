@@ -250,19 +250,35 @@ end
 local last_THR_REF=0
 
 function B747_monitor_THR_REF_AT()
-
+    local timediff=simDRTime-B747DR_ap_lastCommand
+    if timediff<0.1 then return end
+    if B747DR_ap_thrust_mode == 0 and simDR_autopilot_flch_status>0 and simDR_pressureAlt1< simDR_autopilot_altitude_ft+900 and simDR_pressureAlt1> simDR_autopilot_altitude_ft-900 and simDR_autopilot_autothrottle_on == 0 then
+        print("B747DR_ap_thrust_mode " .. B747DR_ap_thrust_mode)
+        simCMD_autopilot_autothrottle_on:once()
+        B747DR_ap_lastCommand = simDRTime
+        return
+    end
     if B747DR_ap_FMA_autothrottle_mode~=5 or B747DR_toggle_switch_position[29] ~= 1 then return end
     
     local n1_pct=math.max(B747DR_display_N1[0],B747DR_display_N1[1],B747DR_display_N1[2],B747DR_display_N1[3])
     local lastChange=simDRTime-last_THR_REF
-
     
+    print("THR REF B747_monitor_THR_REF_AT".." simDR_autopilot_autothrottle_on "..simDR_autopilot_autothrottle_on.." simDR_override_throttles "..simDR_override_throttles.." simDR_autopilot_altitude_ft "..simDR_autopilot_altitude_ft.." simDR_pressureAlt1 "..simDR_pressureAlt1)
+    if (simDR_autopilot_autothrottle_on == 0 or simDR_override_throttles==1) 
+    and (simDR_pressureAlt1< simDR_autopilot_altitude_ft+900 and simDR_pressureAlt1> simDR_autopilot_altitude_ft-900) then
+        B747DR_ap_flightPhase = 2
+		print("B747DR_ap_thrust_mode " .. B747DR_ap_thrust_mode)
+		B747DR_ap_thrust_mode = 0
+		print("B747DR_ap_thrust_mode " .. B747DR_ap_thrust_mode)
+        B747DR_ap_lastCommand = simDRTime
+        return
+    end
 
     --[[if lastChange>1 or lastChange<-1 then return end --wait for engines to stabilise
     if lastChange==0 and needNew==true then return end --wait for engines to stabilise, wait for update N1]]
     local ref_throttle=100
     local altDiff = simDR_autopilot_altitude_ft - simDR_pressureAlt1
-    local timediff=simDRTime-B747DR_ap_lastCommand
+    
     if B747DR_ap_thrust_mode==2 and altDiff<0 then
         ref_throttle=math.floor(20+B747_rescale(-10000,0,0,30,altDiff))
         B747DR_ap_flightPhase=3
@@ -313,7 +329,7 @@ function B747_monitor_THR_REF_AT()
     elseif (n1_pct > (ref_throttle+0.8)) and simDR_allThrottle>0.0 and B747DR_ap_flightPhase>2 then
         smCMD_ThrottleDown:once()
     end]]
-    if (n1_pct > (ref_throttle+0.8)) and simDR_allThrottle>0.0 and B747DR_ap_flightPhase>2 then
+    if (n1_pct > (ref_throttle+0.8)) and simDR_allThrottle>0.0 and B747DR_ap_flightPhase>2 and simDR_autopilot_airspeed_kts< simDR_ind_airspeed_kts_pilot then
         simCMD_ThrottleDown:once()
     end
     
