@@ -567,11 +567,11 @@ function ap_pitch_assist()
         previous_simDR_AHARS_pitch_heading_deg_pilot=simDR_AHARS_pitch_heading_deg_pilot
         
         local alpha=1.0
-        local beta=20
+        local beta=40
         local targetElevator=alpha*elevatorRequest+beta*pitchChange
         local elevatorRate=60/math.abs(targetElevator)
 
-        --print("elevatorRequest "..elevatorRequest .." pitchChange "..pitchChange .." targetElevator "..targetElevator .." elevatorRate "..elevatorRate)
+        print("elevatorRequest "..elevatorRequest .." pitchChange "..pitchChange .." targetElevator "..targetElevator .." elevatorRate "..elevatorRate)
         doTrim()
         if elevatorRate<0.5 then elevatorRate=0.5
         elseif elevatorRate>1000 then elevatorRate=1000 

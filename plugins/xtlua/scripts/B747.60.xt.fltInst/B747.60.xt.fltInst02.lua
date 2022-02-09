@@ -79,7 +79,7 @@ end
 --*************************************************************************************--
 
 simDR_startup_running               = find_dataref("sim/operation/prefs/startup_running")
-
+simDR_version=find_dataref("sim/version/xplane_internal_version")
 simDR_all_wheels_on_ground          = find_dataref("sim/flightmodel/failures/onground_any")
 
 --simDR_HSI_source_sel                = find_dataref("sim/cockpit2/radios/actuators/HSI_source_select_pilot")
@@ -1072,7 +1072,11 @@ function B747_nd_mode_capt_sel_dial_up_CMDhandler(phase, duration)
             --B747_nd_map_center_capt = 1
         else
             B747_nd_map_center_capt = B747_center_status_old
-            simDR_EFIS_map_mode = math.max(B747DR_nd_mode_capt_sel_dial_pos+1,1)
+            if simDR_version<115602 then
+                simDR_EFIS_map_mode = 1
+            else
+                simDR_EFIS_map_mode = math.max(B747DR_nd_mode_capt_sel_dial_pos+1,1)
+            end
         end
         -- TODO:  ADD ELEMENTS STATUS BASED ON MODE
     end
@@ -1217,12 +1221,20 @@ function B747_nd_mode_fo_sel_dial_up_CMDhandler(phase, duration)
         --B747DR_nd_mode_capt_sel_dial_pos = B747DR_nd_mode_fo_sel_dial_pos
         
         if B747DR_nd_mode_fo_sel_dial_pos == 3 then
-            simDR_EFIS_map_mode_copilot = 4
+            if simDR_version<115602 then
+                simDR_EFIS_map_mode = 4
+            else
+                simDR_EFIS_map_mode_copilot = 4
+            end
             --B747_nd_map_center_fo = 1
             --B747_nd_map_center_capt = B747_nd_map_center_fo
         else
             B747_nd_map_center_fo = B747_center_status_old
-            simDR_EFIS_map_mode_copilot = math.max(B747DR_nd_mode_fo_sel_dial_pos+1,1)
+            if simDR_version<115602 then
+                simDR_EFIS_map_mode =1
+            else
+                simDR_EFIS_map_mode_copilot = math.max(B747DR_nd_mode_fo_sel_dial_pos+1,1)
+            end
             --B747_nd_map_center_capt = B747_nd_map_center_fo
         end
         -- TODO:  ADD ELEMENTS STATUS BASED ON MODE
@@ -1236,12 +1248,20 @@ function B747_nd_mode_fo_sel_dial_dn_CMDhandler(phase, duration)
        -- B747DR_nd_mode_capt_sel_dial_pos = B747DR_nd_mode_fo_sel_dial_pos
         
         if B747DR_nd_mode_fo_sel_dial_pos == 3 then
-            simDR_EFIS_map_mode_copilot = 4
+            if simDR_version<115602 then
+                simDR_EFIS_map_mode = 4
+            else
+                simDR_EFIS_map_mode_copilot = 4
+            end
             --B747_nd_map_center_fo = 1
            -- B747_nd_map_center_capt = B747_nd_map_center_fo
         else
             B747_nd_map_center_fo = B747_center_status_old
-            simDR_EFIS_map_mode_copilot = math.max(B747DR_nd_mode_fo_sel_dial_pos+1,1)
+            if simDR_version<115602 then
+                simDR_EFIS_map_mode =1
+            else
+                simDR_EFIS_map_mode_copilot = math.max(B747DR_nd_mode_fo_sel_dial_pos+1,1)
+            end
            -- B747_nd_map_center_capt = B747_nd_map_center_capt
         end
     end

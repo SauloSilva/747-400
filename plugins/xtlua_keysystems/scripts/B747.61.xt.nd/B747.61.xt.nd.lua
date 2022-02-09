@@ -464,7 +464,7 @@ end
 function compute_and_show_alt_range_arc()
   local meters_per_second_to_kts = 1.94384449
   local actual_speed = simDR_groundspeed * meters_per_second_to_kts
-  if (simDR_autopilot_altitude_ft>simDR_pressureAlt1 and simDR_vvi_fpm_pilot>250) or (simDR_autopilot_altitude_ft<simDR_pressureAlt1 and simDR_vvi_fpm_pilot<-250) then
+  if (simDR_autopilot_altitude_ft>simDR_pressureAlt1 and simDR_vvi_fpm_pilot>500) or (simDR_autopilot_altitude_ft<simDR_pressureAlt1 and simDR_vvi_fpm_pilot<-500) then
     altDiff=simDR_autopilot_altitude_ft-simDR_pressureAlt1
     minsToAlt=altDiff/simDR_vvi_fpm_pilot
     distanceToAlt=(actual_speed*minsToAlt)/60
