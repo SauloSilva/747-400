@@ -14892,6 +14892,7 @@ IDX	3691
 ATTR_light_level 0 400 laminar/B747/gear/brake_temp[4]
 ANIM_begin
 	ANIM_trans	  -1.6553   -2.8177   35.5511	  -1.6553   -2.8177   35.5511	0 0	no_ref
+ANIM_hide	0.0 0.1	sim/flightmodel2/gear/deploy_ratio[2]
 	ANIM_rotate_begin	   1.0000    0.0000    0.0000	sim/flightmodel2/gear/deploy_ratio[2]
 		ANIM_rotate_key	0	103.00
 		ANIM_rotate_key	0.1	103.00
@@ -14947,8 +14948,10 @@ ANIM_begin
 			ANIM_trans_end
 			TRIS	5712 1698
 			ANIM_begin
+ANIM_hide	0.0 0.1	sim/flightmodel2/gear/deploy_ratio[1]
 				ANIM_trans	   0.0005   -1.3667    0.0031	   0.0005   -1.3667    0.0031	0 0	no_ref
 				ANIM_rotate	  -1.0000   -0.0000   -0.0000	  0.00   8.00	8.0 0.0	sim/flightmodel2/gear/eagle_claw_angle_deg[2]
+ANIM_hide	0.0 0.1	sim/flightmodel2/gear/deploy_ratio[1]
 				ANIM_rotate_begin	  -1.0000   -0.0000    0.0000	sim/flightmodel2/gear/deploy_ratio[1]
 				    ANIM_rotate_key	0	58.00
 				    ANIM_rotate_key	0.1	0.00
@@ -14973,6 +14976,7 @@ ANIM_end
 ATTR_light_level 0 400 laminar/B747/gear/brake_temp[8]
 ANIM_begin
 	ANIM_trans	   1.6333   -2.8177   35.5511	   1.6333   -2.8177   35.5511	0 0	no_ref
+ANIM_hide	0.0 0.1	sim/flightmodel2/gear/deploy_ratio[1]
 	ANIM_rotate_begin	   1.0000   -0.0000    0.0000	sim/flightmodel2/gear/deploy_ratio[1]
 		ANIM_rotate_key	0	103.00
 		ANIM_rotate_key	0.1	103.00
@@ -15029,6 +15033,7 @@ ANIM_begin
 			ANIM_begin
 				ANIM_trans	  -0.0005   -1.3667    0.0031	  -0.0005   -1.3667    0.0031	0 0	no_ref
 				ANIM_rotate	  -1.0000    0.0000    0.0000	  0.00   8.00	8.0 0.0	sim/flightmodel2/gear/eagle_claw_angle_deg[1]
+ANIM_hide	0.0 0.1	sim/flightmodel2/gear/deploy_ratio[1]
 				ANIM_rotate_begin	  -1.0000   -0.0000    0.0000	sim/flightmodel2/gear/deploy_ratio[1]
 				    ANIM_rotate_key	0	58.00
 				    ANIM_rotate_key	0.1	0.00
