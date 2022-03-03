@@ -61,7 +61,10 @@ fmsFunctionsDefs["GNDHNDL"]["L4"]={"setpage","DOORS"}
 fmsPages["GNDSRV"]=createPage("GNDSRV")
 fmsPages["GNDSRV"].getPage=function(self,pgNo,fmsID)
   local lineA=string.format("%03d",B747DR_fuel_add)
-
+  local lineB="<GROUND POWER           "
+  if B747DR_elec_ext_pwr1_available==1 then
+        lineB="<DISCONNECT GROUND POWER"
+  end
   local lineC = "                        "
   if simDR_acf_m_jettison>0 then
 	local jet_weight=simDR_m_jettison
@@ -78,7 +81,7 @@ fmsPages["GNDSRV"].getPage=function(self,pgNo,fmsID)
   "                        ",
   "<REQUEST GROUND SERVICES",
   "                        ",
-  "<GROUND POWER           ",
+  lineB,
   "                        ",
   " "..lineA,
   "                        ",
