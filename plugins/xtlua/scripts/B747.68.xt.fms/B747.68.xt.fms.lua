@@ -650,14 +650,19 @@ fmsModules["setData"]=function(self,id,value)
 	B747DR_FMSdata=json.encode(fmsModules["data"]["values"])--make the fms data available to other modules
 end
 function setFMSData(id,value)
-    --print("setting " .. id .. " to "..value.." curently "..fmsModules["data"][id])
-  
+	
+    print("setting " .. id )
+	print(" to "..value)
+	print(" curently "..fmsModules["data"][id])
    fmsModules:setData(id,value)
 end  
 function getFMSData(id)
   if hasChild(fmsModules["data"],id) then
     return fmsModules["data"][id]
   end
+  print("getting getFMSData" )
+  print("getting " .. id )
+  print(" curently "..fmsModules["data"][id])
   return fmsModules["data"][id]
 end 
 fmsModules["lastcmd"]=" "

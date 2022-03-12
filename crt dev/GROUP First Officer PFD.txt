@@ -175,7 +175,7 @@ GROUP First Officer PFD
       gen_pointer Symbol 2
         POS 994.500000 907.500000
         IMAGE CRT Displays/PFD/Artificial Horizon/HrznSlipSkid
-        DATAREF sim/cockpit2/gauges/indicators/slip_deg
+        DATAREF sim/cockpit2/gauges/indicators/sideslip_degrees
         
         HIDE
         LIGHT_MODE GLASS_AUTO
@@ -3941,7 +3941,7 @@ GROUP First Officer PFD
       gen_pointer Symbol 2
         POS 994.500000 907.500000
         IMAGE CRT Displays/PFD/Artificial Horizon/HrznSlipSkid
-        DATAREF sim/cockpit2/gauges/indicators/slip_deg
+        DATAREF sim/cockpit2/gauges/indicators/sideslip_degrees
         
         HIDE
         LIGHT_MODE GLASS_AUTO

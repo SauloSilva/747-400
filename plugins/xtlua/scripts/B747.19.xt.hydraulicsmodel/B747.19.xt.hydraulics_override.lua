@@ -48,7 +48,7 @@ function pressure_input()
     B747_pressureDRs[4]=B747DR_hyd_sys_pressure_4
     
     controlRatios[1]=B747_controls_lower_rudder--simDR_rudder[10]
-    controlRatios[2]=B747_controls_upper_rudder*0.8--simDR_rudder[10]
+    controlRatios[2]=B747_controls_upper_rudder--simDR_rudder[10]
 
     controlRatios[3]=B747_controls_left_inner_elevator-- -simDR_elevator[0]
     controlRatios[4]=B747_controls_right_inner_elevator-- -simDR_elevator[0]
@@ -594,6 +594,7 @@ local previous_simDR_AHARS_roll_heading_deg_pilot=0
 function ap_roll_assist()
     local flight_director_roll=ap_director_roll_integral()
     local target=0
+    local lastRoll=B747DR_sim_roll_ratio
     local retval=B747_interpolate_value(B747DR_sim_roll_ratio,target,-1,1,20)
   
     
@@ -609,8 +610,8 @@ function ap_roll_assist()
         local rollDamp=beta*rollChange
         local targetRoll=alpha*rollRequest+rollDamp
         local nextRoll=rollRequest+charlie*rollChange
-        local rollRate=1/math.abs(rollDamp*2)
-
+        --local rollRate=1/math.abs(rollDamp*2)
+        local rollRate=15/(math.abs(rollRequest)+1)
        
 
         if rollRate<0.5 then rollRate=0.5
@@ -626,7 +627,7 @@ function ap_roll_assist()
         end]]
         --print("rollRequest "..rollRequest .." rollChange "..rollChange .." targetRoll "..targetRoll .." rollRate "..rollRate.." retval "..retval.." nextRoll "..nextRoll)
     end
-
+    B747DR_yaw_damp_ratio=(retval-lastRoll)*100
     return retval
 end
 function flight_controls_override()
@@ -649,6 +650,7 @@ function flight_controls_override()
     B747DR_r_aileron_outer_lockout   = (1.0-B747_rescale(232,0,238,1.0,simDR_ias_pilot))*-1
     B747_slats()
     B747DR_sim_pitch_ratio=ap_pitch_assist()
+    
     B747DR_sim_roll_ratio=ap_roll_assist()
 
 end

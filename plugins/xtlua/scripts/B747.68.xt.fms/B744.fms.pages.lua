@@ -1944,7 +1944,7 @@ function fmsFunctions.setdata(fmsO,value)
 		simConfigData["data"].SIM.weight_display_units = fmsO.scratchpad
 		pushSimConfig(simConfigData["data"]["values"])
 	end
-  elseif value == "irsAlignTime" and string.len(fmsO["scratchpad"]) > 0 then
+  elseif value == "irsAlignTime" then
 	if not string.match(fmsO["scratchpad"], "%d") or string.len(fmsO["scratchpad"]) > 2 then
 		fmsO["notify"] = "INVALID ENTRY"
 	else
