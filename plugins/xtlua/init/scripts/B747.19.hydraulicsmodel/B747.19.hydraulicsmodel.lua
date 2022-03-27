@@ -110,7 +110,7 @@ B747DR_r_elev_outer   = deferred_dataref("laminar/B747/flt_ctrls/r_elev_outer", 
 
 B747DR_sim_pitch_ratio   = deferred_dataref("laminar/B747/flt_ctrls/sim_pitch_ratio", "number")
 B747DR_sim_roll_ratio   = deferred_dataref("laminar/B747/flt_ctrls/sim_roll_ratio", "number")
-B747DR_yaw_damp_ratio   = deferred_dataref("laminar/B747/flt_ctrls/sim_yaw_damp_ratio", "number")
+--B747DR_yaw_damp_ratio   = deferred_dataref("laminar/B747/flt_ctrls/sim_yaw_damp_ratio", "number")
 B747DR_custom_pitch_ratio   = deferred_dataref("laminar/B747/flt_ctrls/custom_pitch_ratio", "number")
 B747DR_custom_roll_ratio   = deferred_dataref("laminar/B747/flt_ctrls/custom_roll_ratio", "number")
 B747DR_l_aileron_inner   = deferred_dataref("laminar/B747/flt_ctrls/l_aileron_inner", "number")

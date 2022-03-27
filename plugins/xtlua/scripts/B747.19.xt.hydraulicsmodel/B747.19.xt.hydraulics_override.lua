@@ -611,7 +611,7 @@ function ap_roll_assist()
         local targetRoll=alpha*rollRequest+rollDamp
         local nextRoll=rollRequest+charlie*rollChange
         --local rollRate=1/math.abs(rollDamp*2)
-        local rollRate=15/(math.abs(rollRequest)+1)
+        local rollRate=10/(math.abs(rollRequest)+1)
        
 
         if rollRate<0.5 then rollRate=0.5
@@ -627,9 +627,39 @@ function ap_roll_assist()
         end]]
         --print("rollRequest "..rollRequest .." rollChange "..rollChange .." targetRoll "..targetRoll .." rollRate "..rollRate.." retval "..retval.." nextRoll "..nextRoll)
     end
-    B747DR_yaw_damp_ratio=(retval-lastRoll)*100
+    --B747DR_yaw_damp_ratio=(retval-lastRoll)*100
     return retval
 end
+
+function get_damper_value(currentValue)
+    local target=simDR_sideslip/3
+    local speed=2-math.abs(simDR_sideslip)
+    if speed<0.2 then
+        speed=0.2
+    end
+    if math.abs(simDR_AHARS_roll_heading_deg_pilot)<5 then
+        speed=2
+        target=0
+    end
+    return B747_interpolate_value(currentValue,target,-1,1,speed)
+end
+
+function yaw_damper_system()
+    --print(B747DR_yaw_damper_lwr.." "..get_damper_value())
+    if B747DR_yaw_damper_upr_on ==1 then
+         B747DR_yaw_damper_upr=B747_interpolate_value(B747DR_yaw_damper_upr,get_damper_value(B747DR_yaw_damper_upr),-1,1,2)
+    else
+        B747DR_yaw_damper_upr=B747_interpolate_value(B747DR_yaw_damper_upr,0,-1,1,2)
+    end
+
+    if B747DR_yaw_damper_lwr_on ==1 then
+        B747DR_yaw_damper_lwr=B747_interpolate_value(B747DR_yaw_damper_lwr,get_damper_value(B747DR_yaw_damper_lwr),-1,1,2)
+    else
+        B747DR_yaw_damper_lwr=B747_interpolate_value(B747DR_yaw_damper_lwr,0,-1,1,2)
+    end
+end
+
+
 function flight_controls_override()
     --[[override=1
     for i=1,4,1 do
@@ -652,5 +682,7 @@ function flight_controls_override()
     B747DR_sim_pitch_ratio=ap_pitch_assist()
     
     B747DR_sim_roll_ratio=ap_roll_assist()
+
+    yaw_damper_system()
 
 end
