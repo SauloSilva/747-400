@@ -118,6 +118,8 @@ simDR_hyd_fluid_level_04            = find_dataref("laminar/B747/hydraulics/res_
 --simDR_annun_master_warning          = find_dataref("sim/cockpit2/annunciators/master_warning")
 simDR_annun_generator_off           = find_dataref("sim/cockpit2/annunciators/generator_off")
 simDR_yaw_damper_annun              = find_dataref("sim/cockpit2/annunciators/yaw_damper")
+B747DR_yaw_damper_upr_on             = deferred_dataref("laminar/B747/flt_ctrls/yaw_damper_upr_on", "number")
+B747DR_yaw_damper_lwr_on             = deferred_dataref("laminar/B747/flt_ctrls/yaw_damper_lwr_on", "number")
 --simDR_bleed_air_off                 = find_dataref("sim/cockpit2/annunciators/bleed_air_off")
 --simDR_bleed_air_mode                = find_dataref("sim/cockpit2/pressurization/actuators/bleed_air_mode")
 simDR_annun_GPWS                    = find_dataref("sim/cockpit2/annunciators/GPWS")
@@ -1220,8 +1222,8 @@ function B747_annunciators()
     annun.b.anti_ice_window_heat_R = B747_ternary(((B747DR_button_switch_position[74] > 0.95) and (simDR_window_heat_fail == 6)), 1, 0)
 
     -- YAW DAMPER
-    annun.b.yaw_damper_upper = B747_ternary((simDR_yaw_damper_annun == 0 or B747DR_button_switch_position[82]<0.5), 1, 0)
-    annun.b.yaw_damper_lower = B747_ternary((simDR_yaw_damper_annun == 0 or B747DR_button_switch_position[83]<0.5), 1, 0)
+    annun.b.yaw_damper_upper = B747_ternary((B747DR_yaw_damper_upr_on == 0), 1, 0)
+    annun.b.yaw_damper_lower = B747_ternary((B747DR_yaw_damper_lwr_on == 0), 1, 0)
 
     -- TEMPERATURE
     annun.b.temp_zone_reset = B747_ternary((B747DR_button_switch_position[37] < 0.05), 1, 0)

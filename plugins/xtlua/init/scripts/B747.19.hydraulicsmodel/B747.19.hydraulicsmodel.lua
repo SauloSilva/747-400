@@ -98,6 +98,8 @@ simDR_hyd_press_1_2               = deferred_dataref("laminar/B747/hydraulics/in
 
 B747DR_hyd_dmd_pmp_sel_pos      = deferred_dataref("laminar/B747/hydraulics/dmd_pump/sel_dial_pos", "array[4]")
 B747DR_rudder_ratio   = deferred_dataref("laminar/B747/flt_ctrls/rudder_ratio", "number")
+B747DR_yaw_damper_lwr   = deferred_dataref("laminar/B747/flt_ctrls/yaw_damper_lwr", "number")
+B747DR_yaw_damper_upr   = deferred_dataref("laminar/B747/flt_ctrls/yaw_damper_upr", "number")
 B747DR_elevator_ratio   = deferred_dataref("laminar/B747/flt_ctrls/elevator_ratio", "number")
 B747DR_rudder_lwr_pos   = deferred_dataref("laminar/B747/flt_ctrls/rudder_lwr_pos", "number")
 B747DR_rudder_upr_pos   = deferred_dataref("laminar/B747/flt_ctrls/rudder_upr_pos", "number")
@@ -150,5 +152,7 @@ B747DR_flap_deployed_ratio1        = deferred_dataref("laminar/B747/gauges/indic
 B747DR_flap_deployed_ratio2        = deferred_dataref("laminar/B747/gauges/indicators/flap_deployed_ratio2", "number")
 B747DR_flap_deployed_ratio3        = deferred_dataref("laminar/B747/gauges/indicators/flap_deployed_ratio3", "number")
 B747DR_flap_deployed_ratio4        = deferred_dataref("laminar/B747/gauges/indicators/flap_deployed_ratio4", "number")
+B747DR_yaw_damper_upr_on             = deferred_dataref("laminar/B747/flt_ctrls/yaw_damper_upr_on", "number")
+B747DR_yaw_damper_lwr_on             = deferred_dataref("laminar/B747/flt_ctrls/yaw_damper_lwr_on", "number")
 B747DR_outer_spoilers      = deferred_dataref("laminar/B747/flt_ctrls/outer_spoilers", "array[2]") --for stat display
 B747DR_flaps      = deferred_dataref("laminar/B747/flt_ctrls/flaps", "array[5]") --0 unuse

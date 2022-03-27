@@ -99,6 +99,9 @@ B747_controls_left_inner_elevator           = deferred_dataref("laminar/B747/cab
 B747_controls_right_inner_elevator          = deferred_dataref("laminar/B747/cablecontrols/right_inner_elevator", "number")
 
 simDR_rudder            = find_dataref("sim/flightmodel2/wing/rudder1_deg")
+B747DR_yaw_damper_lwr   = deferred_dataref("laminar/B747/flt_ctrls/yaw_damper_lwr", "number")
+B747DR_yaw_damper_upr   = deferred_dataref("laminar/B747/flt_ctrls/yaw_damper_upr", "number")
+simDR_sideslip             = find_dataref("sim/cockpit2/gauges/indicators/sideslip_degrees")
 simDR_elevator_trim             = find_dataref("sim/flightmodel2/controls/elevator_trim")
 simDR_autopilot_airspeed_kts = find_dataref("sim/cockpit2/autopilot/airspeed_dial_kts")
 simDR_ind_airspeed_kts_pilot = find_dataref("laminar/B747/gauges/indicators/airspeed_kts_pilot")
@@ -114,6 +117,8 @@ simDR_yoke_pitch_ratio           = find_dataref("sim/cockpit2/controls/yoke_pitc
 B747DR_sim_pitch_ratio   = find_dataref("laminar/B747/flt_ctrls/sim_pitch_ratio")
 B747DR_sim_roll_ratio   = find_dataref("laminar/B747/flt_ctrls/sim_roll_ratio")
 B747DR_yaw_damp_ratio   = deferred_dataref("laminar/B747/flt_ctrls/sim_yaw_damp_ratio", "number")
+B747DR_yaw_damper_upr_on             = deferred_dataref("sim/cockpit2/switches/yaw_damper_upr_on", "number")
+B747DR_yaw_damper_lwr_on             = deferred_dataref("sim/cockpit2/switches/yaw_damper_lwr_on", "number")
 B747DR_ap_target_roll = find_dataref("sim/cockpit2/autopilot/flight_director_roll_deg")
 B747DR_fo_ap_roll = find_dataref("laminar/B747/autopilot/fo_roll_ref")
 B747DR_custom_pitch_ratio   = find_dataref("laminar/B747/flt_ctrls/custom_pitch_ratio")
@@ -454,6 +459,10 @@ function flight_start()
     B747DR_rudder_ratio=1.0
     B747DR_elevator_ratio   = 1.0
     if initialiseControls then
+      --YAW DAMPER
+      B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-10,"maxout":10,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/yaw_damper_lwr","dstDref":"laminar/B747/cablecontrols/lower_rudder","scaledref":"laminar/B747/flt_ctrls/rudder_ratio"}';
+      B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-10,"maxout":10,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/yaw_damper_upr","dstDref":"laminar/B747/cablecontrols/upper_rudder","scaledref":"laminar/B747/flt_ctrls/rudder_ratio"}';
+
       B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-32,"maxout":32,"scale":1.0,"srcDref":"sim/cockpit2/controls/total_heading_ratio","dstDref":"laminar/B747/cablecontrols/lower_rudder","scaledref":"laminar/B747/flt_ctrls/rudder_ratio"}';
       B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-32,"maxout":32,"scale":1.0,"srcDref":"sim/cockpit2/controls/total_heading_ratio","dstDref":"laminar/B747/cablecontrols/upper_rudder","scaledref":"laminar/B747/flt_ctrls/rudder_ratio"}';
 

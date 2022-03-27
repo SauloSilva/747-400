@@ -122,6 +122,8 @@ B747DR_flap_deployed_ratio1        = deferred_dataref("laminar/B747/gauges/indic
 B747DR_flap_deployed_ratio2        = deferred_dataref("laminar/B747/gauges/indicators/flap_deployed_ratio2", "number")
 B747DR_flap_deployed_ratio3        = deferred_dataref("laminar/B747/gauges/indicators/flap_deployed_ratio3", "number")
 B747DR_flap_deployed_ratio4        = deferred_dataref("laminar/B747/gauges/indicators/flap_deployed_ratio4", "number")
+B747DR_yaw_damper_upr_on             = deferred_dataref("laminar/B747/flt_ctrls/yaw_damper_upr_on", "number")
+B747DR_yaw_damper_lwr_on             = deferred_dataref("laminar/B747/flt_ctrls/yaw_damper_lwr_on", "number")
 simDR_flap_deploy_ratio         = find_dataref("laminar/B747/cablecontrols/flap_ratio")
 simDR_yaw_damper_on             = find_dataref("sim/cockpit2/switches/yaw_damper_on")
 simDR_gear_vert_defl            = find_dataref("sim/flightmodel2/gear/tire_vertical_deflection_mtr")
@@ -489,9 +491,9 @@ simCMD_stablizer_trim_dn        = find_command("sim/flight_controls/pitch_trim_d
 
 
 -- YAW DAMPER
-simCMD_yaw_damper_on            = wrap_command("sim/systems/yaw_damper_on", sim_yaw_damper_on_beforeCMDhandler, sim_yaw_damper_on_afterCMDhandler)
-simCMD_yaw_damper_off           = wrap_command("sim/systems/yaw_damper_off", sim_yaw_damper_off_beforeCMDhandler, sim_yaw_damper_off_afterCMDhandler)
-
+--simCMD_yaw_damper_on            = wrap_command("sim/systems/yaw_damper_on", sim_yaw_damper_on_beforeCMDhandler, sim_yaw_damper_on_afterCMDhandler)
+--simCMD_yaw_damper_off           = wrap_command("sim/systems/yaw_damper_off", sim_yaw_damper_off_beforeCMDhandler, sim_yaw_damper_off_afterCMDhandler)
+simCMD_yaw_damper_off = find_command("sim/systems/yaw_damper_off")
 
 
 
@@ -713,34 +715,34 @@ end
 ----- YAW DAMPER ------------------------------------------------------------------------
 function B747_yaw_damper()
 
-    if (B747DR_button_switch_position[82] > 0.95 or
-        B747DR_button_switch_position[83] > 0.95)
-        and
-        simDR_yaw_damper_on == 0
+    if (
+        B747DR_button_switch_position[82] > 0.95)
         and
         (B747DR_IRS_dial_pos[0] == 2 or                 -- make sure at leaset 1 IRU is in NAV position  (crazytimtimtim)
         B747DR_IRS_dial_pos[1] == 2 or
         B747DR_IRS_dial_pos[2] == 2) and
         B747DR_ELEC_BATT[0] == 1
     then
-        simCMD_yaw_damper_on:once()
-    elseif
-        B747DR_button_switch_position[82] < 0.05 and
-        B747DR_button_switch_position[83] < 0.05 and
-        simDR_yaw_damper_on == 1
-    then
-        simCMD_yaw_damper_off:once()
+        B747DR_yaw_damper_upr_on=1
+    else
+        B747DR_yaw_damper_upr_on=0
     end
 
-    if  ((B747DR_IRS_dial_pos[0] ~= 2 and
-        B747DR_IRS_dial_pos[1] ~= 2 and
-        B747DR_IRS_dial_pos[2] ~= 2) or
-        B747DR_ELEC_BATT[0] == 0) and
-        simDR_yaw_damper_on == 1
+    if (B747DR_button_switch_position[83] > 0.95)
+    and
+    (B747DR_IRS_dial_pos[0] == 2 or                 -- make sure at leaset 1 IRU is in NAV position  (crazytimtimtim)
+    B747DR_IRS_dial_pos[1] == 2 or
+    B747DR_IRS_dial_pos[2] == 2) and
+    B747DR_ELEC_BATT[0] == 1
+    then
+        B747DR_yaw_damper_lwr_on=1
+    else
+        B747DR_yaw_damper_lwr_on=0
+    end
+    if  simDR_yaw_damper_on == 1
     then
         simCMD_yaw_damper_off:once()                -- disable Yaw Damper if all IRS is not on (crazytimtimtim)
     end
-
 end
 
 
