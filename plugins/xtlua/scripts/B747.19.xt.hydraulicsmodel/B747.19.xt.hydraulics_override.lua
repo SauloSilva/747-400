@@ -614,7 +614,7 @@ function ap_roll_assist()
         local rollRate=10/(math.abs(rollRequest)+1)
        
 
-        if rollRate<0.5 then rollRate=0.5
+        if rollRate<0.2 then rollRate=0.2
         elseif rollRate>10 then rollRate=10
         end
         retval=B747_interpolate_value(B747DR_sim_roll_ratio,rollRequest/-20,-1,1,rollRate) 
@@ -634,8 +634,8 @@ end
 function get_damper_value(currentValue)
     local target=simDR_sideslip/3
     local speed=2-math.abs(simDR_sideslip)
-    if speed<0.2 then
-        speed=0.2
+    if speed<1 then
+        speed=1
     end
     if math.abs(simDR_AHARS_roll_heading_deg_pilot)<5 then
         speed=2
