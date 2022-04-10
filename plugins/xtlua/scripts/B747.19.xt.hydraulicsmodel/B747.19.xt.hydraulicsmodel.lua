@@ -15,6 +15,22 @@ function deferred_dataref(name,nilType,callFunction)
     end
     return find_dataref(name)
 end
+simDR_autopilot_hold_altitude_ft = find_dataref("sim/cockpit2/autopilot/altitude_hold_ft")
+simDR_autopilot_alt_hold_status         = find_dataref("sim/cockpit2/autopilot/altitude_hold_status")
+B747DR_autopilot_altitude_ft_pfd = deferred_dataref("laminar/B747/autopilot/heading/altitude_dial_ft_pfd", "number")
+B747DR_pidRollP = deferred_dataref("laminar/B747/flt_ctrls/pid/roll/p", "number")
+B747DR_pidRollI = deferred_dataref("laminar/B747/flt_ctrls/pid/roll/i", "number")
+B747DR_pidRollDL = deferred_dataref("laminar/B747/flt_ctrls/pid/roll/dl", "number")
+B747DR_pidRollDH = deferred_dataref("laminar/B747/flt_ctrls/pid/roll/dh", "number")
+B747DR_pidRollD = deferred_dataref("laminar/B747/flt_ctrls/pid/roll/d", "number")
+
+B747DR_pidPitchPL = deferred_dataref("laminar/B747/flt_ctrls/pid/pitch/pl", "number")
+B747DR_pidPitchPH = deferred_dataref("laminar/B747/flt_ctrls/pid/pitch/ph", "number")
+B747DR_pidPitchP = deferred_dataref("laminar/B747/flt_ctrls/pid/pitch/p", "number")
+B747DR_pidPitchI = deferred_dataref("laminar/B747/flt_ctrls/pid/pitch/i", "number")
+B747DR_pidPitchD = deferred_dataref("laminar/B747/flt_ctrls/pid/pitch/d", "number")
+
+
 
 B747DR_controlOverrides   = find_dataref("xtlua/controlObject")
 B747DR_speedbrake_lever     	= deferred_dataref("laminar/B747/flt_ctrls/speedbrake_lever", "number")
@@ -454,6 +470,21 @@ end
 
 local initialiseControls=true
 function flight_start() 
+  --initial pids
+  --lockedout
+  --p 0.1
+  --i 0.003
+  --d 0.04
+
+  B747DR_pidRollP = 0.2
+  B747DR_pidRollI = 0.003
+  B747DR_pidRollDL = 0.1 --low 0.1 high 0.4
+  B747DR_pidRollDH = 0.4 --low 0.1 high 0.4
+
+  B747DR_pidPitchPL = 0.2 --low 0.2 high 0.1
+  B747DR_pidPitchPH = 0.1 --low 0.2 high 0.1
+  B747DR_pidPitchI = 0.03
+  B747DR_pidPitchD = 0.002
 
     --rudder
     B747DR_rudder_ratio=1.0

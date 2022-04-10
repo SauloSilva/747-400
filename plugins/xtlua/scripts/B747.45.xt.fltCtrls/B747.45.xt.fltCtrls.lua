@@ -723,7 +723,7 @@ function B747_yaw_damper()
         B747DR_IRS_dial_pos[2] == 2) and
         B747DR_ELEC_BATT[0] == 1
     then
-        B747DR_yaw_damper_upr_on=1
+        B747DR_yaw_damper_upr_on=0--1
     else
         B747DR_yaw_damper_upr_on=0
     end
@@ -735,7 +735,7 @@ function B747_yaw_damper()
     B747DR_IRS_dial_pos[2] == 2) and
     B747DR_ELEC_BATT[0] == 1
     then
-        B747DR_yaw_damper_lwr_on=1
+        B747DR_yaw_damper_lwr_on=0--1
     else
         B747DR_yaw_damper_lwr_on=0
     end
@@ -1144,7 +1144,7 @@ function B747_fltCtrols_EICAS_msg()
 
     -- >YAW DAMPER LWR
     
-    if B747DR_button_switch_position[82] < 0.05 then 
+    if B747DR_yaw_damper_lwr_on==0 then 
       B747DR_CAS_advisory_status[300] = 1
     else
       B747DR_CAS_advisory_status[300] = 0
@@ -1152,7 +1152,7 @@ function B747_fltCtrols_EICAS_msg()
 
     -- >YAW DAMPER UPR
     
-    if B747DR_button_switch_position[83] < 0.05 then 
+    if B747DR_yaw_damper_upr_on==0 then 
       B747DR_CAS_advisory_status[301] = 1 
     else
       B747DR_CAS_advisory_status[301] = 0

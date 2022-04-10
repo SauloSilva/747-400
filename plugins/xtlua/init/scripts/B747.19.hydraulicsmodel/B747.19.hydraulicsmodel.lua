@@ -156,3 +156,15 @@ B747DR_yaw_damper_upr_on             = deferred_dataref("laminar/B747/flt_ctrls/
 B747DR_yaw_damper_lwr_on             = deferred_dataref("laminar/B747/flt_ctrls/yaw_damper_lwr_on", "number")
 B747DR_outer_spoilers      = deferred_dataref("laminar/B747/flt_ctrls/outer_spoilers", "array[2]") --for stat display
 B747DR_flaps      = deferred_dataref("laminar/B747/flt_ctrls/flaps", "array[5]") --0 unuse
+
+B747DR_pidRollP = deferred_dataref("laminar/B747/flt_ctrls/pid/roll/p", "number")
+B747DR_pidRollI = deferred_dataref("laminar/B747/flt_ctrls/pid/roll/i", "number")
+B747DR_pidRollDL = deferred_dataref("laminar/B747/flt_ctrls/pid/roll/dl", "number")
+B747DR_pidRollDH = deferred_dataref("laminar/B747/flt_ctrls/pid/roll/dh", "number")
+B747DR_pidRollD = deferred_dataref("laminar/B747/flt_ctrls/pid/roll/d", "number")
+
+B747DR_pidPitchPL = deferred_dataref("laminar/B747/flt_ctrls/pid/pitch/pl", "number")
+B747DR_pidPitchPH = deferred_dataref("laminar/B747/flt_ctrls/pid/pitch/ph", "number")
+B747DR_pidPitchP = deferred_dataref("laminar/B747/flt_ctrls/pid/pitch/p", "number")
+B747DR_pidPitchI = deferred_dataref("laminar/B747/flt_ctrls/pid/pitch/i", "number")
+B747DR_pidPitchD = deferred_dataref("laminar/B747/flt_ctrls/pid/pitch/d", "number")
