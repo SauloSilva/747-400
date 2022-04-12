@@ -368,16 +368,25 @@ local director_lastrollRecordUpdate=0
 for i=1,10,1 do
     director_rollRecord[i]=0
 end
+
+local director_yawRecord={}
+local director_currentyawRecord=1
+local director_lastyawRecordUpdate=0
+for i=1,30,1 do
+    director_yawRecord[i]=0
+end
 local last_simDR_ind_airspeed_kts_pilot=0
 local last_simDR_AHARS_pitch_heading_deg_pilot=0
 local last_altitude=0
 local directorSampleRate=0.02
-local directorRollSampleRate=1.0
-
+local directorRollSampleRate=0.1
+local directoryawSampleRate=0.07
 function ap_director_roll()
     return B747DR_ap_target_roll
 end
-
+function ap_director_yaw()
+    return simDR_AHARS_heading_deg_pilot
+end
 function ap_director_pitch()
     local alt_delta=simDR_pressureAlt1-last_altitude
     last_altitude=simDR_pressureAlt1
@@ -485,6 +494,11 @@ end
 function ap_director_roll_integral()
     --return B747DR_ap_target_roll
     local displayUpdate=false
+    if math.abs(simDR_AHARS_roll_heading_deg_pilot)>5 then
+        directorRollSampleRate=0.1
+    else
+        directorRollSampleRate=1
+    end
     if (simDRTime-director_lastrollRecordUpdate)>directorRollSampleRate then
         displayUpdate=true
         director_lastrollRecordUpdate=simDRTime
@@ -505,6 +519,38 @@ function ap_director_roll_integral()
    -- if displayUpdate then print("retval "..retval.." "..simDRTime) end
     return retval
 end
+function ap_director_yaw_integral()
+    --return B747DR_ap_target_roll
+    local displayUpdate=false
+    if (simDRTime-director_lastyawRecordUpdate)>directoryawSampleRate then
+        displayUpdate=true
+        director_lastyawRecordUpdate=simDRTime
+        director_yawRecord[director_currentyawRecord]=ap_director_yaw()
+        director_currentyawRecord=director_currentyawRecord+1
+        --print("currentPitchRecord "..director_currentPitchRecord)
+        if director_currentyawRecord>30 then
+            director_currentyawRecord=1
+        end
+    end
+    
+    local retval=director_yawRecord[1]
+    local left=0
+    if retval>270 then left=1 end
+    for i=2,30,1 do
+        local tVal=director_yawRecord[i]
+        if left==1 and tVal<90 then tVal=tVal+360 end
+        if left==0 and tVal>270 then tVal=tVal-360 end
+        retval=retval+tVal
+       --if displayUpdate then print("i "..i.." = " ..pitchRecord[i].. " " ..retval) end
+    end
+    retval=retval/30
+    if retval<0 then retval=retval+360 end
+
+    retval=getHeadingDifference(retval,simDR_AHARS_heading_deg_pilot)
+    if displayUpdate then print("ap_director_yaw_integral "..retval.." simDR_AHARS_heading_deg_pilot "..simDR_AHARS_heading_deg_pilot) end
+    return retval
+end
+
 function ap_director_pitch_integral()
     local displayUpdate=false
     if (simDRTime-director_lastPitchRecordUpdate)>directorSampleRate then
@@ -585,7 +631,7 @@ function ap_pitch_assist()
         else
             retval=B747_interpolate_value(B747DR_sim_pitch_ratio,1.0,-1,1,elevatorRate) 
         end]]
-        print("flight_director_pitch "..flight_director_pitch .." simDR_AHARS_pitch_heading_deg_pilot "..simDR_AHARS_pitch_heading_deg_pilot .." retval "..retval)
+       -- print("flight_director_pitch "..flight_director_pitch .." simDR_AHARS_pitch_heading_deg_pilot "..simDR_AHARS_pitch_heading_deg_pilot .." retval "..retval)
     else
         pitchPid:compute(true)
         simDR_electric_trim=1
@@ -647,39 +693,52 @@ function ap_roll_assist()
         rollPid.input = simDR_AHARS_roll_heading_deg_pilot
         rollPid.target= flight_director_roll
         rollPid:compute()
-        retval=B747_interpolate_value(B747DR_sim_roll_ratio,rollPid.output,-1,1,0.2) 
-        print("flight_director_roll "..flight_director_roll .." simDR_AHARS_roll_heading_deg_pilot "..simDR_AHARS_roll_heading_deg_pilot .." retval "..retval)
+        retval=B747_interpolate_value(B747DR_sim_roll_ratio,rollPid.output,-1,1,0.4) 
+        --print("flight_director_roll "..flight_director_roll .." simDR_AHARS_roll_heading_deg_pilot "..simDR_AHARS_roll_heading_deg_pilot .." retval "..retval)
     else
         rollPid:compute(true)
     end
     return retval
 end
+local yawPid = newPid()
+yawPid.minout=-1
+yawPid.maxout=1
+yawPid.target=0
+yawPid.input = 0
+yawPid:compute()
 
 function get_damper_value(currentValue)
-    local target=simDR_sideslip/3
-    local speed=2-math.abs(simDR_sideslip)
-    if speed<1 then
-        speed=1
-    end
-    if math.abs(simDR_AHARS_roll_heading_deg_pilot)<5 then
+    local target=yawPid.output
+    
+    local speed=0.4
+    
+    if math.abs(simDR_AHARS_roll_heading_deg_pilot)>5 or math.abs(yawPid.input)<0.35 then
         speed=2
         target=0
     end
-    return B747_interpolate_value(currentValue,target,-1,1,speed)
+
+    return target --B747_interpolate_value(currentValue,target,-1,1,speed)
 end
 
 function yaw_damper_system()
+    yawPid.kp=B747DR_pidyawP
+    yawPid.ki=B747DR_pidyawI
+    yawPid.kd=B747DR_pidyawD
+    yawPid.input = ap_director_yaw_integral()
+    yawPid:compute()
     --print(B747DR_yaw_damper_lwr.." "..get_damper_value())
     if B747DR_yaw_damper_upr_on ==1 then
-         B747DR_yaw_damper_upr=B747_interpolate_value(B747DR_yaw_damper_upr,get_damper_value(B747DR_yaw_damper_upr),-1,1,2)
+        
+         B747DR_yaw_damper_upr=B747_interpolate_value(B747DR_yaw_damper_upr,get_damper_value(B747DR_yaw_damper_upr),-1,1,0.3)
     else
-        B747DR_yaw_damper_upr=B747_interpolate_value(B747DR_yaw_damper_upr,0,-1,1,2)
+
+        B747DR_yaw_damper_upr=B747_interpolate_value(B747DR_yaw_damper_upr,0,-1,1,0.3)
     end
 
     if B747DR_yaw_damper_lwr_on ==1 then
-        B747DR_yaw_damper_lwr=B747_interpolate_value(B747DR_yaw_damper_lwr,get_damper_value(B747DR_yaw_damper_lwr),-1,1,2)
+        B747DR_yaw_damper_lwr=B747_interpolate_value(B747DR_yaw_damper_lwr,get_damper_value(B747DR_yaw_damper_lwr),-1,1,0.3)
     else
-        B747DR_yaw_damper_lwr=B747_interpolate_value(B747DR_yaw_damper_lwr,0,-1,1,2)
+        B747DR_yaw_damper_lwr=B747_interpolate_value(B747DR_yaw_damper_lwr,0,-1,1,0.3)
     end
 end
 

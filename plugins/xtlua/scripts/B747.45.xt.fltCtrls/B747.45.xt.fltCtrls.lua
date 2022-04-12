@@ -723,7 +723,7 @@ function B747_yaw_damper()
         B747DR_IRS_dial_pos[2] == 2) and
         B747DR_ELEC_BATT[0] == 1
     then
-        B747DR_yaw_damper_upr_on=0--1
+        B747DR_yaw_damper_upr_on=1
     else
         B747DR_yaw_damper_upr_on=0
     end
@@ -735,7 +735,7 @@ function B747_yaw_damper()
     B747DR_IRS_dial_pos[2] == 2) and
     B747DR_ELEC_BATT[0] == 1
     then
-        B747DR_yaw_damper_lwr_on=0--1
+        B747DR_yaw_damper_lwr_on=1
     else
         B747DR_yaw_damper_lwr_on=0
     end

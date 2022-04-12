@@ -15,6 +15,12 @@ function deferred_dataref(name,nilType,callFunction)
     end
     return find_dataref(name)
 end
+function getHeadingDifference(desireddirection,current_heading)
+	error = current_heading - desireddirection
+	if (error >  180) then error =error- 360 end
+	if (error < -180) then error =error+ 360 end
+	return error
+end
 simDR_autopilot_hold_altitude_ft = find_dataref("sim/cockpit2/autopilot/altitude_hold_ft")
 simDR_autopilot_alt_hold_status         = find_dataref("sim/cockpit2/autopilot/altitude_hold_status")
 B747DR_autopilot_altitude_ft_pfd = deferred_dataref("laminar/B747/autopilot/heading/altitude_dial_ft_pfd", "number")
@@ -31,6 +37,11 @@ B747DR_pidPitchI = deferred_dataref("laminar/B747/flt_ctrls/pid/pitch/i", "numbe
 B747DR_pidPitchD = deferred_dataref("laminar/B747/flt_ctrls/pid/pitch/d", "number")
 
 
+B747DR_pidyawP = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/p", "number")
+B747DR_pidyawI = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/i", "number")
+B747DR_pidyawD = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/d", "number")
+
+simDR_AHARS_heading_deg_pilot = find_dataref("sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_pilot")
 
 B747DR_controlOverrides   = find_dataref("xtlua/controlObject")
 B747DR_speedbrake_lever     	= deferred_dataref("laminar/B747/flt_ctrls/speedbrake_lever", "number")
@@ -486,6 +497,10 @@ function flight_start()
   B747DR_pidPitchI = 0.03
   B747DR_pidPitchD = 0.002
 
+
+  B747DR_pidyawP = 1.0
+  B747DR_pidyawI = 0.003
+  B747DR_pidyawD = 3.0
     --rudder
     B747DR_rudder_ratio=1.0
     B747DR_elevator_ratio   = 1.0
