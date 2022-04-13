@@ -513,38 +513,39 @@ function B747_engine_TOGA_power_CMDhandler(phase, duration)
     simDR_prop_mode[2] = 1													
     simDR_prop_mode[3] = 1		
 	if phase == 0 then
+        if simDR_all_wheels_on_ground==0 then
+            B747DR_ap_autoland=-2
+            --[[if simDR_autopilot_nav_status > 0 then
+                if simDR_autopilot_gs_status > 0 then
+                    print("simCMD_autopilot_appr_mode in TOGA POWER")
+                    simCMD_autopilot_appr_mode:once() --DEACTIVATE APP
+                end
+            end]]
+            if simDR_autopilot_TOGA_vert_status == 0											-- TOGA VERTICAL MODE IS OFF 
+                    or simDR_autopilot_TOGA_lat_status == 0											-- TOGA LATERAL MODE IS OFF 
+            then	
+                    B747DR_ap_lastCommand=simDRTime									
+                    simCMD_autopilot_TOGA_mode:once()												-- ACTIVATE "TOGA" MODE
+            end	
+            
+        end
+        if B747DR_engine_TOGA_mode == 0 then
+            --[[simDR_engine_throttle_input[0] = 0.95
+            simDR_engine_throttle_input[1] = 0.95
+            simDR_engine_throttle_input[2] = 0.95
+            simDR_engine_throttle_input[3] = 0.95]]
+            B747DR_engine_TOGA_mode = 0.9
+            B747DR_ap_approach_mode = 0
+        --[[if simDR_autopilot_gs_status > 0 then
+            simCMD_autopilot_glideslope_mode:once()	-- CANX GLIDESLOPE MODE
+            B747DR_ap_lastCommand=simDRTime
+        end]]
+        
+        end	
         if B747DR_toggle_switch_position[29] == 1 then
             --if simDR_allThrottle>0.25 then
-		    if simDR_all_wheels_on_ground==0 then
-		        B747DR_ap_autoland=-2
-                --[[if simDR_autopilot_nav_status > 0 then
-                    if simDR_autopilot_gs_status > 0 then
-                        print("simCMD_autopilot_appr_mode in TOGA POWER")
-                        simCMD_autopilot_appr_mode:once() --DEACTIVATE APP
-                    end
-                end]]
-                if simDR_autopilot_TOGA_vert_status == 0											-- TOGA VERTICAL MODE IS OFF 
-						or simDR_autopilot_TOGA_lat_status == 0											-- TOGA LATERAL MODE IS OFF 
-				then	
-                        B747DR_ap_lastCommand=simDRTime									
-						simCMD_autopilot_TOGA_mode:once()												-- ACTIVATE "TOGA" MODE
-				end	
-                
-		    end
+		    
 		    simCMD_autopilot_autothrottle_off:once()
-	            if B747DR_engine_TOGA_mode == 0 then
-                	--[[simDR_engine_throttle_input[0] = 0.95
-                	simDR_engine_throttle_input[1] = 0.95
-                	simDR_engine_throttle_input[2] = 0.95
-                	simDR_engine_throttle_input[3] = 0.95]]
-				B747DR_engine_TOGA_mode = 0.9
-                B747DR_ap_approach_mode = 0
-                --[[if simDR_autopilot_gs_status > 0 then
-                    simCMD_autopilot_glideslope_mode:once()	-- CANX GLIDESLOPE MODE
-                    B747DR_ap_lastCommand=simDRTime
-                end]]
-                
-			end	
            -- end
         end		
 	end	
