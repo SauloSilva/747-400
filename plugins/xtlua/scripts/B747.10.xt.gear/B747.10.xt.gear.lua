@@ -698,7 +698,7 @@ local excessiveBrakeTemp=0
 function B747_brake_temp()
 
     -- DATAREF INDEXES SAME AS TIRE PRESSURE
-
+    --print("simDR on ground"..simDR_aircraft_on_ground.. " IN_REPLAY"..IN_REPLAY)
     local brakingRatio_N = math.max(simDR_left_brake_ratio, simDR_right_brake_ratio, simDR_parking_brake_ratio)
     local brakingRatio_L = math.max(simDR_left_brake_ratio, simDR_parking_brake_ratio)
     local brakingRatio_R = math.max(simDR_right_brake_ratio, simDR_parking_brake_ratio)
@@ -719,7 +719,13 @@ function B747_brake_temp()
         B747DR_brake_temp[16] = math.max(B747DR_brake_temp[16] - rate, simDR_OAT_degC)
         B747DR_brake_temp[17] = B747DR_brake_temp[16]
     end]]--
-
+    --in a replay and no on the ground, quickly cool off the brakes to oat
+    if IN_REPLAY==1 and simDR_aircraft_on_ground==0 then
+        for i = 0, 17 do
+            B747DR_brake_temp[i]=simDR_OAT_degC
+        end
+        return
+    end
     -- BODY RIGHT GEAR
     if tireSpeed[2] > 0 then
         if brakingRatio_R > 0 then
