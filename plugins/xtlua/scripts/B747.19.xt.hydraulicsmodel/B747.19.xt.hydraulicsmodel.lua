@@ -159,6 +159,7 @@ simDR_AHARS_roll_heading_deg_pilot          	= find_dataref("sim/cockpit2/gauges
 simDR_AHARS_pitch_heading_deg_pilot           = find_dataref("sim/cockpit2/gauges/indicators/pitch_AHARS_deg_pilot")
 simDR_flight_director_pitch = find_dataref("sim/cockpit2/autopilot/flight_director_pitch_deg")
 B747DR_flight_director_pitch           = deferred_dataref("laminar/B747/autopilot/flight_director_pitch_deg", "number")
+B747DR_flight_director_roll 		= deferred_dataref("laminar/B747/autopilot/flight_director_roll_deg", "number")
 simDR_autopilot_servos_on           	= find_dataref("sim/cockpit2/autopilot/servos_on")
 B747DR_ap_FMA_active_pitch_mode     	= find_dataref("laminar/B747/autopilot/FMA/active_pitch_mode")
 B747DR_ap_FMA_active_roll_mode      	= find_dataref("laminar/B747/autopilot/FMA/active_roll_mode")
