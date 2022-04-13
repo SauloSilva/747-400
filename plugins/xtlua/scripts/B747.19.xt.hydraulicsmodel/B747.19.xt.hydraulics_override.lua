@@ -494,11 +494,13 @@ end
 function ap_director_roll_integral()
     --return B747DR_ap_target_roll
     local displayUpdate=false
-    if math.abs(simDR_AHARS_roll_heading_deg_pilot)>5 then
+    --[[if math.abs(simDR_AHARS_roll_heading_deg_pilot)>5 then
         directorRollSampleRate=0.1
     else
         directorRollSampleRate=1
-    end
+    end]]
+    directorRollSampleRate=B747_rescale(0,1,10,0.3,math.abs(simDR_AHARS_roll_heading_deg_pilot))
+    
     if (simDRTime-director_lastrollRecordUpdate)>directorRollSampleRate then
         displayUpdate=true
         director_lastrollRecordUpdate=simDRTime
