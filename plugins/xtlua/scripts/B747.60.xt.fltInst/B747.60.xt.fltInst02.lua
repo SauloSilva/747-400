@@ -2364,13 +2364,13 @@ end
 function B747_radio_altitude()
 
     if simDR_radio_alt_height_capt < 100.0 then                                             -- TWO FOOT INCREMENTS
-        B747DR_radio_altitude = roundToIncrement(simDR_radio_alt_height_capt, 2)
+        B747DR_radio_altitude = roundToIncrement(simDR_radio_alt_height_capt-8, 2)
 
     elseif simDR_radio_alt_height_capt < 500.0 then                                         -- TEN FOOT INCREMENTS
-        B747DR_radio_altitude = roundToIncrement(simDR_radio_alt_height_capt, 10)
+        B747DR_radio_altitude = roundToIncrement(simDR_radio_alt_height_capt-8, 10)
 
     else                                                                                    -- TWENTY FOOT INCREMENTS
-        B747DR_radio_altitude = roundToIncrement(simDR_radio_alt_height_capt, 20)
+        B747DR_radio_altitude = roundToIncrement(simDR_radio_alt_height_capt-8, 20)
 
     end
 
