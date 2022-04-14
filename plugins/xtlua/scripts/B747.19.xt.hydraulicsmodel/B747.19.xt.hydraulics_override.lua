@@ -43,6 +43,9 @@ local B747_pressureDRs={}
 local controlRatios={}
 controlRatios[0]=0
 B747_pressureDRs[0]=0
+local computeRate=0.0333 -- handle low FPS
+local lastCompute=0
+local doCompute=0
 function pressure_input()
     B747_pressureDRs[1]=B747DR_hyd_sys_pressure_1
     B747_pressureDRs[2]=B747DR_hyd_sys_pressure_2
@@ -527,14 +530,14 @@ function ap_director_roll_integral()
 end
 
 function dampSlip()
-    local retval=0
+    --[[local retval=0
     for i=1,30,1 do
         local tVal=director_yawRecord[i]
         retval=retval+tVal
        --if displayUpdate then print("i "..i.." = " ..pitchRecord[i].. " " ..retval) end
     end
-    retval=retval/30
-    return retval
+    retval=retval/30]]
+    return ap_director_yaw()--retval
 end
 function dampYaw()
     --local displayUpdate=false
@@ -643,7 +646,9 @@ function ap_pitch_assist()
         simDR_electric_trim=0
         pitchPid.input = simDR_AHARS_pitch_heading_deg_pilot
         pitchPid.target= flight_director_pitch
-        pitchPid:compute()
+        if doCompute==1 then
+            pitchPid:compute()
+        end
         retval=pitchPid.output
 
        -- print("elevatorRequest "..elevatorRequest .." pitchChange "..pitchChange .." targetElevator "..targetElevator .." elevatorRate "..elevatorRate)
@@ -676,7 +681,9 @@ function ap_roll_assist()
     if simDR_autopilot_servos_on>0 and (B747DR_ap_FMA_active_roll_mode>0) then
         rollPid.input = simDR_AHARS_roll_heading_deg_pilot
         rollPid.target= flight_director_roll
-        rollPid:compute()
+        if doCompute==1 then
+            rollPid:compute()
+        end
         local speed=B747_rescale(0.5,1,4,0.4,math.abs(flight_director_roll-simDR_AHARS_roll_heading_deg_pilot))
         retval=B747_interpolate_value(B747DR_sim_roll_ratio,rollPid.output,-1,1,0.4) 
         --print("flight_director_roll "..flight_director_roll.." speed "..speed .." simDR_AHARS_roll_heading_deg_pilot "..simDR_AHARS_roll_heading_deg_pilot .." retval "..retval)
@@ -701,7 +708,10 @@ function get_damper_value(currentValue)
         speed=2
         target=0
     end]]
-    local mult=B747_rescale(0,0,0.35,1,yawPid.input)
+    local mult=1
+    if math.abs(simDR_AHARS_roll_heading_deg_pilot)<5 then
+        mult=B747_rescale(0,0,0.35,1,yawPid.input)
+    end
     target=target*mult
     return target --B747_interpolate_value(currentValue,target,-1,1,speed)
 end
@@ -710,10 +720,10 @@ function yaw_damper_system()
     if math.abs(simDR_AHARS_roll_heading_deg_pilot)<5 then
         B747DR_pidyawP = 1.0
         B747DR_pidyawI = 0.003
-        B747DR_pidyawD = 3.0
+        B747DR_pidyawD = 2.0
     else
         
-        B747DR_pidyawP = 0.01
+        B747DR_pidyawP = 0.02
         B747DR_pidyawI = 0.003
         B747DR_pidyawD = 0.1
     end
@@ -722,7 +732,9 @@ function yaw_damper_system()
     yawPid.ki=B747DR_pidyawI
     yawPid.kd=B747DR_pidyawD
     yawPid.input = ap_director_yaw_integral()
-    yawPid:compute()
+    if doCompute==1 then
+        yawPid:compute()
+    end
     --print(B747DR_yaw_damper_lwr.." "..get_damper_value())
     if B747DR_yaw_damper_upr_on ==1 then
         
@@ -747,6 +759,12 @@ function flight_controls_override()
             --override=0
         end
     end]] --this ver always overrides
+    if (simDRTime-lastCompute)>computeRate then
+        doCompute=1
+        lastCompute=simDRTime
+    else
+        doCompute=0
+    end  
     simDR_override_control_surfaces=1--override
     if B747_pressureDRs[1]>1000 then
         simDR_override_steering=0

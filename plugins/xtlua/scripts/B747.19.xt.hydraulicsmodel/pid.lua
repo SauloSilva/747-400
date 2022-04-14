@@ -15,7 +15,7 @@ end
 function sleep(n)
   os.execute("sleep " .. tonumber(n))
 end
-local seconds = os.clock
+--local seconds = os.clock
 
 -- all values of the PID controller
 -- values with '_' at beginning are considered private and should not be changed.

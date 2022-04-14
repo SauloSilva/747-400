@@ -488,9 +488,9 @@ function flight_start()
   --i 0.003
   --d 0.04
 
-  B747DR_pidRollP = 0.2
+  B747DR_pidRollP = 0.09
   B747DR_pidRollI = 0.003
-  B747DR_pidRollDL = 0.1 --low 0.1 high 0.4
+  B747DR_pidRollDL = 0.05 --low 0.1 high 0.4
   B747DR_pidRollDH = 0.4 --low 0.1 high 0.4
 
   B747DR_pidPitchPL = 0.2 --low 0.2 high 0.1
