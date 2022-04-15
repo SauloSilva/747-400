@@ -23,6 +23,7 @@ function deferred_dataref(name,type,notifier)
 end
 
 B747DR_flight_director_pitch           = deferred_dataref("laminar/B747/autopilot/flight_director_pitch_deg", "number")
+B747DR_flight_director_roll 		= deferred_dataref("laminar/B747/autopilot/flight_director_roll_deg", "number")
 B747_controls_lower_rudder           = deferred_dataref("laminar/B747/cablecontrols/lower_rudder", "number")
 B747_controls_upper_rudder           = deferred_dataref("laminar/B747/cablecontrols/upper_rudder", "number")
 
@@ -172,3 +173,13 @@ B747DR_pidPitchD = deferred_dataref("laminar/B747/flt_ctrls/pid/pitch/d", "numbe
 B747DR_pidyawP = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/p", "number")
 B747DR_pidyawI = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/i", "number")
 B747DR_pidyawD = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/d", "number")
+
+B747DR_pidyawDslipH = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/d/slip/h", "number")
+B747DR_pidyawDslipL = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/d/slip/l", "number")
+B747DR_pidyawPslipH = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/p/slip/h", "number")
+B747DR_pidyawPslipL = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/p/slip/l", "number")
+
+B747DR_pidyawDrollH = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/d/roll/h", "number")
+B747DR_pidyawDrollL = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/d/roll/l", "number")
+B747DR_pidyawProllH = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/p/roll/h", "number")
+B747DR_pidyawProllL = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/p/roll/l", "number")

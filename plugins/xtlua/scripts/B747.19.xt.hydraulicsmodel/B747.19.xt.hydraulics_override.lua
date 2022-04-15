@@ -421,11 +421,11 @@ function ap_director_pitch()
             req_speedDelta=0.001
         end
         if simDR_autopilot_airspeed_kts> simDR_ind_airspeed_kts_pilot+1 and speed_delta<req_speedDelta then
-            --print("-simDR_AHARS_pitch_heading_deg_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." simDR_ind_airspeed_kts_pilot "..simDR_ind_airspeed_kts_pilot.." simDR_ind_airspeed_kts_pilot "..speed_delta)
+            print("-simDR_AHARS_pitch_heading_deg_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." simDR_ind_airspeed_kts_pilot "..simDR_ind_airspeed_kts_pilot.." simDR_ind_airspeed_kts_pilot "..speed_delta)
             
             last_simDR_AHARS_pitch_heading_deg_pilot= (last_simDR_AHARS_pitch_heading_deg_pilot-0.01)
         elseif simDR_autopilot_airspeed_kts< simDR_ind_airspeed_kts_pilot-1 and speed_delta>-req_speedDelta then
-            --print("+simDR_AHARS_pitch_heading_deg_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." simDR_ind_airspeed_kts_pilot "..simDR_ind_airspeed_kts_pilot.." speed_delta "..speed_delta)
+            print("+simDR_AHARS_pitch_heading_deg_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." simDR_ind_airspeed_kts_pilot "..simDR_ind_airspeed_kts_pilot.." speed_delta "..speed_delta)
             last_simDR_AHARS_pitch_heading_deg_pilot= (last_simDR_AHARS_pitch_heading_deg_pilot+0.01)
         end
         last_altitude=simDR_pressureAlt1
@@ -447,10 +447,10 @@ function ap_director_pitch()
 
         if simDR_vvi_fpm_pilot>maxFPM and pitchError<0.5 then
             last_simDR_AHARS_pitch_heading_deg_pilot=last_simDR_AHARS_pitch_heading_deg_pilot-rog
-            --print("-last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." minFPM "..minFPM.." maxFPM "..maxFPM)
+            print("-last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." minFPM "..minFPM.." maxFPM "..maxFPM)
         end
         if simDR_vvi_fpm_pilot<minFPM and pitchError<0.5 then
-            --print("+last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." minFPM "..minFPM.." maxFPM "..maxFPM)
+            print("+last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." minFPM "..minFPM.." maxFPM "..maxFPM)
             last_simDR_AHARS_pitch_heading_deg_pilot=last_simDR_AHARS_pitch_heading_deg_pilot+rog
         end
         if last_simDR_AHARS_pitch_heading_deg_pilot<-1.5 then
@@ -467,7 +467,7 @@ function ap_director_pitch()
         directorSampleRate=0.5
     end
     local retval=simDR_flight_director_pitch
-    --print("+simDR_flight_director_pitch "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_flight_director_pitch "..simDR_flight_director_pitch)
+    print("+simDR_flight_director_pitch "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_flight_director_pitch "..simDR_flight_director_pitch)
     if retval<simDR_AHARS_pitch_heading_deg_pilot-5 then
         retval=simDR_AHARS_pitch_heading_deg_pilot-5
     elseif retval>simDR_AHARS_pitch_heading_deg_pilot+5 then 
@@ -658,7 +658,7 @@ function ap_pitch_assist()
         pitchPid:compute(true)
         simDR_electric_trim=1
     end
-
+    if retval==nil then return 0 end
     return retval
 end
 
@@ -718,14 +718,13 @@ end
 
 function yaw_damper_system()
     if math.abs(simDR_AHARS_roll_heading_deg_pilot)<5 then
-        B747DR_pidyawP = 1.0
+        B747DR_pidyawP = B747_rescale(3000, B747DR_pidyawProllL,30000, B747DR_pidyawProllH,B747DR_autopilot_altitude_ft_pfd)
         B747DR_pidyawI = 0.003
-        B747DR_pidyawD = 2.0
+        B747DR_pidyawD = B747_rescale(3000,B747DR_pidyawDrollL,30000,B747DR_pidyawDrollH,B747DR_autopilot_altitude_ft_pfd)
     else
-        
-        B747DR_pidyawP = 0.02
+        B747DR_pidyawP = B747_rescale(3000, B747DR_pidyawPslipL,30000, B747DR_pidyawPslipH,B747DR_autopilot_altitude_ft_pfd)
         B747DR_pidyawI = 0.003
-        B747DR_pidyawD = 0.1
+        B747DR_pidyawD = B747_rescale(3000,B747DR_pidyawDslipL,30000,B747DR_pidyawDslipH,B747DR_autopilot_altitude_ft_pfd)
     end
 
     yawPid.kp=B747DR_pidyawP

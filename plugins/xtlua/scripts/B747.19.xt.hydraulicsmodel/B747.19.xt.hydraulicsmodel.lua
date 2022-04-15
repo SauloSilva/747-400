@@ -41,6 +41,16 @@ B747DR_pidyawP = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/p", "number")
 B747DR_pidyawI = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/i", "number")
 B747DR_pidyawD = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/d", "number")
 
+B747DR_pidyawDslipH = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/d/slip/h", "number")
+B747DR_pidyawDslipL = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/d/slip/l", "number")
+B747DR_pidyawPslipH = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/p/slip/h", "number")
+B747DR_pidyawPslipL = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/p/slip/l", "number")
+
+B747DR_pidyawDrollH = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/d/roll/h", "number")
+B747DR_pidyawDrollL = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/d/roll/l", "number")
+B747DR_pidyawProllH = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/p/roll/h", "number")
+B747DR_pidyawProllL = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/p/roll/l", "number")
+
 simDR_AHARS_heading_deg_pilot = find_dataref("sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_pilot")
 
 B747DR_controlOverrides   = find_dataref("xtlua/controlObject")
@@ -491,7 +501,7 @@ function flight_start()
   B747DR_pidRollP = 0.09
   B747DR_pidRollI = 0.003
   B747DR_pidRollDL = 0.05 --low 0.1 high 0.4
-  B747DR_pidRollDH = 0.4 --low 0.1 high 0.4
+  B747DR_pidRollDH = 0.2 --low 0.1 high 0.4
 
   B747DR_pidPitchPL = 0.15 --low 0.15 high 0.05
   B747DR_pidPitchPH = 0.05 --low 0.15 high 0.05
@@ -502,6 +512,16 @@ function flight_start()
   B747DR_pidyawP = 1.0
   B747DR_pidyawI = 0.003
   B747DR_pidyawD = 3.0
+
+  B747DR_pidyawDslipH = 0.1
+  B747DR_pidyawDslipL = 0.1
+  B747DR_pidyawPslipH = 0.02
+  B747DR_pidyawPslipL = 0.02
+
+  B747DR_pidyawDrollH = 1.0
+  B747DR_pidyawDrollL = 2.0
+  B747DR_pidyawProllH = 1.0
+  B747DR_pidyawProllL = 1.0
     --rudder
     B747DR_rudder_ratio=1.0
     B747DR_elevator_ratio   = 1.0
