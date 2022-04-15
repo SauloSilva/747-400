@@ -536,23 +536,25 @@ function B747_ap_switch_vnavalt_mode_CMDhandler(phase, duration)
 			return
 		end
 		B747_ap_button_switch_position_target[16] = 1 -- SET THE ALT KNOB ANIMATION TO "IN"
-		B747DR_mcp_hold = 0
-		B747DR_mcp_hold_pressed = simDRTime
-		setVNAVState("vnavcalcwithTargetAlt", 0)
-		if getVNAVState("manualVNAVspd") == 0 then
-			setVNAVState("gotVNAVSpeed", false)
-			B747_vnav_speed()
-		end
+		if simDR_autopilot_alt_hold_status==2 and B747DR_ap_vnav_state>1 then
+			B747DR_mcp_hold = 0
+			B747DR_mcp_hold_pressed = simDRTime
+			setVNAVState("vnavcalcwithTargetAlt", 0)
+			if getVNAVState("manualVNAVspd") == 0 then
+				setVNAVState("gotVNAVSpeed", false)
+				B747_vnav_speed()
+			end
 
-		if B747DR_ap_vnav_state == 2 then
-			B747DR_ap_vnav_state = 3 --resume
-		end
-		if B747BR_totalDistance - B747BR_tod <= 50 then
-			B747DR_ap_inVNAVdescent = 1
-			B747DR_ap_flightPhase = 3
-			setDescent(true)
-			print("Begin descent")
-			getDescentTarget()
+			if B747DR_ap_vnav_state == 2 then
+				B747DR_ap_vnav_state = 3 --resume
+			end
+			if B747BR_totalDistance - B747BR_tod <= 50 then
+				B747DR_ap_inVNAVdescent = 1
+				B747DR_ap_flightPhase = 3
+				setDescent(true)
+				print("Begin descent")
+				getDescentTarget()
+			end
 		end
 	elseif phase == 2 then
 		B747_ap_button_switch_position_target[16] = 0 -- SET THE ALT KNOB ANIMATION TO "OUT"
@@ -2268,19 +2270,19 @@ function fma_PitchModes()
 	elseif simDR_autopilot_gs_status == 2 then
 		-- (FLARE) --
 		-- TODO: AUTOLAND LOGIC
-		-- (VNAV SPD) --
-		B747DR_ap_FMA_active_pitch_mode = 2
+		
+		B747DR_ap_FMA_active_pitch_mode = 2 -- (GS) --
 		B747DR_ap_vnav_state = 0
 		B747DR_ap_inVNAVdescent = 0
 		B747DR_ap_flightPhase = 4
 		B747DR_ap_thrust_mode = 0
 	elseif (simDR_autopilot_fms_vnav == 1 or B747DR_ap_vnav_state >= 2) and simDR_autopilot_flch_status == 2 then
 
-		-- (VNAV ALT) --
-		B747DR_ap_FMA_active_pitch_mode = 4
+		
+		B747DR_ap_FMA_active_pitch_mode = 4 -- (VNAV SPD) --
 		
 	 --
-	elseif (simDR_autopilot_fms_vnav == 1 or B747DR_ap_vnav_state >= 2) and simDR_autopilot_alt_hold_status == 2 then
+	elseif (simDR_autopilot_fms_vnav == 1 or B747DR_ap_vnav_state >= 2) and (simDR_autopilot_alt_hold_status == 2 or altDiff<1000) then
 		--[[if clbderate==0 then 
 			throttlederate=1.0
 		elseif clbderate==1 then 

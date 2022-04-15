@@ -252,8 +252,9 @@ local last_THR_REF=0
 function B747_monitor_THR_REF_AT()
     local timediff=simDRTime-B747DR_ap_lastCommand
     if timediff<0.1 then return end
-    if B747DR_ap_thrust_mode == 0 and simDR_autopilot_flch_status>0 and simDR_pressureAlt1< simDR_autopilot_altitude_ft+900 and simDR_pressureAlt1> simDR_autopilot_altitude_ft-900 and simDR_autopilot_autothrottle_on == 0 then
+    if B747DR_ap_thrust_mode == 0 and simDR_autopilot_flch_status>0 and simDR_pressureAlt1< simDR_autopilot_altitude_ft+1000 and simDR_pressureAlt1> simDR_autopilot_altitude_ft-1000 and simDR_autopilot_autothrottle_on == 0 then
         print("B747DR_ap_thrust_mode " .. B747DR_ap_thrust_mode)
+        simDR_override_throttles=0
         simCMD_autopilot_autothrottle_on:once()
         B747DR_ap_lastCommand = simDRTime
         return
@@ -263,9 +264,9 @@ function B747_monitor_THR_REF_AT()
     local n1_pct=math.max(B747DR_display_N1[0],B747DR_display_N1[1],B747DR_display_N1[2],B747DR_display_N1[3])
     local lastChange=simDRTime-last_THR_REF
     
-    print("THR REF B747_monitor_THR_REF_AT".." simDR_autopilot_autothrottle_on "..simDR_autopilot_autothrottle_on.." simDR_override_throttles "..simDR_override_throttles.." simDR_autopilot_altitude_ft "..simDR_autopilot_altitude_ft.." simDR_pressureAlt1 "..simDR_pressureAlt1)
+    --print("THR REF B747_monitor_THR_REF_AT".." simDR_autopilot_autothrottle_on "..simDR_autopilot_autothrottle_on.." simDR_override_throttles "..simDR_override_throttles.." simDR_autopilot_altitude_ft "..simDR_autopilot_altitude_ft.." simDR_pressureAlt1 "..simDR_pressureAlt1)
     if (simDR_autopilot_autothrottle_on == 0 or simDR_override_throttles==1) 
-    and (simDR_pressureAlt1< simDR_autopilot_altitude_ft+900 and simDR_pressureAlt1> simDR_autopilot_altitude_ft-900) then
+    and (simDR_pressureAlt1< simDR_autopilot_altitude_ft+1000 and simDR_pressureAlt1> simDR_autopilot_altitude_ft-1000) then
         B747DR_ap_flightPhase = 2
 		print("B747DR_ap_thrust_mode " .. B747DR_ap_thrust_mode)
 		B747DR_ap_thrust_mode = 0
@@ -470,7 +471,8 @@ function B747_monitorAT()
     end
 
     --ALT/VS/GS
-    if simDR_autopilot_alt_hold_status == 2 then
+    --if simDR_autopilot_alt_hold_status == 2 then
+    if  B747DR_ap_FMA_active_pitch_mode==5 or B747DR_ap_FMA_active_pitch_mode==9 then    
         if B747DR_ap_thrust_mode~=0 then
             B747DR_ap_lastCommand=simDRTime
         end
@@ -479,7 +481,7 @@ function B747_monitorAT()
         B747DR_ap_flightPhase=2
         if simDR_autopilot_autothrottle_enabled==0 then
             print("simDR_autopilot_alt_hold_status")
-            
+            simDR_override_throttles=0
             simCMD_autopilot_autothrottle_on:once()
             
             B747DR_ap_lastCommand=simDRTime
@@ -492,6 +494,7 @@ function B747_monitorAT()
     or B747DR_ap_FMA_active_pitch_mode == 2 then
         if simDR_autopilot_autothrottle_enabled==0 then
             print("B747DR_ap_FMA_active_pitch_mode")
+            simDR_override_throttles=0
             simCMD_autopilot_autothrottle_on:once()
             if B747DR_engine_TOGA_mode ==1 then B747DR_engine_TOGA_mode = 0 end	-- CANX ENGINE TOGA IF ACTIVE
             B747DR_ap_lastCommand=simDRTime
