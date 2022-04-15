@@ -398,6 +398,7 @@ function ap_director_pitch()
     local alt_delta=simDR_pressureAlt1-last_altitude
     last_altitude=simDR_pressureAlt1
     local holdAlt=simDR_autopilot_altitude_ft 
+    local refreshHoldAlt=simDR_autopilot_hold_altitude_ft
     if simDR_autopilot_alt_hold_status==2 then
         holdAlt=simDR_autopilot_hold_altitude_ft
     end
@@ -435,7 +436,7 @@ function ap_director_pitch()
     elseif B747DR_ap_FMA_active_pitch_mode~=2 and (B747DR_ap_FMA_active_pitch_mode==5 or B747DR_ap_FMA_active_pitch_mode==9 or (simDR_pressureAlt1< holdAlt+1000 and simDR_pressureAlt1> holdAlt-1000)) then
         --ALT
         local altDiff=math.abs(simDR_pressureAlt1-holdAlt)
-        directorSampleRate=0.1
+        directorSampleRate=0.5
         local rog=0.005+0.01*altDiff/100
         local maxFPM=math.min(altDiff*5,1000)
         local minFPM=maxFPM/50
