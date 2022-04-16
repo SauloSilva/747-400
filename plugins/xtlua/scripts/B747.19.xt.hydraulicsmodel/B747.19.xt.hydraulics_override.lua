@@ -687,6 +687,7 @@ function ap_roll_assist()
             rollPid:compute()
         end
         local speed=B747_rescale(0.5,1,4,0.4,math.abs(flight_director_roll-simDR_AHARS_roll_heading_deg_pilot))
+        if rollPid.output==nil then return 0 end
         retval=B747_interpolate_value(B747DR_sim_roll_ratio,rollPid.output,-1,1,0.4) 
         --print("flight_director_roll "..flight_director_roll.." speed "..speed .." simDR_AHARS_roll_heading_deg_pilot "..simDR_AHARS_roll_heading_deg_pilot .." retval "..retval)
     else

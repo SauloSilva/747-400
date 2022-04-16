@@ -2418,7 +2418,9 @@ function B747_ap_fma()
 		-- simCMD_autopilot_gpss_mode:once()
 		run_after_time(checkLNAV, 0.5)
 	end
-
+	if numAPengaged==0 and B747DR_toggle_switch_position[23]==0 and B747DR_toggle_switch_position[24]==0 then 
+		B747DR_ap_approach_mode = 0
+	end
 	fma_rollModes()
 	fma_PitchModes()
 end
@@ -2659,7 +2661,7 @@ function B747_ap_all_cmd_modes_off()
 	B747DR_ap_cmd_L_mode = 0
 	B747DR_ap_cmd_C_mode = 0
 	B747DR_ap_cmd_R_mode = 0
-	B747DR_ap_approach_mode = 0
+	--B747DR_ap_approach_mode = 0
 	switching_servos_on = simDRTime
 end
 
