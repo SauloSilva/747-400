@@ -408,8 +408,8 @@ function ap_director_pitch(pitchMode)
         directorSampleRate=0.02
         return  B744DR_autolandPitch
     end
-    if (pitchMode==4 or pitchMode==8) and (simDR_pressureAlt1> holdAlt+500 or simDR_pressureAlt1< holdAlt-500) then
-        
+    if (pitchMode==4 or pitchMode==8) and (simDR_pressureAlt1> holdAlt+1000 or simDR_pressureAlt1< holdAlt-1000) then
+        local pitchError=math.abs(simDR_AHARS_pitch_heading_deg_pilot-last_simDR_AHARS_pitch_heading_deg_pilot)
         local speed_delta=simDR_ind_airspeed_kts_pilot-last_simDR_ind_airspeed_kts_pilot
         --FLCH
         last_simDR_ind_airspeed_kts_pilot=simDR_ind_airspeed_kts_pilot
@@ -425,13 +425,13 @@ function ap_director_pitch(pitchMode)
             max_speedDelta=0.001+speedDiff/1000
             min_speedDelta=max_speedDelta/10
         end
-        if (simDR_autopilot_airspeed_kts> simDR_ind_airspeed_kts_pilot+1) and speed_delta<max_speedDelta 
-            or (simDR_autopilot_airspeed_kts< simDR_ind_airspeed_kts_pilot-1) and speed_delta<-min_speedDelta
+        if ((simDR_autopilot_airspeed_kts> simDR_ind_airspeed_kts_pilot+1) and speed_delta<max_speedDelta 
+            or (simDR_autopilot_airspeed_kts< simDR_ind_airspeed_kts_pilot-1) and speed_delta<-min_speedDelta) and pitchError<0.5
         then
             print("-simDR_AHARS_pitch_heading_deg_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." simDR_ind_airspeed_kts_pilot "..simDR_ind_airspeed_kts_pilot.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta)
             last_simDR_AHARS_pitch_heading_deg_pilot= (last_simDR_AHARS_pitch_heading_deg_pilot-0.01)
-        elseif (simDR_autopilot_airspeed_kts< simDR_ind_airspeed_kts_pilot-1) and speed_delta>-max_speedDelta 
-            or (simDR_autopilot_airspeed_kts> simDR_ind_airspeed_kts_pilot+1) and speed_delta>min_speedDelta 
+        elseif ((simDR_autopilot_airspeed_kts< simDR_ind_airspeed_kts_pilot-1) and speed_delta>-max_speedDelta 
+            or (simDR_autopilot_airspeed_kts> simDR_ind_airspeed_kts_pilot+1) and speed_delta>min_speedDelta ) and pitchError<0.5
         then
             print("+simDR_AHARS_pitch_heading_deg_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." simDR_ind_airspeed_kts_pilot "..simDR_ind_airspeed_kts_pilot.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta)
             last_simDR_AHARS_pitch_heading_deg_pilot= (last_simDR_AHARS_pitch_heading_deg_pilot+0.01)
@@ -440,7 +440,7 @@ function ap_director_pitch(pitchMode)
         retval=last_simDR_AHARS_pitch_heading_deg_pilot
         last_simDR_AHARS_pitch_heading_deg_pilot=retval
         return retval
-    elseif pitchMode~=2 and (pitchMode==5 or pitchMode==9 or (simDR_autopilot_alt_hold_status==2) or (simDR_pressureAlt1< holdAlt+500 and simDR_pressureAlt1> holdAlt-500)) then
+    elseif pitchMode~=2 and (pitchMode==5 or pitchMode==9 or (simDR_autopilot_alt_hold_status==2) or (simDR_pressureAlt1< holdAlt+1000 and simDR_pressureAlt1> holdAlt-1000)) then
         --ALT
         local altDiff=math.abs(simDR_pressureAlt1-holdAlt)
         directorSampleRate=0.1

@@ -2388,7 +2388,7 @@ function B747_ap_fma()
 		B747DR_engine_TOGA_mode = 1 --reached hold state
 	elseif
 		(simDR_autopilot_fms_vnav == 1 or B747DR_ap_vnav_state == 2) and
-			(((simDR_autopilot_flch_status > 0 and (simDR_pressureAlt1> simDR_autopilot_altitude_ft+500 or simDR_pressureAlt1< simDR_autopilot_altitude_ft-500)) or B747DR_engine_TOGA_mode == 1) and B747DR_ap_inVNAVdescent == 0)
+			(((simDR_autopilot_flch_status > 0 and (simDR_pressureAlt1> simDR_autopilot_altitude_ft+1000 or simDR_pressureAlt1< simDR_autopilot_altitude_ft-1000)) or B747DR_engine_TOGA_mode == 1) and B747DR_ap_inVNAVdescent == 0)
 	 then
 		B747DR_ap_FMA_autothrottle_mode = 5 --THR REF
 	elseif simDR_autopilot_autothrottle_on == 1 then
