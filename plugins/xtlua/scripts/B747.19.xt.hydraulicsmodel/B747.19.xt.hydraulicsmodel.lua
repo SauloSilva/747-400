@@ -145,6 +145,7 @@ simDR_ind_airspeed_kts_pilot = find_dataref("laminar/B747/gauges/indicators/airs
 simDR_autopilot_altitude_ft = find_dataref("sim/cockpit2/autopilot/altitude_dial_ft")
 simDR_pressureAlt1 = find_dataref("sim/cockpit2/gauges/indicators/altitude_ft_pilot")
 simDR_touchGround = find_dataref("sim/flightmodel/failures/onground_any")
+simDR_autopilot_vs_fpm = find_dataref("sim/cockpit2/autopilot/vvi_dial_fpm")
 B747DR_l_elev_inner   = deferred_dataref("laminar/B747/flt_ctrls/l_elev_inner", "number")
 B747DR_r_elev_inner   = deferred_dataref("laminar/B747/flt_ctrls/r_elev_inner", "number")
 B747DR_l_elev_outer   = deferred_dataref("laminar/B747/flt_ctrls/l_elev_outer", "number")
@@ -498,10 +499,10 @@ function flight_start()
   --i 0.003
   --d 0.04
 
-  B747DR_pidRollP = 0.09
-  B747DR_pidRollI = 0.003
+  B747DR_pidRollP = 0.05
+  B747DR_pidRollI = 0.00003
   B747DR_pidRollDL = 0.05 --low 0.1 high 0.4
-  B747DR_pidRollDH = 0.2 --low 0.1 high 0.4
+  B747DR_pidRollDH = 0.1 --low 0.1 high 0.4
 
   B747DR_pidPitchPL = 0.15 --low 0.15 high 0.05
   B747DR_pidPitchPH = 0.05 --low 0.15 high 0.05
@@ -510,7 +511,7 @@ function flight_start()
 
 
   B747DR_pidyawP = 1.0
-  B747DR_pidyawI = 0.003
+  B747DR_pidyawI = 0.00003
   B747DR_pidyawD = 3.0
 
   B747DR_pidyawDslipH = 0.1
@@ -518,10 +519,10 @@ function flight_start()
   B747DR_pidyawPslipH = 0.02
   B747DR_pidyawPslipL = 0.02
 
-  B747DR_pidyawDrollH = 1.0
-  B747DR_pidyawDrollL = 2.0
-  B747DR_pidyawProllH = 1.0
-  B747DR_pidyawProllL = 1.0
+  B747DR_pidyawDrollH = 0.1
+  B747DR_pidyawDrollL = 0.1
+  B747DR_pidyawProllH = 0.1
+  B747DR_pidyawProllL = 0.1
     --rudder
     B747DR_rudder_ratio=1.0
     B747DR_elevator_ratio   = 1.0

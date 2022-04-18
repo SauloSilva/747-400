@@ -30,6 +30,7 @@ pid = {
     maxout = math.huge,
     _lasttime = nil,
     _lastinput = nil,
+    _lasterr= 0,
     _Iterm = 0
   }
 
@@ -76,11 +77,13 @@ end
     end
     self._Iterm = self._Iterm + self.ki * err * dtime
     self._Iterm = clamp(self._Iterm, self.minout, self.maxout)
-    local dinput = (self.input - self._lastinput) / dtime
-    self.output = self.kp * err + self._Iterm - self.kd * dinput
+    --local dinput = (self.input - self._lastinput) / dtime
+    local dinput = (err - self._lasterr) / dtime
+    self.output = self.kp * err + self._Iterm + self.kd * dinput
     self.output = clamp(self.output, self.minout, self.maxout)
     self._lasttime = simDRTime--seconds()
     self._lastinput = self.input
+    self._lasterr = err
 end
 
 function newPid()
