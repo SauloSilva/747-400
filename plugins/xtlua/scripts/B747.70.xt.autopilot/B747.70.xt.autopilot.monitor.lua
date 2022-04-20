@@ -67,7 +67,7 @@ function VNAV_CLB_ALT(numAPengaged,fms)
         targetAlt=B747DR_autopilot_altitude_ft
     end
     local mcpDiff=simDR_pressureAlt1-B747DR_autopilot_altitude_ft
-    if simDR_autopilot_alt_hold_status==2 and targetAlt==B747DR_autopilot_altitude_ft and (mcpDiff<1000 and mcpDiff>-1000) and lastHold>30 and B747BR_cruiseAlt>B747DR_autopilot_altitude_ft+1000 then
+    if simDR_autopilot_alt_hold_status==2 and targetAlt==B747DR_autopilot_altitude_ft and (mcpDiff<1000 and mcpDiff>-B747DR_alt_capture_window) and lastHold>30 and B747BR_cruiseAlt>B747DR_autopilot_altitude_ft+B747DR_alt_capture_window then
         B747DR_mcp_hold=1
     end 
     if B747DR_mcp_hold==0 then simDR_autopilot_altitude_ft=targetAlt end
@@ -154,7 +154,7 @@ function VNAV_DES_ALT(numAPengaged,fms)
         targetAlt=B747DR_autopilot_altitude_ft
     end
     local mcpDiff=simDR_pressureAlt1-B747DR_autopilot_altitude_ft
-    if simDR_autopilot_alt_hold_status==2 and targetAlt==B747DR_autopilot_altitude_ft and (mcpDiff<1000 and mcpDiff>-1000)  then
+    if simDR_autopilot_alt_hold_status==2 and targetAlt==B747DR_autopilot_altitude_ft and (mcpDiff<B747DR_alt_capture_window and mcpDiff>-B747DR_alt_capture_window)  then
         B747DR_mcp_hold=1
     end 
     if B747DR_mcp_hold==0 then simDR_autopilot_altitude_ft=targetAlt end
@@ -258,7 +258,7 @@ function B747_monitor_THR_REF_AT()
     
     if timediff<0.1 then return end
     if B747DR_toggle_switch_position[29] ~= 1 then return end
-    if ((B747DR_ap_thrust_mode == 0 and simDR_autopilot_flch_status>0) or (simDR_radarAlt1>2000 and( simDR_pressureAlt1< simDR_autopilot_altitude_ft+500 and simDR_pressureAlt1> simDR_autopilot_altitude_ft-500))) and simDR_autopilot_autothrottle_on == 0 then
+    if ((B747DR_ap_thrust_mode == 0 and simDR_autopilot_flch_status>0) or (simDR_radarAlt1>2000 and( simDR_pressureAlt1< simDR_autopilot_altitude_ft+B747DR_alt_capture_window and simDR_pressureAlt1> simDR_autopilot_altitude_ft-B747DR_alt_capture_window))) and simDR_autopilot_autothrottle_on == 0 then
         print("B747_monitor_THR_REF_AT B747DR_ap_thrust_mode " .. B747DR_ap_thrust_mode)
         simDR_override_throttles=0
         B747DR_ap_thrust_mode = 0
@@ -273,7 +273,7 @@ function B747_monitor_THR_REF_AT()
     
     --print("THR REF B747_monitor_THR_REF_AT".." simDR_autopilot_autothrottle_on "..simDR_autopilot_autothrottle_on.." simDR_override_throttles "..simDR_override_throttles.." simDR_autopilot_altitude_ft "..simDR_autopilot_altitude_ft.." simDR_pressureAlt1 "..simDR_pressureAlt1)
     if (simDR_autopilot_autothrottle_on == 0 or simDR_override_throttles==1) 
-    and (simDR_pressureAlt1< simDR_autopilot_altitude_ft+1000 and simDR_pressureAlt1> simDR_autopilot_altitude_ft-1000) then
+    and (simDR_pressureAlt1< simDR_autopilot_altitude_ft+B747DR_alt_capture_window and simDR_pressureAlt1> simDR_autopilot_altitude_ft-B747DR_alt_capture_window) then
         B747DR_ap_flightPhase = 2
 		print("B747DR_ap_thrust_mode " .. B747DR_ap_thrust_mode)
 		B747DR_ap_thrust_mode = 0

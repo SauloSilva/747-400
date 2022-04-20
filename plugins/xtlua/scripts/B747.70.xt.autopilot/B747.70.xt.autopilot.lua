@@ -115,7 +115,7 @@ simDR_autopilot_altitude_ft = find_dataref("sim/cockpit2/autopilot/altitude_dial
 simDR_autopilot_hold_altitude_ft = find_dataref("sim/cockpit2/autopilot/altitude_hold_ft")
 simDR_autopilot_tod_index = find_dataref("sim/cockpit2/radios/indicators/fms_tod_before_index_pilot")
 simDR_autopilot_tod_distance = find_dataref("sim/cockpit2/radios/indicators/fms_distance_to_tod_pilot")
-
+B747DR_alt_capture_window        = deferred_dataref("laminar/B747/autopilot/ap_monitor/alt_capture_window", "number")
 B747DR_display_N1 = find_dataref("laminar/B747/engines/display_N1")
 B747DR_display_N2 = find_dataref("laminar/B747/engines/display_N2")
 B747DR_fmc_notifications = find_dataref("laminar/B747/fms/notification")
@@ -535,16 +535,22 @@ function B747_ap_switch_vnavalt_mode_CMDhandler(phase, duration)
 			B747_ap_button_switch_position_target[16] = 0
 			return
 		end
+		
 		B747_ap_button_switch_position_target[16] = 1 -- SET THE ALT KNOB ANIMATION TO "IN"
 		if simDR_autopilot_alt_hold_status==2 and B747DR_ap_vnav_state>1 then
 			B747DR_mcp_hold = 0
+			if B747DR_autopilot_altitude_ft > simDR_pressureAlt1 then
+				B747DR_ap_flightPhase = 1
+			else
+				B747DR_ap_flightPhase = 3
+			end
 			B747DR_mcp_hold_pressed = simDRTime
 			setVNAVState("vnavcalcwithTargetAlt", 0)
 			if getVNAVState("manualVNAVspd") == 0 then
 				setVNAVState("gotVNAVSpeed", false)
 				B747_vnav_speed()
 			end
-
+			
 			if B747DR_ap_vnav_state == 2 then
 				B747DR_ap_vnav_state = 3 --resume
 			end
@@ -1897,6 +1903,8 @@ function B747_ap_altitude()
 	local vvi_status = simDR_autopilot_vs_status
 	local servoStatus = simDR_autopilot_servos_on
 	local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
+
+	B747DR_alt_capture_window = B747_rescale(0,200,5000,1000,math.abs(simDR_vvi_fpm_pilot))
 	if simDR_pressureAlt1 < B747DR_autopilot_altitude_ft then
 		if B747DR_autopilot_altitude_ft - simDR_pressureAlt1 > 400 then
 			B747DR_autopilot_altitude_ft_pfd = simDR_pressureAlt1 + 400
@@ -2388,7 +2396,7 @@ function B747_ap_fma()
 		B747DR_engine_TOGA_mode = 1 --reached hold state
 	elseif
 		(simDR_autopilot_fms_vnav == 1 or B747DR_ap_vnav_state == 2) and
-			(((simDR_autopilot_flch_status > 0 and (simDR_pressureAlt1> simDR_autopilot_altitude_ft+1000 or simDR_pressureAlt1< simDR_autopilot_altitude_ft-1000)) or B747DR_engine_TOGA_mode == 1) and B747DR_ap_inVNAVdescent == 0)
+			(((simDR_autopilot_flch_status > 0 and (simDR_pressureAlt1> simDR_autopilot_altitude_ft+B747DR_alt_capture_window or simDR_pressureAlt1< simDR_autopilot_altitude_ft-B747DR_alt_capture_window)) or B747DR_engine_TOGA_mode == 1) and B747DR_ap_inVNAVdescent == 0)
 	 then
 		B747DR_ap_FMA_autothrottle_mode = 5 --THR REF
 	elseif simDR_autopilot_autothrottle_on == 1 then

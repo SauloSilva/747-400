@@ -21,6 +21,7 @@ function getHeadingDifference(desireddirection,current_heading)
 	if (error < -180) then error =error+ 360 end
 	return error
 end
+debug_flight_directors     = deferred_dataref("laminar/B747/debug/flight_directors", "number")
 simDR_autopilot_hold_altitude_ft = find_dataref("sim/cockpit2/autopilot/altitude_hold_ft")
 simDR_autopilot_alt_hold_status         = find_dataref("sim/cockpit2/autopilot/altitude_hold_status")
 B747DR_autopilot_altitude_ft_pfd = deferred_dataref("laminar/B747/autopilot/heading/altitude_dial_ft_pfd", "number")
@@ -50,7 +51,7 @@ B747DR_pidyawDrollH = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/d/roll/h"
 B747DR_pidyawDrollL = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/d/roll/l", "number")
 B747DR_pidyawProllH = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/p/roll/h", "number")
 B747DR_pidyawProllL = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/p/roll/l", "number")
-
+B747DR_alt_capture_window        = deferred_dataref("laminar/B747/autopilot/ap_monitor/alt_capture_window", "number")
 simDR_AHARS_heading_deg_pilot = find_dataref("sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_pilot")
 
 B747DR_controlOverrides   = find_dataref("xtlua/controlObject")
@@ -504,9 +505,9 @@ function flight_start()
   B747DR_pidRollDL = 0.05 --low 0.1 high 0.4
   B747DR_pidRollDH = 0.1 --low 0.1 high 0.4
 
-  B747DR_pidPitchPL = 0.15 --low 0.15 high 0.05
+  B747DR_pidPitchPL = 0.07 --low 0.15 high 0.05
   B747DR_pidPitchPH = 0.05 --low 0.15 high 0.05
-  B747DR_pidPitchI = 0.03
+  B747DR_pidPitchI = 0.07
   B747DR_pidPitchD = 0.002
 
 
@@ -680,6 +681,7 @@ end
 
 --function before_physics() end
 debug_hydro     = deferred_dataref("laminar/B747/debug/hydro", "number")
+
 local lastStat=0
 local countFrame=0
 function after_physics()

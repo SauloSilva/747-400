@@ -179,6 +179,7 @@ B744DR_autolandPitch            = deferred_dataref("laminar/B747/autopilot/autol
 B747DR_lastap_dial_airspeed 	= deferred_dataref("laminar/B747/autopilot/ap_monitor/last_airspeed", "number")
 B747DR_max_dial_machspeed       = deferred_dataref("laminar/B747/autopilot/ap_monitor/max_dial_machspeed", "number")
 B747DR_target_descentAlt        = deferred_dataref("laminar/B747/autopilot/ap_monitor/target_descentAlt", "number")
+B747DR_alt_capture_window        = deferred_dataref("laminar/B747/autopilot/ap_monitor/alt_capture_window", "number")
 B747DR_target_descentSpeed      = deferred_dataref("laminar/B747/autopilot/ap_monitor/target_descentSpeed", "number")
 B747DR_descentSpeedGradient     = deferred_dataref("laminar/B747/autopilot/ap_monitor/descentSpeedGradient", "number")
 B747DR_switchingIASMode         = deferred_dataref("laminar/B747/autopilot/ap_monitor/switchingIASMode", "number")

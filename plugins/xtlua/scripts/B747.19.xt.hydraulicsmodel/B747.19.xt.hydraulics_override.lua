@@ -408,7 +408,7 @@ function ap_director_pitch(pitchMode)
         directorSampleRate=0.02
         return  B744DR_autolandPitch
     end
-    if (pitchMode==4 or pitchMode==8) and (simDR_pressureAlt1> holdAlt+1000 or simDR_pressureAlt1< holdAlt-1000) then
+    if (pitchMode==4 or pitchMode==8) and (simDR_pressureAlt1> holdAlt+B747DR_alt_capture_window or simDR_pressureAlt1< holdAlt-B747DR_alt_capture_window) then
         local pitchError=math.abs(simDR_AHARS_pitch_heading_deg_pilot-last_simDR_AHARS_pitch_heading_deg_pilot)
         local speed_delta=simDR_ind_airspeed_kts_pilot-last_simDR_ind_airspeed_kts_pilot
         --FLCH
@@ -421,26 +421,34 @@ function ap_director_pitch(pitchMode)
         local min_speedDelta=0
         local max_speedDelta=0
         local speedDiff=math.abs(simDR_ind_airspeed_kts_pilot-simDR_autopilot_airspeed_kts)
+        local canDescend = true
+        local canAscend = true
+        if simDR_pressureAlt1> holdAlt and simDR_vvi_fpm_pilot > 10 then canAscend = false end
+        if simDR_pressureAlt1< holdAlt and simDR_vvi_fpm_pilot < -10 then canDescend = false end
         if  speedDiff > 1 then
             max_speedDelta=0.001+speedDiff/1000
             min_speedDelta=max_speedDelta/10
         end
         if ((simDR_autopilot_airspeed_kts> simDR_ind_airspeed_kts_pilot+1) and speed_delta<max_speedDelta 
-            or (simDR_autopilot_airspeed_kts< simDR_ind_airspeed_kts_pilot-1) and speed_delta<-min_speedDelta) and pitchError<0.5
+            or (simDR_autopilot_airspeed_kts< simDR_ind_airspeed_kts_pilot-1) and speed_delta<-min_speedDelta) and pitchError<0.5 and canDescend
         then
-            print("-simDR_AHARS_pitch_heading_deg_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." simDR_ind_airspeed_kts_pilot "..simDR_ind_airspeed_kts_pilot.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta)
+            if debug_flight_directors==1 then
+                print("-simDR_AHARS_pitch_heading_deg_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." simDR_ind_airspeed_kts_pilot "..simDR_ind_airspeed_kts_pilot.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta)
+            end
             last_simDR_AHARS_pitch_heading_deg_pilot= (last_simDR_AHARS_pitch_heading_deg_pilot-0.01)
         elseif ((simDR_autopilot_airspeed_kts< simDR_ind_airspeed_kts_pilot-1) and speed_delta>-max_speedDelta 
-            or (simDR_autopilot_airspeed_kts> simDR_ind_airspeed_kts_pilot+1) and speed_delta>min_speedDelta ) and pitchError<0.5
+            or (simDR_autopilot_airspeed_kts> simDR_ind_airspeed_kts_pilot+1) and speed_delta>min_speedDelta ) and pitchError<0.5 and canAscend
         then
-            print("+simDR_AHARS_pitch_heading_deg_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." simDR_ind_airspeed_kts_pilot "..simDR_ind_airspeed_kts_pilot.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta)
+            if debug_flight_directors==1 then
+                print("+simDR_AHARS_pitch_heading_deg_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." simDR_ind_airspeed_kts_pilot "..simDR_ind_airspeed_kts_pilot.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta)
+            end
             last_simDR_AHARS_pitch_heading_deg_pilot= (last_simDR_AHARS_pitch_heading_deg_pilot+0.01)
         end
         last_altitude=simDR_pressureAlt1
         retval=last_simDR_AHARS_pitch_heading_deg_pilot
         last_simDR_AHARS_pitch_heading_deg_pilot=retval
         return retval
-    elseif pitchMode~=2 and (pitchMode==5 or pitchMode==9 or (simDR_autopilot_alt_hold_status==2) or (simDR_pressureAlt1< holdAlt+1000 and simDR_pressureAlt1> holdAlt-1000)) then
+    elseif pitchMode~=2 and (pitchMode==5 or pitchMode==9 or (simDR_autopilot_alt_hold_status==2) or (simDR_pressureAlt1< holdAlt+B747DR_alt_capture_window and simDR_pressureAlt1> holdAlt-B747DR_alt_capture_window)) then
         --ALT
         local altDiff=math.abs(simDR_pressureAlt1-holdAlt)
         directorSampleRate=0.1
@@ -455,10 +463,14 @@ function ap_director_pitch(pitchMode)
 
         if simDR_vvi_fpm_pilot>maxFPM and pitchError<0.5 then
             last_simDR_AHARS_pitch_heading_deg_pilot=last_simDR_AHARS_pitch_heading_deg_pilot-rog
-            print("-last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." minFPM "..minFPM.." maxFPM "..maxFPM)
+            if debug_flight_directors==1 then
+                print("-last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." minFPM "..minFPM.." maxFPM "..maxFPM)
+            end
         end
         if simDR_vvi_fpm_pilot<minFPM and pitchError<0.5 then
-            print("+last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." minFPM "..minFPM.." maxFPM "..maxFPM)
+            if debug_flight_directors==1 then
+                print("+last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." minFPM "..minFPM.." maxFPM "..maxFPM)
+            end
             last_simDR_AHARS_pitch_heading_deg_pilot=last_simDR_AHARS_pitch_heading_deg_pilot+rog
         end
         if last_simDR_AHARS_pitch_heading_deg_pilot<-1.5 then
@@ -478,10 +490,14 @@ function ap_director_pitch(pitchMode)
         local rog=0.001+0.00006*math.abs(simDR_vvi_fpm_pilot-simDR_autopilot_vs_fpm)
         if simDR_vvi_fpm_pilot>simDR_autopilot_vs_fpm  and pitchError<1.5 then
             last_simDR_AHARS_pitch_heading_deg_pilot=last_simDR_AHARS_pitch_heading_deg_pilot-rog
-            print("-simDR_vvi_fpm_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..simDR_vvi_fpm_pilot.." rog "..rog)
+            if debug_flight_directors==1 then
+                print("-simDR_vvi_fpm_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..simDR_vvi_fpm_pilot.." rog "..rog)
+            end
         end
         if simDR_vvi_fpm_pilot<simDR_autopilot_vs_fpm and pitchError<1.5 then
-            print("+simDR_vvi_fpm_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..simDR_vvi_fpm_pilot.." rog "..rog)
+            if debug_flight_directors==1 then 
+                print("+simDR_vvi_fpm_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..simDR_vvi_fpm_pilot.." rog "..rog)
+            end
             last_simDR_AHARS_pitch_heading_deg_pilot=last_simDR_AHARS_pitch_heading_deg_pilot+rog
         end
         if last_simDR_AHARS_pitch_heading_deg_pilot<-1.5 then
@@ -496,7 +512,9 @@ function ap_director_pitch(pitchMode)
         directorSampleRate=0.5
     end
     local retval=simDR_flight_director_pitch
-    print("+simDR_flight_director_pitch "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_flight_director_pitch "..simDR_flight_director_pitch.." B747DR_ap_FMA_active_pitch_mode "..B747DR_ap_FMA_active_pitch_mode.." holdAlt "..holdAlt)
+    if debug_flight_directors==1 then
+        print("+simDR_flight_director_pitch "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_flight_director_pitch "..simDR_flight_director_pitch.." B747DR_ap_FMA_active_pitch_mode "..B747DR_ap_FMA_active_pitch_mode.." holdAlt "..holdAlt)
+    end
     if retval<simDR_AHARS_pitch_heading_deg_pilot-5 then
         retval=simDR_AHARS_pitch_heading_deg_pilot-5
     elseif retval>simDR_AHARS_pitch_heading_deg_pilot+5 then 
@@ -526,7 +544,7 @@ function ap_director_pitch(pitchMode)
     last_simDR_AHARS_pitch_heading_deg_pilot=retval
     return retval
 end
-
+local current_roll_intregal=0
 function ap_director_roll_integral()
     --return B747DR_ap_target_roll
     local displayUpdate=false
@@ -546,13 +564,13 @@ function ap_director_roll_integral()
         if director_currentrollRecord>10 then
             director_currentrollRecord=1
         end
+        current_roll_intregal=0
+        for i=1,10,1 do
+            current_roll_intregal=current_roll_intregal+director_rollRecord[i]
+           --if displayUpdate then print("i "..i.." = " ..pitchRecord[i].. " " ..retval) end
+        end
     end
-    local retval=0
-    for i=1,10,1 do
-        retval=retval+director_rollRecord[i]
-       --if displayUpdate then print("i "..i.." = " ..pitchRecord[i].. " " ..retval) end
-    end
-    retval=retval/10
+    local retval=current_roll_intregal/10
     B747DR_flight_director_roll=retval
    -- if displayUpdate then print("retval "..retval.." "..simDRTime) end
     return retval
@@ -590,11 +608,16 @@ function dampYaw()
     return retval
 end
 function clearYawIntegral()
+    local val=0
+    if math.abs(simDR_AHARS_roll_heading_deg_pilot)<5 then 
+        val=simDR_AHARS_heading_deg_pilot
+    end
     for i=1,30,1 do
-        director_yawRecord[i]=0
+        director_yawRecord[i]=val
     end
 end
 local lastDamperSystem=0 --0 == slip, 1==yaw
+local current_yaw_intregal=0
 function ap_director_yaw_integral()
     if (simDRTime-director_lastyawRecordUpdate)>directoryawSampleRate then
          director_lastyawRecordUpdate=simDRTime
@@ -604,19 +627,20 @@ function ap_director_yaw_integral()
          if director_currentyawRecord>30 then
              director_currentyawRecord=1
          end
+        if math.abs(simDR_AHARS_roll_heading_deg_pilot)>5 then 
+            if lastDamperSystem~=0 then clearYawIntegral() end
+            lastDamperSystem=0
+            current_yaw_intregal= dampSlip()
+        else
+            if lastDamperSystem~=1 then clearYawIntegral() end
+            lastDamperSystem=1
+            current_yaw_intregal= dampYaw()
+        end
      end
-    if math.abs(simDR_AHARS_roll_heading_deg_pilot)>5 then 
-        if lastDamperSystem~=0 then clearYawIntegral() end
-        lastDamperSystem=0
-        return dampSlip()
-    else
-        if lastDamperSystem~=1 then clearYawIntegral() end
-        lastDamperSystem=1
-       return dampYaw()
-    end
     
+    return current_yaw_intregal
 end
-
+local current_pitch_intregal=0
 function ap_director_pitch_integral()
     local displayUpdate=false
     if (simDRTime-director_lastPitchRecordUpdate)>directorSampleRate then
@@ -628,15 +652,16 @@ function ap_director_pitch_integral()
         if director_currentPitchRecord>10 then
             director_currentPitchRecord=1
         end
+        current_pitch_intregal=0
+        for i=1,10,1 do
+            current_pitch_intregal=current_pitch_intregal+director_pitchRecord[i]
+        -- if displayUpdate then print("i "..i.." = " ..pitchRecord[i].. " " ..current_pitch_intregal) end
+        end
     end
-    local retval=0
-    for i=1,10,1 do
-        retval=retval+director_pitchRecord[i]
-       --if displayUpdate then print("i "..i.." = " ..pitchRecord[i].. " " ..retval) end
-    end
-    retval=retval/10
+    
+    local retval=current_pitch_intregal/10
     B747DR_flight_director_pitch=retval
-   -- if displayUpdate then print("retval "..retval.." "..simDRTime) end
+    --if displayUpdate then print("retval "..retval.." "..simDRTime) end
     return retval
 end
 function doTrim()
