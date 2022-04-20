@@ -131,7 +131,7 @@ spd_states["des"]["spcres"]["nextstate"]=nil
 function clb_src_setSpd()
     if B747DR_airspeed_V2<900 then
         simDR_autopilot_airspeed_is_mach = 0  
-        B747DR_ap_ias_dial_value = math.min(399.0, B747DR_airspeed_V2 + 10)
+        B747DR_ap_ias_dial_value = math.min(399.0, B747DR_airspeed_V2)
         B747DR_switchingIASMode=1
         B747DR_lastap_dial_airspeed=B747DR_ap_ias_dial_value
         run_after_time(B747_updateIAS, 0.25)
