@@ -633,7 +633,19 @@ function B747_init_lighting()
     local mcp_flood_values = {1.0, 0.70, 0.24, 0.0, 0.12, 0.08, 0.0, -0.50, 0.50}
     local aisle_stand_flood_values = {1.0, 0.70, 0.24, 0.0, 2.0, 0.85, 0.0, -0.8, -0.2}
     local mag_compass_flood_values = {1.0, 0.70, 0.24, 0.0, 0.1, 0.55, 0.0, 0.0 , -1.0}
-
+    if simDR_version>=120012 then
+        capt_panel_flood_values = {1.0, 0.70, 0.24, 10.0, 55.0, 0.60, -0.05, -0.525, -0.425}
+        center_panel_flood_values = {1.0, 0.70, 0.24, 10.0, 65.0, 0.15, 0.0, -1.0, 0.0}
+        capt_map_values = {1.0, 0.70, 0.24, 10.0, 200.0, 0.98, 0.0, -1.0, 0.0}
+        capt_chart_values = {1.0, 0.70, 0.24, 10.0, 37.0, 0.88, -0.35, -0.65, 0.25}
+        fo_panel_flood_values = {1.0, 0.70, 0.24,  10.0, 55.0, 0.60, 0.05, -0.525, -0.425}
+        fo_map_values = {1.0, 0.70, 0.24, 10.0, 200.0, 0.98, 0.0, -1.0, 0.0}
+        fo_chart_values = {1.0, 0.70, 0.24, 10.0, 37.0, 0.88, 0.35, -0.65, 0.25}
+        observer_map_values = {1.0, 0.70, 0.24, 10.0, 250.0, 0.95, 0.15, -0.68, 0.17}
+        mcp_flood_values = {1.0, 0.70, 0.24, 10.0, 12.0, 0.08, 0.0, -0.50, 0.50}
+        aisle_stand_flood_values = {1.0, 0.70, 0.24, 10.0, 200.0, 0.85, 0.0, -0.8, -0.2}
+        mag_compass_flood_values = {1.0, 0.70, 0.24, 10.0, 10.0, 0.55, 0.0, 0.0 , -1.0}
+    end
     for i = 1, NUM_SPILL_LIGHT_INDICES do
         B747DR_spill_light_capt_panel_flood[i-1] = capt_panel_flood_values[i]
         B747DR_spill_light_center_panel_flood[i-1] = center_panel_flood_values[i]

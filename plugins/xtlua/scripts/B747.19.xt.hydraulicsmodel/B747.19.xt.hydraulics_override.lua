@@ -460,7 +460,32 @@ function ap_director_pitch(pitchMode)
     elseif pitchMode~=2 and (pitchMode==5 or pitchMode==9 or (simDR_autopilot_alt_hold_status==2) or (simDR_pressureAlt1< holdAlt+B747DR_alt_capture_window and simDR_pressureAlt1> holdAlt-B747DR_alt_capture_window)) then
         --ALT
         local altDiff=math.abs(simDR_pressureAlt1-holdAlt)
+        local targetFPM=(holdAlt-simDR_pressureAlt1)*2 --target alt in 30 secs
+        local pitchError=math.abs(simDR_AHARS_pitch_heading_deg_pilot-last_simDR_AHARS_pitch_heading_deg_pilot)
         directorSampleRate=0.1
+        
+        local rog=0.001+0.00003*math.abs(simDR_vvi_fpm_pilot-targetFPM)
+        if simDR_vvi_fpm_pilot>targetFPM  and pitchError<1.5 then
+            last_simDR_AHARS_pitch_heading_deg_pilot=last_simDR_AHARS_pitch_heading_deg_pilot-rog
+            if debug_flight_directors==1 then
+                print("-last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..simDR_vvi_fpm_pilot.." rog "..rog.." targetFPM "..targetFPM)
+            end
+        end
+        if simDR_vvi_fpm_pilot<targetFPM and pitchError<1.5 then
+            if debug_flight_directors==1 then 
+                print("+last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..simDR_vvi_fpm_pilot.." rog "..rog.." targetFPM "..targetFPM)
+            end
+            last_simDR_AHARS_pitch_heading_deg_pilot=last_simDR_AHARS_pitch_heading_deg_pilot+rog
+        end
+        if last_simDR_AHARS_pitch_heading_deg_pilot<-1.5 then
+            last_simDR_AHARS_pitch_heading_deg_pilot=-1.5
+        elseif last_simDR_AHARS_pitch_heading_deg_pilot>10 then 
+            last_simDR_AHARS_pitch_heading_deg_pilot=10
+        end
+        retval=last_simDR_AHARS_pitch_heading_deg_pilot
+        last_simDR_AHARS_pitch_heading_deg_pilot=retval
+        return retval
+        --[[directorSampleRate=0.1
         local rog=0.005+0.02*altDiff/100
         local maxFPM=math.min(altDiff*5,2000)
         local minFPM=maxFPM/2
@@ -491,12 +516,12 @@ function ap_director_pitch(pitchMode)
         last_altitude=simDR_pressureAlt1
         retval=last_simDR_AHARS_pitch_heading_deg_pilot
         last_simDR_AHARS_pitch_heading_deg_pilot=retval
-        return retval
+        return retval]]--
     elseif pitchMode==4 or pitchMode==7 or pitchMode==6 then
         local pitchError=math.abs(simDR_AHARS_pitch_heading_deg_pilot-last_simDR_AHARS_pitch_heading_deg_pilot)
         directorSampleRate=0.1
         
-        local rog=0.001+0.00006*math.abs(simDR_vvi_fpm_pilot-simDR_autopilot_vs_fpm)
+        local rog=0.001+0.00003*math.abs(simDR_vvi_fpm_pilot-simDR_autopilot_vs_fpm)
         if simDR_vvi_fpm_pilot>simDR_autopilot_vs_fpm  and pitchError<1.5 then
             last_simDR_AHARS_pitch_heading_deg_pilot=last_simDR_AHARS_pitch_heading_deg_pilot-rog
             if debug_flight_directors==1 then

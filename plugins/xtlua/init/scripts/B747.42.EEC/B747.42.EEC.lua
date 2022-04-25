@@ -51,3 +51,7 @@ B747DR_display_EGT				= deferred_dataref("laminar/B747/engines/display_EGT", "ar
 B747DR_ref_line_magenta 		= deferred_dataref("laminar/B747/engines/display_ref_line_magenta", "number")
 B747DR_throttle_resolver_angle 	= deferred_dataref("laminar/B747/engines/TRA", "array[4]")
 B747DR_log_level = deferred_dataref("laminar/B747/engines/logging", "number")  --true / false
+
+B747DR_pidthrottleP = deferred_dataref("laminar/B747/flt_ctrls/pid/throttle/p", "number")
+B747DR_pidthrottleI = deferred_dataref("laminar/B747/flt_ctrls/pid/throttle/i", "number")
+B747DR_pidthrottleD = deferred_dataref("laminar/B747/flt_ctrls/pid/throttle/d", "number")

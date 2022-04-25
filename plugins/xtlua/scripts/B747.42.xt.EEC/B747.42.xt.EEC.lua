@@ -16,6 +16,22 @@
 --Load helper files
 dofile("json/json.lua")
 dofile("B747.42.xt.EEC.tbls.lua")
+simDR_version=find_dataref("sim/version/xplane_internal_version")
+dofile("pid.lua")
+local computeRate=0.0333 -- handle low FPS
+local lastCompute=0
+local doCompute=0
+local throttlePid = newPid()
+throttlePid.minout=0
+throttlePid.maxout=1
+throttlePid.target=0
+throttlePid.input = 0
+throttlePid:compute()
+B747DR_pidthrottleP = find_dataref("laminar/B747/flt_ctrls/pid/throttle/p")
+B747DR_pidthrottleI = find_dataref("laminar/B747/flt_ctrls/pid/throttle/i")
+B747DR_pidthrottleD = find_dataref("laminar/B747/flt_ctrls/pid/throttle/d")
+simDR_ind_airspeed_kts_pilot        = find_dataref("laminar/B747/gauges/indicators/airspeed_kts_pilot")
+
 
 
 --[[
@@ -260,7 +276,7 @@ simDR_engine_N1_pct                 = find_dataref("sim/cockpit2/engine/indicato
 simDR_engine_N2_pct                 = find_dataref("sim/cockpit2/engine/indicators/N2_percent")
 simDR_engine_EPR					= find_dataref("sim/cockpit2/engine/indicators/EPR_ratio")
 --[[end mSparks]]
-B747DR_ap_ias_bug_value            	= deferred_dataref("laminar/B747/autopilot/ias_bug_value", "number")
+
 B747DR_display_N1					= deferred_dataref("laminar/B747/engines/display_N1", "array[4]")
 B747DR_display_N1_ref				= deferred_dataref("laminar/B747/engines/display_N1_ref", "array[4]")
 B747DR_display_N1_max				= deferred_dataref("laminar/B747/engines/display_N1_max", "array[4]")
@@ -273,6 +289,7 @@ B747DR_display_GE_EGT				= deferred_dataref("laminar/B747/engines/display_GE_EGT
 B747DR_display_EGT					= deferred_dataref("laminar/B747/engines/display_EGT", "array[4]")
 B747DR_FMSdata						= deferred_dataref("laminar/B747/fms/data", "string")
 B747DR_radio_altitude				= deferred_dataref("laminar/B747/efis/radio_altitude")
+simDR_radarAlt1           	= find_dataref("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot")
 B747DR_altitude_dial				= deferred_dataref("laminar/B747/autopilot/heading/altitude_dial_ft")
 B747DR_ap_flightPhase 				= deferred_dataref("laminar/B747/autopilot/flightPhase", "number")
 B747DR_toderate						= deferred_dataref("laminar/B747/engine/derate/TO","number")
@@ -288,7 +305,7 @@ B747DR_newsimconfig_data				= deferred_dataref("laminar/B747/newsimconfig", "num
 B747DR_FMSdata						= deferred_dataref("laminar/B747/fms/data", "string")
 B747DR_autothrottle_fail			= deferred_dataref("laminar/B747/engines/autothrottle_fail", "number")
 B747DR_ap_vvi_fpm					= deferred_dataref("laminar/B747/autopilot/vvi_fpm")
-B747DR_ap_ias_bug_value				= deferred_dataref("laminar/B747/autopilot/ias_bug_value")
+simDR_autopilot_airspeed_kts = find_dataref("sim/cockpit2/autopilot/airspeed_dial_kts")
 B747DR_airspeed_pilot				= deferred_dataref("laminar/B747/gauges/indicators/airspeed_kts_pilot")			
 
 --[[
@@ -604,9 +621,9 @@ function ecc_mode_set()
 	--Set Specific sub-mode for TO or CLB
 	--if (B747DR_ap_autoland==-2 or B747DR_ap_FMA_active_roll_mode ==3 ) and simDR_flap_ratio_control>0 then
 	--if simDR_altitude>32000 then
-	--	newTarget = "CRZ"
+	--	newTarget = "CRZ" 
 	--else
-	if B747DR_ap_autoland==-2 or (B747DR_ap_flightPhase >= 2 and simDR_flap_ratio > 0) then
+	if B747DR_ap_autoland==-2 or (B747DR_ap_flightPhase >= 2 and simDR_flap_ratio > 0 and simDR_radarAlt1<1500) then
 		newTarget = "GA"
 	elseif B747DR_ap_flightPhase==0 then
 		if B747DR_toderate == 0 then
@@ -637,6 +654,31 @@ function ecc_mode_set()
 	end
 end
 
+function ecc_spd()
+	--print("---ECC SPD---")
+	if simDR_version>=120012 then
+		simDR_override_throttles = 1
+		throttlePid.kp=B747DR_pidthrottleP
+		throttlePid.ki=B747DR_pidthrottleI
+		throttlePid.kd=B747DR_pidthrottleD
+
+		throttlePid.input = simDR_ind_airspeed_kts_pilot
+        throttlePid.target= simDR_autopilot_airspeed_kts
+        if (simDRTime-lastCompute)>computeRate then
+            throttlePid:compute()
+			lastCompute=simDRTime
+			--print("AT retval"..throttlePid.output.." simDR_ind_airspeed_kts_pilot "..simDR_ind_airspeed_kts_pilot.." B747DR_ap_ias_bug_value "..B747DR_ap_ias_bug_value)
+			for i = 0, 3 do
+				simDR_engn_thro_use[i]=throttlePid.output
+			end
+        end
+		
+        
+		
+	else
+		simDR_override_throttles = 0
+	end
+end
 local previous_altitude = 0
 function throttle_management()
 
@@ -771,7 +813,7 @@ function throttle_management()
 		end
 
 	--SPEED Mode
-	elseif B747DR_ap_autothrottle_armed == 1 and B747DR_ap_FMA_autothrottle_mode == 3 and EEC_status == 0 then
+	elseif B747DR_ap_autothrottle_armed == 0 and B747DR_ap_FMA_autothrottle_mode == 3 and EEC_status == 0 then
 		--Give throttle control back to the user
 		--hold_mode = 0
 		simDR_override_throttles = 0
@@ -790,6 +832,10 @@ function throttle_management()
 		--Autothrottle has been disabled for some reason
 		simDR_autothrottle_enabled = 0
 		simDR_autothrottle_on = 0
+	elseif B747DR_ap_autothrottle_armed == 1 and B747DR_ap_FMA_autothrottle_mode == 3 then
+		--new SPD
+		
+		ecc_spd()
 	else
 		simDR_override_throttles = 0
 		--simDR_autothrottle_enabled = 0
@@ -844,7 +890,11 @@ function hasSimConfig()
 	end
 	return setSimConfig
 end
-
+function flight_start()
+	B747DR_pidthrottleP = 0.10
+	B747DR_pidthrottleI = 0.002
+	B747DR_pidthrottleD = 0.05 --low 0.1 high 0.4
+end
 function after_physics()
 	if debug_ecc>0 then return end
     if hasSimConfig()==false then return end

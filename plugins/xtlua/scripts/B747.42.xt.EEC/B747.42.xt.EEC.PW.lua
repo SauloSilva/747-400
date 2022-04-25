@@ -127,7 +127,7 @@ function engine_idle_control_PW(altitude_ft_in)
       end
       
     --Manage throttle settings in THR REF mode (or HOLD mode during Takeoff)
-    if simDR_override_throttles == 1 then --or B747DR_ap_FMA_autothrottle_mode == 1 then
+    if simDR_override_throttles == 1 and B747DR_ap_FMA_autothrottle_mode ~= 3 then --or B747DR_ap_FMA_autothrottle_mode == 1 then
           
       --DECREASE adjustments
           if B747DR_display_EPR[0] > (simDR_EPR_target_bug[0]) then
