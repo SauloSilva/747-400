@@ -2295,7 +2295,7 @@ function fma_PitchModes()
 		B747DR_ap_FMA_active_pitch_mode = 4 -- (VNAV SPD) --
 		
 	 --
-	elseif (simDR_autopilot_fms_vnav == 1 or B747DR_ap_vnav_state >= 2) and (simDR_autopilot_alt_hold_status == 2 or altDiff<1000) then
+	elseif (simDR_autopilot_fms_vnav == 1 or B747DR_ap_vnav_state >= 2) and (simDR_autopilot_alt_hold_status == 2 or altDiff<B747DR_alt_capture_window) then
 		--[[if clbderate==0 then 
 			throttlederate=1.0
 		elseif clbderate==1 then 
@@ -2316,7 +2316,7 @@ function fma_PitchModes()
 		else
 			B747DR_ap_FMA_active_pitch_mode = 6 -- (VNAV PATH) --
 		end
-	elseif (simDR_autopilot_vs_status == 2 and altDiff>1000) and simDR_autopilot_fms_vnav == 0 and B747DR_ap_vnav_state == 0 then
+	elseif (simDR_autopilot_vs_status == 2 and altDiff>B747DR_alt_capture_window) and simDR_autopilot_fms_vnav == 0 and B747DR_ap_vnav_state == 0 then
 		--[[if clbderate==0 then 
 			throttlederate=1.0
 	  	elseif clbderate==1 then 
@@ -2336,7 +2336,7 @@ function fma_PitchModes()
 			B747DR_ap_lastCommand=simDRTime	
     	end
 	 --
-	elseif (simDR_autopilot_flch_status == 2 and altDiff>1000) and simDR_autopilot_fms_vnav == 0 and B747DR_ap_vnav_state == 0 then
+	elseif (simDR_autopilot_flch_status == 2 and altDiff>B747DR_alt_capture_window) and simDR_autopilot_fms_vnav == 0 and B747DR_ap_vnav_state == 0 then
 		--[[if clbderate==0 then 
 			throttlederate=1.0
 		elseif clbderate==1 then 
@@ -2356,7 +2356,7 @@ function fma_PitchModes()
 			B747DR_ap_lastCommand=simDRTime	
     	end
 	 --
-	elseif (simDR_autopilot_alt_hold_status == 2 or altDiff<1000) and simDR_autopilot_fms_vnav == 0 and B747DR_ap_vnav_state == 0 then
+	elseif (simDR_autopilot_alt_hold_status == 2 or altDiff<B747DR_alt_capture_window) and simDR_autopilot_fms_vnav == 0 and B747DR_ap_vnav_state == 0 then
 		--throttlederate=1.0
 		
 		B747DR_ap_FMA_active_pitch_mode = 9 -- ALT

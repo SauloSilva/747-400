@@ -769,7 +769,7 @@ B747DR_CAS_memo_status          = find_dataref("laminar/B747/CAS/memo_status")
 function getCurrentWayPoint(fms,usenext)
 
 	for i=1,table.getn(fms),1 do
-    --print("FMS j="..fmsJSON)
+     --print("FMS j="..fmsJSON)
 
 		if fms[i][10] == true then
 				--print("Found TRUE = "..fms[i][1].." "..fms[i][2].." "..fms[i][8])

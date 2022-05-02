@@ -395,14 +395,14 @@ function engine_idle_control_RR(altitude_ft_in)
             climb_rate_fpm = B747DR_ap_vvi_fpm
           end
 
-          if B747DR_airspeed_pilot < (B747DR_ap_ias_bug_value - 3) then
+          if B747DR_airspeed_pilot < (simDR_ind_airspeed_kts_pilot - 3) then
             if last_climb_rate_fpm <= climb_rate_fpm then
               last_climb_rate_fpm = climb_rate_fpm
             else
               last_climb_rate_fpm = math.min(last_climb_rate_fpm + 1, B747DR_ap_vvi_fpm + 1000)
             end
             climb_rate_fpm = last_climb_rate_fpm
-          elseif B747DR_airspeed_pilot > B747DR_ap_ias_bug_value then
+          elseif B747DR_airspeed_pilot > simDR_ind_airspeed_kts_pilot then
             if last_climb_rate_fpm >= climb_rate_fpm then
               last_climb_rate_fpm = climb_rate_fpm
             else
@@ -430,14 +430,14 @@ function engine_idle_control_RR(altitude_ft_in)
             climb_rate_fpm = B747DR_ap_vvi_fpm
           end
 
-          if B747DR_airspeed_pilot < (B747DR_ap_ias_bug_value - 3) then
+          if B747DR_airspeed_pilot < (simDR_ind_airspeed_kts_pilot - 3) then
             if last_climb_rate_fpm <= climb_rate_fpm then
               last_climb_rate_fpm = climb_rate_fpm
             else
               last_climb_rate_fpm = math.min(last_climb_rate_fpm + 1, B747DR_ap_vvi_fpm + 1000)
             end
             climb_rate_fpm = last_climb_rate_fpm
-          elseif B747DR_airspeed_pilot > B747DR_ap_ias_bug_value then
+          elseif B747DR_airspeed_pilot > simDR_ind_airspeed_kts_pilot then
             if last_climb_rate_fpm >= climb_rate_fpm then
               last_climb_rate_fpm = climb_rate_fpm
             else
@@ -465,14 +465,14 @@ function engine_idle_control_RR(altitude_ft_in)
             climb_rate_fpm = B747DR_ap_vvi_fpm
           end
 
-          if B747DR_airspeed_pilot < (B747DR_ap_ias_bug_value - 3) then
+          if B747DR_airspeed_pilot < (simDR_ind_airspeed_kts_pilot - 3) then
             if last_climb_rate_fpm <= climb_rate_fpm then
               last_climb_rate_fpm = climb_rate_fpm
             else
               last_climb_rate_fpm = math.min(last_climb_rate_fpm + 1, B747DR_ap_vvi_fpm + 1000)
             end
             climb_rate_fpm = last_climb_rate_fpm
-          elseif B747DR_airspeed_pilot > B747DR_ap_ias_bug_value then
+          elseif B747DR_airspeed_pilot > simDR_ind_airspeed_kts_pilot then
             if last_climb_rate_fpm >= climb_rate_fpm then
               last_climb_rate_fpm = climb_rate_fpm
             else
@@ -499,14 +499,14 @@ function engine_idle_control_RR(altitude_ft_in)
             climb_rate_fpm = B747DR_ap_vvi_fpm
           end
 
-          if B747DR_airspeed_pilot < (B747DR_ap_ias_bug_value - 3) then
+          if B747DR_airspeed_pilot < (simDR_ind_airspeed_kts_pilot - 3) then
             if last_climb_rate_fpm <= climb_rate_fpm then
               last_climb_rate_fpm = climb_rate_fpm
             else
               last_climb_rate_fpm = math.min(last_climb_rate_fpm + 1, B747DR_ap_vvi_fpm + 1000)
             end
             climb_rate_fpm = last_climb_rate_fpm
-          elseif B747DR_airspeed_pilot > B747DR_ap_ias_bug_value then
+          elseif B747DR_airspeed_pilot > simDR_ind_airspeed_kts_pilot then
             if last_climb_rate_fpm >= climb_rate_fpm then
               last_climb_rate_fpm = climb_rate_fpm
             else

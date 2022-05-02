@@ -450,8 +450,8 @@ function ap_director_pitch(pitchMode)
         last_altitude=simDR_pressureAlt1
         if last_simDR_AHARS_pitch_heading_deg_pilot<-1.5 then
             last_simDR_AHARS_pitch_heading_deg_pilot=-1.5
-        elseif last_simDR_AHARS_pitch_heading_deg_pilot>10 then 
-            last_simDR_AHARS_pitch_heading_deg_pilot=10
+        elseif last_simDR_AHARS_pitch_heading_deg_pilot>15 then 
+            last_simDR_AHARS_pitch_heading_deg_pilot=15
         end
         retval=last_simDR_AHARS_pitch_heading_deg_pilot
         last_simDR_AHARS_pitch_heading_deg_pilot=retval
@@ -470,17 +470,20 @@ function ap_director_pitch(pitchMode)
             if debug_flight_directors==1 then
                 print("-last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..simDR_vvi_fpm_pilot.." rog "..rog.." targetFPM "..targetFPM)
             end
-        end
-        if simDR_vvi_fpm_pilot<targetFPM and pitchError<1.5 then
+        elseif simDR_vvi_fpm_pilot<targetFPM and pitchError<1.5 then
             if debug_flight_directors==1 then 
                 print("+last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..simDR_vvi_fpm_pilot.." rog "..rog.." targetFPM "..targetFPM)
             end
             last_simDR_AHARS_pitch_heading_deg_pilot=last_simDR_AHARS_pitch_heading_deg_pilot+rog
+        else
+            if debug_flight_directors==1 then
+                print("=last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..simDR_vvi_fpm_pilot.." rog "..rog.." targetFPM "..targetFPM)
+            end
         end
         if last_simDR_AHARS_pitch_heading_deg_pilot<-1.5 then
             last_simDR_AHARS_pitch_heading_deg_pilot=-1.5
-        elseif last_simDR_AHARS_pitch_heading_deg_pilot>10 then 
-            last_simDR_AHARS_pitch_heading_deg_pilot=10
+        elseif last_simDR_AHARS_pitch_heading_deg_pilot>15 then 
+            last_simDR_AHARS_pitch_heading_deg_pilot=15
         end
         retval=last_simDR_AHARS_pitch_heading_deg_pilot
         last_simDR_AHARS_pitch_heading_deg_pilot=retval

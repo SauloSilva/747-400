@@ -32,7 +32,7 @@ B747DR_pidthrottleI = find_dataref("laminar/B747/flt_ctrls/pid/throttle/i")
 B747DR_pidthrottleD = find_dataref("laminar/B747/flt_ctrls/pid/throttle/d")
 simDR_ind_airspeed_kts_pilot        = find_dataref("laminar/B747/gauges/indicators/airspeed_kts_pilot")
 
-
+--B747DR_ap_ias_bug_value            	= find_dataref("laminar/B747/autopilot/ias_bug_value")
 
 --[[
 *************************************************************************************
@@ -667,9 +667,11 @@ function ecc_spd()
         if (simDRTime-lastCompute)>computeRate then
             throttlePid:compute()
 			lastCompute=simDRTime
+			if throttlePid.output~=nil then
 			--print("AT retval"..throttlePid.output.." simDR_ind_airspeed_kts_pilot "..simDR_ind_airspeed_kts_pilot.." B747DR_ap_ias_bug_value "..B747DR_ap_ias_bug_value)
-			for i = 0, 3 do
-				simDR_engn_thro_use[i]=throttlePid.output
+				for i = 0, 3 do
+					simDR_engn_thro_use[i]=throttlePid.output
+				end
 			end
         end
 		

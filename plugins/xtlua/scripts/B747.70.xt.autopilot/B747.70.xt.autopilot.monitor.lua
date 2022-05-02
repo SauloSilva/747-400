@@ -12,7 +12,17 @@
 *
 --]]
 
-
+--get the glideslope to an FMS entry
+function getSlope(fmsIndex)
+    local distanceNM=getDistance(simDR_latitude,simDR_longitude,fmsO[fmsIndex][5],fmsO[fmsIndex][6])
+    local nextDistanceInFeet=distanceNM*6076.12
+    local time=distanceNM*30.8666/(simDR_groundspeed) --time in minutes, gs in m/s....
+    local vdiff=B747DR_ap_vnav_target_alt-simDR_pressureAlt1-early --to be negative
+    local vspeed=vdiff/time
+    local slope=math.atan2(vdiff,nextDistanceInFeet)*-57.2958
+    print("i "..fmsIndex.." slope" ..slope)
+    return slope
+end
 function VNAV_NEXT_ALT(numAPengaged,fms)
     local began=false
     local targetAlt=simDR_autopilot_altitude_ft
@@ -32,7 +42,7 @@ function VNAV_NEXT_ALT(numAPengaged,fms)
           break 
         end
         if fms[i][9]>0 and fms[i][2] ~= 1 then 
-            if fms[i][9]>simDR_pressureAlt1+1000 or fms[i][9]<=simDR_pressureAlt1 then
+            if (fms[i][9]>simDR_pressureAlt1+1000 or fms[i][9]<=simDR_pressureAlt1) then
                 targetAlt=fms[i][9]
             else
                 targetAlt=simDR_autopilot_altitude_ft
@@ -300,6 +310,9 @@ function B747_monitor_THR_REF_AT()
         if B747DR_ap_thrust_mode==0 and timediff>0.5 then 
             --print("B747DR_ap_thrust_mode =1 @ "..timediff)
             B747DR_ap_thrust_mode=1 
+            
+        end
+        if altDiff>1000 then
             B747DR_ap_flightPhase=1
         end
         if clbderate==1 then ref_throttle=96
