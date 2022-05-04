@@ -448,8 +448,8 @@ function ap_director_pitch(pitchMode)
             last_simDR_AHARS_pitch_heading_deg_pilot= (last_simDR_AHARS_pitch_heading_deg_pilot+rog)
         end
         last_altitude=simDR_pressureAlt1
-        if last_simDR_AHARS_pitch_heading_deg_pilot<-1.5 then
-            last_simDR_AHARS_pitch_heading_deg_pilot=-1.5
+        if last_simDR_AHARS_pitch_heading_deg_pilot<-3.5 then
+            last_simDR_AHARS_pitch_heading_deg_pilot=-3.5
         elseif last_simDR_AHARS_pitch_heading_deg_pilot>15 then 
             last_simDR_AHARS_pitch_heading_deg_pilot=15
         end
@@ -480,8 +480,8 @@ function ap_director_pitch(pitchMode)
                 print("=last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..simDR_vvi_fpm_pilot.." rog "..rog.." targetFPM "..targetFPM)
             end
         end
-        if last_simDR_AHARS_pitch_heading_deg_pilot<-1.5 then
-            last_simDR_AHARS_pitch_heading_deg_pilot=-1.5
+        if last_simDR_AHARS_pitch_heading_deg_pilot<-3.5 then
+            last_simDR_AHARS_pitch_heading_deg_pilot=-3.5
         elseif last_simDR_AHARS_pitch_heading_deg_pilot>15 then 
             last_simDR_AHARS_pitch_heading_deg_pilot=15
         end
@@ -537,8 +537,8 @@ function ap_director_pitch(pitchMode)
             end
             last_simDR_AHARS_pitch_heading_deg_pilot=last_simDR_AHARS_pitch_heading_deg_pilot+rog
         end
-        if last_simDR_AHARS_pitch_heading_deg_pilot<-1.5 then
-            last_simDR_AHARS_pitch_heading_deg_pilot=-1.5
+        if last_simDR_AHARS_pitch_heading_deg_pilot<-3.5 then
+            last_simDR_AHARS_pitch_heading_deg_pilot=-3.5
         elseif last_simDR_AHARS_pitch_heading_deg_pilot>10 then 
             last_simDR_AHARS_pitch_heading_deg_pilot=10
         end
