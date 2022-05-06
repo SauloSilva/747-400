@@ -703,6 +703,7 @@ function throttle_management()
 		EEC_status = 0
 	end
 	
+	
 	if string.match(fms_data["data"].crzalt, "FL") then
 		fmc_alt = tonumber(string.sub(fms_data["data"].crzalt, 3,-1)) * 100
 	elseif string.match(fms_data["data"].crzalt, "*") then
@@ -732,7 +733,10 @@ function throttle_management()
 					or B747DR_display_N1[2] < B747DR_display_N1_ref[2] or B747DR_display_N1[3] < B747DR_display_N1_ref[3] then
 					print("TOGA Engaged - Waiting for spool-up.....")
 					simCMD_ThrottleUp:once()
-					simDR_autothrottle_enabled = 2
+					--simDR_autothrottle_enabled = 2
+					if simDR_autothrottle_enabled ~= 0 then
+						simCMD_autopilot_AT_off:once()
+					end
 					return
 				end
 			elseif simConfigData["data"].PLANE.thrust_ref == "EPR" then
@@ -740,7 +744,10 @@ function throttle_management()
 					or B747DR_display_EPR[2] < B747DR_display_EPR_ref[2] or B747DR_display_EPR[3] < B747DR_display_EPR_ref[3] then
 					print("TOGA Engaged - Waiting for spool-up.....")
 					simCMD_ThrottleUp:once()
-					simDR_autothrottle_enabled = 2
+					--simDR_autothrottle_enabled = 2
+					if simDR_autothrottle_enabled ~= 0 then
+						simCMD_autopilot_AT_off:once()
+					end
 					return
 				end
 			end
@@ -782,7 +789,10 @@ function throttle_management()
 		or B747DR_ap_FMA_active_pitch_mode == 7 or B747DR_ap_FMA_active_pitch_mode == 8
 		or B747DR_ap_FMA_active_pitch_mode == 9 then
 			simDR_override_throttles = 1
-			simDR_autothrottle_enabled = 2
+			--simDR_autothrottle_enabled = 2
+			if simDR_autothrottle_enabled ~= 0 then
+				simCMD_autopilot_AT_off:once()
+			end
 			simDR_autothrottle_on = 1
 		end
 
@@ -802,10 +812,10 @@ function throttle_management()
 	elseif (B747DR_ap_autothrottle_armed == 1  or simDR_override_throttles == 1 ) and B747DR_ap_FMA_autothrottle_mode == 1 and EEC_status == 0 then
 		--Give throttle control back to the user
 		simDR_override_throttles = 0
-		if simDR_autothrottle_enabled == 2 and simDR_autothrottle_on == 1 then
+		--[[if simDR_autothrottle_enabled == 2 and simDR_autothrottle_on == 1 then
 			simDR_autothrottle_enabled = 0
 			simDR_autothrottle_on = 0
-		end
+		end]]
 		B747DR_ref_line_magenta = 0
 		--hold_mode = 1
 

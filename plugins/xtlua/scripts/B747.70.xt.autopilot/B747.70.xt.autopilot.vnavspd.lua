@@ -71,7 +71,7 @@ end
 ]]
 function clb_nores_next()
     --return (tonumber(string.sub(getFMSData("crzalt"),3))*100)-1000
-    local tAlt=(tonumber(string.sub(getFMSData("crzalt"),3))*100)-1000
+    local tAlt=(tonumber(string.sub(getFMSData("crzalt"),3))*100)-100
     if tAlt>simDR_pressureAlt1+1100 then
         tAlt=math.min(simDR_pressureAlt1+1100,tAlt)
     end

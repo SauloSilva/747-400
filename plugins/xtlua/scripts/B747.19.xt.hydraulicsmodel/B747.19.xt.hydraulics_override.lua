@@ -420,7 +420,7 @@ function ap_director_pitch(pitchMode)
         end
 
         local rog=0.01+math.abs(0.5*speed_delta)
-        if rog>0.5 then rog=0.5 end
+        if rog>0.3 then rog=0.3 end
         local min_speedDelta=0
         local max_speedDelta=0
         local speedDiff=math.abs(simDR_ind_airspeed_kts_pilot-simDR_autopilot_airspeed_kts)
@@ -429,7 +429,7 @@ function ap_director_pitch(pitchMode)
         if simDR_pressureAlt1> holdAlt and simDR_vvi_fpm_pilot > 10 then canAscend = false end
         if simDR_pressureAlt1< holdAlt and simDR_vvi_fpm_pilot < -10 then canDescend = false end
         if  speedDiff > 1 then
-            max_speedDelta=0.001+speedDiff/1000
+            max_speedDelta=0.001+speedDiff/500
             min_speedDelta=max_speedDelta/10
         end
         if ((simDR_autopilot_airspeed_kts> simDR_ind_airspeed_kts_pilot+1) and speed_delta<max_speedDelta 
