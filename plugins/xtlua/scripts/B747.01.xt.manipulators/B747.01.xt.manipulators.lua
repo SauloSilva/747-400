@@ -86,7 +86,10 @@ local B747_button_switch_cover_CMDhandler = {}
 --*************************************************************************************--
 --** 				                X-PLANE DATAREFS            			    	 **--
 --*************************************************************************************--
-
+simDR_engine_throttle_rev       = find_dataref("sim/cockpit2/engine/actuators/throttle_jet_rev_ratio")
+simDR_engn_thro			= find_dataref("sim/flightmodel/engine/ENGN_thro")
+B747DR_throttle						= deferred_dataref("laminar/B747/engine/throttle", "array[4]")
+B747DR_throttle_reversor			= deferred_dataref("laminar/B747/engine/throttle_reversor", "array[4]")
 simDR_startup_running               	= find_dataref("sim/operation/prefs/startup_running")
 --simDR_ext_pwr_1_on                  	= find_dataref("sim/cockpit/electrical/gpu_on")
 simDR_all_wheels_on_ground          	= find_dataref("sim/flightmodel/failures/onground_any")
@@ -2228,6 +2231,75 @@ function livery_load()
 
 	run_after_time(setACFType, 1)  --Load specific simConfig data for current livery
 end
+function B747_animate_value(current_value, target, min, max, speed)
+
+    local fps_factor = math.min(0.1, speed * SIM_PERIOD)
+
+    if target >= (max - 0.001) and current_value >= (max - 0.01) then
+        return max
+    elseif target <= (min + 0.001) and current_value <= (min + 0.01) then
+       return min
+    else
+        return current_value + ((target - current_value) * fps_factor)
+    end
+
+end
+function B747_interpolate_value(current_value, target, min, max, speed)--speed in sex min->max
+
+    --[[if math.abs(current_value-target) <0.01 then
+      return target
+    end]]
+  
+    local change = ((max-min)/speed)*(SIM_PERIOD)
+    newValue=current_value
+    
+    if newValue<=target then
+      newValue=newValue+change
+      --print(current_value.." ->newValue<= "..newValue)
+      if newValue >= target then
+        newValue = B747_animate_value(current_value,target,-100,100,100)
+      end
+    elseif newValue>target then
+      newValue=newValue-change
+      --print(current_value.." ->newValue>= "..newValue)
+      if newValue <= target then
+        newValue = B747_animate_value(current_value,target,-100,100,100)
+      end
+    end
+    if newValue <= min+0.001 and newValue >= min-0.001 then
+        newValue = min
+    elseif newValue >= max-0.001 and newValue <= max+0.001 then
+        newValue = max
+    elseif newValue <= min then
+      newValue = B747_animate_value(current_value,min,-100,100,100)
+    elseif newValue >= max then
+      newValue = B747_animate_value(current_value,max,-100,100,100)
+    else
+      --print(current_value.." ->newValue== "..newValue)
+      --newValue = newValue
+      if math.abs(current_value-target) < change then
+        newValue = B747_animate_value(current_value,target,-100,100,100)
+      --  print(current_value.." ->newValue== "..newValue)
+      --else
+      --  print(current_value.." ->newValue=== "..newValue)
+      end
+  
+      
+    end
+    return newValue
+  end
+function B747_throttle_animation()
+    for i=0,3,1 do
+        if simDR_engine_throttle_rev[i]<0 then
+            B747DR_throttle_reversor[i]=B747_interpolate_value(B747DR_throttle_reversor[i],simDR_engine_throttle_rev[i],-1,0,1)
+            B747DR_throttle[i]=B747_interpolate_value(B747DR_throttle[i],0,0,1,3)
+        else
+            B747DR_throttle_reversor[i]=B747_interpolate_value(B747DR_throttle_reversor[i],0,-1,0,1)
+            B747DR_throttle[i]=B747_interpolate_value(B747DR_throttle[i],simDR_engn_thro[i],0,1,3)
+        end
+    end
+
+end
 --function flight_crash() end
 
 --function before_physics() end
@@ -2237,7 +2309,7 @@ function after_physics()
     B747_button_switch_cover_animation()
     B747_button_switch_animation()
     B747_toggle_switch_animation()
-
+    B747_throttle_animation()
     B747_manip_monitor_AI()
 
 end

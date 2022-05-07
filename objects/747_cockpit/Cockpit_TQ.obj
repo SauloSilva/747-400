@@ -31336,7 +31336,7 @@ IDX10	7086 7087 7086 7085 7068 7067 7088 7068 7088 7087
 TRIS	0 20937
 ANIM_begin
 	ANIM_trans	  -0.0820    2.4227    5.2344	  -0.0820    2.4227    5.2344	0 0	no_ref
-	ANIM_rotate_begin	  -1.0000    0.0000   -0.0000	sim/cockpit2/engine/actuators/throttle_jet_rev_ratio[0]
+	ANIM_rotate_begin	  -1.0000    0.0000   -0.0000	laminar/B747/engine/throttle[0]
 		ANIM_rotate_key	-999.0	  0.00
 		ANIM_rotate_key	0.0	  0.00
 		ANIM_rotate_key	1.0	 50.00
@@ -31345,7 +31345,7 @@ ANIM_begin
 	TRIS	20937 9276
 	ANIM_begin
 		ANIM_trans	   0.0160    0.1991    0.1210	   0.0160    0.1991    0.1210	0 0	no_ref
-		ANIM_rotate_begin	   1.0000    0.0000   -0.0000	sim/cockpit2/engine/actuators/throttle_jet_rev_ratio[0]
+		ANIM_rotate_begin	   1.0000    0.0000   -0.0000	laminar/B747/engine/throttle_reversor[0]
 			ANIM_rotate_key	999.0	  0.00
 			ANIM_rotate_key	0.0	  0.00
 			ANIM_rotate_key	-1.0	 89.25
@@ -31356,7 +31356,7 @@ ANIM_begin
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.0387    2.4227    5.2344	  -0.0387    2.4227    5.2344	0 0	no_ref
-	ANIM_rotate_begin	  -1.0000    0.0000   -0.0000	sim/cockpit2/engine/actuators/throttle_jet_rev_ratio[1]
+	ANIM_rotate_begin	  -1.0000    0.0000   -0.0000	laminar/B747/engine/throttle[1]
 		ANIM_rotate_key	-999.0	  0.00
 		ANIM_rotate_key	0.0	  0.00
 		ANIM_rotate_key	1.0	 50.00
@@ -31365,7 +31365,7 @@ ANIM_begin
 	TRIS	35355 8643
 	ANIM_begin
 		ANIM_trans	   0.0028    0.1991    0.1210	   0.0028    0.1991    0.1210	0 0	no_ref
-		ANIM_rotate_begin	   1.0000    0.0000    0.0000	sim/cockpit2/engine/actuators/throttle_jet_rev_ratio[1]
+		ANIM_rotate_begin	   1.0000    0.0000    0.0000	laminar/B747/engine/throttle_reversor[1]
 			ANIM_rotate_key	999.0	  0.00
 			ANIM_rotate_key	0.0	  0.00
 			ANIM_rotate_key	-1.0	 89.25
@@ -31376,7 +31376,7 @@ ANIM_begin
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.0019    2.4227    5.2344	   0.0019    2.4227    5.2344	0 0	no_ref
-	ANIM_rotate_begin	  -1.0000    0.0000   -0.0000	sim/cockpit2/engine/actuators/throttle_jet_rev_ratio[2]
+	ANIM_rotate_begin	  -1.0000    0.0000   -0.0000	laminar/B747/engine/throttle[2]
 		ANIM_rotate_key	-999.0	  0.00
 		ANIM_rotate_key	0.0	  0.00
 		ANIM_rotate_key	1.0	 50.00
@@ -31385,7 +31385,7 @@ ANIM_begin
 	TRIS	49140 8643
 	ANIM_begin
 		ANIM_trans	  -0.0031    0.1991    0.1210	  -0.0031    0.1991    0.1210	0 0	no_ref
-		ANIM_rotate_begin	   1.0000    0.0000    0.0000	sim/cockpit2/engine/actuators/throttle_jet_rev_ratio[2]
+		ANIM_rotate_begin	   1.0000    0.0000    0.0000	laminar/B747/engine/throttle_reversor[2]
 			ANIM_rotate_key	999.0	  0.00
 			ANIM_rotate_key	0.0	  0.00
 			ANIM_rotate_key	-1.0	 89.25
@@ -31396,7 +31396,7 @@ ANIM_begin
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.0454    2.4227    5.2344	   0.0454    2.4227    5.2344	0 0	no_ref
-	ANIM_rotate_begin	  -1.0000    0.0000   -0.0000	sim/cockpit2/engine/actuators/throttle_jet_rev_ratio[3]
+	ANIM_rotate_begin	  -1.0000    0.0000   -0.0000	laminar/B747/engine/throttle[3]
 		ANIM_rotate_key	-999.0	  0.00
 		ANIM_rotate_key	0.0	  0.00
 		ANIM_rotate_key	1.0	 50.00
@@ -31405,7 +31405,7 @@ ANIM_begin
 	TRIS	62925 9276
 	ANIM_begin
 		ANIM_trans	  -0.0163    0.1991    0.1210	  -0.0163    0.1991    0.1210	0 0	no_ref
-		ANIM_rotate_begin	   1.0000    0.0000    0.0000	sim/cockpit2/engine/actuators/throttle_jet_rev_ratio[3]
+		ANIM_rotate_begin	   1.0000    0.0000    0.0000	laminar/B747/engine/throttle_reversor[3]
 			ANIM_rotate_key	999.0	  0.00
 			ANIM_rotate_key	0.0	  0.00
 			ANIM_rotate_key	-1.0	 89.25

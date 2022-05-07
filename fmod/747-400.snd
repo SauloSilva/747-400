@@ -446,49 +446,49 @@ END_SOUND_ATTACHMENT
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Boeing/747/-400/Cockpit/Switches/throttle1
     VEH_XYZ 0 4.7 -26.2
-        EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[0] == 0
+        EVENT_START_COND laminar/B747/engine/throttle[0] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Boeing/747/-400/Cockpit/Switches/throttle2
     VEH_XYZ 0 4.7 -26.2
-        EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[1] == 0
+        EVENT_START_COND laminar/B747/engine/throttle[1] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Boeing/747/-400/Cockpit/Switches/throttle3
     VEH_XYZ 0 4.7 -26.2
-        EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[2] == 0
+        EVENT_START_COND laminar/B747/engine/throttle[2] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Boeing/747/-400/Cockpit/Switches/throttle4
     VEH_XYZ 0 4.7 -26.2
-        EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[3] == 0
+        EVENT_START_COND laminar/B747/engine/throttle[3] == 0
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Boeing/747/-400/Cockpit/Switches/forward1
     VEH_XYZ 0 4.7 -26.2
-        EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[0] == 1
+        EVENT_START_COND laminar/B747/engine/throttle[0] == 1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Boeing/747/-400/Cockpit/Switches/forward2
     VEH_XYZ 0 4.7 -26.2
-        EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[1] == 1
+        EVENT_START_COND laminar/B747/engine/throttle[1] == 1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Boeing/747/-400/Cockpit/Switches/forward3
     VEH_XYZ 0 4.7 -26.2
-        EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[2] == 1
+        EVENT_START_COND laminar/B747/engine/throttle[2] == 1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT
     EVENT_NAME /Boeing/747/-400/Cockpit/Switches/forward4
     VEH_XYZ 0 4.7 -26.2
-        EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[3] == 1
+        EVENT_START_COND laminar/B747/engine/throttle[3] == 1
 END_SOUND_ATTACHMENT
 
 BEGIN_SOUND_ATTACHMENT

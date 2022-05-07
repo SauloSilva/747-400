@@ -182,11 +182,11 @@ function VNAV_DES(numAPengaged,fms)
     --print("upperAlt "..upperAlt)
     if B747DR_ap_ias_mach_window_open == 1 then
         
-        if simDR_pressureAlt1>upperAlt and simDR_ind_airspeed_kts_pilot>=B747DR_airspeed_Vmc+15 then
-            descentstatus = simDR_autopilot_flch_status
-        else
-            descentstatus = simDR_autopilot_vs_status
-        end
+        --if simDR_pressureAlt1>upperAlt and simDR_ind_airspeed_kts_pilot>=B747DR_airspeed_Vmc+15 then
+        --    descentstatus = simDR_autopilot_flch_status
+        --else
+        descentstatus = simDR_autopilot_vs_status
+       --end
     else
         descentstatus = simDR_autopilot_vs_status
     end
