@@ -235,13 +235,13 @@ function VNAV_DES(numAPengaged,fms)
     end
     if B747DR_ap_inVNAVdescent ==1 and diff2<=0 and (diff3<=-500 or diff3>=500) and descentstatus == 0 and simDR_radarAlt1>1000 then
         if simDR_autopilot_gs_status < 1 then 
-            if B747DR_ap_ias_mach_window_open == 0 or simDR_pressureAlt1<=upperAlt or simDR_ind_airspeed_kts_pilot<B747DR_airspeed_Vmc+15 then
-                simCMD_autopilot_vert_speed_mode:once()
-                simDR_autopilot_alt_hold_status=0
-            else
-                simCMD_autopilot_flch_mode:once()
-                simDR_autopilot_alt_hold_status=0
-            end
+            --if B747DR_ap_ias_mach_window_open == 0 or simDR_pressureAlt1<=upperAlt or simDR_ind_airspeed_kts_pilot<B747DR_airspeed_Vmc+15 then
+            simCMD_autopilot_vert_speed_mode:once()
+            simDR_autopilot_alt_hold_status=0
+           -- else
+           --     simCMD_autopilot_flch_mode:once()
+            --    simDR_autopilot_alt_hold_status=0
+            --end
             B747DR_ap_flightPhase=3
             setDescent(true)
             print("Resume descent")
