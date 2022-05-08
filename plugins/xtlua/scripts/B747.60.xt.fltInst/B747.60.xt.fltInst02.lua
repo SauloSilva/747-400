@@ -2964,8 +2964,8 @@ function B747_Vspeeds()
 
     -- Vmax (MAXIMUM SPEED -  HIGH SPEED RED CHECKER BOX ON ASI
     local flapSpeed = B747DR_airspeed_Vmo
-    if simDR_wing_flap1_deg[0] > 0.0 and simDR_wing_flap1_deg[0] <= 1.0 then
-        flapSpeed = B747_rescale(0.0, B747DR_airspeed_Vmo, 1.0, B747DR_airspeed_Vfe1, simDR_wing_flap1_deg[0])
+    if simDR_flap_ratio_control>0.0 and simDR_flap_ratio_control<0.168 then
+        flapSpeed = B747_rescale(0.0, B747DR_airspeed_Vmo, 0.167, B747DR_airspeed_Vfe1, simDR_flap_ratio_control)
     elseif simDR_wing_flap1_deg[0] > 1.0 and simDR_wing_flap1_deg[0] <= 5.0 then
         flapSpeed = B747_rescale(1.0, B747DR_airspeed_Vfe1, 5.0, B747DR_airspeed_Vfe5, simDR_wing_flap1_deg[0])
     elseif simDR_wing_flap1_deg[0] > 5.0 and simDR_wing_flap1_deg[0] <= 10.0 then
