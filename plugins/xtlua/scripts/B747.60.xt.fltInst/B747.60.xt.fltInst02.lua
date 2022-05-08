@@ -441,6 +441,7 @@ B747DR_airspeed_Vmax                            = deferred_dataref("laminar/B747
 B747DR_airspeed_Vmaxm                           = deferred_dataref("laminar/B747/airspeed/Vmaxm", "number")
 B747DR_airspeed_Vs                              = deferred_dataref("laminar/B747/airspeed/Vs", "number")
 simDR_flap_ratio_control                        = find_dataref("sim/cockpit2/controls/flap_ratio")                      -- FLAP HANDLE
+simDR_innerslats_ratio  	= find_dataref("sim/flightmodel2/controls/slat1_deploy_ratio")
 B747DR_airspeed_window_min                      = deferred_dataref("laminar/B747/airspeed_window/min", "number")
 
 B747DR_init_inst_CD                             = deferred_dataref("laminar/B747/inst/init_CD", "number")
@@ -2964,10 +2965,10 @@ function B747_Vspeeds()
 
     -- Vmax (MAXIMUM SPEED -  HIGH SPEED RED CHECKER BOX ON ASI
     local flapSpeed = B747DR_airspeed_Vmo
-    if simDR_flap_ratio_control>0.0 and simDR_flap_ratio_control<0.168 then
-        flapSpeed = B747_rescale(0.0, B747DR_airspeed_Vmo, 0.167, B747DR_airspeed_Vfe1, simDR_flap_ratio_control)
-    elseif simDR_wing_flap1_deg[0] > 1.0 and simDR_wing_flap1_deg[0] <= 5.0 then
-        flapSpeed = B747_rescale(1.0, B747DR_airspeed_Vfe1, 5.0, B747DR_airspeed_Vfe5, simDR_wing_flap1_deg[0])
+    if simDR_innerslats_ratio>0.0 and simDR_wing_flap1_deg[0] == 0.0 then
+        flapSpeed = B747_rescale(0.0, B747DR_airspeed_Vmo, 1.0, B747DR_airspeed_Vfe1, simDR_innerslats_ratio)
+    elseif simDR_wing_flap1_deg[0] > 0.0 and simDR_wing_flap1_deg[0] <= 5.0 then
+        flapSpeed = B747_rescale(0.0, B747DR_airspeed_Vfe1, 5.0, B747DR_airspeed_Vfe5, simDR_wing_flap1_deg[0])
     elseif simDR_wing_flap1_deg[0] > 5.0 and simDR_wing_flap1_deg[0] <= 10.0 then
         flapSpeed = B747_rescale(5.0, B747DR_airspeed_Vfe5, 10.0, B747DR_airspeed_Vfe10, simDR_wing_flap1_deg[0])
     elseif simDR_wing_flap1_deg[0] > 10.0 and simDR_wing_flap1_deg[0] <= 20.0 then
