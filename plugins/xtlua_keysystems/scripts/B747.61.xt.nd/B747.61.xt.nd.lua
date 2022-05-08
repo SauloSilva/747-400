@@ -75,7 +75,7 @@ B747DR_nd_fo_tfc	                        = find_dataref("laminar/B747/nd/fo/tfc"
 
 simDR_groundspeed			                      = find_dataref("sim/flightmodel2/position/groundspeed")
 simDR_vvi_fpm_pilot        	                = find_dataref("sim/cockpit2/gauges/indicators/vvi_fpm_pilot")
-simDR_autopilot_altitude_ft    		          = find_dataref("sim/cockpit2/autopilot/altitude_dial_ft") -- alternate might better MCP which is B747DR_autopilot_altitude_ft
+simDR_autopilot_altitude_ft    		          = find_dataref("laminar/B747/autopilot/altitude_dial_ft") -- alternate might better MCP which is B747DR_autopilot_altitude_ft
 simDR_pressureAlt1	                        = find_dataref("sim/cockpit2/gauges/indicators/altitude_ft_pilot")
 B747DR_nd_alt_distance                  		= find_dataref("laminar/B747/nd/toc/distance")
 B747DR_nd_alt_fo_active			                = find_dataref("laminar/B747/nd/toc/fo_active")

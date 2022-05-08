@@ -111,8 +111,8 @@ simCMD_pause = find_command("sim/operation/pause_toggle")
 simDRTime = find_dataref("sim/time/total_running_time_sec")
 simDR_autopilot_bank_limit = find_dataref("sim/cockpit2/autopilot/bank_angle_mode")
 simDR_autopilot_airspeed_is_mach = find_dataref("sim/cockpit2/autopilot/airspeed_is_mach")
-simDR_autopilot_altitude_ft = find_dataref("sim/cockpit2/autopilot/altitude_dial_ft")
-simDR_autopilot_hold_altitude_ft = find_dataref("sim/cockpit2/autopilot/altitude_hold_ft")
+simDR_autopilot_altitude_ft = find_dataref("laminar/B747/autopilot/altitude_dial_ft")
+simDR_autopilot_hold_altitude_ft = find_dataref("laminar/B747/autopilot/altitude_hold_ft")
 simDR_autopilot_tod_index = find_dataref("sim/cockpit2/radios/indicators/fms_tod_before_index_pilot")
 simDR_autopilot_tod_distance = find_dataref("sim/cockpit2/radios/indicators/fms_distance_to_tod_pilot")
 B747DR_alt_capture_window        = deferred_dataref("laminar/B747/autopilot/ap_monitor/alt_capture_window", "number")
@@ -145,7 +145,7 @@ simDR_autopilot_TOGA_vert_status = find_dataref("sim/cockpit2/autopilot/TOGA_sta
 simDR_autopilot_TOGA_lat_status = find_dataref("sim/cockpit2/autopilot/TOGA_lateral_status")
 simDR_autopilot_heading_status = find_dataref("sim/cockpit2/autopilot/heading_status")
 simDR_autopilot_heading_hold_status = find_dataref("sim/cockpit2/autopilot/heading_hold_status")
-simDR_autopilot_alt_hold_status = find_dataref("sim/cockpit2/autopilot/altitude_hold_status")
+simDR_autopilot_alt_hold_status = find_dataref("laminar/B747/autopilot/altitude_hold_status")
 B747DR_ap_approach_mode = find_dataref("laminar/B747/autopilot/approach_mode")
 simDR_autopilot_nav_status = find_dataref("sim/cockpit2/autopilot/nav_status")
 simDR_autopilot_gs_status = find_dataref("sim/cockpit2/autopilot/glideslope_status")
@@ -544,6 +544,7 @@ function B747_ap_switch_vnavalt_mode_CMDhandler(phase, duration)
 		B747_ap_button_switch_position_target[16] = 1 -- SET THE ALT KNOB ANIMATION TO "IN"
 		if simDR_autopilot_alt_hold_status==2 and B747DR_ap_vnav_state>1 then
 			B747DR_mcp_hold = 0
+			simDR_autopilot_alt_hold_status=0
 			if B747DR_autopilot_altitude_ft > simDR_pressureAlt1 then
 				B747DR_ap_flightPhase = 1
 			else
@@ -591,9 +592,13 @@ function B747_ap_switch_flch_mode_CMDhandler(phase, duration)
 		B747_ap_button_switch_position_target[4] = 1
 		B747DR_ap_lastCommand = simDRTime
 		simDR_autopilot_altitude_ft = B747DR_autopilot_altitude_ft
+		simDR_autopilot_hold_altitude_ft=simDR_autopilot_altitude_ft
 		if B747DR_ap_vnav_state == 0 or (simDR_autopilot_flch_status == 0 and B747DR_ap_vnav_state > 0) then
 			simCMD_autopilot_flch_mode:once()
+			
+
 		end
+		simDR_autopilot_alt_hold_status=0
 		B747DR_ap_vnav_state = 0
 		B747DR_ap_inVNAVdescent = 0
 		if B747DR_autopilot_altitude_ft > simDR_pressureAlt1 then
@@ -619,7 +624,8 @@ function B747_ap_switch_vs_mode_CMDhandler(phase, duration)
 			B747DR_engine_TOGA_mode = 0
 		end
 		simDR_autopilot_altitude_ft = B747DR_autopilot_altitude_ft
-
+		simDR_autopilot_hold_altitude_ft=simDR_autopilot_altitude_ft
+		simDR_autopilot_alt_hold_status=0
 		B747DR_ap_thrust_mode = 0
 		B747DR_ap_inVNAVdescent = 0
 		if B747DR_autopilot_altitude_ft > simDR_pressureAlt1 then
@@ -629,6 +635,7 @@ function B747_ap_switch_vs_mode_CMDhandler(phase, duration)
 		end
 		if B747DR_ap_vnav_state == 0 or (simDR_autopilot_vs_status == 0 and B747DR_ap_vnav_state > 0) then
 			simCMD_autopilot_vert_speed_mode:once()
+			
 			simDR_autopilot_vs_fpm = 0
 			B747DR_ap_vvi_fpm = 0
 			B747DR_autopilot_vs_fpm = 0
@@ -650,8 +657,11 @@ function B747_ap_alt_hold_mode_CMDhandler(phase, duration)
 
 		if simDR_autopilot_alt_hold_status == 2 and B747DR_ap_vnav_state > 0 then
 			print("dont leave alt hold")
+			simDR_autopilot_hold_altitude_ft=simDR_pressureAlt1
 		else
-			simCMD_autopilot_alt_hold_mode:once()
+			--simCMD_autopilot_alt_hold_mode:once()
+			simDR_autopilot_alt_hold_status = 2
+			simDR_autopilot_hold_altitude_ft=simDR_pressureAlt1
 		end
 		B747DR_ap_thrust_mode = 0
 		B747DR_ap_vnav_state = 0
@@ -861,7 +871,9 @@ function B747_ap_VNAV_mode_CMDhandler(phase, duration)
 			B747DR_ap_thrust_mode = 0
 			if beganDescent() == true and simDR_autopilot_alt_hold_status < 2 then
 				print("had descent")
-				simCMD_autopilot_alt_hold_mode:once()
+				--simCMD_autopilot_alt_hold_mode:once()
+				simDR_autopilot_alt_hold_status = 2
+				simDR_autopilot_hold_altitude_ft=simDR_pressureAlt1
 			elseif beganDescent() == true and simDR_autopilot_alt_hold_status == 2 then
 				print("had descent, in alt hold")
 			else
@@ -2317,45 +2329,14 @@ function fma_PitchModes()
 			B747DR_ap_FMA_active_pitch_mode = 6 -- (VNAV PATH) --
 		end
 	elseif (simDR_autopilot_vs_status == 2 and altDiff>B747DR_alt_capture_window) and simDR_autopilot_fms_vnav == 0 and B747DR_ap_vnav_state == 0 then
-		--[[if clbderate==0 then 
-			throttlederate=1.0
-	  	elseif clbderate==1 then 
-			throttlederate=0.9
-	  	elseif clbderate==2 then 
-			throttlederate=0.8 
-		end ]]
 		-- (FLCH SPD) --
 		B747DR_ap_FMA_active_pitch_mode = 7 --VS
 		
-    	--print("VS altDiff "..altDiff)
-    	if simDR_autopilot_alt_hold_status == 0 and altDiff<500 then
-        	simCMD_autopilot_alt_hold_mode:once()
-			restoreAlt=simDR_autopilot_altitude_ft
-			run_after_time(restoreAltFunc,0.1)
-        	print("alt hold +/-1000 simDR_autopilot_altitude_ft")
-			B747DR_ap_lastCommand=simDRTime	
-    	end
-	 --
+
 	elseif (simDR_autopilot_flch_status == 2 and altDiff>B747DR_alt_capture_window) and simDR_autopilot_fms_vnav == 0 and B747DR_ap_vnav_state == 0 then
-		--[[if clbderate==0 then 
-			throttlederate=1.0
-		elseif clbderate==1 then 
-			throttlederate=0.9
-		elseif clbderate==2 then 
-			throttlederate=0.8  
-		end]]
 		-- (ALT) --
 		B747DR_ap_FMA_active_pitch_mode = 8 --FLCH
-		local altDiff=math.abs(simDR_pressureAlt1-simDR_autopilot_altitude_ft)
-		--print("FLCH altDiff "..altDiff)
-    	if simDR_autopilot_alt_hold_status == 0 and altDiff<500 then
-        	simCMD_autopilot_alt_hold_mode:once()
-			restoreAlt=simDR_autopilot_altitude_ft
-			run_after_time(restoreAltFunc,0.1)
-        	print("alt hold +/-1000 simDR_autopilot_altitude_ft")
-			B747DR_ap_lastCommand=simDRTime	
-    	end
-	 --
+
 	elseif (simDR_autopilot_alt_hold_status == 2 or altDiff<B747DR_alt_capture_window) and simDR_autopilot_fms_vnav == 0 and B747DR_ap_vnav_state == 0 then
 		--throttlederate=1.0
 		

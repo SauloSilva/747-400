@@ -47,6 +47,12 @@ function deferred_dataref(name,type,notifier)
 	return wrap_dref_any(dref,type) 
 end
  
+
+--custom ALT HOLD
+simDR_autopilot_altitude_ft             = deferred_dataref("laminar/B747/autopilot/altitude_dial_ft", "number")
+simDR_autopilot_alt_hold_status         = deferred_dataref("laminar/B747/autopilot/altitude_hold_status", "number")
+simDR_autopilot_hold_altitude_ft        = deferred_dataref("laminar/B747/autopilot/altitude_hold_ft", "number")
+
 B747DR_ap_button_switch_position    	= deferred_dataref("laminar/B747/autopilot/button_switch/position", "array[" .. tostring(NUM_AUTOPILOT_BUTTONS) .. "]")
 B747DR_ap_bank_limit_sel_dial_pos   	= deferred_dataref("laminar/B747/autopilot/bank_limit/sel_dial_pos", "number")
 B747DR_ap_ias_mach_window_open      	= deferred_dataref("laminar/B747/autopilot/ias_mach/window_open", "number")

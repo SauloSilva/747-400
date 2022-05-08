@@ -459,6 +459,11 @@ function ap_director_pitch(pitchMode)
         return retval
     elseif pitchMode~=2 and (pitchMode==5 or pitchMode==9 or (simDR_autopilot_alt_hold_status==2) or (simDR_pressureAlt1< holdAlt+B747DR_alt_capture_window and simDR_pressureAlt1> holdAlt-B747DR_alt_capture_window)) then
         --ALT
+        if simDR_autopilot_alt_hold_status~=2 then
+            simDR_autopilot_hold_altitude_ft=simDR_autopilot_altitude_ft
+            simDR_autopilot_alt_hold_status=2
+            holdAlt=simDR_autopilot_hold_altitude_ft
+        end
         local altDiff=math.abs(simDR_pressureAlt1-holdAlt)
         local targetFPM=(holdAlt-simDR_pressureAlt1)*2 --target alt in 30 secs
         local pitchError=math.abs(simDR_AHARS_pitch_heading_deg_pilot-last_simDR_AHARS_pitch_heading_deg_pilot)

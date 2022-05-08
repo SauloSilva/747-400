@@ -91,17 +91,12 @@ simDR_engn_thro			= find_dataref("sim/flightmodel/engine/ENGN_thro")
 B747DR_throttle						= deferred_dataref("laminar/B747/engine/throttle", "array[4]")
 B747DR_throttle_reversor			= deferred_dataref("laminar/B747/engine/throttle_reversor", "array[4]")
 simDR_startup_running               	= find_dataref("sim/operation/prefs/startup_running")
---simDR_ext_pwr_1_on                  	= find_dataref("sim/cockpit/electrical/gpu_on")
 simDR_all_wheels_on_ground          	= find_dataref("sim/flightmodel/failures/onground_any")
---simDR_autopilot_flight_dir_mode     	= find_dataref("sim/cockpit2/autopilot/flight_director_mode")
 simDR_autopilot_servos_on           	= find_dataref("sim/cockpit2/autopilot/servos_on")
---simDR_autopilot_vs_status           	= find_dataref("sim/cockpit2/autopilot/vvi_status")
 simDR_AHARS_roll_deg_pilot          	= find_dataref("sim/cockpit2/gauges/indicators/roll_AHARS_deg_pilot")
---simDR_autopilot_roll_sync_degrees   	= find_dataref("sim/cockpit2/autopilot/sync_hold_roll_deg")
---simDR_autopilot_pitch_sync_degrees  	= find_dataref("sim/cockpit2/autopilot/sync_hold_pitch_deg")
 simDR_autopilot_TOGA_vert_status    	= find_dataref("sim/cockpit2/autopilot/TOGA_status")
 simDR_autopilot_TOGA_lat_status     	= find_dataref("sim/cockpit2/autopilot/TOGA_lateral_status")
---simDR_autopilot_alt_hold_status     	= find_dataref("sim/cockpit2/autopilot/altitude_hold_status")
+
 simDR_autopilot_autothrottle_enabled	= find_dataref("sim/cockpit2/autopilot/autothrottle_enabled")
 
 B747DR_autothrottle_fail            	= find_dataref("laminar/B747/engines/autothrottle_fail")
@@ -1243,7 +1238,8 @@ function B747_flight_dir_switch_L_CMDhandler(phase, duration)
 					and B747_toggle_switch_position_target[24] == 0.0 									-- RIGHT FLIGHT DIRECTOR SWITCH IS OFF
 				then
 					simCMD_autopilot_vert_speed_mode:once()												-- ACTIVATE "VS" MODE
-					if math.abs(simDR_AHARS_roll_deg_pilot) < 5.0 then									-- BANK ANGLE LESS THAN 5 DEGREES
+					simDR_autopilot_alt_hold_status=0
+                    if math.abs(simDR_AHARS_roll_deg_pilot) < 5.0 then									-- BANK ANGLE LESS THAN 5 DEGREES
 						simCMD_autopilot_heading_mode:once()											-- ACTIVATE "HEADING HOLD" MODE
 					else
 						B747CMD_ap_att_mode:once()														-- ACTIVATE "ATT" MODE		
@@ -1294,7 +1290,8 @@ function B747_flight_dir_switch_R_CMDhandler(phase, duration)
 					and B747_toggle_switch_position_target[24] == 0.0 									-- RIGHT FLIGHT DIRECTOR SWITCH IS OFF
 				then
 					simCMD_autopilot_vert_speed_mode:once()												-- ACTIVATE "VS" MODE
-					if math.abs(simDR_AHARS_roll_deg_pilot) < 5.0 then									-- BANK ANGLE LESS THAN 5 DEGREES
+					simDR_autopilot_alt_hold_status=0
+                    if math.abs(simDR_AHARS_roll_deg_pilot) < 5.0 then									-- BANK ANGLE LESS THAN 5 DEGREES
 						simCMD_autopilot_heading_mode:once()											-- ACTIVATE "HEADING HOLD" MODE
 					else
 						B747CMD_ap_att_mode:once()														-- ACTIVATE "ATT" MODE		
