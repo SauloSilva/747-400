@@ -51,7 +51,21 @@ end
 --*************************************************************************************--
 --** 					            GLOBAL VARIABLES                				 **--
 --*************************************************************************************--
-
+B747CMD_fdr_log_lnav           = find_command("laminar/B747/fdr/vnav")
+B747CMD_fdr_log_vnav           = find_command("laminar/B747/fdr/lnav")
+B747CMD_fdr_log_apon           = find_command("laminar/B747/fdr/apon")
+B747CMD_fdr_log_apdisconnect           = find_command("laminar/B747/fdr/apdisconnect")
+B747CMD_fdr_log_flch           = find_command("laminar/B747/fdr/flch")
+B747CMD_fdr_log_vs           = find_command("laminar/B747/fdr/vs")
+B747CMD_fdr_log_alt           = find_command("laminar/B747/fdr/alt")
+B747CMD_fdr_log_toga           = find_command("laminar/B747/fdr/toga")
+B747CMD_fdr_log_loc           = find_command("laminar/B747/fdr/loc")
+B747CMD_fdr_log_app           = find_command("laminar/B747/fdr/app")
+B747CMD_fdr_log_altmod           = find_command("laminar/B747/fdr/altmod")
+B747CMD_fdr_log_spdmod           = find_command("laminar/B747/fdr/spdmod")
+B747CMD_fdr_log_spd           = find_command("laminar/B747/fdr/spd")
+B747CMD_fdr_log_headsel           = find_command("laminar/B747/fdr/headsel")
+B747CMD_fdr_log_headhold          = find_command("laminar/B747/fdr/headhold")
 --*************************************************************************************--
 --** 					            LOCAL VARIABLES                 				 **--
 --*************************************************************************************--
@@ -482,6 +496,7 @@ end
 
 function B747_ap_switch_speed_mode_CMDhandler(phase, duration)
 	if phase == 0 then
+		B747CMD_fdr_log_spd:once()
 		B747_ap_button_switch_position_target[1] = 1 -- SET THE SPEED SWITCH ANIMATION TO "IN"
 		B747DR_ap_lastCommand = simDRTime
 
@@ -517,6 +532,7 @@ function B747_ap_switch_speed_mode_CMDhandler(phase, duration)
 end
 function B747_ap_switch_vnavspeed_mode_CMDhandler(phase, duration)
 	if phase == 0 then
+		B747CMD_fdr_log_spdmod:once()
 		if B747_ap_button_switch_position_target[15] == 1 then
 			B747_ap_button_switch_position_target[15] = 0
 			return
@@ -535,6 +551,7 @@ function B747_ap_switch_vnavspeed_mode_CMDhandler(phase, duration)
 end
 function B747_ap_switch_vnavalt_mode_CMDhandler(phase, duration)
 	if phase == 0 then
+		B747CMD_fdr_log_altmod:once()
 		print("vnav alt button")
 		if B747_ap_button_switch_position_target[16] == 1 then
 			B747_ap_button_switch_position_target[16] = 0
@@ -589,6 +606,7 @@ end
 
 function B747_ap_switch_flch_mode_CMDhandler(phase, duration)
 	if phase == 0 then
+		B747CMD_fdr_log_flch:once()
 		B747_ap_button_switch_position_target[4] = 1
 		B747DR_ap_lastCommand = simDRTime
 		simDR_autopilot_altitude_ft = B747DR_autopilot_altitude_ft
@@ -614,6 +632,7 @@ end
 
 function B747_ap_switch_vs_mode_CMDhandler(phase, duration)
 	if phase == 0 then
+		B747CMD_fdr_log_vs:once()
 		local cAlt = simDR_radarAlt1
 		B747_ap_button_switch_position_target[6] = 1
 		--for animation
@@ -648,6 +667,7 @@ end
 
 function B747_ap_alt_hold_mode_CMDhandler(phase, duration)
 	if phase == 0 then
+		B747CMD_fdr_log_alt:once()
 		B747_ap_button_switch_position_target[7] = 1
 		if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 then -- AUTOTHROTTLE IS "OFF"
 			simCMD_autopilot_autothrottle_on:once() -- ACTIVATE THE AUTOTHROTTLE
@@ -677,6 +697,7 @@ function B747_ap_switch_cmd_L_CMDhandler(phase, duration)
 	
 	if phase == 0 then
 		--B747CMD_ap_reset:once()
+		B747CMD_fdr_log_apon:once()
 		B747_ap_button_switch_position_target[10] = 1 -- SET THE BUTTON ANIMATION TO "DOWN"
 		B747DR_CAS_warning_status[0] = 0
 	elseif phase == 2 then
@@ -696,6 +717,7 @@ end
 
 function B747_ap_switch_cmd_C_CMDhandler(phase, duration)
 	if phase == 0 then
+		B747CMD_fdr_log_apon:once()
 		B747_ap_button_switch_position_target[11] = 1 -- SET THE BUTTON ANIMATION TO "DOWN"
 		B747DR_CAS_warning_status[0] = 0
 	elseif phase == 2 then
@@ -715,6 +737,7 @@ end
 
 function B747_ap_switch_cmd_R_CMDhandler(phase, duration)
 	if phase == 0 then
+		B747CMD_fdr_log_apon:once()
 		B747_ap_button_switch_position_target[12] = 1 -- SET THE BUTTON ANIMATION TO "DOWN"
 		B747DR_CAS_warning_status[0] = 0
 	elseif phase == 2 then
@@ -734,6 +757,7 @@ end
 
 function B747_ap_switch_disengage_bar_CMDhandler(phase, duration) --disengage bar
 	if phase == 0 then
+		B747CMD_fdr_log_apdisconnect:once()
 		B747_ap_button_switch_position_target[14] = 1.0 - B747_ap_button_switch_position_target[14]
 		B747DR_ap_lastCommand = simDRTime
 		if B747_ap_button_switch_position_target[14] == 1.0 then -- DISENGAGE
@@ -760,6 +784,7 @@ end
 
 function B747_ap_switch_yoke_disengage_capt_CMDhandler(phase, duration)
 	if phase == 0 then
+		B747CMD_fdr_log_apdisconnect:once()
 		B747DR_ap_lastCommand = simDRTime
 		local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
 		if B747DR_CAS_warning_status[0] == 0 and numAPengaged > 0 then
@@ -780,6 +805,7 @@ end
 
 function B747_ap_switch_yoke_disengage_fo_CMDhandler(phase, duration)
 	if phase == 0 then
+		B747CMD_fdr_log_apdisconnect:once()
 		B747DR_ap_lastCommand = simDRTime
 		local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
 		if B747DR_CAS_warning_status[0] == 0 and numAPengaged > 0 then
@@ -851,6 +877,7 @@ end
 
 function B747_ap_VNAV_mode_CMDhandler(phase, duration)
 	if phase == 0 then
+		B747CMD_fdr_log_vnav:once()
 		B747_ap_button_switch_position_target[3] = 1
 		local dist = B747BR_totalDistance - B747BR_tod
 		if B747BR_cruiseAlt < 10 or (dist < 10 and simDR_onGround == 1) then
@@ -888,6 +915,7 @@ function B747_ap_VNAV_mode_CMDhandler(phase, duration)
 end
 function B747_ap_LNAV_mode_afterCMDhandler(phase, duration)
 	if phase == 0 then
+		B747CMD_fdr_log_lnav:once();
 		B747_ap_button_switch_position_target[2] = 1
 		--simCMD_autopilot_gpss_mode:once()
 		if B747DR_ap_lnav_state > 0 then
@@ -906,6 +934,7 @@ function B747_ap_LNAV_mode_afterCMDhandler(phase, duration)
 end
 function B747_ap_switch_hdg_sel_mode_CMDhandler(phase, duration)
 	if phase == 0 then
+		B747CMD_fdr_log_headsel:once()
 		if simDR_autopilot_gpss > 0 then
 			simCMD_autopilot_gpss_mode:once()
 		end
@@ -1363,6 +1392,7 @@ function B747_ap_heading_hold_mode_afterCMDhandler(phase, duration)
 	--print("heading hold2"..simDR_AHARS_heading_deg_pilot)
 	B747DR_ap_lnav_state = 0
 	if phase == 0 then
+		B747CMD_fdr_log_headhold:once()
 		B747_ap_button_switch_position_target[5] = 1
 	elseif phase == 2 then
 		B747_ap_button_switch_position_target[5] = 0
@@ -1674,7 +1704,7 @@ end
 ----- VERTICAL SPEED MODE ---------------------------------------------------------------
 function B747_ap_vs_mode()
 	----- WINDOW
-	B747DR_ap_vs_window_open = B747_ternary(simDR_autopilot_vs_status >= 1 and B747DR_ap_vnav_state < 2, 1, 0)
+	B747DR_ap_vs_window_open = B747_ternary(simDR_autopilot_vs_status >= 1 and B747DR_ap_vnav_state < 2 and simDR_autopilot_alt_hold_status<2, 1, 0)
 
 	----- VVI FOR ANIMATION
 
@@ -1968,6 +1998,7 @@ end
 function B747_ap_appr_mode_beforeCMDhandler(phase, duration)
 	if phase == 0 then
 		--simCMD_autopilot_appr_mode:once()
+		B747CMD_fdr_log_app:once()
 		B747_ap_button_switch_position_target[9] = 1
 		local diff = simDRTime - B747DR_ap_lastCommand
 		--if diff>0.5 then
@@ -1993,6 +2024,7 @@ end
 function B747_ap_switch_loc_mode_CMDhandler(phase, duration)
 	if phase == 0 then
 		--simCMD_autopilot_nav_mode:once()
+		B747CMD_fdr_log_loc:once()
 		B747_ap_button_switch_position_target[8] = 1
 		local diff = simDRTime - B747DR_ap_lastCommand
 		--if diff>0.5 then

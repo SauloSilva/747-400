@@ -1243,7 +1243,7 @@ function B747_secondary_EICAS2_engine_vibration()
     local thrust=0
     local wingFlex=0
     
-    if simDR_version<115602 then --or simDR_version>=120012
+    if simDR_version<115602 or simDR_version>=120012 then
         wingFlex=B747DR_EICAS2_wingFlex[0]
     else
         wingFlex=B747DR_EICAS2_wingFlex
