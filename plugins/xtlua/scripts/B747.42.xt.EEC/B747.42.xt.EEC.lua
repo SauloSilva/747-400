@@ -904,7 +904,7 @@ function hasSimConfig()
 end
 function flight_start()
 	B747DR_pidthrottleP = 0.10
-	B747DR_pidthrottleI = 0.002
+	B747DR_pidthrottleI = 0.0002
 	B747DR_pidthrottleD = 0.05 --low 0.1 high 0.4
 end
 function after_physics()

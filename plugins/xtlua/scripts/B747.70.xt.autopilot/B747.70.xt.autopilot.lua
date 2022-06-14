@@ -113,6 +113,13 @@ end
 --*************************************************************************************--
 --** 				             FIND X-PLANE DATAREFS           			    	 **--
 --*************************************************************************************--
+B747DR_airspeed_Vf0 = find_dataref("laminar/B747/airspeed/Vf0", "number")
+B747DR_airspeed_Vf1 = find_dataref("laminar/B747/airspeed/Vf1")
+B747DR_airspeed_Vf5 = find_dataref("laminar/B747/airspeed/Vf5")
+B747DR_airspeed_Vf10 = find_dataref("laminar/B747/airspeed/Vf10")
+B747DR_airspeed_Vf20 = find_dataref("laminar/B747/airspeed/Vf20")
+B747DR_airspeed_Vf25 = find_dataref("laminar/B747/airspeed/Vf25")
+B747DR_airspeed_Vf30 = find_dataref("laminar/B747/airspeed/Vf30")
 B747DR_CAS_warning_status = find_dataref("laminar/B747/CAS/warning_status")
 simDR_autopilot_flight_dir_active = find_dataref("sim/cockpit2/annunciators/flight_director")
 simDR_autopilot_flight_dir_mode = find_dataref("sim/cockpit2/autopilot/flight_director_mode")
@@ -1766,9 +1773,10 @@ function B747_ap_ias_mach_mode()
 
 	local minSafeSpeed = B747DR_airspeed_Vmc + 10
 	local maxSafeSpeed = B747DR_airspeed_Vmo
+
 	if simDR_flap_ratio_control > 0 then
 		if simDR_flap_ratio_control <= 0.168 then --flaps 1
-			maxSafeSpeed = 275
+			maxSafeSpeed =275,B747DR_airspeed_Vmc
 		elseif simDR_flap_ratio_control <= 0.34 then --flaps 5
 			maxSafeSpeed = 255
 		elseif simDR_flap_ratio_control <= 0.5 then --flaps 10

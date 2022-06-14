@@ -127,7 +127,32 @@ spd_states["clb"]["crz"]["nextstate"]=nil
 spd_states["des"]["src"]["nextstate"]="aptres"
 spd_states["des"]["aptres"]["nextstate"]="spcres"
 spd_states["des"]["spcres"]["nextstate"]=nil
-
+function modFlapSpeed(speed)
+    local minSafeSpeed = B747DR_airspeed_Vmc + 10
+	local maxSafeSpeed = B747DR_airspeed_Vmo
+	if simDR_flap_ratio_control > 0 then
+		if simDR_flap_ratio_control <= 0.168 then --flaps 1
+			maxSafeSpeed = math.min(275,B747DR_airspeed_Vf0+2)
+		elseif simDR_flap_ratio_control <= 0.34 then --flaps 5
+			maxSafeSpeed = math.min(255,B747DR_airspeed_Vf1+2)
+		elseif simDR_flap_ratio_control <= 0.5 then --flaps 10
+			maxSafeSpeed = math.min(235,B747DR_airspeed_Vf5+2)
+			minSafeSpeed = minSafeSpeed - 5
+		elseif simDR_flap_ratio_control <= 0.668 then --flaps 20
+			maxSafeSpeed = math.min(225,B747DR_airspeed_Vf10+2)
+			minSafeSpeed = minSafeSpeed - 5
+		elseif simDR_flap_ratio_control <= 0.84 then --flaps 25
+			maxSafeSpeed = math.min(200,B747DR_airspeed_Vf20+2)
+			minSafeSpeed = minSafeSpeed - 9
+		elseif simDR_flap_ratio_control <= 1.0 then --flaps 30
+			maxSafeSpeed = math.min(175,B747DR_airspeed_Vf25+2)
+			minSafeSpeed = minSafeSpeed - 9
+		end
+	end
+    if speed<minSafeSpeed then return minSafeSpeed
+    elseif speed>maxSafeSpeed then return maxSafeSpeed
+    else return speed end
+end
 function clb_src_setSpd()
     if B747DR_airspeed_V2<900 then
         simDR_autopilot_airspeed_is_mach = 0  
@@ -139,7 +164,7 @@ function clb_src_setSpd()
     vnavSPD_state["setBaro"]=false
 end
 function clb_aptres_setSpd()
-    local spdval=math.min(B747DR_ap_ias_dial_value+5,tonumber(getFMSData("clbrestspd")))
+    local spdval=modFlapSpeed(math.min(B747DR_ap_ias_dial_value+5,tonumber(getFMSData("clbrestspd"))))
     spdval=math.max(spdval,simDR_ind_airspeed_kts_pilot-15)
     simDR_autopilot_airspeed_is_mach = 0
     print("convert to clb clbrestspd ".. spdval)
@@ -150,7 +175,7 @@ function clb_aptres_setSpd()
 
 end
 function clb_spcres_setSpd()
-    local spdval=tonumber(getFMSData("clbspd"))
+    local spdval=modFlapSpeed(tonumber(getFMSData("clbspd")))
     B747DR_switchingIASMode=1
     local crzspdval=tonumber(getFMSData("crzspd"))/10
     if simDR_airspeed_mach > (crzspdval/100) then
@@ -175,7 +200,7 @@ function clb_spcres_setSpd()
 
 end
 function clb_nores_setSpd()
-    local spdval=tonumber(getFMSData("transpd"))
+    local spdval=modFlapSpeed(tonumber(getFMSData("transpd")))
     B747DR_switchingIASMode=1
     local crzspdval=tonumber(getFMSData("crzspd"))/10
     if simDR_airspeed_mach > (crzspdval/100) then

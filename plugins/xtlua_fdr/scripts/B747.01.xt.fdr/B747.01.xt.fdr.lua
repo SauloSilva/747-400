@@ -13,6 +13,8 @@ simDR_aircraft_on_ground    = find_dataref("sim/flightmodel/failures/onground_an
 simDR_latitude				= find_dataref("sim/flightmodel/position/latitude")
 simDR_longitude				= find_dataref("sim/flightmodel/position/longitude")
 simDR_true_heading			= find_dataref("sim/flightmodel/position/psi")
+simDR_AHARS_roll_heading_deg_pilot          	= find_dataref("sim/cockpit2/gauges/indicators/roll_AHARS_deg_pilot")
+simDR_AHARS_pitch_heading_deg_pilot           = find_dataref("sim/cockpit2/gauges/indicators/pitch_AHARS_deg_pilot")
 simDR_mag_heading			= find_dataref("sim/cockpit/gyros/psi_ind_ahars_pilot_degm")
 simDR_ground_track			= find_dataref("sim/cockpit2/gauges/indicators/ground_track_mag_pilot")
 simDR_groundspeed			                      = find_dataref("sim/flightmodel2/position/groundspeed")
@@ -203,6 +205,7 @@ end
 
 function updateFlightdata()
   if fdr_data_file==nil then return end
+  if simDR_aircraft_on_ground>0 then return end
   local flightData={}
   flightData["time"]=os.date("%Y/%m/%d %X")
   flightData["flightData"]={}
@@ -214,6 +217,8 @@ function updateFlightdata()
   flightData["flightData"]["simDR_latitude"]=simDR_latitude
   flightData["flightData"]["simDR_longitude"]=simDR_longitude
   flightData["flightData"]["simDR_ind_airspeed_kts_pilot"]=simDR_ind_airspeed_kts_pilot
+  flightData["flightData"]["roll"]=simDR_AHARS_roll_heading_deg_pilot
+  flightData["flightData"]["pitch"]=simDR_AHARS_pitch_heading_deg_pilot 
   flightData["acData"]={}
   flightData["acData"]["simDR_GRWT"]=simDR_GRWT
   flightData["acData"]["simDR_fuel"]=simDR_fuel
