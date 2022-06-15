@@ -393,6 +393,7 @@ function checkMCPAlt(dist)
         B747DR_fmc_notifications[33]=0
     end
 end
+local lastVNAVSwitch=0
 function VNAV_modeSwitch(fmsO)
     --if B747BR_cruiseAlt < 10 then return end --no cruise alt set, not needed because cant set to 1 without this
     if B747DR_ap_vnav_state == 0 then  
@@ -410,7 +411,8 @@ function VNAV_modeSwitch(fmsO)
         B747DR_ap_flightPhase=2
     end
     local diff=simDRTime-B747DR_ap_lastCommand
-    if diff<0.1 then return end --mode switch at 0.1 second intervals
+    local diff2=simDRTime-lastVNAVSwitch
+    if diff<0.5 or diff2<0.1 then return end --mode switch at 0.1 second intervals
     
     local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
 
@@ -425,7 +427,7 @@ function VNAV_modeSwitch(fmsO)
         VNAV_DES(numAPengaged,fmsO)
         checkMCPAlt(dist)
     end
-    B747DR_ap_lastCommand=simDRTime
+    lastVNAVSwitch=simDRTime
     
 end
 function LNAV_modeSwitch()

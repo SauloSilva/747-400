@@ -2193,18 +2193,19 @@ dofile("B747.70.xt.autopilot.monitor.lua")
 
 function fma_rollModes()
 	local diff = simDRTime - B747DR_ap_lastCommand
+	
 	if diff < 0.2 then
 		return
 	end
 	-- ROLL MODES: ARMED
 	-- ----------------------------------------------------------------------------------
-
+	
 	-- (NONE) --
 
 	if B747DR_toggle_switch_position[23] == 0.0 and B747DR_toggle_switch_position[24] == 0.0 then
 		-- (LNAV) --
 		B747DR_ap_FMA_armed_roll_mode = 0
-	elseif simDR_autopilot_gpss == 1 or B747DR_ap_lnav_state == 1 then
+	elseif simDR_autopilot_gpss == 1 or B747DR_ap_lnav_state == 1 then 
 		B747DR_ap_FMA_armed_roll_mode = 2
 	elseif simDR_autopilot_nav_status == 1 or (B747DR_ap_approach_mode ~= 0 and simDR_autopilot_nav_status ~= 2) then
 		-- (LOC) --
