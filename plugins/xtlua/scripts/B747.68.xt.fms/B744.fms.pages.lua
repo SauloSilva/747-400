@@ -1169,7 +1169,11 @@ function fmsFunctions.setdata(fmsO,value)
 	setFMSData(value,fmsO["scratchpad"])
   elseif value == "grwt" then
 	local grwt
-	if string.len(fmsO["scratchpad"]) > 0 and string.len(fmsO["scratchpad"]) <= 5 and string.match(fmsO["scratchpad"], "%d") then
+	if string.len(fmsO["scratchpad"]) ~= 3 and string.len(fmsO["scratchpad"]) ~= 5 then
+		fmsO["notify"]="INVALID ENTRY"
+		fmsO["scratchpad"] = ""
+		return
+  	elseif string.len(fmsO["scratchpad"]) > 0 and string.len(fmsO["scratchpad"]) <= 5 and string.match(fmsO["scratchpad"], "%d") then
 		if simConfigData["data"].SIM.weight_display_units == "LBS" then
 			grwt = fmsO["scratchpad"] / simConfigData["data"].SIM.kgs_to_lbs  --store LBS in KGS
 		else
@@ -1183,7 +1187,17 @@ function fmsFunctions.setdata(fmsO,value)
 		return
 	end
 	grwt = string.format("%5.1f", grwt)
+	if tonumber(grwt) > 999 then
+		fmsO["notify"]="INVALID ENTRY"
+		fmsO["scratchpad"] = ""
+		return
+	end
 	zfw = string.format("%5.1f", tonumber(grwt) - (simDR_fuel / 1000))
+	if tonumber(zfw) <50 then
+		fmsO["notify"]="INVALID ENTRY"
+		fmsO["scratchpad"] = ""
+		return
+	end
 	setFMSData(value, grwt)
 	setFMSData("zfw", zfw)
 	calc_CGMAC()  --Recalc CG %MAC and TRIM units
