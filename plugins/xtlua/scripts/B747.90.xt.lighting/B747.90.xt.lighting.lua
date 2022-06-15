@@ -509,8 +509,8 @@ function B747CMD_cockpitLightsOff_CMDhandler()
   B747DR_flood_light_rheo_overhead=0
 end
 
-B747CMD_cockpitLightsOn		= deferred_command("laminar/B747/light/cabin_lightsOn", "cabin lights On", B747CMD_cockpitLightsOn_CMDhandler)
-B747CMD_cockpitLightsOff		= deferred_command("laminar/B747/light/cabin_lightsOff", "cabin lights Off", B747CMD_cockpitLightsOff_CMDhandler)
+B747CMD_cockpitLightsOn		= deferred_command("laminar/B747/light/cockpit_lightsOn", "cockpit lights On", B747CMD_cockpitLightsOn_CMDhandler)
+B747CMD_cockpitLightsOff		= deferred_command("laminar/B747/light/cockpit_lightsOff", "cockpit lights Off", B747CMD_cockpitLightsOff_CMDhandler)
 
 --*************************************************************************************--
 --** 				             X-PLANE COMMAND HANDLERS               	    	 **--

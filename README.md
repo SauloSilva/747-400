@@ -139,6 +139,7 @@ A very special thanks to MCCVeen and oMrSmith for their extensive testing and ac
 ### Bug fixes
 
  - Throttle lockout during toga run up
+ - fix cockpit lights voice control definition
  - Door PBR fix (Andromeda95 via org forums)
  - Missing ELEC BUS and brake EICAS messages
  - Engine logic for PW and GE engines
