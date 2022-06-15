@@ -134,6 +134,7 @@ A very special thanks to MCCVeen and oMrSmith for their extensive testing and ac
  - Controls now consume hydraulic systems pressure 
  - Latest textures from PilotMathews
  - Break heating visualizations and failures
+ - "Always on" Flight Data Recorder records flight data for each aircraft livery
 
 ### Bug fixes
 

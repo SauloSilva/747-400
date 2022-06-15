@@ -177,7 +177,7 @@ end
 
 
 function VNAV_DES(numAPengaged,fms)
-    VNAV_DES_ALT(numAPengaged,fms)
+    VNAV_DES_ALT(numAPengaged,fms) --sets altitude target
     local diff2 = simDR_autopilot_altitude_ft - simDR_pressureAlt1
     local diff3 = B747DR_autopilot_altitude_ft- simDR_pressureAlt1
     local lastHold=simDRTime-B747DR_mcp_hold_pressed
@@ -187,25 +187,24 @@ function VNAV_DES(numAPengaged,fms)
     --print("upperAlt "..upperAlt)
     if B747DR_ap_ias_mach_window_open == 1 then
         
-        --if simDR_pressureAlt1>upperAlt and simDR_ind_airspeed_kts_pilot>=B747DR_airspeed_Vmc+15 then
-        --    descentstatus = simDR_autopilot_flch_status
-        --else
-        descentstatus = simDR_autopilot_vs_status
-       --end
+        if simDR_pressureAlt1>upperAlt and simDR_ind_airspeed_kts_pilot>=B747DR_airspeed_Vmc+15 then
+            descentstatus = simDR_autopilot_flch_status
+        else
+            descentstatus = simDR_autopilot_vs_status
+       end
     else
         descentstatus = simDR_autopilot_vs_status
     end
     --print("VNAV_DES B747DR_ap_inVNAVdescent=" .. " "..B747DR_ap_inVNAVdescent.. " "..diff2.. " "..diff3.. " "..B747DR_ap_vnav_state.. " " .. B747DR_mcp_hold)
+    
+    
+    if B747DR_mcp_hold>0 then return end --in an MCP hold, just stay there
     if descentstatus == 0 then
         print("simDR_autopilot_vs_status  == 0 clear descent")
-        B747DR_ap_inVNAVdescent = 0
-        
+        B747DR_ap_inVNAVdescent = 0   
     end
-    
-    if B747DR_mcp_hold>0 then return end
-
     --Past TOD and MCP ALT at current alt - activate VNAV ALT
-    if B747DR_ap_inVNAVdescent ==0 and diff2<=0 and (diff3>=-100 and diff3<=100)
+    --[[if B747DR_ap_inVNAVdescent ==0 and diff2<=0 and (diff3>=-100 and diff3<=100)
             and B747BR_totalDistance>0 and B747BR_totalDistance-B747BR_tod<=0
             and descentstatus == 0 
             and simDR_radarAlt1>1000 
@@ -214,7 +213,7 @@ function VNAV_DES(numAPengaged,fms)
         B747DR_ap_flightPhase=2
         print("set B747DR_mcp_hold")
         return 
-    end
+    end]]
 
     --Not started descent, not in VNAV ALT, past TOD, begin descending
     if B747DR_ap_inVNAVdescent ==0 and diff2<=0 and (diff3<=-100 or diff3>=0) 
@@ -222,7 +221,7 @@ function VNAV_DES(numAPengaged,fms)
             and descentstatus == 0 
             and simDR_radarAlt1>1000 
                  then
-        if diff3<=0 then           
+        if diff3<0 then --mcp dial is below current altitude          
             B747DR_ap_inVNAVdescent =1
             B747DR_ap_flightPhase=3
             setDescent(true)
@@ -231,17 +230,30 @@ function VNAV_DES(numAPengaged,fms)
         else
             B747DR_mcp_hold=2
             print("set B747DR_mcp_hold")
+            return
         end
     end
-    if B747DR_ap_inVNAVdescent ==1 and diff2<=0 and (diff3<=-500 or diff3>=500) and descentstatus == 0 and simDR_radarAlt1>1000 then
+    --
+
+    if (B747DR_ap_inVNAVdescent ==1 or (beganDescent()==true and simDR_autopilot_alt_hold_status==2)) and diff2<=-500 and (diff3<=-500 or diff3>=500) and (descentstatus == 0 or simDR_autopilot_alt_hold_status==2) and simDR_radarAlt1>1000 then
         if simDR_autopilot_gs_status < 1 then 
             --if B747DR_ap_ias_mach_window_open == 0 or simDR_pressureAlt1<=upperAlt or simDR_ind_airspeed_kts_pilot<B747DR_airspeed_Vmc+15 then
-            simCMD_autopilot_vert_speed_mode:once()
+            if simDR_pressureAlt1>upperAlt and B747DR_ap_ias_mach_window_open == 1 and simDR_autopilot_flch_status == 0 then
+                simCMD_autopilot_flch_mode:once()
+                B747DR_ap_thrust_mode = 2
+                B747DR_ap_lastCommand=simDRTime
+            elseif simDR_autopilot_vs_status==0 then
+                B747DR_ap_lastCommand=simDRTime
+                simCMD_autopilot_vert_speed_mode:once()
+            end
+            --simCMD_pause:once()
             simDR_autopilot_alt_hold_status=0
+            --simDR_autopilot_vs_status=2
            -- else
            --     simCMD_autopilot_flch_mode:once()
             --    simDR_autopilot_alt_hold_status=0
             --end
+            B747DR_ap_inVNAVdescent =2
             B747DR_ap_flightPhase=3
             setDescent(true)
             print("Resume descent")
@@ -250,13 +262,15 @@ function VNAV_DES(numAPengaged,fms)
     local spdval=tonumber(getFMSData("desspd"))
     local forceOn=false
     if B747DR_ap_ias_dial_value<=spdval and simDR_autopilot_airspeed_is_mach==0 and B747DR_ap_ias_mach_window_open == 0 then forceOn=true end
-
+    if B747BR_totalDistance-B747BR_tod<=0 and simDR_autopilot_airspeed_is_mach==0 and B747DR_ap_ias_mach_window_open == 0 then forceOn=true end
     if B747DR_ap_inVNAVdescent >0 and simDR_autopilot_autothrottle_enabled == 1 and simDR_allThrottle<0.02 and forceOn==false then							-- AUTOTHROTTLE IS "ON"
         simCMD_autopilot_autothrottle_off:once()									-- DEACTIVATE THE AUTOTHROTTLE
+        B747DR_ap_lastCommand=simDRTime
         print("fix idle throttle")
         return
     elseif simDR_autopilot_autothrottle_enabled == 0 and (simDR_ind_airspeed_kts_pilot<B747DR_airspeed_Vmc+15 or forceOn==true) and B747DR_toggle_switch_position[29] == 1 then
         simCMD_autopilot_autothrottle_on:once()
+        B747DR_ap_lastCommand=simDRTime
         if B747DR_engine_TOGA_mode ==1 then B747DR_engine_TOGA_mode = 0 end	-- CANX ENGINE TOGA IF ACTIVE
         print("fix idle throttle to climb/maintain")
         return

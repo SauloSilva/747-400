@@ -432,14 +432,15 @@ function ap_director_pitch(pitchMode)
             max_speedDelta=0.001+speedDiff/250
             min_speedDelta=max_speedDelta/10
         end
+
         if ((simDR_autopilot_airspeed_kts> simDR_ind_airspeed_kts_pilot+1) and speed_delta<max_speedDelta 
-            or (simDR_autopilot_airspeed_kts< simDR_ind_airspeed_kts_pilot-1) and speed_delta<-min_speedDelta) and pitchError<0.5 and canDescend
+            or (simDR_autopilot_airspeed_kts< simDR_ind_airspeed_kts_pilot-1) and speed_delta<-max_speedDelta) and pitchError<0.5 and canDescend
         then
             if debug_flight_directors==1 then
                 print("-simDR_AHARS_pitch_heading_deg_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." simDR_ind_airspeed_kts_pilot "..simDR_ind_airspeed_kts_pilot.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta.." rog "..rog)
             end
             last_simDR_AHARS_pitch_heading_deg_pilot= (last_simDR_AHARS_pitch_heading_deg_pilot-rog)
-        elseif ((simDR_autopilot_airspeed_kts< simDR_ind_airspeed_kts_pilot-1) and speed_delta>-max_speedDelta 
+        elseif ((simDR_autopilot_airspeed_kts< simDR_ind_airspeed_kts_pilot-1) and speed_delta>-min_speedDelta 
             or (simDR_autopilot_airspeed_kts> simDR_ind_airspeed_kts_pilot+1) and speed_delta>min_speedDelta ) and pitchError<0.5 and canAscend
         then
             if debug_flight_directors==1 then
@@ -447,6 +448,7 @@ function ap_director_pitch(pitchMode)
             end
             last_simDR_AHARS_pitch_heading_deg_pilot= (last_simDR_AHARS_pitch_heading_deg_pilot+rog)
         end
+
         last_altitude=simDR_pressureAlt1
         if last_simDR_AHARS_pitch_heading_deg_pilot<-3.5 then
             last_simDR_AHARS_pitch_heading_deg_pilot=-3.5
@@ -493,38 +495,7 @@ function ap_director_pitch(pitchMode)
         retval=last_simDR_AHARS_pitch_heading_deg_pilot
         last_simDR_AHARS_pitch_heading_deg_pilot=retval
         return retval
-        --[[directorSampleRate=0.1
-        local rog=0.005+0.02*altDiff/100
-        local maxFPM=math.min(altDiff*5,2000)
-        local minFPM=maxFPM/2
-        if simDR_pressureAlt1 > holdAlt then
-            minFPM=(-1*maxFPM)
-            maxFPM=minFPM/2
-        end
-        local pitchError=math.abs(simDR_AHARS_pitch_heading_deg_pilot-last_simDR_AHARS_pitch_heading_deg_pilot)
-
-        if simDR_vvi_fpm_pilot>maxFPM and pitchError<0.5 then
-            last_simDR_AHARS_pitch_heading_deg_pilot=last_simDR_AHARS_pitch_heading_deg_pilot-rog
-            if debug_flight_directors==1 then
-                print("-last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." minFPM "..minFPM.." maxFPM "..maxFPM)
-            end
-        end
-        if simDR_vvi_fpm_pilot<minFPM and pitchError<0.5 then
-            if debug_flight_directors==1 then
-                print("+last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." minFPM "..minFPM.." maxFPM "..maxFPM)
-            end
-            last_simDR_AHARS_pitch_heading_deg_pilot=last_simDR_AHARS_pitch_heading_deg_pilot+rog
-        end
-        if last_simDR_AHARS_pitch_heading_deg_pilot<-1.5 then
-            last_simDR_AHARS_pitch_heading_deg_pilot=-1.5
-        elseif last_simDR_AHARS_pitch_heading_deg_pilot>10 then 
-            last_simDR_AHARS_pitch_heading_deg_pilot=10
-        end
-
-        last_altitude=simDR_pressureAlt1
-        retval=last_simDR_AHARS_pitch_heading_deg_pilot
-        last_simDR_AHARS_pitch_heading_deg_pilot=retval
-        return retval]]--
+    
     elseif pitchMode==4 or pitchMode==7 or pitchMode==6 then
         local pitchError=math.abs(simDR_AHARS_pitch_heading_deg_pilot-last_simDR_AHARS_pitch_heading_deg_pilot)
         directorSampleRate=0.1

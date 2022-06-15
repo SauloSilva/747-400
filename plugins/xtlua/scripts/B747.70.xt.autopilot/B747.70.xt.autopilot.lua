@@ -133,6 +133,7 @@ simDRTime = find_dataref("sim/time/total_running_time_sec")
 simDR_autopilot_bank_limit = find_dataref("sim/cockpit2/autopilot/bank_angle_mode")
 simDR_autopilot_airspeed_is_mach = find_dataref("sim/cockpit2/autopilot/airspeed_is_mach")
 simDR_autopilot_altitude_ft = find_dataref("laminar/B747/autopilot/altitude_dial_ft")
+simDR_disabled_autopilot_altitude_ft = find_dataref("sim/cockpit2/autopilot/altitude_dial_ft")
 simDR_autopilot_hold_altitude_ft = find_dataref("laminar/B747/autopilot/altitude_hold_ft")
 simDR_autopilot_tod_index = find_dataref("sim/cockpit2/radios/indicators/fms_tod_before_index_pilot")
 simDR_autopilot_tod_distance = find_dataref("sim/cockpit2/radios/indicators/fms_distance_to_tod_pilot")
@@ -559,6 +560,7 @@ end
 function B747_ap_switch_vnavalt_mode_CMDhandler(phase, duration)
 	if phase == 0 then
 		B747CMD_fdr_log_altmod:once()
+		B747DR_ap_lastCommand = simDRTime
 		print("vnav alt button")
 		if B747_ap_button_switch_position_target[16] == 1 then
 			B747_ap_button_switch_position_target[16] = 0
@@ -2827,6 +2829,7 @@ function flight_start()
 	simDR_rudder = 0
 	simDR_pitch = 0
 	B747DR_ap_vnav_system = 2
+	simDR_disabled_autopilot_altitude_ft=150000
 end
 
 --function flight_crash() end
