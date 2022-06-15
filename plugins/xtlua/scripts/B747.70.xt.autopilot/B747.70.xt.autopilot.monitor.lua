@@ -410,7 +410,7 @@ function VNAV_modeSwitch(fmsO)
         B747DR_ap_flightPhase=2
     end
     local diff=simDRTime-B747DR_ap_lastCommand
-    if diff<0.5 then return end --mode switch at 0.5 second intervals
+    if diff<0.1 then return end --mode switch at 0.1 second intervals
     
     local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
 

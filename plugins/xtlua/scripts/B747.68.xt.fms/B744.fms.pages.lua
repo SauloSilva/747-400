@@ -1169,7 +1169,7 @@ function fmsFunctions.setdata(fmsO,value)
 	setFMSData(value,fmsO["scratchpad"])
   elseif value == "grwt" then
 	local grwt
-	if string.len(fmsO["scratchpad"]) ~= 3 and string.len(fmsO["scratchpad"]) ~= 5 then
+	if string.len(fmsO["scratchpad"]) ~= 0 and string.len(fmsO["scratchpad"]) ~= 3 and string.len(fmsO["scratchpad"]) ~= 5 then
 		fmsO["notify"]="INVALID ENTRY"
 		fmsO["scratchpad"] = ""
 		return
