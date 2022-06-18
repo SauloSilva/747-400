@@ -146,6 +146,7 @@ B747BR_totalDistance = find_dataref("laminar/B747/autopilot/dist/remaining_dista
 B747BR_eod_index = deferred_dataref("laminar/B747/autopilot/dist/eod_index", "number")
 B747BR_nextDistanceInFeet = find_dataref("laminar/B747/autopilot/dist/next_distance_feet")
 B747BR_cruiseAlt = find_dataref("laminar/B747/autopilot/dist/cruise_alt")
+B747BR_fpe				= find_dataref("laminar/B747/autopilot/dist/flight_path_error")
 B747BR_tod = find_dataref("laminar/B747/autopilot/dist/top_of_descent")
 B747BR_todLat = deferred_dataref("laminar/B747/autopilot/dist/top_of_descent_lat", "number")
 B747BR_todLong = deferred_dataref("laminar/B747/autopilot/dist/top_of_descent_long", "number")
@@ -1924,12 +1925,14 @@ function setDistances(fmsO)
 	B747BR_nextDistanceInFeet = nextDistanceInFeet
 	local cruiseTOD = ((B747BR_cruiseAlt - fms[eod][3]) / 100) / 2.9
 	local currentTOD = ((simDR_pressureAlt1 - fms[eod][3]) / 100) / 2.9
+	local glideAlt= totalDistance*290 +fms[eod][3] 
+	B747BR_fpe	= simDR_pressureAlt1-glideAlt
 	--print("cruiseTOD="..cruiseTOD.." currentTOD="..currentTOD.." B747BR_totalDistance="..B747BR_totalDistance)
-	if totalDistance - cruiseTOD < 50 and B747DR_ap_inVNAVdescent == 0 then
-		B747BR_tod = currentTOD
-	else
-		B747BR_tod = cruiseTOD
-	end
+	--if totalDistance - cruiseTOD < 50 and B747DR_ap_inVNAVdescent == 0 then
+	--	B747BR_tod = currentTOD
+	--else
+	B747BR_tod = cruiseTOD
+	--end
 end
 
 ----- ALTITUDE SELECTED -----------------------------------------------------------------

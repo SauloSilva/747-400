@@ -42,11 +42,11 @@ function VNAV_NEXT_ALT(numAPengaged,fms)
           break 
         end
         if fms[i][9]>0 and fms[i][2] ~= 1 then 
-            if (fms[i][9]>simDR_pressureAlt1+1000 or fms[i][9]<=simDR_pressureAlt1) then
-                targetAlt=fms[i][9]
-            else
-                targetAlt=simDR_autopilot_altitude_ft
-            end
+            --if (fms[i][9]>simDR_pressureAlt1+1000 or fms[i][9]<=simDR_pressureAlt1) then
+            targetAlt=fms[i][9]
+            --else
+            --    targetAlt=simDR_autopilot_altitude_ft
+            --end
           targetIndex=i
           break 
         end
@@ -79,6 +79,7 @@ function VNAV_CLB_ALT(numAPengaged,fms)
     local mcpDiff=simDR_pressureAlt1-B747DR_autopilot_altitude_ft
     if simDR_autopilot_alt_hold_status==2 and targetAlt==B747DR_autopilot_altitude_ft and (mcpDiff<B747DR_alt_capture_window and mcpDiff>-B747DR_alt_capture_window) and lastHold>30 and B747BR_cruiseAlt>B747DR_autopilot_altitude_ft-B747DR_alt_capture_window then
         B747DR_mcp_hold=1
+        print("set B747DR_mcp_hold in VNAV_CLB_ALT")
     end 
     if B747DR_mcp_hold==0 then simDR_autopilot_altitude_ft=targetAlt end
 
@@ -169,8 +170,9 @@ function VNAV_DES_ALT(numAPengaged,fms)
         targetAlt=B747DR_autopilot_altitude_ft
     end
     local mcpDiff=simDR_pressureAlt1-B747DR_autopilot_altitude_ft
-    if simDR_autopilot_alt_hold_status==2 and targetAlt==B747DR_autopilot_altitude_ft and (mcpDiff<B747DR_alt_capture_window and mcpDiff>-B747DR_alt_capture_window)  then
+    if simDR_autopilot_alt_hold_status==2 and targetAlt==B747DR_autopilot_altitude_ft   and (mcpDiff<B747DR_alt_capture_window and mcpDiff>-B747DR_alt_capture_window) and lastHold>30 and B747BR_cruiseAlt>B747DR_autopilot_altitude_ft-B747DR_alt_capture_window then
         B747DR_mcp_hold=1
+        print("set B747DR_mcp_hold in VNAV_DES_ALT")
     end 
     if B747DR_mcp_hold==0 then simDR_autopilot_altitude_ft=targetAlt end
 end
@@ -195,7 +197,7 @@ function VNAV_DES(numAPengaged,fms)
     else
         descentstatus = simDR_autopilot_vs_status
     end
-    --print("VNAV_DES B747DR_ap_inVNAVdescent=" .. " "..B747DR_ap_inVNAVdescent.. " "..diff2.. " "..diff3.. " "..B747DR_ap_vnav_state.. " " .. B747DR_mcp_hold)
+   -- print("VNAV_DES B747DR_ap_inVNAVdescent=" .. " "..B747DR_ap_inVNAVdescent.. " "..diff2.. " "..diff3.. " "..B747DR_ap_vnav_state.. " " .. B747DR_mcp_hold)
     
     
     if B747DR_mcp_hold>0 then return end --in an MCP hold, just stay there
@@ -217,9 +219,9 @@ function VNAV_DES(numAPengaged,fms)
 
     --Not started descent, not in VNAV ALT, past TOD, begin descending
     if B747DR_ap_inVNAVdescent ==0 and diff2<=0 and (diff3<=-100 or diff3>=0) 
-            and B747BR_totalDistance>0 and (B747BR_totalDistance-B747BR_tod<=0 or beganDescent()==true)
-            and descentstatus == 0 
+            and B747BR_totalDistance>0 and (B747BR_totalDistance-B747BR_tod<0.0 or beganDescent()==true) 
             and simDR_radarAlt1>1000 
+            and B747BR_fpe>-400
                  then
         if diff3<0 then --mcp dial is below current altitude          
             B747DR_ap_inVNAVdescent =1

@@ -130,6 +130,7 @@ A very special thanks to MCCVeen and oMrSmith for their extensive testing and ac
 ### Enhancements
 
  - Completely override all control surfaces
+ - VNAV path pointer
  - Rudder Ratio Changer
  - Controls now consume hydraulic systems pressure 
  - Latest textures from PilotMathews

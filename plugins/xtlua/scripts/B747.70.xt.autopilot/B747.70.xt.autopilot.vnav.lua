@@ -16,10 +16,10 @@ dofile("B747.70.xt.autopilot.vnavspd.lua")
 function deceleratedDesent(targetvspeed)
   if simDR_autopilot_airspeed_is_mach == 1 then return targetvspeed end --can't do this in mach mode, slow tf down already
 
-
+  local meet = B747_rescale(0,0,400,500,B747BR_fpe)
   local upperAlt=math.max(tonumber(getFMSData("desspdtransalt")),tonumber(getFMSData("desrestalt")))
   if simDR_pressureAlt1>upperAlt+1000 then 
-    return targetvspeed 
+    return targetvspeed -meet
   end --nowhere near a restriction yet
   local lowerAlt=math.min(tonumber(getFMSData("desspdtransalt")),tonumber(getFMSData("desrestalt")))
   local upperAltspdval=tonumber(getFMSData("destranspd"))
@@ -40,7 +40,7 @@ function deceleratedDesent(targetvspeed)
     return -500 
   end --approximate 500fpm
 
-  return targetvspeed
+  return targetvspeed-meet
   --print("oob deceleratedDesent upperAlt"..upperAlt.." lowerAlt=".. lowerAlt .." upperAltspdval=".. upperAltspdval .." simDR_pressureAlt1="..simDR_pressureAlt1.." simDR_ind_airspeed_kts_pilot="..simDR_ind_airspeed_kts_pilot)
 
 

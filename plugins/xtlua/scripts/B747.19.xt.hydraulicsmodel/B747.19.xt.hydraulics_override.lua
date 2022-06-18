@@ -430,7 +430,7 @@ function ap_director_pitch(pitchMode)
         if simDR_pressureAlt1< holdAlt and simDR_vvi_fpm_pilot < -10 then canDescend = false end
         if  speedDiff > 1 then
             max_speedDelta=0.001+speedDiff/250
-            min_speedDelta=max_speedDelta/10
+            min_speedDelta=max_speedDelta/3
         end
 
         if ((simDR_autopilot_airspeed_kts> simDR_ind_airspeed_kts_pilot+1) and speed_delta<max_speedDelta 

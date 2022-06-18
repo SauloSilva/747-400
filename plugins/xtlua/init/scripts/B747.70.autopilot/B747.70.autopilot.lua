@@ -79,6 +79,8 @@ B747BR_totalDistance 			= deferred_dataref("laminar/B747/autopilot/dist/remainin
 B747BR_eod_index 			= deferred_dataref("laminar/B747/autopilot/dist/eod_index", "number")
 B747BR_nextDistanceInFeet 		= deferred_dataref("laminar/B747/autopilot/dist/next_distance_feet", "number")
 B747BR_cruiseAlt 			= deferred_dataref("laminar/B747/autopilot/dist/cruise_alt", "number")
+B747BR_fpe				= deferred_dataref("laminar/B747/autopilot/dist/flight_path_error", "number")
+
 B747BR_tod				= deferred_dataref("laminar/B747/autopilot/dist/top_of_descent", "number")
 B747BR_todLat				= deferred_dataref("laminar/B747/autopilot/dist/top_of_descent_lat", "number")
 B747BR_todLong				= deferred_dataref("laminar/B747/autopilot/dist/top_of_descent_long", "number")
