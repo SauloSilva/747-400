@@ -394,6 +394,23 @@ function ap_director_yaw()
         return simDR_AHARS_heading_deg_pilot
     end
 end
+local lastPitchMode=0
+local lastPitchModeChange=0
+local lastRetVal=0
+function ap_director_pitch_retVal(pitchMode,retVal)
+    if pitchMode~=lastPitchMode then
+        lastPitchModeChange=simDRTime
+        lastPitchMode=pitchMode
+        
+    end
+    local diff=simDRTime-lastPitchModeChange
+    if diff<0.5 then
+        return lastRetVal
+    end
+    lastRetVal=retVal
+    return retVal
+
+end
 function ap_director_pitch(pitchMode)
     local alt_delta=simDR_pressureAlt1-last_altitude
     last_altitude=simDR_pressureAlt1
@@ -406,7 +423,7 @@ function ap_director_pitch(pitchMode)
     if B747DR_ap_autoland == 1 then 
         --print("pitching for autoland "..B744DR_autolandPitch .. " simDR_AHARS_pitch_heading_deg_pilot "..simDR_AHARS_pitch_heading_deg_pilot.. "simDR_touchGround "..simDR_touchGround)
         directorSampleRate=0.02
-        return  B744DR_autolandPitch
+        return ap_director_pitch_retVal(pitchMode,B744DR_autolandPitch)
     end
     if (pitchMode==4 or pitchMode==8) and (simDR_pressureAlt1> holdAlt+B747DR_alt_capture_window or simDR_pressureAlt1< holdAlt-B747DR_alt_capture_window) then
         local pitchError=math.abs(simDR_AHARS_pitch_heading_deg_pilot-last_simDR_AHARS_pitch_heading_deg_pilot)
@@ -458,7 +475,7 @@ function ap_director_pitch(pitchMode)
         retval=last_simDR_AHARS_pitch_heading_deg_pilot
         last_simDR_AHARS_pitch_heading_deg_pilot=retval
         
-        return retval
+        return ap_director_pitch_retVal(pitchMode,retval)
     elseif pitchMode~=2 and (pitchMode==5 or pitchMode==9 or (simDR_autopilot_alt_hold_status==2) or (simDR_pressureAlt1< holdAlt+B747DR_alt_capture_window and simDR_pressureAlt1> holdAlt-B747DR_alt_capture_window)) then
         --ALT
         if simDR_autopilot_alt_hold_status~=2 then
@@ -494,7 +511,7 @@ function ap_director_pitch(pitchMode)
         end
         retval=last_simDR_AHARS_pitch_heading_deg_pilot
         last_simDR_AHARS_pitch_heading_deg_pilot=retval
-        return retval
+        return ap_director_pitch_retVal(pitchMode,retval)
     
     elseif pitchMode==4 or pitchMode==7 or pitchMode==6 then
         local pitchError=math.abs(simDR_AHARS_pitch_heading_deg_pilot-last_simDR_AHARS_pitch_heading_deg_pilot)
@@ -520,7 +537,7 @@ function ap_director_pitch(pitchMode)
         end
         retval=last_simDR_AHARS_pitch_heading_deg_pilot
         last_simDR_AHARS_pitch_heading_deg_pilot=retval
-        return retval
+        return ap_director_pitch_retVal(pitchMode,retval)
     elseif pitchMode==2 then
         directorSampleRate=0.5
     end
@@ -555,7 +572,7 @@ function ap_director_pitch(pitchMode)
     end
     last_altitude=simDR_pressureAlt1
     last_simDR_AHARS_pitch_heading_deg_pilot=retval
-    return retval
+    return ap_director_pitch_retVal(pitchMode,retval)
 end
 local current_roll_intregal=0
 function ap_director_roll_integral()

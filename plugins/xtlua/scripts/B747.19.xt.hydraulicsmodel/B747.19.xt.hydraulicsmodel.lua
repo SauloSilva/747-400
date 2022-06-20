@@ -21,6 +21,7 @@ function getHeadingDifference(desireddirection,current_heading)
 	if (error < -180) then error =error+ 360 end
 	return error
 end
+simCMD_pause = find_command("sim/operation/pause_toggle")
 debug_flight_directors     = deferred_dataref("laminar/B747/debug/flight_directors", "number")
 simDR_autopilot_hold_altitude_ft = find_dataref("laminar/B747/autopilot/altitude_hold_ft")
 simDR_autopilot_alt_hold_status         = find_dataref("laminar/B747/autopilot/altitude_hold_status")

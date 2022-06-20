@@ -900,12 +900,14 @@ function B747_ap_VNAV_mode_CMDhandler(phase, duration)
 			B747DR_ap_vnav_state = 0
 			B747DR_ap_inVNAVdescent = 0
 			B747DR_ap_thrust_mode = 0
+			B747DR_mcp_hold=0
 			if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 and simDR_onGround == 0 then
 				simCMD_autopilot_autothrottle_on:once()
 			end
 		elseif B747DR_ap_vnav_system == 2 then
 			B747DR_ap_vnav_state = 1
 			B747DR_ap_thrust_mode = 0
+			B747DR_mcp_hold=0
 			if beganDescent() == true and simDR_autopilot_alt_hold_status < 2 then
 				print("had descent")
 				--simCMD_autopilot_alt_hold_mode:once()

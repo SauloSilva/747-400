@@ -77,7 +77,7 @@ function VNAV_CLB_ALT(numAPengaged,fms)
         targetAlt=B747DR_autopilot_altitude_ft
     end
     local mcpDiff=simDR_pressureAlt1-B747DR_autopilot_altitude_ft
-    if simDR_autopilot_alt_hold_status==2 and targetAlt==B747DR_autopilot_altitude_ft and (mcpDiff<B747DR_alt_capture_window and mcpDiff>-B747DR_alt_capture_window) and lastHold>30 and B747BR_cruiseAlt>B747DR_autopilot_altitude_ft-B747DR_alt_capture_window then
+    if B747DR_mcp_hold~=1 and simDR_autopilot_alt_hold_status==2 and targetAlt==B747DR_autopilot_altitude_ft and (mcpDiff<B747DR_alt_capture_window and mcpDiff>-B747DR_alt_capture_window) and lastHold>30 and B747BR_cruiseAlt>B747DR_autopilot_altitude_ft-B747DR_alt_capture_window then
         B747DR_mcp_hold=1
         print("set B747DR_mcp_hold in VNAV_CLB_ALT")
     end 
@@ -88,7 +88,10 @@ end
 
 function VNAV_CLB(numAPengaged,fmsO)
     VNAV_CLB_ALT(numAPengaged,fmsO)
-
+    if simDR_autopilot_alt_hold_status == 2 and B747DR_ap_vnav_state == 1 and B747DR_mcp_hold==1 then
+        B747DR_ap_lastCommand = simDRTime
+        B747DR_ap_vnav_state=2
+    end
     if B747DR_mcp_hold==1 then return end
 
     local start=B747DR_fmscurrentIndex
@@ -148,19 +151,22 @@ function VNAV_CLB(numAPengaged,fmsO)
 
     
 end
-function VNAV_CRZ(numAPengaged)
+function VNAV_CRZ(numAPengaged,dist)
     --print("VNAV_CRZ alt hold") 
     if simDR_autopilot_alt_hold_status == 0 and B747DR_ap_vnav_state == 1 then
         --simCMD_autopilot_alt_hold_mode:once()
         simDR_autopilot_alt_hold_status=2
         simDR_autopilot_hold_altitude_ft=simDR_pressureAlt1
+        B747DR_ap_lastCommand = simDRTime
         print("alt hold < 50nm from TOD")
     end 
     if simDR_autopilot_alt_hold_status > 0 then
        -- print("VNAV_CRZ alt hold")  
         B747DR_ap_vnav_state=2
     end
-    
+    if simDR_autopilot_hold_altitude_ft>B747BR_cruiseAlt and simDR_autopilot_alt_hold_status > 0 and dist>0 then
+        B747BR_cruiseAlt=simDR_autopilot_hold_altitude_ft
+    end
 end
 function VNAV_DES_ALT(numAPengaged,fms)
     local targetAlt=VNAV_NEXT_ALT(numAPengaged,fms)
@@ -418,12 +424,13 @@ function VNAV_modeSwitch(fmsO)
     
     local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
 
-    
 
-    if dist>50 then
+    --print("checkMCPAlt "..eta.. " "..dist.. " "..diff3)
+
+    if dist>50 and simDR_pressureAlt1<B747BR_cruiseAlt then
         VNAV_CLB(numAPengaged,fmsO) --climb to cruise
     elseif dist>0 and B747DR_ap_inVNAVdescent==0 then
-        VNAV_CRZ(numAPengaged) --go to alt hold if not in descent
+        VNAV_CRZ(numAPengaged,dist) --go to alt hold if not in descent
         checkMCPAlt(dist)
     else
         VNAV_DES(numAPengaged,fmsO)
