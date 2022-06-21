@@ -404,8 +404,15 @@ function ap_director_pitch_retVal(pitchMode,retVal)
         
     end
     local diff=simDRTime-lastPitchModeChange
-    if diff<0.5 then
+    if diff<0.7 then
+        if debug_flight_directors==1 then
+            print("last ap_director_pitch_retVal "..lastRetVal .." retVal "..retVal .." pitchMode "..pitchMode)
+        end
+        last_simDR_AHARS_pitch_heading_deg_pilot=lastRetVal
         return lastRetVal
+    end
+    if debug_flight_directors==1 then
+        print("ap_director_pitch_retVal "..retVal.." retVal "..retVal .." pitchMode "..pitchMode)
     end
     lastRetVal=retVal
     return retVal

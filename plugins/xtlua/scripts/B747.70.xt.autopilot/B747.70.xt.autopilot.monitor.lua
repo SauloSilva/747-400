@@ -287,7 +287,9 @@ function VNAV_DES(numAPengaged,fms)
     if simDR_autopilot_vs_status == 2 and B747DR_fmstargetIndex>2 then
         setDescentVSpeed()
     end
-
+    if simDR_autopilot_hold_altitude_ft>B747BR_cruiseAlt and simDR_autopilot_alt_hold_status > 0 and dist>0 then
+        B747BR_cruiseAlt=simDR_autopilot_hold_altitude_ft
+    end
     B747DR_ap_vnav_state=2
 end
 local last_THR_REF=0
