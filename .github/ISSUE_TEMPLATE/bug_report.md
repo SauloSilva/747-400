@@ -8,7 +8,7 @@ assignees: ''
 ---
 **Describe the bug**
 
-A clear and concise description of what the bug/issue is.
+
 
 # Please provide documentation references:
 
@@ -20,5 +20,11 @@ Place an x to check the boxes:
 - [ ] Screenshot included (where applicable)
 
 ### Bug reports:
+
+Many remaining issues are likely airframe specific, please provide the livery this bug happens with
+
+Airframe: ________ 
+
+The livery folder will also contain a jdat file of various data recorded during the flight, please attach it to the report if the issue occurs during a specific phase of flight
 
 Please replace this line with a detailed description of the issue
