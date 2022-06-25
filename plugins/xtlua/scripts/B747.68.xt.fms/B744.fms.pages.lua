@@ -573,12 +573,29 @@ function fmsFunctions.key2fmc(fmsO,value)
   fmsO["notify"]=""
 end
 local updateFrom="fmsL"
+local lastCrz=0
+--[[function checkCRZ()
+	if lastCrz==B747BR_cruiseAlt then return end
+	if is_timer_scheduled(updateCRZ)==true then return end
+	simCMD_FMS_key[fmsL.id]["fpln"]:once()--make sure we arent on the vnav page
+    simCMD_FMS_key[fmsL.id]["clb"]:once()--go to the vnav page
+    simCMD_FMS_key[fmsL.id]["next"]:once() --go to the vnav page 2
+
+    fmsFunctions["custom2fmc"](fmsL,"R1")
+    updateFrom=fmsL.id
+    local toGet=B747DR_srcfms[updateFrom][3] --make sure we update it
+    run_after_time(updateCRZ,0.5)
+
+end]]--
 function updateCRZ()
   local setVal=string.sub(B747DR_srcfms[updateFrom][3],20,24)
   print("from line".. updateFrom.." "..B747DR_srcfms[updateFrom][3])
   print("to:"..setVal)
   local alt=validAlt(setVal)
-  if alt~=nil then B747BR_cruiseAlt=alt end
+  if alt~=nil then 
+	B747BR_cruiseAlt=alt 
+	lastCrz=alt
+  end
   fmsModules:setData("crzalt",setVal)
 end
 function fmsFunctions.getdata(fmsO,value) 

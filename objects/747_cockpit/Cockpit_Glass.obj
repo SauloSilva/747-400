@@ -7,6 +7,7 @@ TEXTURE_NORMAL ../../objects/747_cockpit/Cockpit_Glass_NML.png
 GLOBAL_specular 1.0
 NORMAL_METALNESS 
 TEXTURE_LIT ../../objects/747_cockpit/Cockpit_Glass_LIT.png
+BLEND_GLASS
 POINT_COUNTS	2873 0 0 11301
 
 VT	   1.4041    2.7346    6.2590	-0.800 -0.540  0.260	0.2475 0.8707
