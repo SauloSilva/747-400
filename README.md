@@ -134,8 +134,9 @@ A very special thanks to MCCVeen and oMrSmith for their extensive testing and ac
  - Rudder Ratio Changer
  - Controls now consume hydraulic systems pressure 
  - Latest textures from PilotMathews
- - Break heating visualizations and failures
+ - Brake heating visualizations and failures
  - "Always on" Flight Data Recorder records flight data for each aircraft livery
+ - Improved ground rain effects (Salami002)
 
 ### Bug fixes
 
