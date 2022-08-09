@@ -160,6 +160,10 @@ function VNAV_CRZ(numAPengaged,dist)
         B747DR_ap_lastCommand = simDRTime
         print("alt hold < 50nm from TOD")
     end 
+    if B747DR_mcp_hold==1 and simDR_autopilot_alt_hold_status > 0 and simDR_autopilot_hold_altitude_ft==B747BR_cruiseAlt then
+        B747DR_mcp_hold=0
+        print("clear MCP hold in VNAV_CRZ")
+    end
     if simDR_autopilot_alt_hold_status > 0 then
        -- print("VNAV_CRZ alt hold")  
         B747DR_ap_vnav_state=2
