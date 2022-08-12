@@ -529,7 +529,7 @@ function B747_engine_TOGA_power_CMDhandler(phase, duration)
             end	
             
         end
-        if B747DR_engine_TOGA_mode == 0 then
+        if B747DR_engine_TOGA_mode == 0 and (simDR_all_wheels_on_ground==0 or (simDR_all_wheels_on_ground==1 and B747DR_toggle_switch_position[29] == 1)) then
             --[[simDR_engine_throttle_input[0] = 0.95
             simDR_engine_throttle_input[1] = 0.95
             simDR_engine_throttle_input[2] = 0.95

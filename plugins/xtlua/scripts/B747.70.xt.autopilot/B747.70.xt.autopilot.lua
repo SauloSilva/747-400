@@ -211,6 +211,7 @@ simDR_touchGround = find_dataref("sim/flightmodel/failures/onground_any")
 simDR_onGround = find_dataref("sim/flightmodel/failures/onground_any")
 --simDR_pitch2           	= find_dataref("sim/cockpit2/autopilot/fpa")
 B744_fpm = find_dataref("laminar/B747/vsi/fpm")
+B747BR_showFMA				= deferred_dataref("laminar/B747/autopilot/FMA/showFMA", "number")
 simDR_AHARS_pitch_heading_deg_pilot = find_dataref("sim/cockpit2/gauges/indicators/pitch_AHARS_deg_pilot")
 --simDR_AHARS_pitch_heading_deg_pilot=find_dataref("sim/cockpit2/gauges/indicators/ground_track_mag_pilot")
 simDR_elevator = find_dataref("sim/flightmodel2/controls/elevator_trim")
@@ -2195,7 +2196,7 @@ end
 
 dofile("B747.autoland.lua")
 dofile("B747.70.xt.autopilot.monitor.lua")
-
+local apWasOn=0
 function fma_rollModes()
 	local diff = simDRTime - B747DR_ap_lastCommand
 	
@@ -2206,8 +2207,16 @@ function fma_rollModes()
 	-- ----------------------------------------------------------------------------------
 	
 	-- (NONE) --
-
-	if B747DR_toggle_switch_position[23] == 0.0 and B747DR_toggle_switch_position[24] == 0.0 then
+	local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
+	if numAPengaged>0 then
+		apWasOn=1
+	end
+	if numAPengaged>0 or B747DR_toggle_switch_position[23] > 0.5 or B747DR_toggle_switch_position[24] > 0.5 then
+		B747BR_showFMA=1
+	else
+		B747BR_showFMA=0
+	end
+	if B747DR_toggle_switch_position[23] == 0.0 and B747DR_toggle_switch_position[24] == 0.0  and numAPengaged == 0 and apWasOn==1 then
 		-- (LNAV) --
 		B747DR_ap_FMA_armed_roll_mode = 0
 	elseif simDR_autopilot_gpss == 1 or B747DR_ap_lnav_state == 1 then 
@@ -2231,7 +2240,8 @@ function fma_rollModes()
 	-- (TOGA) --
 	local navcrz = simDR_nav1_radio_course_deg
 
-	if B747DR_toggle_switch_position[23] == 0.0 and B747DR_toggle_switch_position[24] == 0.0 then
+	local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
+	if B747DR_toggle_switch_position[23] == 0.0 and B747DR_toggle_switch_position[24] == 0.0  and numAPengaged == 0 and apWasOn==1 then
 		-- (TOGA) --
 		B747DR_ap_FMA_active_roll_mode = 0
 	elseif simDR_autopilot_TOGA_lat_status == 2 then
@@ -2285,15 +2295,16 @@ function restoreAltFunc()
 end
 
 function fma_PitchModes()
-
+	local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
 	
 	-- PITCH MODES: ARMED
 	-- ----------------------------------------------------------------------------------
 
 	-- (NONE) --
 
-	if B747DR_toggle_switch_position[23] == 0.0 and B747DR_toggle_switch_position[24] == 0.0 then
-		-- (TOGA) --
+	local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
+	if B747DR_toggle_switch_position[23] == 0.0 and B747DR_toggle_switch_position[24] == 0.0  and numAPengaged == 0 and apWasOn==1 then
+			-- (TOGA) --
 		B747DR_ap_FMA_armed_pitch_mode = 0
 	elseif B747DR_ap_vnav_state == 1 then
 		-- (G/S) --
@@ -2316,7 +2327,7 @@ function fma_PitchModes()
 	local altDiff=math.abs(simDR_pressureAlt1-simDR_autopilot_altitude_ft)
 	-- (NONE) --
 	--B747DR_ap_FMA_active_pitch_mode = 0
-	if B747DR_toggle_switch_position[23] == 0.0 and B747DR_toggle_switch_position[24] == 0.0 and numAPengaged == 0 then
+	if B747DR_toggle_switch_position[23] == 0.0 and B747DR_toggle_switch_position[24] == 0.0 and numAPengaged == 0 and apWasOn==1 then
 		-- (TOGA) --
 		if simDR_autopilot_flight_dir_active > 0 and (simDRTime - switching_servos_on) > 1 then
 			B747_ap_all_cmd_modes_off()
@@ -2324,6 +2335,7 @@ function fma_PitchModes()
 			simCMD_autopilot_servos2_fdir_off:once()
 			simCMD_autopilot_servos3_fdir_off:once()
 		end
+		
 		B747DR_ap_FMA_active_pitch_mode = 0
 		B747DR_ap_vnav_state = 0
 		B747DR_ap_lnav_state = 0
@@ -2332,6 +2344,7 @@ function fma_PitchModes()
 		B747DR_engine_TOGA_mode = 0
 		if simDR_autopilot_gs_status ~= 2 and simDR_autopilot_nav_status ~= 2 then
 			B747DR_ap_approach_mode = 0
+			apWasOn=0
 		end
 	elseif simDR_autopilot_TOGA_vert_status == 2 then
 		--if B747DR_engine_TOGA_mode == 1 then
@@ -2460,7 +2473,8 @@ function B747_ap_fma()
 		-- simCMD_autopilot_gpss_mode:once()
 		run_after_time(checkLNAV, 0.5)
 	end
-	if numAPengaged==0 and B747DR_toggle_switch_position[23]==0 and B747DR_toggle_switch_position[24]==0 then 
+
+	if B747DR_toggle_switch_position[23] == 0.0 and B747DR_toggle_switch_position[24] == 0.0  and numAPengaged == 0 then
 		B747DR_ap_approach_mode = 0
 	end
 	fma_rollModes()
