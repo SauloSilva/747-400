@@ -165,7 +165,7 @@ B747DR_custom_pitch_ratio   = find_dataref("laminar/B747/flt_ctrls/custom_pitch_
 B747DR_custom_roll_ratio   = deferred_dataref("laminar/B747/flt_ctrls/custom_roll_ratio", "number")
 B747DR_ap_autoland            	= deferred_dataref("laminar/B747/autopilot/autoland", "number")
 B744DR_autolandPitch            = deferred_dataref("laminar/B747/autopilot/autolandPitch", "number")
-
+B747DR_ap_inVNAVdescent = deferred_dataref("laminar/B747/autopilot/vnav_descent", "number")
 simDR_electric_trim   = find_dataref("sim/cockpit2/autopilot/electric_trim_on")
 simDR_pitch_mistrim   = find_dataref("sim/cockpit2/autopilot/pitch_mistrim")
 simDR_AHARS_roll_heading_deg_pilot          	= find_dataref("sim/cockpit2/gauges/indicators/roll_AHARS_deg_pilot")

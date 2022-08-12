@@ -705,11 +705,16 @@ function doTrim()
 
     if simDRTime-lastTrimmed<0.2 then return end
     lastTrimmed=simDRTime
-
-    if B747DR_sim_pitch_ratio>0.05 then
+    local ratioWindow=0.05
+    if B747DR_ap_FMA_active_pitch_mode==4 or B747DR_ap_FMA_active_pitch_mode==8 or (B747DR_ap_FMA_active_pitch_mode==6 and B747DR_ap_inVNAVdescent>0) then
+        ratioWindow=0.2 --limit trim activity when pitching for speed
+    end
+    if B747DR_sim_pitch_ratio>ratioWindow then
         simDR_elevator_trim=B747_interpolate_value(simDR_elevator_trim,1.0,-1,1,25) 
-    elseif B747DR_sim_pitch_ratio<-0.05 then
+        --print("up trim "..ratioWindow)
+    elseif B747DR_sim_pitch_ratio<-ratioWindow then
         simDR_elevator_trim=B747_interpolate_value(simDR_elevator_trim,-1.0,-1,1,25) 
+        --print("down trim "..ratioWindow)
     end
 
 end
