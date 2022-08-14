@@ -452,6 +452,7 @@ function ap_director_pitch(pitchMode)
         local canAscend = true
         if simDR_pressureAlt1> holdAlt and simDR_vvi_fpm_pilot > 10 then canAscend = false end
         if simDR_pressureAlt1< holdAlt and simDR_vvi_fpm_pilot < -10 then canDescend = false end
+        if B747DR_ap_inVNAVdescent>0 and simDR_vvi_fpm_pilot < -500 then canDescend = false end
         if  speedDiff > 1 then
             max_speedDelta=0.001+speedDiff/250
             min_speedDelta=max_speedDelta/3

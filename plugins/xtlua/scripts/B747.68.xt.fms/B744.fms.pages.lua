@@ -2323,7 +2323,13 @@ function fmsFunctions.setDref(fmsO,value)
   if value=="CRSR" then simDR_radio_nav_obs_deg[3]=val end
   if value=="ADFL" then simDR_radio_adf1_freq_hz=val end
   if value=="ADFR" then simDR_radio_adf2_freq_hz=val end
-  if value=="flapsRef" then B747DR_airspeed_flapsRef=val end
+  if value=="flapsRef" then 
+	if val~=10 and val~=20 then
+		fmsO["notify"]="INVALID ENTRY"
+     	return 
+	end
+	B747DR_airspeed_flapsRef=val 
+  end
 
   fmsO["scratchpad"]=""
 end

@@ -267,12 +267,15 @@ function clb_crz_setSpd()
         ci_mach = math.floor(ci_mach)
         spdval = ci_mach/10
     end 
-    print("convert to cruise speed in clb_crz_setSpd ".. spdval)
-    --B747DR_ap_flightPhase=2
-    simDR_autopilot_airspeed_is_mach = 1
-    B747DR_ap_ias_dial_value = spdval
-    B747DR_lastap_dial_airspeed=spdval*0.01
-    run_after_time(B747_updateIAS, 0.25)
+    local transalt=tonumber(getFMSData("transalt"))
+    local tspdval=modFlapSpeed(tonumber(getFMSData("transpd")))
+    if simDR_pressureAlt1>=transalt or simDR_ind_airspeed_kts_pilot>=tspdval-1 then
+        print("convert to cruise speed in clb_crz_setSpd ".. spdval)
+        simDR_autopilot_airspeed_is_mach = 1
+        B747DR_ap_ias_dial_value = spdval
+        B747DR_lastap_dial_airspeed=spdval*0.01
+        run_after_time(B747_updateIAS, 0.25)
+    end
 end
 
 function des_src_setSpd()
@@ -459,10 +462,10 @@ function B747_vnav_speed()
     if vnavSPD_state["gotVNAVSpeed"]==true then return end
     if B747DR_ap_inVNAVdescent ==0 then
         B747_vnav_setClimbspeed()
-        --B747BR_flight_phase=1
+
     else
         B747_vnav_setDescendspeed()
-        --B747DR_ap_flightPhase=3
+
     end
 
 end
