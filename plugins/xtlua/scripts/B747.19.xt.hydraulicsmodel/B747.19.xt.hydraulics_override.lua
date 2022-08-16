@@ -447,20 +447,20 @@ function ap_director_pitch(pitchMode)
         if rog>0.3 then rog=0.3 end
         local min_speedDelta=0
         local max_speedDelta=0
+        local minSafeSpeed = B747DR_airspeed_Vmc + 10
         local speedDiff=math.abs(simDR_ind_airspeed_kts_pilot-simDR_autopilot_airspeed_kts)
         local canDescend = true
         local canAscend = true
-        if simDR_pressureAlt1> holdAlt and simDR_vvi_fpm_pilot > 10 and simDR_ind_airspeed_kts_pilot<B747DR_airspeed_Vmax-10 then canAscend = false end
-        if simDR_pressureAlt1< holdAlt and simDR_vvi_fpm_pilot < -10 then canDescend = false end
+        if simDR_pressureAlt1> holdAlt and simDR_vvi_fpm_pilot > -200 and simDR_ind_airspeed_kts_pilot<B747DR_airspeed_Vmax-10 then canAscend = false end
+        if simDR_pressureAlt1< holdAlt and simDR_vvi_fpm_pilot < 200 and simDR_ind_airspeed_kts_pilot>minSafeSpeed then canDescend = false end
         if B747DR_ap_inVNAVdescent>0 and simDR_vvi_fpm_pilot < -500 and simDR_autopilot_airspeed_kts< simDR_ind_airspeed_kts_pilot+5 then canDescend = false end
         if  speedDiff > 1 then
             if (simDR_autopilot_airspeed_kts< simDR_ind_airspeed_kts_pilot-1) then
                 max_speedDelta=0.001+speedDiff/250
-                min_speedDelta=max_speedDelta/3
             else
                 max_speedDelta=0.001+speedDiff/25
-                min_speedDelta=max_speedDelta/3
             end
+            min_speedDelta=max_speedDelta/3
         end
 
         if ((simDR_autopilot_airspeed_kts> simDR_ind_airspeed_kts_pilot+1) and speed_delta<max_speedDelta 

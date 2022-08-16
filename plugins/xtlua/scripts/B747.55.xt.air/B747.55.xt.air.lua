@@ -101,6 +101,8 @@ B747bleedAir.engine4.bleed_air_start_valve.pos  = deferred_dataref("laminar/B747
 B747bleedAir.apu.bleed_air_valve.pos            = deferred_dataref("laminar/B747/air/apu/bleed_valve_pos", "number")
 B747bleedAir.isolation_valve_L.pos              = deferred_dataref("laminar/B747/air/isolation_valve_L_pos", "number")
 B747bleedAir.isolation_valve_R.pos              = deferred_dataref("laminar/B747/air/isolation_valve_R_pos", "number")
+simDR_isolation_valve_L            = deferred_dataref("sim/cockpit2/bleedair/actuators/isol_valve_left", "number")
+simDR_isolation_valve_R              = deferred_dataref("sim/cockpit2/bleedair/actuators/isol_valve_right", "number")
 
 
 
@@ -700,15 +702,18 @@ function B747_bleed_air_duct_pressure()
     -- CENTER DUCT
     B747_duct_pressure_C = math.max((B747bleedAir.apu.psi * B747bleedAir.apu.bleed_air_valve.pos), B747bleedAir.grnd_cart.psi,
     B747_duct_pressure_L*B747bleedAir.isolation_valve_L.pos,B747_duct_pressure_R*B747bleedAir.isolation_valve_R.pos)
-
+    local xpR_Valve=simDR_isolation_valve_R
+    local xLR_Valve=simDR_isolation_valve_L
 
     -- LEFT DUCT
     --B747_duct_pressure_L = 0
     if B747bleedAir.isolation_valve_L.pos < 0.01 then                                   -- LEFT ISOLATION VALVE IS CLOSED
+        simDR_isolation_valve_L=0
         B747_duct_pressure_L = math.max(
             (B747bleedAir.engine1.psi * B747bleedAir.engine1.bleed_air_valve.pos),
             (B747bleedAir.engine2.psi * B747bleedAir.engine2.bleed_air_valve.pos))
     else                                                                                -- LEFT ISOLATION VALVE IS OPEN
+        simDR_isolation_valve_L=1
         if B747bleedAir.isolation_valve_R.pos < 0.01 then                               -- RIGHT ISOLATION VALVE IS CLOSED
             B747_duct_pressure_L = math.max(
                 (B747bleedAir.engine1.psi * B747bleedAir.engine1.bleed_air_valve.pos),
@@ -730,10 +735,12 @@ function B747_bleed_air_duct_pressure()
     -- RIGHT DUCT
     --B747_duct_pressure_R = 0
     if B747bleedAir.isolation_valve_R.pos < 0.01 then                                   -- RIGHT ISOLATION VALVE IS CLOSED
+        simDR_isolation_valve_R=0
         B747_duct_pressure_R = math.max(
             (B747bleedAir.engine3.psi * B747bleedAir.engine3.bleed_air_valve.pos),
             (B747bleedAir.engine4.psi * B747bleedAir.engine4.bleed_air_valve.pos))
     else                                                                                -- RIGHT ISOLATION VALVE IS OPEN
+        simDR_isolation_valve_R=1
         if B747bleedAir.isolation_valve_L.pos < 0.01 then                               -- LEFT ISOLATION VALVE IS CLOSED
             B747_duct_pressure_R = math.max(
                 (B747bleedAir.engine3.psi * B747bleedAir.engine3.bleed_air_valve.pos),
