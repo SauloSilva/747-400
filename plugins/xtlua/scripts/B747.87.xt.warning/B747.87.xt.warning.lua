@@ -177,7 +177,11 @@ B747_CAScautionMsg   = {
     {DRindex = 67, name = "FUEL PRES STAB L", status = 0},
     {DRindex = 68, name = "FUEL PRES STAB L", status = 0},
     {DRindex = 69, name = "FUEL PRESS CTR L", status = 0},
-    {DRindex = 70, name = "FUEL PRESS CTR R", status = 0}
+    {DRindex = 70, name = "FUEL PRESS CTR R", status = 0},
+    {DRindex = 71, name = "ELEC GEN OFF 1", status = 0},
+    {DRindex = 72, name = "ELEC GEN OFF 2", status = 0},
+    {DRindex = 73, name = "ELEC GEN OFF 3", status = 0},
+    {DRindex = 74, name = "ELEC GEN OFF 4", status = 0}
 }
 
 B747_CASadvisoryMsg   = {
@@ -281,10 +285,10 @@ B747_CASadvisoryMsg   = {
     {DRindex = 97, name = "ELEC DRIVE 2", status = 0},
     {DRindex = 98, name = "ELEC DRIVE 3", status = 0},
     {DRindex = 99, name = "ELEC DRIVE 4", status = 0},
-    {DRindex = 100, name = "ELEC GEN OFF 1", status = 0},
-    {DRindex = 101, name = "ELEC GEN OFF 2", status = 0},
-    {DRindex = 102, name = "ELEC GEN OFF 3", status = 0},
-    {DRindex = 103, name = "ELEC GEN OFF 4", status = 0},
+    {DRindex = 100, name = "ELEC GEN OFF 1", status = 0}, --should be caution
+    {DRindex = 101, name = "ELEC GEN OFF 2", status = 0},--should be caution
+    {DRindex = 102, name = "ELEC GEN OFF 3", status = 0},--should be caution
+    {DRindex = 103, name = "ELEC GEN OFF 4", status = 0},--should be caution
     {DRindex = 104, name = ">ELEC SSB OPEN", status = 0},
     {DRindex = 105, name = "ELEC UTIL BUS L", status = 0},      --
     {DRindex = 106, name = "ELEC UTIL BUS R", status = 0},      --

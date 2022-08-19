@@ -2781,6 +2781,7 @@ end
 
 
 B747DR_airspeed_flapsRef                              = find_dataref("laminar/B747/airspeed/flapsRef")
+lastFlaps=-1
 -- V1 / Vr / V2
 function B747_setV1VrV2()
 
@@ -2791,7 +2792,7 @@ function B747_setV1VrV2()
         B747DR_airspeed_flapsRef=0
     end
 
-    if flaps >= 10.0 and flaps <= 20.0 then
+    if flaps >= 10.0 and flaps <= 20.0 and lastFlaps~=flaps then
 
         -- V1
         B747DR_airspeed_V1 = B747_rescale(weight_min, B747_V1[flaps][tempAltRegion][weight_min], weight_max, B747_V1[flaps][tempAltRegion][weight_max], simDR_acf_weight_total_kg)
@@ -2802,16 +2803,16 @@ function B747_setV1VrV2()
 
         -- V2
         B747DR_airspeed_V2 = B747_rescale(weight_min, B747_V2[flaps][tempAltRegion][weight_min], weight_max, B747_V2[flaps][tempAltRegion][weight_max], simDR_acf_weight_total_kg)
-
-    else
-	if simDR_all_wheels_on_ground==1 then
-	  B747DR_airspeed_V1 = 999.0
-	else
-	  B747DR_airspeed_V1 = 998.0 --only show no vspd on the ground
-	end
+        lastFlaps=flaps
+    elseif lastFlaps~=flaps then
+        if simDR_all_wheels_on_ground==1 then
+            B747DR_airspeed_V1 = 999.0
+        else
+            B747DR_airspeed_V1 = 998.0 --only show no vspd on the ground
+        end
         B747DR_airspeed_Vr = 999.0
         B747DR_airspeed_V2 = 999.0
-
+        lastFlaps=flaps
     end
 	
     -- crazytimtimtim V1 callout

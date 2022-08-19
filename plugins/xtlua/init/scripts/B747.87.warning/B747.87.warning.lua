@@ -107,7 +107,11 @@ B747_CAScautionMsg   = {
     {DRindex = 67, name = "FUEL PRES STAB L", status = 0},
     {DRindex = 68, name = "FUEL PRES STAB L", status = 0},
     {DRindex = 69, name = "FUEL PRESS CTR L", status = 0},
-    {DRindex = 70, name = "FUEL PRESS CTR R", status = 0}
+    {DRindex = 70, name = "FUEL PRESS CTR R", status = 0},
+    {DRindex = 71, name = "ELEC GEN OFF 1", status = 0},
+    {DRindex = 72, name = "ELEC GEN OFF 2", status = 0},
+    {DRindex = 73, name = "ELEC GEN OFF 3", status = 0},
+    {DRindex = 74, name = "ELEC GEN OFF 4", status = 0}
 }
 
 B747_CASadvisoryMsg   = {

@@ -128,8 +128,8 @@ end
 fmsFunctionsDefs["TAKEOFF"]={}
 fmsFunctionsDefs["TAKEOFF"]["L6"]={"setpage","INITREF"}
 fmsFunctionsDefs["TAKEOFF"]["R6"]={"setpage","POSINIT"}
-fmsFunctionsDefs["TAKEOFF"]["R1"]={"setdata","v1"}
-fmsFunctionsDefs["TAKEOFF"]["R2"]={"setdata","vr"}
-fmsFunctionsDefs["TAKEOFF"]["R3"]={"setdata","v2"}
+fmsFunctionsDefs["TAKEOFF"]["R1"]={"setDref","V1"}
+fmsFunctionsDefs["TAKEOFF"]["R2"]={"setDref","VR"}
+fmsFunctionsDefs["TAKEOFF"]["R3"]={"setDref","V2"}
 fmsFunctionsDefs["TAKEOFF"]["R4"]={"setdata","cg_mac"}
 fmsFunctionsDefs["TAKEOFF"]["L1"]={"setDref","flapsRef"}
