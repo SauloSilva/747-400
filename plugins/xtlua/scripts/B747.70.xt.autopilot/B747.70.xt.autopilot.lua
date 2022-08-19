@@ -548,7 +548,7 @@ function B747_ap_switch_vnavspeed_mode_CMDhandler(phase, duration)
 			return
 		end
 		B747_ap_button_switch_position_target[15] = 1 -- SET THE SPEED KNOB ANIMATION TO "IN"
-		if B747DR_ap_vnav_state == 2 then
+		if B747DR_ap_vnav_state == 2 and B747DR_switchingIASMode==0 then
 			setVNAVState("manualVNAVspd", 1 - getVNAVState("manualVNAVspd"))
 			if getVNAVState("manualVNAVspd") == 0 then
 				setVNAVState("gotVNAVSpeed", false)
