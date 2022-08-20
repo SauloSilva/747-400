@@ -33,7 +33,8 @@ B747DR_ap_FMA_active_roll_mode      	= find_dataref("laminar/B747/autopilot/FMA/
 B747DR_ap_FMA_armed_pitch_mode      	= find_dataref("laminar/B747/autopilot/FMA/armed_pitch_mode")
 B747DR_ap_FMA_active_pitch_mode     	= find_dataref("laminar/B747/autopilot/FMA/active_pitch_mode")
 B747DR_ap_AFDS_status_annun_pilot     = find_dataref("laminar/B747/autopilot/AFDS/status_annun_pilot")
-
+B747DR_FMSdata=find_dataref("laminar/B747/fms/data")
+B747DR_FMSdata="{}"
 
 
 
@@ -52,7 +53,7 @@ B747BR_tod				= find_dataref("laminar/B747/autopilot/dist/top_of_descent")
 B747BR_todLat				= find_dataref("laminar/B747/autopilot/dist/top_of_descent_lat", "number")
 B747BR_todLong				= find_dataref("laminar/B747/autopilot/dist/top_of_descent_long", "number")
 
-fmsJSON = find_dataref("xtlua/fms")
+fmsJson = find_dataref("xtlua/fms")
 local fmsTable={}
 
 
@@ -202,7 +203,38 @@ function updateAPdata()
       B747DR_CAS_gen_memo_msg[i]
   end]]--
 end
+local lastfmsSize=0
+local lastfmsDataSize=0
+local lastFMSUpdate=0
+local lastPlanUpdate=0
+local lastFMSIndex=-1
+function updateFMSdata()
+  if fdr_data_file==nil then return end
+  local diff=simDRTime-lastFMSUpdate
+  if diff<5 then return end
+  lastFMSUpdate=simDRTime
 
+  if(fmsJson~=nil and (string.len(fmsJson) ~=lastfmsSize or B747DR_fmscurrentIndex~=lastFMSIndex)) then
+    --io.output(fdr_data_file)
+    local diff=simDRTime-lastPlanUpdate
+    if diff>10 then 
+      fdr_data_file:write(fmsJson.."\n") 
+      fdr_data_file:flush()
+      print("Wrote FMS plan")
+      lastPlanUpdate=simDRTime
+    end
+    lastfmsSize=string.len(fmsJson)
+    lastFMSIndex=B747DR_fmscurrentIndex
+  end
+  
+  if(B747DR_FMSdata~=nil and string.len(B747DR_FMSdata) ~=lastfmsDataSize) then
+    --io.output(fdr_data_file)
+    fdr_data_file:write(B747DR_FMSdata.."\n") 
+    fdr_data_file:flush()
+    lastfmsDataSize=string.len(B747DR_FMSdata)
+    --print("Wrote FMS data")
+  end
+end
 function updateFlightdata()
   if fdr_data_file==nil then return end
   if simDR_aircraft_on_ground>0 then return end
@@ -433,6 +465,6 @@ function after_physics()
   
   updateAPdata()
   updateFlightdata()
-    
+  updateFMSdata()
   
 end 
