@@ -2016,6 +2016,12 @@ function B747_ap_appr_mode_beforeCMDhandler(phase, duration)
 		--simCMD_autopilot_appr_mode:once()
 		B747CMD_fdr_log_app:once()
 		B747_ap_button_switch_position_target[9] = 1
+		if B747DR_ils_dots ==0 then
+			B747DR_fmc_notifications[40]=1
+			return;
+		else
+			B747DR_fmc_notifications[40]=0
+		end
 		local diff = simDRTime - B747DR_ap_lastCommand
 		--if diff>0.5 then
 		if B747DR_ap_approach_mode <= 0 then
@@ -2042,6 +2048,12 @@ function B747_ap_switch_loc_mode_CMDhandler(phase, duration)
 		--simCMD_autopilot_nav_mode:once()
 		B747CMD_fdr_log_loc:once()
 		B747_ap_button_switch_position_target[8] = 1
+		if B747DR_ils_dots ==0 then
+			B747DR_fmc_notifications[40]=1
+			return;
+		else
+			B747DR_fmc_notifications[40]=0
+		end
 		local diff = simDRTime - B747DR_ap_lastCommand
 		--if diff>0.5 then
 		if B747DR_ap_approach_mode >= 0 then
