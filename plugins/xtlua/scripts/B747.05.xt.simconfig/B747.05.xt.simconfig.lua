@@ -73,7 +73,7 @@ B747DR_modernAlarms						= deferred_dataref("laminar/B747/fmod/options/modernAla
 --** 				        MAIN PROGRAM LOGIC                                       **--
 --*************************************************************************************--
 simConfigData = {}
-
+dofile("version.lua")
 function simconfig_values()
 	return {
 			SIM = {
@@ -105,7 +105,7 @@ function simconfig_values()
 					  INIT = {				
 								nav_data = "",
 								active = "",
-								op_program = "",
+								op_program = fmcVersion,
 								drag_ff = "+0.0/-0.0",
 					  },
 			},
@@ -296,6 +296,7 @@ function aircraft_simConfig()
 		if (tmpData["SOUND"]==nil) then
 			tmpData["SOUND"]=simconfig_values()["SOUND"]
 		end
+		tmpData.FMC.INIT.op_program = fmcVersion
 		--print("encoding "..tmpDataS)
 		B747DR_simconfig_data = json.encode(tmpData)
 		--print("done encoding "..B747DR_simconfig_data)
