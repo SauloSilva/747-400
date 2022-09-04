@@ -123,6 +123,21 @@ See the [commit history](https://github.com/mSparks43/747-400/commits/master) fo
 
 _Thank you all for your support and contributions!_
 
+## Release 2.4:
+Release 2.4 is a bug fix release.
+
+RB211 engines repositioned by Andromeda95
+
+### Bug fixes
+
+ - Fix glass
+ - remove xtlua_debugging.txt from release zip
+ - 813 2.3 | Testflights [LGMK 34 VARI1C VARIX R19 KEA ILS-Z-03L LGAV]
+ - 817 During VNAV Descend A/T adds thrust too soon and without caution.
+ - 820 AP doesn't function with both FDs off on takeoff
+ - 829 A/T issue during descend with VNAV SPD
+
+
 ## Release 2.3:
 Release 2.3 focuses on flight model enhancements and bug fixes to the existing systems.
 A very special thanks to MCCVeen and oMrSmith for their extensive testing and accurate reporting of issues, a very large number of fixes in this release wouldn't have been possible without the detailed breakdowns they provided. 
