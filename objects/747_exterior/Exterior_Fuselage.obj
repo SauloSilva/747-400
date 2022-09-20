@@ -15116,12 +15116,12 @@ ANIM_begin
 	LIGHT_PARAM	airplane_beacon_strobe_sp	  -0.0100    4.3546   14.9112 12 1
 ANIM_end
 # Image: //objects/747_exterior/Exterior_Fuselage.png
-ATTR_light_level 0 1 sim/flightmodel2/lights/beacon_brightness_ratio[0]
+ATTR_light_level 0 1 sim/flightmodel2/lights/beacon_brightness_ratio[0] 25000
 TRIS	12147 168
 ANIM_begin
 	ANIM_hide	0.9 2.0	laminar/B747/toggle_switch/position[8]
-	ATTR_light_level 0 1 sim/flightmodel2/lights/beacon_brightness_ratio[1]
+	ATTR_light_level 0 1 sim/flightmodel2/lights/beacon_brightness_ratio[1] 25000
 	TRIS	12315 168
 ANIM_end
-ATTR_light_level 0 1 sim/flightmodel2/lights/generic_lights_brightness_ratio[25]
+ATTR_light_level 0 1 sim/flightmodel2/lights/generic_lights_brightness_ratio[25] 10000
 TRIS	12483 27324

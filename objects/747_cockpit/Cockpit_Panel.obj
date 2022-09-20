@@ -32065,17 +32065,17 @@ ANIM_begin
 	ANIM_end
 ANIM_end
 TRIS	70254 6
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[79]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[79] 5000
 TRIS	70260 6
 
 ANIM_begin
 	ANIM_trans	   0.3059    2.5542    4.8542	   0.3059    2.5523    4.8495	0 1	laminar/B747/button_switch/position[3]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[2]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[2] 5000
 	TRIS	70266 6
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[3]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[3] 5000
 	TRIS	70272 6
 ANIM_end
-ATTR_light_level 0 1 sim/cockpit2/electrical/instrument_brightness_ratio_manual[6]
+ATTR_light_level 0 1 sim/cockpit2/electrical/instrument_brightness_ratio_manual[6] 5000
 TRIS	70278 8028
 ANIM_begin
 	ANIM_trans	  -0.1715    2.6786    4.7957	  -0.1715    2.6786    4.7957	0 0	no_ref
@@ -32454,12 +32454,12 @@ ANIM_begin
 	ANIM_rotate	  -0.0000   -0.3746   -0.9272	  0.00   1.00	0 1	laminar/B747/rmi_left/captain/bearing
 	TRIS	88560 18
 ANIM_end
-ATTR_light_level 0 1 sim/cockpit2/electrical/instrument_brightness_ratio_manual[8]
+ATTR_light_level 0 1 sim/cockpit2/electrical/instrument_brightness_ratio_manual[8] 5000
 TRIS	88578 3471
 ANIM_begin
 	ANIM_trans	   0.6668    2.7208    4.7790	   0.6668    2.7208    4.7790	0 0	no_ref
 	ANIM_rotate	  -0.0000   -0.3746   -0.9272	  0.00   6.00	0 1	laminar/B747/fltInst/fo/clock_chr_seconds
 	TRIS	92049 39
 ANIM_end
-ATTR_light_level 0 1 sim/cockpit2/electrical/panel_brightness_ratio_manual[2]
+ATTR_light_level 0 1 sim/cockpit2/electrical/panel_brightness_ratio_manual[2] 5000
 TRIS	92088 36

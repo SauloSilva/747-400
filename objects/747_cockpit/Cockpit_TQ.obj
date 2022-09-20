@@ -31473,26 +31473,26 @@ ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.0877    2.4708    5.3503	  -0.0877    2.4708    5.3503	0 0	no_ref
 	ANIM_rotate	   1.0000   -0.0000    0.0000	 20.00 -20.00	0 1	laminar/B747/fuel/fuel_control/toggle_sw_pos[0]
-	ATTR_light_level 0 1 sim/cockpit2/annunciators/engine_fires[0]
+	ATTR_light_level 0 1 sim/cockpit2/annunciators/engine_fires[0] 5000
 	TRIS	80958 1302
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.0452    2.4708    5.3503	  -0.0452    2.4708    5.3503	0 0	no_ref
 	ANIM_rotate	   1.0000   -0.0000    0.0000	 20.00 -20.00	0 1	laminar/B747/fuel/fuel_control/toggle_sw_pos[1]
-	ATTR_light_level 0 1 sim/cockpit2/annunciators/engine_fires[1]
+	ATTR_light_level 0 1 sim/cockpit2/annunciators/engine_fires[1] 5000
 	TRIS	82260 1302
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.0026    2.4708    5.3503	  -0.0026    2.4708    5.3503	0 0	no_ref
 	ANIM_rotate	   1.0000   -0.0000    0.0000	 20.00 -20.00	0 1	laminar/B747/fuel/fuel_control/toggle_sw_pos[2]
-	ATTR_light_level 0 1 sim/cockpit2/annunciators/engine_fires[2]
+	ATTR_light_level 0 1 sim/cockpit2/annunciators/engine_fires[2] 5000
 	TRIS	83562 1302
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.0400    2.4708    5.3503	   0.0400    2.4708    5.3503	0 0	no_ref
 	ANIM_rotate	   1.0000   -0.0000    0.0000	 20.00 -20.00	0 1	laminar/B747/fuel/fuel_control/toggle_sw_pos[3]
-	ATTR_light_level 0 1 sim/cockpit2/annunciators/engine_fires[3]
+	ATTR_light_level 0 1 sim/cockpit2/annunciators/engine_fires[3] 5000
 	TRIS	84864 1302
 ANIM_end
-ATTR_light_level 0 1 sim/cockpit2/electrical/panel_brightness_ratio_manual[2]
+ATTR_light_level 0 1 sim/cockpit2/electrical/panel_brightness_ratio_manual[2] 5000
 TRIS	86166 1764

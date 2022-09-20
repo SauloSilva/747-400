@@ -24786,72 +24786,72 @@ ANIM_begin
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.2199    2.9886    5.0408	  -0.2199    2.9879    5.0392	0 1	laminar/B747/autopilot/button_switch/position[0]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[257]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[257] 5000
 	TRIS	33747 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.2199    2.9708    5.0480	  -0.2199    2.9701    5.0463	0 1	laminar/B747/autopilot/button_switch/position[1]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[258]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[258] 5000
 	TRIS	33753 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.1519    3.0031    5.0350	  -0.1519    3.0021    5.0326	0 1	laminar/B747/autopilot/button_switch/position[2]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[259]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[259] 5000
 	TRIS	33759 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.1519    2.9886    5.0408	  -0.1519    2.9879    5.0392	0 1	laminar/B747/autopilot/button_switch/position[3]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[260]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[260] 5000
 	TRIS	33765 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.1519    2.9708    5.0480	  -0.1519    2.9701    5.0463	0 1	laminar/B747/autopilot/button_switch/position[4]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[261]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[261] 5000
 	TRIS	33771 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.1151    2.9708    5.0480	  -0.1151    2.9701    5.0463	0 1	laminar/B747/autopilot/button_switch/position[5]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[262]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[262] 5000
 	TRIS	33777 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.0254    2.9708    5.0480	  -0.0254    2.9701    5.0463	0 1	laminar/B747/autopilot/button_switch/position[6]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[263]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[263] 5000
 	TRIS	33783 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.0132    2.9708    5.0480	   0.0132    2.9701    5.0463	0 1	laminar/B747/autopilot/button_switch/position[7]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[264]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[264] 5000
 	TRIS	33789 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.0556    2.9853    5.0422	   0.0556    2.9846    5.0405	0 1	laminar/B747/autopilot/button_switch/position[8]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[265]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[265] 5000
 	TRIS	33795 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.0556    2.9708    5.0480	   0.0556    2.9701    5.0463	0 1	laminar/B747/autopilot/button_switch/position[9]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[266]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[266] 5000
 	TRIS	33801 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.0826    3.0031    5.0350	   0.0826    3.0024    5.0333	0 1	laminar/B747/autopilot/button_switch/position[10]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[267]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[267] 5000
 	TRIS	33807 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.1032    3.0031    5.0350	   0.1032    3.0024    5.0333	0 1	laminar/B747/autopilot/button_switch/position[11]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[268]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[268] 5000
 	TRIS	33813 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.1240    3.0031    5.0350	   0.1240    3.0024    5.0333	0 1	laminar/B747/autopilot/button_switch/position[12]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[269]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[269] 5000
 	TRIS	33819 6
 ANIM_end
-ATTR_light_level 0 1 laminar/B747/light/spill/ratio/center_panel[3]
+ATTR_light_level 0 1 laminar/B747/light/spill/ratio/center_panel[3] 5000
 TRIS	33825 108
-ATTR_light_level 0 1 sim/cockpit2/electrical/panel_brightness_ratio_manual[3]
+ATTR_light_level 0 1 sim/cockpit2/electrical/panel_brightness_ratio_manual[3] 5000
 TRIS	33933 14220
 ANIM_begin
 	ANIM_trans	   0.3414    3.0080    5.0439	   0.3414    3.0080    5.0439	0 0	no_ref

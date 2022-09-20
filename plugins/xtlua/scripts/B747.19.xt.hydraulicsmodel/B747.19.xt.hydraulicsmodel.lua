@@ -562,6 +562,8 @@ function flight_start()
       B747DR_controlOverrides = '{"minin":-22,"maxin":17,"minout":-22,"maxout":17,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/r_elev_outer","dstDref":"sim/flightmodel/controls/hstab2_elv1def"}'; --right_outer_elevator
       B747DR_controlOverrides = '{"minin":-22,"maxin":17,"minout":-22,"maxout":17,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/l_elev_inner","dstDref":"sim/flightmodel/controls/hstab1_elv2def"}'; --left_inner_elevator
       B747DR_controlOverrides = '{"minin":-22,"maxin":17,"minout":-22,"maxout":17,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/r_elev_inner","dstDref":"sim/flightmodel/controls/hstab2_elv2def"}'; --right_inner_elevator
+      B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-15,"maxout":15,"scale":-1.0,"srcDref":"sim/flightmodel2/controls/elevator_trim","dstDref":"sim/flightmodel2/controls/stabilizer_deflection_degrees"}'; --trim
+      
       
       --ailerons
       B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-1,"maxout":1,"scale":1.0,"srcDref":"sim/cockpit2/controls/yoke_roll_ratio","dstDref":"laminar/B747/flt_ctrls/custom_roll_ratio"}';

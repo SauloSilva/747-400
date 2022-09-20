@@ -15569,15 +15569,15 @@ ANIM_begin
 	LIGHT_PARAM	airplane_landing_glow	   0.0000    0.0000    0.0000 0 0 -1 0 0.75
 ANIM_end
 # Image: //objects/747_exterior/Exterior_Wings.png
-ATTR_light_level 0 1 sim/flightmodel2/lights/landing_lights_brightness_ratio[0]
+ATTR_light_level 0 1 sim/flightmodel2/lights/landing_lights_brightness_ratio[0] 25000
 TRIS	31800 78
-ATTR_light_level 0 1 sim/flightmodel2/lights/landing_lights_brightness_ratio[1]
+ATTR_light_level 0 1 sim/flightmodel2/lights/landing_lights_brightness_ratio[1] 25000
 TRIS	31878 72
-ATTR_light_level 0 1 sim/flightmodel2/lights/landing_lights_brightness_ratio[2]
+ATTR_light_level 0 1 sim/flightmodel2/lights/landing_lights_brightness_ratio[2] 25000
 TRIS	31950 72
-ATTR_light_level 0 1 sim/flightmodel2/lights/landing_lights_brightness_ratio[3]
+ATTR_light_level 0 1 sim/flightmodel2/lights/landing_lights_brightness_ratio[3] 25000
 TRIS	32022 78
-ATTR_light_level 0 1 sim/flightmodel2/lights/landing_lights_brightness_ratio[a0]
+ATTR_light_level 0 1 sim/flightmodel2/lights/landing_lights_brightness_ratio[0] 25000
 TRIS	32100 600
 ANIM_begin
 	ANIM_trans	 -13.0001   -0.7976   29.2948	 -13.0001   -0.7976   29.2948	0 0	no_ref
@@ -15599,7 +15599,7 @@ ANIM_begin
 			ANIM_rotate_key	25.0	 -9.50
 			ANIM_rotate_key	99.0	 -9.50
 		ANIM_rotate_end
-		ATTR_light_level 0 1 sim/flightmodel2/lights/nav_lights_brightness_ratio[0]
+		ATTR_light_level 0 1 sim/flightmodel2/lights/nav_lights_brightness_ratio[0] 50000
 		TRIS	32700 150
 	ANIM_end
 ANIM_end
@@ -15646,7 +15646,7 @@ ANIM_begin
 			ANIM_rotate_key	25.0	 -9.50
 			ANIM_rotate_key	99.0	 -9.50
 		ANIM_rotate_end
-		ATTR_light_level 0 1 sim/flightmodel2/lights/strobe_brightness_ratio[0]
+		ATTR_light_level 0 1 sim/flightmodel2/lights/strobe_brightness_ratio[0] 50000
 		TRIS	33000 96
 	ANIM_end
 ANIM_end
@@ -15681,10 +15681,10 @@ ANIM_begin
 		ANIM_rotate_key	0.9	  0.00
 		ANIM_rotate_key	1	  0.00
 	ANIM_rotate_end
-	ATTR_light_level 0 1 sim/flightmodel2/lights/taxi_lights_brightness_ratio[0]
+	ATTR_light_level 0 1 sim/flightmodel2/lights/taxi_lights_brightness_ratio[0] 50000
 	TRIS	33192 432
-	ATTR_light_level 0.0 1.0 sim/flightmodel2/lights/generic_lights_brightness_ratio[0]
+	ATTR_light_level 0.0 1.0 sim/flightmodel2/lights/generic_lights_brightness_ratio[0] 50000
 	TRIS	33624 162
-	ATTR_light_level 0.0 1.0 sim/flightmodel2/lights/generic_lights_brightness_ratio[1]
+	ATTR_light_level 0.0 1.0 sim/flightmodel2/lights/generic_lights_brightness_ratio[1] 50000
 	TRIS	33786 162
 ANIM_end
