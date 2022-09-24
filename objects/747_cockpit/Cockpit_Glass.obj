@@ -4121,10 +4121,7 @@ TRIS	5142 273
 ####_group	z06_GlassDoors
 # Image: /Users/JGregory/Applications/X-Plane/XP11/Aircraft/__Laminar Development/Desktop/Heavy Metal/B747-400 United/objects/747_cockpit/Cockpit_Glass.png
 ATTR_light_level_reset
-TRIS	5415 24
-####_group	z07_ShutrWndw
-# Image: /Users/JGregory/Applications/X-Plane/XP11/Aircraft/__Laminar Development/Desktop/Heavy Metal/B747-400 United/objects/747_cockpit/Cockpit_Glass.png
-TRIS	5439 6
+
 ANIM_begin
 	ANIM_trans	  -0.2692    3.4558    5.6132	  -0.2692    3.4606    5.6117	0 1	laminar/B747/button_switch/position[13]
 	TRIS	5445 6
@@ -4698,6 +4695,4 @@ ANIM_begin
 		TRIS	8703 1920
 	ANIM_end
 ANIM_end
-####_group	z12_CPwndwIN
-# Image: /Users/JGregory/Applications/X-Plane/XP11/Aircraft/__Laminar Development/Desktop/Heavy Metal/B747-400 United/objects/747_cockpit/Cockpit_Glass.png
-TRIS	10623 678
+

@@ -77,7 +77,7 @@ simDR_wing_heat_on                  = find_dataref("sim/cockpit2/ice/ice_surfce_
 simDR_wing_heat_on_L                = find_dataref("sim/cockpit2/ice/ice_surfce_heat_left_on")
 simDR_wing_heat_on_R                = find_dataref("sim/cockpit2/ice/ice_surfce_heat_right_on")
 simDR_window_heat_on                = find_dataref("sim/cockpit2/ice/ice_window_heat_on")
-simDR_windshield_wiper_speed        = find_dataref("sim/cockpit2/switches/wiper_speed")
+simDR_windshield_wiper_speed        = find_dataref("sim/cockpit2/switches/wiper_speed_switch")
 simDR_flap_deploy_ratio             = find_dataref("laminar/B747/cablecontrols/flap_ratio")
 simDR_all_wheels_on_ground          = find_dataref("sim/flightmodel/failures/onground_any")
 simDR_ice_detected                  = find_dataref("sim/cockpit2/annunciators/ice")
@@ -185,7 +185,9 @@ simCMD_ice_detect_on                    = find_command("sim/ice/detect_on")
 -- WINDSHIELD WIPERS
 function B747_set_sim_wiper_speed()
     local wwSpeed = math.max(B747DR_windshield_wiper_sel_L_pos, B747DR_windshield_wiper_sel_R_pos)
-    simDR_windshield_wiper_speed = wwSpeed
+   -- simDR_windshield_wiper_speed = wwSpeed
+   simDR_windshield_wiper_speed[0] = B747DR_windshield_wiper_sel_L_pos
+   simDR_windshield_wiper_speed[1] = B747DR_windshield_wiper_sel_R_pos
 end
 
 function B747_windshield_wiper_sel_L_up_CMDhandler(phase, duration)
