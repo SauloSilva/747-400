@@ -121,14 +121,14 @@ simDR_reallyall_wheels_on_ground      = find_dataref("sim/flightmodel/failures/o
 simDR_thrust_rev_deploy_ratio   = find_dataref("sim/flightmodel2/engines/thrust_reverser_deploy_ratio")
 B747DR_speedbrake_lever     	= find_dataref("laminar/B747/flt_ctrls/speedbrake_lever")
 B747DR_reverser_lockout            = deferred_dataref("laminar/B747/engines/reverser_lockout", "number")
-simDR_autothrottle_on           = find_dataref("sim/cockpit2/autopilot/autothrottle_on")
+--simDR_autothrottle_on           = find_dataref("sim/cockpit2/autopilot/autothrottle_on")
 
 simDR_prop_mode                 = find_dataref("sim/cockpit2/engine/actuators/prop_mode")
 
 simDR_engine_throttle_jet       = find_dataref("sim/cockpit2/engine/actuators/throttle_jet_rev_ratio")
 simDR_engine_throttle_jet_all   = find_dataref("sim/cockpit2/engine/actuators/throttle_jet_rev_ratio_all")
-simCMD_autopilot_autothrottle_on		= find_command("sim/autopilot/autothrottle_on")
-simCMD_autopilot_autothrottle_off		= find_command("sim/autopilot/autothrottle_off")
+--simCMD_autopilot_autothrottle_on		= find_command("sim/autopilot/autothrottle_on")
+--simCMD_autopilot_autothrottle_off		= find_command("sim/autopilot/autothrottle_off")
 simCMD_autopilot_glideslope_mode		= find_command("sim/autopilot/glide_slope")
 B747DR_ap_approach_mode     	= deferred_dataref("laminar/B747/autopilot/approach_mode", "number")
 simDR_autopilot_nav_status          	= find_dataref("sim/cockpit2/autopilot/nav_status")
@@ -545,7 +545,8 @@ function B747_engine_TOGA_power_CMDhandler(phase, duration)
         if B747DR_toggle_switch_position[29] == 1 then
             --if simDR_allThrottle>0.25 then
 		    
-		    simCMD_autopilot_autothrottle_off:once()
+		    --simCMD_autopilot_autothrottle_off:once()
+            B747DR_autothrottle_active=0
            -- end
         end		
 	end	

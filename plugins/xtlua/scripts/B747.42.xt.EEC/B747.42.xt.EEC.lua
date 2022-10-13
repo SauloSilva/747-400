@@ -203,8 +203,8 @@ simDR_reverser_deploy_ratio = find_dataref("sim/flightmodel2/engines/thrust_reve
 simDR_reverser_max			= find_dataref("sim/aircraft/engine/acf_throtmax_REV")
 simDR_engine_running		= find_dataref("sim/flightmodel/engine/ENGN_running")
 simDR_compressor_area		= find_dataref("sim/aircraft/engine/acf_face_jet")
-simDR_autothrottle_enabled	= find_dataref("sim/cockpit2/autopilot/autothrottle_enabled")
-simDR_autothrottle_on		= find_dataref("sim/cockpit2/autopilot/autothrottle_on")
+B747DR_autothrottle_active	= find_dataref("laminar/B747/engines/autothrottle_active")
+--simDR_autothrottle_on		= find_dataref("sim/cockpit2/autopilot/autothrottle_on")
 simDR_engine_starter_status	= find_dataref("sim/flightmodel2/engines/starter_is_running")
 B747DR_ap_autoland            	= deferred_dataref("laminar/B747/autopilot/autoland", "number")
 debug_ecc     = deferred_dataref("laminar/B747/debug/ecc", "number")
@@ -213,7 +213,7 @@ debug_ecc     = deferred_dataref("laminar/B747/debug/ecc", "number")
 ** 				              FIND X-PLANE COMMANDS              		    	   **
 *************************************************************************************
 ]]
-simCMD_autopilot_AT_off		= find_command("sim/autopilot/autothrottle_off")
+--simCMD_autopilot_autothrottle_off		= find_command("sim/autopilot/autothrottle_off")
 simCMD_ThrottleUp			= find_command("sim/engines/throttle_up")
 simCMD_ThrottleDown			= find_command("sim/engines/throttle_down")
 
@@ -694,11 +694,9 @@ function throttle_management()
 
 	--Disconnect A/T if any of the EEC buttons move from NORMAL to ALTERNATE
 	if (B747DR_button_switch_position[7] == 0 or B747DR_button_switch_position[8] == 0 or B747DR_button_switch_position[9] == 0 or B747DR_button_switch_position[10] == 0) and EEC_status == 0 then
-		--simCMD_autopilot_AT_off:once()
 		B747DR_autothrottle_fail = 1
 		EEC_status = 1
-		simDR_autothrottle_enabled = 0
-		simDR_autothrottle_on = 0
+		B747DR_autothrottle_active = 0
 	elseif (B747DR_button_switch_position[7] == 1 and B747DR_button_switch_position[8] == 1 and B747DR_button_switch_position[9] == 1 and B747DR_button_switch_position[10] == 1) then
 		EEC_status = 0
 	end
@@ -733,9 +731,9 @@ function throttle_management()
 					or B747DR_display_N1[2] < B747DR_display_N1_ref[2] or B747DR_display_N1[3] < B747DR_display_N1_ref[3] then
 					print("TOGA Engaged - Waiting for spool-up.....")
 					simCMD_ThrottleUp:once()
-					--simDR_autothrottle_enabled = 2
-					if simDR_autothrottle_enabled ~= 0 then
-						simCMD_autopilot_AT_off:once()
+					if B747DR_autothrottle_active ~= 0 then
+						--simCMD_autopilot_autothrottle_off:once()
+						B747DR_autothrottle_active=0
 					end
 					return
 				end
@@ -744,9 +742,9 @@ function throttle_management()
 					or B747DR_display_EPR[2] < B747DR_display_EPR_ref[2] or B747DR_display_EPR[3] < B747DR_display_EPR_ref[3] then
 					print("TOGA Engaged - Waiting for spool-up.....")
 					simCMD_ThrottleUp:once()
-					--simDR_autothrottle_enabled = 2
-					if simDR_autothrottle_enabled ~= 0 then
-						simCMD_autopilot_AT_off:once()
+					if B747DR_autothrottle_active ~= 0 then
+						--simCMD_autopilot_autothrottle_off:once()
+						B747DR_autothrottle_active=0
 					end
 					return
 				end
@@ -789,11 +787,11 @@ function throttle_management()
 		or B747DR_ap_FMA_active_pitch_mode == 7 or B747DR_ap_FMA_active_pitch_mode == 8
 		or B747DR_ap_FMA_active_pitch_mode == 9 then
 			simDR_override_throttles = 1
-			--simDR_autothrottle_enabled = 2
-			if simDR_autothrottle_enabled ~= 0 then
-				simCMD_autopilot_AT_off:once()
+			if B747DR_autothrottle_active ~= 0 then
+				--simCMD_autopilot_autothrottle_off:once()
+				B747DR_autothrottle_active=0
 			end
-			simDR_autothrottle_on = 1
+			B747DR_autothrottle_active = 1
 		end
 
 		--Thrust ref target line should stay GREEN when in TOGA mode
@@ -812,10 +810,7 @@ function throttle_management()
 	elseif (B747DR_ap_autothrottle_armed == 1  or simDR_override_throttles == 1 ) and B747DR_ap_FMA_autothrottle_mode == 1 and EEC_status == 0 then
 		--Give throttle control back to the user
 		simDR_override_throttles = 0
-		--[[if simDR_autothrottle_enabled == 2 and simDR_autothrottle_on == 1 then
-			simDR_autothrottle_enabled = 0
-			simDR_autothrottle_on = 0
-		end]]
+
 		B747DR_ref_line_magenta = 0
 		--hold_mode = 1
 
@@ -829,9 +824,9 @@ function throttle_management()
 		--Give throttle control back to the user
 		--hold_mode = 0
 		simDR_override_throttles = 0
-		if simDR_autothrottle_enabled == 2 and simDR_autothrottle_on == 1 then
-			simDR_autothrottle_enabled = 0
-			simDR_autothrottle_on = 0
+		if B747DR_autothrottle_active == 1 then
+			B747DR_autothrottle_active = 0
+
 		end
 		B747DR_ref_line_magenta = 0
 		--speed_mode = 1
@@ -842,19 +837,17 @@ function throttle_management()
 		end
 	elseif B747DR_autothrottle_fail == 1 then
 		--Autothrottle has been disabled for some reason
-		simDR_autothrottle_enabled = 0
-		simDR_autothrottle_on = 0
+		B747DR_autothrottle_active = 0
+
 	elseif B747DR_ap_autothrottle_armed == 1 and B747DR_ap_FMA_autothrottle_mode == 3 then
 		--new SPD
 		
 		ecc_spd()
 	else
 		simDR_override_throttles = 0
-		--simDR_autothrottle_enabled = 0
-		--simDR_autothrottle_on = 0
+
 		B747DR_ref_line_magenta = 0
-		--hold_mode = 0
-		--speed_mode = 0
+
 
 		if B747DR_log_level >= 1 then
 			print("---Setting Back to Normal---")

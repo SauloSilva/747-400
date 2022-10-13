@@ -284,13 +284,15 @@ function VNAV_DES(numAPengaged,fms)
     local forceOn=false
     if B747DR_ap_ias_dial_value<=spdval and simDR_autopilot_airspeed_is_mach==0 and B747DR_ap_ias_mach_window_open == 0 then forceOn=true end
     if B747BR_totalDistance-B747BR_tod<=0 and simDR_autopilot_airspeed_is_mach==0 and B747DR_ap_ias_mach_window_open == 0 and isManualSpeed==false then forceOn=true end
-    if B747DR_ap_inVNAVdescent >0 and simDR_autopilot_autothrottle_enabled == 1 and simDR_allThrottle<0.02 and forceOn==false then							-- AUTOTHROTTLE IS "ON"
-        simCMD_autopilot_autothrottle_off:once()									-- DEACTIVATE THE AUTOTHROTTLE
+    if B747DR_ap_inVNAVdescent >0 and B747DR_autothrottle_active == 1 and simDR_allThrottle<0.02 and forceOn==false then							-- AUTOTHROTTLE IS "ON"
+       -- simCMD_autopilot_autothrottle_off:once()									-- DEACTIVATE THE AUTOTHROTTLE
+        B747DR_autothrottle_active=0
         B747DR_ap_lastCommand=simDRTime
         print("fix idle throttle")
         return
-    elseif simDR_autopilot_autothrottle_enabled == 0 and (simDR_ind_airspeed_kts_pilot<B747DR_airspeed_Vmc+15 or forceOn==true) and B747DR_toggle_switch_position[29] == 1 then
-        simCMD_autopilot_autothrottle_on:once()
+    elseif B747DR_autothrottle_active == 0 and (simDR_ind_airspeed_kts_pilot<B747DR_airspeed_Vmc+15 or forceOn==true) and B747DR_toggle_switch_position[29] == 1 then
+        --simCMD_autopilot_autothrottle_on:once()
+        B747DR_autothrottle_active=1
         B747DR_ap_lastCommand=simDRTime
         if B747DR_engine_TOGA_mode ==1 then B747DR_engine_TOGA_mode = 0 end	-- CANX ENGINE TOGA IF ACTIVE
         print("fix idle throttle to climb/maintain")
@@ -312,11 +314,12 @@ function B747_monitor_THR_REF_AT()
     
     if timediff<0.1 then return end
     if B747DR_toggle_switch_position[29] ~= 1 then return end
-    if ((B747DR_ap_thrust_mode == 0 and simDR_autopilot_flch_status>0) or (simDR_radarAlt1>2000 and( simDR_pressureAlt1< simDR_autopilot_altitude_ft+B747DR_alt_capture_window and simDR_pressureAlt1> simDR_autopilot_altitude_ft-B747DR_alt_capture_window))) and simDR_autopilot_autothrottle_on == 0 then
+    if ((B747DR_ap_thrust_mode == 0 and simDR_autopilot_flch_status>0) or (simDR_radarAlt1>2000 and( simDR_pressureAlt1< simDR_autopilot_altitude_ft+B747DR_alt_capture_window and simDR_pressureAlt1> simDR_autopilot_altitude_ft-B747DR_alt_capture_window))) and B747DR_autothrottle_active == 0 then
         print("B747_monitor_THR_REF_AT B747DR_ap_thrust_mode " .. B747DR_ap_thrust_mode)
         simDR_override_throttles=0
         B747DR_ap_thrust_mode = 0
-        simCMD_autopilot_autothrottle_on:once()
+        --simCMD_autopilot_autothrottle_on:once()
+        B747DR_autothrottle_active=1
         B747DR_ap_lastCommand = simDRTime
         return
     end
@@ -326,7 +329,7 @@ function B747_monitor_THR_REF_AT()
     local lastChange=simDRTime-last_THR_REF
     
     --print("THR REF B747_monitor_THR_REF_AT".." simDR_autopilot_autothrottle_on "..simDR_autopilot_autothrottle_on.." simDR_override_throttles "..simDR_override_throttles.." simDR_autopilot_altitude_ft "..simDR_autopilot_altitude_ft.." simDR_pressureAlt1 "..simDR_pressureAlt1)
-    if (simDR_autopilot_autothrottle_on == 0 or simDR_override_throttles==1) 
+    if (B747DR_autothrottle_active == 0 or simDR_override_throttles==1) 
     and (simDR_pressureAlt1< simDR_autopilot_altitude_ft+B747DR_alt_capture_window and simDR_pressureAlt1> simDR_autopilot_altitude_ft-B747DR_alt_capture_window) then
         B747DR_ap_flightPhase=2
 		print("B747DR_ap_thrust_mode " .. B747DR_ap_thrust_mode)
@@ -375,7 +378,7 @@ function B747_monitor_THR_REF_AT()
     elseif thrustDiff<20 then wait=0.05 end
     --print("THR REF="..ref_throttle.. " simDR_allThrottle="..n1_pct.. " wait="..wait.. " B747DR_ap_thrust_mode="..B747DR_ap_thrust_mode)
     if lastChange<wait then return end --wait for engines to stabilise
-    if simDR_autopilot_autothrottle_enabled == 1 and timediff>0.5 then 
+    if B747DR_autothrottle_active == 1 and timediff>0.5 then 
         B747DR_ap_thrust_mode=0 
         return 
     end
@@ -425,7 +428,7 @@ function VNAV_modeSwitch(fmsO)
     end --not requested 
     local dist=B747BR_totalDistance-B747BR_tod
     
-    if B747DR_ap_inVNAVdescent >0 and simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 and simDR_allThrottle>0 and simDR_radarAlt1>1000 and B747DR_ap_FMA_autothrottle_mode==5 then
+    if B747DR_ap_inVNAVdescent >0 and B747DR_autothrottle_active == 0 and B747DR_toggle_switch_position[29] == 1 and simDR_allThrottle>0 and simDR_radarAlt1>1000 and B747DR_ap_FMA_autothrottle_mode==5 then
         simCMD_ThrottleDown:once()
     else
         B747_monitor_THR_REF_AT()
@@ -513,9 +516,10 @@ function B747_monitorAT()
     if B747DR_display_N1[3]>15.0 then numRun=numRun+1 end
 
     if numRun<3 or B747DR_autothrottle_fail>0 then 
-        if simDR_autopilot_autothrottle_enabled==1 then
+        if B747DR_autothrottle_active==1 then
             print("2+ engines inop or fail AT")
-            simCMD_autopilot_autothrottle_off:once()
+            --simCMD_autopilot_autothrottle_off:once()
+            B747DR_autothrottle_active=0
             B747DR_ap_lastCommand=simDRTime
             B747DR_autothrottle_fail=1
         end
@@ -530,9 +534,10 @@ function B747_monitorAT()
 
     --AT OFF
     if B747DR_toggle_switch_position[29] == 0 or simDR_radarAlt1<25 then 
-        if simDR_autopilot_autothrottle_enabled==1 then
+        if B747DR_autothrottle_active==1 then
             print("AT off")
-            simCMD_autopilot_autothrottle_off:once()
+            --simCMD_autopilot_autothrottle_off:once()
+            B747DR_autothrottle_active=0
             B747DR_ap_lastCommand=simDRTime
         end
         
@@ -548,11 +553,11 @@ function B747_monitorAT()
         B747DR_ap_thrust_mode=0
         B747DR_engine_TOGA_mode = 0	-- CANX ENGINE TOGA IF ACTIVE
         B747DR_ap_flightPhase=2
-        if simDR_autopilot_autothrottle_enabled==0 then
+        if B747DR_autothrottle_active==0 then
             print("simDR_autopilot_alt_hold_status")
             simDR_override_throttles=0
-            simCMD_autopilot_autothrottle_on:once()
-            
+            --simCMD_autopilot_autothrottle_on:once()
+            B747DR_autothrottle_active=1
             B747DR_ap_lastCommand=simDRTime
         end
         
@@ -561,10 +566,11 @@ function B747_monitorAT()
     if (B747DR_ap_FMA_active_pitch_mode == 9 
     or B747DR_ap_FMA_active_pitch_mode == 7) and B747DR_ap_vnav_state > 0
     or B747DR_ap_FMA_active_pitch_mode == 2 then
-        if simDR_autopilot_autothrottle_enabled==0 then
+        if B747DR_autothrottle_active==0 then
             print("B747DR_ap_FMA_active_pitch_mode")
             simDR_override_throttles=0
-            simCMD_autopilot_autothrottle_on:once()
+            --simCMD_autopilot_autothrottle_on:once()
+            B747DR_autothrottle_active=1
             if B747DR_engine_TOGA_mode ==1 then B747DR_engine_TOGA_mode = 0 end	-- CANX ENGINE TOGA IF ACTIVE
             B747DR_ap_lastCommand=simDRTime
         end
@@ -577,9 +583,10 @@ function B747_monitorAT()
         return 
     end
     --otherwise off  (VNAV ONLY)
-    if simDR_autopilot_autothrottle_enabled==1 and B747DR_ap_inVNAVdescent == 0 and (B747DR_ap_vnav_state>0 or B747DR_ap_FMA_autothrottle_mode == 5) then
+    if B747DR_autothrottle_active==1 and B747DR_ap_inVNAVdescent == 0 and (B747DR_ap_vnav_state>0 or B747DR_ap_FMA_autothrottle_mode == 5) then
         print("Off with B747DR_ap_FMA_active_pitch_mode="..B747DR_ap_FMA_active_pitch_mode)
-        simCMD_autopilot_autothrottle_off:once()
+        --simCMD_autopilot_autothrottle_off:once()
+        B747DR_autothrottle_active=0
         B747DR_ap_lastCommand=simDRTime
     end
     
@@ -633,7 +640,7 @@ end
 
 function B747_monitorAP(fmsO)
     --refresh
-    local autothrottlemode=simDR_autopilot_autothrottle_enabled
+    local autothrottlemode=B747DR_autothrottle_active
     local flch_status=simDR_autopilot_flch_status
     local vs_status=simDR_autopilot_vs_status
     B747_monitorAT()

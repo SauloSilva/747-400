@@ -148,7 +148,7 @@ simDR_aircraft_altitude             = find_dataref("sim/cockpit2/gauges/indicato
 simDR_cabin_altitude                = find_dataref("sim/cockpit2/pressurization/indicators/cabin_altitude_ft")
 
 simDR_autopilot_servos_on           	= find_dataref("sim/cockpit2/autopilot/servos_on")
-simDR_autopilot_autothrottle_enabled	= find_dataref("sim/cockpit2/autopilot/autothrottle_enabled")
+B747DR_autothrottle_active	= find_dataref("laminar/B747/engines/autothrottle_active")
 
 simDR_autopilot_gpss_status				= find_dataref("sim/cockpit2/autopilot/gpss_status")
 simDR_autopilot_fms_vnav_status			= find_dataref("sim/cockpit2/autopilot/fms_vnav")
@@ -1561,7 +1561,7 @@ function B747_annunciators()
     -- MCP AUTOPILOT BUTTON SWITCHES ---------------------------------------------
 	--annun.b.ap_thrust 	= B747_ternary(B747DR_engine_TOGA_mode >0 , 1, 0)
     annun.b.ap_thrust 	= B747_ternary(B747DR_ap_FMA_autothrottle_mode==5 and (simDR_autopilot_vs_status == 2 or simDR_autopilot_alt_hold_status == 2) , 1, 0)
-    annun.b.ap_speed 	= B747_ternary(simDR_autopilot_autothrottle_enabled == 1 and B747DR_ap_vnav_state < 1, 1, 0)
+    annun.b.ap_speed 	= B747_ternary(B747DR_autothrottle_active == 1 and B747DR_ap_vnav_state < 1, 1, 0)
     annun.b.ap_lnav 	= B747_ternary(simDR_autopilot_gpss_status > 0 or B747DR_ap_lnav_state>0, 1, 0)
     annun.b.ap_vnav 	= B747_ternary(simDR_autopilot_fms_vnav_status > 0 or B747DR_ap_vnav_state>0, 1, 0)
     annun.b.ap_fl_ch 	= B747_ternary(simDR_autopilot_flch_status == 2 and simDR_autopilot_fms_vnav_status < 1 and B747DR_ap_vnav_state < 1, 1, 0)

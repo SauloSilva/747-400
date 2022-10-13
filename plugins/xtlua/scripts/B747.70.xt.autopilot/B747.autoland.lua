@@ -34,7 +34,8 @@ function start_flare()
     B747DR_ap_FMA_armed_pitch_mode = 0
     B747DR_ap_FMA_active_pitch_mode = 3 --SHOW FLARE
     pinThrottle=simDR_allThrottle
-    simCMD_autopilot_autothrottle_off:once() 
+    --simCMD_autopilot_autothrottle_off:once() 
+    B747DR_autothrottle_active=0
     windCorrectAngle=simDR_reqHeading-simDR_AHARS_heading_deg_pilot
     --simCMD_autopilot_fdir_servos_down_one:once()
     

@@ -97,7 +97,7 @@ simDR_AHARS_roll_deg_pilot          	= find_dataref("sim/cockpit2/gauges/indicat
 simDR_autopilot_TOGA_vert_status    	= find_dataref("sim/cockpit2/autopilot/TOGA_status")
 simDR_autopilot_TOGA_lat_status     	= find_dataref("sim/cockpit2/autopilot/TOGA_lateral_status")
 
-simDR_autopilot_autothrottle_enabled	= find_dataref("sim/cockpit2/autopilot/autothrottle_enabled")
+B747DR_autothrottle_active	= find_dataref("laminar/B747/engines/autothrottle_active")
 
 B747DR_autothrottle_fail            	= find_dataref("laminar/B747/engines/autothrottle_fail")
 --*************************************************************************************--
@@ -462,7 +462,7 @@ simCMD_hyd_eng_pumps_on             = replace_command("sim/flight_controls/hydra
 simCMD_hyd_eng_pumps_off            = replace_command("sim/flight_controls/hydraulic_off", B747_hyd_eng_pumps_off_CMDhandler)
 simCMD_hyd_eng_pumps_toggle         = replace_command("sim/flight_controls/hydraulic_tog", B747_hyd_eng_pumps_toggle_CMDhandler)
 
-simCMD_autopilot_autothrottle_off   = find_command("sim/autopilot/autothrottle_off")
+--simCMD_autopilot_autothrottle_off   = find_command("sim/autopilot/autothrottle_off")
 
 
 --simCMD_autopilot_pitch_sync         = find_command("sim/autopilot/pitch_sync")
@@ -1410,8 +1410,9 @@ function B747_autothrottle_arm_switch_CMDhandler(phase, duration)
                 print("B747_autothrottle_arm_switch_CMDhandler fail AT")
                 B747DR_autothrottle_fail=1
             end
-	     	if simDR_autopilot_autothrottle_enabled == 1 then
-	     		simCMD_autopilot_autothrottle_off:once() 
+	     	if B747DR_autothrottle_active == 1 then
+	     		--simCMD_autopilot_autothrottle_off:once() 
+                 B747DR_autothrottle_active=0
 	     	end
         else
             B747DR_autothrottle_fail=0

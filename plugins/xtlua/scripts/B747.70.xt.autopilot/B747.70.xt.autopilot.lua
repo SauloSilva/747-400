@@ -123,8 +123,8 @@ B747DR_airspeed_Vf30 = find_dataref("laminar/B747/airspeed/Vf30")
 B747DR_CAS_warning_status = find_dataref("laminar/B747/CAS/warning_status")
 simDR_autopilot_flight_dir_active = find_dataref("sim/cockpit2/annunciators/flight_director")
 simDR_autopilot_flight_dir_mode = find_dataref("sim/cockpit2/autopilot/flight_director_mode")
-simDR_autopilot_autothrottle_enabled = find_dataref("sim/cockpit2/autopilot/autothrottle_enabled")
-simDR_autopilot_autothrottle_on = find_dataref("sim/cockpit2/autopilot/autothrottle_on")
+B747DR_autothrottle_active = find_dataref("laminar/B747/engines/autothrottle_active")
+--simDR_autopilot_autothrottle_on = find_dataref("sim/cockpit2/autopilot/autothrottle_on")
 simCMD_ThrottleDown = find_command("sim/engines/throttle_down")
 simCMD_ThrottleUp = find_command("sim/engines/throttle_up")
 B747DR_ap_vnav_pause = find_dataref("laminar/B747/autopilot/vnav_pause")
@@ -268,8 +268,8 @@ B747DR_mcp_hold_pressed = deferred_dataref("laminar/B747/autopilot/ap_monitor/mc
 --** 				             FIND X-PLANE COMMANDS                   	    	 **--
 --*************************************************************************************--
 
-simCMD_autopilot_autothrottle_on = find_command("sim/autopilot/autothrottle_on")
-simCMD_autopilot_autothrottle_off = find_command("sim/autopilot/autothrottle_off")
+--simCMD_autopilot_autothrottle_on = find_command("sim/autopilot/autothrottle_on")
+--simCMD_autopilot_autothrottle_off = find_command("sim/autopilot/autothrottle_off")
 --simCMD_autopilot_toggle_knots_mach  	= find_command("sim/autopilot/knots_mach_toggle")
 simCMD_autopilot_roll_right_sync_mode = find_command("sim/autopilot/override_right")
 simCMD_autopilot_servos_on = find_command("sim/autopilot/servos_on")
@@ -486,15 +486,17 @@ end
 
 dofile("B747.70.xt.autopilot.vnav.lua")
 function autothrottle_reengage()
-	if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 and simDR_onGround == 0 then
-		simCMD_autopilot_autothrottle_on:once()
+	if B747DR_autothrottle_active == 0 and B747DR_toggle_switch_position[29] == 1 and simDR_onGround == 0 then
+		--simCMD_autopilot_autothrottle_on:once()
+		B747DR_autothrottle_active=1
 	end
 end
 
 function B747_ap_thrust_mode_CMDhandler(phase, duration) -- INOP, NO CORRESPONDING FUNCTIONALITY IN X-PLANE
 	if phase == 0 then
 		B747_ap_button_switch_position_target[0] = 1
-		simCMD_autopilot_autothrottle_off:once()
+		--simCMD_autopilot_autothrottle_off:once()
+		B747DR_autothrottle_active=0
 		B747DR_ap_lastCommand = simDRTime
 		if simDR_radarAlt1 > 400 then
 			B747DR_ap_thrust_mode = 3
@@ -511,8 +513,9 @@ function B747_ap_switch_speed_mode_CMDhandler(phase, duration)
 		B747DR_ap_lastCommand = simDRTime
 
 		if B747DR_toggle_switch_position[29] == 1 then -- AUTOTHROTTLE ""ARM" SWITCH IS "ON"
-			if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 and simDR_onGround == 0 then -- AUTOTHROTTLE IS "OFF"
-				simCMD_autopilot_autothrottle_on:once() -- ACTIVATE THE AUTOTHROTTLE
+			if B747DR_autothrottle_active == 0 and B747DR_toggle_switch_position[29] == 1 and simDR_onGround == 0 then -- AUTOTHROTTLE IS "OFF"
+				--simCMD_autopilot_autothrottle_on:once() -- ACTIVATE THE AUTOTHROTTLE
+				B747DR_autothrottle_active=1
 				if B747DR_engine_TOGA_mode > 0 then
 					B747DR_engine_TOGA_mode = 0
 				end -- CANX ENGINE TOGA IF ACTIVE
@@ -648,9 +651,9 @@ function B747_ap_switch_vs_mode_CMDhandler(phase, duration)
 		B747_ap_button_switch_position_target[6] = 1
 		--for animation
 
-		if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 and simDR_onGround == 0 then -- AUTOTHROTTLE IS "OFF"
-			simCMD_autopilot_autothrottle_on:once() -- ACTIVATE THE AUTOTHROTTLE
-
+		if B747DR_autothrottle_active == 0 and B747DR_toggle_switch_position[29] == 1 and simDR_onGround == 0 then -- AUTOTHROTTLE IS "OFF"
+			--simCMD_autopilot_autothrottle_on:once() -- ACTIVATE THE AUTOTHROTTLE
+			B747DR_autothrottle_active=1
 			B747DR_engine_TOGA_mode = 0
 		end
 		simDR_autopilot_altitude_ft = B747DR_autopilot_altitude_ft
@@ -680,9 +683,9 @@ function B747_ap_alt_hold_mode_CMDhandler(phase, duration)
 	if phase == 0 then
 		B747CMD_fdr_log_alt:once()
 		B747_ap_button_switch_position_target[7] = 1
-		if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 then -- AUTOTHROTTLE IS "OFF"
-			simCMD_autopilot_autothrottle_on:once() -- ACTIVATE THE AUTOTHROTTLE
-
+		if B747DR_autothrottle_active == 0 and B747DR_toggle_switch_position[29] == 1 then -- AUTOTHROTTLE IS "OFF"
+			--simCMD_autopilot_autothrottle_on:once() -- ACTIVATE THE AUTOTHROTTLE
+			B747DR_autothrottle_active=1
 			B747DR_engine_TOGA_mode = 0
 		end
 
@@ -776,7 +779,7 @@ function B747_ap_switch_disengage_bar_CMDhandler(phase, duration) --disengage ba
 			if numAPengaged > 0 then
 				B747DR_CAS_warning_status[0] = 1
 			end
-			if simDR_autopilot_autothrottle_enabled == 1 then
+			if B747DR_autothrottle_active == 1 then
 				run_after_time(autothrottle_reengage,0.5)
 			end
 			B747CMD_ap_reset:once() -- TURN FLIGHT DIRECTOR AND SERVOS "OFF"
@@ -803,7 +806,7 @@ function B747_ap_switch_yoke_disengage_capt_CMDhandler(phase, duration)
 		else
 			B747DR_CAS_warning_status[0] = 0
 		end
-		if simDR_autopilot_autothrottle_enabled == 1 then
+		if B747DR_autothrottle_active == 1 then
 			run_after_time(autothrottle_reengage,0.5)
 		end
 		B747CMD_ap_reset:once()
@@ -824,7 +827,7 @@ function B747_ap_switch_yoke_disengage_fo_CMDhandler(phase, duration)
 		else
 			B747DR_CAS_warning_status[0] = 0
 		end
-		if simDR_autopilot_autothrottle_enabled == 1 then
+		if B747DR_autothrottle_active == 1 then
 			run_after_time(autothrottle_reengage,0.5)
 		end
 		B747CMD_ap_reset:once()
@@ -902,8 +905,9 @@ function B747_ap_VNAV_mode_CMDhandler(phase, duration)
 			B747DR_ap_inVNAVdescent = 0
 			B747DR_ap_thrust_mode = 0
 			B747DR_mcp_hold=0
-			if simDR_autopilot_autothrottle_enabled == 0 and B747DR_toggle_switch_position[29] == 1 and simDR_onGround == 0 then
-				simCMD_autopilot_autothrottle_on:once()
+			if B747DR_autothrottle_active == 0 and B747DR_toggle_switch_position[29] == 1 and simDR_onGround == 0 then
+				--simCMD_autopilot_autothrottle_on:once()
+				B747DR_autothrottle_active=1
 			end
 		elseif B747DR_ap_vnav_system == 2 then
 			B747DR_ap_vnav_state = 1
@@ -2458,7 +2462,7 @@ function B747_ap_fma()
 			(((simDR_autopilot_flch_status > 0 and (simDR_pressureAlt1> simDR_autopilot_altitude_ft+B747DR_alt_capture_window or simDR_pressureAlt1< simDR_autopilot_altitude_ft-B747DR_alt_capture_window)) or B747DR_engine_TOGA_mode == 1) and B747DR_ap_inVNAVdescent == 0)
 	 then
 		B747DR_ap_FMA_autothrottle_mode = 5 --THR REF
-	elseif simDR_autopilot_autothrottle_on == 1 then
+	elseif B747DR_autothrottle_active == 1 then
 		if B747DR_ap_vnav_state > 0 and simDR_allThrottle < 0.02 and B747DR_ap_inVNAVdescent > 0 then
 			B747DR_ap_FMA_autothrottle_mode = 2 --IDLE
 		elseif simDR_onGround == 0 then
@@ -2538,7 +2542,7 @@ function B747_ap_afds()
 		landAssist = false
 	elseif simDR_autopilot_servos_on == 1 and (simDRTime - switching_servos_on) > 1 then
 		if numAPengaged == 0 then
-			if simDR_autopilot_autothrottle_enabled == 1 then
+			if B747DR_autothrottle_active == 1 then
 				run_after_time(autothrottle_reengage,0.5)
 			end
 			B747CMD_ap_reset:once()
@@ -2786,7 +2790,7 @@ function B747_ap_EICAS_msg()
 			B747DR_ap_vnav_state > 0
 	 then
 		if
-			simDR_allThrottle > 0 and B747DR_toggle_switch_position[29] == 1 and simDR_autopilot_autothrottle_enabled == 0 and
+			simDR_allThrottle > 0 and B747DR_toggle_switch_position[29] == 1 and B747DR_autothrottle_active == 0 and
 				simDR_radarAlt1 > 1000
 		 then
 			simCMD_ThrottleDown:once()

@@ -91,6 +91,7 @@ B747DR_engine_TOGA_mode             = deferred_dataref("laminar/B747/engines/TOG
 B747DR_ref_thr_limit_mode           = deferred_dataref("laminar/B747/engines/ref_thr_limit_mode", "string")
 
 B747DR_autothrottle_fail            = deferred_dataref("laminar/B747/engines/autothrottle_fail", "number")
+B747DR_autothrottle_active            = deferred_dataref("laminar/B747/engines/autothrottle_active", "number")
 B747DR_reverser_lockout            = deferred_dataref("laminar/B747/engines/reverser_lockout", "number")
 
 
