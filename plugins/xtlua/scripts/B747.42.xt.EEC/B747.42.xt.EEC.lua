@@ -653,33 +653,95 @@ function ecc_mode_set()
 		B747DR_ref_thr_limit_mode=newTarget
 	end
 end
+function B747_interpolate_value(current_value, target, min, max, speed)--speed in sex min->max
 
+    --[[if math.abs(current_value-target) <0.01 then
+      return target
+    end]]
+  
+    local change = ((max-min)/speed)*(SIM_PERIOD)
+    newValue=current_value
+    
+    if newValue<=target then
+      newValue=newValue+change
+      --print(current_value.." ->newValue<= "..newValue)
+      if newValue >= target then
+        newValue = B747_animate_value(current_value,target,-100,100,100)
+      end
+    elseif newValue>target then
+      newValue=newValue-change
+      --print(current_value.." ->newValue>= "..newValue)
+      if newValue <= target then
+        newValue = B747_animate_value(current_value,target,-100,100,100)
+      end
+    end
+    if newValue <= min+0.001 and newValue >= min-0.001 then
+        newValue = min
+    elseif newValue >= max-0.001 and newValue <= max+0.001 then
+        newValue = max
+    elseif newValue <= min then
+      newValue = B747_animate_value(current_value,min,-100,100,100)
+    elseif newValue >= max then
+      newValue = B747_animate_value(current_value,max,-100,100,100)
+    else
+      --print(current_value.." ->newValue== "..newValue)
+      --newValue = newValue
+      if math.abs(current_value-target) < change then
+        newValue = B747_animate_value(current_value,target,-100,100,100)
+      --  print(current_value.." ->newValue== "..newValue)
+      --else
+      --  print(current_value.." ->newValue=== "..newValue)
+      end
+  
+      
+    end
+    return newValue
+  end
 function ecc_spd()
 	--print("---ECC SPD---")
-	if simDR_version>=120012 then
-		simDR_override_throttles = 1
+	    local input=1
+		local target=1
+		if B747DR_ap_FMA_autothrottle_mode==3 then
+			if B747DR_engineType~=1 and 
+			math.max(B747DR_display_EPR[0],B747DR_display_EPR[1],B747DR_display_EPR[2],B747DR_display_EPR[3])>
+			math.max(B747DR_display_EPR_max[0],B747DR_display_EPR_max[1],B747DR_display_EPR_max[2],B747DR_display_EPR_max[3])
+			and simDR_ind_airspeed_kts_pilot<simDR_autopilot_airspeed_kts
+			then
+				input=30*math.max(B747DR_display_EPR[0],B747DR_display_EPR[1],B747DR_display_EPR[2],B747DR_display_EPR[3])
+				target=30*math.max(B747DR_display_EPR_max[0],B747DR_display_EPR_max[1],B747DR_display_EPR_max[2],B747DR_display_EPR_max[3])
+			else
+				input=simDR_ind_airspeed_kts_pilot
+				target=simDR_autopilot_airspeed_kts
+			end
+		else
+			--some kind of thrust target
+			if B747DR_engineType==1 then --GE, n1 target
+				input=math.max(B747DR_display_N1[0],B747DR_display_N1[1],B747DR_display_N1[2],B747DR_display_N1[3])
+				target=simDR_N1_target_bug[0]
+			else --PW or RR, EPR target
+				input=30*math.max(B747DR_display_EPR[0],B747DR_display_EPR[1],B747DR_display_EPR[2],B747DR_display_EPR[3])
+				target=30*simDR_EPR_target_bug[0]
+			end
+		end
+		--print("throttle target="..target.. " current "..input)
+		--simDR_override_throttles = 1
 		throttlePid.kp=B747DR_pidthrottleP
 		throttlePid.ki=B747DR_pidthrottleI
 		throttlePid.kd=B747DR_pidthrottleD
 
-		throttlePid.input = simDR_ind_airspeed_kts_pilot
-        throttlePid.target= simDR_autopilot_airspeed_kts
+		throttlePid.input = input
+        throttlePid.target= target
         if (simDRTime-lastCompute)>computeRate then
             throttlePid:compute()
 			lastCompute=simDRTime
 			if throttlePid.output~=nil then
 			--print("AT retval"..throttlePid.output.." simDR_ind_airspeed_kts_pilot "..simDR_ind_airspeed_kts_pilot.." B747DR_ap_ias_bug_value "..B747DR_ap_ias_bug_value)
 				for i = 0, 3 do
-					simDR_engn_thro_use[i]=throttlePid.output
+					simDR_engn_thro[i]=B747_interpolate_value(simDR_engn_thro[i],throttlePid.output,0,1,6)
 				end
 			end
         end
-		
-        
-		
-	else
-		simDR_override_throttles = 0
-	end
+
 end
 local previous_altitude = 0
 function throttle_management()
@@ -782,17 +844,7 @@ function throttle_management()
 	and B747DR_ap_flightPhase<2 and EEC_status == 0 then
 		--Take control of the throttles from the user and manage via Thrust Ref targets
 		--hold_mode = 0
-		if B747DR_ap_FMA_active_pitch_mode == 1 or B747DR_ap_FMA_active_pitch_mode == 4
-		or B747DR_ap_FMA_active_pitch_mode == 5 or B747DR_ap_FMA_active_pitch_mode == 6 --then
-		or B747DR_ap_FMA_active_pitch_mode == 7 or B747DR_ap_FMA_active_pitch_mode == 8
-		or B747DR_ap_FMA_active_pitch_mode == 9 then
-			simDR_override_throttles = 1
-			if B747DR_autothrottle_active ~= 0 then
-				--simCMD_autopilot_autothrottle_off:once()
-				B747DR_autothrottle_active=0
-			end
-			B747DR_autothrottle_active = 1
-		end
+		ecc_spd()
 
 		--Thrust ref target line should stay GREEN when in TOGA mode
 		if string.match(B747DR_ref_thr_limit_mode, "TO") then
@@ -813,7 +865,7 @@ function throttle_management()
 
 		B747DR_ref_line_magenta = 0
 		--hold_mode = 1
-
+		ecc_spd()
 		if B747DR_log_level >= 1 then
 			print("HOLD MODE")
 			print("Override REMOVED = ", simDR_override_throttles)
@@ -830,7 +882,7 @@ function throttle_management()
 		end
 		B747DR_ref_line_magenta = 0
 		--speed_mode = 1
-		
+		ecc_spd()
 		if B747DR_log_level >= 1 then
 			print("SPEED MODE")
 			print("Override Throttles = ", simDR_override_throttles)
@@ -839,7 +891,7 @@ function throttle_management()
 		--Autothrottle has been disabled for some reason
 		B747DR_autothrottle_active = 0
 
-	elseif B747DR_ap_autothrottle_armed == 1 and B747DR_ap_FMA_autothrottle_mode == 3 then
+	elseif B747DR_ap_autothrottle_armed == 1 and B747DR_ap_FMA_autothrottle_mode > 1 then --not none or HOLD
 		--new SPD
 		
 		ecc_spd()
@@ -896,9 +948,9 @@ function hasSimConfig()
 	return setSimConfig
 end
 function flight_start()
-	B747DR_pidthrottleP = 0.10
-	B747DR_pidthrottleI = 0.0002
-	B747DR_pidthrottleD = 0.05 --low 0.1 high 0.4
+	B747DR_pidthrottleP = 0.030
+	B747DR_pidthrottleI = 0.002
+	B747DR_pidthrottleD = 0.001
 end
 function after_physics()
 	if debug_ecc>0 then return end

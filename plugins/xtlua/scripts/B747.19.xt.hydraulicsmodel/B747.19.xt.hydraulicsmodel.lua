@@ -54,7 +54,7 @@ B747DR_pidyawProllH = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/p/roll/h"
 B747DR_pidyawProllL = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/p/roll/l", "number")
 B747DR_alt_capture_window        = deferred_dataref("laminar/B747/autopilot/ap_monitor/alt_capture_window", "number")
 simDR_AHARS_heading_deg_pilot = find_dataref("sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_pilot")
-
+simDR_autopilot_TOGA_pitch_deg      	= find_dataref("sim/cockpit2/autopilot/TOGA_pitch_deg")
 B747DR_controlOverrides   = find_dataref("xtlua/controlObject")
 B747DR_speedbrake_lever     	= deferred_dataref("laminar/B747/flt_ctrls/speedbrake_lever", "number")
 simDR_prop_mode                 = find_dataref("sim/cockpit2/engine/actuators/prop_mode")

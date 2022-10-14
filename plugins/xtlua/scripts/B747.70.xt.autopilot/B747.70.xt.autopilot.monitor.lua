@@ -129,6 +129,7 @@ function VNAV_CLB(numAPengaged,fmsO)
                 if B747DR_ap_vnav_state==0 or simDR_pressureAlt1 < B747BR_cruiseAlt-300 then B747DR_ap_thrust_mode=2 end 
                 
                 B747DR_engine_TOGA_mode = 0 
+                B747DR_autopilot_TOGA_status=0 
                 B747DR_ap_autoland=-1
                 B747DR_ap_lastCommand = simDRTime
                 print("flch > 1000 feet climb ")  
@@ -378,10 +379,10 @@ function B747_monitor_THR_REF_AT()
     elseif thrustDiff<20 then wait=0.05 end
     --print("THR REF="..ref_throttle.. " simDR_allThrottle="..n1_pct.. " wait="..wait.. " B747DR_ap_thrust_mode="..B747DR_ap_thrust_mode)
     if lastChange<wait then return end --wait for engines to stabilise
-    if B747DR_autothrottle_active == 1 and timediff>0.5 then 
+    --[[if B747DR_autothrottle_active == 1 and timediff>0.5 then 
         B747DR_ap_thrust_mode=0 
         return 
-    end
+    end]]
     last_THR_REF=simDRTime
     
     --Marauder28
@@ -396,10 +397,10 @@ function B747_monitor_THR_REF_AT()
 	    simCMD_ThrottleUp:once()
     elseif (n1_pct > (ref_throttle+0.8)) and simDR_allThrottle>0.0 and B747DR_ap_flightPhase>2 then
         smCMD_ThrottleDown:once()
-    end]]
+    end
     if (n1_pct > (ref_throttle+0.8)) and simDR_allThrottle>0.0 and B747DR_ap_flightPhase>2 and simDR_autopilot_airspeed_kts< simDR_ind_airspeed_kts_pilot then
         simCMD_ThrottleDown:once()
-    end
+    end]]
     
 end
 function checkMCPAlt(dist)
@@ -553,6 +554,10 @@ function B747_monitorAT()
         B747DR_ap_thrust_mode=0
         B747DR_engine_TOGA_mode = 0	-- CANX ENGINE TOGA IF ACTIVE
         B747DR_ap_flightPhase=2
+        if simDR_autopilot_flch_status == 2 then
+            simCMD_autopilot_flch_mode:once()
+            B747DR_ap_lastCommand=simDRTime
+        end
         if B747DR_autothrottle_active==0 then
             print("simDR_autopilot_alt_hold_status")
             simDR_override_throttles=0
@@ -583,12 +588,12 @@ function B747_monitorAT()
         return 
     end
     --otherwise off  (VNAV ONLY)
-    if B747DR_autothrottle_active==1 and B747DR_ap_inVNAVdescent == 0 and (B747DR_ap_vnav_state>0 or B747DR_ap_FMA_autothrottle_mode == 5) then
+    --[[if B747DR_autothrottle_active==1 and B747DR_ap_inVNAVdescent == 0 and (B747DR_ap_vnav_state>0 or B747DR_ap_FMA_autothrottle_mode == 5) then
         print("Off with B747DR_ap_FMA_active_pitch_mode="..B747DR_ap_FMA_active_pitch_mode)
         --simCMD_autopilot_autothrottle_off:once()
         B747DR_autothrottle_active=0
         B747DR_ap_lastCommand=simDRTime
-    end
+    end]]
     
     
     

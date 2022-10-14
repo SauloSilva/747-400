@@ -115,169 +115,7 @@ function engine_idle_control_PW(altitude_ft_in)
     return N1_low_idle
   end
   
-  function thrust_ref_control_EPR()
-      local throttle_move_units = 0.0 --0.001
-      local target_tolerance_EPR = 0.015 --0.05
-      local tolerance_diff = {}
   
-      --If Dataref updates aren't current, then wait for another cycle
-      if simDR_engn_thro[0] == 0 or simDR_engn_thro[1] == 0 or simDR_engn_thro[2] == 0 or simDR_engn_thro[3] == 0
-      or simDR_engn_thro_use[0] == 0 or simDR_engn_thro_use[1] == 0 or simDR_engn_thro_use[2] == 0 or simDR_engn_thro_use[3] == 0 then
-          return
-      end
-      
-    --Manage throttle settings in THR REF mode (or HOLD mode during Takeoff)
-    if simDR_override_throttles == 1 and B747DR_ap_FMA_autothrottle_mode ~= 3 and B747DR_ap_FMA_autothrottle_mode ~= 1 then --or B747DR_ap_FMA_autothrottle_mode == 1 then
-          
-      --DECREASE adjustments
-          if B747DR_display_EPR[0] > (simDR_EPR_target_bug[0]) then
-              --tolerance_diff[0] = math.abs(simDR_EPR_target_bug[0] + target_tolerance_EPR - B747DR_display_EPR[0])
-              tolerance_diff[0] = math.abs(simDR_EPR_target_bug[0] - B747DR_display_EPR[0])
-              --if tolerance_diff[0] < 0.005 then
-              --  throttle_move_units = 0.0
-              if tolerance_diff[0] > 0.0 then
-                if tolerance_diff[0] <= target_tolerance_EPR then
-                    throttle_move_units = 0.0001
-                else
-                    throttle_move_units = 0.001
-                end
-              end
-              simDR_engn_thro_use[0] = simDR_engn_thro_use[0] - throttle_move_units
-              simDR_throttle_ratio[0] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[0])
-              throttle_move_units = 0.0
-          end
-          if B747DR_display_EPR[1] > (simDR_EPR_target_bug[1]) then
-              --tolerance_diff[1] = math.abs(simDR_EPR_target_bug[1] + target_tolerance_EPR - B747DR_display_EPR[1])
-              tolerance_diff[1] = math.abs(simDR_EPR_target_bug[1] - B747DR_display_EPR[1])
-              --if tolerance_diff[1] < 0.005 then
-              --  throttle_move_units = 0.0
-              if tolerance_diff[1] > 0.0 then
-                if tolerance_diff[1] <= target_tolerance_EPR then
-                    throttle_move_units = 0.0001
-                else
-                    throttle_move_units = 0.001
-                end
-              end
-              simDR_engn_thro_use[1] = simDR_engn_thro_use[1] - throttle_move_units
-              simDR_throttle_ratio[1] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[1])
-              throttle_move_units = 0.0
-          end
-          if B747DR_display_EPR[2] > (simDR_EPR_target_bug[2]) then
-              --tolerance_diff[2] = math.abs(simDR_EPR_target_bug[2] + target_tolerance_EPR - B747DR_display_EPR[2])
-              tolerance_diff[2] = math.abs(simDR_EPR_target_bug[2] - B747DR_display_EPR[2])
-              --if tolerance_diff[1] < 0.005 then
-              --  throttle_move_units = 0.0
-              if tolerance_diff[2] > 0.0 then
-                if tolerance_diff[2] <= target_tolerance_EPR then
-                    throttle_move_units = 0.0001
-                else
-                    throttle_move_units = 0.001
-                end
-              end
-              simDR_engn_thro_use[2] = simDR_engn_thro_use[2] - throttle_move_units
-              simDR_throttle_ratio[2] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[2])
-              throttle_move_units = 0.0
-          end
-          if B747DR_display_EPR[3] > (simDR_EPR_target_bug[3]) then
-              --tolerance_diff[3] = math.abs(simDR_EPR_target_bug[3] + target_tolerance_EPR - B747DR_display_EPR[3])
-              tolerance_diff[3] = math.abs(simDR_EPR_target_bug[3] - B747DR_display_EPR[3])
-              --if tolerance_diff[1] < 0.005 then
-              --  throttle_move_units = 0.0
-              if tolerance_diff[3] > 0.0 then
-                if tolerance_diff[3] <= target_tolerance_EPR then
-                    throttle_move_units = 0.0001
-                else
-                    throttle_move_units = 0.001
-                end
-              end
-              simDR_engn_thro_use[3] = simDR_engn_thro_use[3] - throttle_move_units
-              simDR_throttle_ratio[3] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[3])
-              throttle_move_units = 0.0
-          end
-  
-          --INCREASE adjustments
-          if (B747DR_display_EPR[0] < simDR_EPR_target_bug[0]) and (simDR_thrust_n[0] < engine_max_thrust_n) then
-            --tolerance_diff[0] = math.abs(simDR_EPR_target_bug[0] - target_tolerance_EPR - B747DR_display_EPR[0])
-            tolerance_diff[0] = math.abs(simDR_EPR_target_bug[0] - B747DR_display_EPR[0])
-            --if tolerance_diff[1] < 0.005 then
-            --  throttle_move_units = 0.0
-            if tolerance_diff[0] > 0.0 then
-              if tolerance_diff[0] <= target_tolerance_EPR then
-                  throttle_move_units = 0.0001
-              else
-                  throttle_move_units = 0.001
-              end
-            end
-            simDR_engn_thro_use[0] = simDR_engn_thro_use[0] + throttle_move_units
-            if simDR_engn_thro_use[0] >= simDR_throttle_max then
-              --print("RESETTING THROTTLE TO MAX = 1")
-              simDR_engn_thro_use[0] = simDR_throttle_max 
-            end
-            simDR_throttle_ratio[0] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[0])
-            throttle_move_units = 0.0
-          end
-          if (B747DR_display_EPR[1] < simDR_EPR_target_bug[1]) and (simDR_thrust_n[1] < engine_max_thrust_n) then
-            --tolerance_diff[1] = math.abs(simDR_EPR_target_bug[1] - target_tolerance_EPR - B747DR_display_EPR[1])
-            tolerance_diff[1] = math.abs(simDR_EPR_target_bug[1] - B747DR_display_EPR[1])
-            --if tolerance_diff[1] < 0.005 then
-            --  throttle_move_units = 0.0
-            if tolerance_diff[1] > 0.0 then
-              if tolerance_diff[1] <= target_tolerance_EPR then
-                  throttle_move_units = 0.0001
-              else
-                  throttle_move_units = 0.001
-              end
-            end
-            simDR_engn_thro_use[1] = simDR_engn_thro_use[1] + throttle_move_units
-            if simDR_engn_thro_use[1] >= simDR_throttle_max then
-              --print("RESETTING THROTTLE TO MAX = 1")
-              simDR_engn_thro_use[1] = simDR_throttle_max 
-            end
-            simDR_throttle_ratio[1] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[1])
-            throttle_move_units = 0.0
-          end
-          if (B747DR_display_EPR[2] < simDR_EPR_target_bug[2]) and (simDR_thrust_n[2] < engine_max_thrust_n) then
-            --tolerance_diff[2] = math.abs(simDR_EPR_target_bug[2] - target_tolerance_EPR - B747DR_display_EPR[2])
-            tolerance_diff[2] = math.abs(simDR_EPR_target_bug[2] - B747DR_display_EPR[2])
-            --if tolerance_diff[2] < 0.005 then
-            --  throttle_move_units = 0.0
-            if tolerance_diff[2] > 0.0 then
-              if tolerance_diff[2] <= target_tolerance_EPR then
-                  throttle_move_units = 0.0001
-              else
-                  throttle_move_units = 0.001
-              end
-            end
-            simDR_engn_thro_use[2] = simDR_engn_thro_use[2] + throttle_move_units
-            if simDR_engn_thro_use[2] >= simDR_throttle_max then
-              --print("RESETTING THROTTLE TO MAX = 1")
-              simDR_engn_thro_use[2] = simDR_throttle_max 
-            end
-            simDR_throttle_ratio[2] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[2])
-            throttle_move_units = 0.0
-          end
-          if (B747DR_display_EPR[3] < simDR_EPR_target_bug[3]) and (simDR_thrust_n[3] < engine_max_thrust_n) then
-            --tolerance_diff[3] = math.abs(simDR_EPR_target_bug[3] - target_tolerance_EPR - B747DR_display_EPR[3])
-            tolerance_diff[3] = math.abs(simDR_EPR_target_bug[3] - B747DR_display_EPR[3])
-            --if tolerance_diff[3] < 0.005 then
-            --  throttle_move_units = 0.0
-            if tolerance_diff[3] > 0.0 then
-              if tolerance_diff[3] <= target_tolerance_EPR then
-                  throttle_move_units = 0.0001
-              else
-                  throttle_move_units = 0.001
-              end
-            end
-            simDR_engn_thro_use[3] = simDR_engn_thro_use[3] + throttle_move_units
-            if simDR_engn_thro_use[3] >= simDR_throttle_max then
-              --print("RESETTING THROTTLE TO MAX = 1")
-              simDR_engn_thro_use[3] = simDR_throttle_max 
-            end
-            simDR_throttle_ratio[3] = B747_rescale(0.0, 0.0, simDR_throttle_max, 1.0, simDR_engn_thro_use[3])
-            throttle_move_units = 0.0
-          end
-      end
-  end
   
   --[[function take_off_thrust_assumed(altitude_ft_in, temperature_K_in)
     local TOGA_corrected_thrust_lbf = 0.0
@@ -898,7 +736,11 @@ function engine_idle_control_PW(altitude_ft_in)
     end
   
     for i = 0, 3 do
-      simDR_EPR_target_bug[i] = EPR_target_bug[i]
+      if B747DR_ap_FMA_autothrottle_mode==5 and B747DR_ap_flightPhase>2 then
+        simDR_EPR_target_bug[i] = 0.9
+      else
+        simDR_EPR_target_bug[i] = EPR_target_bug[i]
+      end
       B747DR_display_EPR_ref[i] = display_EPR_ref[i]
       B747DR_display_EPR_max[i] = display_EPR_max[i]
       EPR_display[i] = string.format("%3.2f", math.min(EPR_display_PW(altitude_ft_in, simDR_thrust_n[i], i), 1.71))  --use i as a reference for engine number
@@ -922,5 +764,4 @@ function engine_idle_control_PW(altitude_ft_in)
     end
     --Manage Thrust
     throttle_management()
-    thrust_ref_control_EPR()
   end

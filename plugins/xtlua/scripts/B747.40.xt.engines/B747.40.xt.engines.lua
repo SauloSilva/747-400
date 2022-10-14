@@ -136,6 +136,7 @@ simDR_autopilot_gs_status	= find_dataref("sim/cockpit2/autopilot/glideslope_stat
 simCMD_autopilot_appr_mode					= find_command("sim/autopilot/approach")
 simDR_autopilot_TOGA_vert_status    	= find_dataref("sim/cockpit2/autopilot/TOGA_status")
 simDR_autopilot_TOGA_lat_status     	= find_dataref("sim/cockpit2/autopilot/TOGA_lateral_status")
+B747DR_autopilot_TOGA_status     	= deferred_dataref("laminar/B747/autopilot/TOGA_status","number")
 simCMD_autopilot_TOGA_mode          = find_command("sim/autopilot/take_off_go_around")
 simDRTime					= find_dataref("sim/time/total_running_time_sec")
 B747DR_ap_lastCommand              		= deferred_dataref("laminar/B747/autopilot/lastCommand", "number")
@@ -521,11 +522,10 @@ function B747_engine_TOGA_power_CMDhandler(phase, duration)
                     simCMD_autopilot_appr_mode:once() --DEACTIVATE APP
                 end
             end]]
-            if simDR_autopilot_TOGA_vert_status == 0											-- TOGA VERTICAL MODE IS OFF 
-                    or simDR_autopilot_TOGA_lat_status == 0											-- TOGA LATERAL MODE IS OFF 
+            if B747DR_autopilot_TOGA_status == 0 										-- TOGA LATERAL MODE IS OFF 
             then	
                     B747DR_ap_lastCommand=simDRTime									
-                    simCMD_autopilot_TOGA_mode:once()												-- ACTIVATE "TOGA" MODE
+                    B747DR_autopilot_TOGA_status=1												-- ACTIVATE "TOGA" MODE
             end	
             
         end

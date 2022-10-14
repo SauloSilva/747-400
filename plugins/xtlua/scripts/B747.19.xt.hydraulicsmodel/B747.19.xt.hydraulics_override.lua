@@ -551,6 +551,10 @@ function ap_director_pitch(pitchMode)
         retval=last_simDR_AHARS_pitch_heading_deg_pilot
         last_simDR_AHARS_pitch_heading_deg_pilot=retval
         return ap_director_pitch_retVal(pitchMode,retval)
+    elseif pitchMode==1 then
+       -- print("simDR_autopilot_TOGA_pitch_deg ="..simDR_autopilot_TOGA_pitch_deg)
+        directorSampleRate=0.1
+        return ap_director_pitch_retVal(pitchMode,simDR_autopilot_TOGA_pitch_deg)
     elseif pitchMode==2 then
         directorSampleRate=0.5
     end

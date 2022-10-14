@@ -165,6 +165,7 @@ simDR_autopilot_state = find_dataref("sim/cockpit/autopilot/autopilot_state")
 simDR_autopilot_vs_status = find_dataref("sim/cockpit2/autopilot/vvi_status")
 simDR_autopilot_flch_status = find_dataref("sim/cockpit2/autopilot/speed_status")
 simDR_autopilot_TOGA_vert_status = find_dataref("sim/cockpit2/autopilot/TOGA_status")
+B747DR_autopilot_TOGA_status     	= deferred_dataref("laminar/B747/autopilot/TOGA_status","number")
 simDR_autopilot_TOGA_lat_status = find_dataref("sim/cockpit2/autopilot/TOGA_lateral_status")
 simDR_autopilot_heading_status = find_dataref("sim/cockpit2/autopilot/heading_status")
 simDR_autopilot_heading_hold_status = find_dataref("sim/cockpit2/autopilot/heading_hold_status")
@@ -625,6 +626,7 @@ function B747_ap_switch_flch_mode_CMDhandler(phase, duration)
 		B747DR_ap_lastCommand = simDRTime
 		simDR_autopilot_altitude_ft = B747DR_autopilot_altitude_ft
 		simDR_autopilot_hold_altitude_ft=simDR_autopilot_altitude_ft
+		B747DR_autopilot_TOGA_status=0 
 		if B747DR_ap_vnav_state == 0 or (simDR_autopilot_flch_status == 0 and B747DR_ap_vnav_state > 0) then
 			simCMD_autopilot_flch_mode:once()
 			
@@ -654,8 +656,10 @@ function B747_ap_switch_vs_mode_CMDhandler(phase, duration)
 		if B747DR_autothrottle_active == 0 and B747DR_toggle_switch_position[29] == 1 and simDR_onGround == 0 then -- AUTOTHROTTLE IS "OFF"
 			--simCMD_autopilot_autothrottle_on:once() -- ACTIVATE THE AUTOTHROTTLE
 			B747DR_autothrottle_active=1
-			B747DR_engine_TOGA_mode = 0
+			
 		end
+		B747DR_engine_TOGA_mode = 0
+		B747DR_autopilot_TOGA_status=0 
 		simDR_autopilot_altitude_ft = B747DR_autopilot_altitude_ft
 		simDR_autopilot_hold_altitude_ft=simDR_autopilot_altitude_ft
 		simDR_autopilot_alt_hold_status=0
@@ -2260,7 +2264,7 @@ function fma_rollModes()
 	if B747DR_toggle_switch_position[23] == 0.0 and B747DR_toggle_switch_position[24] == 0.0  and numAPengaged == 0 and apWasOn==1 then
 		-- (TOGA) --
 		B747DR_ap_FMA_active_roll_mode = 0
-	elseif simDR_autopilot_TOGA_lat_status == 2 then
+	elseif B747DR_autopilot_TOGA_status~=0 then --simDR_autopilot_TOGA_lat_status == 2 then
 		B747DR_ap_FMA_active_roll_mode = 1
 	elseif simDR_onGround == 1 then
 		-- (LOC) --
@@ -2362,7 +2366,7 @@ function fma_PitchModes()
 			B747DR_ap_approach_mode = 0
 			apWasOn=0
 		end
-	elseif simDR_autopilot_TOGA_vert_status == 2 then
+	elseif B747DR_autopilot_TOGA_status == 1 then
 		--if B747DR_engine_TOGA_mode == 1 then
 
 		B747DR_ap_FMA_active_pitch_mode = 1

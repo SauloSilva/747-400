@@ -96,7 +96,7 @@ simDR_autopilot_servos_on           	= find_dataref("sim/cockpit2/autopilot/serv
 simDR_AHARS_roll_deg_pilot          	= find_dataref("sim/cockpit2/gauges/indicators/roll_AHARS_deg_pilot")
 simDR_autopilot_TOGA_vert_status    	= find_dataref("sim/cockpit2/autopilot/TOGA_status")
 simDR_autopilot_TOGA_lat_status     	= find_dataref("sim/cockpit2/autopilot/TOGA_lateral_status")
-
+B747DR_autopilot_TOGA_status     	= deferred_dataref("laminar/B747/autopilot/TOGA_status","number")
 B747DR_autothrottle_active	= find_dataref("laminar/B747/engines/autothrottle_active")
 
 B747DR_autothrottle_fail            	= find_dataref("laminar/B747/engines/autothrottle_fail")
@@ -475,7 +475,7 @@ simCMD_hyd_eng_pumps_toggle         = replace_command("sim/flight_controls/hydra
 --** 				               WRAP X-PLANE COMMANDS                   	     	 **--
 --*************************************************************************************--
 
-simCMD_autopilot_TOGA_mode          = wrap_command("sim/autopilot/take_off_go_around", B747_ap_TOGA_mode_beforeCMDhandler, B747_ap_TOGA_mode_afterCMDhandler)
+simCMD_autopilot_TOGA_mode          = wrap_command("sim/autopilot/take_off_go_around", B747_ap_TOGA_mode_afterCMDhandler, B747_ap_TOGA_mode_afterCMDhandler)
 
 
 
@@ -1225,10 +1225,9 @@ function B747_flight_dir_switch_L_CMDhandler(phase, duration)
 				if B747_toggle_switch_position_target[23] == 0.0 										-- LEFT FLIGHT DIRECTOR SWITCH IS OFF
 					and B747_toggle_switch_position_target[24] == 0.0 									-- RIGHT FLIGHT DIRECTOR SWITCH IS OFF
 				then
-					if simDR_autopilot_TOGA_vert_status == 0											-- TOGA VERTICAL MODE IS OFF 
-						or simDR_autopilot_TOGA_lat_status == 0											-- TOGA LATERAL MODE IS OFF 
+					if B747DR_autopilot_TOGA_status == 0												-- TOGA LATERAL MODE IS OFF 
 					then										
-						simCMD_autopilot_TOGA_mode:once()												-- ACTIVATE "TOGA" MODE
+						B747DR_autopilot_TOGA_status=1												-- ACTIVATE "TOGA" MODE
 					end		
 				end
 			end				
@@ -1251,7 +1250,12 @@ function B747_flight_dir_switch_L_CMDhandler(phase, duration)
 		
 		-- SET THE TOGGLE SWITCH ANIMATION POSITION		
 		B747_toggle_switch_position_target[23] = 1.0 - B747_toggle_switch_position_target[23]
-		
+		if B747_toggle_switch_position_target[23] == 0.0 										-- LEFT FLIGHT DIRECTOR SWITCH IS OFF
+					and B747_toggle_switch_position_target[24] == 0.0 									-- RIGHT FLIGHT DIRECTOR SWITCH IS OFF
+				then
+                    B747DR_ap_lastCommand=simDRTime										
+                    B747DR_autopilot_TOGA_status=0   
+        end
 		
 		----- SWITCH IS SET TO "OFF" POSITION
 		--[[if B747_toggle_switch_position_target[23] == 0.0 												-- LEFT FLIGHT DIRECTOR SWITCH IS OFF
@@ -1277,10 +1281,10 @@ function B747_flight_dir_switch_R_CMDhandler(phase, duration)
 				if B747_toggle_switch_position_target[23] == 0.0 										-- LEFT FLIGHT DIRECTOR SWITCH IS OFF
 					and B747_toggle_switch_position_target[24] == 0.0 									-- RIGHT FLIGHT DIRECTOR SWITCH IS OFF
 				then
-					if simDR_autopilot_TOGA_vert_status == 0											-- TOGA VERTICAL MODE IS OFF 
-						or simDR_autopilot_TOGA_lat_status == 0											-- TOGA LATERAL MODE IS OFF 
-					then										
-						simCMD_autopilot_TOGA_mode:once()												-- ACTIVATE "TOGA" MODE
+					if B747DR_autopilot_TOGA_status == 0										-- TOGA LATERAL MODE IS OFF 
+					then	
+                        B747DR_ap_lastCommand=simDRTime										
+						B747DR_autopilot_TOGA_status=1												-- ACTIVATE "TOGA" MODE
 					end		
 				end
 			end				
@@ -1303,7 +1307,12 @@ function B747_flight_dir_switch_R_CMDhandler(phase, duration)
 		
 		-- SET THE TOGGLE SWITCH ANIMATION POSITION
 		B747_toggle_switch_position_target[24] = 1.0 - B747_toggle_switch_position_target[24]
-		
+		if B747_toggle_switch_position_target[23] == 0.0 										-- LEFT FLIGHT DIRECTOR SWITCH IS OFF
+					and B747_toggle_switch_position_target[24] == 0.0 									-- RIGHT FLIGHT DIRECTOR SWITCH IS OFF
+				then
+                    B747DR_ap_lastCommand=simDRTime										
+                    B747DR_autopilot_TOGA_status=0   
+        end
 		
 		----- SWITCH IS SET TO "OFF" POSITION
 		--[[if B747_toggle_switch_position_target[23] == 0.0 												-- LEFT FLIGHT DIRECTOR SWITCH IS OFF

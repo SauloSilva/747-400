@@ -91,7 +91,7 @@ for i = 0, NUM_BTN_SW_COVERS-1 do
     B747CMD_button_switch_cover[i] 		= deferred_command("laminar/B747/button_switch_cover" .. string.format("%02d", i), "Button Switch Cover" .. string.format("%02d", i),nil)--, B747_button_switch_cover_CMDhandler[i])
 end
 
-
+B747DR_autopilot_TOGA_status     	= deferred_dataref("laminar/B747/autopilot/TOGA_status","number")
 
 ----- GLARESHIELD BUTTON SWITCHES -------------------------------------------------------
 
