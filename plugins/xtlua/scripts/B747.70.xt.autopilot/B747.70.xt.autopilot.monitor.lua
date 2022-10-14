@@ -547,7 +547,9 @@ function B747_monitorAT()
 
     --ALT/VS/GS
     --if simDR_autopilot_alt_hold_status == 2 then
-    if  B747DR_ap_FMA_active_pitch_mode==5 or B747DR_ap_FMA_active_pitch_mode==9 then    
+
+    --if  B747DR_ap_FMA_active_pitch_mode==5 or B747DR_ap_FMA_active_pitch_mode==9 then 
+    if  simDR_autopilot_alt_hold_status==2 then   
         if B747DR_ap_thrust_mode~=0 then
             B747DR_ap_lastCommand=simDRTime
         end
@@ -556,6 +558,10 @@ function B747_monitorAT()
         B747DR_ap_flightPhase=2
         if simDR_autopilot_flch_status == 2 then
             simCMD_autopilot_flch_mode:once()
+            B747DR_ap_lastCommand=simDRTime
+        end
+        if simDR_autopilot_vs_status == 2 then
+            simCMD_autopilot_vert_speed_mode:once()
             B747DR_ap_lastCommand=simDRTime
         end
         if B747DR_autothrottle_active==0 then

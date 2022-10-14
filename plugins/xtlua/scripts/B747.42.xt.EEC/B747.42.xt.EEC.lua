@@ -844,7 +844,7 @@ function throttle_management()
 	and B747DR_ap_flightPhase<2 and EEC_status == 0 then
 		--Take control of the throttles from the user and manage via Thrust Ref targets
 		--hold_mode = 0
-		ecc_spd()
+		--ecc_spd()
 
 		--Thrust ref target line should stay GREEN when in TOGA mode
 		if string.match(B747DR_ref_thr_limit_mode, "TO") then
@@ -865,7 +865,7 @@ function throttle_management()
 
 		B747DR_ref_line_magenta = 0
 		--hold_mode = 1
-		ecc_spd()
+		--ecc_spd()
 		if B747DR_log_level >= 1 then
 			print("HOLD MODE")
 			print("Override REMOVED = ", simDR_override_throttles)
@@ -882,7 +882,7 @@ function throttle_management()
 		end
 		B747DR_ref_line_magenta = 0
 		--speed_mode = 1
-		ecc_spd()
+		--ecc_spd()
 		if B747DR_log_level >= 1 then
 			print("SPEED MODE")
 			print("Override Throttles = ", simDR_override_throttles)
@@ -890,8 +890,8 @@ function throttle_management()
 	elseif B747DR_autothrottle_fail == 1 then
 		--Autothrottle has been disabled for some reason
 		B747DR_autothrottle_active = 0
-
-	elseif B747DR_ap_autothrottle_armed == 1 and B747DR_ap_FMA_autothrottle_mode > 1 then --not none or HOLD
+	end	
+	if B747DR_ap_autothrottle_armed == 1 and B747DR_ap_FMA_autothrottle_mode > 1 then --not none or HOLD
 		--new SPD
 		
 		ecc_spd()

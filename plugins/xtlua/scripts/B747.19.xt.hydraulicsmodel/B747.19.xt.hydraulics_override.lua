@@ -424,6 +424,9 @@ function ap_director_pitch(pitchMode)
     local holdAlt=simDR_autopilot_altitude_ft 
     local refreshHoldAlt=simDR_autopilot_hold_altitude_ft
     local refreshfd=simDR_flight_director_pitch
+    if simDR_autopilot_alt_hold_status==2 and (pitchMode~=5 and pitchMode~=6 and pitchMode~=9) then
+        simDR_autopilot_alt_hold_status=0
+    end
     if simDR_autopilot_alt_hold_status==2 then
         holdAlt=simDR_autopilot_hold_altitude_ft
     end
@@ -554,7 +557,9 @@ function ap_director_pitch(pitchMode)
     elseif pitchMode==1 then
        -- print("simDR_autopilot_TOGA_pitch_deg ="..simDR_autopilot_TOGA_pitch_deg)
         directorSampleRate=0.1
-        return ap_director_pitch_retVal(pitchMode,simDR_autopilot_TOGA_pitch_deg)
+        retval=simDR_autopilot_TOGA_pitch_deg
+        last_simDR_AHARS_pitch_heading_deg_pilot=retval
+        return ap_director_pitch_retVal(pitchMode,retval)
     elseif pitchMode==2 then
         directorSampleRate=0.5
     end

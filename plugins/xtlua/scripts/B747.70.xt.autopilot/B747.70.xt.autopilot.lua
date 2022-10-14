@@ -2467,13 +2467,13 @@ function B747_ap_fma()
 	 then
 		B747DR_ap_FMA_autothrottle_mode = 5 --THR REF
 	elseif B747DR_autothrottle_active == 1 then
-		if B747DR_ap_vnav_state > 0 and simDR_allThrottle < 0.02 and B747DR_ap_inVNAVdescent > 0 then
+		if B747DR_ap_vnav_state > 0 and simDR_allThrottle < 0.1 and B747DR_ap_inVNAVdescent > 0 then
 			B747DR_ap_FMA_autothrottle_mode = 2 --IDLE
 		elseif simDR_onGround == 0 then
 			B747DR_ap_FMA_autothrottle_mode = 3 -- SPD
 		end
 	else
-		if B747DR_ap_vnav_state > 0 and simDR_allThrottle < 0.02 and simDR_onGround == 0 then
+		if B747DR_ap_vnav_state > 0 and simDR_allThrottle < 0.1 and simDR_onGround == 0 then
 			B747DR_ap_FMA_autothrottle_mode = 2 --IDLE
 		elseif (B747DR_ap_vnav_state > 0 or B747DR_toggle_switch_position[29] > 0) and simDR_onGround == 0 then
 			B747DR_ap_FMA_autothrottle_mode = 1 --HOLD
