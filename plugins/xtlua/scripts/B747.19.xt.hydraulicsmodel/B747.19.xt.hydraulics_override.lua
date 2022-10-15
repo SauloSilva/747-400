@@ -437,6 +437,9 @@ function ap_director_pitch(pitchMode)
     end
     if (pitchMode==4 or pitchMode==8) and (simDR_pressureAlt1> holdAlt+B747DR_alt_capture_window or simDR_pressureAlt1< holdAlt-B747DR_alt_capture_window) then
         local pitchError=math.abs(simDR_AHARS_pitch_heading_deg_pilot-last_simDR_AHARS_pitch_heading_deg_pilot)
+        if simDR_autopilot_servos_on==0 then
+            pitchError=0
+        end
         local speed_delta=simDR_ind_airspeed_kts_pilot-last_simDR_ind_airspeed_kts_pilot
         --FLCH
         last_simDR_ind_airspeed_kts_pilot=simDR_ind_airspeed_kts_pilot
@@ -502,6 +505,9 @@ function ap_director_pitch(pitchMode)
         local altDiff=math.abs(simDR_pressureAlt1-holdAlt)
         local targetFPM=(holdAlt-simDR_pressureAlt1)*2 --target alt in 30 secs
         local pitchError=math.abs(simDR_AHARS_pitch_heading_deg_pilot-last_simDR_AHARS_pitch_heading_deg_pilot)
+        if simDR_autopilot_servos_on==0 then
+            pitchError=0
+        end
         directorSampleRate=0.1
         
         local rog=0.001+0.00003*math.abs(simDR_vvi_fpm_pilot-targetFPM)
@@ -531,6 +537,9 @@ function ap_director_pitch(pitchMode)
     
     elseif pitchMode==4 or pitchMode==7 or pitchMode==6 then
         local pitchError=math.abs(simDR_AHARS_pitch_heading_deg_pilot-last_simDR_AHARS_pitch_heading_deg_pilot)
+        if simDR_autopilot_servos_on==0 then
+            pitchError=0
+        end
         directorSampleRate=0.1
         
         local rog=0.001+0.00003*math.abs(simDR_vvi_fpm_pilot-simDR_autopilot_vs_fpm)
