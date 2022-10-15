@@ -33,7 +33,7 @@ function throttle_resolver_angle_RR(engine_in)
 
   return throttle_angle]]--
 
-  if B747DR_ref_thr_limit_mode == "CRZ" then
+  --[[if B747DR_ref_thr_limit_mode == "CRZ" then
     return simDR_EPR_target_bug[engine_in]
   end
   local thrust_ratio_factor = B747DR_display_EPR_max[engine_in] / 1.71
@@ -63,7 +63,10 @@ function throttle_resolver_angle_RR(engine_in)
     print("Mach = ", mach)
 
   end
-  return EPR_actual
+  return EPR_actual]]--
+
+  local EPR_target=B747_rescale(0.0, 1.0, 1.0, B747DR_display_EPR_max[engine_in], simDR_throttle_ratio[engine_in])
+  return EPR_target
 end
 
 function engine_idle_control_RR(altitude_ft_in)

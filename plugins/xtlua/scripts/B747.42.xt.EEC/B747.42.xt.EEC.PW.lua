@@ -34,7 +34,7 @@ function throttle_resolver_angle_PW(engine_in)
   end
 
   return throttle_angle]]
-    local thrust_ratio_factor = 1.63 / 2.75
+   --[[ local thrust_ratio_factor = 1.63 / 2.75
     local commandThrust=engine_max_thrust_n*simDR_throttle_ratio[engine_in]* thrust_ratio_factor
     local EPR_corrected_thrust_N = commandThrust / (1000 * sigma_density_ratio)
     --EPR_corrected_thrust_N = thrust_N_in / (1000 * sigma_density_ratio)
@@ -59,7 +59,9 @@ function throttle_resolver_angle_PW(engine_in)
         print("Mach = ", mach)
     
       end
-      return math.min(EPR_actual,1.71) --top of PW is 1.95, 1.75 for RR ??
+      return math.min(EPR_actual,1.71) --top of PW is 1.95, 1.75 for RR ??]]
+  local EPR_target=B747_rescale(0.0, 1.0, 1.0, B747DR_display_EPR_max[engine_in], simDR_throttle_ratio[engine_in])
+  return EPR_target
 end
 
 function engine_idle_control_PW(altitude_ft_in)

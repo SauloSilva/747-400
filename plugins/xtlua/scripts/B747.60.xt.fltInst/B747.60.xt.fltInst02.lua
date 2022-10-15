@@ -3094,10 +3094,12 @@ function B747_Vs()
         if numStalled > 0 then
             vSAOA=(target_airspeed_Vs-simDR_airspeed)*(0-numStalled)/10
             vSAOA=math.min(vSAOA,simDR_airspeed+12-target_airspeed_Vs)
-           -- if simDR_all_wheels_on_ground==0 then
+           if simDR_all_wheels_on_ground==0 then 
                 simDR_autopilot_TOGA_pitch_deg=12-(17*numStalled/10)
                 --print("simDR_autopilot_TOGA_pitch_deg1="..simDR_autopilot_TOGA_pitch_deg)
-           -- end
+           else --on ground, pitch for 8
+            simDR_autopilot_TOGA_pitch_deg=8
+           end
 
         elseif simDR_all_wheels_on_ground==1 then
             simDR_autopilot_TOGA_pitch_deg=8
