@@ -428,7 +428,7 @@ function EGT_display_GE(engine_in)
   elseif simDR_engn_EGT_c[engine_in] < 375 then
     EGT_display = simDR_engn_EGT_c[engine_in]
   else
-    EGT_display = B747_rescale(375.0, 375.0, 725.0, 985.0, simDR_engn_EGT_c[engine_in])
+    EGT_display = B747_rescale(0.0, 0.0, 985.0, 985.0, simDR_engn_EGT_c[engine_in])
   end
 
   if B747DR_log_level >= 1 then

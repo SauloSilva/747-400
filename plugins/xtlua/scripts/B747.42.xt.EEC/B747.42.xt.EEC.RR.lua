@@ -699,7 +699,7 @@ function engine_idle_control_RR(altitude_ft_in)
     if simDR_engn_EGT_c[engine_in] <= simDR_temperature then
       EGT_display = simDR_temperature
     else
-      EGT_display = simDR_engn_EGT_c[engine_in]
+      EGT_display = B747_rescale(0.0, 0.0, 960, 785, simDR_engn_EGT_c[engine_in])--simDR_engn_EGT_c[engine_in]
     end
   
     if B747DR_log_level >= 2 then
@@ -942,7 +942,7 @@ function engine_idle_control_RR(altitude_ft_in)
       end
       B747DR_display_EPR_ref[i] = display_EPR_ref[i]
       B747DR_display_EPR_max[i] = display_EPR_max[i]
-      EPR_display[i] = string.format("%3.2f", math.min(EPR_display_RR(altitude_ft_in, simDR_thrust_n[i], i), 1.90))  --use i as a reference for engine number
+      EPR_display[i] = math.min(EPR_display_RR(altitude_ft_in, simDR_thrust_n[i], i), 1.90)--string.format("%3.2f", math.min(EPR_display_RR(altitude_ft_in, simDR_thrust_n[i], i), 1.90))  --use i as a reference for engine number
       B747DR_display_EPR[i] = math.max(EPR_display[i], 0.0)
 
       N1_display[i] = string.format("%4.1f", math.min(N1_display_RR(altitude_ft_in, simDR_thrust_n[i], i), 112.5))

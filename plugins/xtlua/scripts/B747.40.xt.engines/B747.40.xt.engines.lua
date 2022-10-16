@@ -114,7 +114,7 @@ simConfigData = {}
 --*************************************************************************************--
 --** 				              FIND X-PLANE DATAREFS              		    	 **--
 --*************************************************************************************--
-
+B747DR_display_EGT					= deferred_dataref("laminar/B747/engines/display_EGT", "array[4]")
 simDR_startup_running           = find_dataref("sim/operation/prefs/startup_running")
 simDR_all_wheels_on_ground      = find_dataref("sim/flightmodel/failures/onground_any")
 simDR_reallyall_wheels_on_ground      = find_dataref("sim/flightmodel/failures/onground_all")
@@ -718,20 +718,6 @@ function B747_prop_mode()
 
     -- Mode 0 is feathered, 1 is normal, 2 is in beta, and reverse (prop or jet) is mode 3
 
-    --simDR_prop_mode[0] = B747_ternary(((B747DR_thrust_rev_lever_pos[0] > 0.45) and (simDR_hydraulic_sys_press_01 > 1000.0)), 3, 1)
-    --simDR_prop_mode[1] = B747_ternary(((B747DR_thrust_rev_lever_pos[1] > 0.45) and (simDR_hydraulic_sys_press_02 > 1000.0)), 3, 1)
-    --simDR_prop_mode[2] = B747_ternary(((B747DR_thrust_rev_lever_pos[2] > 0.45) and (simDR_hydraulic_sys_press_02 > 1000.0)), 3, 1)
-    --simDR_prop_mode[3] = B747_ternary(((B747DR_thrust_rev_lever_pos[3] > 0.45) and (simDR_hydraulic_sys_press_01 > 1000.0)), 3, 1)simCMD_ThrottleUp
-   
-    --[[if ((B747DR_engine_TOGA_mode >0 and B747DR_engine_TOGA_mode < 1) or B747DR_ap_autoland<0) and simDR_allThrottle<0.94 and B747DR_toggle_switch_position[29] == 1 then
-	    simCMD_ThrottleUp:once()--simDR_allThrottle = B747_set_animation_position(simDR_allThrottle,0.95,0,1,1)
-    else]]
-    --[[if B747DR_engine_TOGA_mode >0 and B747DR_engine_TOGA_mode < 1 then
-      B747DR_engine_TOGA_mode = 1
-      --[[if toderate==0 then throttlederate=1.0
-      elseif toderate==1 then throttlederate=0.9
-      elseif toderate==2 then throttlederate=0.8 end
-    end]]--
     if simDR_reallyall_wheels_on_ground==0 then
         B747DR_reverser_lockout = 1
     else 
@@ -856,7 +842,7 @@ function B747_EGT_indicator()
     -- ----------------------------------------------------------------------------------
     -- ENGINE #1
     -- ----------------------------------------------------------------------------------
-    if simDR_engine_EGT_degC[0] <= EGT_continuous_limit then
+    if B747DR_display_EGT[0] <= EGT_continuous_limit then
         EGT_amber_inhibit[1] = 0
         EGT_check_inhibit[1] = 1
         if is_timer_scheduled(B747_EGT01_5min_inhibit_canx) == true then
@@ -866,8 +852,8 @@ function B747_EGT_indicator()
             stop_timer(B747_EGT01_10min_inhibit_canx)
         end
 
-    elseif simDR_engine_EGT_degC[0] > EGT_continuous_limit
-        and simDR_engine_EGT_degC[0] <= EGT_max_limit
+    elseif B747DR_display_EGT[0] > EGT_continuous_limit
+        and B747DR_display_EGT[0] <= EGT_max_limit
         and EGT_check_inhibit[1] == 1
     then
         if B747DR_engine_TOGA_mode == 1 then
@@ -905,8 +891,8 @@ function B747_EGT_indicator()
 
 
     -- SET AMBER HIDE/SHOW
-    if simDR_engine_EGT_degC[0] > EGT_continuous_limit
-        and simDR_engine_EGT_degC[0] <= EGT_max_limit
+    if B747DR_display_EGT[0] > EGT_continuous_limit
+        and B747DR_display_EGT[0] <= EGT_max_limit
         and EGT_amber_inhibit[1] == 0
     then
         B747DR_EGT_amber_on[0] = 1
@@ -916,9 +902,9 @@ function B747_EGT_indicator()
 
 
     -- SET WHITE HIDE/SHOW
-    if (simDR_engine_EGT_degC[0] <= EGT_continuous_limit)
+    if (B747DR_display_EGT[0] <= EGT_continuous_limit)
         or
-        ((simDR_engine_EGT_degC[0] > EGT_continuous_limit) and (simDR_engine_EGT_degC[0] <= EGT_max_limit) and (EGT_amber_inhibit[1] == 1))
+        ((B747DR_display_EGT[0] > EGT_continuous_limit) and (B747DR_display_EGT[0] <= EGT_max_limit) and (EGT_amber_inhibit[1] == 1))
     then
         B747DR_EGT_white_on[0] = 1
     else
@@ -931,7 +917,7 @@ function B747_EGT_indicator()
     -- ----------------------------------------------------------------------------------
     -- ENGINE #2
     -- ----------------------------------------------------------------------------------
-    if simDR_engine_EGT_degC[1] <= EGT_continuous_limit then
+    if B747DR_display_EGT[1] <= EGT_continuous_limit then
         EGT_amber_inhibit[2] = 0
         EGT_check_inhibit[2] = 1
         if is_timer_scheduled(B747_EGT02_5min_inhibit_canx) == true then
@@ -941,8 +927,8 @@ function B747_EGT_indicator()
             stop_timer(B747_EGT02_10min_inhibit_canx)
         end
 
-    elseif simDR_engine_EGT_degC[1] > EGT_continuous_limit
-        and simDR_engine_EGT_degC[1] <= EGT_max_limit
+    elseif B747DR_display_EGT[1] > EGT_continuous_limit
+        and B747DR_display_EGT[1] <= EGT_max_limit
         and EGT_check_inhibit[2] == 1
     then
         if B747DR_engine_TOGA_mode == 1 then
@@ -980,8 +966,8 @@ function B747_EGT_indicator()
 
 
     -- SET AMBER HIDE/SHOW
-    if simDR_engine_EGT_degC[1] > EGT_continuous_limit
-        and simDR_engine_EGT_degC[1] <= EGT_max_limit
+    if B747DR_display_EGT[1] > EGT_continuous_limit
+        and B747DR_display_EGT[1] <= EGT_max_limit
         and EGT_amber_inhibit[2] == 0
     then
         B747DR_EGT_amber_on[1] = 1
@@ -991,8 +977,8 @@ function B747_EGT_indicator()
 
 
     -- SET WHITE HIDE/SHOW
-    if (simDR_engine_EGT_degC[1] <= EGT_continuous_limit)
-        or ((simDR_engine_EGT_degC[1] > EGT_continuous_limit) and (simDR_engine_EGT_degC[1] <= EGT_max_limit) and (EGT_amber_inhibit[2] == 1))
+    if (B747DR_display_EGT[1] <= EGT_continuous_limit)
+        or ((B747DR_display_EGT[1] > EGT_continuous_limit) and (B747DR_display_EGT[1] <= EGT_max_limit) and (EGT_amber_inhibit[2] == 1))
     then
         B747DR_EGT_white_on[1] = 1
     else
@@ -1003,7 +989,7 @@ function B747_EGT_indicator()
     -- ----------------------------------------------------------------------------------
     -- ENGINE #3
     -- ----------------------------------------------------------------------------------
-    if simDR_engine_EGT_degC[2] <= EGT_continuous_limit then
+    if B747DR_display_EGT[2] <= EGT_continuous_limit then
         EGT_amber_inhibit[3] = 0
         EGT_check_inhibit[3] = 1
         if is_timer_scheduled(B747_EGT03_5min_inhibit_canx) == true then
@@ -1013,8 +999,8 @@ function B747_EGT_indicator()
             stop_timer(B747_EGT03_10min_inhibit_canx)
         end
 
-    elseif simDR_engine_EGT_degC[2] > EGT_continuous_limit
-        and simDR_engine_EGT_degC[2] <= EGT_max_limit
+    elseif B747DR_display_EGT[2] > EGT_continuous_limit
+        and B747DR_display_EGT[2] <= EGT_max_limit
         and EGT_check_inhibit[3] == 1
     then
         if B747DR_engine_TOGA_mode == 1 then
@@ -1052,8 +1038,8 @@ function B747_EGT_indicator()
 
 
     -- SET AMBER HIDE/SHOW
-    if simDR_engine_EGT_degC[2] > EGT_continuous_limit
-        and simDR_engine_EGT_degC[2] <= EGT_max_limit
+    if B747DR_display_EGT[2] > EGT_continuous_limit
+        and B747DR_display_EGT[2] <= EGT_max_limit
         and EGT_amber_inhibit[3] == 0
     then
         B747DR_EGT_amber_on[2] = 1
@@ -1063,8 +1049,8 @@ function B747_EGT_indicator()
 
 
     -- SET WHITE HIDE/SHOW
-    if (simDR_engine_EGT_degC[2] <= EGT_continuous_limit)
-        or ((simDR_engine_EGT_degC[2] > EGT_continuous_limit) and (simDR_engine_EGT_degC[2] <= EGT_max_limit) and (EGT_amber_inhibit[3] == 1))
+    if (B747DR_display_EGT[2] <= EGT_continuous_limit)
+        or ((B747DR_display_EGT[2] > EGT_continuous_limit) and (B747DR_display_EGT[2] <= EGT_max_limit) and (EGT_amber_inhibit[3] == 1))
     then
         B747DR_EGT_white_on[2] = 1
     else
@@ -1075,7 +1061,7 @@ function B747_EGT_indicator()
     -- ----------------------------------------------------------------------------------
     -- ENGINE #4
     -- ----------------------------------------------------------------------------------
-    if simDR_engine_EGT_degC[3] <= EGT_continuous_limit then
+    if B747DR_display_EGT[3] <= EGT_continuous_limit then
         EGT_amber_inhibit[4] = 0
         EGT_check_inhibit[4] = 1
         if is_timer_scheduled(B747_EGT04_5min_inhibit_canx) == true then
@@ -1085,8 +1071,8 @@ function B747_EGT_indicator()
             stop_timer(B747_EGT04_10min_inhibit_canx)
         end
     
-    elseif simDR_engine_EGT_degC[3] > EGT_continuous_limit
-        and simDR_engine_EGT_degC[3] <= EGT_max_limit
+    elseif B747DR_display_EGT[3] > EGT_continuous_limit
+        and B747DR_display_EGT[3] <= EGT_max_limit
         and EGT_check_inhibit[4] == 1
     then
         if B747DR_engine_TOGA_mode == 1 then
@@ -1124,8 +1110,8 @@ function B747_EGT_indicator()
 
 
     -- SET AMBER HIDE/SHOW
-    if simDR_engine_EGT_degC[3] > EGT_continuous_limit
-        and simDR_engine_EGT_degC[3] <= EGT_max_limit
+    if B747DR_display_EGT[3] > EGT_continuous_limit
+        and B747DR_display_EGT[3] <= EGT_max_limit
         and EGT_amber_inhibit[4] == 0
     then
         B747DR_EGT_amber_on[3] = 1
@@ -1135,8 +1121,8 @@ function B747_EGT_indicator()
 
 
     -- SET WHITE HIDE/SHOW
-    if (simDR_engine_EGT_degC[3] <= EGT_continuous_limit)
-        or ((simDR_engine_EGT_degC[3] > EGT_continuous_limit) and (simDR_engine_EGT_degC[3] <= EGT_max_limit) and (EGT_amber_inhibit[4] == 1))
+    if (B747DR_display_EGT[3] <= EGT_continuous_limit)
+        or ((B747DR_display_EGT[3] > EGT_continuous_limit) and (B747DR_display_EGT[3] <= EGT_max_limit) and (EGT_amber_inhibit[4] == 1))
     then
         B747DR_EGT_white_on[3] = 1
     else

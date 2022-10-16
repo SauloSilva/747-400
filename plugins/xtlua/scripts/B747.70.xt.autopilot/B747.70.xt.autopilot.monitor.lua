@@ -534,7 +534,7 @@ function B747_monitorAT()
     end
 
     --AT OFF
-    if B747DR_toggle_switch_position[29] == 0 or simDR_radarAlt1<25 then 
+    if B747DR_toggle_switch_position[29] == 0 then --or simDR_radarAlt1<25
         if B747DR_autothrottle_active==1 then
             print("AT off")
             --simCMD_autopilot_autothrottle_off:once()

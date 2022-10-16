@@ -719,8 +719,12 @@ function ecc_spd()
 				input=math.max(B747DR_display_N1[0],B747DR_display_N1[1],B747DR_display_N1[2],B747DR_display_N1[3])
 				target=simDR_N1_target_bug[0]
 			else --PW or RR, EPR target
-				input=30*math.max(B747DR_display_EPR[0],B747DR_display_EPR[1],B747DR_display_EPR[2],B747DR_display_EPR[3])
-				target=30*simDR_EPR_target_bug[0]
+				local targetBug=math.min(simDR_EPR_target_bug[0],simDR_EPR_target_bug[1],simDR_EPR_target_bug[2],simDR_EPR_target_bug[3],
+				B747DR_display_EPR_max[0]-0.1,B747DR_display_EPR_max[1]-0.1,B747DR_display_EPR_max[2]-0.1,B747DR_display_EPR_max[3]-0.1)
+				local inputBug=math.max(B747DR_display_EPR[0],B747DR_display_EPR[1],B747DR_display_EPR[2],B747DR_display_EPR[3])
+				input=200.0*inputBug
+				target=200.0*targetBug
+				print("throttle target="..target.. " current "..input.." targetBug "..targetBug.." inputBug "..inputBug)
 			end
 		end
 		--
@@ -732,7 +736,7 @@ function ecc_spd()
 		throttlePid.input = input
         throttlePid.target= target
 		local diffSpeed=15/(0.1+math.abs(input-target))
-		--print(diffSpeed)
+		print(diffSpeed)
         if (simDRTime-lastCompute)>computeRate then
             throttlePid:compute()
 			lastCompute=simDRTime
@@ -740,11 +744,18 @@ function ecc_spd()
         end
 
 		if throttlePid.output~=nil then
-			--print("throttle target="..target.. " current "..input.."AT retval "..throttlePid.output)
+			print("throttle target="..target.. " current "..input.." AT retval "..throttlePid.output)
 			--print("AT retval"..throttlePid.output.." simDR_ind_airspeed_kts_pilot "..simDR_ind_airspeed_kts_pilot.." B747DR_ap_ias_bug_value "..B747DR_ap_ias_bug_value)
+			--if math.max(simDR_engn_thro[0],simDR_engn_thro[1],simDR_engn_thro[2],simDR_engn_thro[3])>0.9 then
+			--[[if math.abs(input-target)>10 and B747DR_ap_FMA_autothrottle_mode~=3 then
+				diffSpeed=diffSpeed+20
+				print("rate lim throttle")
+			end]]--
 			for i = 0, 3 do
 				simDR_engn_thro[i]=B747_interpolate_value(simDR_engn_thro[i],throttlePid.output,0,1,diffSpeed)
 			end
+		else
+			print("throttle target=nil")
 		end
 end
 local previous_altitude = 0
@@ -795,24 +806,24 @@ function throttle_management()
 			if simConfigData["data"].PLANE.thrust_ref == "N1" then
 				if B747DR_display_N1[0] < B747DR_display_N1_ref[0] or B747DR_display_N1[1] < B747DR_display_N1_ref[1]
 					or B747DR_display_N1[2] < B747DR_display_N1_ref[2] or B747DR_display_N1[3] < B747DR_display_N1_ref[3] then
-					print("TOGA Engaged - Waiting for spool-up.....")
-					simCMD_ThrottleUp:once()
-					if B747DR_autothrottle_active ~= 0 then
+					--print("TOGA Engaged - Waiting for spool-up.....")
+					--simCMD_ThrottleUp:once()
+					if B747DR_autothrottle_active ~= 1 then
 						--simCMD_autopilot_autothrottle_off:once()
-						B747DR_autothrottle_active=0
+						B747DR_autothrottle_active=1
 					end
-					return
+					--return
 				end
 			elseif simConfigData["data"].PLANE.thrust_ref == "EPR" then
 				if B747DR_display_EPR[0] < B747DR_display_EPR_ref[0] or B747DR_display_EPR[1] < B747DR_display_EPR_ref[1]
 					or B747DR_display_EPR[2] < B747DR_display_EPR_ref[2] or B747DR_display_EPR[3] < B747DR_display_EPR_ref[3] then
-					print("TOGA Engaged - Waiting for spool-up.....")
-					simCMD_ThrottleUp:once()
-					if B747DR_autothrottle_active ~= 0 then
+					--print("TOGA Engaged - Waiting for spool-up.....")
+					--simCMD_ThrottleUp:once()
+					if B747DR_autothrottle_active ~= 1 then
 						--simCMD_autopilot_autothrottle_off:once()
-						B747DR_autothrottle_active=0
+						B747DR_autothrottle_active=1
 					end
-					return
+					--return
 				end
 			end
 		end
