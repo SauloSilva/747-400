@@ -702,17 +702,17 @@ function ecc_spd()
 	    local input=1
 		local target=1
 		if B747DR_ap_FMA_autothrottle_mode==3 then
-			if B747DR_engineType~=1 and 
+			--[[if B747DR_engineType~=1 and 
 			math.max(B747DR_display_EPR[0],B747DR_display_EPR[1],B747DR_display_EPR[2],B747DR_display_EPR[3])>
 			math.max(B747DR_display_EPR_max[0],B747DR_display_EPR_max[1],B747DR_display_EPR_max[2],B747DR_display_EPR_max[3])
 			and simDR_ind_airspeed_kts_pilot<simDR_autopilot_airspeed_kts
 			then
 				input=30*math.max(B747DR_display_EPR[0],B747DR_display_EPR[1],B747DR_display_EPR[2],B747DR_display_EPR[3])
 				target=30*math.max(B747DR_display_EPR_max[0],B747DR_display_EPR_max[1],B747DR_display_EPR_max[2],B747DR_display_EPR_max[3])
-			else
+			else]]
 				input=simDR_ind_airspeed_kts_pilot
 				target=simDR_autopilot_airspeed_kts
-			end
+			--end
 		else
 			--some kind of thrust target
 			if B747DR_engineType==1 then --GE, n1 target
@@ -723,7 +723,7 @@ function ecc_spd()
 				target=30*simDR_EPR_target_bug[0]
 			end
 		end
-		--print("throttle target="..target.. " current "..input)
+		--
 		--simDR_override_throttles = 1
 		throttlePid.kp=B747DR_pidthrottleP
 		throttlePid.ki=B747DR_pidthrottleI
@@ -731,17 +731,21 @@ function ecc_spd()
 
 		throttlePid.input = input
         throttlePid.target= target
+		local diffSpeed=15/(0.1+math.abs(input-target))
+		--print(diffSpeed)
         if (simDRTime-lastCompute)>computeRate then
             throttlePid:compute()
 			lastCompute=simDRTime
-			if throttlePid.output~=nil then
-			--print("AT retval"..throttlePid.output.." simDR_ind_airspeed_kts_pilot "..simDR_ind_airspeed_kts_pilot.." B747DR_ap_ias_bug_value "..B747DR_ap_ias_bug_value)
-				for i = 0, 3 do
-					simDR_engn_thro[i]=B747_interpolate_value(simDR_engn_thro[i],throttlePid.output,0,1,6)
-				end
-			end
+			
         end
 
+		if throttlePid.output~=nil then
+			--print("throttle target="..target.. " current "..input.."AT retval "..throttlePid.output)
+			--print("AT retval"..throttlePid.output.." simDR_ind_airspeed_kts_pilot "..simDR_ind_airspeed_kts_pilot.." B747DR_ap_ias_bug_value "..B747DR_ap_ias_bug_value)
+			for i = 0, 3 do
+				simDR_engn_thro[i]=B747_interpolate_value(simDR_engn_thro[i],throttlePid.output,0,1,diffSpeed)
+			end
+		end
 end
 local previous_altitude = 0
 function throttle_management()
@@ -949,8 +953,8 @@ function hasSimConfig()
 end
 function flight_start()
 	B747DR_pidthrottleP = 0.030
-	B747DR_pidthrottleI = 0.002
-	B747DR_pidthrottleD = 0.001
+	B747DR_pidthrottleI = 0.001
+	B747DR_pidthrottleD = 0.01
 end
 function after_physics()
 	if debug_ecc>0 then return end
