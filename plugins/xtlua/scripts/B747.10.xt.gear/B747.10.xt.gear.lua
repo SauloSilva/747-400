@@ -192,13 +192,13 @@ B747DR_gear_handle_detent 	= deferred_dataref("laminar/B747/actuator/gear_handle
 
 local runningGear=0
 function B747CMD_gear_up_full_CMDhandler(phase, duration)
-  runningGear=1
+  runningGear=1 --up
 end  
 function B747CMD_gear_down_full_CMDhandler(phase, duration)
-  runningGear=-1
+  runningGear=-1 --down
 end  
 function B747CMD_gear_off_CMDhandler(phase, duration)
-    runningGear=2
+    runningGear=2 --off
 end
 function B747_animate_value(current_value, target, min, max, speed)
 
@@ -264,6 +264,20 @@ end
 
 function sim_landing_gear_toggle_CMDhandler(phase, duration)
     if phase == 0 then
+        if B747DR_gear_handle<1.5 and B747DR_gear_handle>0.5 then
+            runningGear=-1
+        end 
+        if B747DR_gear_handle<0.5 then
+            runningGear=1
+        end  
+        if B747DR_gear_handle>1.5 then
+            runningGear=2
+        end  
+    end
+end
+
+--[[function sim_landing_gear_toggle_CMDhandler(phase, duration)
+    if phase == 0 then
         -- GEAR HANDLE LOCK IS DISENGAGED
         if B747_gear_handle_lock == 0 then
 	        
@@ -295,7 +309,7 @@ function sim_landing_gear_toggle_CMDhandler(phase, duration)
             
         end
     end
-end
+end]]
 
 
 
@@ -306,11 +320,14 @@ end
 --** 				                 X-PLANE COMMANDS                   	    	 **--
 --*************************************************************************************--
 
-simCMD_landing_gear_up = replace_command("sim/flight_controls/landing_gear_up", sim_landing_gear_up_CMDhandler)
-simCMD_landing_gear_down = replace_command("sim/flight_controls/landing_gear_down", sim_landing_gear_down_CMDhandler)
+simCMD_landing_gear_up = replace_command("sim/flight_controls/landing_gear_up", B747CMD_gear_up_full_CMDhandler)
+simCMD_landing_gear_down = replace_command("sim/flight_controls/landing_gear_down", B747CMD_gear_down_full_CMDhandler)
+simCMD_landing_gear_down = replace_command("sim/flight_controls/landing_gear_off", B747CMD_gear_off_CMDhandler)
 simCMD_landing_gear_toggle = replace_command("sim/flight_controls/landing_gear_toggle", sim_landing_gear_toggle_CMDhandler)
 
-
+--B747CMD_gear_up_full      = deferred_command("laminar/B747/gear/overrideUp", "Gear Full Up", B747CMD_gear_up_full_CMDhandler)
+--B747CMD_gear_down_full    = deferred_command("laminar/B747/gear/overrideDown", "Gear Full Down", B747CMD_gear_down_full_CMDhandler)
+--B747CMD_gear_off      = deferred_command("laminar/B747/gear/overrideOff", "Gear Off", B747CMD_gear_off_CMDhandler)
 
 
 --*************************************************************************************--
