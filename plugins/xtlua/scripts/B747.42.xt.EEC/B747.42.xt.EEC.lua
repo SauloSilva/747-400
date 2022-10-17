@@ -724,7 +724,7 @@ function ecc_spd()
 				local inputBug=math.max(B747DR_display_EPR[0],B747DR_display_EPR[1],B747DR_display_EPR[2],B747DR_display_EPR[3])
 				input=200.0*inputBug
 				target=200.0*targetBug
-				print("throttle target="..target.. " current "..input.." targetBug "..targetBug.." inputBug "..inputBug)
+				--print("throttle target="..target.. " current "..input.." targetBug "..targetBug.." inputBug "..inputBug)
 			end
 		end
 		--
@@ -736,7 +736,7 @@ function ecc_spd()
 		throttlePid.input = input
         throttlePid.target= target
 		local diffSpeed=15/(0.1+math.abs(input-target))
-		print(diffSpeed)
+		--print(diffSpeed)
         if (simDRTime-lastCompute)>computeRate then
             throttlePid:compute()
 			lastCompute=simDRTime
@@ -744,7 +744,7 @@ function ecc_spd()
         end
 
 		if throttlePid.output~=nil then
-			print("throttle target="..target.. " current "..input.." AT retval "..throttlePid.output)
+			--print("throttle target="..target.. " current "..input.." AT retval "..throttlePid.output)
 			--print("AT retval"..throttlePid.output.." simDR_ind_airspeed_kts_pilot "..simDR_ind_airspeed_kts_pilot.." B747DR_ap_ias_bug_value "..B747DR_ap_ias_bug_value)
 			--if math.max(simDR_engn_thro[0],simDR_engn_thro[1],simDR_engn_thro[2],simDR_engn_thro[3])>0.9 then
 			--[[if math.abs(input-target)>10 and B747DR_ap_FMA_autothrottle_mode~=3 then
@@ -754,8 +754,7 @@ function ecc_spd()
 			for i = 0, 3 do
 				simDR_engn_thro[i]=B747_interpolate_value(simDR_engn_thro[i],throttlePid.output,0,1,diffSpeed)
 			end
-		else
-			print("throttle target=nil")
+		
 		end
 end
 local previous_altitude = 0
