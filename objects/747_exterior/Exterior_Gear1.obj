@@ -14889,7 +14889,7 @@ IDX	3645
 IDX	3690
 IDX	3645
 IDX	3691
-ATTR_light_level 0 400 laminar/B747/gear/brake_temp[4] 50000
+ATTR_light_level 200 500 laminar/B747/gear/brake_temp[4] 50000
 ANIM_begin
 	ANIM_trans	  -1.6553   -2.8177   35.5511	  -1.6553   -2.8177   35.5511	0 0	no_ref
 ANIM_hide	0.0 0.1	sim/flightmodel2/gear/deploy_ratio[2]
@@ -14973,7 +14973,7 @@ ANIM_hide	0.0 0.1	sim/flightmodel2/gear/deploy_ratio[1]
 		ANIM_end
 	ANIM_end
 ANIM_end
-ATTR_light_level 0 400 laminar/B747/gear/brake_temp[8] 50000
+ATTR_light_level 200 500 laminar/B747/gear/brake_temp[8] 50000
 ANIM_begin
 	ANIM_trans	   1.6333   -2.8177   35.5511	   1.6333   -2.8177   35.5511	0 0	no_ref
 ANIM_hide	0.0 0.1	sim/flightmodel2/gear/deploy_ratio[1]

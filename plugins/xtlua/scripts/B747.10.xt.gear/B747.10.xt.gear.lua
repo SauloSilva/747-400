@@ -724,18 +724,7 @@ function B747_brake_temp()
         tireSpeed[i] = B747_rescale(0.0, 0.0, 200.0, 1.0, simDR_tire_rot_speed[i-1])
     end
 
-    -- NOSE GEAR
-    --[[if tireSpeed[1] > 0 then
-        if brakingRatio_N > 0 then
-            local rate = brakingRatio_N * tireSpeed[1] * SIM_PERIOD * 160.0
-            B747DR_brake_temp[16] = B747DR_brake_temp[16] + rate
-            B747DR_brake_temp[17] = B747DR_brake_temp[16]
-        end
-    else
-        local rate = 1.8 * SIM_PERIOD
-        B747DR_brake_temp[16] = math.max(B747DR_brake_temp[16] - rate, simDR_OAT_degC)
-        B747DR_brake_temp[17] = B747DR_brake_temp[16]
-    end]]--
+
     --in a replay and no on the ground, quickly cool off the brakes to oat
     if IN_REPLAY==1 and simDR_aircraft_on_ground==0 then
         for i = 0, 17 do
@@ -744,14 +733,12 @@ function B747_brake_temp()
         return
     end
     -- BODY RIGHT GEAR
-    if tireSpeed[2] > 0 then
-        if brakingRatio_R > 0 then
-            local rate = brakingRatio_R * tireSpeed[2] * SIM_PERIOD * 130.0
-            B747DR_brake_temp[8] = B747DR_brake_temp[8] + rate
-            B747DR_brake_temp[9] = B747DR_brake_temp[8]
-            B747DR_brake_temp[10] = B747DR_brake_temp[8]
-            B747DR_brake_temp[11] = B747DR_brake_temp[8]
-        end
+    if tireSpeed[2] > 0 and brakingRatio_R > 0 then
+        local rate = brakingRatio_R * tireSpeed[2] * SIM_PERIOD * 130.0
+        B747DR_brake_temp[8] = B747DR_brake_temp[8] + rate
+        B747DR_brake_temp[9] = B747DR_brake_temp[8]
+        B747DR_brake_temp[10] = B747DR_brake_temp[8]
+        B747DR_brake_temp[11] = B747DR_brake_temp[8]
     else
         local rate = 1.8 * SIM_PERIOD
         B747DR_brake_temp[8] = math.max(B747DR_brake_temp[8] - rate, simDR_OAT_degC)
@@ -761,14 +748,12 @@ function B747_brake_temp()
     end
 
     -- BODY LEFT GEAR
-    if tireSpeed[3] > 0 then
-        if brakingRatio_L > 0 then
-            local rate = brakingRatio_L * tireSpeed[3] * SIM_PERIOD * 130.0
-            B747DR_brake_temp[4] = B747DR_brake_temp[4] + rate
-            B747DR_brake_temp[5] = B747DR_brake_temp[4]
-            B747DR_brake_temp[6] = B747DR_brake_temp[4]
-            B747DR_brake_temp[7] = B747DR_brake_temp[4]
-        end
+    if tireSpeed[3] > 0 and brakingRatio_L > 0 then
+        local rate = brakingRatio_L * tireSpeed[3] * SIM_PERIOD * 130.0
+        B747DR_brake_temp[4] = B747DR_brake_temp[4] + rate
+        B747DR_brake_temp[5] = B747DR_brake_temp[4]
+        B747DR_brake_temp[6] = B747DR_brake_temp[4]
+        B747DR_brake_temp[7] = B747DR_brake_temp[4]
     else
         local rate = 1.8 * SIM_PERIOD
         B747DR_brake_temp[4] = math.max(B747DR_brake_temp[4] - rate, simDR_OAT_degC)
@@ -778,14 +763,12 @@ function B747_brake_temp()
     end
 
     -- WING RIGHT GEAR
-    if tireSpeed[4] > 0 then
-        if brakingRatio_R > 0 then
-            local rate = brakingRatio_R * tireSpeed[4] * SIM_PERIOD * 130.0
-            B747DR_brake_temp[12] = B747DR_brake_temp[12] + rate
-            B747DR_brake_temp[13] = B747DR_brake_temp[12]
-            B747DR_brake_temp[14] = B747DR_brake_temp[12]
-            B747DR_brake_temp[15] = B747DR_brake_temp[12]
-        end
+    if tireSpeed[4] > 0 and brakingRatio_R > 0 then
+        local rate = brakingRatio_R * tireSpeed[4] * SIM_PERIOD * 130.0
+        B747DR_brake_temp[12] = B747DR_brake_temp[12] + rate
+        B747DR_brake_temp[13] = B747DR_brake_temp[12]
+        B747DR_brake_temp[14] = B747DR_brake_temp[12]
+        B747DR_brake_temp[15] = B747DR_brake_temp[12]
     else
         local rate = 1.8 * SIM_PERIOD
         B747DR_brake_temp[12] = math.max(B747DR_brake_temp[12] - rate, simDR_OAT_degC)
@@ -795,14 +778,14 @@ function B747_brake_temp()
     end
 
     -- WING LEFT GEAR
-    if tireSpeed[5] > 0 then
-        if brakingRatio_L > 0 then
-            local rate = brakingRatio_L * tireSpeed[5] * SIM_PERIOD * 130.0
-            B747DR_brake_temp[0] = B747DR_brake_temp[0] + rate
-            B747DR_brake_temp[1] = B747DR_brake_temp[0]
-            B747DR_brake_temp[2] = B747DR_brake_temp[0]
-            B747DR_brake_temp[3] = B747DR_brake_temp[0]
-        end
+    
+    if brakingRatio_L > 0 and tireSpeed[5] > 0 then
+        local rate = brakingRatio_L * tireSpeed[5] * SIM_PERIOD * 130.0
+        B747DR_brake_temp[0] = B747DR_brake_temp[0] + rate
+        B747DR_brake_temp[1] = B747DR_brake_temp[0]
+        B747DR_brake_temp[2] = B747DR_brake_temp[0]
+        B747DR_brake_temp[3] = B747DR_brake_temp[0]
+        
     else
         local rate = 1.8 * SIM_PERIOD
         B747DR_brake_temp[0] = math.max(B747DR_brake_temp[0] - rate, simDR_OAT_degC)

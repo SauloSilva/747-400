@@ -669,7 +669,7 @@ end
 ----- INIT THE LIGHT RHEOSTATS ----------------------------------------------------------
 function B747_init_light_rheostats()					
 
-    local light_level = B747_rescale(0.0, 0.0, 1.0, 0.75, simDR_percent_lights_on)
+    local light_level = B747_rescale(0.1, 0.0, 0.2, 0.75, simDR_percent_lights_on)
     
     B747DR_flood_light_rheo_capt_panel      = light_level
     B747DR_map_light_rheo_capt              = 0
