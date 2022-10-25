@@ -123,6 +123,23 @@ See the [commit history](https://github.com/mSparks43/747-400/commits/master) fo
 
 _Thank you all for your support and contributions!_
 
+## Release 3.0a1 for XP12:
+Release 3.0 brings compatibility with XP12 and starts to incorporate some of the new features now available.
+
+### Enhancements
+
+ - 2 independent ND displays (wip)
+ - Autothrottle improvements
+ - Much more realistic lighting
+ - initial rain and wiper effects (not perfected yet, but better than none)
+ - Always use default XP legs page (direct to now possible without switching to INTC_DIR when airborne)
+ 
+### Bug fixes
+
+ - Engine parameters display fixes for PW/GE/RR engines
+ - Brakes now cool when engaged but not slowing the plane down
+ - fix default XP gear up/off/down commands
+
 ## Release 2.4:
 Release 2.4 is a bug fix release.
 
