@@ -1934,9 +1934,9 @@ function setDistances(fmsO)
 	B747BR_eod_index = eod
 	B747BR_totalDistance = totalDistance
 	B747BR_nextDistanceInFeet = nextDistanceInFeet
-	local cruiseTOD = ((B747BR_cruiseAlt - fms[eod][3]) / 100) / 2.9
-	local currentTOD = ((simDR_pressureAlt1 - fms[eod][3]) / 100) / 2.9
-	local glideAlt= totalDistance*290 +fms[eod][3] 
+	local cruiseTOD = ((B747BR_cruiseAlt - fmsO[eod][3]) / 100) / 2.9
+	local currentTOD = ((simDR_pressureAlt1 - fmsO[eod][3]) / 100) / 2.9
+	local glideAlt= totalDistance*290 +fmsO[eod][3] 
 	B747BR_fpe	= simDR_pressureAlt1-glideAlt
 	--print("cruiseTOD="..cruiseTOD.." currentTOD="..currentTOD.." B747BR_totalDistance="..B747BR_totalDistance)
 	--if totalDistance - cruiseTOD < 50 and B747DR_ap_inVNAVdescent == 0 then
@@ -2913,10 +2913,11 @@ function after_physics()
 		fmsData = json.decode(B747DR_FMSdata)
 	else
 		fmsData = json.decode("[]")
+		
 	end
+	
 	local fmsSTR = fmsJSON
 	local fms = json.decode(fmsSTR)
-
 	B747_getCurrentWayPoint(fms)
 	B747_monitorAP(fms)
 	B747_ap_fma()
