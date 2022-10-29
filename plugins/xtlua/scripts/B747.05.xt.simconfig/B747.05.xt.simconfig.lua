@@ -45,6 +45,7 @@ simDR_baro_fo				= find_dataref("sim/cockpit/misc/barometer_setting2")
 -- Holds all SimConfig options
 B747DR_simconfig_data						= deferred_dataref("laminar/B747/simconfig", "string")
 B747DR_newsimconfig_data					= deferred_dataref("laminar/B747/newsimconfig", "number")
+B747DR_is_freighter          				= deferred_dataref("laminar/B747/freighter", "number")
 B747DR_efis_baro_ref_capt_sel_dial_pos		= find_dataref("laminar/B747/efis/baro_ref/capt/sel_dial_pos", "number")
 B747DR_efis_baro_ref_fo_sel_dial_pos		= deferred_dataref("laminar/B747/efis/baro_ref/fo/sel_dial_pos", "number")
 B747DR_flt_inst_inbd_disp_capt_sel_dial_pos	= deferred_dataref("laminar/B747/flt_inst/capt_inbd_display/sel_dial_pos", "number")
@@ -278,7 +279,12 @@ function set_loaded_configs()
 	for key, value in pairs(simConfigData["data"].SOUND) do
 		setSoundOption(key,value)
 	end
-
+	if simConfigData["data"].PLANE.aircraft_type ~= "PASSENGER" then
+		B747DR_is_freighter= 1
+	else
+		B747DR_is_freighter= 0
+	end
+	print("B747DR_is_freighter="..B747DR_is_freighter)
 	B747DR_newsimconfig_data=0
 end
 
