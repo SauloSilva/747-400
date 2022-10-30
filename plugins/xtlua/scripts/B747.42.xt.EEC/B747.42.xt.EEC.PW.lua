@@ -359,7 +359,7 @@ function engine_idle_control_PW(altitude_ft_in)
     local N1_zero_thrust = 0.0
     if last_N1[engine_in] == nil then last_N1[engine_in] = 0.0 end
     --Handle display of an engine shutdown
-    if simDR_engine_running[engine_in] == 0 then
+    --[[if simDR_engine_running[engine_in] == 0 then
       thrust_N_in = last_thrust_n[engine_in]
       if last_thrust_n[engine_in] > 0 then
         last_thrust_n[engine_in] = last_thrust_n[engine_in] - 100
@@ -368,8 +368,8 @@ function engine_idle_control_PW(altitude_ft_in)
       end
     else
       last_thrust_n[engine_in] = thrust_N_in
-    end
-
+    end]]
+    last_thrust_n[engine_in] = thrust_N_in
     if thrust_N_in < 0.0 then
       thrust_N_in = 0.0
     end

@@ -106,6 +106,7 @@ B747DR_ap_roll_mode_box_status         	= deferred_dataref("laminar/B747/autopil
 B747DR_ap_pitch_mode_box_status        	= deferred_dataref("laminar/B747/autopilot/FMA/pitch/mode_box_status", "number")
 B747DR_ap_approach_mode     	= deferred_dataref("laminar/B747/autopilot/approach_mode", "number")
 B747DR_ap_FMA_autothrottle_mode     	= deferred_dataref("laminar/B747/autopilot/FMA/autothrottle_mode", "number")
+B747DR_ap_active_land = deferred_dataref("laminar/B747/autopilot/active_land", "number")
 --[[
     0 = NONE
     1 = HOLD

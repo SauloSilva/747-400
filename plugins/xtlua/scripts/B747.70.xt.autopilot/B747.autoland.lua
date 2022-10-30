@@ -4,7 +4,6 @@
 *****************************************************************************************
 ]]
 local seenApproach=false
-local active_land=false
 local zerodThrottle=false
 local pinThrottle=0;
 local pinrudder=0;
@@ -35,11 +34,11 @@ function start_flare()
     B747DR_ap_FMA_active_pitch_mode = 3 --SHOW FLARE
     pinThrottle=simDR_allThrottle
     --simCMD_autopilot_autothrottle_off:once() 
-    B747DR_autothrottle_active=0
+    
     windCorrectAngle=simDR_reqHeading-simDR_AHARS_heading_deg_pilot
     --simCMD_autopilot_fdir_servos_down_one:once()
     
-    active_land=false
+    B747DR_ap_active_land=0.0
     zerodThrottle=false
     touchedGround=false
     inrollout=false
@@ -206,29 +205,32 @@ function during_Flare()
   if altdiff~=0 and lastRod==0 and lastAlt~=0 then lastRod=altdiff
   elseif altdiff~=0 then lastRod=(altdiff+lastRod)/2 end
   if lastRod<0 then lastRod=0 end
-  --print("during_Flare ".. simDR_radarAlt1 .. " "..B747DR_ap_FMA_active_roll_mode.. " "..B747DR_ap_FMA_active_pitch_mode)
+  print("during_Flare ".. simDR_radarAlt1 .. " "..B747DR_ap_FMA_active_roll_mode.. " "..B747DR_ap_FMA_active_pitch_mode)
   --doThrottle()
   if simDR_onGround==1 then
     B747DR_ap_FMA_autothrottle_mode = 0
-    simDR_override_throttles = 0
-  elseif simDR_radarAlt1<25 then
-    simDR_override_throttles = 0
+    --simDR_override_throttles = 0
+  elseif simDR_radarAlt1<40 then
+    --simDR_override_throttles = 0
     B747DR_ap_FMA_autothrottle_mode = 2
   end
   doPitch()
   controlYaw()
-  if simDR_radarAlt1<40 then
+  --[[if simDR_radarAlt1<40 then
     simDR_allThrottle=B747_set_ap_animation_position(simDR_allThrottle,0,0,1,1)
-  end
+    if simDR_allThrottle==0 then
+      B747DR_autothrottle_active=0
+    end
+  end]]
 
 end
 function end_Flare()
         B747DR_ap_FMA_active_pitch_mode = 0 --no pitch
        -- simDR_elevator=initElevator-0.05--B747_set_ap_animation_position(simDR_elevator,initElevator-0.05,0,1,5)
         simDR_pitch  =0.0
-        active_land=true
+        B747DR_ap_active_land=1.0
         zerodThrottle=false
-	
+        B747DR_ap_FMA_autothrottle_mode = 0
 end
 --[[function touchdown_elevator()
       if simDR_AHARS_pitch_heading_deg_pilot>2 then targetPitch=1
@@ -288,27 +290,28 @@ function runAutoland()
   
   
   if simDR_autopilot_approach_status>0 then seenApproach=true end
-  
+  if numAPengaged<1 then 
+    --if (simDR_autopilot_approach_status==0 and active_autoland==false) or numAPengaged<1 then
+       B747DR_ap_autoland=0 
+       B747DR_ap_active_land=0.0
+      --simDR_overRideStab=0
+       return false
+   end
    if seenApproach==false then return false end
    
-   if numAPengaged<1 then 
-   --if (simDR_autopilot_approach_status==0 and active_autoland==false) or numAPengaged<1 then
-      B747DR_ap_autoland=0 
-     --simDR_overRideStab=0
-      return false
-  end
+   
   if B747DR_ap_autoland<0 then
       --simDR_overRideStab=0
       return false --Go Around active
   elseif B747DR_ap_autoland==1 then
-      if active_land  then
+      if B747DR_ap_active_land>0.5  then
         do_touchdown()
 	      return true
       end
      
-      if simDR_radarAlt1 < 5 and not active_land then -- watch the bounce! 
+      if simDR_radarAlt1 < 5 and B747DR_ap_active_land<0.5 then -- watch the bounce! 
         end_Flare()
-	    return true
+	      return true
       end
 
       if simDR_radarAlt1 > flareAt and simDR_radarAlt1 < 800 and numAPengaged>=2 then

@@ -325,7 +325,7 @@ function N1_display_GE(altitude_ft_in, thrust_N_in, n1_factor_in, engine_in)
     end
 
     --Handle display of an engine shutdown
-    if simDR_engine_running[engine_in] == 0 then
+    --[[if simDR_engine_running[engine_in] == 0 then
       thrust_N_in = last_thrust_n[engine_in]
       n1_factor_in = 1.0
       if last_thrust_n[engine_in] > 0 then
@@ -335,8 +335,8 @@ function N1_display_GE(altitude_ft_in, thrust_N_in, n1_factor_in, engine_in)
       end
     else
       last_thrust_n[engine_in] = thrust_N_in
-    end
-
+    end]]
+    last_thrust_n[engine_in] = thrust_N_in
     if thrust_N_in < 0.0 then
       thrust_N_in = 0.0
     end

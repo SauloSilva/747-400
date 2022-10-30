@@ -701,7 +701,12 @@ function ecc_spd()
 	--print("---ECC SPD---")
 	    local input=1
 		local target=1
-		if B747DR_ap_FMA_autothrottle_mode==3 then
+		--idle
+		if B747DR_ap_FMA_autothrottle_mode==2 and simDR_radarAlt1<40 then
+			input=simDR_ind_airspeed_kts_pilot
+			target=0
+		--spd	
+		elseif B747DR_ap_FMA_autothrottle_mode==3 then
 			--[[if B747DR_engineType~=1 and 
 			math.max(B747DR_display_EPR[0],B747DR_display_EPR[1],B747DR_display_EPR[2],B747DR_display_EPR[3])>
 			math.max(B747DR_display_EPR_max[0],B747DR_display_EPR_max[1],B747DR_display_EPR_max[2],B747DR_display_EPR_max[3])
@@ -735,7 +740,7 @@ function ecc_spd()
 
 		throttlePid.input = input
         throttlePid.target= target
-		local diffSpeed=15/(0.1+math.abs(input-target))
+		local diffSpeed=10/(0.1+math.abs(input-target))
 		--print(diffSpeed)
         if (simDRTime-lastCompute)>computeRate then
             throttlePid:compute()
