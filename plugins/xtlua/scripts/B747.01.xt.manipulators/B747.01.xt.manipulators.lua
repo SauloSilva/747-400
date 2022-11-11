@@ -2307,7 +2307,7 @@ function B747_throttle_animation()
                 --print("manual speed throttle")
             else
                 --print("auto speed throttle")
-                B747DR_throttle[i]=B747_interpolate_value(B747DR_throttle[i],simDR_engn_thro[i],0,1,2)
+                B747DR_throttle[i]=simDR_engn_thro[i] --B747_interpolate_value(B747DR_throttle[i],simDR_engn_thro[i],0,1,2)
             end
         end
     end
