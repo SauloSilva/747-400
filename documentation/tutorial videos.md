@@ -2,7 +2,7 @@
 
 [747-400 Systems Part 2](https://www.youtube.com/watch?v=ZiDf_KovZC0)
 
-[747-400 FMA Review](https://www.youtube.com/watch?v=sDa1ukA3CUo)
+[B747-400 - System Training (2022) - V2](https://www.youtube.com/watch?v=cjlG6bWyYXQ) 
 
 [747-400 Systems Review](https://www.youtube.com/watch?v=7gx0PVJ1nWg)
 
