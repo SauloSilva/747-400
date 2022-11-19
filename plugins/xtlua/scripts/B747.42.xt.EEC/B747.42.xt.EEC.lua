@@ -755,12 +755,12 @@ function ecc_spd()
 		if throttlePid.output~=nil then
 			local tValue=round(throttlePid.output*100)/100
 			--print("throttle target="..target.. " current "..input.." AT retval "..throttlePid.output)
-			print("AT retval "..tValue.." simDR_ind_airspeed_kts_pilot "..input.." B747DR_ap_ias_bug_value "..target)
+			--print("AT retval "..tValue.." simDR_ind_airspeed_kts_pilot "..input.." B747DR_ap_ias_bug_value "..target)
 			--if math.max(simDR_engn_thro[0],simDR_engn_thro[1],simDR_engn_thro[2],simDR_engn_thro[3])>0.9 then
 			
 			if math.abs(input-target)<5 then
 				diffSpeed=diffSpeed+40
-				print("rate lim throttle")
+				--print("rate lim throttle")
 			end
 			if diffSpeed<15 and B747DR_ap_FMA_autothrottle_mode==3 then diffSpeed=15 end
 			if diffSpeed<5 then diffSpeed=5 end
