@@ -40250,7 +40250,7 @@ ANIM_begin
 	ANIM_rotate_end
 	TRIS	30564 372
 ANIM_end
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[126] 2000
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[126z
 TRIS	30936 9
 ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[127] 2000
 TRIS	30945 6

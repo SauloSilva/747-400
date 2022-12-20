@@ -71,6 +71,13 @@ annun.b = {}
 --*************************************************************************************--
 simDR_version=find_dataref("sim/version/xplane_internal_version")
 simDR_shadow			    = find_dataref("sim/private/controls/shadow/total_fade_ratio")
+simDR_contrast			    = find_dataref("sim/private/controls/tonemap/contrast")
+simDR_light_storage			    = find_dataref("sim/private/controls/photometric/light_storage_scale")
+simDR_tone_mode			    = find_dataref("sim/private/controls/tonemap/mode")
+simDR_exposure_fusion			    = find_dataref("sim/private/controls/tonemap/exposure_fusion")
+simDR_ev100			    = find_dataref("sim/private/controls/photometric/ev100")
+simDR_sun_pitch			    = find_dataref("sim/graphics/scenery/sun_pitch_degrees")
+simDR_view_pitch			    = find_dataref("sim/graphics/view/view_pitch")
 simDR_startup_running               = find_dataref("sim/operation/prefs/startup_running")
 simDR_percent_lights_on             = find_dataref("sim/graphics/scenery/percent_lights_on")
 simDR_ai_flies_aircraft				= find_dataref("sim/operation/prefs/ai_flies_aircraft")
@@ -2164,6 +2171,20 @@ function flight_start()
     end
 end
 
+function tone_mapping()
+ --[[   if simDR_sun_pitch>0 then
+        simDR_contrast	= B747_rescale(0,1.25,30,0.8,math.abs(simDR_view_pitch))
+        simDR_ev100	    = B747_rescale(-10,8,15,14,math.abs(simDR_sun_pitch))
+        simDR_tone_mode			    = 0
+        simDR_exposure_fusion			    = 0
+    else
+        simDR_contrast	= B747_rescale(0,0.8,30,1.25,math.abs(simDR_view_pitch))
+        simDR_light_storage		    = B747_rescale(0,10,30,1,math.abs(simDR_view_pitch))
+        simDR_tone_mode			    = 1
+    simDR_exposure_fusion			    = 1
+    end]]--
+    
+end
 --function flight_crash() end
 
 --function before_physics() end
@@ -2189,7 +2210,7 @@ function after_physics()
     B747_lighting_EICAS_msg()
 
     B747_lighting_monitor_AI()
-
+    tone_mapping()
 end
 
 --function after_replay() end

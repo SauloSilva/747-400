@@ -193,10 +193,10 @@ function in_flight_N1_GE(altitude_ft_in, delta_t_isa_K_in)
         climb_rate_fpm = B747_rescale(10000.0, 2750.0, 20000.0, 2500.0, simDR_altitude)
       elseif simDR_altitude <= 30000 then
         --climb_rate_fpm = 2500
-        climb_rate_fpm = B747_rescale(10000.0, 2500.0, 20000.0, 2250.0, simDR_altitude)
+        climb_rate_fpm = B747_rescale(20000.0, 2500.0, 30000.0, 2250.0, simDR_altitude)
       elseif simDR_altitude <= 40000 then
         --climb_rate_fpm = 2000
-        climb_rate_fpm = B747_rescale(10000.0, 2250.0, 20000.0, 1500.0, simDR_altitude)
+        climb_rate_fpm = B747_rescale(30000.0, 2250.0, 40000.0, 1500.0, simDR_altitude)
       elseif simDR_altitude <= 50000 then
         climb_rate_fpm = 1500
       end
@@ -209,10 +209,10 @@ function in_flight_N1_GE(altitude_ft_in, delta_t_isa_K_in)
         climb_rate_fpm = B747_rescale(10000.0, 2875.0, 20000.0, 2625.0, simDR_altitude)
       elseif simDR_altitude <= 30000 then
         --climb_rate_fpm = 2500
-        climb_rate_fpm = B747_rescale(10000.0, 2625.0, 20000.0, 2375.0, simDR_altitude)
+        climb_rate_fpm = B747_rescale(20000.0, 2625.0, 30000.0, 2375.0, simDR_altitude)
       elseif simDR_altitude <= 40000 then
         --climb_rate_fpm = 2000
-        climb_rate_fpm = B747_rescale(10000.0, 2375.0, 20000.0, 1625.0, simDR_altitude)
+        climb_rate_fpm = B747_rescale(30000.0, 2375.0, 40000.0, 1625.0, simDR_altitude)
       elseif simDR_altitude <= 50000 then
         climb_rate_fpm = 1625
       end
@@ -225,10 +225,10 @@ function in_flight_N1_GE(altitude_ft_in, delta_t_isa_K_in)
         climb_rate_fpm = B747_rescale(10000.0, 3000.0, 20000.0, 2750.0, simDR_altitude)
       elseif simDR_altitude <= 30000 then
         --climb_rate_fpm = 2500
-        climb_rate_fpm = B747_rescale(10000.0, 2750.0, 20000.0, 2500.0, simDR_altitude)
+        climb_rate_fpm = B747_rescale(20000.0, 2750.0, 30000.0, 2500.0, simDR_altitude)
       elseif simDR_altitude <= 40000 then
         --climb_rate_fpm = 2000
-        climb_rate_fpm = B747_rescale(10000.0, 2500.0, 20000.0, 1500.0, simDR_altitude)
+        climb_rate_fpm = B747_rescale(30000.0, 2500.0, 40000.0, 1500.0, simDR_altitude)
       elseif simDR_altitude <= 50000 then
         climb_rate_fpm = 1500
       end
@@ -240,10 +240,10 @@ function in_flight_N1_GE(altitude_ft_in, delta_t_isa_K_in)
         climb_rate_fpm = B747_rescale(10000.0, 2750.0, 20000.0, 2500.0, simDR_altitude)
       elseif simDR_altitude <= 30000 then
         --climb_rate_fpm = 2500
-        climb_rate_fpm = B747_rescale(10000.0, 2500.0, 20000.0, 2250.0, simDR_altitude)
+        climb_rate_fpm = B747_rescale(20000.0, 2500.0, 30000.0, 2250.0, simDR_altitude)
       elseif simDR_altitude <= 40000 then
         --climb_rate_fpm = 2000
-        climb_rate_fpm = B747_rescale(10000.0, 2250.0, 20000.0, 1500.0, simDR_altitude)
+        climb_rate_fpm = B747_rescale(30000.0, 2250.0, 40000.0, 1500.0, simDR_altitude)
       elseif simDR_altitude <= 50000 then
         climb_rate_fpm = 1500
       end

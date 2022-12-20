@@ -119,7 +119,7 @@ fmsPages["RTE1"].getPage=function(self,pgNo,fmsID)
   end
   fmsFunctionsDefs["RTE1"]["L2"]={"setdata","runway"}
   fmsFunctionsDefs["RTE1"]["R2"]={"custom2fmc","R3"}
-  
+  fmsFunctionsDefs["RTE1"]["L4"]={"custom2fmc","L4"}
   fmsFunctionsDefs["RTE1"]["R3"]={"setpage","FMC"}
   
   local line5="                "..string.sub(cleanFMSLine(B747DR_srcfms[fmsID][5]),1,8)

@@ -745,7 +745,7 @@ function ecc_spd()
 		throttlePid.input = input
         throttlePid.target= target
 		local diffSpeed=30/(0.1+math.abs(input-target))
-		print(diffSpeed)
+		--print(diffSpeed)
         if (simDRTime-lastCompute)>computeRate then
             throttlePid:compute()
 			lastCompute=simDRTime
@@ -798,7 +798,9 @@ function throttle_management()
 	else
 		fmc_alt = tonumber(fms_data["data"].crzalt)
 	end
-	
+	if fmc_alt==nil then
+		fmc_alt=0
+	end
 	if B747DR_log_level >= 1 then
 		print("EEC Status = ", EEC_status)
 		print("FMC CRZ ALT = ", fms_data["data"].crzalt)

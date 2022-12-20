@@ -568,7 +568,8 @@ function flight_start()
       --ailerons
       B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-1,"maxout":1,"scale":1.0,"srcDref":"sim/cockpit2/controls/yoke_roll_ratio","dstDref":"laminar/B747/flt_ctrls/custom_roll_ratio"}';
       B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-1,"maxout":1,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/sim_roll_ratio","dstDref":"laminar/B747/flt_ctrls/custom_roll_ratio"}';
-
+      B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-1,"maxout":1,"scale":1.0,"srcDref":"sim/cockpit2/controls/aileron_trim","dstDref":"laminar/B747/flt_ctrls/custom_roll_ratio"}';
+      
       B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-20,"maxout":20,"scale":1.0,"srcDref":"laminar/B747/flt_ctrls/custom_roll_ratio","dstDref":"laminar/B747/cablecontrols/left_inner_aileron"}';
       B747DR_controlOverrides = '{"minin":-1,"maxin":1,"minout":-20,"maxout":20,"scale":-1.0,"srcDref":"laminar/B747/flt_ctrls/custom_roll_ratio","dstDref":"laminar/B747/cablecontrols/right_inner_aileron"}';
 
@@ -608,10 +609,16 @@ function flight_start()
       B747DR_controlOverrides = '{"minin":0.5,"maxin":0.667,"minout":0,"maxout":10,"max":20,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap3"}';
       B747DR_controlOverrides = '{"minin":0.5,"maxin":0.667,"minout":0,"maxout":10,"max":20,"scale":1.0,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap4"}';  
 
-      B747DR_controlOverrides = '{"minin":0.667,"maxin":1,"minout":0,"maxout":20,"scale":0.5,"max":30,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap1"}';
-      B747DR_controlOverrides = '{"minin":0.667,"maxin":1,"minout":0,"maxout":20,"scale":0.5,"max":30,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap2"}';
-      B747DR_controlOverrides = '{"minin":0.667,"maxin":1,"minout":0,"maxout":20,"scale":0.5,"max":30,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap3"}';
-      B747DR_controlOverrides = '{"minin":0.667,"maxin":1,"minout":0,"maxout":20,"scale":0.5,"max":30,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap4"}';  
+      B747DR_controlOverrides = '{"minin":0.667,"maxin":0.8333,"minout":0,"maxout":20,"scale":0.1,"max":30,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap1"}';
+      B747DR_controlOverrides = '{"minin":0.667,"maxin":0.8333,"minout":0,"maxout":20,"scale":0.1,"max":30,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap2"}';
+      B747DR_controlOverrides = '{"minin":0.667,"maxin":0.8333,"minout":0,"maxout":20,"scale":0.1,"max":30,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap3"}';
+      B747DR_controlOverrides = '{"minin":0.667,"maxin":0.8333,"minout":0,"maxout":20,"scale":0.1,"max":30,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap4"}';
+      
+      B747DR_controlOverrides = '{"minin":0.833,"maxin":1,"minout":0,"maxout":20,"scale":0.4,"max":30,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap1"}';
+      B747DR_controlOverrides = '{"minin":0.833,"maxin":1,"minout":0,"maxout":20,"scale":0.4,"max":30,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap2"}';
+      B747DR_controlOverrides = '{"minin":0.833,"maxin":1,"minout":0,"maxout":20,"scale":0.4,"max":30,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap3"}';
+      B747DR_controlOverrides = '{"minin":0.833,"maxin":1,"minout":0,"maxout":20,"scale":0.4,"max":30,"srcDref":"laminar/B747/cablecontrols/flap_ratio","dstDref":"laminar/B747/cablecontrols/flap4"}';
+        
       --flap display
       --flap 1 
       B747DR_controlOverrides = '{"minin":0,"maxin":0.167,"minout":0,"maxout":0.167,"scale":1.0,"srcDref":"sim/cockpit2/controls/flap_ratio","dstDref":"laminar/B747/gauges/indicators/flap_deployed_ratio1"}';

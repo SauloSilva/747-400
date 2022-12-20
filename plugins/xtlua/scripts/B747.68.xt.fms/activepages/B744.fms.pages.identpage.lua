@@ -9,11 +9,12 @@ fmsPages["IDENT"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be th
 	local nav_data_yr = string.sub(B747DR_srcfms[fmsID][5],14,15)
 	simConfigData["data"].FMC.INIT.active = string.format("%s%s%s%s/%s", nav_data_from_month, nav_data_from_day, nav_data_to_month, nav_data_to_day, nav_data_yr)
 	--simConfigData["data"].FMC.INIT.op_program = fmcVersion
+	
     return{
 
  "       IDENT            ",
  "                        ",
- simConfigData["data"].PLANE.model.."     "..simConfigData["data"].PLANE.engines,
+ string.format("%-12s %12s",simConfigData["data"].PLANE.model,simConfigData["data"].PLANE.engines),
  "                        ",
  "           "..simConfigData["data"].FMC.INIT.active,
  "                        ",
