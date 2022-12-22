@@ -258,9 +258,9 @@ function engine_idle_control_RR(altitude_ft_in)
         elseif simDR_altitude <= 30000 then
           climb_rate_fpm = B747_rescale(20000.0, 2500.0, 30000.0, 2250.0, simDR_altitude)
         elseif simDR_altitude <= 40000 then
-          climb_rate_fpm = B747_rescale(30000.0, 2250.0, 40000.0, 1500.0, simDR_altitude)
+          climb_rate_fpm = B747_rescale(30000.0, 2250.0, 40000.0, 2250.0, simDR_altitude)
         elseif simDR_altitude <= 50000 then
-          climb_rate_fpm = 1500
+          climb_rate_fpm = 2250
         end
       elseif string.match(simConfigData["data"].PLANE.engines, "524H") then
         --V/S mode / use what the pilot has input on the MCP for V/S
@@ -293,9 +293,9 @@ function engine_idle_control_RR(altitude_ft_in)
         elseif simDR_altitude <= 30000 then
           climb_rate_fpm = B747_rescale(20000.0, 2625.0, 30000.0, 2375.0, simDR_altitude)
         elseif simDR_altitude <= 40000 then
-          climb_rate_fpm = B747_rescale(30000.0, 2375.0, 40000.0, 1625.0, simDR_altitude)
+          climb_rate_fpm = B747_rescale(30000.0, 2375.0, 40000.0, 2375.0, simDR_altitude)
         elseif simDR_altitude <= 50000 then
-          climb_rate_fpm = 1625
+          climb_rate_fpm = 2375
         end
       elseif string.match(simConfigData["data"].PLANE.engines, "524H8T") then
         --V/S mode / use what the pilot has input on the MCP for V/S
@@ -328,9 +328,9 @@ function engine_idle_control_RR(altitude_ft_in)
         elseif simDR_altitude <= 30000 then
           climb_rate_fpm = B747_rescale(20000.0, 2750.0, 30000.0, 2500.0, simDR_altitude)
         elseif simDR_altitude <= 40000 then
-          climb_rate_fpm = B747_rescale(30000.0, 2500.0, 40000.0, 1500.0, simDR_altitude)
+          climb_rate_fpm = B747_rescale(30000.0, 2500.0, 40000.0, 2500.0, simDR_altitude)
         elseif simDR_altitude <= 50000 then
-          climb_rate_fpm = 1500
+          climb_rate_fpm = 2500
         end
       else  --Assume 524G if all else fails
         if B747DR_ap_FMA_active_pitch_mode == 7 then
@@ -362,9 +362,9 @@ function engine_idle_control_RR(altitude_ft_in)
         elseif simDR_altitude <= 30000 then
           climb_rate_fpm = B747_rescale(20000.0, 2500.0, 30000.0, 2250.0, simDR_altitude)
         elseif simDR_altitude <= 40000 then
-          climb_rate_fpm = B747_rescale(30000.0, 2250.0, 40000.0, 1500.0, simDR_altitude)
+          climb_rate_fpm = B747_rescale(30000.0, 2250.0, 40000.0, 2250.0, simDR_altitude)
         elseif simDR_altitude <= 50000 then
-          climb_rate_fpm = 1500
+          climb_rate_fpm = 2250
         end
       end
   

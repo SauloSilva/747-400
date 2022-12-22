@@ -194,11 +194,11 @@ function in_flight_N1_GE(altitude_ft_in, delta_t_isa_K_in)
       elseif simDR_altitude <= 30000 then
         --climb_rate_fpm = 2500
         climb_rate_fpm = B747_rescale(20000.0, 2500.0, 30000.0, 2250.0, simDR_altitude)
-      elseif simDR_altitude <= 40000 then
-        --climb_rate_fpm = 2000
-        climb_rate_fpm = B747_rescale(30000.0, 2250.0, 40000.0, 1500.0, simDR_altitude)
       elseif simDR_altitude <= 50000 then
-        climb_rate_fpm = 1500
+        --climb_rate_fpm = 2000
+        climb_rate_fpm = B747_rescale(30000.0, 2250.0, 50000.0, 2250.0, simDR_altitude)
+      elseif simDR_altitude > 50000 then
+        climb_rate_fpm = 2250
       end
     elseif string.match(simConfigData["data"].PLANE.engines, "B1F1") then
       --For now, use the same climb rates as the B1F until we have specific information for B5F and others
@@ -210,11 +210,11 @@ function in_flight_N1_GE(altitude_ft_in, delta_t_isa_K_in)
       elseif simDR_altitude <= 30000 then
         --climb_rate_fpm = 2500
         climb_rate_fpm = B747_rescale(20000.0, 2625.0, 30000.0, 2375.0, simDR_altitude)
-      elseif simDR_altitude <= 40000 then
-        --climb_rate_fpm = 2000
-        climb_rate_fpm = B747_rescale(30000.0, 2375.0, 40000.0, 1625.0, simDR_altitude)
       elseif simDR_altitude <= 50000 then
-        climb_rate_fpm = 1625
+        --climb_rate_fpm = 2000
+        climb_rate_fpm = B747_rescale(30000.0, 2375.0, 50000.0, 2375.0, simDR_altitude)
+      elseif simDR_altitude > 50000 then
+        climb_rate_fpm = 2375
       end
     elseif string.match(simConfigData["data"].PLANE.engines, "B5F") then
       --For now, use the same climb rates as the B1F until we have specific information for B5F and others
@@ -226,11 +226,11 @@ function in_flight_N1_GE(altitude_ft_in, delta_t_isa_K_in)
       elseif simDR_altitude <= 30000 then
         --climb_rate_fpm = 2500
         climb_rate_fpm = B747_rescale(20000.0, 2750.0, 30000.0, 2500.0, simDR_altitude)
-      elseif simDR_altitude <= 40000 then
-        --climb_rate_fpm = 2000
-        climb_rate_fpm = B747_rescale(30000.0, 2500.0, 40000.0, 1500.0, simDR_altitude)
       elseif simDR_altitude <= 50000 then
-        climb_rate_fpm = 1500
+        --climb_rate_fpm = 2000
+        climb_rate_fpm = B747_rescale(30000.0, 2500.0, 50000.0, 2500.0, simDR_altitude)
+      elseif simDR_altitude > 50000 then
+        climb_rate_fpm = 2250
       end
     else --failsafe option / assume B1F
       if simDR_altitude < 10000 then
@@ -241,11 +241,11 @@ function in_flight_N1_GE(altitude_ft_in, delta_t_isa_K_in)
       elseif simDR_altitude <= 30000 then
         --climb_rate_fpm = 2500
         climb_rate_fpm = B747_rescale(20000.0, 2500.0, 30000.0, 2250.0, simDR_altitude)
-      elseif simDR_altitude <= 40000 then
-        --climb_rate_fpm = 2000
-        climb_rate_fpm = B747_rescale(30000.0, 2250.0, 40000.0, 1500.0, simDR_altitude)
       elseif simDR_altitude <= 50000 then
-        climb_rate_fpm = 1500
+        --climb_rate_fpm = 2000
+        climb_rate_fpm = B747_rescale(30000.0, 2250.0, 50000.0, 2250.0, simDR_altitude)
+      elseif simDR_altitude > 50000 then
+        climb_rate_fpm = 2250
       end
   end
 
@@ -253,7 +253,7 @@ function in_flight_N1_GE(altitude_ft_in, delta_t_isa_K_in)
       climb_rate_fpm = 0
     end
 
-    climb_angle_deg = math.asin(0.00508 * climb_rate_fpm / tas_mtrs_sec) * 180 / math.pi
+    climb_angle_deg = math.asin((0.00508 * climb_rate_fpm) / tas_mtrs_sec) * 180 / math.pi
 
     --get in_flight_thrust() data
     _, thrust_per_engine_N, _, corrected_thrust_lbf = in_flight_thrust(simDR_acf_weight_total_kg, climb_angle_deg)
@@ -285,7 +285,9 @@ function in_flight_N1_GE(altitude_ft_in, delta_t_isa_K_in)
   
     N1_real_max_climb = math.min(N1_corrected_mod_max_climb * math.sqrt(temperature_ratio_adapted), 117.5)
     N1_real_max_cruise = math.min(N1_corrected_mod_max_cruise * math.sqrt(temperature_ratio_adapted), 117.5)
-
+    if N1_actual<89 then
+      N1_actual=89
+    end
     if B747DR_log_level >= 1 then
       print("\t\t\t\t\t<<<--- IN FLIGHT N1 (GE) --->>>")
       print("Altitude IN = ", altitude_ft_in)

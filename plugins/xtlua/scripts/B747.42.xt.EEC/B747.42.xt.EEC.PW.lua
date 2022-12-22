@@ -229,9 +229,9 @@ function engine_idle_control_PW(altitude_ft_in)
           climb_rate_fpm = B747_rescale(20000.0, 2500.0, 30000.0, 2250.0, simDR_altitude)
         elseif simDR_altitude <= 40000 then
           --climb_rate_fpm = 2000
-          climb_rate_fpm = B747_rescale(30000.0, 2250.0, 40000.0, 1500.0, simDR_altitude)
+          climb_rate_fpm = B747_rescale(30000.0, 2250.0, 40000.0, 2250.0, simDR_altitude)
         elseif simDR_altitude <= 50000 then
-          climb_rate_fpm = 1500
+          climb_rate_fpm = 2250
         end
       elseif string.match(simConfigData["data"].PLANE.engines, "4060") then
         --For now, use the same climb rates as the PW4056 until we have specific information for PW4060 and others
@@ -245,9 +245,9 @@ function engine_idle_control_PW(altitude_ft_in)
           climb_rate_fpm = B747_rescale(20000.0, 2625.0, 30000.0, 2375.0, simDR_altitude)
         elseif simDR_altitude <= 40000 then
           --climb_rate_fpm = 2000
-          climb_rate_fpm = B747_rescale(30000.0, 2375.0, 40000.0, 1625.0, simDR_altitude)
+          climb_rate_fpm = B747_rescale(30000.0, 2375.0, 40000.0, 2375.0, simDR_altitude)
         elseif simDR_altitude <= 50000 then
-          climb_rate_fpm = 1625
+          climb_rate_fpm = 2375
         end
       elseif string.match(simConfigData["data"].PLANE.engines, "4062") then --simConfigData["data"].PLANE.engines == "PW4062" then
         --For now, use the same climb rates as the PW4056 until we have specific information for PW4060 and others
@@ -261,9 +261,9 @@ function engine_idle_control_PW(altitude_ft_in)
           climb_rate_fpm = B747_rescale(20000.0, 2750.0, 30000.0, 2500.0, simDR_altitude)
         elseif simDR_altitude <= 40000 then
           --climb_rate_fpm = 2000
-          climb_rate_fpm = B747_rescale(30000.0, 2500.0, 40000.0, 1500.0, simDR_altitude)
+          climb_rate_fpm = B747_rescale(30000.0, 2500.0, 40000.0, 2500.0, simDR_altitude)
         elseif simDR_altitude <= 50000 then
-          climb_rate_fpm = 1500
+          climb_rate_fpm = 2500
         end
       else  --Assume PW4056 if all else fails
         if simDR_altitude < 10000 then
@@ -276,9 +276,9 @@ function engine_idle_control_PW(altitude_ft_in)
           climb_rate_fpm = B747_rescale(20000.0, 2500.0, 30000.0, 2250.0, simDR_altitude)
         elseif simDR_altitude <= 40000 then
           --climb_rate_fpm = 2000
-          climb_rate_fpm = B747_rescale(30000.0, 2250.0, 40000.0, 1500.0, simDR_altitude)
+          climb_rate_fpm = B747_rescale(30000.0, 2250.0, 40000.0, 2250.0, simDR_altitude)
         elseif simDR_altitude <= 50000 then
-          climb_rate_fpm = 1500
+          climb_rate_fpm = 2250
         end
     end
   

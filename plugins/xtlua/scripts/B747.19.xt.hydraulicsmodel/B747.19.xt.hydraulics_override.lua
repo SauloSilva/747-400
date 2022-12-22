@@ -511,6 +511,9 @@ function ap_director_pitch(pitchMode)
         directorSampleRate=0.1
         
         local rog=0.001+0.00003*math.abs(simDR_vvi_fpm_pilot-targetFPM)
+        if simDR_pressureAlt1>25000 then
+            rog=0.0001+0.00001*math.abs(simDR_vvi_fpm_pilot-targetFPM)
+        end
         if simDR_vvi_fpm_pilot>targetFPM  and pitchError<1.5 then
             last_simDR_AHARS_pitch_heading_deg_pilot=last_simDR_AHARS_pitch_heading_deg_pilot-rog
             if debug_flight_directors==1 then
