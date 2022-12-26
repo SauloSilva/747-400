@@ -555,14 +555,14 @@ function GE(altitude_ft_in)
 
 		--Set target bugs
 		for i = 0, 3 do
-      if N1_actual > N1_real_max_climb and simDR_flap_ratio == 0 or takeoff_TOGA_n1==0 then
+      if N1_actual > N1_real_max_climb and simDR_flap_ratio == 0 or takeoff_TOGA_n1==0  or altitude_ft_in> 20000 then
         N1_target_bug[i] = math.min(string.format("%4.1f", N1_real_max_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value, 117.5)
         display_N1_ref[i] = math.min(string.format("%4.1f", N1_real_max_climb) + packs_adjustment_value + engine_anti_ice_adjustment_value, 117.5)
       else
         N1_target_bug[i] = math.min(string.format("%4.1f", N1_actual) + packs_adjustment_value + engine_anti_ice_adjustment_value, takeoff_TOGA_n1)
         display_N1_ref[i] = math.min(string.format("%4.1f", N1_actual) + packs_adjustment_value + engine_anti_ice_adjustment_value, takeoff_TOGA_n1)
       end
-
+      --pprint(i.." display_N1_ref="..display_N1_ref[i].. "N1_actual "..N1_actual.." N1_real_max_climb ".. N1_real_max_climb .." packs_adjustment_value ".. packs_adjustment_value .." engine_anti_ice_adjustment_value ".. engine_anti_ice_adjustment_value .." takeoff_TOGA_n1 "..takeoff_TOGA_n1)
       if B747DR_display_N1_max[i] < B747DR_display_N1_ref[i] then
         display_N1_max[i] = B747DR_display_N1_ref[i]
       else
@@ -577,6 +577,7 @@ function GE(altitude_ft_in)
           N1_target_bug[i] = math.min(string.format("%4.1f", N1_real_max_cruise) + packs_adjustment_value + engine_anti_ice_adjustment_value, 117.5)
           display_N1_ref[i] = math.min(string.format("%4.1f", N1_real_max_cruise) + packs_adjustment_value + engine_anti_ice_adjustment_value, 117.5)
           display_N1_max[i] = math.min(string.format("%4.1f", N1_real_max_climb), 117.5)
+          
       end
   elseif B747DR_ref_thr_limit_mode == "GA" or (simDR_onGround == 0 and B747DR_ref_thr_limit_mode == "" or B747DR_ref_thr_limit_mode == "NONE") then
     --Find current temperature rounded to the closest 5 degrees (for use in table lookups)
