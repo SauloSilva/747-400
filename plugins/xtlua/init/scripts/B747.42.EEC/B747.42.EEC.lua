@@ -53,5 +53,7 @@ B747DR_throttle_resolver_angle 	= deferred_dataref("laminar/B747/engines/TRA", "
 B747DR_log_level = deferred_dataref("laminar/B747/engines/logging", "number")  --true / false
 
 B747DR_pidthrottleP = deferred_dataref("laminar/B747/flt_ctrls/pid/throttle/p", "number")
+B747DR_pidthrottleHP = deferred_dataref("laminar/B747/flt_ctrls/pid/throttle/highp", "number")
+B747DR_pidthrottleLP = deferred_dataref("laminar/B747/flt_ctrls/pid/throttle/lowp", "number")
 B747DR_pidthrottleI = deferred_dataref("laminar/B747/flt_ctrls/pid/throttle/i", "number")
 B747DR_pidthrottleD = deferred_dataref("laminar/B747/flt_ctrls/pid/throttle/d", "number")

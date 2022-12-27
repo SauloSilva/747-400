@@ -28,6 +28,8 @@ throttlePid.target=0
 throttlePid.input = 0
 throttlePid:compute()
 B747DR_pidthrottleP = find_dataref("laminar/B747/flt_ctrls/pid/throttle/p")
+B747DR_pidthrottleHP = find_dataref("laminar/B747/flt_ctrls/pid/throttle/highp")
+B747DR_pidthrottleLP = find_dataref("laminar/B747/flt_ctrls/pid/throttle/lowp")
 B747DR_pidthrottleI = find_dataref("laminar/B747/flt_ctrls/pid/throttle/i")
 B747DR_pidthrottleD = find_dataref("laminar/B747/flt_ctrls/pid/throttle/d")
 simDR_ind_airspeed_kts_pilot        = find_dataref("laminar/B747/gauges/indicators/airspeed_kts_pilot")
@@ -705,6 +707,7 @@ function ecc_spd()
 	--print("---ECC SPD---")
 	    local input=1
 		local target=1
+		B747DR_pidthrottleP=B747DR_pidthrottleHP
 		--idle
 		if B747DR_ap_FMA_autothrottle_mode==2 and simDR_radarAlt1<40 then
 			input=simDR_ind_airspeed_kts_pilot
@@ -721,6 +724,7 @@ function ecc_spd()
 			else]]
 				input=simDR_ind_airspeed_kts_pilot
 				target=simDR_autopilot_airspeed_kts
+				
 			--end
 		else
 			--some kind of thrust target
@@ -733,6 +737,7 @@ function ecc_spd()
 				local inputBug=math.max(B747DR_display_EPR[0],B747DR_display_EPR[1],B747DR_display_EPR[2],B747DR_display_EPR[3])
 				input=200.0*inputBug
 				target=200.0*targetBug
+				B747DR_pidthrottleP=B747DR_pidthrottleLP
 				--print("throttle target="..target.. " current "..input.." targetBug "..targetBug.." inputBug "..inputBug)
 			end
 		end
@@ -977,7 +982,8 @@ function hasSimConfig()
 	return setSimConfig
 end
 function flight_start()
-	B747DR_pidthrottleP = 0.030
+	B747DR_pidthrottleHP = 0.030
+	B747DR_pidthrottleLP = 0.0030
 	B747DR_pidthrottleI = 0.001
 	B747DR_pidthrottleD = 0.01
 end
