@@ -676,7 +676,7 @@ end
 ----- INIT THE LIGHT RHEOSTATS ----------------------------------------------------------
 function B747_init_light_rheostats()					
 
-    local light_level = B747_rescale(0.1, 0.0, 0.2, 0.75, simDR_percent_lights_on)
+    local light_level = B747_rescale(0.1, 0.0, 0.2, 0.45, simDR_percent_lights_on)
     
     B747DR_flood_light_rheo_capt_panel      = light_level
     B747DR_map_light_rheo_capt              = 0
@@ -688,13 +688,19 @@ function B747_init_light_rheostats()
     B747DR_flood_light_rheo_mcp             = light_level
     B747DR_flood_light_rheo_aisle_stand     = light_level
     B747DR_flood_light_rheo_overhead        = 0
-
     simDR_panel_brightness_switch[1]        = light_level * 0.85                            -- FIRST OBSERVER PANEL
     simDR_panel_brightness_switch[2]        = light_level * 0.85                            -- AISLE STAND PANEL
     simDR_panel_brightness_switch[3]        = light_level * 0.90                            -- GLARESHIELD PANEL/MCP PANEL/COMPASS
     B747DR_instrument_brightness_ratio[6]   = light_level * 0.90                            -- CAPTAIN PANEL
-    B747DR_instrument_brightness_ratio[7]   = light_level * 0.90                            -- OVERHEAD PANEL
+    B747DR_instrument_brightness_ratio[7]   = light_level * 0.10                            -- OVERHEAD PANEL
     B747DR_instrument_brightness_ratio[8]   = light_level * 0.90                            -- F/O PANEL
+    
+    --simDR_panel_brightness_switch[1]        = light_level * 0.85                            -- FIRST OBSERVER PANEL
+    --simDR_panel_brightness_switch[2]        = light_level * 0.85                            -- AISLE STAND PANEL
+    --simDR_panel_brightness_switch[3]        = light_level * 0.90                            -- GLARESHIELD PANEL/MCP PANEL/COMPASS
+    --B747DR_instrument_brightness_ratio[6]   = light_level * 0.90                            -- CAPTAIN PANEL
+    --B747DR_instrument_brightness_ratio[7]   = light_level * 0.90                            -- OVERHEAD PANEL
+    --B747DR_instrument_brightness_ratio[8]   = light_level * 0.90                            -- F/O PANEL
 
 end
 
@@ -1596,8 +1602,10 @@ function B747_ind_lights()
 
     -- IND LTS SWITCH SETS ANNUNCIATOR BRIGHTNESS LEVEL
     local ind_lts_brt_level = 0.8                           -- BRIGHT
+    local bright_dimmer =1.0
     if B747DR_toggle_switch_position[13] < -0.95 then
-        ind_lts_brt_level = 0.4                             -- DIM
+        ind_lts_brt_level = 0.4 
+        bright_dimmer = 0.125                     -- DIM
     elseif B747DR_toggle_switch_position[13] > 0.95 then
         ind_lts_brt_level = 1.0                             -- TEST
     end
@@ -1622,10 +1630,10 @@ function B747_ind_lights()
     ------ GLARESHIELD -----
 
     -- MASTER CAUTION
-    B747DR_annun_brightness_ratio[0]    = B747_ternary((B747DR_toggle_switch_position[13] == 1), brightness_level, (annun.b.master_caution * brightness_level))
+    B747DR_annun_brightness_ratio[0]    = B747_ternary((B747DR_toggle_switch_position[13] == 1), brightness_level*bright_dimmer, (annun.b.master_caution * brightness_level*bright_dimmer))
 
     -- MASTER WARNING
-    B747DR_annun_brightness_ratio[1]    = B747_ternary((B747DR_toggle_switch_position[13] == 1), brightness_level, (annun.b.master_warning * brightness_level))
+    B747DR_annun_brightness_ratio[1]    = B747_ternary((B747DR_toggle_switch_position[13] == 1), brightness_level*bright_dimmer, (annun.b.master_warning * brightness_level*bright_dimmer))
 
 
 

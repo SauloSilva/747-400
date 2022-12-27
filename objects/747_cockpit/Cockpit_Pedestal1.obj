@@ -40668,7 +40668,7 @@ ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[249] 2000
 TRIS	48297 6
 ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[250] 2000
 TRIS	48303 6
-ATTR_light_level 0 1 sim/cockpit2/electrical/panel_brightness_ratio_manual[2] 2000
+ATTR_light_level 0 1 sim/cockpit2/electrical/panel_brightness_ratio_manual[2] 300
 TRIS	48309 44844
 ANIM_begin
 	ANIM_trans_begin	sim/cockpit2/controls/rudder_trim

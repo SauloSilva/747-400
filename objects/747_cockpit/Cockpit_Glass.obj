@@ -4085,15 +4085,15 @@ TRIS	84 1080
 ####_group	z05_GaugeLens
 TRIS	1164 6
 # Image: /Users/JGregory/Applications/X-Plane/XP11/Aircraft/__Laminar Development/Desktop/Heavy Metal/B747-400 United/objects/747_cockpit/Cockpit_Glass.png
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[253] 2000
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[253] 150
 TRIS	1170 66
 # Image: /Users/JGregory/Applications/X-Plane/XP11/Aircraft/__Laminar Development/Desktop/Heavy Metal/B747-400 United/objects/747_cockpit/Cockpit_Glass.png
 TRIS	1236 66
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[254] 2000
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[254] 150
 TRIS	1302 132
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[255] 2000
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[255] 150
 TRIS	1434 132
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[256] 2000
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[256] 150
 TRIS	1566 6
 ATTR_light_level 0 1 sim/cockpit2/electrical/instrument_brightness_ratio_auto[0] 2000
 TRIS	1572 456
@@ -4116,7 +4116,7 @@ TRIS	4614 444
 ATTR_light_level 0 1 sim/cockpit2/electrical/instrument_brightness_ratio_manual[8] 2000
 TRIS	5058 84
 # Image: /Users/JGregory/Applications/X-Plane/XP11/Aircraft/__Laminar Development/Desktop/Heavy Metal/B747-400 United/objects/747_cockpit/Cockpit_Glass.png
-ATTR_light_level 0 1 sim/cockpit2/electrical/panel_brightness_ratio_manual[3] 2000
+ATTR_light_level 0 1 sim/cockpit2/electrical/panel_brightness_ratio_manual[3] 300
 TRIS	5142 273
 ####_group	z06_GlassDoors
 # Image: /Users/JGregory/Applications/X-Plane/XP11/Aircraft/__Laminar Development/Desktop/Heavy Metal/B747-400 United/objects/747_cockpit/Cockpit_Glass.png

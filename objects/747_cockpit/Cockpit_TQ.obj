@@ -31494,5 +31494,5 @@ ANIM_begin
 	ATTR_light_level 0 1 sim/cockpit2/annunciators/engine_fires[3] 5000
 	TRIS	84864 1302
 ANIM_end
-ATTR_light_level 0 1 sim/cockpit2/electrical/panel_brightness_ratio_manual[2] 5000
+ATTR_light_level 0 1 sim/cockpit2/electrical/panel_brightness_ratio_manual[2] 300
 TRIS	86166 1764

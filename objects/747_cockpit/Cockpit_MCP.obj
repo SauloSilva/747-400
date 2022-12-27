@@ -24851,7 +24851,7 @@ ANIM_begin
 ANIM_end
 ATTR_light_level 0 1 laminar/B747/light/spill/ratio/center_panel[3] 2000
 TRIS	33825 108
-ATTR_light_level 0 1 sim/cockpit2/electrical/panel_brightness_ratio_manual[3] 2000
+ATTR_light_level 0 1 sim/cockpit2/electrical/panel_brightness_ratio_manual[3] 300
 TRIS	33933 14220
 ANIM_begin
 	ANIM_trans	   0.3414    3.0080    5.0439	   0.3414    3.0080    5.0439	0 0	no_ref

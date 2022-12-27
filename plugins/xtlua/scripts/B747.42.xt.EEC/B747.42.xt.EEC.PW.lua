@@ -738,7 +738,7 @@ function engine_idle_control_PW(altitude_ft_in)
     end
   
     for i = 0, 3 do
-      if B747DR_ap_FMA_autothrottle_mode==5 and B747DR_ap_flightPhase>2 then
+      if (B747DR_ap_FMA_autothrottle_mode==5 or B747DR_ap_FMA_autothrottle_mode==2) and B747DR_ap_flightPhase>2 then
         simDR_EPR_target_bug[i] = 0.9
       else
         simDR_EPR_target_bug[i] = EPR_target_bug[i]

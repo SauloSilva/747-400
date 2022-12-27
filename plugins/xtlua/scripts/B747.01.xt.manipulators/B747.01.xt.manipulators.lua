@@ -127,7 +127,7 @@ B747DR_ap_autothrottle_armed        	= deferred_dataref("laminar/B747/autothrott
 --*************************************************************************************--
 
 B747DR_init_manip_CD                = deferred_dataref("laminar/B747/manip/init_CD", "number")
-
+simDR_percent_lights_on             = find_dataref("sim/graphics/scenery/percent_lights_on")
 B747DR_button_switch_cover_position = deferred_dataref("laminar/B747/button_switch_cover/position", "array[" .. tostring(NUM_BTN_SW_COVERS) .. "]")
 B747DR_button_switch_position       = deferred_dataref("laminar/B747/button_switch/position", "array[" .. tostring(NUM_BTN_SW) .. "]")
 B747DR_toggle_switch_position       = deferred_dataref("laminar/B747/toggle_switch/position", "array[" .. tostring(NUM_TOGGLE_SW) .. "]")
@@ -2013,6 +2013,9 @@ function B747_set_manip_CD()
         B747DR_toggle_switch_position[k] = 1
         --not 7
     end
+    if simDR_percent_lights_on > 0.1 then
+        B747_toggle_switch_position_target[13] = -1
+    end
     B747DR_toggle_switch_position[20] = 1
     B747_toggle_switch_position_target[20] = 1
     B747DR_toggle_switch_position[21] = 1
@@ -2128,6 +2131,10 @@ function B747_set_manip_ER()
 	B747_button_switch_position_target[80] = 1
 	B747DR_button_switch_position[80] = 1   
 
+    -- LIGHTS DIM
+    if simDR_percent_lights_on > 0.1 then
+        B747_toggle_switch_position_target[13] = -1
+    end
 end
 
 
