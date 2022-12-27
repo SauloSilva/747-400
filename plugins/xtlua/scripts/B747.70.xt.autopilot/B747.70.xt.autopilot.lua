@@ -2443,11 +2443,11 @@ function B747_ap_fma()
 	-- AUTOTHROTTLE
 	-------------------------------------------------------------------------------------
 	if B747DR_ap_autoland == 1 and simDR_radarAlt1 < 25 then
-		simDR_override_throttles = 0
+		--simDR_override_throttles = 0
 		B747DR_ap_FMA_autothrottle_mode = 2 --IDLE
 	elseif B747DR_toggle_switch_position[29] == 0 or B747DR_autothrottle_fail > 0 then
 		B747DR_ap_FMA_autothrottle_mode = 0
-		simDR_override_throttles = 0
+		--simDR_override_throttles = 0
 	elseif
 		(B747DR_engine_TOGA_mode > 0 and simDR_ind_airspeed_kts_pilot < 65) or B747DR_ap_autoland < 0 or
 			(B747DR_ap_vnav_state == 0 and B747DR_ap_thrust_mode > 0)
@@ -2455,7 +2455,7 @@ function B747_ap_fma()
 		if B747DR_engine_TOGA_mode == 1 then
 			B747DR_engine_TOGA_mode = 0
 			B747DR_ap_FMA_autothrottle_mode = 0
-			simDR_override_throttles = 0
+			--simDR_override_throttles = 0
 		else
 			B747DR_ap_FMA_autothrottle_mode = 5 --THR REF
 		end
@@ -2480,7 +2480,7 @@ function B747_ap_fma()
 			B747DR_ap_FMA_autothrottle_mode = 1 --HOLD
 		else
 			B747DR_ap_FMA_autothrottle_mode = 0
-			simDR_override_throttles = 0
+			--simDR_override_throttles = 0
 		end
 	end
 

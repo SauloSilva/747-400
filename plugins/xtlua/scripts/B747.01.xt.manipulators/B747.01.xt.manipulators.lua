@@ -2309,13 +2309,14 @@ function B747_throttle_animation()
             B747DR_throttle[i]=B747_interpolate_value(B747DR_throttle[i],0,0,1,1)
         else
             B747DR_throttle_reversor[i]=B747_interpolate_value(B747DR_throttle_reversor[i],0,-1,0,1)
-            if B747DR_ap_FMA_autothrottle_mode==0 or B747DR_ap_FMA_autothrottle_mode==1 then
+           --[[ if B747DR_ap_FMA_autothrottle_mode==0 or B747DR_ap_FMA_autothrottle_mode==1 then
                 B747DR_throttle[i]=B747_interpolate_value(B747DR_throttle[i],simDR_engn_thro[i],0,1,0.5)
                 --print("manual speed throttle")
             else
                 --print("auto speed throttle")
                 B747DR_throttle[i]=simDR_engn_thro[i] --B747_interpolate_value(B747DR_throttle[i],simDR_engn_thro[i],0,1,2)
-            end
+            end]]--
+            B747DR_throttle[i]=simDR_engn_thro[i]
         end
     end
 

@@ -65,7 +65,7 @@ function throttle_resolver_angle_RR(engine_in)
   end
   return EPR_actual]]--
 
-  local EPR_target=B747_rescale(0.0, 1.0, 1.0, B747DR_display_EPR_max[engine_in], simDR_throttle_ratio[engine_in])
+  local EPR_target=B747_rescale(0.0, 1.0, 0.9, B747DR_display_EPR_max[engine_in]*0.99, simDR_throttle_ratio[engine_in])
   return EPR_target
 end
 

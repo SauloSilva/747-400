@@ -53,7 +53,15 @@ B747DR_throttle_resolver_angle 	= deferred_dataref("laminar/B747/engines/TRA", "
 B747DR_log_level = deferred_dataref("laminar/B747/engines/logging", "number")  --true / false
 
 B747DR_pidthrottleP = deferred_dataref("laminar/B747/flt_ctrls/pid/throttle/p", "number")
-B747DR_pidthrottleHP = deferred_dataref("laminar/B747/flt_ctrls/pid/throttle/highp", "number")
-B747DR_pidthrottleLP = deferred_dataref("laminar/B747/flt_ctrls/pid/throttle/lowp", "number")
+--B747DR_pidthrottleHP = deferred_dataref("laminar/B747/flt_ctrls/pid/throttle/highp", "number")
+--B747DR_pidthrottleLP = deferred_dataref("laminar/B747/flt_ctrls/pid/throttle/lowp", "number")
 B747DR_pidthrottleI = deferred_dataref("laminar/B747/flt_ctrls/pid/throttle/i", "number")
 B747DR_pidthrottleD = deferred_dataref("laminar/B747/flt_ctrls/pid/throttle/d", "number")
+
+B747DR_pideccI = deferred_dataref("laminar/B747/flt_ctrls/pid/ecc/N1/i", "number")
+B747DR_pideccD = deferred_dataref("laminar/B747/flt_ctrls/pid/ecc/N1/d", "number")
+B747DR_pideccP = deferred_dataref("laminar/B747/flt_ctrls/pid/ecc/N1/p", "number")
+
+B747DR_pidepr_eccI = deferred_dataref("laminar/B747/flt_ctrls/pid/ecc/epr/i", "number")
+B747DR_pidepr_eccD = deferred_dataref("laminar/B747/flt_ctrls/pid/ecc/epr/d", "number")
+B747DR_pidepr_eccP = deferred_dataref("laminar/B747/flt_ctrls/pid/ecc/epr/p", "number")

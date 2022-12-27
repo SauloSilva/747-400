@@ -319,7 +319,7 @@ function des_aptres_setSpd()
     B747DR_lastap_dial_airspeed=B747DR_ap_ias_dial_value
     run_after_time(B747_updateIAS, 0.25)
     if B747DR_autothrottle_active == 0 and simDR_ind_airspeed_kts_pilot < spdval+5 then							-- AUTOTHROTTLE IS "OFF"
-        simDR_override_throttles=0
+        --simDR_override_throttles=0
        -- simCMD_autopilot_autothrottle_on:once()
        B747DR_autothrottle_active=1
         B747DR_ap_lastCommand = simDRTime
