@@ -141,6 +141,7 @@ B747DR_alt_capture_window        = deferred_dataref("laminar/B747/autopilot/ap_m
 B747DR_display_N1 = find_dataref("laminar/B747/engines/display_N1")
 B747DR_display_N2 = find_dataref("laminar/B747/engines/display_N2")
 B747DR_fmc_notifications = find_dataref("laminar/B747/fms/notification")
+B747BR_distance_to_dest  = deferred_dataref("laminar/B747/autopilot/dist/distance_to_dest", "number")
 B747DR_ils_dots = deferred_dataref("laminar/B747/autopilot/ils_dots", "number") --display only
 B747BR_totalDistance = find_dataref("laminar/B747/autopilot/dist/remaining_distance")
 B747BR_eod_index = deferred_dataref("laminar/B747/autopilot/dist/eod_index", "number")
@@ -1495,8 +1496,16 @@ function B747_fltmgmt_setILS(fms)
 		B747DR_radioModes = replace_char(1, modes, "A")
 	elseif modes:sub(1, 1) == "M" then
 		--local fms=json.decode(fmsSTR)
-		if table.getn(fms) > 2 then
-			setDistances(fms)
+		
+		setDistances(fms)
+		--print("Dist B747DR_ils_dots = "..B747DR_ils_dots)
+		--print("Dist targetILSS = "..targetILS)
+		--print("Dist B747BR_distance_to_dest = "..B747BR_distance_to_dest)
+		if B747DR_ils_dots==0 and ((B747BR_totalDistance>0 and B747BR_totalDistance< 50) or (B747BR_distance_to_dest>=0 and B747BR_distance_to_dest<50)) then
+			if string.len(targetILS) > 2 then
+				B747DR_ils_dots=1
+				--print("do Dist B747DR_ils_dots = "..B747DR_ils_dots)
+			end
 		end
 		return
 	end
@@ -1516,9 +1525,9 @@ function B747_fltmgmt_setILS(fms)
 	 --continually get latest
 	--print("fmsJSON=".. fmsSTR)
 
-	if table.getn(fms) > 2 then
-		setDistances(fms)
-	end
+	
+	setDistances(fms)
+	
 	local newTargetFix = 0
 	local hitI = -1
 	--print(navAidsJSON)
@@ -1648,12 +1657,12 @@ function B747_fltmgmt_setILS(fms)
 		end
 	end
 	local tDots=B747DR_ils_dots
-	if B747BR_totalDistance>0 and B747BR_totalDistance< 50 then
+	if (B747BR_totalDistance>0 and B747BR_totalDistance< 50) or (B747BR_distance_to_dest>=0 and B747BR_distance_to_dest<50) then
 		B747DR_ils_dots=targetDots
 	else
 		B747DR_ils_dots=0
 	end
-	--print("target="..targetILS.."= "..targetILSS.."= "..targetFix.. " "..nSize.. " "..table.getn(navAids))
+	print("target="..targetILS.."= "..targetILSS.."= "..targetFix.. " "..nSize.. " "..table.getn(navAids))
 	--[[for i=table.getn(fms)-1,1,-1 do
     if fms[i][10]==true then
       print("fms"..i.."=".. fms[i][1].." "..fms[i][2].." "..fms[i][3].." "..fms[i][4].." "..fms[i][5].." "..fms[i][6].." "..fms[i][7].." "..fms[i][8].." "..fms[i][9].." active")
@@ -1864,22 +1873,37 @@ function getFMS()
 end
 function setDistances(fmsO)
 	--print("set distances")
+	if (fmsO) == nil then
+		B747BR_distance_to_dest=-1
+		return
+	end
+	if table.getn(fmsO) == 0 then
+		B747BR_distance_to_dest=-1
+		return
+	end
+
 	local start = B747DR_fmscurrentIndex
 	if start == 0 then
 		start = 1
+	end
+	local iLat = simDR_latitude
+	local iLong = simDR_longitude
+	local endI = table.getn(fmsO)
+	B747BR_distance_to_dest= getDistance(iLat, iLong, fmsO[endI][5], fmsO[endI][6])
+	if table.getn(fms) <= 2 then
+		return
 	end
 	if fmsO[start] == nil then
 		print("empty data")
 		return
 	end
 	local LastLeg = getDistance(simDR_latitude, simDR_longitude, fmsO[start][5], fmsO[start][6])
-	local iLat = simDR_latitude
-	local iLong = simDR_longitude
+	
 	local eLat = fmsO[start][5]
 	local eLong = fmsO[start][6]
 	local totalDistance = LastLeg
 	local nextDistanceInFeet = totalDistance * 6076.12
-	local endI = table.getn(fmsO)
+	
 	local eod = endI
 	local setTOD = false
 	local todDist = B747BR_totalDistance - B747BR_tod
@@ -1934,6 +1958,7 @@ function setDistances(fmsO)
 	--simDR_autopilot_altitude_ft
 	B747BR_eod_index = eod
 	B747BR_totalDistance = totalDistance
+	
 	B747BR_nextDistanceInFeet = nextDistanceInFeet
 	local cruiseTOD = ((B747BR_cruiseAlt - fmsO[eod][3]) / 100) / 2.9
 	local currentTOD = ((simDR_pressureAlt1 - fmsO[eod][3]) / 100) / 2.9

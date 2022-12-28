@@ -363,11 +363,7 @@ function findILS(value)
 	  end
       end
    end
-   --[[if found==true then
-		B747DR_ils_dots=1
-   else
-		B747DR_ils_dots=0
-   end]]--
+
    return found
 end
 
