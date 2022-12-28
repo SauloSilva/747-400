@@ -797,16 +797,12 @@ function spd_throttle()
 	if ((target> input+0.5) and speed_delta<max_speedDelta 
             or (target< input-0.5) and speed_delta<-max_speedDelta)
         then
-            if debug_flight_directors==1 then
-                print("+spd_target_throttle "..spd_target_throttle.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." simDR_ind_airspeed_kts_pilot "..simDR_ind_airspeed_kts_pilot.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta.." rog "..rog)
-            end
+
             spd_target_throttle= (spd_target_throttle+rog)
         elseif ((target< input-0.5) and speed_delta>-min_speedDelta 
             or (target> input+0.5) and speed_delta>min_speedDelta )  
         then
-            if debug_flight_directors==1 then
-                print("-spd_target_throttle "..spd_target_throttle.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." simDR_ind_airspeed_kts_pilot "..simDR_ind_airspeed_kts_pilot.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta.." rog "..rog)
-            end
+
             spd_target_throttle= (spd_target_throttle-rog)
     end
 	if spd_target_throttle<0 then
@@ -814,7 +810,7 @@ function spd_throttle()
 	elseif 	spd_target_throttle>1 then
 		spd_target_throttle=1
 	end
-	print("THRO SPD rog="..rog.." min_speedDelta="..min_speedDelta.. " max_speedDelta="..max_speedDelta.. " speed_delta="..speed_delta .." spd_target_throttle="..spd_target_throttle)
+	--print("THRO SPD rog="..rog.." min_speedDelta="..min_speedDelta.. " max_speedDelta="..max_speedDelta.. " speed_delta="..speed_delta .." spd_target_throttle="..spd_target_throttle)
 	--[[ ]]--
 	for i = 0, 3 do
 		simDR_engn_thro[i]=B747_interpolate_value(simDR_engn_thro[i],spd_target_throttle,0,1.00,2)
