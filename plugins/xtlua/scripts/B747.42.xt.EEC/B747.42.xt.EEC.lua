@@ -721,6 +721,7 @@ function B747_interpolate_value(current_value, target, min, max, speed)--speed i
 function round(x)
 	return x>=0 and math.floor(x+0.5) or math.ceil(x-0.5)
 end  
+local spd_target_throttle=0.5
 function ecc_spd()
 	--print("---ECC SPD---")
 	    local input=1
@@ -729,6 +730,7 @@ function ecc_spd()
 			simDR_override_throttles = 1
 		end
 		local diffSpeed=2
+		
 		for i = 0, 3 do
 			
 			
@@ -771,38 +773,65 @@ function ecc_spd()
 			end
 		end
 end
+
+
+last_simDR_ind_airspeed_kts_pilot=0
+function spd_throttle()
+
+	local input=simDR_ind_airspeed_kts_pilot
+	local target=simDR_autopilot_airspeed_kts
+	local speedError=math.abs(input-target)
+	local speed_delta=simDR_ind_airspeed_kts_pilot-last_simDR_ind_airspeed_kts_pilot
+	last_simDR_ind_airspeed_kts_pilot=simDR_ind_airspeed_kts_pilot
+	local rog=0.0001+0.0001*math.abs(input-target)
+	local min_speedDelta=0
+    local max_speedDelta=0
+	if  speedError > 1 then
+		--if (simDR_autopilot_airspeed_kts< simDR_ind_airspeed_kts_pilot-1) then
+		max_speedDelta=0.001+speedError/500
+		--else
+		--	max_speedDelta=0.001+speedError/25
+		--end
+		min_speedDelta=max_speedDelta/5
+	end
+	if ((target> input+0.5) and speed_delta<max_speedDelta 
+            or (target< input-0.5) and speed_delta<-max_speedDelta)
+        then
+            if debug_flight_directors==1 then
+                print("+spd_target_throttle "..spd_target_throttle.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." simDR_ind_airspeed_kts_pilot "..simDR_ind_airspeed_kts_pilot.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta.." rog "..rog)
+            end
+            spd_target_throttle= (spd_target_throttle+rog)
+        elseif ((target< input-0.5) and speed_delta>-min_speedDelta 
+            or (target> input+0.5) and speed_delta>min_speedDelta )  
+        then
+            if debug_flight_directors==1 then
+                print("-spd_target_throttle "..spd_target_throttle.." simDR_autopilot_airspeed_kts "..simDR_autopilot_airspeed_kts.." simDR_ind_airspeed_kts_pilot "..simDR_ind_airspeed_kts_pilot.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta.." rog "..rog)
+            end
+            spd_target_throttle= (spd_target_throttle-rog)
+    end
+	if spd_target_throttle<0 then
+		spd_target_throttle=0
+	elseif 	spd_target_throttle>1 then
+		spd_target_throttle=1
+	end
+	print("THRO SPD rog="..rog.." min_speedDelta="..min_speedDelta.. " max_speedDelta="..max_speedDelta.. " speed_delta="..speed_delta .." spd_target_throttle="..spd_target_throttle)
+	--[[ ]]--
+	for i = 0, 3 do
+		simDR_engn_thro[i]=B747_interpolate_value(simDR_engn_thro[i],spd_target_throttle,0,1.00,2)
+	end
+	
+end
 function ecc_throttle()
 	--print("---ECC Throttle---")
 	    local input=1
 		local target=1
 
-		--B747DR_pidthrottleP=B747DR_pidthrottleHP
-		--idle
-		--[[if B747DR_ap_FMA_autothrottle_mode==2 and simDR_radarAlt1<40 then
-			input=simDR_ind_airspeed_kts_pilot
-			target=0
-		--spd	
-		else]]--
 		
-		throttlePid.ki=B747DR_pidthrottleI
-		
-		if B747DR_ap_FMA_autothrottle_mode==3 then
-			--[[if B747DR_engineType~=1 and 
-			math.max(B747DR_display_EPR[0],B747DR_display_EPR[1],B747DR_display_EPR[2],B747DR_display_EPR[3])>
-			math.max(B747DR_display_EPR_max[0],B747DR_display_EPR_max[1],B747DR_display_EPR_max[2],B747DR_display_EPR_max[3])
-			and simDR_ind_airspeed_kts_pilot<simDR_autopilot_airspeed_kts
-			then
-				input=30*math.max(B747DR_display_EPR[0],B747DR_display_EPR[1],B747DR_display_EPR[2],B747DR_display_EPR[3])
-				target=30*math.max(B747DR_display_EPR_max[0],B747DR_display_EPR_max[1],B747DR_display_EPR_max[2],B747DR_display_EPR_max[3])
-			else]]
-				input=simDR_ind_airspeed_kts_pilot
-				target=simDR_autopilot_airspeed_kts
-				throttlePid.kp=B747DR_pidthrottleP
-				throttlePid.kd=B747DR_pidthrottleD
-			--end
+		if B747DR_ap_FMA_autothrottle_mode==3 or (B747DR_ap_FMA_autothrottle_mode==2 and simDR_ind_airspeed_kts_pilot<(simDR_autopilot_airspeed_kts-5)) then
+				spd_throttle()
+				return
+
 		else
-			throttlePid.kd=0
-			throttlePid.kp=0
 			--some kind of thrust target
 			if B747DR_engineType==1 then --GE, n1 target
 				input=5*math.max(B747DR_throttle_resolver_angle[0],B747DR_throttle_resolver_angle[1],B747DR_throttle_resolver_angle[2],B747DR_throttle_resolver_angle[3])
@@ -817,37 +846,21 @@ function ecc_throttle()
 				--print("throttle target="..target.. " current "..input.." targetBug "..targetBug.." inputBug "..inputBug)
 			end
 		end
-		--
-		--simDR_override_throttles = 1
-		
+	local rog=0.01
+	if (target> input+1) then
+		spd_target_throttle= (spd_target_throttle+rog)
+	elseif target< input-1 then
+		spd_target_throttle= (spd_target_throttle-rog)
+	end
+	if spd_target_throttle<0 then
+		spd_target_throttle=0
+	elseif 	spd_target_throttle>1 then
+		spd_target_throttle=1
+	end
+	for i = 0, 3 do
+		simDR_engn_thro[i]=B747_interpolate_value(simDR_engn_thro[i],spd_target_throttle,0,1.00,2)
+	end
 
-		throttlePid.input = input
-        throttlePid.target= target
-		local diffSpeed=30/(0.1+math.abs(input-target))
-		--print(diffSpeed)
-        if (simDRTime-lastThrottleCompute)>computeRate then
-            throttlePid:compute()
-			--print("compute")
-			lastThrottleCompute=simDRTime
-        end
-
-		if throttlePid.output~=nil then
-			--local tValue=round(throttlePid.output*100)/100
-			--print("throttle target="..target.. " current "..input.." AT retval "..throttlePid.output)
-			--print("AT retval simDR_ind_airspeed_kts_pilot "..input.." B747DR_ap_ias_bug_value "..target)
-			--if math.max(simDR_engn_thro[0],simDR_engn_thro[1],simDR_engn_thro[2],simDR_engn_thro[3])>0.9 then
-			
-			--[[if math.abs(input-target)<5 then
-				diffSpeed=diffSpeed+40
-				--print("rate lim throttle")
-			end]]
-			--if diffSpeed<15 and B747DR_ap_FMA_autothrottle_mode==3 then diffSpeed=15 end
-			if diffSpeed<5 then diffSpeed=5 end
-			for i = 0, 3 do
-				simDR_engn_thro[i]=B747_interpolate_value(simDR_engn_thro[i],throttlePid.output,0,1.00,diffSpeed)
-			end
-		
-		end
 end
 local previous_altitude = 0
 function throttle_management()
@@ -1002,14 +1015,11 @@ function throttle_management()
 	ecc_spd()
 	if B747DR_ap_autothrottle_armed == 1 and B747DR_ap_FMA_autothrottle_mode > 1 then --not none or HOLD
 		--new SPD
-		
 		ecc_throttle()
 	else
 		--simDR_override_throttles = 0
-
+		spd_target_throttle=math.max(simDR_throttle_ratio[0],simDR_throttle_ratio[1],simDR_throttle_ratio[2],simDR_throttle_ratio[3])
 		B747DR_ref_line_magenta = 0
-
-
 		if B747DR_log_level >= 1 then
 			print("---Setting Back to Normal---")
 		end

@@ -6,7 +6,7 @@ fmsJson = find_dataref("xtlua/fms") -- fmsJSON is nil
 simDR_vvi_fpm_pilot = find_dataref("sim/cockpit2/gauges/indicators/vvi_fpm_pilot")
 simDR_pressureAlt1	= find_dataref("sim/cockpit2/gauges/indicators/altitude_ft_pilot")
 simDR_eng_fuel_flow_kg_sec = find_dataref("sim/cockpit2/engine/indicators/fuel_flow_kg_sec")
-
+B747DR_ap_flightPhase = deferred_dataref("laminar/B747/autopilot/flightPhase", "number")
 -- the following were identifed as redundant dataref calls (April 2021)
 ----------------------------------------------------------------------------------------------
 --simDR_groundspeed = find_dataref("sim/flightmodel/position/groundspeed") --meters per second
@@ -156,10 +156,12 @@ fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be thi
 
       VxSpeed = string.format("  %03d",ClbV2 + vxadj)
 
-        
-
+      line1="       ECON CLB         " 
+      if B747DR_ap_flightPhase==1 then
+        line1="     ACT ECON CLB       "
+      end
       return{
-      "     ACT ECON CLB       ",
+        line1,
       "                        ",
       fmsModules["data"]["crzalt"].."         "..spdalt,
       "                        ",
@@ -309,9 +311,12 @@ fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be thi
       --local utcNow = string.formt("%02f%02f",dt1hour,dt1.min)
 
       etafuel = string.format("%02d%02dz/ %03.1f",eta_h,eta_m,conv*fad/1000)
-
+      line1="       ECON CRZ         " 
+      if B747DR_ap_flightPhase==2 then
+        line1="     ACT ECON CRZ       "
+      end
       return{
-      "     ACT ECON CRZ       ",
+        line1,
       "                        ",
       fmsModules["data"]["crzalt"].."              "..fmsModules["data"]["stepalt"],
       "                        ",
@@ -422,8 +427,12 @@ fmsPages["VNAV"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be thi
       if nxtalt>0 then
         nextAltText=string.format("%3d",nxtspd).."/"..string.format("%5d",nxtalt)
       end
+      line1="       ECON DES         " 
+      if B747DR_ap_flightPhase==3 then
+        line1="     ACT ECON DES       "
+      end
       return{
-      "     ACT ECON DES       ",
+        line1,
       "                        ",
       --"  **** *****    ***/****",
       " "..edaltText.." "..string.format("%5s",eodWpt).."    "..nextAltText,
