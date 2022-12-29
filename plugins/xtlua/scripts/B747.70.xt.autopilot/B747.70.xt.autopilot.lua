@@ -327,6 +327,10 @@ B747DR_autopilot_altitude_ft = find_dataref("laminar/B747/autopilot/heading/alti
 B747DR_autopilot_altitude_ft_pfd = deferred_dataref("laminar/B747/autopilot/heading/altitude_dial_ft_pfd", "number")
 B747DR_ap_heading_deg = deferred_dataref("laminar/B747/autopilot/heading/degrees", "number")
 B747DR_ap_target_heading_deg = deferred_dataref("laminar/B747/autopilot/heading/target", "number")
+B747DR_ap_target_speed               	= deferred_dataref("laminar/B747/autopilot/speed/target", "number")
+B747DR_ap_target_altitude               	= deferred_dataref("laminar/B747/autopilot/altitude/target", "number")
+B747DR_ap_target_vertspeed               	= deferred_dataref("laminar/B747/autopilot/vertspeed/target", "number")
+B747DR_ap_target_flaps   = deferred_dataref("laminar/B747/autopilot/flaps/target", "number")
 B747DR_ap_ias_dial_value = deferred_dataref("laminar/B747/autopilot/ias_dial_value", "number")
 B747DR_ap_ias_bug_value = deferred_dataref("laminar/B747/autopilot/ias_bug_value", "number")
 B747DR_ap_ias_bug_value_pfd = deferred_dataref("laminar/B747/autopilot/ias_bug_value_pfd", "number")
@@ -1662,7 +1666,7 @@ function B747_fltmgmt_setILS(fms)
 	else
 		B747DR_ils_dots=0
 	end
-	print("target="..targetILS.."= "..targetILSS.."= "..targetFix.. " "..nSize.. " "..table.getn(navAids))
+	--print("target="..targetILS.."= "..targetILSS.."= "..targetFix.. " "..nSize.. " "..table.getn(navAids))
 	--[[for i=table.getn(fms)-1,1,-1 do
     if fms[i][10]==true then
       print("fms"..i.."=".. fms[i][1].." "..fms[i][2].." "..fms[i][3].." "..fms[i][4].." "..fms[i][5].." "..fms[i][6].." "..fms[i][7].." "..fms[i][8].." "..fms[i][9].." active")
@@ -2769,6 +2773,192 @@ end
 
 local last_airspeed = 0
 local last_target_heading = 0
+function B747_interpolate_value(current_value, target, min, max, speed)--speed in sex min->max
+
+    --[[if math.abs(current_value-target) <0.01 then
+      return target
+    end]]
+  
+    local change = ((max-min)/speed)*(SIM_PERIOD)
+    newValue=current_value
+    
+    if newValue<=target then
+      newValue=newValue+change
+      --print(current_value.." ->newValue<= "..newValue)
+      if newValue >= target then
+        newValue = B747_animate_value(current_value,target,-100,100,100)
+      end
+    elseif newValue>target then
+      newValue=newValue-change
+      --print(current_value.." ->newValue>= "..newValue)
+      if newValue <= target then
+        newValue = B747_animate_value(current_value,target,-100,100,100)
+      end
+    end
+    if newValue <= min+0.001 and newValue >= min-0.001 then
+        newValue = min
+    elseif newValue >= max-0.001 and newValue <= max+0.001 then
+        newValue = max
+    elseif newValue <= min then
+      newValue = B747_animate_value(current_value,min,-100,100,100)
+    elseif newValue >= max then
+      newValue = B747_animate_value(current_value,max,-100,100,100)
+    else
+      --print(current_value.." ->newValue== "..newValue)
+      --newValue = newValue
+      if math.abs(current_value-target) < change then
+        newValue = B747_animate_value(current_value,target,-100,100,100)
+      --  print(current_value.." ->newValue== "..newValue)
+      --else
+      --  print(current_value.." ->newValue=== "..newValue)
+      end
+  
+      
+    end
+    return newValue
+  end
+function B747_ap_target_flaps()
+	if B747DR_ap_target_flaps == -1 then
+		return
+	end
+	local diff = simDRTime - last_target_heading --set by next function
+	if diff < 0.05 then
+		return
+	end
+	local cFlaps=0
+	local fTarget=0
+	if B747DR_ap_target_flaps==0 then --flaps 1 
+		fTarget=0.0
+	elseif B747DR_ap_target_flaps==1 then --flaps 1 
+		fTarget=0.167
+	 elseif B747DR_ap_target_flaps== 5 then --flaps 5
+		fTarget=0.333
+	 elseif B747DR_ap_target_flaps==10 then --flaps 10
+		fTarget=0.50
+	 elseif B747DR_ap_target_flaps==20 then --flaps 20
+		fTarget=0.667
+	 elseif B747DR_ap_target_flaps==25 then --flaps 25
+		fTarget=0.833
+	 elseif B747DR_ap_target_flaps==30 then --flaps 30
+		fTarget=1.0
+	 else
+		B747DR_ap_target_flaps=-1
+		return
+	 end
+	 if fTarget<simDR_flap_ratio_control+0.01 and fTarget>simDR_flap_ratio_control-0.01 then
+		B747DR_ap_target_flaps = -1
+		print("set flaps")
+		return
+	 end
+	 if simDR_flap_ratio_control>fTarget then
+		simDR_flap_ratio_control=B747_interpolate_value(simDR_flap_ratio_control,0,0,1,8)
+	 else
+		simDR_flap_ratio_control=B747_interpolate_value(simDR_flap_ratio_control,1,0,1,8)
+	 end
+end
+function B474_ap_target_vspeed()
+	if B747DR_ap_target_vertspeed == -1 then
+		return
+	end
+	if B747DR_ap_target_vertspeed == B747DR_autopilot_vs_fpm then
+		B747DR_ap_target_vertspeed = -1
+		return
+	end
+	if B747DR_ap_target_vertspeed<-8000 then
+		B747DR_ap_target_vertspeed=-1
+		return
+	end
+	if B747DR_ap_target_vertspeed>8000 then
+		B747DR_ap_target_vertspeed=-1
+		return
+	end
+	if B747DR_ap_vs_window_open==0 then
+		B747CMD_ap_switch_vs_mode:once()
+		return
+	end
+	--B747DR_ap_target_heading_deg = math.floor(B747DR_ap_target_speed)
+	local vspd_diff = B747DR_autopilot_vs_fpm - B747DR_ap_target_vertspeed
+	if vspd_diff<100 and vspd_diff>-100 then
+		B747DR_ap_target_vertspeed = -1
+		print("set vspeed")
+		return
+	 end
+	print("target spd " .. B747DR_autopilot_vs_fpm .. " " .. B747DR_ap_target_vertspeed .. " " .. vspd_diff)
+	if vspd_diff < 0 then
+		simCMD_ap_vertical_speed_up:once()
+	else
+		simCMD_ap_vertical_speed_down:once()
+	end
+	
+	
+end
+
+function B474_ap_target_altitude()
+	if B747DR_ap_target_altitude == -1 then
+		return
+	end
+	if B747DR_ap_target_altitude == B747DR_autopilot_altitude_ft then
+		B747DR_ap_target_altitude = -1
+		return
+	end
+	local diff = simDRTime - last_target_heading
+	if diff < 0.05 then
+		return
+	end
+	if B747DR_ap_target_altitude<100 then
+		B747DR_ap_target_altitude=-1
+		return
+	end
+	if B747DR_ap_target_speed>40000 then
+		B747DR_ap_target_altitude=-1
+		return
+	end
+
+	--B747DR_ap_target_heading_deg = math.floor(B747DR_ap_target_speed)
+	local alt_diff = B747DR_autopilot_altitude_ft - B747DR_ap_target_altitude
+	if alt_diff<100 and alt_diff>-100 then
+		B747DR_autopilot_altitude_ft=B747DR_ap_target_altitude
+		B747DR_ap_target_altitude = -1
+		print("set altitude")
+		return
+	 end
+	print("target alt " .. B747DR_autopilot_altitude_ft .. " " .. B747DR_ap_target_speed .. " " .. alt_diff)
+	if alt_diff < 0 then
+		B747DR_autopilot_altitude_ft = math.floor(B747DR_autopilot_altitude_ft + 100)
+	else
+		B747DR_autopilot_altitude_ft = math.floor(B747DR_autopilot_altitude_ft - 100)
+	end
+end
+
+function B474_ap_target_speed()
+	if B747DR_ap_target_speed == -1 then
+		return
+	end
+	if B747DR_ap_ias_dial_value == B747DR_ap_target_speed then
+		B747DR_ap_target_speed = -1
+		return
+	end
+	local diff = simDRTime - last_target_heading
+	if diff < 0.05 then
+		return
+	end
+	if B747DR_ap_target_speed<100 then
+		B747DR_ap_target_speed=-1
+		return
+	end
+	if B747DR_ap_target_speed>350 then
+		B747DR_ap_target_speed=-1
+		return
+	end
+	--B747DR_ap_target_heading_deg = math.floor(B747DR_ap_target_speed)
+	local speed_diff = B747DR_ap_ias_dial_value - B747DR_ap_target_speed
+	print("target speed " .. B747DR_ap_ias_dial_value .. " " .. B747DR_ap_target_speed .. " " .. speed_diff)
+	if speed_diff < 0 then
+		B747DR_ap_ias_dial_value = math.floor(B747DR_ap_ias_dial_value + 1)
+	else
+		B747DR_ap_ias_dial_value = math.floor(B747DR_ap_ias_dial_value - 1)
+	end
+end       
 function B474_ap_target_heading()
 	if B747DR_ap_target_heading_deg == -1 then
 		return
@@ -2957,7 +3147,12 @@ function after_physics()
 	B747_ap_afds()
 	B747_ap_afds_fma_mode_change()
 	B747_ap_EICAS_msg()
+	B747_ap_target_flaps()
+	B474_ap_target_vspeed()
+	B474_ap_target_speed()
+	B474_ap_target_altitude()
 	B474_ap_target_heading()
+	
 	B747_ap_monitor_AI()
 end
 
