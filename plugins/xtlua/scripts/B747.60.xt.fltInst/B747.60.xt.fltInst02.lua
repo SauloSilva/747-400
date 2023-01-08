@@ -1066,18 +1066,12 @@ function B747_nd_mode_capt_sel_dial_up_CMDhandler(phase, duration)
     if phase == 0 then
         B747_center_status_old = B747_nd_map_center_capt
         B747DR_nd_mode_capt_sel_dial_pos = math.min(B747DR_nd_mode_capt_sel_dial_pos+1, 3)
-        
         if B747DR_nd_mode_capt_sel_dial_pos == 3 then
             simDR_EFIS_map_mode = 4
             B747_nd_map_center_capt = B747_center_status_old
-            --B747_nd_map_center_capt = 1
         else
             B747_nd_map_center_capt = B747_center_status_old
-            if simDR_version<115602 then
-                simDR_EFIS_map_mode = 1
-            else
-                simDR_EFIS_map_mode = math.max(B747DR_nd_mode_capt_sel_dial_pos+1,1)
-            end
+            simDR_EFIS_map_mode = B747DR_nd_mode_capt_sel_dial_pos-- math.max(B747DR_nd_mode_capt_sel_dial_pos,2)
         end
         -- TODO:  ADD ELEMENTS STATUS BASED ON MODE
     end
@@ -1094,7 +1088,8 @@ function B747_nd_mode_capt_sel_dial_dn_CMDhandler(phase, duration)
             B747_nd_map_center_capt = B747_center_status_old
         else
             
-            simDR_EFIS_map_mode = math.max(B747DR_nd_mode_capt_sel_dial_pos+1,1)
+            simDR_EFIS_map_mode = B747DR_nd_mode_capt_sel_dial_pos -- math.max(B747DR_nd_mode_capt_sel_dial_pos,2)
+            B747_nd_map_center_capt = B747_center_status_old
         end
     end
 end
@@ -1104,7 +1099,7 @@ function B747_nd_range_capt_sel_dial_up_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_nd_range_capt_sel_dial_pos = math.min(B747DR_nd_range_capt_sel_dial_pos+1, 6)
         simDR_EFIS_map_range = B747DR_nd_range_capt_sel_dial_pos
-        B747DR_nd_range_fo_sel_dial_pos = B747DR_nd_range_capt_sel_dial_pos
+        --B747DR_nd_range_fo_sel_dial_pos = B747DR_nd_range_capt_sel_dial_pos
     end
 end
 
@@ -1112,7 +1107,7 @@ function B747_nd_range_capt_sel_dial_dn_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_nd_range_capt_sel_dial_pos = math.max(B747DR_nd_range_capt_sel_dial_pos-1, 0)
         simDR_EFIS_map_range = B747DR_nd_range_capt_sel_dial_pos
-        B747DR_nd_range_fo_sel_dial_pos = B747DR_nd_range_capt_sel_dial_pos
+        --B747DR_nd_range_fo_sel_dial_pos = B747DR_nd_range_capt_sel_dial_pos
     end
 end
 
@@ -1222,21 +1217,12 @@ function B747_nd_mode_fo_sel_dial_up_CMDhandler(phase, duration)
         --B747DR_nd_mode_capt_sel_dial_pos = B747DR_nd_mode_fo_sel_dial_pos
         
         if B747DR_nd_mode_fo_sel_dial_pos == 3 then
-            if simDR_version<115602 then
-                simDR_EFIS_map_mode = 4
-            else
-                simDR_EFIS_map_mode_copilot = 4
-            end
-            --B747_nd_map_center_fo = 1
-            --B747_nd_map_center_capt = B747_nd_map_center_fo
-        else
+            simDR_EFIS_map_mode_copilot = 4
             B747_nd_map_center_fo = B747_center_status_old
-            if simDR_version<115602 then
-                simDR_EFIS_map_mode =1
-            else
-                simDR_EFIS_map_mode_copilot = math.max(B747DR_nd_mode_fo_sel_dial_pos+1,1)
-            end
-            --B747_nd_map_center_capt = B747_nd_map_center_fo
+        else
+           -- B747_nd_map_center_fo = B747_center_status_old
+            simDR_EFIS_map_mode_copilot = B747DR_nd_mode_fo_sel_dial_pos -- math.max(B747DR_nd_mode_fo_sel_dial_pos,2)
+            B747_nd_map_center_fo = B747_center_status_old
         end
         -- TODO:  ADD ELEMENTS STATUS BASED ON MODE
     end
@@ -1247,23 +1233,13 @@ function B747_nd_mode_fo_sel_dial_dn_CMDhandler(phase, duration)
 	B747_center_status_old = B747_nd_map_center_fo
         B747DR_nd_mode_fo_sel_dial_pos = math.max(B747DR_nd_mode_fo_sel_dial_pos-1, 0)
        -- B747DR_nd_mode_capt_sel_dial_pos = B747DR_nd_mode_fo_sel_dial_pos
-        
         if B747DR_nd_mode_fo_sel_dial_pos == 3 then
-            if simDR_version<115602 then
-                simDR_EFIS_map_mode = 4
-            else
-                simDR_EFIS_map_mode_copilot = 4
-            end
-            --B747_nd_map_center_fo = 1
-           -- B747_nd_map_center_capt = B747_nd_map_center_fo
-        else
+            simDR_EFIS_map_mode_copilot = 4
             B747_nd_map_center_fo = B747_center_status_old
-            if simDR_version<115602 then
-                simDR_EFIS_map_mode =1
-            else
-                simDR_EFIS_map_mode_copilot = math.max(B747DR_nd_mode_fo_sel_dial_pos+1,1)
-            end
-           -- B747_nd_map_center_capt = B747_nd_map_center_capt
+        else
+            
+            simDR_EFIS_map_mode_copilot = B747DR_nd_mode_fo_sel_dial_pos --math.max(B747DR_nd_mode_fo_sel_dial_pos,2)
+            B747_nd_map_center_fo = B747_center_status_old
         end
     end
 end
@@ -1273,7 +1249,7 @@ function B747_nd_range_fo_sel_dial_up_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_nd_range_fo_sel_dial_pos = math.min(B747DR_nd_range_fo_sel_dial_pos+1, 6)
         simDR_EFIS_map_range_copilot = B747DR_nd_range_fo_sel_dial_pos
-        B747DR_nd_range_capt_sel_dial_pos = B747DR_nd_range_fo_sel_dial_pos
+        --B747DR_nd_range_fo_sel_dial_pos = B747DR_nd_range_fo_sel_dial_pos
     end
 end
 
@@ -1281,7 +1257,7 @@ function B747_nd_range_fo_sel_dial_dn_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_nd_range_fo_sel_dial_pos = math.max(B747DR_nd_range_fo_sel_dial_pos-1, 0)
         simDR_EFIS_map_range_copilot = B747DR_nd_range_fo_sel_dial_pos
-        B747DR_nd_range_capt_sel_dial_pos = B747DR_nd_range_fo_sel_dial_pos
+        --B747DR_nd_range_capt_sel_dial_pos = B747DR_nd_range_fo_sel_dial_pos
     end
 end
 
@@ -2566,11 +2542,6 @@ local seenRASet=0
 function B747_nd_EFIS_map_modes()
 
     local mapCenter=simDR_EFIS_map_is_center--force read state
-    --[[if simDR_EFIS_map_mode <= 2 then
-        simDR_EFIS_map_is_center = 0
-    else
-        simDR_EFIS_map_is_center = 1
-    end]]
     local capttfc=0
     local fotfc=0
     local capttcas_off=0
@@ -2629,7 +2600,7 @@ function B747_nd_track_line()
     then
         B747_exp_fo_nd_track_line_on = 1
     else
-      B747_exp_fo_nd_track_line_on = 0
+        B747_exp_fo_nd_track_line_on = 0
     end
 end
 
@@ -3459,9 +3430,9 @@ function B747_set_inst_all_modes()
     B747DR_flt_inst_irs_src_fo_dial_pos = 2
     B747DR_flt_inst_air_data_src_fo_dial_pos = 1
 
-    --if simDR_EFIS_map_mode == 3 then simDR_EFIS_map_mode = 0 end
-    simDR_EFIS_map_mode = 3 
-    simDR_EFIS_map_mode_copilot = 3 
+
+    simDR_EFIS_map_mode = 2
+    simDR_EFIS_map_mode_copilot = 2
     B747DR_nd_mode_capt_sel_dial_pos = 2
     B747DR_nd_mode_fo_sel_dial_pos = 2
 
@@ -3630,7 +3601,8 @@ function after_physics()
 
     --B747_captain_clock()
     --B747_fo_clock()
-    
+    local refresh_capt_nd=simDR_EFIS_map_mode  
+    local refresh_fo_nd=simDR_EFIS_map_mode_copilot
     B747_fltInst_capt_get_clock_year()
     B747_fltInst_capt_elapsed_timer()
     B747_fltInst_capt_chrono_timer()

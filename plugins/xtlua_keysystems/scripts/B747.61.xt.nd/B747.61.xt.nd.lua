@@ -54,6 +54,10 @@ simDR_longitude				= find_dataref("sim/flightmodel/position/longitude")
 simDR_true_heading			= find_dataref("sim/flightmodel/position/psi")
 simDR_mag_heading			= find_dataref("sim/cockpit/gyros/psi_ind_ahars_pilot_degm")
 simDR_ground_track			= find_dataref("sim/cockpit2/gauges/indicators/ground_track_mag_pilot")
+simDR_heading_track			= find_dataref("sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_pilot")
+B747DR_nd_capt_up                  		= find_dataref("laminar/B747/nd/up/capt")
+B747DR_nd_fo_up                  		= find_dataref("laminar/B747/nd/up/fo")
+
 simDR_map_range				= find_dataref("sim/cockpit2/EFIS/map_range")
 simDR_map_mode				= find_dataref("sim/cockpit2/EFIS/map_mode")
 simDR_map_range_copilot				= find_dataref("sim/cockpit2/EFIS/map_range_copilot")
@@ -150,13 +154,21 @@ function makeIcon(iconTextData,navtype,text,latitude,longitude,distance)
   if text~=nil and string.lower(text)=="latlon" then text=" " end
   local abs_heading=getHeading(simDR_latitude,simDR_longitude,latitude,longitude)
   local heading_diff=0
-  if simDR_map_mode==2 then
-    mag_diff=getHeadingDifference(simDR_true_heading,simDR_mag_heading)
-    heading_diff=getHeadingDifference(simDR_ground_track-mag_diff,abs_heading)
+  if iconTextData==iconTextDataCapt then
+    if simDR_map_mode==2 then
+      mag_diff=getHeadingDifference(simDR_true_heading,simDR_mag_heading)
+      heading_diff=getHeadingDifference(simDR_ground_track-mag_diff,abs_heading)
+    else
+      heading_diff=getHeadingDifference(simDR_true_heading,abs_heading)
+    end
   else
-    heading_diff=getHeadingDifference(simDR_true_heading,abs_heading)
+    if simDR_map_mode_copilot==2 then
+      mag_diff=getHeadingDifference(simDR_true_heading,simDR_mag_heading)
+      heading_diff=getHeadingDifference(simDR_ground_track-mag_diff,abs_heading)
+    else
+      heading_diff=getHeadingDifference(simDR_true_heading,abs_heading)
+    end
   end
-
   
   local lastNavaid=0
   local vor_ndb=0
@@ -275,7 +287,7 @@ function updateIcon(iconData,n,isCaptain)
    local distance = getDistance(simDR_latitude,simDR_longitude,iconData[n].latitude,iconData[n].longitude)
   local abs_heading=getHeading(simDR_latitude,simDR_longitude,iconData[n].latitude,iconData[n].longitude)
   local heading_diff=0
-  if simDR_map_mode==2 then
+  if (simDR_map_mode==2 and isCaptain==1) or (simDR_map_mode_copilot==2 and isCaptain==0) then
     mag_diff=getHeadingDifference(simDR_true_heading,simDR_mag_heading)
     heading_diff=getHeadingDifference(simDR_ground_track-mag_diff,abs_heading)
   else
@@ -320,10 +332,11 @@ function newIcons()
   --flightplan
   local start=B747DR_fmscurrentIndex-1
   if start<1 then start=1 end
+
   for n=start,table.getn(fmsTable),1 do
     local distance = getDistance(simDR_latitude,simDR_longitude,fmsTable[n][5],fmsTable[n][6])
     --Captain flightplan
-    if distance < ranges[simDR_range_dial_capt + 1] then 
+    if distance < ranges[simDR_range_dial_capt + 1] and simDR_map_mode==2 then 
 
       if fmsTable[n][10]==true then
 	      makeIcon(iconTextDataCapt,3003,fmsTable[n][8],fmsTable[n][5],fmsTable[n][6],distance)
@@ -332,7 +345,7 @@ function newIcons()
       end
     end
     --FO flightplan
-    if distance < ranges[simDR_range_dial_fo + 1] then 
+    if distance < ranges[simDR_range_dial_fo + 1] and simDR_map_mode_copilot==2 then 
 
       if fmsTable[n][10]==true then
 	      makeIcon(iconTextDataFO,3003,fmsTable[n][8],fmsTable[n][5],fmsTable[n][6],distance)
@@ -502,7 +515,20 @@ end
 function after_physics()
   if debug_nd>0 then return end
   local diff=simDRTime-lastUpdate
+  --print("simDR_ground_track="..simDR_ground_track)
+  if simDR_map_mode_copilot ==2 then
+    B747DR_nd_fo_up = simDR_ground_track
+  else
+    B747DR_nd_fo_up = simDR_heading_track
+  end
 
+  if simDR_map_mode ==2 then
+    B747DR_nd_capt_up = simDR_ground_track
+  else
+    B747DR_nd_capt_up = simDR_heading_track
+  end
+
+  
   --force new icons if range dial changes (stop bleed into other displays)
   if simDR_range_dial_capt~=last_range_dial then
     last_range_dial=simDR_range_dial_capt

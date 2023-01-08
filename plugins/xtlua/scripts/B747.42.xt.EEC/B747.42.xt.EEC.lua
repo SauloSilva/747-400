@@ -227,6 +227,7 @@ B747DR_autothrottle_active	= find_dataref("laminar/B747/engines/autothrottle_act
 --simDR_autothrottle_on		= find_dataref("sim/cockpit2/autopilot/autothrottle_on")
 simDR_engine_starter_status	= find_dataref("sim/flightmodel2/engines/starter_is_running")
 B747DR_ap_autoland            	= deferred_dataref("laminar/B747/autopilot/autoland", "number")
+B747DR_airspeed_Vmc                             = deferred_dataref("laminar/B747/airspeed/Vmc", "number")
 debug_ecc     = deferred_dataref("laminar/B747/debug/ecc", "number")
 --[[
 *************************************************************************************
@@ -821,9 +822,11 @@ function ecc_throttle()
 	--print("---ECC Throttle---")
 	    local input=1
 		local target=1
-
+		local minSafeSpeed = math.max(B747DR_airspeed_Vmc + 10,simDR_autopilot_airspeed_kts-5)
 		
-		if B747DR_ap_FMA_autothrottle_mode==3 or (B747DR_ap_FMA_autothrottle_mode==2 and simDR_ind_airspeed_kts_pilot<(simDR_autopilot_airspeed_kts-5)) then
+		if B747DR_ap_FMA_autothrottle_mode==3 --SPD
+		or (B747DR_ap_FMA_autothrottle_mode==2 and simDR_ind_airspeed_kts_pilot<minSafeSpeed) --IDLE need thrust
+		then
 				spd_throttle()
 				return
 
