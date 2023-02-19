@@ -209,6 +209,7 @@ simDR_ias_pilot				= find_dataref("sim/cockpit2/gauges/indicators/airspeed_kts_p
 simDR_vvi_fpm_pilot        	= find_dataref("sim/cockpit2/gauges/indicators/vvi_fpm_pilot")
 simDR_tas_pilot				= find_dataref("sim/cockpit2/gauges/indicators/true_airspeed_kts_pilot")
 simDR_flap_ratio			= find_dataref("sim/cockpit2/controls/flap_ratio")
+
 simDR_flap_handle_ratio		= find_dataref("sim/cockpit2/controls/flap_handle_deploy_ratio")
 simDR_thrust_max			= find_dataref("sim/aircraft/engine/acf_tmax")
 simDR_thrust_n				= find_dataref("sim/cockpit2/engine/indicators/thrust_dry_n")
@@ -541,7 +542,7 @@ function egt_thermal_profile(tempIn,engineid,current_value)
 	local rate = (thermalIn-current_value) /50
 	local tempOut=current_value+rate
 	--print(engineid.."="..tempIn.." to "..tempOut.." at ".. rate)	
-	return tempOut--current_value+rate
+	return math.max(simDR_temperature,tempOut)--current_value+rate
 end
 function clear_thrust_targets()
 	-- Clear Thrust Target Bugs
