@@ -529,6 +529,20 @@ end
 ** 				              EEC FUNCTIONS              		    	           **
 *************************************************************************************
 ]]
+function egt_thermal_profile(tempIn,engineid,current_value)
+	--B747DR_display_EGT[i]
+	
+	local thermalIn=tempIn
+	if tempIn<320 and tempIn>150 then
+		thermalIn=320
+	elseif tempIn<150 then
+		thermalIn=current_value-10
+	end
+	local rate = (thermalIn-current_value) /50
+	local tempOut=current_value+rate
+	--print(engineid.."="..tempIn.." to "..tempOut.." at ".. rate)	
+	return tempOut--current_value+rate
+end
 function clear_thrust_targets()
 	-- Clear Thrust Target Bugs
 	for i = 0, 8 do

@@ -636,7 +636,7 @@ function GE(altitude_ft_in)
     B747DR_display_N2[i] = math.max(N2_display[i], 0.0)
 
     EGT_display[i] = EGT_display_GE(i)
-    B747DR_display_GE_EGT[i] = math.max(EGT_display[i], 0.0)
+    B747DR_display_GE_EGT[i] =egt_thermal_profile(EGT_display[i],i,B747DR_display_GE_EGT[i])--math.max(EGT_display[i], 0.0)
 
     B747DR_throttle_resolver_angle[i] = throttle_resolver_angle_GE(i)
 	end

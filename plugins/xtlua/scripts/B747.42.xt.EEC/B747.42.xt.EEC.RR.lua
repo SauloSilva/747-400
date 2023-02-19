@@ -955,7 +955,7 @@ function engine_idle_control_RR(altitude_ft_in)
       B747DR_display_N3[i] = math.max(N3_display[i], 0.0)
      -- print("RR EGT 1 "..i.." "..B747DR_display_EGT[i])
       EGT_display[i] = EGT_display_RR(i)
-      B747DR_display_EGT[i] = math.max(EGT_display[i], 0.0)
+      B747DR_display_EGT[i] = egt_thermal_profile(EGT_display[i],i,B747DR_display_EGT[i])--math.max(EGT_display[i], 0.0)
      -- print("RR EGT 2 "..i.." "..B747DR_display_EGT[i])
       B747DR_throttle_resolver_angle[i] = throttle_resolver_angle_RR(i)
 

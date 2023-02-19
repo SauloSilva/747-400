@@ -1517,7 +1517,7 @@ function B747_fltmgmt_setILS(fms)
 	if diff < 2 then
 		return
 	end
-	collectgarbage("collect")
+	--collectgarbage("collect")
 	lastILSUpdate = simDRTime
 	local n1 = simDR_nav1Freq
 	local n2 = simDR_nav2Freq
