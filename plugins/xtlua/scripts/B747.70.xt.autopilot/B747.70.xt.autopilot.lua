@@ -1894,7 +1894,7 @@ function setDistances(fmsO)
 	local iLong = simDR_longitude
 	local endI = table.getn(fmsO)
 	B747BR_distance_to_dest= getDistance(iLat, iLong, fmsO[endI][5], fmsO[endI][6])
-	if table.getn(fms) <= 2 then
+	if table.getn(fmsO) <= 2 then
 		return
 	end
 	if fmsO[start] == nil then
@@ -2157,16 +2157,25 @@ function B747_ap_appr_mode()
 		B747DR_ap_cmd_R_mode = 0
 	end
 	if B747DR_ap_approach_mode == 0 then
+		if simDR_autopilot_gs_status > 0 then
+			simCMD_autopilot_glideslope_mode:once() -- CANX GLIDESLOPE MODE
+			B747DR_ap_lastCommand = simDRTime
+			return
+		end
 		if simDR_autopilot_nav_status > 0 then
-			if simDR_autopilot_gs_status > 0 then
+			--[[if simDR_autopilot_gs_status > 0 then
 				print("simCMD_autopilot_appr_mode in B747DR_ap_approach_mode=0")
 				simCMD_autopilot_appr_mode:once() --DEACTIVATE APP
 				B747DR_ap_lastCommand = simDRTime
 			else
 				simCMD_autopilot_nav_mode:once() --DEACTIVATE LOC
 				B747DR_ap_lastCommand = simDRTime
-			end
+			end]]--
+			simCMD_autopilot_nav_mode:once() --DEACTIVATE LOC
+			B747DR_ap_lastCommand = simDRTime
+			return
 		end
+		
 		return
 	end -- no approach mode enabled
 	local diffap = getHeadingDifference(simDR_nav1_radio_course_deg, simDR_AHARS_heading_deg_pilot)
@@ -2201,7 +2210,7 @@ function B747_ap_appr_mode()
 		B747DR_ap_approach_mode = 0
 	end
 	
-	if B747DR_ap_lnav_state > 0 and simDR_autopilot_heading_status == 0 then
+	if B747DR_ap_lnav_state > 0 and simDR_autopilot_heading_status == 0 and simDR_autopilot_nav_status == 0 then
 		simCMD_autopilot_heading_select:once()
 		B747DR_ap_lastCommand = simDRTime
 	end
