@@ -555,6 +555,7 @@ function B747_monitorAT()
         end
         B747DR_ap_thrust_mode=0
         B747DR_engine_TOGA_mode = 0	-- CANX ENGINE TOGA IF ACTIVE
+        B747DR_autopilot_TOGA_status=0
         B747DR_ap_flightPhase=2
         if simDR_autopilot_flch_status == 2 then
             simCMD_autopilot_flch_mode:once()

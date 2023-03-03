@@ -711,6 +711,7 @@ function B747_ap_alt_hold_mode_CMDhandler(phase, duration)
 		B747DR_ap_vnav_state = 0
 		B747DR_ap_inVNAVdescent = 0
 		B747DR_ap_flightPhase = 2
+		B747DR_autopilot_TOGA_status=0 
 	elseif phase == 2 then
 		B747_ap_button_switch_position_target[7] = 0
 	end
