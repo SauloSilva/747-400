@@ -273,6 +273,7 @@ B747DR_mcp_hold_pressed = deferred_dataref("laminar/B747/autopilot/ap_monitor/mc
 --simCMD_autopilot_autothrottle_on = find_command("sim/autopilot/autothrottle_on")
 --simCMD_autopilot_autothrottle_off = find_command("sim/autopilot/autothrottle_off")
 --simCMD_autopilot_toggle_knots_mach  	= find_command("sim/autopilot/knots_mach_toggle")
+simCMD_autopilot_roll_center_sync_mode = find_command("sim/autopilot/override_center")
 simCMD_autopilot_roll_right_sync_mode = find_command("sim/autopilot/override_right")
 simCMD_autopilot_servos_on = find_command("sim/autopilot/servos_on")
 simCMD_autopilot_servos_fdir_off = find_command("sim/autopilot/servos_fdir_off")
@@ -2061,6 +2062,7 @@ function B747_ap_appr_mode_beforeCMDhandler(phase, duration)
 		else
 			B747DR_fmc_notifications[40]=0
 		end
+		--simCMD_autopilot_roll_center_sync_mode:once()
 		local diff = simDRTime - B747DR_ap_lastCommand
 		--if diff>0.5 then
 		if B747DR_ap_approach_mode <= 0 then

@@ -421,9 +421,6 @@ end
 local thisTargetGlideslipeFPM=-1000
 local last_simDR_hsi_vdef_dots_pilot=0
 function getGlideSlopeFPM()
-
-    
-
     if simDR_hsi_vdef_dots_pilot>0.7 then
         return -1500
     elseif simDR_hsi_vdef_dots_pilot<-0.7 then 
@@ -433,7 +430,8 @@ function getGlideSlopeFPM()
         return thisTargetGlideslipeFPM
     end
     local fpmError=math.abs(thisTargetGlideslipeFPM-simDR_vvi_fpm_pilot)
-    local rog=500*math.abs(simDR_hsi_vdef_dots_pilot-last_simDR_hsi_vdef_dots_pilot)
+    
+    local rog=simDR_radarAlt1*math.abs(simDR_hsi_vdef_dots_pilot-last_simDR_hsi_vdef_dots_pilot)/2
     local speed_delta=simDR_hsi_vdef_dots_pilot-last_simDR_hsi_vdef_dots_pilot
     local dotsDiff=math.abs(simDR_hsi_vdef_dots_pilot)
     last_simDR_hsi_vdef_dots_pilot=simDR_hsi_vdef_dots_pilot
