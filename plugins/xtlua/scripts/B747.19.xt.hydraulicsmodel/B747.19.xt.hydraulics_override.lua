@@ -427,7 +427,7 @@ function getGlideSlopeFPM()
     if simDR_hsi_vdef_dots_pilot>0.7 then
         return -1500
     elseif simDR_hsi_vdef_dots_pilot<-0.7 then 
-        return -200
+        return -400
     end
     if last_simDR_hsi_vdef_dots_pilot==simDR_hsi_vdef_dots_pilot then
         return thisTargetGlideslipeFPM
