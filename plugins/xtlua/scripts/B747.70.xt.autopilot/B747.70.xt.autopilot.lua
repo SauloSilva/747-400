@@ -51,8 +51,8 @@ end
 --*************************************************************************************--
 --** 					            GLOBAL VARIABLES                				 **--
 --*************************************************************************************--
-B747CMD_fdr_log_lnav           = find_command("laminar/B747/fdr/vnav")
-B747CMD_fdr_log_vnav           = find_command("laminar/B747/fdr/lnav")
+B747CMD_fdr_log_lnav           = find_command("laminar/B747/fdr/lnav")
+B747CMD_fdr_log_vnav           = find_command("laminar/B747/fdr/vnav")
 B747CMD_fdr_log_apon           = find_command("laminar/B747/fdr/apon")
 B747CMD_fdr_log_apdisconnect           = find_command("laminar/B747/fdr/apdisconnect")
 B747CMD_fdr_log_flch           = find_command("laminar/B747/fdr/flch")
