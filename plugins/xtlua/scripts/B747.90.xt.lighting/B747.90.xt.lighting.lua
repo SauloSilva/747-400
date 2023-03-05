@@ -109,7 +109,7 @@ simDR_apu_gen_on                    = find_dataref("sim/cockpit2/electrical/APU_
 
 simDR_cross_tie                     = find_dataref("sim/cockpit2/electrical/cross_tie")
 simDR_engine_running                = find_dataref("sim/flightmodel/engine/ENGN_running")
---simDR_aircraft_groundspeed          = find_dataref("sim/flightmodel/position/groundspeed")
+simDR_aircraft_groundspeed          = find_dataref("sim/flightmodel/position/groundspeed")
 simDR_generator_on                  = find_dataref("sim/cockpit2/electrical/generator_on")
 
 simDR_hyd_press_01                  = find_dataref("laminar/B747/hydraulics/pressure_1")
@@ -904,15 +904,15 @@ function B747_cabin_lights()
         if B747DR_toggle_switch_position[37] > 0.95
             and power == 1
         then
-            switch_value = 0.75
+            switch_value = 0.5
         else
             switch_value = 0.0
         end
     else
         if simDR_percent_lights_on > 0.25
-            and power == 1
+            and power == 1 and ((simDR_cabin_altitude > 10000.0) or simDR_aircraft_groundspeed<15)
         then
-            switch_value = 0.75
+            switch_value = 0.5
         else
             switch_value = 0.0
         end
