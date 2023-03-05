@@ -162,6 +162,7 @@ simDR_autopilot_airspeed_kts_mach = find_dataref("sim/cockpit2/autopilot/airspee
 simDR_autopilot_heading_deg = find_dataref("sim/cockpit/autopilot/heading_mag")
 simDR_autopilot_vs_fpm = find_dataref("sim/cockpit2/autopilot/vvi_dial_fpm")
 B747DR_autopilot_vs_fpm = find_dataref("laminar/B747/cockpit2/autopilot/vvi_dial_fpm")
+simDR_hsi_vdef_dots_pilot           = find_dataref("sim/cockpit2/radios/indicators/hsi_vdef_dots_pilot")
 simDR_autopilot_state = find_dataref("sim/cockpit/autopilot/autopilot_state")
 simDR_autopilot_vs_status = find_dataref("sim/cockpit2/autopilot/vvi_status")
 simDR_autopilot_flch_status = find_dataref("sim/cockpit2/autopilot/speed_status")

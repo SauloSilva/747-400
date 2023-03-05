@@ -246,9 +246,10 @@ end]]
 --simDR_Lift=find_dataref("sim/flightmodel/forces/lift_path_axis")
 function preLand_measure()
      --totalLift=totalLift+(simDR_Lift/10000)
-     if B747DR_ap_autoland==0 then
+     if B747DR_ap_autoland==0 and simDR_hsi_vdef_dots_pilot <0.1 and simDR_hsi_vdef_dots_pilot>-0.1 then
       neutralPitch=neutralPitch+simDR_AHARS_pitch_heading_deg_pilot
       pitchMeasurements=pitchMeasurements+1;
+      print("pitchMeasurements="..pitchMeasurements.. " Pitch="..B744DR_autolandPitch)
      end
       B744DR_autolandPitch=(neutralPitch/pitchMeasurements)
       
@@ -340,7 +341,7 @@ function runAutoland()
   pinThrottle=simDR_allThrottle
   
    --no nose dives in the last 100 feet
-    if simDR_radarAlt1 < 200 and numAPengaged>2 then 
+    if simDR_radarAlt1 < 100 and numAPengaged>2 then 
       --preFlare_elevator()
       B747DR_ap_autoland=1
 -- 	print("autoland preflare ".. simDR_radarAlt1.. " " .. simDR_AHARS_pitch_heading_deg_pilot .." " ..targetPitch)

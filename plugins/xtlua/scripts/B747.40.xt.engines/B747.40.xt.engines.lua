@@ -717,7 +717,7 @@ local LastSpeedBrake=0
 function B747_prop_mode()
 
     -- Mode 0 is feathered, 1 is normal, 2 is in beta, and reverse (prop or jet) is mode 3
-
+    local refreshGroundstate=simDR_all_wheels_on_ground
     if simDR_reallyall_wheels_on_ground==0 then
         B747DR_reverser_lockout = 1
     else 
