@@ -247,6 +247,7 @@ function VNAV_DES(numAPengaged,fms)
             setDescent(true)
             print("Begin descent")
             getDescentTarget()
+            B747DR_ap_lastCommand=simDRTime
         else
             B747DR_mcp_hold=2
             print("set B747DR_mcp_hold")
@@ -434,7 +435,7 @@ function VNAV_modeSwitch(fmsO)
     else
         B747_monitor_THR_REF_AT()
     end
-    if simDR_autopilot_alt_hold_status==2 then
+    if simDR_autopilot_alt_hold_status==2 and B747DR_ap_flightPhase<3 then
         B747DR_ap_flightPhase=2
     end
     local diff=simDRTime-B747DR_ap_lastCommand
@@ -556,7 +557,9 @@ function B747_monitorAT()
         B747DR_ap_thrust_mode=0
         B747DR_engine_TOGA_mode = 0	-- CANX ENGINE TOGA IF ACTIVE
         B747DR_autopilot_TOGA_status=0
-        B747DR_ap_flightPhase=2
+        if B747DR_ap_flightPhase<3 then
+            B747DR_ap_flightPhase=2
+        end
         if simDR_autopilot_flch_status == 2 then
             simCMD_autopilot_flch_mode:once()
             B747DR_ap_lastCommand=simDRTime

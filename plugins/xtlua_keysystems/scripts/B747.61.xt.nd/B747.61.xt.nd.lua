@@ -26,6 +26,7 @@ B747BR_cruiseAlt 			= find_dataref("laminar/B747/autopilot/dist/cruise_alt")
 B747BR_tod				= find_dataref("laminar/B747/autopilot/dist/top_of_descent")
 B747BR_todLat				= find_dataref("laminar/B747/autopilot/dist/top_of_descent_lat", "number")
 B747BR_todLong				= find_dataref("laminar/B747/autopilot/dist/top_of_descent_long", "number")
+simDR_autopilot_alt_hold_status = find_dataref("laminar/B747/autopilot/altitude_hold_status")
 iconTextDataCapt={}
 iconTextDataCapt.icons=find_dataref("laminar/B747/nd/capt/text/icon")
 for n=0,59,1 do
@@ -81,7 +82,9 @@ simDR_groundspeed			                      = find_dataref("sim/flightmodel2/posit
 simDR_vvi_fpm_pilot        	                = find_dataref("sim/cockpit2/gauges/indicators/vvi_fpm_pilot")
 simDR_autopilot_altitude_ft    		          = find_dataref("laminar/B747/autopilot/altitude_dial_ft") -- alternate might better MCP which is B747DR_autopilot_altitude_ft
 simDR_pressureAlt1	                        = find_dataref("sim/cockpit2/gauges/indicators/altitude_ft_pilot")
-B747DR_nd_alt_distance                  		= find_dataref("laminar/B747/nd/toc/distance")
+--B747DR_nd_alt_distance                  		= find_dataref("laminar/B747/nd/toc/distance")
+B747DR_nd_alt_distance_fo                  		= find_dataref("laminar/B747/nd/toc/distance/fo")
+B747DR_nd_alt_distance_capt                  		= find_dataref("laminar/B747/nd/toc/distance/capt")
 B747DR_nd_alt_fo_active			                = find_dataref("laminar/B747/nd/toc/fo_active")
 B747DR_nd_alt_capt_active			              = find_dataref("laminar/B747/nd/toc/capt_active")
 
@@ -477,27 +480,33 @@ end
 function compute_and_show_alt_range_arc()
   local meters_per_second_to_kts = 1.94384449
   local actual_speed = simDR_groundspeed * meters_per_second_to_kts
-  if (simDR_autopilot_altitude_ft>simDR_pressureAlt1 and simDR_vvi_fpm_pilot>500) or (simDR_autopilot_altitude_ft<simDR_pressureAlt1 and simDR_vvi_fpm_pilot<-500) then
+  if simDR_autopilot_alt_hold_status<2 and ((simDR_autopilot_altitude_ft>simDR_pressureAlt1 and simDR_vvi_fpm_pilot>500) or (simDR_autopilot_altitude_ft<simDR_pressureAlt1 and simDR_vvi_fpm_pilot<-500)) then
     altDiff=simDR_autopilot_altitude_ft-simDR_pressureAlt1
     minsToAlt=altDiff/simDR_vvi_fpm_pilot
     distanceToAlt=(actual_speed*minsToAlt)/60
     --print("distanceToAlt="..distanceToAlt.." minsToAlt="..minsToAlt.." altDiff="..altDiff.." actual_speed="..actual_speed)
     if distanceToAlt < ranges[simDR_range_dial_capt + 1] then
-      B747DR_nd_alt_distance=distanceToAlt*(640/ranges[simDR_range_dial_capt + 1])
+      B747DR_nd_alt_distance_capt=distanceToAlt*(640/ranges[simDR_range_dial_capt + 1])
     else
-      B747DR_nd_alt_distance=-99
+      B747DR_nd_alt_distance_capt=-99
+    end
+    if distanceToAlt < ranges[simDR_range_dial_fo + 1] then
+      B747DR_nd_alt_distance_fo=distanceToAlt*(640/ranges[simDR_range_dial_fo + 1])
+    else
+      B747DR_nd_alt_distance_fo=-99
     end
   else
-    B747DR_nd_alt_distance=-99
+    B747DR_nd_alt_distance_capt=-99
+    B747DR_nd_alt_distance_fo=-99
   end
   
 
-  if captIRS==0 or B747DR_nd_alt_distance<-90 or B747DR_nd_mode_capt_sel_dial_pos~=2 then 
+  if captIRS==0 or B747DR_nd_alt_distance_capt<-90 or B747DR_nd_mode_capt_sel_dial_pos~=2 then 
     B747DR_nd_alt_capt_active=0 
   else
     B747DR_nd_alt_capt_active=1
   end
-  if foIRS==0 or B747DR_nd_alt_distance<-90 or B747DR_nd_mode_fo_sel_dial_pos~=2 then 
+  if foIRS==0 or B747DR_nd_alt_distance_fo<-90 or B747DR_nd_mode_fo_sel_dial_pos~=2 then 
     B747DR_nd_alt_fo_active=0
   else
     B747DR_nd_alt_fo_active=1

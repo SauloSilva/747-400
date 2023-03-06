@@ -57,7 +57,7 @@ GROUP Captain ND
   GROUP ND CAPT BANANA Y
         SHOW_GREATER 0.500000 laminar/B747/nd/toc/capt_active
     	GROUP_ANIMATE_MODE TRANSLATE
-        DATAREF laminar/B747/nd/toc/distance
+        DATAREF laminar/B747/nd/toc/distance/capt
         POS 0.000000 0.000000
         KEY_FRAME -640.000000 -465.000000 1.000000
         KEY_FRAME 0.000000 0.000000 1.000000
