@@ -833,12 +833,19 @@ function spd_throttle()
 	end
 	
 end
+local previous_throttleTime=0
 function ecc_throttle()
 	--print("---ECC Throttle---")
 	    local input=1
 		local target=1
 		local minSafeSpeed = math.max(B747DR_airspeed_Vmc + 10,simDR_autopilot_airspeed_kts-5)
-		
+		local previous_pitchTime=0
+
+		time=simDRTime-previous_throttleTime
+		previous_throttleTime=simDRTime
+		if time>1 or time==0 then
+			return
+		end
 		if B747DR_ap_FMA_autothrottle_mode==3 --SPD
 		or (B747DR_ap_FMA_autothrottle_mode==2 and simDR_ind_airspeed_kts_pilot<minSafeSpeed) --IDLE need thrust
 		then
