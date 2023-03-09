@@ -759,9 +759,9 @@ function ecc_spd()
 			else --PW or RR, EPR target
 				eccPid[i].input = 50.0*B747DR_display_EPR[i]
 				eccPid[i].target = 50.0*B747DR_throttle_resolver_angle[i]
-				eccPid[i].kp=B747DR_pidepr_eccP
+				eccPid[i].kp=100*B747DR_pidepr_eccP
 				eccPid[i].ki=B747DR_pidepr_eccI 
-				eccPid[i].kd=B747DR_pidepr_eccD 
+				eccPid[i].kd=50*B747DR_pidepr_eccD 
 				diffSpeed=4
 			end
 

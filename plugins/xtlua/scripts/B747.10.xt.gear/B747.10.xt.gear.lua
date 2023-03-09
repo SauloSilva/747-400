@@ -218,7 +218,7 @@ function runGear()
 	  simDR_autobrakes_switch = 0
 	  print("ARM RTO")
   end
-  
+  --print("simDR_gear_handle_down "..simDR_gear_handle_down)
   if runningGear ==0 then return end
   if B747DR_gear_handle_detent < 0.037 then B747DR_gear_handle_detent=B747_animate_value(B747DR_gear_handle_detent,0.037,0,0.037,10) return end
   if runningGear ==2 and (B747DR_gear_handle<1 or B747DR_gear_handle>1) then B747DR_gear_handle=B747_animate_value(B747DR_gear_handle,1,0,2,10) return end  
@@ -976,7 +976,7 @@ function B747_flight_start_gear()
 
     end
 
-  if simDR_aircraft_on_ground==0 then B747DR_gear_handle=2 else B747DR_gear_handle=0 end
+  if simDR_aircraft_on_ground==0 then runningGear=1 else runningGear=-1 end
   
 
 end
