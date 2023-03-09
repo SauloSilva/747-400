@@ -18,7 +18,7 @@ local pinRoll=0
 local windCorrectAngle=0 
 local maxPitch=0
 local maxThrottle=1
-local flareAt=55
+local flareAt=50
 local zeroRatePitch=6
 local totalLift=0
 local liftMeasurements=0;
@@ -94,7 +94,7 @@ function doPitch()
       targetPitch=progressPitch
     end]]--
 
-    targetPitch=zeroRatePitch+0.5
+    targetPitch=zeroRatePitch+2 --0.5
   end
   --[[if inrollout==true then 
     local tP=(simDR_radarAlt1-4.0)
