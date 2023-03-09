@@ -221,7 +221,7 @@ function VNAV_DES(numAPengaged,fms)
     
     if B747DR_mcp_hold>0 then return end --in an MCP hold, just stay there
     if descentstatus == 0 then
-        print("simDR_autopilot_vs_status  == 0 clear descent")
+        print("simDR_autopilot_vs_status  == 0 clear descent "..B747BR_fpe)
         B747DR_ap_inVNAVdescent = 0   
     end
     --Past TOD and MCP ALT at current alt - activate VNAV ALT
@@ -304,7 +304,7 @@ function VNAV_DES(numAPengaged,fms)
     if simDR_autopilot_vs_status == 2 and B747DR_fmstargetIndex>2 then
         setDescentVSpeed()
     end
-    if simDR_autopilot_hold_altitude_ft>B747BR_cruiseAlt and simDR_autopilot_alt_hold_status > 0 and dist>0 then
+    if simDR_autopilot_hold_altitude_ft>B747BR_cruiseAlt and simDR_autopilot_alt_hold_status > 0 and (B747BR_totalDistance-B747BR_tod)>0 then
         B747BR_cruiseAlt=simDR_autopilot_hold_altitude_ft
     end
     B747DR_ap_vnav_state=2

@@ -526,6 +526,9 @@ function ap_director_pitch(pitchMode)
 
         local rog=0.01+math.abs(0.5*speed_delta)
         if rog>0.3 then rog=0.3 end
+        if simDR_pressureAlt1>29000 then
+            rog=rog/3
+        end
         local min_speedDelta=0
         local max_speedDelta=0
         local minSafeSpeed = B747DR_airspeed_Vmc + 10
@@ -593,7 +596,7 @@ function ap_director_pitch(pitchMode)
         
         local rog=0.001+0.00003*math.abs(simDR_vvi_fpm_pilot-targetFPM)
         --if simDR_pressureAlt1>29000 or (altDiff<B747DR_alt_capture_window) then
-        if math.abs(simDR_vvi_fpm_pilot)<100 then
+        if simDR_pressureAlt1>29000 or math.abs(simDR_vvi_fpm_pilot)<100 then
             rog=0.0001+0.00001*math.abs(simDR_vvi_fpm_pilot-targetFPM)
         end
         if simDR_vvi_fpm_pilot>targetFPM  and pitchError<1.5 then
@@ -648,6 +651,9 @@ function ap_director_pitch(pitchMode)
         end
         
         local rog=0.001+0.00003*vviError
+        if simDR_pressureAlt1>29000 then
+            rog=rog/3
+        end
         if simDR_vvi_fpm_pilot>targetFPM  and pitchError<1.5 then
             last_simDR_AHARS_pitch_heading_deg_pilot=last_simDR_AHARS_pitch_heading_deg_pilot-rog
             if debug_flight_directors==1 then
