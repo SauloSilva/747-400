@@ -442,7 +442,7 @@ function getGlideSlopeFPM()
     end
     
     local rog=simDR_radarAlt1*math.abs(simDR_hsi_vdef_dots_pilot-last_simDR_hsi_vdef_dots_pilot)
-    local speed_delta=(simDR_hsi_vdef_dots_pilot-last_simDR_hsi_vdef_dots_pilot)/time
+    local speed_delta=(simDR_hsi_vdef_dots_pilot-last_simDR_hsi_vdef_dots_pilot)/(time*30)
     local dotsDiff=math.abs(simDR_hsi_vdef_dots_pilot)
     last_simDR_hsi_vdef_dots_pilot=simDR_hsi_vdef_dots_pilot
     --print(" vsi speed_delta "..speed_delta)
@@ -456,7 +456,7 @@ function getGlideSlopeFPM()
         min_speedDelta=dotsDiff/35
     end
     local nextVdef=simDR_hsi_vdef_dots_pilot+speed_delta --look ahead
-    print("at simDR_hsi_vdef_dots_pilot "..simDR_hsi_vdef_dots_pilot.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta.." rog "..rog)
+    --print("at simDR_hsi_vdef_dots_pilot "..simDR_hsi_vdef_dots_pilot.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta.." rog "..rog)
     if ((nextVdef>0) and speed_delta<-max_speedDelta --gs below
         or (nextVdef<0) and speed_delta<min_speedDelta) and fpmError<50 --gs above
     then
@@ -496,7 +496,7 @@ local previous_pitchTime=0
 function ap_director_pitch(pitchMode)
     time=simDRTime-previous_pitchTime
     previous_pitchTime=simDRTime
-    print("ap_director_pitch" ..time.. " "..directorSampleRate)
+    --print("ap_director_pitch" ..time.. " "..directorSampleRate)
     if time>2 or time==0 then
         return last_simDR_AHARS_pitch_heading_deg_pilot
     end

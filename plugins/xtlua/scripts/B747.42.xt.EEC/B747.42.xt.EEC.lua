@@ -214,7 +214,6 @@ simDR_flap_handle_ratio		= find_dataref("sim/cockpit2/controls/flap_handle_deplo
 simDR_thrust_max			= find_dataref("sim/aircraft/engine/acf_tmax")
 simDR_thrust_n				= find_dataref("sim/cockpit2/engine/indicators/thrust_dry_n")
 simDR_engine_anti_ice		= find_dataref("laminar/B747/antiice/nacelle/valve_pos")
-simDR_autopilot_gs_status	= find_dataref("sim/cockpit2/autopilot/glideslope_status")
 simDR_acceleration_kts_sec_pilot    = find_dataref("sim/cockpit2/gauges/indicators/airspeed_acceleration_kts_sec_pilot")
 simDR_engn_EGT_c			= find_dataref("sim/flightmodel/engine/ENGN_EGT_c")
 simDR_engine_high_idle_ratio	= find_dataref("sim/aircraft2/engine/high_idle_ratio")

@@ -257,7 +257,7 @@ function VNAV_DES(numAPengaged,fms)
     --
 
     if (B747DR_ap_inVNAVdescent ==1 or (beganDescent()==true and simDR_autopilot_alt_hold_status==2)) and diff2<=-500 and (diff3<=-500 or diff3>=500) and (descentstatus == 0 or simDR_autopilot_alt_hold_status==2) and simDR_radarAlt1>1000 then
-        if simDR_autopilot_gs_status < 1 then 
+        if B747DR_autopilot_gs_status < 1 then 
             --if B747DR_ap_ias_mach_window_open == 0 or simDR_pressureAlt1<=upperAlt or simDR_ind_airspeed_kts_pilot<B747DR_airspeed_Vmc+15 then
             
             if simDR_pressureAlt1>upperAlt and B747DR_ap_ias_mach_window_open == 1 and simDR_autopilot_flch_status == 0 then
