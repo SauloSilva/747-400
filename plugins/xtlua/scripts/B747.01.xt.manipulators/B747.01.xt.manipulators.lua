@@ -2303,8 +2303,14 @@ function B747_interpolate_value(current_value, target, min, max, speed)--speed i
     return newValue
   end
 function B747_throttle_animation()
+    local pinlever=false
     for i=0,3,1 do
         if simDR_engine_throttle_rev[i]<0 then
+            pinlever=true
+        end
+    end
+    for i=0,3,1 do
+        if pinlever then
             B747DR_throttle_reversor[i]=B747_interpolate_value(B747DR_throttle_reversor[i],simDR_engine_throttle_rev[i],-1,0,1)
             B747DR_throttle[i]=B747_interpolate_value(B747DR_throttle[i],0,0,1,1)
         else

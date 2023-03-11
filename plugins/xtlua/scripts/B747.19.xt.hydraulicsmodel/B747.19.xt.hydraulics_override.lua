@@ -422,12 +422,23 @@ local thisTargetGlideslipeFPM=-800
 local last_simDR_hsi_vdef_dots_pilot=0
 local lastSimDRTime=0
 function getGlideSlopeFPM()
-    if simDR_hsi_vdef_dots_pilot>0.7 then
+    --[[if simDR_hsi_vdef_dots_pilot>1.0 then
+        if debug_flight_directors==1 then
+            print("lim simDR_hsi_vdef_dots_pilot "..simDR_hsi_vdef_dots_pilot)
+        end
+        lastSimDRTime=simDRTime
+        last_simDR_hsi_vdef_dots_pilot=simDR_hsi_vdef_dots_pilot
         return -1500
-    elseif simDR_hsi_vdef_dots_pilot<-0.7 then 
+    elseif simDR_hsi_vdef_dots_pilot<-1.0 then 
+        if debug_flight_directors==1 then
+            print("lim simDR_hsi_vdef_dots_pilot "..simDR_hsi_vdef_dots_pilot)
+        end
+        lastSimDRTime=simDRTime
+        last_simDR_hsi_vdef_dots_pilot=simDR_hsi_vdef_dots_pilot
         return -400
-    end
+    end]]--
     if last_simDR_hsi_vdef_dots_pilot==simDR_hsi_vdef_dots_pilot then
+        lastSimDRTime=simDRTime
         return thisTargetGlideslipeFPM
     end
     local fpmError=math.abs(thisTargetGlideslipeFPM-simDR_vvi_fpm_pilot)
@@ -437,11 +448,9 @@ function getGlideSlopeFPM()
     --end
     time=simDRTime-lastSimDRTime
     lastSimDRTime=simDRTime
-    if time>1 then
-        return thisTargetGlideslipeFPM
-    end
     
-    local rog=simDR_radarAlt1*math.abs(simDR_hsi_vdef_dots_pilot-last_simDR_hsi_vdef_dots_pilot)
+    
+    local rog=simDR_radarAlt1*math.abs(simDR_hsi_vdef_dots_pilot-last_simDR_hsi_vdef_dots_pilot)/(time*30)
     local speed_delta=(simDR_hsi_vdef_dots_pilot-last_simDR_hsi_vdef_dots_pilot)/(time*30)
     local dotsDiff=math.abs(simDR_hsi_vdef_dots_pilot)
     last_simDR_hsi_vdef_dots_pilot=simDR_hsi_vdef_dots_pilot
@@ -452,25 +461,36 @@ function getGlideSlopeFPM()
     local min_speedDelta=0
     local max_speedDelta=0
     if  dotsDiff > 0.01 then
-        max_speedDelta=dotsDiff/15
-        min_speedDelta=dotsDiff/35
+        max_speedDelta=dotsDiff/25
+        min_speedDelta=dotsDiff/45
     end
-    local nextVdef=simDR_hsi_vdef_dots_pilot+speed_delta --look ahead
+
+    if time>1 or time==0 then
+        if debug_flight_directors==1 then
+            print("TO simDR_hsi_vdef_dots_pilot "..simDR_hsi_vdef_dots_pilot.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta.." rog "..rog.." time "..time)
+        end
+        return thisTargetGlideslipeFPM
+    end
+    local nextVdef=simDR_hsi_vdef_dots_pilot --+speed_delta --look ahead
     --print("at simDR_hsi_vdef_dots_pilot "..simDR_hsi_vdef_dots_pilot.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta.." rog "..rog)
-    if ((nextVdef>0) and speed_delta<-max_speedDelta --gs below
-        or (nextVdef<0) and speed_delta<min_speedDelta) and fpmError<50 --gs above
+    if ((nextVdef>0 and speed_delta<min_speedDelta) --gs below, primary
+        or (nextVdef<0 and speed_delta>max_speedDelta)) and fpmError<100 --gs above
     then
        if debug_flight_directors==1 then
             print("-simDR_hsi_vdef_dots_pilot "..simDR_hsi_vdef_dots_pilot.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta.." rog "..rog)
         end
-        thisTargetGlideslipeFPM=thisTargetGlideslipeFPM+rog
-    elseif ((nextVdef>0) and speed_delta>-min_speedDelta --gs below
-        or (nextVdef<0) and speed_delta>max_speedDelta ) and fpmError<50 --gs above
+        thisTargetGlideslipeFPM=thisTargetGlideslipeFPM-rog
+    elseif ((nextVdef<0 and speed_delta>-min_speedDelta)--gs above primary
+    or (nextVdef>0 and speed_delta<-max_speedDelta)) and fpmError<100  --gs below  
     then
         if debug_flight_directors==1 then
             print("+simDR_hsi_vdef_dots_pilot "..simDR_hsi_vdef_dots_pilot.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta.." rog "..rog)
         end
-        thisTargetGlideslipeFPM=thisTargetGlideslipeFPM-rog
+        thisTargetGlideslipeFPM=thisTargetGlideslipeFPM+rog
+    else
+        if debug_flight_directors==1 then
+            print("=simDR_hsi_vdef_dots_pilot "..simDR_hsi_vdef_dots_pilot.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta.." rog "..rog)
+        end
     end
        --[[ if simDR_hsi_vdef_dots_pilot<0  and fpmError<400 then
             thisTargetGlideslipeFPM=thisTargetGlideslipeFPM+rog
@@ -493,6 +513,7 @@ function getGlideSlopeFPM()
 end
 
 local previous_pitchTime=0
+local last_simDR_vvi_fpm_pilot=0
 function ap_director_pitch(pitchMode)
     time=simDRTime-previous_pitchTime
     previous_pitchTime=simDRTime
@@ -651,12 +672,12 @@ function ap_director_pitch(pitchMode)
         if pitchMode==2 then --set FPM based on glideslope
             targetFPM=getGlideSlopeFPM()
         --    print("getGlideSlopeFPM="..targetFPM.." dots="..simDR_hsi_vdef_dots_pilot)
-            minUpdateRate=0.03 -- be faster on glideslope
+            --minUpdateRate=0.03 -- be faster on glideslope
         --else
         --    print("standard FPM="..targetFPM.." dots="..simDR_hsi_vdef_dots_pilot)
         end
         if debug_flight_directors==1 then
-            print("autopilot FPM="..targetFPM.." target="..simDR_vvi_fpm_pilot)
+            print("autopilot FPM="..simDR_vvi_fpm_pilot.." target="..targetFPM)
         end
         local vviError=math.abs(simDR_vvi_fpm_pilot-targetFPM)
         if (pitchError<0.3 and vviError<50) or simDR_autopilot_alt_hold_status==2 then
@@ -665,21 +686,37 @@ function ap_director_pitch(pitchMode)
             directorSampleRate=minUpdateRate
         end
         
-        local rog=0.001+0.00003*vviError
+        local rog=0.00003*vviError/(time*30)
         if simDR_pressureAlt1>29000 then
             rog=rog/3
+        elseif simDR_pressureAlt1<6000 then
+                rog=rog*3.5
         end
-        if simDR_vvi_fpm_pilot>targetFPM  and pitchError<1.5 then
-            last_simDR_AHARS_pitch_heading_deg_pilot=last_simDR_AHARS_pitch_heading_deg_pilot-rog
-            if debug_flight_directors==1 then
-                print("-simDR_vvi_fpm_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..simDR_vvi_fpm_pilot.." rog "..rog)
-            end
+        local speed_delta=(simDR_vvi_fpm_pilot-last_simDR_vvi_fpm_pilot)/(time*30)
+        last_simDR_vvi_fpm_pilot=simDR_vvi_fpm_pilot
+        local min_speedDelta=0
+        local max_speedDelta=0
+        if  vviError > 10 then
+            max_speedDelta=vviError/25
+            min_speedDelta=vviError/50
         end
-        if simDR_vvi_fpm_pilot<targetFPM and pitchError<1.5 then
-            if debug_flight_directors==1 then 
-                print("+simDR_vvi_fpm_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..simDR_vvi_fpm_pilot.." rog "..rog)
+
+        if pitchError<1.5 then
+            if (simDR_vvi_fpm_pilot>targetFPM and speed_delta>-min_speedDelta) --primary
+            or (simDR_vvi_fpm_pilot<targetFPM and speed_delta<-max_speedDelta) then
+                last_simDR_AHARS_pitch_heading_deg_pilot=last_simDR_AHARS_pitch_heading_deg_pilot-rog
+                if debug_flight_directors==1 then
+                    print("-simDR_vvi_fpm_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..simDR_vvi_fpm_pilot.." rog "..rog.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta)
+                end
+            elseif (simDR_vvi_fpm_pilot<targetFPM and speed_delta<min_speedDelta) --primary
+            or (simDR_vvi_fpm_pilot>targetFPM and speed_delta>max_speedDelta)  then
+                if debug_flight_directors==1 then 
+                    print("+simDR_vvi_fpm_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..simDR_vvi_fpm_pilot.." rog "..rog.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta)
+                end
+                last_simDR_AHARS_pitch_heading_deg_pilot=last_simDR_AHARS_pitch_heading_deg_pilot+rog
+            else
+                print("=simDR_vvi_fpm_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..simDR_vvi_fpm_pilot.." rog "..rog.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta)
             end
-            last_simDR_AHARS_pitch_heading_deg_pilot=last_simDR_AHARS_pitch_heading_deg_pilot+rog
         end
         if last_simDR_AHARS_pitch_heading_deg_pilot<-3.5 then
             last_simDR_AHARS_pitch_heading_deg_pilot=-3.5
@@ -688,7 +725,7 @@ function ap_director_pitch(pitchMode)
         end
         retval=last_simDR_AHARS_pitch_heading_deg_pilot
         last_simDR_AHARS_pitch_heading_deg_pilot=retval
-        return ap_director_pitch_retVal(pitchMode,retval)
+        return retval --ap_director_pitch_retVal(pitchMode,retval)
     elseif pitchMode==1 then
        -- print("simDR_autopilot_TOGA_pitch_deg ="..simDR_autopilot_TOGA_pitch_deg)
         if debug_flight_directors==1 then
