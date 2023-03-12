@@ -18,7 +18,7 @@ simDR_nav1Freq			 =find_dataref("sim/cockpit/radios/nav1_freq_hz")
 simDR_nav2Freq			 =find_dataref("sim/cockpit/radios/nav2_freq_hz")
 B747DR_iru_status         	= find_dataref("laminar/B747/flt_mgmt/iru/status")
 B747DR_iru_mode_sel_pos         = find_dataref("laminar/B747/flt_mgmt/iru/mode_sel_dial_pos")
-
+simDR_version=find_dataref("sim/version/xplane_internal_version")
 B747DR_rtp_C_off 		 = find_dataref("laminar/B747/comm/rtp_C/off_status")
 B747DR_pfd_mode_capt		 = find_dataref("laminar/B747/pfd/capt/irs")
 B747DR_pfd_mode_fo		 = find_dataref("laminar/B747/pfd/fo/irs")
