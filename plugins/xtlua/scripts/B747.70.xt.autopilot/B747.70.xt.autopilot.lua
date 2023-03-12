@@ -2249,7 +2249,7 @@ function fma_rollModes()
 		B747DR_ap_FMA_armed_roll_mode = 0
 	elseif simDR_autopilot_gpss == 1 or B747DR_ap_lnav_state == 1 then 
 		B747DR_ap_FMA_armed_roll_mode = 2
-	elseif B747DR_autopilot_nav_status == 1 or (B747DR_ap_approach_mode ~= 0 and simDR_autopilot_nav_status ~= 2) then
+	elseif B747DR_autopilot_nav_status == 1 or (B747DR_ap_approach_mode ~= 0 and B747DR_autopilot_nav_status ~= 2) then
 		-- (LOC) --
 		B747DR_ap_FMA_armed_roll_mode = 3
 	elseif simDR_radarAlt1 > 200 and (B747DR_ap_AFDS_status_annun_pilot == 3 or B747DR_ap_AFDS_status_annun_pilot == 4) then
@@ -2278,7 +2278,7 @@ function fma_rollModes()
 		-- (LOC) --
 		B747DR_ap_FMA_active_roll_mode = 0
 		B747DR_ap_thrust_mode = 0
-	elseif simDR_autopilot_nav_status == 2 then
+	elseif B747DR_autopilot_nav_status == 2 then
 		-- (LNAV) --
 		B747DR_ap_FMA_active_roll_mode = 3
 		simDR_autopilot_heading_deg = roundToIncrement(simDR_radio_nav_obs_deg[0], 1) -- SET THE SELECTED HEADING VALUE TO THE LOC COURSE
@@ -2585,7 +2585,8 @@ function B747_ap_afds()
 	end
 
 	local landAssist = false
-	if (simDR_autopilot_approach_status > 1 or B747DR_ap_autoland == 1) and simDR_radarAlt1<1500 then
+	 
+	if ((B747DR_autopilot_nav_status ==2 and B747DR_autopilot_gs_status==2) or simDR_autopilot_approach_status > 1 or B747DR_ap_autoland == 1) and simDR_radarAlt1<1500 then
 		landAssist = true
 	end
 	noAutoLand = false

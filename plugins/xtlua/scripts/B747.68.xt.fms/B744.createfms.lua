@@ -72,17 +72,17 @@ function keyDown(fmsModule,key)
       return
   elseif key=="legs" then
       
-      --if simDR_onGround ==1 then
-	fmsModules[fmsModule].targetCustomFMC=true
-	fmsModules[fmsModule].targetPage="LEGS"
-	simCMD_FMS_key[fmsModule]["legs"]:once()
-	fmsModules[fmsModule].targetpgNo=1
-      --[[else
-	fmsModules[fmsModule].targetCustomFMC=false
-	fmsModules[fmsModule].targetPage="RTE2"
-	simCMD_FMS_key[fmsModule]["dir_intc"]:once()
-	fmsModules[fmsModule].targetpgNo=1
-      end]]
+      if simDR_onGround ==1 or simDR_version>=120012 then
+        fmsModules[fmsModule].targetCustomFMC=true
+        fmsModules[fmsModule].targetPage="LEGS"
+        simCMD_FMS_key[fmsModule]["legs"]:once()
+        fmsModules[fmsModule].targetpgNo=1
+      else
+        fmsModules[fmsModule].targetCustomFMC=false
+        fmsModules[fmsModule].targetPage="RTE2"
+        simCMD_FMS_key[fmsModule]["dir_intc"]:once()
+        fmsModules[fmsModule].targetpgNo=1
+      end
       return
   elseif key=="dep_arr" then
       fmsModules[fmsModule].targetCustomFMC=false

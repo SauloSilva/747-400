@@ -168,7 +168,8 @@ B747DR_ap_approach_mode     	= find_dataref("laminar/B747/autopilot/approach_mod
 simDR_autopilot_nav_status          = find_dataref("sim/cockpit2/autopilot/nav_status")
 simDR_autopilot_gs_status           = find_dataref("sim/cockpit2/autopilot/glideslope_status")
 simDR_autopilot_app_status          = find_dataref("sim/cockpit2/autopilot/approach_status")
-
+B747DR_autopilot_nav_status = find_dataref("laminar/B747/autopilot/nav_status")
+B747DR_autopilot_gs_status = find_dataref("laminar/B747/autopilot/glideslope_status")
 simDR_esys0              = find_dataref("sim/operation/failures/rel_esys")
 simDR_esys1              = find_dataref("sim/operation/failures/rel_esys2")
 simDR_esys2              = find_dataref("sim/operation/failures/rel_esys3")
@@ -1582,8 +1583,8 @@ function B747_annunciators()
     annun.b.ap_hdg_hold	= B747_ternary(simDR_autopilot_heading_hold_status == 2, 1, 0)
     annun.b.ap_vs 		= B747_ternary(simDR_autopilot_vs_status == 2 and simDR_autopilot_fms_vnav_status < 1 and B747DR_ap_vnav_state < 1 and simDR_autopilot_alt_hold_status==0, 1, 0)
     annun.b.ap_alt_hold = B747_ternary(simDR_autopilot_alt_hold_status == 2 and simDR_autopilot_fms_vnav_status < 1 and B747DR_ap_vnav_state < 1, 1, 0)
-    annun.b.ap_app 		= B747_ternary((simDR_autopilot_nav_status > 0 and simDR_autopilot_gs_status > 0) or B747DR_ap_approach_mode>0, 1, 0)
-    annun.b.ap_loc 		= B747_ternary((simDR_autopilot_nav_status > 0 or B747DR_ap_approach_mode<0) and annun.b.ap_app == 0, 1, 0) --test this
+    annun.b.ap_app 		= B747_ternary((B747DR_autopilot_nav_status > 0 and B747DR_autopilot_gs_status > 0) or B747DR_ap_approach_mode>0, 1, 0)
+    annun.b.ap_loc 		= B747_ternary((B747DR_autopilot_nav_status > 0 or B747DR_ap_approach_mode<0) and annun.b.ap_app == 0, 1, 0) --test this
     annun.b.ap_CMD_L 	= B747_ternary(B747DR_autopilot_cmd_L_status == 1 and simDR_autopilot_servos_on == 1, 1, 0)
     annun.b.ap_CMD_C 	= B747_ternary(B747DR_autopilot_cmd_C_status == 1 and simDR_autopilot_servos_on == 1, 1, 0)
     annun.b.ap_CMD_R 	= B747_ternary(B747DR_autopilot_cmd_R_status == 1 and simDR_autopilot_servos_on == 1, 1, 0)

@@ -290,7 +290,7 @@ function runAutoland()
   local diff=simDR_reqHeading-simDR_AHARS_heading_deg_pilot
   
   
-  if simDR_autopilot_approach_status>0 then seenApproach=true end
+  if ((B747DR_autopilot_nav_status ==2 and B747DR_autopilot_gs_status==2) or simDR_autopilot_approach_status>0) then seenApproach=true end
   if numAPengaged<1 then 
     --if (simDR_autopilot_approach_status==0 and active_autoland==false) or numAPengaged<1 then
        B747DR_ap_autoland=0 
