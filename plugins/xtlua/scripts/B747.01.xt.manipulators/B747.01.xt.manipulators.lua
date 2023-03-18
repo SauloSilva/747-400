@@ -1238,11 +1238,11 @@ function B747_flight_dir_switch_L_CMDhandler(phase, duration)
 				then
 					simCMD_autopilot_vert_speed_mode:once()												-- ACTIVATE "VS" MODE
 					simDR_autopilot_alt_hold_status=0
-                    if math.abs(simDR_AHARS_roll_deg_pilot) < 5.0 then									-- BANK ANGLE LESS THAN 5 DEGREES
+                    --if math.abs(simDR_AHARS_roll_deg_pilot) < 5.0 then									-- BANK ANGLE LESS THAN 5 DEGREES
 						simCMD_autopilot_heading_mode:once()											-- ACTIVATE "HEADING HOLD" MODE
-					else
-						B747CMD_ap_att_mode:once()														-- ACTIVATE "ATT" MODE		
-					end		
+					--else
+					--	B747CMD_ap_att_mode:once()														-- ACTIVATE "ATT" MODE		
+					--end		
 				end
 			end							
 		end
@@ -1295,11 +1295,11 @@ function B747_flight_dir_switch_R_CMDhandler(phase, duration)
 				then
 					simCMD_autopilot_vert_speed_mode:once()												-- ACTIVATE "VS" MODE
 					simDR_autopilot_alt_hold_status=0
-                    if math.abs(simDR_AHARS_roll_deg_pilot) < 5.0 then									-- BANK ANGLE LESS THAN 5 DEGREES
+                   -- if math.abs(simDR_AHARS_roll_deg_pilot) < 5.0 then									-- BANK ANGLE LESS THAN 5 DEGREES
 						simCMD_autopilot_heading_mode:once()											-- ACTIVATE "HEADING HOLD" MODE
-					else
+					--else
 						B747CMD_ap_att_mode:once()														-- ACTIVATE "ATT" MODE		
-					end		
+					--end		
 				end
 			end							
 		end

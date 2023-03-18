@@ -77,7 +77,7 @@ end
 --*************************************************************************************--
 --** 				                X-PLANE DATAREFS            			    	 **--
 --*************************************************************************************--
-
+simDR_version=find_dataref("sim/version/xplane_internal_version")
 simDR_startup_running               = find_dataref("sim/operation/prefs/startup_running")
 simDR_version=find_dataref("sim/version/xplane_internal_version")
 simDR_all_wheels_on_ground          = find_dataref("sim/flightmodel/failures/onground_any")
@@ -486,6 +486,7 @@ B747DR_10000_callout                            = deferred_dataref("laminar/B747
 simCMD_clock_is_gmt             = find_command("sim/instruments/timer_is_GMT")
 
 simCMD_EFIS_wxr                 = find_command("sim/instruments/EFIS_wxr")
+simCMD_EFIS_wxr_fo                 = find_command("sim/instruments/EFIS_copilot_wxr")
 simCMD_EFIS_tcas                = find_command("sim/instruments/EFIS_tcas")
 
 -- simCMD_EFIS_apt                 = find_command("sim/instruments/EFIS_apt")
@@ -1292,7 +1293,12 @@ end
 function B747_nd_wxr_fo_switch_CMDhandler(phase, duration)
     if phase == 0 then
         B747DR_nd_wxr_fo_switch_pos = 1
-        simCMD_EFIS_wxr:once()
+        if simDR_version>=120012 then
+            simCMD_EFIS_wxr_fo:once()
+        else
+            simCMD_EFIS_wxr:once()
+        end
+        
     elseif phase == 2 then
         B747DR_nd_wxr_fo_switch_pos = 0
     end

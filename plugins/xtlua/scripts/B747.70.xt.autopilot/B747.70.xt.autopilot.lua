@@ -2321,6 +2321,7 @@ local restoreAlt=0
 function restoreAltFunc()
 	simDR_autopilot_altitude_ft=restoreAlt
 end
+local lastGSProgress=0
 function glideSlopeLOCProgress()
 	if B747DR_ap_approach_mode == 0 then
 		B747DR_autopilot_gs_status = 0 
@@ -2332,6 +2333,28 @@ function glideSlopeLOCProgress()
 		if 	simDR_autopilot_nav_status>B747DR_autopilot_nav_status  then
 			B747DR_autopilot_nav_status=simDR_autopilot_nav_status
 		end 
+		local diff=simDRTime-lastGSProgress
+		if simDR_autopilot_nav_status ==0 and B747DR_autopilot_nav_status>1 and diff>1 then
+			lastGSProgress=simDRTime
+			print("recover LOC mode")
+			--simCMD_pause:once() 
+			if B747DR_autopilot_nav_status > 0 then
+				simCMD_autopilot_nav_mode:once() --DEACTIVATE LOC
+				B747DR_ap_lastCommand = simDRTime
+				return
+			end
+		end
+		if simDR_autopilot_gs_status ==0 and B747DR_autopilot_gs_status>1 and diff>1 then
+			lastGSProgress=simDRTime
+			print("recover GS mode")
+			--simCMD_pause:once() 
+			if B747DR_autopilot_gs_status > 0 then
+				simCMD_autopilot_glideslope_mode:once() -- CANX GLIDESLOPE MODE
+				B747DR_ap_lastCommand = simDRTime
+				return
+			end
+		end
+
 	end
 end
 function fma_PitchModes()
