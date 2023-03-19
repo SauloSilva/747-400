@@ -321,7 +321,11 @@ if simDR_acf_tailnum ~= nil then
 	simConfigData["data"].PLANE.fin_nbr = simDR_acf_tailnum
 end
 
+local flightInit=false
 function flight_start()
+    flightInit=false
+end
+function do_flight_start()
 	local refreshLivery=simDR_livery_path
 	B747DR_simconfig_data=json.encode(simConfigData["data"]["values"]) --make the simConfig data available to other modules
 	B747DR_newsimconfig_data=1
@@ -348,6 +352,10 @@ function hasSimConfig()
 end
 function after_physics()
 	--Keep the structure fresh
+	if flightInit==false then
+        do_flight_start()
+    end
+    flightInit=true
 	if hasSimConfig()==false then return end
 
 

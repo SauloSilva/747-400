@@ -3781,7 +3781,11 @@ end
 
 --function aircraft_unload() end
 
-function flight_start() 
+local flightInit=false
+function flight_start()
+    flightInit=false
+end
+function do_flight_start()
 
     B747_flight_start_com()
 
@@ -3793,6 +3797,10 @@ end
 debug_com     = deferred_dataref("laminar/B747/debug/com", "number")
 function after_physics()
     if debug_com>0 then return end
+    if flightInit==false then
+        do_flight_start()
+    end
+    flightInit=true
     B747_ap_button_switch_animation()
     B747_ap_toggle_switch_animation()
 

@@ -2234,7 +2234,12 @@ function setACFType()
   end
   B747_flight_start_manip()
 end
+local flightInit=false
 function flight_start()
+    flightInit=false
+    do_flight_start()
+end
+function do_flight_start()
     print("XTLua Flight Start "..simDR_livery)
     local refreshOngroud=simDR_all_wheels_on_ground
     B747_flight_start_manip()
@@ -2333,6 +2338,11 @@ end
 debug_manipulators     = deferred_dataref("laminar/B747/debug/manipulators", "number")
 function after_physics()
     if debug_manipulators>0 then return end
+    if flightInit==false then
+        do_flight_start()
+    end
+    flightInit=true
+
     B747_button_switch_cover_animation()
     B747_button_switch_animation()
     B747_toggle_switch_animation()

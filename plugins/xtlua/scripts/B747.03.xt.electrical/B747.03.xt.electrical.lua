@@ -1014,7 +1014,11 @@ end
 
 --function aircraft_unload() end
 
-function flight_start() 
+local flightInit=false
+function flight_start()
+    flightInit=false
+end
+function do_flight_start()
 
     B747_flight_start_electric()
 
@@ -1026,6 +1030,10 @@ end
 debug_electrical     = deferred_dataref("laminar/B747/debug/electrical", "number")
 function after_physics()
     if debug_electrical>0 then return end
+    if flightInit==false then
+        do_flight_start()
+    end
+    flightInit=true
     B747_battery()
     B747_external_power()
     B747_apu()

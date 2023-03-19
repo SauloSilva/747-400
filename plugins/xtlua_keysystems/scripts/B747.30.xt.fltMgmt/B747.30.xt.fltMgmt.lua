@@ -396,8 +396,12 @@ end
 --function aircraft_load() end
 
 --function aircraft_unload() end
-
-function flight_start() 
+local flightInit=false
+function flight_start()
+    flightInit=false
+    do_flight_start()
+end
+function do_flight_start() 
 
     B747_flight_start_fltMgmt()
 
@@ -422,7 +426,11 @@ function B747_fltmgmt_EICAS_msg()
 end
 debug_fltmgmt     = deferred_dataref("laminar/B747/debug/fltmgmt", "number")
 function after_physics()
-  if debug_fltmgmt>0 then return end
+    if debug_fltmgmt>0 then return end
+    if flightInit==false then
+        do_flight_start()
+    end
+    flightInit=true
     --print("navaids="..navAids)
     --print("fms="..fms)
     B747_fltmgmt_EICAS_msg()

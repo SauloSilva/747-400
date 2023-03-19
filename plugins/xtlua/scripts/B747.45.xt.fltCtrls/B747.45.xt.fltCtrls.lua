@@ -1281,7 +1281,11 @@ end
 
 --function aircraft_unload() end
 
+local flightInit=false
 function flight_start()
+    flightInit=false
+end
+function do_flight_start()
 
     B747_flight_start_fltCtrls()
 
@@ -1292,7 +1296,11 @@ end
 --function before_physics() end
 debug_fltctrls     = deferred_dataref("laminar/B747/debug/fltctrls", "number")
 function after_physics()
-if debug_fltctrls>0 then return end
+    if debug_fltctrls>0 then return end
+    if flightInit==false then
+        do_flight_start()
+    end
+    flightInit=true
     B747_rudder_trim_dial_animation()
     B747_aileron_trim_switch_animation()
 

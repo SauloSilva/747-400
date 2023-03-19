@@ -522,7 +522,11 @@ end
 
 --function aircraft_unload() end
 
+local flightInit=false
 function flight_start()
+    flightInit=false
+end
+function do_flight_start()
 
     B747_flight_start_hydraulic()
 
@@ -534,6 +538,10 @@ end
 debug_hydro     = deferred_dataref("laminar/B747/debug/hydro", "number")
 function after_physics()
     if debug_hydro>0 then return end
+    if flightInit==false then
+        do_flight_start()
+    end
+    flightInit=true
     B747_engine_hyd_pumps()
     B747_elec_hyd_pumps()
 

@@ -669,15 +669,15 @@ function ap_director_pitch(pitchMode)
         
         local rog=0.001+0.00003*math.abs(simDR_vvi_fpm_pilot-targetFPM)
         --if simDR_pressureAlt1>29000 or (altDiff<B747DR_alt_capture_window) then
-        if simDR_pressureAlt1>29000 or math.abs(simDR_vvi_fpm_pilot)<100 then
+        if simDR_pressureAlt1>10000 or math.abs(simDR_vvi_fpm_pilot)<100 then
             rog=0.0001+0.00001*math.abs(simDR_vvi_fpm_pilot-targetFPM)
         end
-        if simDR_vvi_fpm_pilot>targetFPM  and pitchError<1.5 then
+        if simDR_vvi_fpm_pilot>targetFPM  and pitchError<0.5 then
             last_simDR_AHARS_pitch_heading_deg_pilot=last_simDR_AHARS_pitch_heading_deg_pilot-rog
             if debug_flight_directors==1 then
                 print("-last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..simDR_vvi_fpm_pilot.." rog "..rog.." targetFPM "..targetFPM)
             end
-        elseif simDR_vvi_fpm_pilot<targetFPM and pitchError<1.5 then
+        elseif simDR_vvi_fpm_pilot<targetFPM and pitchError<0.5 then
             if debug_flight_directors==1 then 
                 print("+last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..simDR_vvi_fpm_pilot.." rog "..rog.." targetFPM "..targetFPM)
             end
@@ -737,7 +737,7 @@ function ap_director_pitch(pitchMode)
         local rog=0.001+0.00003*vviError/(time*30)
         if simDR_pressureAlt1>29000 then
             rog=rog/3
-        elseif vviError>2-00 then
+        elseif vviError>200 then
                 rog=rog*15
         elseif simDR_pressureAlt1<12000 then
                 rog=rog*3
@@ -768,7 +768,7 @@ function ap_director_pitch(pitchMode)
                 end
                 last_vvi_update=simDRTime
                 last_simDR_AHARS_pitch_heading_deg_pilot=last_simDR_AHARS_pitch_heading_deg_pilot+rog
-            else
+            else if debug_flight_directors==1 then 
                 print("=simDR_vvi_fpm_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..simDR_vvi_fpm_pilot.." rog "..rog.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta)
             end
         end

@@ -3,10 +3,7 @@
 --
 -- the following datarefs nil if not assigned:
 fmsJson = find_dataref("xtlua/fms") -- fmsJSON is nil
-simDR_vvi_fpm_pilot = find_dataref("sim/cockpit2/gauges/indicators/vvi_fpm_pilot")
-simDR_pressureAlt1	= find_dataref("sim/cockpit2/gauges/indicators/altitude_ft_pilot")
-simDR_eng_fuel_flow_kg_sec = find_dataref("sim/cockpit2/engine/indicators/fuel_flow_kg_sec")
-B747DR_ap_flightPhase = deferred_dataref("laminar/B747/autopilot/flightPhase", "number")
+
 -- the following were identifed as redundant dataref calls (April 2021)
 ----------------------------------------------------------------------------------------------
 --simDR_groundspeed = find_dataref("sim/flightmodel/position/groundspeed") --meters per second

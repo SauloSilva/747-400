@@ -5,7 +5,10 @@
 ]]
 simDRTime=find_dataref("sim/time/total_running_time_sec")
 simDR_onGround=find_dataref("sim/flightmodel/failures/onground_any")
-
+simDR_vvi_fpm_pilot = find_dataref("sim/cockpit2/gauges/indicators/vvi_fpm_pilot")
+simDR_pressureAlt1	= find_dataref("sim/cockpit2/gauges/indicators/altitude_ft_pilot")
+simDR_eng_fuel_flow_kg_sec = find_dataref("sim/cockpit2/engine/indicators/fuel_flow_kg_sec")
+B747DR_ap_flightPhase = find_dataref("laminar/B747/autopilot/flightPhase")
 
 B747DR_acfType               = find_dataref("laminar/B747/acfType")
 B747DR_payload_weight               = find_dataref("sim/flightmodel/weight/m_fixed")
@@ -1007,7 +1010,11 @@ function disalignIRSs()
 	systemsWarmedUp=true
 end
 
+local flightInit=false
 function flight_start()
+    flightInit=false
+end
+function do_flight_start()
 	B747DR_last_waypoint_fuel=simDR_fueL_tank_weight_total_kg
 	systemsWarmedUp=false
 	local difLat=simDR_latitude
@@ -1018,7 +1025,7 @@ function flight_start()
     -- ENGINES RUNNING ------------------------------------------------------------------
     elseif simDR_startup_running == 1 then
 		irsSystem.update()
-      	run_after_time(alignIRSs,1)
+      	
       
     end
 
@@ -1058,11 +1065,58 @@ function setNotifications()
 	B747DR_CAS_advisory_status[145] = 0
   end
 end
+local didFlightInit=false
+B747DR_ap_target_speed               	= find_dataref("laminar/B747/autopilot/speed/target")
+B747DR_ap_target_heading_deg               	= find_dataref("laminar/B747/autopilot/heading/target")
+B747CMD_flight_dir_switch_L = find_command("laminar/B747/toggle_switch/flight_dir_L")
+B747CMD_autothrottle_arm_switch 		= find_command("laminar/B747/toggle_switch/autothrottle")
+B747CMD_ap_switch_alt_hold_mode			= find_command("laminar/B747/autopilot/button_switch/alt_hold_mode")
+B747CMD_ap_switch_cmd_L					= find_command("laminar/B747/autopilot/button_switch/cmd_L")
+B747DR_ap_target_altitude               	= find_dataref("laminar/B747/autopilot/altitude/target")
+function fin_activate_inflightAP()
+	B747CMD_ap_switch_cmd_L:once()
+	B747DR_ap_target_altitude=math.floor(simDR_pressureAlt1/100)*100
+	
+	B747DR_CAS_advisory_status[233] = 0
+	B747DR_pfd_mode_capt		 = 1
+	B747DR_pfd_mode_fo		 = 1
+end
+function activate_inflightAP()
+	B747CMD_flight_dir_switch_L:once()
+	B747CMD_autothrottle_arm_switch:once()
+	B747CMD_ap_switch_alt_hold_mode:once()
+	B747DR_ap_target_speed=math.floor(simDR_ias_pilot)
+	B747DR_ap_target_heading_deg=math.floor(simDR_aircraft_hdg)
+	local ref1=B747DR_CAS_advisory_status[233]
+	local ref2=B747DR_pfd_mode_capt
+	local ref2=B747DR_pfd_mode_fo
+	irsSystem["motion"]["irsL"]=false
+	irsSystem["motion"]["irsC"]=false
+	irsSystem["motion"]["irsR"]=false
+	irsSystem.align("irsL",true)
+	irsSystem.align("irsC",true)
+	irsSystem.align("irsR",true)
+	run_after_time(fin_activate_inflightAP,1)
+end
 function after_physics()
   if debug_fms>0 then return end
+	
   if hasSimConfig()==false then return end
+  if flightInit==false then
+	do_flight_start()
+	end
+	flightInit=true
+  if systemsWarmedUp==false and simDR_startup_running == 1 and is_timer_scheduled(alignIRSs) == false then 
+	run_after_time(alignIRSs,1)
+	return
+  end
   if systemsWarmedUp==false then return end
-
+  if didFlightInit==false and simDR_startup_running == 1 and simDR_onGround==0 then
+	print("activate AP stuff")
+	
+	run_after_time(activate_inflightAP,2)
+  end
+  didFlightInit=true;
 --     for i =1,24,1 do
 --       print(string.byte(fms_style,i))
 --     end

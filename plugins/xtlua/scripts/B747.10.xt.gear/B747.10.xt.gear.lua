@@ -995,7 +995,11 @@ end
 
 --function aircraft_unload() end
 
+local flightInit=false
 function flight_start()
+    flightInit=false
+end
+function do_flight_start()
 
     B747_flight_start_gear()
 
@@ -1007,6 +1011,10 @@ end
 debug_gear     = deferred_dataref("laminar/B747/debug/gear", "number")
 function after_physics()
      if debug_gear>0 then return end
+     if flightInit==false then
+        do_flight_start()
+    end
+    flightInit=true
     B747_set_gear_handle_lock()
 
     B747_primary_EICAS_gear_status()
