@@ -768,7 +768,7 @@ function ap_director_pitch(pitchMode)
                 end
                 last_vvi_update=simDRTime
                 last_simDR_AHARS_pitch_heading_deg_pilot=last_simDR_AHARS_pitch_heading_deg_pilot+rog
-            else if debug_flight_directors==1 then 
+            elseif debug_flight_directors==1 then 
                 print("=simDR_vvi_fpm_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..simDR_vvi_fpm_pilot.." rog "..rog.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta)
             end
         end
