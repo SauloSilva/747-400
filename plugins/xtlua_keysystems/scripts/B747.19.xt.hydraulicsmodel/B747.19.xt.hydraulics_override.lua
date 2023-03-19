@@ -429,7 +429,6 @@ function getGlideSlopeFPM()
     if diff<1 then
         return thisTargetGlideslipeFPM
     end
-    lastSimDRTime=simDRTime
     local speed_fpm=simDR_groundspeed*196.85
     thisTargetGlideslipeFPM=-math.tan(math.rad(simDR_glideslope1))*speed_fpm
     local nextVdef=simDR_hsi_vdef_dots_pilot --+speed_delta --look ahead
@@ -438,7 +437,8 @@ function getGlideSlopeFPM()
     if debug_flight_directors==1 then
         print("fin thisTargetGlideslipeFPM "..thisTargetGlideslipeFPM)
     end
-    return thisTargetGlideslipeFPM  
+    return thisTargetGlideslipeFPM
+  
 end
 function old_getGlideSlopeFPM()
     local diff=simDRTime-lastSimDRTime
@@ -652,6 +652,7 @@ function ap_director_pitch(pitchMode)
         --ALT
         if debug_flight_directors==1 then
             print("ap_director_pitch for ALT")
+
         end 
         if simDR_autopilot_alt_hold_status~=2 then
             simDR_autopilot_hold_altitude_ft=simDR_autopilot_altitude_ft
@@ -767,7 +768,7 @@ function ap_director_pitch(pitchMode)
                 end
                 last_vvi_update=simDRTime
                 last_simDR_AHARS_pitch_heading_deg_pilot=last_simDR_AHARS_pitch_heading_deg_pilot+rog
-            else if debug_flight_directors==1 then
+            else
                 print("=simDR_vvi_fpm_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..simDR_vvi_fpm_pilot.." rog "..rog.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta)
             end
         end

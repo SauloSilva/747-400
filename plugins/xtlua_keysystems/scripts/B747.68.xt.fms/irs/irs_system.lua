@@ -189,7 +189,7 @@ irsSystem.update=function()
   if irsSystem["irsL"]["aligned"] == true and irsSystem["irsC"]["aligned"] == true and irsSystem["irsR"]["aligned"] == true then
 	B747DR_ND_IRS_Line = "IRS (3)"
   end
-    
+  
     if irsSystem["setPos"]==true and irsSystem[irsFromNum(B747DR_irs_src_capt)]["aligned"]==true then B747DR_pfd_mode_capt=1 else B747DR_pfd_mode_capt=0 end
     if irsSystem["setPos"]==true and irsSystem[irsFromNum(B747DR_irs_src_fo)]["aligned"]==true then B747DR_pfd_mode_fo=1 else B747DR_pfd_mode_fo=0 end
     
@@ -331,12 +331,14 @@ irsSystem.align=function(systemID,instant)
   irsSystem[systemID]["aligned"]=false
   if instant==false and is_timer_scheduled(doIRSAlign[systemID]) == false then
         print("aligning "..systemID)
-	irsSystem["motion"][systemID]=false
-	irsSystem[systemID]["alignStarted"]=simDRTime
+	    irsSystem["motion"][systemID]=false
+	    irsSystem[systemID]["alignStarted"]=simDRTime
         run_after_time(doIRSAlign[systemID], timeToAlign)
   elseif instant==false then
         irsSystem["motion"][systemID]=false
   elseif instant==true then
-    doIRSAlign[systemID]()   
+    irsSystem["motion"][systemID]=false  
+    doIRSAlign[systemID]() 
+    
   end
 end
