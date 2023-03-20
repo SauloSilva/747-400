@@ -459,6 +459,7 @@ B747CMD_fdr_log_headhold          = deferred_command("laminar/B747/fdr/headhold"
 
 
 function after_physics()
+  collectgarbage("collect")
   if debug_fdr>0 then return end
   --if simDR_aircraft_on_ground>0 then return end
 

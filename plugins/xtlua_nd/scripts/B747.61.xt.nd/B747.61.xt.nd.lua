@@ -26,6 +26,8 @@ B747BR_cruiseAlt 			= find_dataref("laminar/B747/autopilot/dist/cruise_alt")
 B747BR_tod				= find_dataref("laminar/B747/autopilot/dist/top_of_descent")
 B747BR_todLat				= find_dataref("laminar/B747/autopilot/dist/top_of_descent_lat", "number")
 B747BR_todLong				= find_dataref("laminar/B747/autopilot/dist/top_of_descent_long", "number")
+B747DR_ap_FMA_active_pitch_mode     	= find_dataref("laminar/B747/autopilot/FMA/active_pitch_mode")
+simDR_autopilot_vs_fpm = find_dataref("sim/cockpit2/autopilot/vvi_dial_fpm")
 simDR_autopilot_alt_hold_status = find_dataref("laminar/B747/autopilot/altitude_hold_status")
 iconTextDataCapt={}
 iconTextDataCapt.icons=find_dataref("laminar/B747/nd/capt/text/icon")
@@ -463,7 +465,7 @@ function read_fixes()
     fix_data_file:close()
     fix_data_file=nil
     localFixes={}
-    scansize=50
+    scansize=25
     numFixes=numTempFixes
     for n=1 ,numTempFixes do
       localFixes[n]={}
@@ -482,7 +484,11 @@ function compute_and_show_alt_range_arc()
   local actual_speed = simDR_groundspeed * meters_per_second_to_kts
   if simDR_autopilot_alt_hold_status<2 and ((simDR_autopilot_altitude_ft>simDR_pressureAlt1 and simDR_vvi_fpm_pilot>500) or (simDR_autopilot_altitude_ft<simDR_pressureAlt1 and simDR_vvi_fpm_pilot<-500)) then
     altDiff=simDR_autopilot_altitude_ft-simDR_pressureAlt1
-    minsToAlt=altDiff/simDR_vvi_fpm_pilot
+    local fpmVal=simDR_vvi_fpm_pilot
+    if B747DR_ap_FMA_active_pitch_mode==6 or B747DR_ap_FMA_active_pitch_mode==7 then
+      fpmVal=simDR_autopilot_vs_fpm
+    end
+    minsToAlt=altDiff/fpmVal
     distanceToAlt=(actual_speed*minsToAlt)/60
     --print("distanceToAlt="..distanceToAlt.." minsToAlt="..minsToAlt.." altDiff="..altDiff.." actual_speed="..actual_speed)
     if distanceToAlt < ranges[simDR_range_dial_capt + 1] then
@@ -522,6 +528,7 @@ function aircraft_unload()
   end
 end
 function after_physics()
+  collectgarbage("collect")
   if debug_nd>0 then return end
   local diff=simDRTime-lastUpdate
   --print("simDR_ground_track="..simDR_ground_track)

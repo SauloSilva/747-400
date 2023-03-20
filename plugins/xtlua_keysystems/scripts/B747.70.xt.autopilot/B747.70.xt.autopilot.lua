@@ -3126,6 +3126,7 @@ function after_physics()
 	if hasSimConfig() == false then
 		return
 	end
+	collectgarbage("collect")
 	if debug_autopilot > 0 then
 		return
 	end

@@ -2199,7 +2199,7 @@ end
 --function before_physics() end
 debug_lighting     = deferred_dataref("laminar/B747/debug/lighting", "number")
 function after_physics()
-
+    collectgarbage("collect")
   if debug_lighting>0 then return end
   
     B747_landing_light_brightness()

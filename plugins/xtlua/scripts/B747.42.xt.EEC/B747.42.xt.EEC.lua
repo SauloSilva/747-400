@@ -409,13 +409,13 @@ B747DR_ref_line_magenta = 0
 function B747_animate_value(current_value, target, min, max, speed)
 
     local fps_factor = math.min(0.1, speed * SIM_PERIOD)
-
-    if target >= (max - 0.001) and current_value >= (max - 0.01) then
+	local nextValue=current_value + ((target - current_value) * fps_factor)
+    if nextValue >= (max - 0.001) then
         return max
-    elseif target <= (min + 0.001) and current_value <= (min + 0.01) then
+    elseif nextValue <= (min + 0.001) then
        return min
     else
-        return current_value + ((target - current_value) * fps_factor)
+        return nextValue
     end
 
 end
@@ -689,48 +689,30 @@ function ecc_mode_set()
 	end
 end
 function B747_interpolate_value(current_value, target, min, max, speed)--speed in sex min->max
-
-    --[[if math.abs(current_value-target) <0.01 then
-      return target
-    end]]
-  
-    local change = ((max-min)/speed)*(SIM_PERIOD)
-    newValue=current_value
-    
-    if newValue<=target then
-      newValue=newValue+change
-      --print(current_value.." ->newValue<= "..newValue)
-      if newValue >= target then
-        newValue = B747_animate_value(current_value,target,-100,100,100)
-      end
-    elseif newValue>target then
-      newValue=newValue-change
-      --print(current_value.." ->newValue>= "..newValue)
-      if newValue <= target then
-        newValue = B747_animate_value(current_value,target,-100,100,100)
-      end
-    end
-    if newValue <= min+0.001 and newValue >= min-0.001 then
-        newValue = min
-    elseif newValue >= max-0.001 and newValue <= max+0.001 then
-        newValue = max
-    elseif newValue <= min then
-      newValue = B747_animate_value(current_value,min,-100,100,100)
-    elseif newValue >= max then
-      newValue = B747_animate_value(current_value,max,-100,100,100)
-    else
-      --print(current_value.." ->newValue== "..newValue)
-      --newValue = newValue
-      if math.abs(current_value-target) < change then
-        newValue = B747_animate_value(current_value,target,-100,100,100)
-      --  print(current_value.." ->newValue== "..newValue)
-      --else
-      --  print(current_value.." ->newValue=== "..newValue)
-      end
-  
-      
-    end
-    return newValue
+	local change = ((max-min)/speed)*(SIM_PERIOD)
+	newValue=current_value
+	
+	  if newValue<=target then
+	  newValue=newValue+change
+	  if newValue >= target then
+		newValue = B747_animate_value(current_value,target,min,max,100)
+	  end
+	elseif newValue>target then
+	  newValue=newValue-change
+	  if newValue <= target then
+		newValue = B747_animate_value(current_value,target,min,max,100)
+	  end
+	end
+	if newValue <= min then
+	  newValue = B747_animate_value(current_value,min,min,max,100)
+	elseif newValue >= max then
+	  newValue = B747_animate_value(current_value,max,min,max,100)
+	else
+	  if math.abs(current_value-target) < change then
+		newValue = B747_animate_value(current_value,target,min,max,100)
+	  end
+	end
+	return newValue
   end
 
 function round(x)
@@ -791,31 +773,40 @@ end
 
 
 last_simDR_ind_airspeed_kts_pilot=0
+local lastspd_throttleTime=0
+local last_speed_delta=0
 function spd_throttle()
-
+	
 	local input=simDR_ind_airspeed_kts_pilot
 	local target=simDR_autopilot_airspeed_kts
 	local speedError=math.abs(input-target)
-	local speed_delta=simDR_ind_airspeed_kts_pilot-last_simDR_ind_airspeed_kts_pilot
-	last_simDR_ind_airspeed_kts_pilot=simDR_ind_airspeed_kts_pilot
-	local rog=0.0001+0.0001*math.abs(input-target)
+	
+	
+	local diff=simDRTime-lastspd_throttleTime
+	if diff>0.1 then
+		last_speed_delta=simDR_ind_airspeed_kts_pilot-last_simDR_ind_airspeed_kts_pilot
+		lastspd_throttleTime=simDRTime
+		last_simDR_ind_airspeed_kts_pilot=simDR_ind_airspeed_kts_pilot
+	end
+	local speed_delta=last_speed_delta
+	local rog=math.max(0.0001+0.0001*math.abs(input-target),0.0001+0.005*math.abs(speed_delta))
 	local min_speedDelta=0
     local max_speedDelta=0
 	if  speedError > 1 then
 		--if (simDR_autopilot_airspeed_kts< simDR_ind_airspeed_kts_pilot-1) then
-		max_speedDelta=0.001+speedError/500
+		max_speedDelta=0.001+speedError/100
 		--else
 		--	max_speedDelta=0.001+speedError/25
 		--end
 		min_speedDelta=max_speedDelta/5
 	end
-	if ((target> input+0.5) and speed_delta<max_speedDelta 
+	if ((target> input+0.5) and speed_delta<min_speedDelta 
             or (target< input-0.5) and speed_delta<-max_speedDelta)
         then
 
             spd_target_throttle= (spd_target_throttle+rog)
         elseif ((target< input-0.5) and speed_delta>-min_speedDelta 
-            or (target> input+0.5) and speed_delta>min_speedDelta )  
+            or (target> input+0.5) and speed_delta>max_speedDelta )  
         then
 
             spd_target_throttle= (spd_target_throttle-rog)
@@ -825,7 +816,7 @@ function spd_throttle()
 	elseif 	spd_target_throttle>1 then
 		spd_target_throttle=1
 	end
-	--print("THRO SPD rog="..rog.." min_speedDelta="..min_speedDelta.. " max_speedDelta="..max_speedDelta.. " speed_delta="..speed_delta .." spd_target_throttle="..spd_target_throttle)
+	print("THRO SPD rog="..rog.." min_speedDelta="..min_speedDelta.. " max_speedDelta="..max_speedDelta.. " speed_delta="..speed_delta .." spd_target_throttle="..spd_target_throttle)
 	--[[ ]]--
 	for i = 0, 3 do
 		simDR_engn_thro[i]=B747_interpolate_value(simDR_engn_thro[i],spd_target_throttle,0,1.00,2)
@@ -1100,6 +1091,7 @@ function flight_start()
 	B747DR_pidepr_eccP = 0
 end
 function after_physics()
+	collectgarbage("collect")
 	if debug_ecc>0 then return end
     if hasSimConfig()==false then return end
     atmosphere(simDR_altitude, 0)
