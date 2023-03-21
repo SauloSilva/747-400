@@ -816,7 +816,7 @@ function spd_throttle()
 	elseif 	spd_target_throttle>1 then
 		spd_target_throttle=1
 	end
-	print("THRO SPD rog="..rog.." min_speedDelta="..min_speedDelta.. " max_speedDelta="..max_speedDelta.. " speed_delta="..speed_delta .." spd_target_throttle="..spd_target_throttle)
+	--print("THRO SPD rog="..rog.." min_speedDelta="..min_speedDelta.. " max_speedDelta="..max_speedDelta.. " speed_delta="..speed_delta .." spd_target_throttle="..spd_target_throttle)
 	--[[ ]]--
 	for i = 0, 3 do
 		simDR_engn_thro[i]=B747_interpolate_value(simDR_engn_thro[i],spd_target_throttle,0,1.00,2)

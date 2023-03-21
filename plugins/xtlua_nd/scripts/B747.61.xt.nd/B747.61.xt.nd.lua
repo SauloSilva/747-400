@@ -482,7 +482,7 @@ end
 function compute_and_show_alt_range_arc()
   local meters_per_second_to_kts = 1.94384449
   local actual_speed = simDR_groundspeed * meters_per_second_to_kts
-  if simDR_autopilot_alt_hold_status<2 and ((simDR_autopilot_altitude_ft>simDR_pressureAlt1 and simDR_vvi_fpm_pilot>500) or (simDR_autopilot_altitude_ft<simDR_pressureAlt1 and simDR_vvi_fpm_pilot<-500)) then
+  if simDR_autopilot_alt_hold_status<2 and ((simDR_autopilot_altitude_ft>simDR_pressureAlt1 and simDR_vvi_fpm_pilot>500) or (simDR_autopilot_altitude_ft<simDR_pressureAlt1 and simDR_vvi_fpm_pilot<-500) or B747DR_ap_FMA_active_pitch_mode==7) then
     altDiff=simDR_autopilot_altitude_ft-simDR_pressureAlt1
     local fpmVal=simDR_vvi_fpm_pilot
     if B747DR_ap_FMA_active_pitch_mode==6 or B747DR_ap_FMA_active_pitch_mode==7 then

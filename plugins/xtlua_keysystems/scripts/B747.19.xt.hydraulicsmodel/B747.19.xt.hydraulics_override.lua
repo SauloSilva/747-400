@@ -433,7 +433,7 @@ function getGlideSlopeFPM()
     thisTargetGlideslipeFPM=-math.tan(math.rad(simDR_glideslope1))*speed_fpm
     local nextVdef=simDR_hsi_vdef_dots_pilot --+speed_delta --look ahead
 
-    thisTargetGlideslipeFPM=thisTargetGlideslipeFPM-(50*nextVdef)
+    thisTargetGlideslipeFPM=thisTargetGlideslipeFPM-(150*nextVdef)
     if debug_flight_directors==1 then
         print("fin thisTargetGlideslipeFPM "..thisTargetGlideslipeFPM)
     end
