@@ -56,7 +56,13 @@ end
 simDR_time_now						= find_dataref("sim/time/total_running_time_sec")
 B747 = {}
 B747.fuel = {}
+local lastFuelLevels={}
+local lastTotalFuel=0
+simDR_fuel_tank_weight_total_kg     = find_dataref("sim/flightmodel/weight/m_fuel_total")
 
+------ FUEL TANK LEVELS --------------------------------------------------------------
+local lastFuelUpdate=0
+local startedRefil=0
 -- CREATE FUEL TANK TABLES
 local tankName = {"center_tank", "main1_tank", "main2_tank", "main3_tank", "main4_tank", "stab_tank", "res2_tank", "res3_tank"}
 for _, tank_name in ipairs(tankName) do
@@ -2116,12 +2122,7 @@ end
 
 
 
-local lastFuelLevels={}
-local lastTotalFuel=0
-simDR_fuel_tank_weight_total_kg     = find_dataref("sim/flightmodel/weight/m_fuel_total")
 
------- FUEL TANK LEVELS --------------------------------------------------------------
-local lastFuelUpdate=0
 function B747_fuel_tank_levels()
     if lastFuelUpdate==0 then
         lastFuelUpdate=simDR_time_now
@@ -2135,13 +2136,36 @@ function B747_fuel_tank_levels()
             lastFuelLevels[i]=simDR_fuel_tank_weight_kg[i]
         end
     end
-    if simDR_all_wheels_on_ground == 0 and lastTotalFuel<simDR_fuel_tank_weight_total_kg then
+    if startedRefil==0 then
+        startedRefil=simDR_time_now
+    end
+    local cFuel=simDR_fuel_tank_weight_total_kg
+    if (simDR_time_now-startedRefil)<2 and simDR_all_wheels_on_ground == 1 and engineHasFuelProcessing==0 and cFuel>100000 then
+        print("empty fuel")
+        B747DR_refuel=cFuel-100000
+        simDR_fuel_tank_weight_kg[0]=0
+        simDR_fuel_tank_weight_kg[1]=11976
+        simDR_fuel_tank_weight_kg[2]=33793
+        simDR_fuel_tank_weight_kg[3]=33793
+        simDR_fuel_tank_weight_kg[4]=11976
+        simDR_fuel_tank_weight_kg[5]=3517
+        simDR_fuel_tank_weight_kg[6]=3517
+        simDR_fuel_tank_weight_kg[7]=0
+        
+        return
+    end
+
+    
+    if simDR_all_wheels_on_ground == 0 and lastTotalFuel<simDR_fuel_tank_weight_total_kg and engineHasFuelProcessing==1 then
         print("reverted fuel levels")
         for i=0,7,1 do
             simDR_fuel_tank_weight_kg[i]=lastFuelLevels[i]
         end
     
        
+    end
+    if  (simDR_time_now-startedRefil)>10 then
+        engineHasFuelProcessing=1
     end
     ----- FUEL TRANSFER ---------------------------------------------------------
 
@@ -2298,8 +2322,9 @@ function B747_fuel_tank_levels()
     B747DR_engine_used_fuel[3]=B747DR_engine_used_fuel[3]+engine4_used
     B747DR_engine_used_fuel[4]=B747DR_engine_used_fuel[4]+engine1_used+engine2_used+engine3_used+engine4_used+(apuFuelBurn_KgSec * fuel_calc_rate)
     lastTotalFuel=simDR_fuel_tank_weight_total_kg 
+    print("processing="..engineHasFuelProcessing)
     for i=0,7,1 do
-        --print(i .. " " ..lastFuelLevels[i] .. " ".. simDR_fuel_tank_weight_kg[i])
+        print(i .. " " ..lastFuelLevels[i] .. " ".. simDR_fuel_tank_weight_kg[i])
         lastFuelLevels[i]=simDR_fuel_tank_weight_kg[i]
     end
 end
@@ -2895,11 +2920,12 @@ function B747_fuel_EICAS_msg()
         else
             B747DR_CAS_advisory_status[302] = 0
         end
-    elseif B747DR_button_switch_position[52] < 0.95 then
+    elseif B747DR_button_switch_position[52] < 0.95 or simDR_fuel_tank_weight_kg[0] >= 1300.0 then
         B747DR_CAS_advisory_status[302] = 0
         B747DR_CAS_caution_status[69] = 0
     else
         B747DR_CAS_advisory_status[302] = 0
+
     end    
     -- FUEL LOW CTR R
     if B747DR_CAS_caution_status[37] == 0 and B747DR_CAS_caution_status[70] == 0 then
@@ -2914,7 +2940,7 @@ function B747_fuel_EICAS_msg()
         else
             B747DR_CAS_advisory_status[303] = 0
         end
-    elseif B747DR_button_switch_position[53] < 0.95 then
+    elseif B747DR_button_switch_position[53] < 0.95 or simDR_fuel_tank_weight_kg[0] >= 1300.0 then
         B747DR_CAS_advisory_status[303] = 0
         B747DR_CAS_caution_status[70] = 0
     else
@@ -3344,39 +3370,7 @@ function B747_refueling()
   if simDR_fuel_tank_weight_kg[7] == B747.fuel.stab_tank.capacity then
     B747DR_refuel = 0
   end
-  --Marauder28
-  
---[[  if simDR_fuel_tank_weight_kg[1] < B747.fuel.main1_tank.capacity then
-    B747DR_refuel=B747DR_refuel-fuelIn
-    simDR_fuel_tank_weight_kg[1]=simDR_fuel_tank_weight_kg[1]+fuelIn
-  end
-  if simDR_fuel_tank_weight_kg[2] < B747.fuel.main2_tank.capacity then
-    B747DR_refuel=B747DR_refuel-fuelIn
-    simDR_fuel_tank_weight_kg[2]=simDR_fuel_tank_weight_kg[2]+fuelIn
-  elseif simDR_fuel_tank_weight_kg[5] <B747.fuel.res2_tank.capacity then
-    B747DR_refuel=B747DR_refuel-fuelIn
-    simDR_fuel_tank_weight_kg[5]=simDR_fuel_tank_weight_kg[5]+fuelIn
-  end
-  if simDR_fuel_tank_weight_kg[3] < B747.fuel.main3_tank.capacity then
-    B747DR_refuel=B747DR_refuel-fuelIn
-    simDR_fuel_tank_weight_kg[3]=simDR_fuel_tank_weight_kg[3]+fuelIn
-  elseif simDR_fuel_tank_weight_kg[6] <B747.fuel.res3_tank.capacity then
-    B747DR_refuel=B747DR_refuel-fuelIn
-    simDR_fuel_tank_weight_kg[6]=simDR_fuel_tank_weight_kg[6]+fuelIn
-  end
-  if simDR_fuel_tank_weight_kg[4] < B747.fuel.main1_tank.capacity then
-    B747DR_refuel=B747DR_refuel-fuelIn
-    simDR_fuel_tank_weight_kg[4]=simDR_fuel_tank_weight_kg[4]+fuelIn
-  end
-  if simDR_fuel_tank_weight_kg[0] < B747.fuel.center_tank.capacity then
-    B747DR_refuel=B747DR_refuel-fuelIn
-    simDR_fuel_tank_weight_kg[0]=simDR_fuel_tank_weight_kg[0]+fuelIn
-  end
-  if simDR_fuel_tank_weight_kg[7] < B747.fuel.stab_tank.capacity then
-    B747DR_refuel=B747DR_refuel-fuelIn
-    simDR_fuel_tank_weight_kg[7]=simDR_fuel_tank_weight_kg[7]+fuelIn
-  end
-]]
+
 end
 
 
@@ -3412,7 +3406,7 @@ end
 ----- SET STATE TO COLD & DARK ----------------------------------------------------------
 function B747_set_fuel_CD()
 
-    engineHasFuelProcessing = 1
+    --run_after_time(startFuelProcessing, 10.0)                                        -- DELAYED FUEL PROCESSING
 
     -- TURN OFF THE FUEL CONTROL VALVES
     if B747DR_fuel_control_toggle_switch_pos[0] > 0.5 then B747CMD_fuel_control_switch1:once() end
@@ -3435,7 +3429,7 @@ function B747_set_fuel_ER()
   --print("engine has fuel "..i)
         simDR_engine_has_fuel[i] = 1                                                -- FORCE "HAS FUEL" TO "ON"
     end
-    run_after_time(startFuelProcessing, 10.0)                                        -- DELAYED FUEL PROCESSING
+    --run_after_time(startFuelProcessing, 10.0)                                        -- DELAYED FUEL PROCESSING
 
     B747_fuel_control_toggle_sw_pos_target[0] = 1.0
     B747DR_fuel_control_toggle_switch_pos[0] = 1.0
@@ -3505,6 +3499,9 @@ end
 ----- FLIGHT START ----------------------------------------------------------------------
 function B747_flight_start_fuel()
     print("B747_flight_start_fuel")
+    engineHasFuelProcessing = 0
+    startedRefil=0
+
     lastTotalFuel=simDR_fuel_tank_weight_total_kg
     for i=0,7,1 do
         lastFuelLevels[i]=simDR_fuel_tank_weight_kg[i]
@@ -3541,7 +3538,7 @@ end
 function aircraft_load()
 
     simDR_override_fuel_system = 1
-
+    --run_after_time(startFuelProcessing, 20.0)
 end
 
 function aircraft_unload()
@@ -3572,6 +3569,7 @@ end]]
 debug_fuel     = deferred_dataref("laminar/B747/debug/fuel", "number")
 function before_physics()
     if debug_fuel>0 then return end
+
     B747_engine_fuel_source()
     B747_engine_has_fuel()
 end
@@ -3588,6 +3586,7 @@ function hasSimConfig()
 	return setSimConfig
 end
 function after_physics()
+    collectgarbage("collect")
     if hasSimConfig()==false then return end
     local onGround=simDR_all_wheels_on_ground
     if debug_fuel>11 then return end
@@ -3614,7 +3613,9 @@ function after_physics()
     B747_fuel_EICAS_msg()
     if debug_fuel>0 then return end
     B747_fuel_monitor_AI()
-    B747_refueling()
+    if engineHasFuelProcessing==1 then
+        B747_refueling()
+    end
     
     
    --print(simDR_eng_fuel_flow_kg_sec[0] .. " " .. simDR_eng_fuel_flow_kg_sec[1] .. " " .. simDR_eng_fuel_flow_kg_sec[2] .. " " .. simDR_eng_fuel_flow_kg_sec[3])
