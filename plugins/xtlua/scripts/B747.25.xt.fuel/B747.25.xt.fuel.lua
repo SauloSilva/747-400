@@ -2141,7 +2141,7 @@ function B747_fuel_tank_levels()
     end
     local cFuel=simDR_fuel_tank_weight_total_kg
     if (simDR_time_now-startedRefil)<2 and simDR_all_wheels_on_ground == 1 and engineHasFuelProcessing==0 and cFuel>100000 then
-        print("empty fuel")
+        --print("empty fuel")
         B747DR_refuel=cFuel-100000
         simDR_fuel_tank_weight_kg[0]=0
         simDR_fuel_tank_weight_kg[1]=11976
@@ -2322,9 +2322,9 @@ function B747_fuel_tank_levels()
     B747DR_engine_used_fuel[3]=B747DR_engine_used_fuel[3]+engine4_used
     B747DR_engine_used_fuel[4]=B747DR_engine_used_fuel[4]+engine1_used+engine2_used+engine3_used+engine4_used+(apuFuelBurn_KgSec * fuel_calc_rate)
     lastTotalFuel=simDR_fuel_tank_weight_total_kg 
-    print("processing="..engineHasFuelProcessing)
+    --print("processing="..engineHasFuelProcessing)
     for i=0,7,1 do
-        print(i .. " " ..lastFuelLevels[i] .. " ".. simDR_fuel_tank_weight_kg[i])
+        --print(i .. " " ..lastFuelLevels[i] .. " ".. simDR_fuel_tank_weight_kg[i])
         lastFuelLevels[i]=simDR_fuel_tank_weight_kg[i]
     end
 end
