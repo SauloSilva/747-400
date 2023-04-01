@@ -31,6 +31,8 @@ B747DR_autopilot_altitude_ft_pfd = deferred_dataref("laminar/B747/autopilot/head
 simDR_glideslope1 = find_dataref("sim/cockpit/radios/nav1_slope_degt")
 simDR_groundspeed			= find_dataref("sim/flightmodel2/position/groundspeed")
 simDR_radarAlt1 = find_dataref("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot")
+B747DR_flap_ratio = deferred_dataref("laminar/B747/cablecontrols/flap_ratio", "number")
+B747DR_flap_lever_detent		= deferred_dataref("laminar/B747/flt_ctrls/flap_lever_detent", "number")
 B747DR_pidRollP = deferred_dataref("laminar/B747/flt_ctrls/pid/roll/p", "number")
 B747DR_pidRollI = deferred_dataref("laminar/B747/flt_ctrls/pid/roll/i", "number")
 B747DR_pidRollDL = deferred_dataref("laminar/B747/flt_ctrls/pid/roll/dl", "number")
@@ -521,7 +523,7 @@ function flight_start()
 
   B747DR_pidPitchPL = 0.07 --low 0.15 high 0.05
   B747DR_pidPitchPH = 0.05 --low 0.15 high 0.05
-  B747DR_pidPitchI = 0.05
+  B747DR_pidPitchI = 0.07
   B747DR_pidPitchD = 0.002
 
 

@@ -2325,9 +2325,10 @@ function restoreAltFunc()
 end
 local lastGSProgress=0
 function glideSlopeLOCProgress()
-	if B747DR_ap_approach_mode == 0 then
+	if B747DR_ap_approach_mode == 0 or B747DR_engine_TOGA_mode == 1 then
 		B747DR_autopilot_gs_status = 0 
 		B747DR_autopilot_nav_status = 0
+		B747DR_ap_approach_mode = 0
 	elseif B747DR_toggle_switch_position[23] == 1.0 or B747DR_toggle_switch_position[24] == 1.0 then
 		if 	simDR_autopilot_gs_status>B747DR_autopilot_gs_status  then
 			B747DR_autopilot_gs_status=simDR_autopilot_gs_status
@@ -2516,7 +2517,7 @@ function B747_ap_fma()
 	elseif B747DR_autothrottle_active == 1 then
 		if B747DR_ap_vnav_state > 0 and simDR_allThrottle < 0.1 and B747DR_ap_inVNAVdescent > 0 then
 			B747DR_ap_FMA_autothrottle_mode = 2 --IDLE
-		elseif simDR_onGround == 0 and B747DR_ap_FMA_active_pitch_mode==1 then
+		elseif simDR_onGround == 0 and B747DR_ap_FMA_active_pitch_mode==1 then --TOGA
 			B747DR_ap_FMA_autothrottle_mode = 5 --THR REF
 		elseif simDR_onGround == 0 then
 			B747DR_ap_FMA_autothrottle_mode = 3 -- SPD

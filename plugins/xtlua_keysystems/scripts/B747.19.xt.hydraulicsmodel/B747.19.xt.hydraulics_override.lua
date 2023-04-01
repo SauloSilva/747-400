@@ -426,14 +426,14 @@ local last_speed_delta=0
 
 function getGlideSlopeFPM()
     local diff=simDRTime-lastSimDRTime
-    if diff<1 then
+    --[[if diff<1 then
         return thisTargetGlideslipeFPM
-    end
+    end]]
     local speed_fpm=simDR_groundspeed*196.85
     thisTargetGlideslipeFPM=-math.tan(math.rad(simDR_glideslope1))*speed_fpm
     local nextVdef=simDR_hsi_vdef_dots_pilot --+speed_delta --look ahead
 
-    thisTargetGlideslipeFPM=thisTargetGlideslipeFPM-(150*nextVdef)
+    thisTargetGlideslipeFPM=thisTargetGlideslipeFPM-(60*nextVdef)
     if debug_flight_directors==1 then
         print("fin thisTargetGlideslipeFPM "..thisTargetGlideslipeFPM)
     end
@@ -445,7 +445,7 @@ function old_getGlideSlopeFPM()
     if diff>-100 then
         return -850
     end
-    if simDR_radarAlt1<250 then
+   if simDR_radarAlt1<250 then
         if debug_flight_directors==1 then
             print("fin simDR_hsi_vdef_dots_pilot "..simDR_hsi_vdef_dots_pilot.." thisTargetGlideslipeFPM "..thisTargetGlideslipeFPM)
         end
@@ -550,11 +550,25 @@ local previous_pitchTime=0
 local last_simDR_vvi_fpm_pilot=0
 local last_vvi_update=0
 local prev_vvi_update=0.5
+local fpmBias=0
+local lastFlapsFPM=0
+function get_FPM_bias()
+    local fpmBiasMax=3000
+    if B747DR_flap_ratio~=lastFlapsFPM and B747DR_flap_lever_detent==0 and simDR_radarAlt1>3000 then
+        local Flaps_change=B747DR_flap_ratio-lastFlapsFPM
+        print("Flaps_change "..Flaps_change)
+        fpmBias=fpmBias+fpmBiasMax*Flaps_change
+        lastFlapsFPM=B747DR_flap_ratio
+    end
+    fpmBias=B747_interpolate_value(fpmBias,0.0,-fpmBiasMax,fpmBiasMax,20)
+    print("fpmBias "..fpmBias)
+    return fpmBias
+end
 function ap_director_pitch(pitchMode)
     time=simDRTime-previous_pitchTime
     previous_pitchTime=simDRTime
     --print("ap_director_pitch" ..time.. " "..directorSampleRate)
-    if time>2 or time==0 then
+    if time>5 or time==0 then
         return last_simDR_AHARS_pitch_heading_deg_pilot
     end
    -- print("ap_director_pitc go")
@@ -659,32 +673,33 @@ function ap_director_pitch(pitchMode)
             simDR_autopilot_alt_hold_status=2
             holdAlt=simDR_autopilot_hold_altitude_ft
         end
-        local altDiff=math.abs(simDR_pressureAlt1-holdAlt)
+        local fpmBias=get_FPM_bias()
+        local altDiff=math.abs(simDR_pressureAlt1-holdAlt+fpmBias*40)
         local targetFPM=(holdAlt-simDR_pressureAlt1)*2 --target alt in 30 secs
         local pitchError=math.abs(simDR_AHARS_pitch_heading_deg_pilot-last_simDR_AHARS_pitch_heading_deg_pilot)
         if simDR_autopilot_servos_on==0 then
             pitchError=0
         end
         directorSampleRate=0.1
-        
-        local rog=0.001+0.00003*math.abs(simDR_vvi_fpm_pilot-targetFPM)
+        local currentFPM=simDR_vvi_fpm_pilot+fpmBias
+        local rog=0.001+0.00003*math.abs(currentFPM-targetFPM)
         --if simDR_pressureAlt1>29000 or (altDiff<B747DR_alt_capture_window) then
-        if simDR_pressureAlt1>10000 or math.abs(simDR_vvi_fpm_pilot)<100 then
-            rog=0.0001+0.00001*math.abs(simDR_vvi_fpm_pilot-targetFPM)
+        if simDR_pressureAlt1>10000 or math.abs(currentFPM)<100 then
+            rog=0.0001+0.00001*math.abs(currentFPM-targetFPM)
         end
-        if simDR_vvi_fpm_pilot>targetFPM  and pitchError<0.5 then
+        if currentFPM>targetFPM  and (pitchError<0.5 or (math.abs(fpmBias)>50 and pitchError<1.0)) then
             last_simDR_AHARS_pitch_heading_deg_pilot=last_simDR_AHARS_pitch_heading_deg_pilot-rog
             if debug_flight_directors==1 then
-                print("-last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..simDR_vvi_fpm_pilot.." rog "..rog.." targetFPM "..targetFPM)
+                print("-last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..currentFPM.." rog "..rog.." targetFPM "..targetFPM)
             end
-        elseif simDR_vvi_fpm_pilot<targetFPM and pitchError<0.5 then
+        elseif currentFPM<targetFPM and pitchError<0.5 or (math.abs(fpmBias)>50 and pitchError<1.0) then
             if debug_flight_directors==1 then 
-                print("+last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..simDR_vvi_fpm_pilot.." rog "..rog.." targetFPM "..targetFPM)
+                print("+last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..currentFPM.." rog "..rog.." targetFPM "..targetFPM)
             end
             last_simDR_AHARS_pitch_heading_deg_pilot=last_simDR_AHARS_pitch_heading_deg_pilot+rog
         else
             if debug_flight_directors==1 then
-                print("=last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..simDR_vvi_fpm_pilot.." rog "..rog.." targetFPM "..targetFPM)
+                print("=last_altitude "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..currentFPM.." rog "..rog.." targetFPM "..targetFPM.. " pitchError "..pitchError)
             end
         end
         if last_simDR_AHARS_pitch_heading_deg_pilot<-3.5 then
@@ -697,7 +712,7 @@ function ap_director_pitch(pitchMode)
         return ap_director_pitch_retVal(pitchMode,retval)
     
     elseif pitchMode==4 or pitchMode==7 or pitchMode==6 or pitchMode==2 then --pitchMode==2 GLIDESLOPE
-        local pitchError=math.abs(simDR_AHARS_pitch_heading_deg_pilot-last_simDR_AHARS_pitch_heading_deg_pilot)
+        local pitchError=simDR_AHARS_pitch_heading_deg_pilot-last_simDR_AHARS_pitch_heading_deg_pilot
         if simDR_autopilot_servos_on==0 then
             pitchError=0
         end
@@ -705,12 +720,13 @@ function ap_director_pitch(pitchMode)
             print("ap_director_pitch for VS pitchError="..pitchError)
         end
         local targetFPM=simDR_autopilot_vs_fpm
-        local minUpdateRate=0.5
+        local currentFPM=simDR_vvi_fpm_pilot+get_FPM_bias()
+        local minUpdateRate=2.0
         local vviDiff=simDRTime-last_vvi_update
-        if vviDiff>2 then
-            prev_vvi_update=0.5 --give two seconds before reducing sample rate
+        if vviDiff>2 and prev_vvi_update < 1 then
+            prev_vvi_update=2.0 --give two seconds before reducing sample rate
             if debug_flight_directors==1 then
-                print("prev_vvi_update=0.5") --recover overshoots
+                print("prev_vvi_update=2.0") --recover overshoots
             end
         end
         if pitchMode==2 then --set FPM based on glideslope
@@ -721,29 +737,34 @@ function ap_director_pitch(pitchMode)
         --    print("standard FPM="..targetFPM.." dots="..simDR_hsi_vdef_dots_pilot)
         end
         if debug_flight_directors==1 then
-            print("autopilot FPM="..simDR_vvi_fpm_pilot.." target="..targetFPM)
+            print("autopilot FPM="..currentFPM.." target="..targetFPM)
         end
-        local vviError=math.abs(simDR_vvi_fpm_pilot-targetFPM)
+        local vviError=math.abs(currentFPM-targetFPM)
         --[[if ((pitchError<0.3 and vviError<50) or simDR_autopilot_alt_hold_status==2) and pitchMode~=2 then
             directorSampleRate=0.5
         elseif pitchError<0.3 then
             directorSampleRate=minUpdateRate
         end]]--
         --if pitchError<1.3 then
-        directorSampleRate=math.min(B747_rescale(0,0.5,500,0.1,math.abs(vviError)),minUpdateRate,prev_vvi_update)
+        directorSampleRate=math.min(B747_rescale(0,1,500,0.2,math.abs(vviError)),minUpdateRate,prev_vvi_update)
         prev_vvi_update=directorSampleRate
         --end
-        
-        local rog=0.001+0.00003*vviError/(time*30)
-        if simDR_pressureAlt1>29000 then
+       
+        local rog=0.001+0.00004*vviError/(time*30)
+        local div=B747_rescale(100,15,300,0.3,simDR_ind_airspeed_kts_pilot)
+        if debug_flight_directors==1 then
+            print("directorSampleRate "..directorSampleRate.." div "..div)
+        end
+        --[[if simDR_pressureAlt1>29000 then
             rog=rog/3
-        elseif vviError>200 then
+        elseif vviError>400 then
                 rog=rog*15
         elseif simDR_pressureAlt1<12000 then
                 rog=rog*3
-        end
-        local speed_delta=(simDR_vvi_fpm_pilot-last_simDR_vvi_fpm_pilot)/(time*30)
-        last_simDR_vvi_fpm_pilot=simDR_vvi_fpm_pilot
+        end]]
+        rog=rog*div
+        local speed_delta=(currentFPM-last_simDR_vvi_fpm_pilot)/(time*30)
+        last_simDR_vvi_fpm_pilot=currentFPM
         local min_speedDelta=0
         local max_speedDelta=0
         if  vviError > 10 then
@@ -751,27 +772,27 @@ function ap_director_pitch(pitchMode)
             min_speedDelta=vviError/50
         end
 
-        if pitchError<0.5 then
-            if (simDR_vvi_fpm_pilot>targetFPM and speed_delta>-min_speedDelta) --primary
-            or (simDR_vvi_fpm_pilot<targetFPM and speed_delta<-max_speedDelta) then
+        --if pitchError<0.5 then
+            if (currentFPM>targetFPM and speed_delta>-min_speedDelta and pitchError<0.5) --primary
+            or (currentFPM<targetFPM and speed_delta<-max_speedDelta and pitchError<0.5) then
                 last_simDR_AHARS_pitch_heading_deg_pilot=last_simDR_AHARS_pitch_heading_deg_pilot-rog
                 last_vvi_update=simDRTime
                 if debug_flight_directors==1 then
                     print("-last_simDR_AHARS_pitch_heading_deg_pilot "..last_simDR_AHARS_pitch_heading_deg_pilot)
-                    print("-simDR_vvi_fpm_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..simDR_vvi_fpm_pilot.." rog "..rog.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta)
+                    print("-simDR_vvi_fpm_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..currentFPM.." rog "..rog.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta)
                 end
-            elseif (simDR_vvi_fpm_pilot<targetFPM and speed_delta<min_speedDelta) --primary
-            or (simDR_vvi_fpm_pilot>targetFPM and speed_delta>max_speedDelta)  then
+            elseif (simDR_vvi_fpm_pilot<targetFPM and speed_delta<min_speedDelta and pitchError>-0.5) --primary
+            or (currentFPM>targetFPM and speed_delta>max_speedDelta and pitchError>-0.5)  then
                 if debug_flight_directors==1 then 
                     print("+last_simDR_AHARS_pitch_heading_deg_pilot "..last_simDR_AHARS_pitch_heading_deg_pilot)
-                    print("+simDR_vvi_fpm_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..simDR_vvi_fpm_pilot.." rog "..rog.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta)
+                    print("+simDR_vvi_fpm_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..currentFPM.." rog "..rog.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta)
                 end
                 last_vvi_update=simDRTime
                 last_simDR_AHARS_pitch_heading_deg_pilot=last_simDR_AHARS_pitch_heading_deg_pilot+rog
             elseif debug_flight_directors==1 then 
-                print("=simDR_vvi_fpm_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..simDR_vvi_fpm_pilot.." rog "..rog.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta)
+                print("=simDR_vvi_fpm_pilot "..simDR_AHARS_pitch_heading_deg_pilot.." simDR_vvi_fpm_pilot "..currentFPM.." rog "..rog.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta)
             end
-        end
+       -- end
         if last_simDR_AHARS_pitch_heading_deg_pilot<-3.5 then
             last_simDR_AHARS_pitch_heading_deg_pilot=-3.5
         elseif last_simDR_AHARS_pitch_heading_deg_pilot>10 then 
@@ -953,21 +974,32 @@ function ap_director_pitch_integral()
     --if displayUpdate then print("retval "..retval.." "..simDRTime) end
     return retval
 end
+
+local trimrate=25
 function doTrim()
 
-    if simDRTime-lastTrimmed<0.2 then return end
+    if simDRTime-lastTrimmed<0.2 or simDR_radarAlt1<500 then return end
     lastTrimmed=simDRTime
     local ratioWindow=0.05
-    if B747DR_ap_FMA_active_pitch_mode==2 then
-        ratioWindow=0.01 --quick trim on glideslope
+    if B747DR_ap_FMA_active_pitch_mode==2 or simDR_autopilot_alt_hold_status==2 then
+        ratioWindow=0.01 --quick trim on glideslope and alt hold
     elseif B747DR_ap_FMA_active_pitch_mode==4 or B747DR_ap_FMA_active_pitch_mode==8 or (B747DR_ap_FMA_active_pitch_mode==6 and B747DR_ap_inVNAVdescent>0) then
         ratioWindow=0.2 --limit trim activity when pitching for speed
     end
+
+    
+    if simDR_ind_airspeed_kts_pilot>230 then
+        trimrate=60
+    elseif simDR_ind_airspeed_kts_pilot<220 then
+        trimrate=30
+    end
     if B747DR_sim_pitch_ratio>ratioWindow then
-        simDR_elevator_trim=B747_interpolate_value(simDR_elevator_trim,1.0,-1,1,25) 
+        simDR_elevator_trim=B747_interpolate_value(simDR_elevator_trim,1.0,-1,1,trimrate)
+        lastTrimmed=simDRTime+1 
         --print("up trim "..ratioWindow)
     elseif B747DR_sim_pitch_ratio<-ratioWindow then
-        simDR_elevator_trim=B747_interpolate_value(simDR_elevator_trim,-1.0,-1,1,25) 
+        simDR_elevator_trim=B747_interpolate_value(simDR_elevator_trim,-1.0,-1,1,trimrate) 
+        lastTrimmed=simDRTime+1 
         --print("down trim "..ratioWindow)
     end
 

@@ -94,7 +94,7 @@ function doPitch()
       targetPitch=progressPitch
     end]]--
 
-    targetPitch=zeroRatePitch+2 --0.5
+    targetPitch=zeroRatePitch+1.5 --0.5
   end
   --[[if inrollout==true then 
     local tP=(simDR_radarAlt1-4.0)
