@@ -2738,6 +2738,7 @@ function B747_V1_wind_adjustment()
 
     local weight_max = math.min(420000, roundUpToIncrement(simDR_acf_weight_total_kg, 20000))
     local weight_min = math.max(200000, weight_max-20000)
+    weight_max = math.max(200000,weight_max)
     local HW = simDR_wind_speed_kts * math.cos(math.rad(recipAngle(simDR_wind_heading_deg))-math.rad(simDR_position_mag_psi))
     local HWmax = 0
     local HWmin = 0

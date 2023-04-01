@@ -553,15 +553,15 @@ local prev_vvi_update=0.5
 local fpmBias=0
 local lastFlapsFPM=0
 function get_FPM_bias()
-    local fpmBiasMax=3000
+    local fpmBiasMax=6000
     if B747DR_flap_ratio~=lastFlapsFPM and B747DR_flap_lever_detent==0 and simDR_radarAlt1>3000 then
         local Flaps_change=B747DR_flap_ratio-lastFlapsFPM
         print("Flaps_change "..Flaps_change)
         fpmBias=fpmBias+fpmBiasMax*Flaps_change
         lastFlapsFPM=B747DR_flap_ratio
     end
-    fpmBias=B747_interpolate_value(fpmBias,0.0,-fpmBiasMax,fpmBiasMax,20)
-    print("fpmBias "..fpmBias)
+    fpmBias=B747_interpolate_value(fpmBias,0.0,-fpmBiasMax,fpmBiasMax,10)
+   -- print("fpmBias "..fpmBias)
     return fpmBias
 end
 function ap_director_pitch(pitchMode)
@@ -587,7 +587,9 @@ function ap_director_pitch(pitchMode)
         print("ap_director_pitch for "..pitchMode.." holdAlt "..holdAlt)
     end
     if B747DR_ap_autoland == 1 then 
-        --print("pitching for autoland "..B744DR_autolandPitch .. " simDR_AHARS_pitch_heading_deg_pilot "..simDR_AHARS_pitch_heading_deg_pilot.. "simDR_touchGround "..simDR_touchGround)
+        if debug_flight_directors==1 then
+            print("pitching for autoland "..B744DR_autolandPitch .. " simDR_AHARS_pitch_heading_deg_pilot "..simDR_AHARS_pitch_heading_deg_pilot.. "simDR_touchGround "..simDR_touchGround)
+        end
         directorSampleRate=0.02
         return ap_director_pitch_retVal(pitchMode,B744DR_autolandPitch)
     end

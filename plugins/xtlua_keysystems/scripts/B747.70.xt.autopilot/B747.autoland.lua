@@ -52,7 +52,13 @@ function start_flare()
     zeroRatePitch=(neutralPitch/pitchMeasurements)
 end
 local targetPitch
+function B747_rescale(in1, out1, in2, out2, x)
 
+  if x < in1 then return out1 end
+  if x > in2 then return out2 end
+  return out1 + (out2 - out1) * (x - in1) / (in2 - in1)
+
+end
 function doPitch()
 
   local doRollout=((4.5+simDR_AHARS_pitch_heading_deg_pilot))
@@ -93,8 +99,10 @@ function doPitch()
      else
       targetPitch=progressPitch
     end]]--
-
-    targetPitch=zeroRatePitch+1.5 --0.5
+    flareRate=B747_rescale(130,2.5,170,0.5,simDR_ind_airspeed_kts_pilot)
+    
+    targetPitch=zeroRatePitch+flareRate --0.5
+    print("flareRate "..flareRate.." targetPitch "..targetPitch.." flareAt "..flareAt.." simDR_AHARS_pitch_heading_deg_pilot "..simDR_AHARS_pitch_heading_deg_pilot)
   end
   --[[if inrollout==true then 
     local tP=(simDR_radarAlt1-4.0)
@@ -246,7 +254,7 @@ end]]
 --simDR_Lift=find_dataref("sim/flightmodel/forces/lift_path_axis")
 function preLand_measure()
      --totalLift=totalLift+(simDR_Lift/10000)
-     if B747DR_ap_autoland==0 and simDR_hsi_vdef_dots_pilot <0.1 and simDR_hsi_vdef_dots_pilot>-0.1 then
+     if B747DR_ap_autoland==0 then  -- and simDR_hsi_vdef_dots_pilot <0.1 and simDR_hsi_vdef_dots_pilot>-0.1 then
       neutralPitch=neutralPitch+simDR_AHARS_pitch_heading_deg_pilot
       pitchMeasurements=pitchMeasurements+1;
       print("pitchMeasurements="..pitchMeasurements.. " Pitch="..B744DR_autolandPitch)

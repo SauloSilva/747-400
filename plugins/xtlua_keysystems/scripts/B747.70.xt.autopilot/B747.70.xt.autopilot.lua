@@ -2325,6 +2325,7 @@ function restoreAltFunc()
 end
 local lastGSProgress=0
 function glideSlopeLOCProgress()
+	--print("B747DR_ap_approach_mode "..B747DR_ap_approach_mode.." B747DR_engine_TOGA_mode "..B747DR_engine_TOGA_mode)
 	if B747DR_ap_approach_mode == 0 or B747DR_engine_TOGA_mode == 1 then
 		B747DR_autopilot_gs_status = 0 
 		B747DR_autopilot_nav_status = 0
@@ -2362,7 +2363,7 @@ function glideSlopeLOCProgress()
 end
 function fma_PitchModes()
 	local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
-	glideSlopeLOCProgress()
+	
 	-- PITCH MODES: ARMED
 	-- ----------------------------------------------------------------------------------
 
@@ -2482,7 +2483,7 @@ function B747_ap_fma()
 	B747DR_fo_ap_roll = B747_animate_value(B747DR_fo_ap_roll, B747DR_ap_target_roll - simDR_fo_roll, -25, 25, 10)
 	--B747DR_capt_ap_roll=B747DR_ap_target_roll-simDR_capt_roll
 	--B747DR_fo_ap_roll=B747DR_ap_target_roll-simDR_fo_roll
-
+	glideSlopeLOCProgress()
 	if (B747DR_ap_AFDS_status_annun_pilot == 3 or B747DR_ap_AFDS_status_annun_pilot == 4) and runAutoland() then
 		return
 	end
