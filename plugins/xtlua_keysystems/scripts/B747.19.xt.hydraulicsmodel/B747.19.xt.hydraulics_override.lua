@@ -384,8 +384,25 @@ local last_altitude=0
 local directorSampleRate=0.02
 local directorRollSampleRate=0.1
 local directoryawSampleRate=0.03
+local lastAPTargetRoll=0
+local capturedLocTime=0
+local hasLoc=false
 function ap_director_roll()
-    return B747DR_ap_target_roll
+    if simDR_autopilot_nav_status ==2 and hasLoc==false then
+        capturedLocTime=simDRTime
+        hasLoc=true
+        print("autoland capturedLocTime")
+    elseif simDR_autopilot_nav_status ~=2 then
+        hasLoc=false
+    end
+
+    if (simDR_autopilot_nav_status ~=2 and B747DR_autopilot_nav_status==2) or 5>(simDRTime-capturedLocTime) then
+        print("autoland estimating roll")
+        return lastAPTargetRoll
+    else
+        lastAPTargetRoll=B747DR_ap_target_roll
+        return B747DR_ap_target_roll
+    end
 end
 function ap_director_yaw()
     if math.abs(simDR_AHARS_roll_heading_deg_pilot)>5 then 
@@ -433,118 +450,14 @@ function getGlideSlopeFPM()
     thisTargetGlideslipeFPM=-math.tan(math.rad(simDR_glideslope1))*speed_fpm
     local nextVdef=simDR_hsi_vdef_dots_pilot --+speed_delta --look ahead
 
-    thisTargetGlideslipeFPM=thisTargetGlideslipeFPM-(60*nextVdef)
+    thisTargetGlideslipeFPM=thisTargetGlideslipeFPM-(75*nextVdef)
     if debug_flight_directors==1 then
         print("fin thisTargetGlideslipeFPM "..thisTargetGlideslipeFPM)
     end
     return thisTargetGlideslipeFPM
   
 end
-function old_getGlideSlopeFPM()
-    local diff=simDRTime-lastSimDRTime
-    if diff>-100 then
-        return -850
-    end
-   if simDR_radarAlt1<250 then
-        if debug_flight_directors==1 then
-            print("fin simDR_hsi_vdef_dots_pilot "..simDR_hsi_vdef_dots_pilot.." thisTargetGlideslipeFPM "..thisTargetGlideslipeFPM)
-        end
-        return thisTargetGlideslipeFPM
-    end
-    if diff>0.2 then
-        last_speed_delta=(simDR_hsi_vdef_dots_pilot-last_simDR_hsi_vdef_dots_pilot)
-        last_simDR_hsi_vdef_dots_pilot=simDR_hsi_vdef_dots_pilot
-        lastSimDRTime=simDRTime
-    end
-    if simDR_hsi_vdef_dots_pilot>0.5 then
-        if debug_flight_directors==1 then
-            print("lim simDR_hsi_vdef_dots_pilot "..simDR_hsi_vdef_dots_pilot)
-        end
-        return -1000
-    elseif simDR_hsi_vdef_dots_pilot<-0.5 then 
-        if debug_flight_directors==1 then
-            print("lim simDR_hsi_vdef_dots_pilot "..simDR_hsi_vdef_dots_pilot)
-        end
-        return -600
-    end
-   
-   -- if last_simDR_hsi_vdef_dots_pilot==simDR_hsi_vdef_dots_pilot then
-    --    return thisTargetGlideslipeFPM
-    --end
-    local fpmError=math.abs(thisTargetGlideslipeFPM-simDR_vvi_fpm_pilot)
-    local mult=simDR_radarAlt1
-    --if mult<250 then
-    --    mult=250
-    --end
-    
-    local speed_delta=last_speed_delta
-    
 
-    
-    
-    --local rog=mult*math.abs(simDR_hsi_vdef_dots_pilot)/300--math.abs(simDR_hsi_vdef_dots_pilot-last_simDR_hsi_vdef_dots_pilot)/(time*30)
-    local rog=10+1000*math.abs(last_speed_delta)/200
-    local dotsDiff=math.abs(simDR_hsi_vdef_dots_pilot)
-    
-    --print(" vsi speed_delta "..speed_delta)
-    --if  dotsDiff < 0.1 and speed_delta<0.0001 then
-     --   return thisTargetGlideslipeFPM
-    --end
-    local min_speedDelta=0
-    local max_speedDelta=0
-    if  dotsDiff > 0.001 then
-        max_speedDelta=dotsDiff/2
-        min_speedDelta=dotsDiff/10
-    end
-    if debug_flight_directors==1 then
-        print("set simDR_hsi_vdef_dots_pilot "..simDR_hsi_vdef_dots_pilot.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta.." rog "..rog)
-    end
-    --[[if time>1 or time==0 then
-        if debug_flight_directors==1 then
-            print("TO simDR_hsi_vdef_dots_pilot "..simDR_hsi_vdef_dots_pilot.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta.." rog "..rog.." time "..time)
-        end
-        return thisTargetGlideslipeFPM
-    end]]--
-    local nextVdef=simDR_hsi_vdef_dots_pilot --+speed_delta --look ahead
-    --print("at simDR_hsi_vdef_dots_pilot "..simDR_hsi_vdef_dots_pilot.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta.." rog "..rog)
-    if ((nextVdef>0.1 and speed_delta>-min_speedDelta) --gs below, primary
-        or (nextVdef<0.1 and speed_delta<-max_speedDelta)) --and (fpmError<200 or dotsDiff>0.3) --gs above
-    then
-       if debug_flight_directors==1 then
-            print("-simDR_hsi_vdef_dots_pilot "..simDR_hsi_vdef_dots_pilot.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta.." rog "..rog)
-        end
-        thisTargetGlideslipeFPM=thisTargetGlideslipeFPM-rog
-    elseif ((nextVdef<-0.1 and speed_delta<min_speedDelta)--gs above primary
-    or (nextVdef>-0.1 and speed_delta>max_speedDelta)) --and (fpmError<200 or dotsDiff>0.3)  --gs below  
-    then
-        if debug_flight_directors==1 then
-            print("+simDR_hsi_vdef_dots_pilot "..simDR_hsi_vdef_dots_pilot.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta.." rog "..rog)
-        end
-        thisTargetGlideslipeFPM=thisTargetGlideslipeFPM+rog
-    else
-        if debug_flight_directors==1 then
-            print("=simDR_hsi_vdef_dots_pilot "..simDR_hsi_vdef_dots_pilot.." speed_delta "..speed_delta.." min_speedDelta "..min_speedDelta.." max_speedDelta "..max_speedDelta.." rog "..rog)
-        end
-    end
-       --[[ if simDR_hsi_vdef_dots_pilot<0  and fpmError<400 then
-            thisTargetGlideslipeFPM=thisTargetGlideslipeFPM+rog
-            --if debug_flight_directors==1 then
-                print("-fpm_pilot "..thisTargetGlideslipeFPM.." rog "..rog)
-            --end
-        end
-        if simDR_hsi_vdef_dots_pilot>0 and fpmError<400 then
-            --if debug_flight_directors==1 then 
-                print("+fpm_pilot "..thisTargetGlideslipeFPM.." rog "..rog)
-            --end
-            thisTargetGlideslipeFPM=thisTargetGlideslipeFPM-rog
-        end]]--
-        if thisTargetGlideslipeFPM<-2500 then
-            thisTargetGlideslipeFPM=-2500
-        elseif thisTargetGlideslipeFPM>-100 then 
-            thisTargetGlideslipeFPM=-100
-        end
-    return thisTargetGlideslipeFPM
-end
 
 local previous_pitchTime=0
 local last_simDR_vvi_fpm_pilot=0

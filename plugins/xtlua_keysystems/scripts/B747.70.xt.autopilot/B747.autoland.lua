@@ -99,7 +99,7 @@ function doPitch()
      else
       targetPitch=progressPitch
     end]]--
-    flareRate=B747_rescale(130,2.5,170,0.5,simDR_ind_airspeed_kts_pilot)
+    flareRate=B747_rescale(130,2,170,0.5,simDR_ind_airspeed_kts_pilot)
     
     targetPitch=zeroRatePitch+flareRate --0.5
     print("flareRate "..flareRate.." targetPitch "..targetPitch.." flareAt "..flareAt.." simDR_AHARS_pitch_heading_deg_pilot "..simDR_AHARS_pitch_heading_deg_pilot)
@@ -252,16 +252,28 @@ end
      --simDR_elevator=B747_set_ap_animation_position(simDR_elevator,initElevator,-1,1,1)
 end]]
 --simDR_Lift=find_dataref("sim/flightmodel/forces/lift_path_axis")
+local lastVVI=0
+local landingvviTime=0
 function preLand_measure()
      --totalLift=totalLift+(simDR_Lift/10000)
-     if B747DR_ap_autoland==0 then  -- and simDR_hsi_vdef_dots_pilot <0.1 and simDR_hsi_vdef_dots_pilot>-0.1 then
-      neutralPitch=neutralPitch+simDR_AHARS_pitch_heading_deg_pilot
-      pitchMeasurements=pitchMeasurements+1;
-      print("pitchMeasurements="..pitchMeasurements.. " Pitch="..B744DR_autolandPitch)
-     end
+     
+     local currentFPM=simDR_vvi_fpm_pilot
+     local diff=simDRTime-landingvviTime
+     if diff>0.2 then 
+        landingvviTime=simDRTime
+        local landingvviError=math.abs(currentFPM-lastVVI)
+        lastVVI=currentFPM
+        if B747DR_ap_autoland==0 and landingvviError<10 then  -- and simDR_hsi_vdef_dots_pilot <0.1 and simDR_hsi_vdef_dots_pilot>-0.1 then
+          neutralPitch=neutralPitch+simDR_AHARS_pitch_heading_deg_pilot
+          pitchMeasurements=pitchMeasurements+1;
+          print("pitchMeasurements="..pitchMeasurements.. " Pitch="..B744DR_autolandPitch)
+        end
+        print("pitchMeasurements="..pitchMeasurements.. " Pitch="..B744DR_autolandPitch.. " landingvviError="..landingvviError)
+        lastVVI=simDR_vvi_fpm_pilot
+      end
       B744DR_autolandPitch=(neutralPitch/pitchMeasurements)
       
-      --print("pitchMeasurements="..pitchMeasurements.. " Pitch="..B744DR_autolandPitch)
+      
 end
 --[[function preFlare_elevator()
       if simDR_AHARS_pitch_heading_deg_pilot>targetPitch+0.1 then

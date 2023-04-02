@@ -522,13 +522,14 @@ function B747_engine_TOGA_power_CMDhandler(phase, duration)
             end	
             
         end
+        B747DR_ap_approach_mode = 0
         if B747DR_engine_TOGA_mode == 0 and (simDR_all_wheels_on_ground==0 or (simDR_all_wheels_on_ground==1 and B747DR_toggle_switch_position[29] == 1)) then
             --[[simDR_engine_throttle_input[0] = 0.95
             simDR_engine_throttle_input[1] = 0.95
             simDR_engine_throttle_input[2] = 0.95
             simDR_engine_throttle_input[3] = 0.95]]
             B747DR_engine_TOGA_mode = 0.9
-            B747DR_ap_approach_mode = 0
+            
         
         end	
         if B747DR_toggle_switch_position[29] == 1 then
@@ -2057,7 +2058,7 @@ end
 function after_physics()
     if hasSimConfig()==false then return end
     if debug_engines>0 then return end
-
+    local apModeRefresh=B747DR_ap_approach_mode
     --Marauder28
 
     if string.match(simConfigData["data"].PLANE.engines, "CF6") then
