@@ -554,12 +554,12 @@ function engine_idle_control_RR(altitude_ft_in)
     --Try to keep REVERSER N1 at or below 91% per the engine TCDS
     if simDR_onGround == 1 and math.max(simDR_reverser_on[0], simDR_reverser_on[1], simDR_reverser_on[2], simDR_reverser_on[3]) == 1 then
       if N1_actual > 91.0 then
-        simDR_thrust_max = simDR_thrust_max - 250
+        B747_setMaxThrust( simDR_thrust_max - 250)
       end
     elseif simDR_onGround == 1 and math.max(simDR_reverser_deploy_ratio[0], simDR_reverser_deploy_ratio[1], simDR_reverser_deploy_ratio[2], simDR_reverser_deploy_ratio[3]) > 0.0
       and math.max(simDR_reverser_deploy_ratio[0], simDR_reverser_deploy_ratio[1], simDR_reverser_deploy_ratio[2], simDR_reverser_deploy_ratio[3]) < 0.1
       and simDR_thrust_max ~= engine_max_thrust_n then
-        simDR_thrust_max = engine_max_thrust_n
+        B747_setMaxThrust(engine_max_thrust_n)
     end
 
     if B747DR_log_level >= 2 then
@@ -745,7 +745,7 @@ function engine_idle_control_RR(altitude_ft_in)
       engine_max_thrust_n = 258000
       simDR_throttle_max = 1.0
       if orig_thrust_n == 0.0 or B747DR_newsimconfig_data == 1 then
-        simDR_thrust_max = 258000  --252970  --(56870 lbf)
+        B747_setMaxThrust(258000)  --252970  --(56870 lbf)
         simDR_reverser_max = 0.75
       end
       simDR_compressor_area = 3.54136  --(86.3-inch fan -- 38.12 sq. ft)
@@ -753,7 +753,7 @@ function engine_idle_control_RR(altitude_ft_in)
       engine_max_thrust_n = 270000
       simDR_throttle_max = 1.0
       if orig_thrust_n == 0.0 or B747DR_newsimconfig_data == 1 then
-        simDR_thrust_max = 270000  --264450  --(59450 lbf)
+        B747_setMaxThrust(270000)  --264450  --(59450 lbf)
         simDR_reverser_max = 0.75
       end
       simDR_compressor_area = 3.54136  --(86.3-inch fan -- 38.12 sq. ft)
@@ -761,7 +761,7 @@ function engine_idle_control_RR(altitude_ft_in)
       engine_max_thrust_n = 270000
       simDR_throttle_max = 1.0
       if orig_thrust_n == 0.0 or B747DR_newsimconfig_data == 1 then
-        simDR_thrust_max = 270000  --264450  --(59450 lbf)
+        B747_setMaxThrust( 270000 ) --264450  --(59450 lbf)
         simDR_reverser_max = 0.75
       end
       simDR_compressor_area = 3.54136  --(86.3-inch fan -- 38.12 sq. ft)
@@ -769,7 +769,7 @@ function engine_idle_control_RR(altitude_ft_in)
       engine_max_thrust_n = 258000
       simDR_throttle_max = 1.0
       if orig_thrust_n == 0.0 or B747DR_newsimconfig_data == 1 then
-        simDR_thrust_max = 258000  --252970  --(56870 lbf)
+        B747_setMaxThrust(258000)  --252970  --(56870 lbf)
         simDR_reverser_max = 0.75
       end
       simDR_compressor_area = 3.54136  --(86.3-inch fan -- 48.19 sq. ft)
@@ -914,18 +914,18 @@ function engine_idle_control_RR(altitude_ft_in)
           or B747DR_display_EPR[2] < simDR_EPR_target_bug[2] or B747DR_display_EPR[3] < simDR_EPR_target_bug[3]) --then
       and math.max(simDR_EPR_target_bug[0] - B747DR_display_EPR[0], simDR_EPR_target_bug[1] - B747DR_display_EPR[1], simDR_EPR_target_bug[2] - B747DR_display_EPR[2],
                     simDR_EPR_target_bug[3] - B747DR_display_EPR[3]) > 0.045 then  --set a tolerance to ensure the engines don't overboost unnecessarily
-      simDR_thrust_max = simDR_thrust_max + 200
+                      B747_setMaxThrust(simDR_thrust_max + 200)
     elseif simDR_thrust_max > orig_thrust_n and simDR_onGround == 0 and B747DR_radio_altitude > 1500 then  --slowly reset max engine thrust to normal
       if simDR_thrust_max > orig_thrust_n + 10 then
-        simDR_thrust_max = simDR_thrust_max - 10
+        B747_setMaxThrust(simDR_thrust_max - 10)
       else
-        simDR_thrust_max = simDR_thrust_max - 1
+        B747_setMaxThrust(simDR_thrust_max - 1)
       end
     end
 
     --After manipulating simDR_thrust_max, ensure that it doesn't go below the max output
     if simDR_thrust_max < engine_max_thrust_n then
-      simDR_thrust_max = engine_max_thrust_n
+      B747_setMaxThrust(engine_max_thrust_n)
     end
 
     --Failsafe option in case takeoff_thrust_epr isn't set

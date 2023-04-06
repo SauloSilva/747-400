@@ -559,28 +559,28 @@ function engine_idle_control_PW(altitude_ft_in)
       engine_max_thrust_n = 254000
       simDR_throttle_max = 1.0
       if orig_thrust_n == 0.0 or B747DR_newsimconfig_data == 1 then
-        simDR_thrust_max = 254000  --252437  --(56750 lbf)
+        B747_setMaxThrust(254000)  --252437  --(56750 lbf)
       end
       simDR_compressor_area = 4.47727  --(94-inch fan -- 48.19 sq. ft)
     elseif string.match(simConfigData["data"].PLANE.engines, "4060") then
       engine_max_thrust_n = 267000
       simDR_throttle_max = 1.0
       if orig_thrust_n == 0.0 or B747DR_newsimconfig_data == 1 then
-        simDR_thrust_max = 267000  --266893  --(60000 lbf)
+        B747_setMaxThrust(267000)  --266893  --(60000 lbf)
       end
       simDR_compressor_area = 4.47727  --(94-inch fan -- 48.19 sq. ft)
     elseif string.match(simConfigData["data"].PLANE.engines, "4062")  then
       engine_max_thrust_n = 276000
       simDR_throttle_max = 1.0
       if orig_thrust_n == 0.0 or B747DR_newsimconfig_data == 1 then
-        simDR_thrust_max = 276000  --275790  --(62000 lbf)
+        B747_setMaxThrust(276000)  --275790  --(62000 lbf)
       end
       simDR_compressor_area = 4.47727  --(94-inch fan -- 48.19 sq. ft)
     else  --Assume PW4056 if all else fails
       engine_max_thrust_n = 254000
       simDR_throttle_max = 1.0
       if orig_thrust_n == 0.0 or B747DR_newsimconfig_data == 1 then
-        simDR_thrust_max = 254000  --252437  --(56750 lbf)
+        B747_setMaxThrust(254000)  --252437  --(56750 lbf)
       end
       simDR_compressor_area = 4.47727  --(94-inch fan -- 48.19 sq. ft)
     end
@@ -717,18 +717,18 @@ function engine_idle_control_PW(altitude_ft_in)
       and math.max(simDR_N1[0], simDR_N1[1], simDR_N1[2], simDR_N1[3]) > 99.99
       and (B747DR_display_EPR[0] < simDR_EPR_target_bug[0] or B747DR_display_EPR[1] < simDR_EPR_target_bug[1]
           or B747DR_display_EPR[2] < simDR_EPR_target_bug[2] or B747DR_display_EPR[3] < simDR_EPR_target_bug[3]) then
-      simDR_thrust_max = simDR_thrust_max + 200
+            B747_setMaxThrust(simDR_thrust_max + 200)
     elseif simDR_thrust_max > orig_thrust_n and simDR_onGround == 0 and B747DR_radio_altitude > 1500 then  --slowly reset max engine thrust to normal
       if simDR_thrust_max > orig_thrust_n + 10 then
-        simDR_thrust_max = simDR_thrust_max - 10
+        B747_setMaxThrust(simDR_thrust_max - 10)
       else
-        simDR_thrust_max = simDR_thrust_max - 1
+        B747_setMaxThrust(simDR_thrust_max - 1)
       end
     end
 
     --After manipulating simDR_thrust_max, ensure that it doesn't go below the max output
     if simDR_thrust_max < engine_max_thrust_n then
-      simDR_thrust_max = engine_max_thrust_n
+      B747_setMaxThrust(engine_max_thrust_n)
     end
   
     --Failsafe option in caser takeoff_thrust_epr isn't set

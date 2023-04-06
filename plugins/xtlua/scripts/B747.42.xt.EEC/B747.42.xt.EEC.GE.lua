@@ -471,28 +471,28 @@ function GE(altitude_ft_in)
     engine_max_thrust_n = 258000
     simDR_throttle_max = 1.0
     if orig_thrust_n == 0.0 or B747DR_newsimconfig_data == 1 then
-      simDR_thrust_max = 258000  --254260  --(57160 lbf)
+      B747_setMaxThrust(258000)  --254260  --(57160 lbf)
     end
     simDR_compressor_area = 4.38251 --(93-inch fan -- 47.17 sq. ft)
 	elseif string.match(simConfigData["data"].PLANE.engines, "B5F") then
     engine_max_thrust_n = 276000
     simDR_throttle_max = 1.0
     if orig_thrust_n == 0.0 or B747DR_newsimconfig_data == 1 then
-      simDR_thrust_max = 276000  --267028  --(60030 lbf)
+      B747_setMaxThrust(276000)  --267028  --(60030 lbf)
     end
     simDR_compressor_area = 4.38251 --(93-inch fan -- 47.17 sq. ft)
 	elseif string.match(simConfigData["data"].PLANE.engines, "B1F1")  then
     engine_max_thrust_n = 276000
     simDR_throttle_max = 1.0
     if orig_thrust_n == 0.0 or B747DR_newsimconfig_data == 1 then
-      simDR_thrust_max = 276000  --267028  --(60030 lbf)
+      B747_setMaxThrust(276000)  --267028  --(60030 lbf)
     end
     simDR_compressor_area = 4.38251 --(93-inch fan -- 47.17 sq. ft)
   else  --Assume CF6-802C-B1F if all else fails
     engine_max_thrust_n = 258000
     simDR_throttle_max = 1.0
     if orig_thrust_n == 0.0 or B747DR_newsimconfig_data == 1 then
-      simDR_thrust_max = 258000  --254260  --(57160 lbf)
+      B747_setMaxThrust(258000)  --254260  --(57160 lbf)
     end
     simDR_compressor_area = 4.38251 --(93-inch fan -- 47.17 sq. ft)
 	end
@@ -603,12 +603,12 @@ function GE(altitude_ft_in)
       and math.max(simDR_N1[0], simDR_N1[1], simDR_N1[2], simDR_N1[3]) > 99.99
       and (B747DR_display_N1[0] < simDR_N1_target_bug[0] or B747DR_display_N1[1] < simDR_N1_target_bug[1]
           or B747DR_display_N1[2] < simDR_N1_target_bug[2] or B747DR_display_N1[3] < simDR_N1_target_bug[3]) then
-      simDR_thrust_max = simDR_thrust_max + 200
+            B747_setMaxThrust(simDR_thrust_max + 200)
     elseif simDR_thrust_max > orig_thrust_n and simDR_onGround == 0 and B747DR_radio_altitude > 1500 then  --slowly reset max engine thrust to normal
       if simDR_thrust_max > orig_thrust_n + 10 then
-        simDR_thrust_max = simDR_thrust_max - 10
+        B747_setMaxThrust(simDR_thrust_max - 10)
       else
-        simDR_thrust_max = simDR_thrust_max - 1
+        B747_setMaxThrust(simDR_thrust_max - 1)
       end
     end
 

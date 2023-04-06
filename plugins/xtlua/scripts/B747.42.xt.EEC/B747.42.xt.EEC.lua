@@ -212,6 +212,7 @@ simDR_flap_ratio			= find_dataref("sim/cockpit2/controls/flap_ratio")
 
 simDR_flap_handle_ratio		= find_dataref("sim/cockpit2/controls/flap_handle_deploy_ratio")
 simDR_thrust_max			= find_dataref("sim/aircraft/engine/acf_tmax")
+simDR_thrust_max_engine			= find_dataref("sim/aircraft/engine/acf_tmax_per_engine")
 simDR_thrust_n				= find_dataref("sim/cockpit2/engine/indicators/thrust_dry_n")
 simDR_engine_anti_ice		= find_dataref("laminar/B747/antiice/nacelle/valve_pos")
 simDR_acceleration_kts_sec_pilot    = find_dataref("sim/cockpit2/gauges/indicators/airspeed_acceleration_kts_sec_pilot")
@@ -418,6 +419,13 @@ function B747_animate_value(current_value, target, min, max, speed)
         return nextValue
     end
 
+end
+function B747_setMaxThrust(value)
+	simDR_thrust_max_engine[0]=value
+	simDR_thrust_max_engine[1]=value
+	simDR_thrust_max_engine[2]=value
+	simDR_thrust_max_engine[3]=value
+	simDR_thrust_max=value
 end
 --[[
 *************************************************************************************
@@ -1092,8 +1100,10 @@ function flight_start()
 end
 function after_physics()
 	collectgarbage("collect")
+	if hasSimConfig()==false then return end
 	if debug_ecc>0 then return end
-    if hasSimConfig()==false then return end
+    
+
     atmosphere(simDR_altitude, 0)
     flight_coefficients(simDR_acf_weight_total_kg, simDR_tas_pilot)
 
