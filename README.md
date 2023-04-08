@@ -123,7 +123,41 @@ See the [commit history](https://github.com/mSparks43/747-400/commits/master) fo
 
 _Thank you all for your support and contributions!_
 
-## Release 3.0a1 for XP12:
+## Release XP1205-2023/04/09:
+XP12 Milestone release based on extensive flight testing and user feedback. 
+
+### Enhancements
+
+ - Yet more lighting tweeks 
+ - Rebalanced system load for smoother performance
+ - Updated airfoil and flaps from Laminar to more closely match real world performance
+ - Custom autothrottle and 4 independent ECCs
+ - AutoATC voice command definitions for flaps and MCP speed/altitude/vspeed
+ - EGT thermal profile
+ - New Autopilot for glideslope following
+ - Automatically turn off/on cabin lighting when <FL100 or groundspeed > 15kts
+ - Run GC every system cycle to prevent long GC pauses
+ - Version detection for XP11/XP12 systems
+ - Handle start airborne on approach automatic AP activation.
+
+### Bug fixes
+
+ - Manual ILS tuning would fail for some airports [issue 838](https://github.com/mSparks43/747-400/issues/838)
+ - fixed stabilizer animation
+ - ND track/heading inconsistency
+ - Throttle target remained on when EICAS display was off
+ - Flight data recorder LNAV and VNAV data inverted
+ - CTD in VNAV descent when above cruise altitude
+ - Skipped frames in throttle and flight directors would corrupt autopilot estimates
+ - Ensure LOC and GS remain active once captured
+ - Thrust reverse could get out of sync
+ - Range Arc using actual rather than target vertical speed
+ - Wing flex force feedback causing "bounce of death"
+ - CTD when weight below 180,000kg
+ - Ensure max power is set on all engines
+ - Go Around on TOGA press not functioning.
+
+## Release 3.0a1 for XP12 (OP Program XP1150-2022/10/25):
 Release 3.0 brings compatibility with XP12 and starts to incorporate some of the new features now available.
 
 ### Enhancements
@@ -140,7 +174,7 @@ Release 3.0 brings compatibility with XP12 and starts to incorporate some of the
  - Brakes now cool when engaged but not slowing the plane down
  - fix default XP gear up/off/down commands
 
-## Release 2.4:
+## Release 2.4 (OP Program XP1150-2022/09/04):
 Release 2.4 is a bug fix release.
 
 RB211 engines repositioned by Andromeda95
@@ -155,7 +189,7 @@ RB211 engines repositioned by Andromeda95
  - 829 A/T issue during descend with VNAV SPD
 
 
-## Release 2.3:
+## Release 2.3 (OP Program XP1150-2022/06/26):
 Release 2.3 focuses on flight model enhancements and bug fixes to the existing systems.
 A very special thanks to MCCVeen and oMrSmith for their extensive testing and accurate reporting of issues, a very large number of fixes in this release wouldn't have been possible without the detailed breakdowns they provided. 
 
@@ -218,7 +252,7 @@ Release 2.2 focuses on enhancements and bug fixes to the existing systems and fl
 - Allow thrust reverse toggle while airborne
 - Throttle down in vnav if have throttle and accelerating during descent
 
-## Release 2.1:
+## Release 2.1 (OP Program XP1150-2021/12/11):
 
 On 11/12/2020 at 13:15 UTC, the last, the very last British Airways 747-400, G-BYGC took to the skies for one last flight from Cardiff (EGFF) to St. Athan (EGSY). Despite the short hop to the breaker's yard, it became an emotional farewell to an aircraft that was used by British Airways for over 50 years.
 
