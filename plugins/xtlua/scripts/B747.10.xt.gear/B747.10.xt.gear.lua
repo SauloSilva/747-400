@@ -192,13 +192,19 @@ B747DR_gear_handle_detent 	= deferred_dataref("laminar/B747/actuator/gear_handle
 
 local runningGear=0
 function B747CMD_gear_up_full_CMDhandler(phase, duration)
-  runningGear=1 --up
+    if B747DR_gear_handle~=2 then
+        runningGear=1 --up
+    end
 end  
 function B747CMD_gear_down_full_CMDhandler(phase, duration)
-  runningGear=-1 --down
+    if B747DR_gear_handle~=0 then
+        runningGear=-1 --down
+    end
 end  
 function B747CMD_gear_off_CMDhandler(phase, duration)
-    runningGear=2 --off
+    if B747DR_gear_handle~=1 then
+        runningGear=2 --off
+    end
 end
 function B747_animate_value(current_value, target, min, max, speed)
 
