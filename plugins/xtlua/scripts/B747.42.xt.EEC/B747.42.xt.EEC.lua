@@ -421,10 +421,10 @@ function B747_animate_value(current_value, target, min, max, speed)
 
 end
 function B747_setMaxThrust(value)
-	simDR_thrust_max_engine[0]=value
+	--[[simDR_thrust_max_engine[0]=value
 	simDR_thrust_max_engine[1]=value
 	simDR_thrust_max_engine[2]=value
-	simDR_thrust_max_engine[3]=value
+	simDR_thrust_max_engine[3]=value]]--
 	simDR_thrust_max=value
 end
 --[[

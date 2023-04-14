@@ -354,7 +354,7 @@ function B747_thrust_rev_hold_max_1_CMDhandler(phase, duration)
 	if phase == 2 then
 		
 		if B747_hold_rev_on_engine[0] == 1 then
-			simDR_prop_mode[0] = 1														
+			--simDR_prop_mode[0] = 1														
 			simDR_engine_throttle_jet[0] = 0.0
 			B747_hold_rev_on_engine[0] = 0
 		end
@@ -384,7 +384,7 @@ function B747_thrust_rev_hold_max_2_CMDhandler(phase, duration)
 	if phase == 2 then
 		
 		if B747_hold_rev_on_engine[1] == 1 then
-			simDR_prop_mode[1] = 1														
+			--simDR_prop_mode[1] = 1														
 			simDR_engine_throttle_jet[1] = 0.0
 			B747_hold_rev_on_engine[1] = 0
 		end
@@ -413,7 +413,7 @@ function B747_thrust_rev_hold_max_3_CMDhandler(phase, duration)
 	if phase == 2 then
 		
 		if B747_hold_rev_on_engine[2] == 1 then
-			simDR_prop_mode[2] = 1														
+			--simDR_prop_mode[2] = 1														
 			simDR_engine_throttle_jet[2] = 0.0
 			B747_hold_rev_on_engine[2] = 0
 		end
@@ -444,13 +444,17 @@ function B747_thrust_rev_hold_max_4_CMDhandler(phase, duration)
 	if phase == 2 then
 		
 		if B747_hold_rev_on_engine[3] == 1 then
-			simDR_prop_mode[3] = 1														
+			--simDR_prop_mode[3] = 1														
 			simDR_engine_throttle_jet[3] = 0.0
 			B747_hold_rev_on_engine[3] = 0
 		end
 					
     end
     
+end
+function canx_revHold()
+    simDR_engine_throttle_jet_all = 0.0
+    B747_hold_rev_on_all = 0
 end
 
 function B747_thrust_rev_hold_max_all_CMDhandler(phase, duration)
@@ -480,12 +484,13 @@ function B747_thrust_rev_hold_max_all_CMDhandler(phase, duration)
 	if phase == 2 then
 		
 		if B747_hold_rev_on_all == 1 then
-			simDR_prop_mode[0] = 1													
-			simDR_prop_mode[1] = 1													
-			simDR_prop_mode[2] = 1													
-			simDR_prop_mode[3] = 1		
-			simDR_engine_throttle_jet_all = 0.0
-			B747_hold_rev_on_all = 0
+			--simDR_prop_mode[0] = 1													
+			--simDR_prop_mode[1] = 1													
+			--simDR_prop_mode[2] = 1													
+			--simDR_prop_mode[3] = 1	
+            --print("canx rev")	
+			simDR_engine_throttle_jet_all = -0.01
+            run_after_time(canx_revHold,5)
 		end
 					
     end
@@ -713,12 +718,16 @@ function B747_prop_mode()
     else 
         B747DR_reverser_lockout = 0
     end
+   
     for i = 0, 3 do
+       --print("in clear prop mode "..i.." with "..B747DR_display_N1[i])
         if callEngineReverse[i]==0 then 
             simDR_prop_mode[i] = 1
+         --   print("do clear prop mode "..i.." with "..B747DR_display_N1[i])
         elseif B747DR_speedbrake_lever<LastSpeedBrake and callEngineReverse[i]==1 and B747DR_reverser_lockout == 0 then
             simDR_prop_mode[i] = 1
             callEngineReverse[i]=-1
+          --  print("alt do clear prop mode "..i.." with "..B747DR_display_N1[i])
         elseif callEngineReverse[i]==1 and B747DR_reverser_lockout == 0 then
             simDR_prop_mode[i] = 3
         end
@@ -1213,6 +1222,7 @@ function B747_animate_value(current_value, target, min, max, speed)
     end
 
 end
+local wasFire=false
 function B747_secondary_EICAS2_engine_vibration()
     --local vibrationRate=0
     local timeNow=0
@@ -1232,6 +1242,11 @@ function B747_secondary_EICAS2_engine_vibration()
     lastWingFlex=B747_animate_value(lastWingFlex,wingFlex,-30,30,20)
     local airspeedReduction=(400-simDR_ind_airspeed_kts_pilot)/400
     for i = 0, 3 do
+        if simDR_engine_fire[i] > 0 then
+            B747_engine_maxVib[i]= math.random(2, 3)
+        --else
+         --   B747_engine_maxVib[i]= math.min(1.3, math.random(0, 1) + math.random())
+        end
     B747DR_EICAS2_engine_vibration[i] = B747_rescale(0.0, 0.0, 100.0, B747_engine_maxVib[i], B747DR_display_N2[i])
     timeNow=B747_engine_lastClock[i]+(os.clock()-B747_engine_lastClock[i])
     thrust=math.max((B747DR_display_N2[i]-60)/10,0)
