@@ -20,32 +20,32 @@ simDRTime=find_dataref("sim/time/total_running_time_sec")
 pilotSeatHotspot={}
 pilotSeatHotspot[0]=-0.53738
 pilotSeatHotspot[1]=5.174243
-pilotSeatHotspot[2]=(-26.094387+2.5)
+pilotSeatHotspot[2]=(-26.094387)--+2.5)
 
 fmcLHotspot={}
 fmcLHotspot[0]=-0.240369
 fmcLHotspot[1]=4.957494
-fmcLHotspot[2]=(-26.407701+2.5)
+fmcLHotspot[2]=(-26.407701)--+2.5)
 
 mcpHotspot={}
 mcpHotspot[0]=-0.059938
 mcpHotspot[1]=5.153586
-mcpHotspot[2]=(-26.093819+2.5)
+mcpHotspot[2]=(-26.093819)--+2.5)
 
 ocpHotspot={}
 ocpHotspot[0]=-0.059938
 ocpHotspot[1]=5.153586
-ocpHotspot[2]=(-25.635084+2.5)
+ocpHotspot[2]=(-25.635084)--+2.5)
 
 docHotspot={}
 docHotspot[0]=-0.546462
 docHotspot[1]=5.301905
-docHotspot[2]=(-26.0+2.5)
+docHotspot[2]=(-26.0)--+2.5)
 
 srcHotspot={}
 srcHotspot[0]=-0.059938
 srcHotspot[1]=5.153586
-srcHotspot[2]=(-25.635084+2.5)
+srcHotspot[2]=(-25.635084)--+2.5)
 
 movingtoTarget=false
 targetHotspot=pilotSeatHotspot
