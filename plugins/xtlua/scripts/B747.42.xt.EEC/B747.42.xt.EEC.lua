@@ -199,6 +199,7 @@ simDR_EPR_target_bug		= find_dataref("sim/cockpit2/engine/actuators/EPR_target_b
 simDR_N1					= find_dataref("sim/flightmodel/engine/ENGN_N1_")
 simDR_N1_target_bug			= find_dataref("sim/cockpit2/engine/actuators/N1_target_bug")
 simDR_N2					= find_dataref("sim/flightmodel/engine/ENGN_N2_")
+simDR_heating				= find_dataref("sim/flightmodel2/engines/engine_is_burning_fuel")
 simDR_throttle_ratio		= find_dataref("sim/cockpit2/engine/actuators/throttle_ratio")
 simDR_override_throttles	= find_dataref("sim/operation/override/override_throttles")
 simDR_engn_thro				= find_dataref("sim/flightmodel/engine/ENGN_thro")
@@ -546,7 +547,17 @@ function egt_thermal_profile(tempIn,engineid,current_value)
 	elseif tempIn<150 then
 		thermalIn=current_value-10
 	end
-	local rate = (thermalIn-current_value) /50
+	local div=120
+	if simDR_N1[engineid]<29 and simDR_N2[engineid]>25 and simDR_heating[engineid]>0 then
+		div=1050
+	end
+
+	--freeze engine
+	if simDR_N2[engineid]<22 and simDR_engine_starter_status[engineid]<0.5 and simDR_heating[engineid]<0.5 then
+	 simDR_N2[engineid]=0
+	end
+
+	local rate = (thermalIn-current_value) /div
 	local tempOut=current_value+rate
 	--print(engineid.."="..tempIn.." to "..tempOut.." at ".. rate)	
 	return math.max(simDR_temperature,tempOut)--current_value+rate
