@@ -449,12 +449,14 @@ function getGlideSlopeFPM()
     local speed_fpm=simDR_groundspeed*196.85
     thisTargetGlideslipeFPM=-math.tan(math.rad(simDR_glideslope1))*speed_fpm
     local nextVdef=simDR_hsi_vdef_dots_pilot --+speed_delta --look ahead
-
-    thisTargetGlideslipeFPM=thisTargetGlideslipeFPM-(150*nextVdef) --was 75 last testing
+   -- local correction=(8*nextVdef*nextVdef*nextVdef)
+    local correction=(75*nextVdef)
+    local resultTargetGlideslipeFPM=thisTargetGlideslipeFPM-correction --was 75 last testing
+    --print("fin thisTargetGlideslipeFPM "..thisTargetGlideslipeFPM.." correction "..correction.." resultTargetGlideslipeFPM "..resultTargetGlideslipeFPM)
     if debug_flight_directors==1 then
-        print("fin thisTargetGlideslipeFPM "..thisTargetGlideslipeFPM)
+        print("fin simDR_glideslope1 "..simDR_glideslope1.."thisTargetGlideslipeFPM "..thisTargetGlideslipeFPM.." correction "..correction.." resultTargetGlideslipeFPM "..resultTargetGlideslipeFPM)
     end
-    return thisTargetGlideslipeFPM
+    return resultTargetGlideslipeFPM
   
 end
 
@@ -665,8 +667,9 @@ function ap_director_pitch(pitchMode)
         prev_vvi_update=directorSampleRate
         --end
        
-        local rog=0.001+0.00004*vviError/(time*30)
-        local div=B747_rescale(100,15,300,0.3,simDR_ind_airspeed_kts_pilot)
+        --local rog=0.001+0.00004*vviError/(time*30)
+        local rog=0.001+0.000003*math.abs(currentFPM-targetFPM)
+        local div=B747_rescale(100,30,300,0.3,simDR_ind_airspeed_kts_pilot)
         if debug_flight_directors==1 then
             print("directorSampleRate "..directorSampleRate.." div "..div)
         end
