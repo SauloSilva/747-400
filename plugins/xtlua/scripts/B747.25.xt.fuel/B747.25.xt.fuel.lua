@@ -310,10 +310,8 @@ B747.fuel.jett_nozzle_vlv_R       = {}
 --**                      LOCAL VARIABLES                          **--
 --*************************************************************************************--
 
-local B747_fuel_control_toggle_sw_pos_target = {}
-for i = 0, NUM_FUEL_TOGGLE_SW-1 do
-    B747_fuel_control_toggle_sw_pos_target[i] = 0
-end
+B747_fuel_control_toggle_sw_pos_target = deferred_dataref("laminar/B747/fuel/switch_target", "array[4]")--{}
+
 
 local B747_stab_pump_low_press_shutoff_L = 0
 local B747_stab_pump_low_press_shutoff_R = 0
@@ -3409,11 +3407,13 @@ function B747_set_fuel_CD()
     --run_after_time(startFuelProcessing, 10.0)                                        -- DELAYED FUEL PROCESSING
 
     -- TURN OFF THE FUEL CONTROL VALVES
-    if B747DR_fuel_control_toggle_switch_pos[0] > 0.5 then B747CMD_fuel_control_switch1:once() end
+    --[[if B747DR_fuel_control_toggle_switch_pos[0] > 0.5 then B747CMD_fuel_control_switch1:once() end
     if B747DR_fuel_control_toggle_switch_pos[1] > 0.5 then B747CMD_fuel_control_switch2:once() end
     if B747DR_fuel_control_toggle_switch_pos[2] > 0.5 then B747CMD_fuel_control_switch3:once() end
-    if B747DR_fuel_control_toggle_switch_pos[3] > 0.5 then B747CMD_fuel_control_switch4:once() end
-
+    if B747DR_fuel_control_toggle_switch_pos[3] > 0.5 then B747CMD_fuel_control_switch4:once() end]]--
+    for i = 0, NUM_FUEL_TOGGLE_SW-1 do
+        B747_fuel_control_toggle_sw_pos_target[i] = 0
+    end
 end
 
 

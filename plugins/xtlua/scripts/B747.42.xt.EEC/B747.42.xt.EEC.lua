@@ -542,10 +542,13 @@ function egt_thermal_profile(tempIn,engineid,current_value)
 	--B747DR_display_EGT[i]
 	
 	local thermalIn=tempIn
-	if tempIn<320 and tempIn>150 then
+	--[[if tempIn<320 and tempIn>120 then
 		thermalIn=320
-	elseif tempIn<150 then
+	else]]--
+	if tempIn<100 and simDR_engine_starter_status[engineid]<0.5 and simDR_heating[engineid]<0.5 then
 		thermalIn=current_value-10
+	elseif tempIn<150 and tempIn>100 and simDR_heating[engineid]>0.5 then
+			thermalIn=150
 	end
 	local div=120
 	if simDR_N1[engineid]<29 and simDR_N2[engineid]>25 and simDR_heating[engineid]>0 then

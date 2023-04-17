@@ -370,6 +370,7 @@ B747CMD_fuel_control_switch1 	= deferred_command("laminar/B747/fuel/fuel_control
 B747CMD_fuel_control_switch2 	= deferred_command("laminar/B747/fuel/fuel_control_2/toggle_switch", "Fuel Control Switch 2", B747_fuel_control_switch2_CMDhandler)
 B747CMD_fuel_control_switch3 	= deferred_command("laminar/B747/fuel/fuel_control_3/toggle_switch", "Fuel Control Switch 3", B747_fuel_control_switch3_CMDhandler)
 B747CMD_fuel_control_switch4 	= deferred_command("laminar/B747/fuel/fuel_control_4/toggle_switch", "Fuel Control Switch 4", B747_fuel_control_switch4_CMDhandler)
+B747_fuel_control_toggle_sw_pos_target = deferred_dataref("laminar/B747/fuel/switch_target", "array[4]")--{}
 B747DR_engine_fuel_valve_pos        = find_dataref("laminar/B747/engines/fuel_valve_pos")
 
 -- AI
