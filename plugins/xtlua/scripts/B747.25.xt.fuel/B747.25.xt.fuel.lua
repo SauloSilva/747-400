@@ -567,6 +567,8 @@ end
 
 
 -- TQ FUEL CONTROL SWITCHES
+B747DR_dsp_synoptic_display                     = find_dataref("laminar/B747/dsp/synoptic_display")
+
 function B747_fuel_control_switch1_CMDhandler(phase, duration)
     if phase == 0 then
         B747_fuel_control_toggle_sw_pos_target[0] = 1.0 - B747_fuel_control_toggle_sw_pos_target[0]
