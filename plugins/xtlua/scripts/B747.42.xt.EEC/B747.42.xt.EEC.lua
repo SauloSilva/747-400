@@ -749,11 +749,17 @@ function ecc_spd()
 			simDR_override_throttles = 1
 		end
 		local diffSpeed=2
-		
+		--print("ecc spd")
 		for i = 0, 3 do
 			
-			
-			if B747DR_engineType==1 then --GE, n1 target
+			if B747DR_display_N2[i]<60 then
+				eccPid[i].kp=1
+				eccPid[i].ki=0
+				eccPid[i].kd=0
+				eccPid[i].input = 100
+				eccPid[i].target = 1
+				--print("cull fuel")
+			elseif B747DR_engineType==1 then --GE, n1 target
 				eccPid[i].kp=B747DR_pideccP
 				eccPid[i].ki=B747DR_pideccI
 				eccPid[i].kd=B747DR_pideccD
