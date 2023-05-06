@@ -1077,10 +1077,13 @@ function flight_controls_override()
     B747DR_l_aileron_outer_lockout   = 1.0-B747_rescale(232,0,238,1.0,simDR_ias_pilot)
     B747DR_r_aileron_outer_lockout   = (1.0-B747_rescale(232,0,238,1.0,simDR_ias_pilot))*-1
     B747_slats()
-    B747DR_sim_pitch_ratio=ap_pitch_assist()
-    
-    B747DR_sim_roll_ratio=ap_roll_assist()
-
+    if((simDRTime - B747DR_switching_servos_on)<2) then
+        ap_pitch_assist()
+        ap_roll_assist()
+    else
+        B747DR_sim_pitch_ratio=ap_pitch_assist()
+        B747DR_sim_roll_ratio=ap_roll_assist()
+    end
     yaw_damper_system()
 
 end

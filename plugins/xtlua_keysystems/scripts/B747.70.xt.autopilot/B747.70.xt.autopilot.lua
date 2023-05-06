@@ -138,6 +138,7 @@ simDR_autopilot_hold_altitude_ft = find_dataref("laminar/B747/autopilot/altitude
 simDR_autopilot_tod_index = find_dataref("sim/cockpit2/radios/indicators/fms_tod_before_index_pilot")
 simDR_autopilot_tod_distance = find_dataref("sim/cockpit2/radios/indicators/fms_distance_to_tod_pilot")
 B747DR_alt_capture_window        = deferred_dataref("laminar/B747/autopilot/ap_monitor/alt_capture_window", "number")
+B747DR_switching_servos_on = deferred_dataref("laminar/B747/autopilot/ap_monitor/servos_on_time", "number")
 B747DR_display_N1 = find_dataref("laminar/B747/engines/display_N1")
 B747DR_display_N2 = find_dataref("laminar/B747/engines/display_N2")
 B747DR_fmc_notifications = find_dataref("laminar/B747/fms/notification")
@@ -721,7 +722,7 @@ function B747_ap_alt_hold_mode_CMDhandler(phase, duration)
 	end
 end
 
-local switching_servos_on = simDRTime
+
 function B747_ap_switch_cmd_L_CMDhandler(phase, duration)
 	print("B747_ap_switch_cmd_L_CMDhandler "..phase.." "..duration)
 	if phase == 0 then
@@ -732,7 +733,7 @@ function B747_ap_switch_cmd_L_CMDhandler(phase, duration)
 			if B747DR_ap_cmd_L_mode == 0 and simDR_radarAlt1>400 and (B747DR_ap_cmd_R_mode+B747DR_ap_cmd_C_mode)==0 then -- LEFT CMD AP MODE IS "OFF"
 				if simDR_autopilot_servos_on == 0 then -- AUTOPILOT IS NOT ENGAGED
 					simCMD_autopilot_servos_on:once()
-					switching_servos_on = simDRTime -- TURN THE AP SERVOS "ON"
+					B747DR_switching_servos_on = simDRTime -- TURN THE AP SERVOS "ON"
 				--simDR_autopilot_servos_on=1
 				end
 				B747DR_ap_cmd_L_mode = 1 -- SET AP CMD L MODE TO "ON"
@@ -758,7 +759,7 @@ function B747_ap_switch_cmd_C_CMDhandler(phase, duration)
 				if simDR_autopilot_servos_on == 0 then -- AUTOPILOT IS NOT ENGAGED
 					--simCMD_autopilot_servos2_on:once()
 					simCMD_autopilot_servos_on:once()
-					switching_servos_on = simDRTime
+					B747DR_switching_servos_on = simDRTime
 				end
 				B747DR_ap_cmd_C_mode = 1 -- SET AP CMD C MODE TO "ON"
 			end
@@ -778,7 +779,7 @@ function B747_ap_switch_cmd_R_CMDhandler(phase, duration)
 				if simDR_autopilot_servos_on == 0 then -- AUTOPILOT IS NOT ENGAGED
 					--simCMD_autopilot_servos3_on:once()
 					simCMD_autopilot_servos_on:once()
-					switching_servos_on = simDRTime
+					B747DR_switching_servos_on = simDRTime
 				end
 				B747DR_ap_cmd_R_mode = 1 -- SET AP CMD R MODE TO "ON"
 			end
@@ -2396,7 +2397,7 @@ function fma_PitchModes()
 	--B747DR_ap_FMA_active_pitch_mode = 0
 	if B747DR_toggle_switch_position[23] == 0.0 and B747DR_toggle_switch_position[24] == 0.0 and numAPengaged == 0 and apWasOn==1 then
 		-- (TOGA) --
-		if simDR_autopilot_flight_dir_active > 0 and (simDRTime - switching_servos_on) > 1 then
+		if (simDRTime - B747DR_switching_servos_on) > 1 then
 			B747_ap_all_cmd_modes_off()
 			simCMD_autopilot_servos_fdir_off:once()
 			simCMD_autopilot_servos2_fdir_off:once()
@@ -2584,18 +2585,23 @@ end
 function B747_ap_afds()
 	local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
 	if simDR_autopilot_servos_on == 0 then
-		if numAPengaged > 0 and (simDRTime - switching_servos_on) > 1 then
+		if numAPengaged > 0 and (simDRTime - B747DR_switching_servos_on) > 1 then
 			print("reset AP in B747_ap_afds")
 			run_after_time(ap_reset, 2)
 			B747DR_CAS_warning_status[0] = 1
 			B747DR_ap_cmd_L_mode = 0
 			B747DR_ap_cmd_C_mode = 0
 			B747DR_ap_cmd_R_mode = 0
+		elseif numAPengaged == 0 then
+			B747DR_switching_servos_on = simDRTime
+
 		end
+
+		
 		--simDR_autopilot_approach_status =0
 		B747DR_ap_autoland = 0
 		landAssist = false
-	elseif simDR_autopilot_servos_on == 1 and (simDRTime - switching_servos_on) > 1 then
+	elseif simDR_autopilot_servos_on == 1 and (simDRTime - B747DR_switching_servos_on) > 1 then
 		if numAPengaged == 0 then
 			if B747DR_autothrottle_active == 1 then
 				run_after_time(autothrottle_reengage,0.5)
@@ -2790,7 +2796,7 @@ function B747_ap_all_cmd_modes_off()
 	B747DR_ap_cmd_C_mode = 0
 	B747DR_ap_cmd_R_mode = 0
 	--B747DR_ap_approach_mode = 0
-	switching_servos_on = simDRTime
+	B747DR_switching_servos_on = simDRTime
 end
 
 local last_airspeed = 0

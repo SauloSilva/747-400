@@ -752,7 +752,7 @@ function ecc_spd()
 		--print("ecc spd")
 		for i = 0, 3 do
 			
-			if B747DR_display_N2[i]<60 then
+			if B747DR_display_N2[i]<60 and simDR_onGround == 1 then
 				eccPid[i].kp=1
 				eccPid[i].ki=0
 				eccPid[i].kd=0
@@ -818,6 +818,9 @@ function spd_throttle()
 	end
 	local speed_delta=last_speed_delta
 	local rog=math.max(0.0001+0.0001*math.abs(input-target),0.0001+0.005*math.abs(speed_delta))
+	if(rog>0.005) then
+		rog=0.005
+	end
 	local min_speedDelta=0
     local max_speedDelta=0
 	if  speedError > 1 then
@@ -885,7 +888,10 @@ function ecc_throttle()
 				--print("throttle target="..target.. " current "..input.." targetBug "..targetBug.." inputBug "..inputBug)
 			end
 		end
-	local rog=0.01
+	local rog=0.0001+0.0001*math.abs(input-target)
+	if(rog>0.005) then
+		rog=0.005
+	end
 	if (target> input+1) then
 		spd_target_throttle= (spd_target_throttle+rog)
 	elseif target< input-1 then

@@ -62,6 +62,7 @@ B747DR_pidyawDrollL = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/d/roll/l"
 B747DR_pidyawProllH = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/p/roll/h", "number")
 B747DR_pidyawProllL = deferred_dataref("laminar/B747/flt_ctrls/pid/yaw/p/roll/l", "number")
 B747DR_alt_capture_window        = deferred_dataref("laminar/B747/autopilot/ap_monitor/alt_capture_window", "number")
+
 simDR_AHARS_heading_deg_pilot = find_dataref("sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_pilot")
 simDR_autopilot_TOGA_pitch_deg      	= find_dataref("sim/cockpit2/autopilot/TOGA_pitch_deg")
 B747DR_controlOverrides   = find_dataref("xtlua/controlObject")
@@ -329,7 +330,7 @@ function B747_rescale(in1, out1, in2, out2, x)
   return out1 + (out2 - out1) * (x - in1) / (in2 - in1)
 
 end
-
+B747DR_switching_servos_on = deferred_dataref("laminar/B747/autopilot/ap_monitor/servos_on_time", "number")
 dofile("B747.19.xt.hydraulics_override.lua")
 function B747_engine_hyd_valves()
 -- ENGINE #1
