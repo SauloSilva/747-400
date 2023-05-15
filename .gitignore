@@ -8,3 +8,8 @@ liveries/Qantas Wunala Dreaming VH-OJB (RR)/
 liveries/WAMOS*
 liveries/British Airways G-CIVX/
 *.acf~
+747-400F.acf
+747-400F.acf.terrain_radar_descr
+747-400F_vrconfig.txt
+fmod/747-400F.snd
+objects/74F_exterior/

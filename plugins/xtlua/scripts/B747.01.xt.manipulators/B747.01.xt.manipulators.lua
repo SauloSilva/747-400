@@ -2309,15 +2309,18 @@ function B747_interpolate_value(current_value, target, min, max, speed)--speed i
   end
 function B747_throttle_animation()
     local pinlever=false
+    local refreshThro=0
     for i=0,3,1 do
         if simDR_engine_throttle_rev[i]<0 or B747DR_throttle_reversor[i]<0 then
             pinlever=true
         end
+        refreshThro=simDR_engn_thro[i]
     end
     for i=0,3,1 do
         if pinlever then
+
             B747DR_throttle_reversor[i]=B747_interpolate_value(B747DR_throttle_reversor[i],simDR_engine_throttle_rev[i],-1,0,1)
-            B747DR_throttle[i]=simDR_engn_thro[i]--B747_interpolate_value(B747DR_throttle[i],0,0,1,1)
+            B747DR_throttle[i]=B747_interpolate_value(B747DR_throttle[i],0,0,1,1)
         else
             B747DR_throttle_reversor[i]=B747_interpolate_value(B747DR_throttle_reversor[i],0,-1,0,1)
            --[[ if B747DR_ap_FMA_autothrottle_mode==0 or B747DR_ap_FMA_autothrottle_mode==1 then
@@ -2327,6 +2330,7 @@ function B747_throttle_animation()
                 --print("auto speed throttle")
                 B747DR_throttle[i]=simDR_engn_thro[i] --B747_interpolate_value(B747DR_throttle[i],simDR_engn_thro[i],0,1,2)
             end]]--
+
             B747DR_throttle[i]=simDR_engn_thro[i]--B747_interpolate_value(simDR_engn_thro[i],0,0,1,1)--simDR_engn_thro[i]
         end
     end
