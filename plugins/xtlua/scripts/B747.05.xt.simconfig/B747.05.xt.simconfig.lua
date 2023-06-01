@@ -342,6 +342,7 @@ local setSimConfig=false
 function hasSimConfig()
 	if B747DR_newsimconfig_data==1 then
 		if string.len(B747DR_simconfig_data) > 1 then
+			
 			simConfigData["data"] = json.decode(B747DR_simconfig_data)
 			setSimConfig=true
 		else
@@ -352,6 +353,7 @@ function hasSimConfig()
 end
 function after_physics()
 	--Keep the structure fresh
+	--print("in simconfig "..B747DR_simconfig_data)
 	if flightInit==false then
         do_flight_start()
     end

@@ -34,7 +34,7 @@ B747DR_ap_FMA_armed_pitch_mode      	= find_dataref("laminar/B747/autopilot/FMA/
 B747DR_ap_FMA_active_pitch_mode     	= find_dataref("laminar/B747/autopilot/FMA/active_pitch_mode")
 B747DR_ap_AFDS_status_annun_pilot     = find_dataref("laminar/B747/autopilot/AFDS/status_annun_pilot")
 B747DR_FMSdata=find_dataref("laminar/B747/fms/data")
-B747DR_FMSdata="{}"
+--B747DR_FMSdata="{}"
 
 
 

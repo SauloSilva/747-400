@@ -318,6 +318,7 @@ function doneNewSimConfig()
 end
 function pushSimConfig(values)
 	B747DR_simconfig_data=json.encode(values)
+	--print("in fms "..B747DR_simconfig_data)
 	B747DR_newsimconfig_data=1
 	run_after_time(doneNewSimConfig, 1)
 end
