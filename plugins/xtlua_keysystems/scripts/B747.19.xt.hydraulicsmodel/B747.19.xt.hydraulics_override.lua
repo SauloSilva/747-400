@@ -90,10 +90,26 @@ function pressure_input()
 end
 
 function pressure_output()
-    B747DR_hyd_sys_pressure_1=B747_pressureDRs[1]
-    B747DR_hyd_sys_pressure_2=B747_pressureDRs[2]
-    B747DR_hyd_sys_pressure_3=B747_pressureDRs[3]
-    B747DR_hyd_sys_pressure_4=B747_pressureDRs[4]
+    if B747DR_hyd_sys_restotal_1>0.1 then
+        B747DR_hyd_sys_pressure_1=B747_pressureDRs[1]
+    else
+        B747DR_hyd_sys_pressure_1=0
+    end
+    if B747DR_hyd_sys_restotal_2>0.1 then
+        B747DR_hyd_sys_pressure_2=B747_pressureDRs[2]
+    else
+        B747DR_hyd_sys_pressure_2=0
+    end
+    if B747DR_hyd_sys_restotal_3>0.1 then
+        B747DR_hyd_sys_pressure_3=B747_pressureDRs[3]
+    else
+        B747DR_hyd_sys_pressure_3=0
+    end
+    if B747DR_hyd_sys_restotal_4>0.1 then
+        B747DR_hyd_sys_pressure_4=B747_pressureDRs[4]
+    else
+        B747DR_hyd_sys_pressure_4=0
+    end
 
     B747DR_rudder_lwr_pos=B747_animate_value(B747DR_rudder_lwr_pos,controlRatios[1],-100,100,20)
     B747DR_rudder_upr_pos=B747_animate_value(B747DR_rudder_upr_pos,controlRatios[2],-100,100,20)

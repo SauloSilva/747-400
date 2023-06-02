@@ -257,6 +257,13 @@ simDR_flap2  = find_dataref("sim/flightmodel/controls/wing1l_fla1def")
 simDR_flap3  = find_dataref("sim/flightmodel/controls/wing1r_fla1def")
 simDR_flap4  = find_dataref("sim/flightmodel/controls/wing3r_fla2def")
 
+simDR_version=find_dataref("sim/version/xplane_internal_version")
+simDR_failhyd1  = find_dataref("sim/operation/failures/rel_hydleak")
+simDR_failhyd2  = find_dataref("sim/operation/failures/rel_hydleak2")
+simDR_failhyd3  = find_dataref("sim/operation/failures/rel_hydleak3")
+
+
+
 simDR_override_control_surfaces       = find_dataref("sim/operation/override/override_control_surfaces")
 simDR_override_steering               = find_dataref("sim/operation/override/override_wheel_steer")
 --simDR_hyd_press_2               = find_dataref("sim/cockpit2/hydraulics/indicators/hydraulic_pressure_2")
@@ -482,6 +489,7 @@ function B747_system_pressures()
   B747DR_hyd_sys_pressure_23=math.max(B747DR_hyd_sys_pressure_2,B747DR_hyd_sys_pressure_3)
   B747DR_hyd_sys_pressure_24=math.max(B747DR_hyd_sys_pressure_2,B747DR_hyd_sys_pressure_4) 
   B747DR_hyd_sys_pressure_234=math.max(B747DR_hyd_sys_pressure_2,B747DR_hyd_sys_pressure_3,B747DR_hyd_sys_pressure_4)
+  
   B747DR_hyd_sys_res_1=B747DR_hyd_sys_restotal_1-(B747DR_hyd_sys_pressure_1/3000)*0.1
   B747DR_hyd_sys_res_2=B747DR_hyd_sys_restotal_2-(B747DR_hyd_sys_pressure_2/3000)*0.1
   B747DR_hyd_sys_res_3=B747DR_hyd_sys_restotal_3-(B747DR_hyd_sys_pressure_3/3000)*0.1
@@ -715,6 +723,68 @@ debug_hydro     = deferred_dataref("laminar/B747/debug/hydro", "number")
 
 local lastStat=0
 local countFrame=0
+local hyd_failures={0,0,0,0}
+local hydfailed1=false
+local hydfailed2=false
+local hydfailed3=false
+local hasHydFailure=false
+function roundToIncrement(number, increment)
+
+  local y = number / increment
+  local q = math.floor(y + 0.5)
+  local z = q * increment
+
+  return z
+
+end
+function hydraulic_failures()
+  if simDR_failhyd1 ==0 and simDR_failhyd2 == 0 and simDR_failhyd3 ==0 then
+    if hasHydFailure then
+      hyd_failures={0,0,0,0}
+      hydfailed1=false
+      hydfailed2=false
+      hydfailed3=false
+      B747DR_hyd_sys_restotal_1=math.random()*0.2+0.8
+      B747DR_hyd_sys_restotal_2=math.random()*0.2+0.8
+      B747DR_hyd_sys_restotal_3=math.random()*0.2+0.8
+      B747DR_hyd_sys_restotal_4=math.random()*0.2+0.8
+      hasHydFailure=false
+    end
+    return
+  end
+  hasHydFailure=true
+  if simDR_failhyd1 == 6 and not(hydfailed1) then
+    local failIndex=1+roundToIncrement(math.random(),1)
+
+    hyd_failures[failIndex] = 15+math.random()*15
+    hydfailed1=true
+  end
+  if simDR_failhyd2 == 6 and not(hydfailed2) then
+    local failIndex=2+roundToIncrement(math.random(),1)
+
+    hyd_failures[failIndex] = 15+math.random()*15
+    hydfailed2=true
+  end
+  if simDR_failhyd3 == 6 and not(hydfailed3) then
+    local failIndex=3+roundToIncrement(math.random(),1)
+    hyd_failures[failIndex] = 15+math.random()*15
+    hydfailed2=true
+  end
+  if hyd_failures[1] >0 then
+    B747DR_hyd_sys_restotal_1=B747_interpolate_value(B747DR_hyd_sys_restotal_1,0,0,1,hyd_failures[1])
+  end
+  if hyd_failures[2] >0 then
+    B747DR_hyd_sys_restotal_2=B747_interpolate_value(B747DR_hyd_sys_restotal_2,0,0,1,hyd_failures[2])
+  end
+  if hyd_failures[3] >0 then
+    B747DR_hyd_sys_restotal_3=B747_interpolate_value(B747DR_hyd_sys_restotal_3,0,0,1,hyd_failures[3])
+  end
+  if hyd_failures[4] >0 then
+    B747DR_hyd_sys_restotal_4=B747_interpolate_value(B747DR_hyd_sys_restotal_4,0,0,1,hyd_failures[4])
+  end
+  --print("hyd failure "..hyd_failures[1].." "..hyd_failures[2].." "..hyd_failures[3].." "..hyd_failures[4])
+
+end
 function after_physics()
   if debug_hydro>0 then return end
   
@@ -731,6 +801,9 @@ function after_physics()
    flight_controls_consumption()
    pressure_output()
    flight_controls_override()
+   if simDR_version>=120012 then
+    hydraulic_failures()
+   end
    if debug_hydro<0 then
     local diff=simDRTime-lastStat
     countFrame=countFrame+1
