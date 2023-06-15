@@ -60,7 +60,7 @@ function throttle_resolver_angle_PW(engine_in)
     
       end
       return math.min(EPR_actual,1.71) --top of PW is 1.95, 1.75 for RR ??]]
-  local EPR_target=B747_rescale(0.0, 1.0, 1.0, B747DR_display_EPR_max[engine_in], simDR_throttle_ratio[engine_in])
+  local EPR_target=B747_rescale(0.0, 0.95, 1.0, B747DR_display_EPR_max[engine_in], simDR_throttle_ratio[engine_in])
   return EPR_target
 end
 
