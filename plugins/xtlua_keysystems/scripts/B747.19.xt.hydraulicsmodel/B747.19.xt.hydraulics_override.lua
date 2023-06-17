@@ -404,7 +404,7 @@ local lastAPTargetRoll=0
 local capturedLocTime=0
 local hasLoc=false
 function ap_director_roll()
-    if simDR_autopilot_nav_status ==2 and hasLoc==false then
+   --[[if simDR_autopilot_nav_status ==2 and hasLoc==false then
         capturedLocTime=simDRTime
         hasLoc=true
         print("autoland capturedLocTime")
@@ -415,10 +415,10 @@ function ap_director_roll()
     if (simDR_autopilot_nav_status ~=2 and B747DR_autopilot_nav_status==2) or 5>(simDRTime-capturedLocTime) then
         print("autoland estimating roll")
         return lastAPTargetRoll
-    else
+    else]]--
         lastAPTargetRoll=B747DR_ap_target_roll
         return B747DR_ap_target_roll
-    end
+   -- end
 end
 function ap_director_yaw()
     if math.abs(simDR_AHARS_roll_heading_deg_pilot)>5 then 

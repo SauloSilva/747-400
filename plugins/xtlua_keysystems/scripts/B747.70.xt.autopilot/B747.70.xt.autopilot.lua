@@ -164,6 +164,15 @@ simDR_autopilot_heading_deg = find_dataref("sim/cockpit/autopilot/heading_mag")
 simDR_autopilot_vs_fpm = find_dataref("sim/cockpit2/autopilot/vvi_dial_fpm")
 B747DR_autopilot_vs_fpm = find_dataref("laminar/B747/cockpit2/autopilot/vvi_dial_fpm")
 simDR_hsi_vdef_dots_pilot           = find_dataref("sim/cockpit2/radios/indicators/hsi_vdef_dots_pilot")
+
+simDR_hsi_ldef_dots_nav1           = find_dataref("sim/cockpit2/radios/indicators/nav1_hdef_dots_pilot")
+simDR_hsi_ldef_dots_nav2           = find_dataref("sim/cockpit2/radios/indicators/nav2_hdef_dots_pilot")
+simDR_hsi_nav1_horizontal_signal           = find_dataref("sim/cockpit2/radios/indicators/nav1_display_horizontal")
+simDR_hsi_nav2_horizontal_signal           = find_dataref("sim/cockpit2/radios/indicators/nav2_display_horizontal")
+simDR_hsi_nav1_vertical_signal           = find_dataref("sim/cockpit2/radios/indicators/nav1_display_vertical")
+simDR_hsi_nav2_vertical_signal           = find_dataref("sim/cockpit2/radios/indicators/nav2_display_vertical")
+
+
 simDR_autopilot_state = find_dataref("sim/cockpit/autopilot/autopilot_state")
 simDR_autopilot_vs_status = find_dataref("sim/cockpit2/autopilot/vvi_status")
 simDR_autopilot_flch_status = find_dataref("sim/cockpit2/autopilot/speed_status")
@@ -174,8 +183,13 @@ simDR_autopilot_heading_status = find_dataref("sim/cockpit2/autopilot/heading_st
 simDR_autopilot_heading_hold_status = find_dataref("sim/cockpit2/autopilot/heading_hold_status")
 simDR_autopilot_alt_hold_status = find_dataref("laminar/B747/autopilot/altitude_hold_status")
 B747DR_ap_approach_mode = find_dataref("laminar/B747/autopilot/approach_mode")
-simDR_autopilot_nav_status = find_dataref("sim/cockpit2/autopilot/nav_status")
-simDR_autopilot_gs_status = find_dataref("sim/cockpit2/autopilot/glideslope_status")
+
+--simDR_autopilot_nav_status = find_dataref("sim/cockpit2/autopilot/nav_status")
+--simDR_autopilot_gs_status = find_dataref("sim/cockpit2/autopilot/glideslope_status")
+simDR_autopilot_nav_status = find_dataref("laminar/B747/autopilot/actual_nav_status")
+simDR_autopilot_gs_status = find_dataref("laminar/B747/autopilot/actual_glideslope_status")
+
+
 B747DR_autopilot_nav_status = find_dataref("laminar/B747/autopilot/nav_status")
 B747DR_autopilot_gs_status = find_dataref("laminar/B747/autopilot/glideslope_status")
 simDR_autopilot_approach_status = find_dataref("sim/cockpit2/autopilot/approach_status")
@@ -1443,6 +1457,9 @@ simDR_nav2Freq = find_dataref("sim/cockpit/radios/nav2_freq_hz")
 simDR_radio_nav_obs_deg = find_dataref("sim/cockpit2/radios/actuators/nav_obs_deg_mag_pilot")
 simDR_radio_nav1_obs_deg = find_dataref("sim/cockpit/radios/nav1_obs_degt")
 simDR_radio_nav2_obs_deg = find_dataref("sim/cockpit/radios/nav2_obs_degt")
+simDR_radio_nav1_bearing_deg = find_dataref("sim/cockpit2/radios/indicators/nav1_bearing_deg_mag")
+simDR_radio_nav2_bearing_deg = find_dataref("sim/cockpit2/radios/indicators/nav2_bearing_deg_mag")
+
 navAidsJSON = find_dataref("xtlua/navaids")
 fmsJSON = find_dataref("xtlua/fms")
 nSize = 0
@@ -2166,7 +2183,7 @@ function B747_ap_appr_mode()
 		B747DR_ap_cmd_R_mode = 0
 	end
 	if B747DR_ap_approach_mode == 0 then
-		if simDR_autopilot_gs_status > 0 then
+		--[[if simDR_autopilot_gs_status > 0 then
 			simCMD_autopilot_glideslope_mode:once() -- CANX GLIDESLOPE MODE
 			B747DR_ap_lastCommand = simDRTime
 			return
@@ -2175,35 +2192,51 @@ function B747_ap_appr_mode()
 			simCMD_autopilot_nav_mode:once() --DEACTIVATE LOC
 			B747DR_ap_lastCommand = simDRTime
 			return
+		end]]--
+		if simDR_autopilot_nav_status~=0 or simDR_autopilot_gs_status~=0 then
+			B747DR_ap_lastCommand = simDRTime
 		end
+		simDR_autopilot_nav_status=0
+		simDR_autopilot_gs_status=0
 		
 		return
 	end -- no approach mode enabled
 	local diffap = getHeadingDifference(simDR_radio_nav_obs_deg[0], simDR_AHARS_heading_deg_pilot)
-	if diffap > -50 and diffap < 50 then --can really arm the mode
+	if diffap > -120 and diffap < 120 then --can really arm the mode
 		if B747DR_ap_approach_mode == -1 then --WANT LOC
 			if simDR_autopilot_nav_status == 0 or simDR_autopilot_gs_status > 0 then
-				simCMD_autopilot_nav_mode:once() --ACTIVATE LOC
+				--simCMD_autopilot_nav_mode:once() --ACTIVATE LOC
+				simDR_autopilot_nav_status=1
+				simDR_autopilot_gs_status=0
+
 				B747DR_ap_lastCommand = simDRTime
+
 			end
 		elseif B747DR_ap_approach_mode == 1 then --WANT APP
 			if simDR_autopilot_gs_status == 0 then
 				print("simCMD_autopilot_appr_mode in B747DR_ap_approach_mode=1")
-				simCMD_autopilot_appr_mode:once() --ACTIVATE APP
+				--simCMD_autopilot_appr_mode:once() --ACTIVATE APP
+				simDR_autopilot_nav_status=1
+				simDR_autopilot_gs_status=1
 				B747DR_ap_lastCommand = simDRTime
 			end
 		end
 	elseif simDR_autopilot_nav_status > 0 then
-		if simDR_autopilot_gs_status > 0 then
+		--[[if simDR_autopilot_gs_status > 0 then
 			print("simCMD_autopilot_appr_mode in elseif")
 			simCMD_autopilot_appr_mode:once() --DEACTIVATE APP
 			B747DR_ap_lastCommand = simDRTime
 		else
 			simCMD_autopilot_nav_mode:once() --DEACTIVATE LOC
 			B747DR_ap_lastCommand = simDRTime
-		end
+		end]]--
+		simDR_autopilot_nav_status=0
+		simDR_autopilot_gs_status=0
+		B747DR_ap_lastCommand = simDRTime
 	elseif simDR_autopilot_gs_status > 0 then
-		simCMD_autopilot_glideslope_mode:once() -- CANX GLIDESLOPE MODE
+		--simCMD_autopilot_glideslope_mode:once() -- CANX GLIDESLOPE MODE
+		simDR_autopilot_nav_status=0
+		simDR_autopilot_gs_status=0
 		B747DR_ap_lastCommand = simDRTime
 	end
 	if simDR_onGround == 1 then
@@ -2284,7 +2317,7 @@ function fma_rollModes()
 	elseif B747DR_autopilot_nav_status == 2 then
 		-- (LNAV) --
 		B747DR_ap_FMA_active_roll_mode = 3
-		simDR_autopilot_heading_deg = roundToIncrement(simDR_radio_nav_obs_deg[0], 1) -- SET THE SELECTED HEADING VALUE TO THE LOC COURSE
+		--simDR_autopilot_heading_deg = roundToIncrement(simDR_radio_nav_obs_deg[0], 1) -- SET THE SELECTED HEADING VALUE TO THE LOC COURSE
 		B747DR_ap_lnav_state = 0
 	elseif simDR_autopilot_gpss == 2 or B747DR_ap_lnav_state == 2 then
 		-- (ROLLOUT) --
@@ -2344,7 +2377,9 @@ function glideSlopeLOCProgress()
 			print("recover LOC mode")
 			--simCMD_pause:once() 
 			if B747DR_autopilot_nav_status > 0 then
-				simCMD_autopilot_nav_mode:once() --DEACTIVATE LOC
+				--simCMD_autopilot_nav_mode:once() --DEACTIVATE LOC
+				simDR_autopilot_nav_status=1
+		
 				B747DR_ap_lastCommand = simDRTime
 				return
 			end
@@ -2354,7 +2389,8 @@ function glideSlopeLOCProgress()
 			print("recover GS mode")
 			--simCMD_pause:once() 
 			if B747DR_autopilot_gs_status > 0 then
-				simCMD_autopilot_glideslope_mode:once() -- CANX GLIDESLOPE MODE
+				--simCMD_autopilot_glideslope_mode:once() -- CANX GLIDESLOPE MODE
+				simDR_autopilot_gs_status=1
 				B747DR_ap_lastCommand = simDRTime
 				return
 			end

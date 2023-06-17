@@ -97,6 +97,7 @@ function VNAV_CLB(numAPengaged,fmsO)
     end
     if B747DR_mcp_hold==1 then return end
 
+
     local start=B747DR_fmscurrentIndex
     local waypointAlt=fmsO[start][9]
     if waypointAlt==0 or simDR_radarAlt1<3000 then waypointAlt=B747DR_autopilot_altitude_ft end
@@ -108,7 +109,7 @@ function VNAV_CLB(numAPengaged,fmsO)
         setVNAVState("vnavcalcwithTargetAlt",0)
 		if getVNAVState("manualVNAVspd")==0 then
 		    setVNAVState("gotVNAVSpeed",false)
-		    B747_vnav_speed()    
+		    B747_vnav_speed()
 		end
         B747DR_ap_vnav_state = 3 --resume
         --computeVNAVAlt(fmsO)
@@ -610,46 +611,79 @@ function B747_monitorAT()
     
 
 end
+
+function getWCAforHeading(heading)
+    local tas = simDR_TAS_mps * 1.94384 -- true airspeed in knots
+
+    local wca=0
+    if B747DR_ND_Wind_Bearing<-90 then 
+        --rhs
+        local angle=math.rad(180-(B747DR_ND_Wind_Bearing*-1))
+        wca=(simDR_wind_speed_kts/tas)*math.sin(angle)
+        --local latWind=math.sin(angle)*simDR_wind_speed
+      elseif B747DR_ND_Wind_Bearing<0 then 
+        --rhs
+        local angle=math.rad(B747DR_ND_Wind_Bearing*-1)
+        wca=(simDR_wind_speed_kts/tas)*math.sin(angle)
+        --local latWind=math.sin(angle)*simDR_wind_speed
+      elseif B747DR_ND_Wind_Bearing>90 then
+        --lhs
+        local angle=math.rad(180-B747DR_ND_Wind_Bearing)
+        wca=-(simDR_wind_speed_kts/tas)*math.sin(angle)
+       --local latWind=-math.sin(angle)*simDR_wind_speed
+      else --0 to 90
+        --lhs
+        local angle=math.rad(B747DR_ND_Wind_Bearing)
+        wca=-(simDR_wind_speed_kts/tas)*math.sin(angle)
+        --local latWind=-math.sin(angle)*simDR_wind_speed
+      end
+      wca=math.deg(wca)
+
+      local hV=math.floor(heading+simDR_variation +wca)
+      hV=math.fmod(hV,360)
+      if hV<0 then hV=hV+360 end
+      return hV
+end
+
 function B747_updateApproachHeading(fmsO)
-    
+
+   --[[ print("simDR_hsi_ldef_dots_nav1 " .. simDR_hsi_ldef_dots_nav1 ..  
+    " simDR_hsi_ldef_dots_nav2 " .. simDR_hsi_ldef_dots_nav2  ..
+    " simDR_hsi_nav1_horizontal_signal " ..simDR_hsi_nav1_horizontal_signal ..
+    " simDR_hsi_nav1_horizontal_signal " ..simDR_hsi_nav2_horizontal_signal ..
+    " simDR_hsi_nav1_vertical_signal " ..simDR_hsi_nav1_vertical_signal ..
+    " simDR_hsi_nav2_vertical_signal " ..simDR_hsi_nav2_vertical_signal)
+    ]]--
+    if simDR_autopilot_nav_status==1 and simDR_hsi_nav1_horizontal_signal==1 and simDR_hsi_nav2_horizontal_signal==1 then
+        simDR_autopilot_nav_status=2
+    end
+    if simDR_autopilot_nav_status==2 and simDR_autopilot_gs_status==1 and math.abs(simDR_hsi_vdef_dots_pilot)<0.3 then
+        simDR_autopilot_gs_status=2
+    end
+    if simDR_autopilot_nav_status==2 then
+        if simDR_hsi_nav1_horizontal_signal==1 and simDR_hsi_nav2_horizontal_signal==1 then
+            --print("simDR_radio_nav_obs_deg[0] " ..simDR_radio_nav_obs_deg[0])
+            local bearing=(simDR_radio_nav1_bearing_deg +simDR_radio_nav2_bearing_deg)/2
+            local diffap = math.min(math.abs(getHeadingDifference(simDR_radio_nav_obs_deg[0], bearing)),30)*2
+            local modHeading=(simDR_hsi_ldef_dots_nav1+simDR_hsi_ldef_dots_nav2)*5+diffap
+            local hV=getWCAforHeading(simDR_radio_nav_obs_deg[0]+modHeading)
+            --print("hV " ..hV.." modHeading " ..modHeading .." diffap "..diffap)
+            simDR_autopilot_heading_deg =	 hV
+        end
+        return
+    end
+
     local start=B747DR_fmscurrentIndex
     if fmsO[start]==nil then
         --print("empty data "..start)
         return
-      end
-    local ap2Heading=getHeading(simDR_latitude,simDR_longitude,fmsO[start][5],fmsO[start][6])
-    if B747DR_ap_approach_mode~=0 and simDR_autopilot_nav_status~=2 and B747DR_ap_lnav_state>0 then
-        local tas = simDR_TAS_mps * 1.94384 -- true airspeed in knots
-
-        local wca=0
-        if B747DR_ND_Wind_Bearing<-90 then 
-            --rhs
-            local angle=math.rad(180-(B747DR_ND_Wind_Bearing*-1))
-            wca=(simDR_wind_speed_kts/tas)*math.sin(angle)
-            --local latWind=math.sin(angle)*simDR_wind_speed
-          elseif B747DR_ND_Wind_Bearing<0 then 
-            --rhs
-            local angle=math.rad(B747DR_ND_Wind_Bearing*-1)
-            wca=(simDR_wind_speed_kts/tas)*math.sin(angle)
-            --local latWind=math.sin(angle)*simDR_wind_speed
-          elseif B747DR_ND_Wind_Bearing>90 then
-            --lhs
-            local angle=math.rad(180-B747DR_ND_Wind_Bearing)
-            wca=-(simDR_wind_speed_kts/tas)*math.sin(angle)
-           --local latWind=-math.sin(angle)*simDR_wind_speed
-          else --0 to 90
-            --lhs
-            local angle=math.rad(B747DR_ND_Wind_Bearing)
-            wca=-(simDR_wind_speed_kts/tas)*math.sin(angle)
-            --local latWind=-math.sin(angle)*simDR_wind_speed
-          end
-          wca=math.deg(wca)
-
-          local hV=math.floor(ap2Heading+simDR_variation +wca)
-          hV=math.fmod(hV,360)
-          if hV<0 then hV=hV+360 end
-          --print("hV="..hV.." wca="..wca.." wca_deg="..wca )
-          simDR_autopilot_heading_deg =	 hV
+    end
+    local diff = simDRTime - B747DR_ap_lastCommand
+    if B747DR_ap_approach_mode~=0 and simDR_autopilot_nav_status==0 and B747DR_ap_lnav_state>0 and diff>0.5 then
+        local ap2Heading=getHeading(simDR_latitude,simDR_longitude,fmsO[start][5],fmsO[start][6])
+        local hV=getWCAforHeading(ap2Heading)
+        --print("B747_updateApproachHeading hV="..hV.." wca="..wca.." wca_deg="..wca.." simDR_wind_speed_kts="..simDR_wind_speed_kts.." ap2Heading="..ap2Heading )
+        simDR_autopilot_heading_deg =	 hV
     end
 end
 

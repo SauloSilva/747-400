@@ -165,8 +165,11 @@ simDR_autopilot_heading_hold_status     = find_dataref("sim/cockpit2/autopilot/h
 simDR_autopilot_vs_status           	= find_dataref("sim/cockpit2/autopilot/vvi_status")
 simDR_autopilot_alt_hold_status         = find_dataref("laminar/B747/autopilot/altitude_hold_status")
 B747DR_ap_approach_mode     	= find_dataref("laminar/B747/autopilot/approach_mode")
-simDR_autopilot_nav_status          = find_dataref("sim/cockpit2/autopilot/nav_status")
-simDR_autopilot_gs_status           = find_dataref("sim/cockpit2/autopilot/glideslope_status")
+--simDR_autopilot_nav_status          = find_dataref("sim/cockpit2/autopilot/nav_status")
+--simDR_autopilot_gs_status           = find_dataref("sim/cockpit2/autopilot/glideslope_status")
+simDR_autopilot_nav_status = find_dataref("laminar/B747/autopilot/actual_nav_status")
+simDR_autopilot_gs_status = find_dataref("laminar/B747/autopilot/actual_glideslope_status")
+
 simDR_autopilot_app_status          = find_dataref("sim/cockpit2/autopilot/approach_status")
 B747DR_autopilot_nav_status = find_dataref("laminar/B747/autopilot/nav_status")
 B747DR_autopilot_gs_status = find_dataref("laminar/B747/autopilot/glideslope_status")
