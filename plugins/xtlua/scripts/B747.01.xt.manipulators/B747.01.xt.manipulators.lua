@@ -1298,7 +1298,7 @@ function B747_flight_dir_switch_R_CMDhandler(phase, duration)
                    -- if math.abs(simDR_AHARS_roll_deg_pilot) < 5.0 then									-- BANK ANGLE LESS THAN 5 DEGREES
 						simCMD_autopilot_heading_mode:once()											-- ACTIVATE "HEADING HOLD" MODE
 					--else
-						B747CMD_ap_att_mode:once()														-- ACTIVATE "ATT" MODE		
+						--B747CMD_ap_att_mode:once()														-- ACTIVATE "ATT" MODE		
 					--end		
 				end
 			end							

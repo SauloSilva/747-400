@@ -192,6 +192,8 @@ simDR_autopilot_gs_status = find_dataref("laminar/B747/autopilot/actual_glideslo
 
 B747DR_autopilot_nav_status = find_dataref("laminar/B747/autopilot/nav_status")
 B747DR_autopilot_gs_status = find_dataref("laminar/B747/autopilot/glideslope_status")
+simDR_nav1_gs_flag = find_dataref("sim/cockpit2/radios/indicators/nav1_flag_glideslope")
+simDR_nav2_gs_flag = find_dataref("sim/cockpit2/radios/indicators/nav2_flag_glideslope")
 simDR_autopilot_approach_status = find_dataref("sim/cockpit2/autopilot/approach_status")
 simDR_autopilot_roll_sync_degrees = find_dataref("sim/cockpit2/autopilot/sync_hold_roll_deg")
 simDR_autopilot_roll_status = find_dataref("sim/cockpit2/autopilot/roll_status")

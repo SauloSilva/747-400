@@ -612,9 +612,10 @@ function B747_monitorAT()
 
 end
 
-function getWCAforHeading(heading)
+function getWCAforHeading(theading)
     local tas = simDR_TAS_mps * 1.94384 -- true airspeed in knots
-
+    local heading=math.fmod(theading,360)
+    if heading<0 then heading=heading+360 end
     local wca=0
     if B747DR_ND_Wind_Bearing<-90 then 
         --rhs
@@ -639,36 +640,66 @@ function getWCAforHeading(heading)
       end
       wca=math.deg(wca)
 
-      local hV=math.floor(heading+simDR_variation +wca)
+      local hV=heading +wca
       hV=math.fmod(hV,360)
       if hV<0 then hV=hV+360 end
       return hV
 end
-
+local onApproach=false
 function B747_updateApproachHeading(fmsO)
 
-   --[[ print("simDR_hsi_ldef_dots_nav1 " .. simDR_hsi_ldef_dots_nav1 ..  
+   --[[print("simDR_hsi_ldef_dots_nav1 " .. simDR_hsi_ldef_dots_nav1 ..  
     " simDR_hsi_ldef_dots_nav2 " .. simDR_hsi_ldef_dots_nav2  ..
     " simDR_hsi_nav1_horizontal_signal " ..simDR_hsi_nav1_horizontal_signal ..
     " simDR_hsi_nav1_horizontal_signal " ..simDR_hsi_nav2_horizontal_signal ..
     " simDR_hsi_nav1_vertical_signal " ..simDR_hsi_nav1_vertical_signal ..
-    " simDR_hsi_nav2_vertical_signal " ..simDR_hsi_nav2_vertical_signal)
-    ]]--
-    if simDR_autopilot_nav_status==1 and simDR_hsi_nav1_horizontal_signal==1 and simDR_hsi_nav2_horizontal_signal==1 then
+    " simDR_hsi_nav2_vertical_signal " ..simDR_hsi_nav2_vertical_signal ..
+    " simDR_nav1_gs_flag " .. simDR_nav1_gs_flag ..
+    " simDR_nav2_gs_flag " ..  simDR_nav2_gs_flag ..
+    " simDR_hsi_vdef_dots_pilot " .. simDR_hsi_vdef_dots_pilot)]]--
+    
+    local diff = simDRTime - B747DR_ap_lastCommand
+    if simDR_autopilot_nav_status==1 and simDR_hsi_nav1_horizontal_signal==1 and simDR_hsi_nav2_horizontal_signal==1  and diff>0.5 then
         simDR_autopilot_nav_status=2
+        B747DR_ap_lastCommand = simDRTime
     end
-    if simDR_autopilot_nav_status==2 and simDR_autopilot_gs_status==1 and math.abs(simDR_hsi_vdef_dots_pilot)<0.3 then
+    
+    if simDR_autopilot_nav_status==2 and simDR_nav1_gs_flag ==0 and simDR_nav2_gs_flag ==0 and simDR_autopilot_gs_status==1 and math.abs(simDR_hsi_vdef_dots_pilot)<0.3 and simDR_hsi_nav1_vertical_signal==1 and simDR_hsi_nav2_vertical_signal ==1 and diff>0.5 then
         simDR_autopilot_gs_status=2
+        B747DR_ap_lastCommand = simDRTime
     end
+    
     if simDR_autopilot_nav_status==2 then
         if simDR_hsi_nav1_horizontal_signal==1 and simDR_hsi_nav2_horizontal_signal==1 then
-            --print("simDR_radio_nav_obs_deg[0] " ..simDR_radio_nav_obs_deg[0])
+            if simDR_autopilot_heading_status == 0 and diff>0.5 then
+                simCMD_autopilot_heading_select:once()
+                B747DR_ap_lastCommand = simDRTime
+            end
+            print("simDR_radio_nav_obs_deg[0] " ..simDR_radio_nav_obs_deg[0])
             local bearing=(simDR_radio_nav1_bearing_deg +simDR_radio_nav2_bearing_deg)/2
-            local diffap = math.min(math.abs(getHeadingDifference(simDR_radio_nav_obs_deg[0], bearing)),30)*2
-            local modHeading=(simDR_hsi_ldef_dots_nav1+simDR_hsi_ldef_dots_nav2)*5+diffap
+            --local diffap = math.min(math.abs(getHeadingDifference(simDR_radio_nav_obs_deg[0], bearing)),30)*2
+            local diffap = getHeadingDifference(simDR_radio_nav_obs_deg[0], bearing)*2
+            if diffap<-60 then
+                diffap=-60
+            elseif diffap>60 then
+                diffap=60
+            end
+            local modHeading=(simDR_hsi_ldef_dots_nav1+simDR_hsi_ldef_dots_nav2)*4+diffap
             local hV=getWCAforHeading(simDR_radio_nav_obs_deg[0]+modHeading)
-            --print("hV " ..hV.." modHeading " ..modHeading .." diffap "..diffap)
+            print("hV " ..hV.." modHeading " ..modHeading .." diffap "..diffap)
             simDR_autopilot_heading_deg =	 hV
+            if onApproach==false and math.abs(diffap) < 5 then
+                print("onApproach")
+                onApproach=true
+            end
+            if onApproach==true and math.abs(simDR_hsi_ldef_dots_nav1+simDR_hsi_ldef_dots_nav2) > 4 then
+                onApproach=false
+                print("LOC glitching")
+                simDR_autopilot_nav_status=1
+            end
+        else
+            print("LOC signal glitching")
+            simDR_autopilot_nav_status=1
         end
         return
     end
@@ -678,10 +709,14 @@ function B747_updateApproachHeading(fmsO)
         --print("empty data "..start)
         return
     end
-    local diff = simDRTime - B747DR_ap_lastCommand
+    
     if B747DR_ap_approach_mode~=0 and simDR_autopilot_nav_status==0 and B747DR_ap_lnav_state>0 and diff>0.5 then
+        if simDR_autopilot_heading_status == 0 then
+            simCMD_autopilot_heading_select:once()
+            B747DR_ap_lastCommand = simDRTime
+        end
         local ap2Heading=getHeading(simDR_latitude,simDR_longitude,fmsO[start][5],fmsO[start][6])
-        local hV=getWCAforHeading(ap2Heading)
+        local hV=getWCAforHeading(ap2Heading+simDR_variation)
         --print("B747_updateApproachHeading hV="..hV.." wca="..wca.." wca_deg="..wca.." simDR_wind_speed_kts="..simDR_wind_speed_kts.." ap2Heading="..ap2Heading )
         simDR_autopilot_heading_deg =	 hV
     end

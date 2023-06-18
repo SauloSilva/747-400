@@ -22,8 +22,8 @@ function getHeadingDifference(desireddirection,current_heading)
 	return error
 end
 --simDR_autopilot_nav_status = find_dataref("sim/cockpit2/autopilot/nav_status")
-simDR_autopilot_nav_status = find_dataref("laminar/B747/autopilot/acutal_nav_status")
---simDR_autopilot_gs_status = find_dataref("laminar/B747/autopilot/acutal_glideslope_status")
+simDR_autopilot_nav_status = find_dataref("laminar/B747/autopilot/actual_nav_status")
+
 B747DR_autopilot_nav_status = find_dataref("laminar/B747/autopilot/nav_status")
 simCMD_pause = find_command("sim/operation/pause_toggle")
 debug_flight_directors     = deferred_dataref("laminar/B747/debug/flight_directors", "number")
