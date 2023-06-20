@@ -9,10 +9,20 @@ sendDataref=find_dataref("autoatc/acars/out")
 cduDataref=find_dataref("autoatc/cdu")
 execLightDataref=find_dataref("sim/cockpit2/radios/indicators/fms_exec_light_copilot")
 wasOnline=false
+function getDefaultCycle()
+  local file = io.open("Resources/default data/earth_nav.dat")
+  if file==nil then
+    return "2107" 
+  end
+  file:read("*l")
+  local buildData=file:read("*l")
+  io.close(file)
+  return string.sub(buildData,27,30)
+end
 function getCycle()
   local file = io.open("Custom Data/earth_nav.dat", "r")
   if file==nil then
-    return getCycle().." \n" 
+    return getDefaultCycle().." \n" 
   end
   file:read("*l")
   local buildData=file:read("*l")
