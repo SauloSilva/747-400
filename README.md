@@ -10,6 +10,10 @@ geometry: "left=1.5cm,right=1.5cm,top=2cm,bottom=2cm"
 
 # Sparky744: The Boeing 747-400 fleet
 
+You can follow progress, make requests and generally chat about the 747 on the 747-400 channel on the [Go Ahead discord server.](https://discord.gg/cStTXy5) and follow the project on [twitter](https://twitter.com/GoAheadFly)
+
+Feel free to join the conversation, fork the github repository, and make the plane your own.
+
 ## Major Overhaul of the Laminar Boeing 747-400
 
 This overhaul attempts to capture the life of the 747-400 aircraft in as much realistic, intricate detail as can be achieved by the flight simulator community.
@@ -27,10 +31,6 @@ The general concept is to bring each aircraft as close to the real version as is
 Please use the [github issue page](https://github.com/mSparks43/747-400/issues) if you find a problem. If your issue is already listed please add your details, problems that can be recreated are generally fixed quickly.
 
 The 744 project was licenced as CC-BY-NC 4 on the 1st of May 2019, anyone with any confusion as to what this means should review the [licence](https://creativecommons.org/licenses/by-nc/4.0/)
-
-You can follow progress, make requests and generally chat about the 747 on the 747-400 channel on the [Go Ahead discord server.](https://discord.gg/cStTXy5) and follow the project on [twitter](https://twitter.com/GoAheadFly)
-
-Feel free to join the conversation, fork the github repository, and make the plane your own.
 
 ## Installation
 To install, extract the zip into your aircraft folder (delete any existing copy, **do not overwite an existing aircraft installation**)
