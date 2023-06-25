@@ -181,7 +181,8 @@ fmsPages["RTE1"].getSmallPage=function(self,pgNo,fmsID)
 		}
 	return page 
 end
-fmsFunctionsDefs["RTE1"]["L1"]={"custom2fmc","L1"}
+--fmsFunctionsDefs["RTE1"]["L1"]={"custom2fmc","L1"}
+fmsFunctionsDefs["RTE1"]["L1"]={"setdata","fltdep"}
 --fmsFunctionsDefs["RTE1"]["L1"]={"setdata","origin"}
 fmsFunctionsDefs["RTE1"]["L2"]={"setdata","runway"}
 
@@ -189,7 +190,8 @@ fmsFunctionsDefs["RTE1"]["L3"]={"custom2fmc","L3"}
 fmsFunctionsDefs["RTE1"]["L4"]={"custom2fmc","L4"}
 fmsFunctionsDefs["RTE1"]["L5"]={"custom2fmc","L5"}
 
-fmsFunctionsDefs["RTE1"]["R1"]={"custom2fmc","R1"}
+--fmsFunctionsDefs["RTE1"]["R1"]={"custom2fmc","R1"}
+fmsFunctionsDefs["RTE1"]["R1"]={"setdata","fltdst"}
 fmsFunctionsDefs["RTE1"]["R2"]={"custom2fmc","R3"}
 fmsFunctionsDefs["RTE1"]["R3"]={"custom2fmc","L2"}
 fmsFunctionsDefs["RTE1"]["R4"]={"custom2fmc","R4"}
@@ -1155,6 +1157,40 @@ function fmsFunctions.setdata(fmsO,value)
 			timer_start = simDRTime
 		end
 	end
+  elseif value == "fltdep" then
+	print("set fltdep "..fmsO["scratchpad"])
+	if string.len(fmsO["scratchpad"])>0 or del==true then
+		fmsFlightPlan = "[]" --clear the flight plan
+		if del==true then
+			setFMSData("fltdep","****")
+			setFMSData("fltdst","****")
+		else	
+			dep=string.sub(fmsO["scratchpad"],1,4)
+			setFMSData("fltdep",dep)
+			setFMSData("fltdst","****")
+			simCMD_FMS_key[fmsO.id]["fpln"]:once()
+			fmsFunctions["custom2fmc"](fmsO,"L1")
+		end
+		fmsModules:setData("crzalt","*****") -- clear cruise alt /crzalt when entering a new source airport
+	else
+		   fmsO["notify"]="INVALID ENTRY"
+	end
+  elseif value == "fltdst" then
+	print("set fltdst")
+	if string.len(fmsO["scratchpad"])>0 or del==true then
+		if del==true then
+			setFMSData("fltdep","****")
+			setFMSData("fltdst","****")
+			fmsFlightPlan = "[]" --clear the flight plan
+		else	
+			dep=string.sub(fmsO["scratchpad"],1,4)
+			setFMSData("fltdst",dep)
+			simCMD_FMS_key[fmsO.id]["fpln"]:once()
+			fmsFunctions["custom2fmc"](fmsO,"R1")
+		end
+	else
+		fmsO["notify"]="INVALID ENTRY"
+ 	end
   elseif value == "vref1" then
 	fmsO["scratchpad"]=string.format("25/%3d", B747DR_airspeed_Vf25)
 	return

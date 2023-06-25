@@ -161,6 +161,7 @@ simDR_fueL_tank_weight_total_kg     = find_dataref("sim/flightmodel/weight/m_fue
 
 navAidsJSON   = find_dataref("xtlua/navaids")
 fmsJSON = find_dataref("xtlua/fms")
+fmsFlightPlan = find_dataref("xtlua/fltpln")
 
 B747DR_fms1_display_mode            = find_dataref("laminar/B747/fms1/display_mode")
 
