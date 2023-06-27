@@ -71,6 +71,8 @@ for i = 0, NUM_BTN_SW-1 do
 end
 
 local B747_toggle_switch_position_target = {}
+local B747DR_sun_visor_left_right_capt_target = 0.8
+local B747DR_sun_visor_left_right_fo_target = 0.8
 for i = 0, NUM_TOGGLE_SW-1 do
     B747_toggle_switch_position_target[i] = 0
 end
@@ -1452,10 +1454,25 @@ end
 
 
 function B747_sun_visor_up_down_capt_CMDhandler(phase, duration)
-    if phase == 0 then B747_toggle_switch_position_target[31] = 1.0 - B747_toggle_switch_position_target[31] end
+    if phase == 0 then 
+        B747_toggle_switch_position_target[31] = 1.0 - B747_toggle_switch_position_target[31] 
+        if B747_toggle_switch_position_target[31]<0.1 then
+            B747DR_sun_visor_left_right_capt_target=0.8 
+        else  
+            B747DR_sun_visor_left_right_capt_target=0.0
+        end    
+
+    end
 end
 function B747_sun_visor_up_down_fo_CMDhandler(phase, duration)
-    if phase == 0 then B747_toggle_switch_position_target[32] = 1.0 - B747_toggle_switch_position_target[32] end
+    if phase == 0 then 
+        B747_toggle_switch_position_target[32] = 1.0 - B747_toggle_switch_position_target[32]
+        if B747_toggle_switch_position_target[32]<0.1 then
+            B747DR_sun_visor_left_right_fo_target = 0.8
+        else
+            B747DR_sun_visor_left_right_fo_target = 0
+        end
+    end
 end
 
 
@@ -1917,7 +1934,18 @@ end
 
 ----- TOGGLE SWITCH POSITION ANIMATION --------------------------------------------------
 function B747_toggle_switch_animation()
-
+    if B747DR_sun_visor_left_right_fo_target >=0 then
+        B747DR_sun_visor_left_right_fo = B747_set_animation_position(B747DR_sun_visor_left_right_fo, B747DR_sun_visor_left_right_fo_target, 0.0, 1.0, 1)
+    end
+    if B747DR_sun_visor_left_right_capt_target >=0 then
+        B747DR_sun_visor_left_right_capt = B747_set_animation_position(B747DR_sun_visor_left_right_capt, B747DR_sun_visor_left_right_capt_target, 0.0, 1.0, 1)
+    end
+    if math.abs(B747DR_sun_visor_left_right_capt-B747DR_sun_visor_left_right_capt_target)<0.01 then
+        B747DR_sun_visor_left_right_capt_target=-1
+    end
+    if math.abs(B747DR_sun_visor_left_right_fo-B747DR_sun_visor_left_right_fo_target)<0.01 then
+        B747DR_sun_visor_left_right_fo_target=-1
+    end
     for i = 0, NUM_TOGGLE_SW-1 do
         -- STANDARD FOR 2 POS SWITCHES
         local min, max = 0.0, 1.0
@@ -1925,7 +1953,7 @@ function B747_toggle_switch_animation()
         -- SET THE SPEED OF THE ANIMATION
         local speed = 50.0
         if i >= 31 and i <= 32 then
-            speed = 5.0             --  SUN VISORS
+            speed = 2.0             --  SUN VISORS
         elseif i >= 33 and i <= 36 then
             speed = 2.0             --  WINDOW SHADES
         end
@@ -1944,6 +1972,7 @@ function B747_toggle_switch_animation()
         end
 
         B747DR_toggle_switch_position[i] = B747_set_animation_position(B747DR_toggle_switch_position[i], B747_toggle_switch_position_target[i], min, max, speed)
+        
     end
 
 end

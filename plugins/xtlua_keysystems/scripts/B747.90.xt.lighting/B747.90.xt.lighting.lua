@@ -71,6 +71,16 @@ annun.b = {}
 --*************************************************************************************--
 simDR_version=find_dataref("sim/version/xplane_internal_version")
 simDR_shadow			    = find_dataref("sim/private/controls/shadow/total_fade_ratio")
+simDR_headX=find_dataref("sim/graphics/view/pilots_head_x")
+simDR_headY=find_dataref("sim/graphics/view/pilots_head_y")
+simDR_headZ=find_dataref("sim/graphics/view/pilots_head_z")
+simDR_headpsi=find_dataref("sim/graphics/view/pilots_head_psi")
+simDR_headpitch=find_dataref("sim/graphics/view/pilots_head_the")
+simDR_photoBias			    = find_dataref("sim/private/controls/photometric/ev100_bias")
+simDR_capt_visor_lr			    = find_dataref("laminar/B747/misc/sun_visor/left_right/capt") --left/right
+simDR_capt_visor_ud			    = find_dataref("laminar/B747/toggle_switch/position[31]") --up/down
+simDR_fo_visor_lr			    = find_dataref("laminar/B747/misc/sun_visor/left_right/fo") --left/right
+simDR_fo_visor_ud			    = find_dataref("laminar/B747/toggle_switch/position[32]") --up/down
 simDR_contrast			    = find_dataref("sim/private/controls/tonemap/contrast")
 simDR_light_storage			    = find_dataref("sim/private/controls/photometric/light_storage_scale")
 simDR_tone_mode			    = find_dataref("sim/private/controls/tonemap/mode")
@@ -2179,8 +2189,67 @@ function flight_start()
         simDR_shadow=-1
     end
 end
+function closest_intercept(x1,y1,z1,x2,y2,z2,psi,pitch)
+    dx=x1 - x2;
+    dy=y1 - y2;
+    dz=z1 - z2;
+    distance=math.sqrt(((dx*dx) + (dy*dy) + (dz*dz)));
+    psiI=psi;
 
+
+
+    pitchI=pitch;
+    pdistance=math.cos(pitchI*math.pi/180.0)*distance;
+    px=(-math.sin(psiI*math.pi/180.0))*pdistance;
+    pz=math.cos(psiI*math.pi/180.0)*pdistance;
+    py=(-math.sin(pitchI*math.pi/180.0))*distance;
+    
+    pdx=dx-px;
+    pdy=dy-py;
+    pdz=dz-pz;
+    --print(distance.. " " .. pdx .. " " .. pdy .. " " .. pdz)
+    loc=math.sqrt(((pdx*pdx) + (pdz*pdz) + (pdy*pdy)));
+    return loc
+end
+function viewheadCoPilotVisor()
+    local psi=simDR_headpsi
+    local pitch=simDR_headpitch
+    local visorX=B747_rescale(0.6,0.845,1,0.302,simDR_fo_visor_lr) 
+    local visorY=5.2
+    local visorZ=B747_rescale(0,-25.41,0.6,-26.4,simDR_fo_visor_lr)
+    local thisHit=closest_intercept(simDR_headX,simDR_headY,simDR_headZ,visorX,visorY,visorZ,psi,pitch)
+    
+    local retVal=B747_rescale(0,1,1,0,thisHit)
+    return retVal
+end
+function viewheadPilotVisor()
+    local psi=simDR_headpsi
+    local pitch=simDR_headpitch
+    local visorX=B747_rescale(0.6,-0.845,1,-0.302,simDR_capt_visor_lr)
+    local visorY=5.2
+    local visorZ=B747_rescale(0,-25.41,0.6,-26.4,simDR_capt_visor_lr)
+    local thisHit=closest_intercept(simDR_headX,simDR_headY,simDR_headZ,visorX,visorY,visorZ,psi,pitch)
+    
+    local retVal=B747_rescale(0,1,1,0,thisHit)
+    return retVal
+end
+function getPilotVisorValue()
+    local retVal=viewheadPilotVisor()
+    --print(retVal)
+ 
+    return retVal*(1-simDR_capt_visor_ud)
+end
+function getCoPilotVisorValue()
+    local retVal=viewheadCoPilotVisor()
+    --print(retVal)
+ 
+    return retVal*(1-simDR_fo_visor_ud)
+end
+local defaultBias=-0.3
 function tone_mapping()
+
+    simDR_photoBias=defaultBias-3*math.max(getPilotVisorValue(),getCoPilotVisorValue())
+   
  --[[   if simDR_sun_pitch>0 then
         simDR_contrast	= B747_rescale(0,1.25,30,0.8,math.abs(simDR_view_pitch))
         simDR_ev100	    = B747_rescale(-10,8,15,14,math.abs(simDR_sun_pitch))

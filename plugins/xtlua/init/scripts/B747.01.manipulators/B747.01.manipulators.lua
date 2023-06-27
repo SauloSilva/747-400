@@ -352,8 +352,8 @@ B747CMD_heading_ref_switch 				= deferred_command("laminar/B747/toggle_switch/he
 
 
 ----- OVERHEAD SUN VISOR ----------------------------------------------------------------
-B747CMD_sun_visor_up_down_capt  		= deferred_command("laminar/B747/toggle_sun_visor/up_down/capt", "number", B747_sun_visor_up_down_capt_CMDhandler)
-B747CMD_sun_visor_up_down_fo    		= deferred_command("laminar/B747/toggle_sun_visor/up_down/fo", "number", B747_sun_visor_up_down_fo_CMDhandler)
+B747CMD_sun_visor_up_down_capt  		= deferred_command("laminar/B747/toggle_sun_visor/up_down/capt", "Captain", B747_sun_visor_up_down_capt_CMDhandler)
+B747CMD_sun_visor_up_down_fo    		= deferred_command("laminar/B747/toggle_sun_visor/up_down/fo", "Co Pilot", B747_sun_visor_up_down_fo_CMDhandler)
 
 
 
