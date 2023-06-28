@@ -71,8 +71,8 @@ for i = 0, NUM_BTN_SW-1 do
 end
 
 local B747_toggle_switch_position_target = {}
-local B747DR_sun_visor_left_right_capt_target = 0.8
-local B747DR_sun_visor_left_right_fo_target = 0.8
+local B747DR_sun_visor_left_right_capt_target = 0.65
+local B747DR_sun_visor_left_right_fo_target = 0.65
 for i = 0, NUM_TOGGLE_SW-1 do
     B747_toggle_switch_position_target[i] = 0
 end
@@ -143,7 +143,8 @@ B747DR_elec_ext_pwr_2_switch_mode   = deferred_dataref("laminar/B747/elec_ext_pw
 B747DR_elec_apu_pwr_2_switch_mode   = deferred_dataref("laminar/B747/apu_pwr_2/switch_mode", "number")
 B747DR_gen_drive_disc_status        = deferred_dataref("laminar/B747/electrical/generator/drive_disc_status", "array[4]")
 
-B747DR_ap_FMA_autothrottle_mode     	= deferred_dataref("laminar/B747/autopilot/FMA/autothrottle_mode", "number")
+B747DR_ap_FMA_autothrottle_mode     = deferred_dataref("laminar/B747/autopilot/FMA/autothrottle_mode", "number")
+B747DR_ap_ATT     	                = deferred_dataref("laminar/B747/autopilot/att_rate", "number")
 
 simDR_radio_alt_DH_capt             = find_dataref("sim/cockpit2/gauges/actuators/radio_altimeter_bug_ft_pilot")
 simDR_radio_alt_DH_fo               = find_dataref("sim/cockpit2/gauges/actuators/radio_altimeter_bug_ft_copilot")
@@ -197,7 +198,7 @@ B747DR_ovhd_map_light_y_fo          = deferred_dataref("laminar/B747/misc/ovhd_m
 --*************************************************************************************--
 
 B747CMD_ap_reset 					= find_command("laminar/B747/autopilot/mode_reset")
-B747CMD_ap_att_mode					= find_command("laminar/B747/autopilot/att_mode")
+--B747CMD_ap_att_mode					= find_command("laminar/B747/autopilot/att_mode")
 
 
 
@@ -1240,11 +1241,12 @@ function B747_flight_dir_switch_L_CMDhandler(phase, duration)
 				then
 					simCMD_autopilot_vert_speed_mode:once()												-- ACTIVATE "VS" MODE
 					simDR_autopilot_alt_hold_status=0
-                    --if math.abs(simDR_AHARS_roll_deg_pilot) < 5.0 then									-- BANK ANGLE LESS THAN 5 DEGREES
+                    if math.abs(simDR_AHARS_roll_deg_pilot) < 5.0 then									-- BANK ANGLE LESS THAN 5 DEGREES
 						simCMD_autopilot_heading_mode:once()											-- ACTIVATE "HEADING HOLD" MODE
-					--else
+					else
 					--	B747CMD_ap_att_mode:once()														-- ACTIVATE "ATT" MODE		
-					--end		
+                        B747DR_ap_ATT = simDR_AHARS_roll_deg_pilot
+					end		
 				end
 			end							
 		end
@@ -1297,11 +1299,12 @@ function B747_flight_dir_switch_R_CMDhandler(phase, duration)
 				then
 					simCMD_autopilot_vert_speed_mode:once()												-- ACTIVATE "VS" MODE
 					simDR_autopilot_alt_hold_status=0
-                   -- if math.abs(simDR_AHARS_roll_deg_pilot) < 5.0 then									-- BANK ANGLE LESS THAN 5 DEGREES
+                    if math.abs(simDR_AHARS_roll_deg_pilot) < 5.0 then									-- BANK ANGLE LESS THAN 5 DEGREES
 						simCMD_autopilot_heading_mode:once()											-- ACTIVATE "HEADING HOLD" MODE
-					--else
+					else
 						--B747CMD_ap_att_mode:once()														-- ACTIVATE "ATT" MODE		
-					--end		
+                        B747DR_ap_ATT = simDR_AHARS_roll_deg_pilot
+					end		
 				end
 			end							
 		end
@@ -1457,7 +1460,7 @@ function B747_sun_visor_up_down_capt_CMDhandler(phase, duration)
     if phase == 0 then 
         B747_toggle_switch_position_target[31] = 1.0 - B747_toggle_switch_position_target[31] 
         if B747_toggle_switch_position_target[31]<0.1 then
-            B747DR_sun_visor_left_right_capt_target=0.8 
+            B747DR_sun_visor_left_right_capt_target=0.65 
         else  
             B747DR_sun_visor_left_right_capt_target=0.0
         end    
@@ -1468,7 +1471,7 @@ function B747_sun_visor_up_down_fo_CMDhandler(phase, duration)
     if phase == 0 then 
         B747_toggle_switch_position_target[32] = 1.0 - B747_toggle_switch_position_target[32]
         if B747_toggle_switch_position_target[32]<0.1 then
-            B747DR_sun_visor_left_right_fo_target = 0.8
+            B747DR_sun_visor_left_right_fo_target = 0.65
         else
             B747DR_sun_visor_left_right_fo_target = 0
         end
@@ -1890,7 +1893,7 @@ end
 
 ----- BUTTON SWITCH COVER POSITION ANIMATION --------------------------------------------
 function B747_button_switch_cover_animation()
-
+    local refreshRoll=simDR_AHARS_roll_deg_pilot
     for i = 0, NUM_BTN_SW_COVERS-1 do
         B747DR_button_switch_cover_position[i] = B747_set_animation_position(B747DR_button_switch_cover_position[i], B747_button_switch_cover_position_target[i], 0.0, 1.0, 10.0)
     end

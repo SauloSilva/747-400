@@ -385,7 +385,7 @@ B747DR_ap_FMA_autothrottle_mode_box_status =
 	deferred_dataref("laminar/B747/autopilot/FMA/autothrottle/mode_box_status", "number")
 B747DR_ap_roll_mode_box_status = deferred_dataref("laminar/B747/autopilot/FMA/roll/mode_box_status", "number")
 B747DR_ap_pitch_mode_box_status = deferred_dataref("laminar/B747/autopilot/FMA/pitch/mode_box_status", "number")
-
+B747DR_ap_ATT     	                = deferred_dataref("laminar/B747/autopilot/att_rate", "number")
 B747DR_ap_FMA_autothrottle_mode = deferred_dataref("laminar/B747/autopilot/FMA/autothrottle_mode", "number")
 --[[
     0 = NONE
@@ -893,7 +893,7 @@ function B747_ap_switch_autothrottle_disco_R_CMDhandler(phase, duration)
 end
 
 function B747_ap_att_mode_CMDhandler(phase, duration)
-	if phase == 0 then
+	--[[if phase == 0 then
 		if simDR_AHARS_roll_deg_pilot > 30.0 then
 			simDR_autopilot_roll_sync_degrees = 30.0 -- LIMIT TO 30 DEGREES
 			simCMD_autopilot_roll_right_sync_mode:once() -- ACTIVATE ROLL SYNC (RIGHT) MODE
@@ -901,7 +901,7 @@ function B747_ap_att_mode_CMDhandler(phase, duration)
 			simDR_autopilot_roll_sync_degrees = -30.0 -- LIMIT TO 30 DEGREES
 			simCMD_autopilot_roll_left_sync_mode:once() -- ACTIVATE ROLL SYNC (LEFT) MODE
 		end
-	end
+	end]]--
 end
 
 function B747_ap_reset_CMDhandler(phase, duration)
@@ -968,6 +968,7 @@ function B747_ap_LNAV_mode_afterCMDhandler(phase, duration)
 	if phase == 0 then
 		B747CMD_fdr_log_lnav:once();
 		B747_ap_button_switch_position_target[2] = 1
+		B747DR_ap_ATT = 0.0
 		--simCMD_autopilot_gpss_mode:once()
 		if B747DR_ap_lnav_state > 0 then
 			B747DR_ap_lnav_state = 0
@@ -990,6 +991,7 @@ function B747_ap_switch_hdg_sel_mode_CMDhandler(phase, duration)
 			simCMD_autopilot_gpss_mode:once()
 		end
 		simCMD_autopilot_heading_select:once()
+		B747DR_ap_ATT = 0.0
 		simDR_autopilot_heading_deg = B747DR_ap_heading_deg
 		B747DR_ap_lnav_state = 0
 		run_after_time(checkLNAV, 0.5)
@@ -1103,8 +1105,8 @@ B747CMD_ap_switch_autothrottle_disco_R =
 	B747_ap_switch_autothrottle_disco_R_CMDhandler
 )
 
-B747CMD_ap_att_mode =
-	deferred_command("laminar/B747/autopilot/att_mode", "Set Autopilot ATT Mode", B747_ap_att_mode_CMDhandler)
+--B747CMD_ap_att_mode =
+--	deferred_command("laminar/B747/autopilot/att_mode", "Set Autopilot ATT Mode", B747_ap_att_mode_CMDhandler)
 B747CMD_ap_reset =
 	deferred_command("laminar/B747/autopilot/mode_reset", "Autopilot Mode Reset", B747_ap_reset_CMDhandler)
 
@@ -1444,6 +1446,7 @@ function B747_ap_heading_hold_mode_afterCMDhandler(phase, duration)
 	B747DR_ap_lnav_state = 0
 	if phase == 0 then
 		B747CMD_fdr_log_headhold:once()
+		B747DR_ap_ATT = 0.0
 		B747_ap_button_switch_position_target[5] = 1
 	elseif phase == 2 then
 		B747_ap_button_switch_position_target[5] = 0
@@ -2248,6 +2251,7 @@ function B747_ap_appr_mode()
 	
 	if B747DR_ap_lnav_state > 0 and simDR_autopilot_heading_status == 0 and simDR_autopilot_nav_status == 0 then
 		simCMD_autopilot_heading_select:once()
+		B747DR_ap_ATT = 0.0
 		B747DR_ap_lastCommand = simDRTime
 	end
 end
@@ -2310,6 +2314,11 @@ function fma_rollModes()
 	if B747DR_toggle_switch_position[23] == 0.0 and B747DR_toggle_switch_position[24] == 0.0  and numAPengaged == 0 and apWasOn==1 then
 		-- (TOGA) --
 		B747DR_ap_FMA_active_roll_mode = 0
+	elseif
+	--simDR_autopilot_roll_status == 2 and simDR_autopilot_flight_dir_mode > 0 and
+		math.abs(B747DR_ap_ATT) > 5.0
+ 	then
+		B747DR_ap_FMA_active_roll_mode = 5	
 	elseif B747DR_autopilot_TOGA_status~=0 then --simDR_autopilot_TOGA_lat_status == 2 then
 		B747DR_ap_FMA_active_roll_mode = 1
 	elseif simDR_onGround == 1 then
@@ -2343,11 +2352,6 @@ function fma_rollModes()
 		-- (ATT) --
 		B747DR_ap_FMA_active_roll_mode = 7
 		B747DR_ap_lnav_state = 0
-	elseif
-		simDR_autopilot_roll_status == 2 and simDR_autopilot_flight_dir_mode > 0 and
-			math.abs(simDR_AHARS_roll_deg_pilot) > 5.0
-	 then
-		B747DR_ap_FMA_active_roll_mode = 5
 	else
 		B747DR_ap_FMA_active_roll_mode = 0
 		if B747DR_ap_lnav_state == 2 then

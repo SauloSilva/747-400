@@ -2248,7 +2248,7 @@ end
 local defaultBias=-0.3
 function tone_mapping()
 
-    simDR_photoBias=defaultBias-3*math.max(getPilotVisorValue(),getCoPilotVisorValue())
+    simDR_photoBias=defaultBias-2.5*math.max(getPilotVisorValue(),getCoPilotVisorValue())
    
  --[[   if simDR_sun_pitch>0 then
         simDR_contrast	= B747_rescale(0,1.25,30,0.8,math.abs(simDR_view_pitch))

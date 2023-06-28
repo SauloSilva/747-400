@@ -411,8 +411,9 @@ function ap_director_roll()
     elseif simDR_autopilot_nav_status ~=2 then
         hasLoc=false
     end
-
-    if (simDR_autopilot_nav_status ~=2 and B747DR_autopilot_nav_status==2) or 5>(simDRTime-capturedLocTime) then
+    if math.abs(B747DR_ap_ATT)>1 then
+        return B747DR_ap_ATT
+    elseif (simDR_autopilot_nav_status ~=2 and B747DR_autopilot_nav_status==2) or 5>(simDRTime-capturedLocTime) then
         print("autoland estimating roll capturedLocTime "..capturedLocTime.. " simDRTime "..simDRTime .. " simDR_autopilot_nav_status "..simDR_autopilot_nav_status)
         return lastAPTargetRoll
     else
@@ -464,8 +465,11 @@ function getGlideSlopeFPM()
     end]]
     local speed_fpm=simDR_groundspeed*196.85
     thisTargetGlideslipeFPM=-math.tan(math.rad(simDR_glideslope1))*speed_fpm
-    local nextVdef=simDR_hsi_vdef_dots_pilot --+speed_delta --look ahead
+    local nextVdef=simDR_hsi_vdef_dots_pilot 
    -- local correction=(8*nextVdef*nextVdef*nextVdef)
+    if math.abs(nextVdef)>2.0 then
+        nextVdef=nextVdef*3
+    end
     local correction=(75*nextVdef)
     local resultTargetGlideslipeFPM=thisTargetGlideslipeFPM-correction --was 75 last testing
     --print("fin thisTargetGlideslipeFPM "..thisTargetGlideslipeFPM.." correction "..correction.." resultTargetGlideslipeFPM "..resultTargetGlideslipeFPM)

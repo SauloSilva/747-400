@@ -118,6 +118,8 @@ B747DR_autopilot_acutal_nav_status = deferred_dataref("laminar/B747/autopilot/ac
 B747DR_autopilot_acutal_gs_status = deferred_dataref("laminar/B747/autopilot/actual_glideslope_status", "number")
 
 B747DR_ap_FMA_autothrottle_mode     	= deferred_dataref("laminar/B747/autopilot/FMA/autothrottle_mode", "number")
+B747DR_ap_ATT     	                = deferred_dataref("laminar/B747/autopilot/att_rate", "number")
+
 B747DR_ap_active_land = deferred_dataref("laminar/B747/autopilot/active_land", "number")
 --[[
     0 = NONE
@@ -240,7 +242,7 @@ B747CMD_ap_switch_yoke_disengage_fo		= deferred_command("laminar/B747/autopilot/
 B747CMD_ap_switch_autothrottle_disco_L	= deferred_command("laminar/B747/autopilot/button_switch/autothrottle_disco_L", "A/P Autothrottle Disco Left", B747_ap_switch_autothrottle_disco_L_CMDhandler)
 B747CMD_ap_switch_autothrottle_disco_R	= deferred_command("laminar/B747/autopilot/button_switch/autothrottle_disco_R", "A/P Autothrottle Disco Right", B747_ap_switch_autothrottle_disco_R_CMDhandler)
 
-B747CMD_ap_att_mode						= deferred_command("laminar/B747/autopilot/att_mode", "Set Autopilot ATT Mode", B747_ap_att_mode_CMDhandler)
+--B747CMD_ap_att_mode						= deferred_command("laminar/B747/autopilot/att_mode", "Set Autopilot ATT Mode", B747_ap_att_mode_CMDhandler)
 B747CMD_ap_reset 						= deferred_command("laminar/B747/autopilot/mode_reset", "Autopilot Mode Reset", B747_ap_reset_CMDhandler)
 
 
