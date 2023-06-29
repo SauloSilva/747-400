@@ -31,7 +31,6 @@ function fmsFunctions.initAcars(fmsO,value)
   fmsO["targetCustomFMC"]=true
   fmsO["targetPage"]="PREFLIGHT"
   run_after_time(switchCustomMode, 0.5)
-  
 end
 function fmsFunctions.acarsLogonATC(fmsO,value)
   if getFMSData("fltno")=="*******" then fmsO["notify"]="FLT NO NOT SET" return end

@@ -15,6 +15,7 @@ fmsPages["ACARS"]["template"]={
 "                        "
 }
 fmsFunctionsDefs["ACARS"]["L1"]={"setpage","PREFLIGHT"}
+fmsFunctionsDefs["ACARS"]["L2"]={"setpage","ATCINDEX"}
 fmsFunctionsDefs["ACARS"]["R1"]={"setpage","ACARSMSGS"}
 fmsFunctionsDefs["ACARS"]["R2"]={"setpage","VHFCONTROL"}
 fmsFunctionsDefs["ACARS"]["R3"]={"setpage","ACARSWEATHER"}
