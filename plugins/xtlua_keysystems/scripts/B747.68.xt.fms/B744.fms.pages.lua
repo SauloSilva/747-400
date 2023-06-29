@@ -2274,17 +2274,17 @@ function fmsFunctions.setdata(fmsO,value)
 	end
 --Marauder28
    elseif value=="atc" then
-		setFMSData(value,fmsO["scratchpad"])
+		--setFMSData(value,fmsO["scratchpad"])
 		
-		fmsFunctions["acarsLogonATC"](fmsO,"Logon " .. fmsO["scratchpad"])
+		fmsFunctions["acarsLogonATC"](fmsO,fmsO["scratchpad"])
 	elseif value=="fltdepatc" then
-		setFMSData("atc",fmsModules.data["fltdep"])
+		--setFMSData("atc",fmsModules.data["fltdep"])
 		
-		fmsFunctions["acarsLogonATC"](fmsO,"Logon " .. fmsModules.data["fltdep"])
+		fmsFunctions["acarsLogonATC"](fmsO,fmsModules.data["fltdep"])
 	elseif value=="fltdstatc" then
-		setFMSData("atc",fmsModules.data["fltdst"])
+		--setFMSData("atc",fmsModules.data["fltdst"])
 		
-		fmsFunctions["acarsLogonATC"](fmsO,"Logon " .. fmsModules.data["fltdst"])	
+		fmsFunctions["acarsLogonATC"](fmsO,fmsModules.data["fltdst"])	
 	elseif value=="metarreq" then	
 		fmsFunctions["acarsATCRequest"](fmsO,"REQUEST METAR")	
 	elseif value=="tafreq" then	

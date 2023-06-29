@@ -3,7 +3,11 @@
 *        COPYRIGHT � 2020 Mark Parker/mSparks CC-BY-NC4
 *****************************************************************************************
 ]]
-
+local clock = os.clock
+function sleep(n)
+  local t0 = clock()
+  while clock() - t0 <= n do end
+end
 
 function fmsFunctions.initAcars(fmsO,value)
   local currentInit=getFMSData("acarsInitString")
@@ -25,21 +29,27 @@ function fmsFunctions.initAcars(fmsO,value)
   end
   fmsO["pgNo"]=1
   fmsO["targetCustomFMC"]=true
-  fmsO["targetPage"]="PREFLIGHT" 
+  fmsO["targetPage"]="PREFLIGHT"
   run_after_time(switchCustomMode, 0.5)
   
 end
 function fmsFunctions.acarsLogonATC(fmsO,value)
+  if getFMSData("fltno")=="*******" then fmsO["notify"]="FLT NO NOT SET" return end
+  if getFMSData("fltdep")=="****" then fmsO["notify"]="DEPARTURE NOT SET" return end
+  if getFMSData("fltdst")=="****" then fmsO["notify"]="DESTINATION NOT SET" return end
   acarsSystem.provider.logoff()
   local atcLogon={}
-	atcLogon["type"]="logon"
+  setFMSData("atc",value)
+  if fmsModules["data"]["atc"]=="****" then return end
+	atcLogon["type"]="cpdlc"
+  atcLogon["msg"]="REQUEST LOGON"
   local newInitSend=json.encode(atcLogon)
   fmsFunctions.acarsSystemSendATC(fmsO,newInitSend)
 end
 function fmsFunctions.acarsATCRequest(fmsO,value)
   local atcReq={}
-	atcReq["type"]="request"
-  atcReq["request"]=value
+	atcReq["type"]="inforeq"
+  atcReq["msg"]=value
   local newInitSend=json.encode(atcReq)
   fmsFunctions.acarsSystemSendATC(fmsO,newInitSend)
 end
@@ -95,10 +105,9 @@ function fmsFunctions.acarsSystemSend(fmsO,value)
     if string.len(msgToSend) <5 then 
       tMSG["adr"]=getFMSData("acarsAddress")
        if tMSG["adr"]=="*******" then fmsO["notify"]="EMPTY ADDRESS" return end
-      msgToSend=fmsO["scratchpad"] 
-      tMSG["type"]="msg"
+      msgToSend=fmsO["scratchpad"]
+      tMSG["type"]="cpdlc"
       tMSG["msg"]=msgToSend
-      
       fmsO["scratchpad"]=""
     else
       tMSG=json.decode(value)
@@ -125,19 +134,16 @@ function fmsFunctions.acarsSystemSendATC(fmsO,value)
     local msgToSend=value
     local tMSG={}
     if string.len(msgToSend) <5 then 
-      tMSG["adr"]=getFMSData("acarsAddress")
-       if tMSG["adr"]=="*******" then fmsO["notify"]="EMPTY ADDRESS" return end
+      tMSG["to"]=getFMSData("acarsAddress")
+       if tMSG["to"]=="*******" then fmsO["notify"]="EMPTY ADDRESS" return end
       msgToSend=fmsO["scratchpad"] 
-      tMSG["type"]="msg"
+      tMSG["type"]="cpdlc"
       tMSG["msg"]=msgToSend
-      
       fmsO["scratchpad"]=""
     else
       tMSG=json.decode(value)
     end
     if string.len(msgToSend) <5 then fmsO["notify"]="EMPTY MESSAGE" return end
-    
-    
     acarsSystem.provider.sendATC(json.encode(tMSG))
     fmsO["targetCustomFMC"]=true
     run_after_time(switchCustomMode, 0.5)

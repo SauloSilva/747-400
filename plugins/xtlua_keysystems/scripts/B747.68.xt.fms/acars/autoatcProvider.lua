@@ -34,20 +34,26 @@ autoATCState["initialised"]=false
 autoATCState["online"]=false
 acarsSystem.provider={
   logoff=function()
-    autoATCState["online"]=false
+    if acarsSystem.provider.online()==true and fmsModules["data"]["atc"]~="****" then
+      local tMSG={}
+      tMSG["to"]=fmsModules["data"]["atc"]--getFMSData("acarsAddress")
+      tMSG["type"]="cpdlc"
+      tMSG["msg"]="LOGOFF"
+      acarsSystem.provider.sendATC(json.encode(tMSG))
+    end
   end,
 sendATC=function(value)
-  
   print("LUA send ACARS message:"..value)
   local newMessage=json.decode(value)--check json value or fail
-  newMessage["acarsDest"]=fmsModules["data"]["atc"]
+  newMessage["to"]=fmsModules["data"]["atc"]
+  newMessage["from"]=getFMSData("fltno")
   sendDataref=json.encode(newMessage)
+  sleep(3)
 end,
 sendCompany=function(value)
-  
   print("LUA send ACARS message:"..value)
   local newMessage=json.decode(value)--check json value or fail
-  newMessage["acarsDest"]="company"
+  newMessage["to"]="company"
   sendDataref=json.encode(newMessage)
 end,
 receive=function() 
@@ -75,10 +81,21 @@ receive=function()
     elseif newMessage["online"]==false then
       autoATCState["online"]=false
     end
-    if newMessage["type"]=="misc" then
+    if newMessage["type"]=="telex" then
       newMessage["read"]=false
       newMessage["time"]=string.format("%02d:%02d",hh,mm)
       print("msg time "..newMessage["time"])
+      acarsSystem.messages[table.getn(acarsSystem.messages.values)+1]=newMessage
+    end
+    if newMessage["type"]=="cpdlc" then
+      newMessage["read"]=false
+      if newMessage["msg"]=="LOGON ACCEPTED" or newMessage["msg"]=="SERVICE TERMINATED" then
+        newMessage["read"]=true
+      end
+      newMessage["time"]=string.format("%02d:%02d",hh,mm)
+      if newMessage["title"]==nil then
+        newMessage["title"]=newMessage["from"].." "..string.sub(newMessage["msg"],1,15)
+      end
       acarsSystem.messages[table.getn(acarsSystem.messages.values)+1]=newMessage
     end
     acarsReceiveDataref=" "
