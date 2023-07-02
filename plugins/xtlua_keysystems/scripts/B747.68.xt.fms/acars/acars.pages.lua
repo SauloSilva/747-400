@@ -52,8 +52,6 @@ fmsPages["POSTFLIGHT"].getPage=function(self,pgNo,fmsID)
     fmsFunctionsDefs["POSTFLIGHT"]["l1"]={"setpage","ATCLOGONSTATUS"} 
   else
     fmsFunctionsDefs["POSTFLIGHT"]["L1"]={"setdata","atc"}
-  else
-
   end
   local page={
 
