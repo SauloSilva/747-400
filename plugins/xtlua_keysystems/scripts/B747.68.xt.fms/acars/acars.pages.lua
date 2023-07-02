@@ -16,6 +16,7 @@ fmsPages["ACARS"]["template"]={
 }
 fmsFunctionsDefs["ACARS"]["L1"]={"setpage","PREFLIGHT"}
 fmsFunctionsDefs["ACARS"]["L2"]={"setpage","ATCINDEX"}
+fmsFunctionsDefs["ACARS"]["L3"]={"setpage","POSTFLIGHT"}
 fmsFunctionsDefs["ACARS"]["R1"]={"setpage","ACARSMSGS"}
 fmsFunctionsDefs["ACARS"]["R2"]={"setpage","VHFCONTROL"}
 fmsFunctionsDefs["ACARS"]["R3"]={"setpage","ACARSWEATHER"}
@@ -37,12 +38,44 @@ string.format(" %02d:%02d:%02d               ",hh,mm,ss),
 "                        ",
 "<RETURN                 "
 }
-
 fmsFunctionsDefs["PREFLIGHT"]["L6"]={"setpage","ACARS"}
 fmsFunctionsDefs["PREFLIGHT"]["L2"]={"setpage","INITIALIZE"}
 fmsFunctionsDefs["PREFLIGHT"]["R2"]={"setpage","ACARSMSGS"}
 fmsFunctionsDefs["PREFLIGHT"]["R3"]={"setpage","VHFCONTROL"}
 fmsFunctionsDefs["PREFLIGHT"]["R4"]={"setpage","ACARSWEATHER"}
+fmsPages["POSTFLIGHT"]=createPage("POSTFLIGHT")
+fmsPages["POSTFLIGHT"].getPage=function(self,pgNo,fmsID)
+  local l1text="<LOGOFF "..fmsModules["data"]["atc"].."            "
+  
+  if fmsModules["data"]["atc"]=="****" then
+    l1text="<LOGON                  "
+    fmsFunctionsDefs["POSTFLIGHT"]["l1"]={"setpage","ATCLOGONSTATUS"} 
+  else
+    fmsFunctionsDefs["POSTFLIGHT"]["L1"]={"setdata","atc"}
+  else
+
+  end
+  local page={
+
+    "  ACARS-POSTFLIGHT MENU ",
+    "                        ",
+    l1text,
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "<RETURN                 "
+    }
+    return page
+end
+
+fmsFunctionsDefs["POSTFLIGHT"]["L6"]={"setpage","ACARS"}
 fmsPages["INITIALIZE"]=createPage("INITIALIZE")
 fmsPages["INITIALIZE"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be this way
   fmsPages["INITIALIZE"]["template"]={
