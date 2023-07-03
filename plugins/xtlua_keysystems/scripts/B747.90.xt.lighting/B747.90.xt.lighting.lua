@@ -2214,41 +2214,41 @@ end
 function viewheadCoPilotVisor()
     local psi=simDR_headpsi
     local pitch=simDR_headpitch
-    local visorX=B747_rescale(0.6,0.845,1,0.302,simDR_fo_visor_lr) 
+    local visorX=B747_rescale(0.5,0.845,1,0.102,simDR_fo_visor_lr) 
     local visorY=5.2
     local visorZ=B747_rescale(0,-25.41,0.6,-26.4,simDR_fo_visor_lr)
     local thisHit=closest_intercept(simDR_headX,simDR_headY,simDR_headZ,visorX,visorY,visorZ,psi,pitch)
     
-    local retVal=B747_rescale(0,1,1,0,thisHit)
+    local retVal=B747_rescale(0,1,0.4,0,thisHit)
     return retVal
 end
 function viewheadPilotVisor()
     local psi=simDR_headpsi
     local pitch=simDR_headpitch
-    local visorX=B747_rescale(0.6,-0.845,1,-0.302,simDR_capt_visor_lr)
+    local visorX=B747_rescale(0.5,-0.845,1,-0.102,simDR_capt_visor_lr)
     local visorY=5.2
     local visorZ=B747_rescale(0,-25.41,0.6,-26.4,simDR_capt_visor_lr)
     local thisHit=closest_intercept(simDR_headX,simDR_headY,simDR_headZ,visorX,visorY,visorZ,psi,pitch)
     
-    local retVal=B747_rescale(0,1,1,0,thisHit)
+    local retVal=B747_rescale(0,1,0.4,0,thisHit)
     return retVal
 end
 function getPilotVisorValue()
     local retVal=viewheadPilotVisor()
-    --print(retVal)
+    --print("getPilotVisorValue "..(retVal))
  
     return retVal*(1-simDR_capt_visor_ud)
 end
 function getCoPilotVisorValue()
     local retVal=viewheadCoPilotVisor()
-    --print(retVal)
+    --print("getCoPilotVisorValue "..retVal)
  
     return retVal*(1-simDR_fo_visor_ud)
 end
 local defaultBias=-0.3
 function tone_mapping()
 
-    simDR_photoBias=defaultBias-2.5*math.max(getPilotVisorValue(),getCoPilotVisorValue())
+    simDR_photoBias=defaultBias-2.6*math.max(getPilotVisorValue(),getCoPilotVisorValue())
    
  --[[   if simDR_sun_pitch>0 then
         simDR_contrast	= B747_rescale(0,1.25,30,0.8,math.abs(simDR_view_pitch))

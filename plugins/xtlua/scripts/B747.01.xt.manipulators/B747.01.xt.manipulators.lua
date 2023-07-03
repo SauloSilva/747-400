@@ -71,8 +71,8 @@ for i = 0, NUM_BTN_SW-1 do
 end
 
 local B747_toggle_switch_position_target = {}
-local B747DR_sun_visor_left_right_capt_target = 0.65
-local B747DR_sun_visor_left_right_fo_target = 0.65
+local B747DR_sun_visor_left_right_capt_target = 0.68
+local B747DR_sun_visor_left_right_fo_target = 0.68
 for i = 0, NUM_TOGGLE_SW-1 do
     B747_toggle_switch_position_target[i] = 0
 end
@@ -1460,7 +1460,7 @@ function B747_sun_visor_up_down_capt_CMDhandler(phase, duration)
     if phase == 0 then 
         B747_toggle_switch_position_target[31] = 1.0 - B747_toggle_switch_position_target[31] 
         if B747_toggle_switch_position_target[31]<0.1 then
-            B747DR_sun_visor_left_right_capt_target=0.65 
+            B747DR_sun_visor_left_right_capt_target=0.68
         else  
             B747DR_sun_visor_left_right_capt_target=0.0
         end    
@@ -1471,7 +1471,7 @@ function B747_sun_visor_up_down_fo_CMDhandler(phase, duration)
     if phase == 0 then 
         B747_toggle_switch_position_target[32] = 1.0 - B747_toggle_switch_position_target[32]
         if B747_toggle_switch_position_target[32]<0.1 then
-            B747DR_sun_visor_left_right_fo_target = 0.65
+            B747DR_sun_visor_left_right_fo_target = 0.68
         else
             B747DR_sun_visor_left_right_fo_target = 0
         end
