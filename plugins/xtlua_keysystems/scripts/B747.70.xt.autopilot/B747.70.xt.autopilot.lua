@@ -2333,7 +2333,7 @@ function fma_rollModes()
 	elseif simDR_autopilot_gpss == 2 or B747DR_ap_lnav_state == 2 then
 		-- (ROLLOUT) --
 		-- TODO: AUTOLAND LOGIC
-		-- (HDG SEL) --
+		
 		B747DR_ap_FMA_active_roll_mode = 2
 
 		local diff = simDRTime - B747DR_ap_lastCommand
@@ -2346,10 +2346,11 @@ function fma_rollModes()
 			B747DR_ap_lastCommand = simDRTime
 		end
 	elseif simDR_autopilot_heading_status == 2 and B747DR_ap_lnav_state == 0 then
-		-- (HDG HLD) --
+		-- (HDG SEL) --
+		simDR_autopilot_heading_deg = B747DR_ap_heading_deg
 		B747DR_ap_FMA_active_roll_mode = 6
 	elseif simDR_autopilot_heading_hold_status == 2 then
-		-- (ATT) --
+		-- (HDG HLD) --
 		B747DR_ap_FMA_active_roll_mode = 7
 		B747DR_ap_lnav_state = 0
 	else
