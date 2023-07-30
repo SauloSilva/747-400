@@ -11,7 +11,7 @@ fmsPages["MAINTSIMCONFIG"].getPage=function(self,pgNo,fmsID)
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["R3"]={"setdata","captLwr"}
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["R4"]={"setdata","foInbd"}
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["R5"]={"setdata","foLwr"}
-    fmsFunctionsDefs["MAINTSIMCONFIG"]["R6"]={"setdata","simConfigSave"}
+	    fmsFunctionsDefs["MAINTSIMCONFIG"]["R6"]={"setdata","simConfigSave"}
 		local weight_factor = 1
 		local display_weight_units = string.format("%-3s", simConfigData["data"].SIM.weight_display_units)
 		local irs_align_time = string.format("%-2d", simConfigData["data"].SIM.irs_align_time / 60)  --Mins
@@ -45,7 +45,36 @@ fmsPages["MAINTSIMCONFIG"].getPage=function(self,pgNo,fmsID)
 		"                        ",
 		"<MENU              SAVE>"
     }
-  elseif pgNo == 2 then
+
+--silvereagle added to end	
+    elseif pgNo == 2 then
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["L1"]={"setdata","spillLights"}
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["R6"]={"setdata","simConfigSave"}
+		local lineA = ""
+		if simConfigData["data"].SIM.spill_lights == "NORM" then
+			lineA = "NORM/  "
+		else
+			lineA = "    /HI"
+		end
+
+		return{
+		"       SIM CONFIG       ",
+		"                        ",
+		"<SPILL LIGHTS    " ..lineA,
+		"                        ",
+		"                        ",
+		"                        ",
+		"                        ",
+		"                        ",
+		"                        ",
+		"                        ",
+		"                        ",
+		"------------------------",
+		"<MENU              SAVE>"
+		}
+--silvereagle end	
+		
+  elseif pgNo == 3 then --silvereagle
     fmsFunctionsDefs["MAINTSIMCONFIG"]["L1"]={"setDref","VNAVSPAUSE"}
     fmsFunctionsDefs["MAINTSIMCONFIG"]["L2"]={"setDref","PAUSEVAL"}
     fmsFunctionsDefs["MAINTSIMCONFIG"]["L3"]=nil
@@ -85,7 +114,7 @@ fmsPages["MAINTSIMCONFIG"].getPage=function(self,pgNo,fmsID)
     "                        ",
     "<MENU                   "
     }
-	elseif pgNo == 3 then
+	elseif pgNo == 4 then --silvereagle
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["L1"]={"setdata","model"}
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["L2"]={"setdata","aircraftType"}
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["L3"]={"setdata","engines"}
@@ -124,7 +153,7 @@ fmsPages["MAINTSIMCONFIG"].getPage=function(self,pgNo,fmsID)
 		}
 
 
-	elseif pgNo == 4 then
+	elseif pgNo == 5 then --silvereagle
 
 		-- SOUND OPTIONS (CRAZYTIMTIMTIM + MATT726)
 
@@ -193,7 +222,7 @@ fmsPages["MAINTSIMCONFIG"].getSmallPage=function(self,pgNo,fmsID)
 		end
 
 		return {
-		"                     1/4",
+		"                     1/5", --silvereagle
 		" WGT UNITS    STD PAX WGT",
 		"<    "..display_weight_units,
 		" IRS ALIGN      CAPT INBD",
@@ -207,9 +236,34 @@ fmsPages["MAINTSIMCONFIG"].getSmallPage=function(self,pgNo,fmsID)
 		"                        ",
 		"                        "
     }
-  elseif pgNo == 2 then
+
+--silvereagle added to end	
+	elseif pgNo == 2 then
+		if simConfigData["data"].SIM.spill_lights == "NORM" then
+			lineA = "                      HI"
+		else
+			lineA = "                 NORM   "
+		end
+
+	return{
+		"                     2/5",
+		"                        ",
+		lineA,
+		"                        ",
+		"                        ",
+		"                        ",
+		"                        ",
+		"                        ",
+		"                        ",
+		"                        ",
+		"                        ",
+		"                        "
+		}
+--silvereagle end	
+		
+  elseif pgNo == 3 then --silvereagle
     return {
-      "                     2/4",
+      "                     3/5", --silvereagle
       "                        ",
       "                        ",
       "                        ",
@@ -223,7 +277,7 @@ fmsPages["MAINTSIMCONFIG"].getSmallPage=function(self,pgNo,fmsID)
       "                        ",
       "                        "
       }
-	elseif pgNo == 3 then
+	elseif pgNo == 4 then --silvereagle
 		local thrust_ref = "EPR"
 		
 		if simConfigData["data"].PLANE.thrust_ref == "EPR" then
@@ -233,7 +287,7 @@ fmsPages["MAINTSIMCONFIG"].getSmallPage=function(self,pgNo,fmsID)
 		end
 		
 		return {
-		"                     3/4",
+		"                     4/5",
 		" MODEL            AIRLINE",
 		"                        ",
 		" TYPE           CIVIL REG",
@@ -248,10 +302,10 @@ fmsPages["MAINTSIMCONFIG"].getSmallPage=function(self,pgNo,fmsID)
 		"                        "
 		}
 
-	elseif pgNo == 4 then
+	elseif pgNo == 5 then --silvereagle
 
 		return {
-			"                     4/4",
+			"                     5/5",
 			"                        ",
 			"                        ",
 			"                        ",
@@ -270,6 +324,6 @@ fmsPages["MAINTSIMCONFIG"].getSmallPage=function(self,pgNo,fmsID)
 end
 
 fmsPages["MAINTSIMCONFIG"].getNumPages=function(self)
-  return 4
+  return 5
 end
 fmsFunctionsDefs["MAINTSIMCONFIG"]["L6"]={"setpage","INDEX"}
