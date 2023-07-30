@@ -14,6 +14,9 @@ B747DR_airspeed_flapsRef	= deferred_dataref("laminar/B747/airspeed/flapsRef", "n
 B747DR_refuel							= deferred_dataref("laminar/B747/fuel/refuel", "number")
 --Marauder28
 
+--Spill Lights
+B747DR_fmc_spill_lights		= deferred_dataref("laminar/B747/fmc/spill_lights", "number") --silvereagle
+
 fmsFunctions={}
 dofile("acars/acars.lua")
 
@@ -2148,6 +2151,20 @@ function fmsFunctions.setdata(fmsO,value)
 		simConfigData["data"].SIM.fo_lwr = fmsO.scratchpad
 		pushSimConfig(simConfigData["data"]["values"])
 	end
+	
+--silvereagle added to end
+    elseif value=="spillLights" then
+		if simConfigData["data"].SIM.spill_lights == "NORM" then
+			fmsO["scratchpad"] = "HI"
+			B747DR_fmc_spill_lights = 1
+		else	
+			fmsO["scratchpad"] = "NORM"
+			B747DR_fmc_spill_lights = 0
+		end
+		simConfigData["data"].SIM.spill_lights = fmsO.scratchpad
+		pushSimConfig(simConfigData["data"]["values"])
+--silvereagle end	
+		
 	elseif value=="simConfigSave" then
 			local file_location = simDR_livery_path.."B747-400_simconfig.dat"
 			--print("File = "..file_location)
