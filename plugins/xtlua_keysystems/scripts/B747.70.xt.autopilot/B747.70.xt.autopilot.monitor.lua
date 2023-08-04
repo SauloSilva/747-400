@@ -551,7 +551,7 @@ function B747_monitorAT()
     --if simDR_autopilot_alt_hold_status == 2 then
 
     --if  B747DR_ap_FMA_active_pitch_mode==5 or B747DR_ap_FMA_active_pitch_mode==9 then 
-    if  simDR_autopilot_alt_hold_status==2 then   
+    if  simDR_autopilot_alt_hold_status==2 or B747DR_ap_FMA_active_pitch_mode==2 then   
         if B747DR_ap_thrust_mode~=0 then
             B747DR_ap_lastCommand=simDRTime
         end

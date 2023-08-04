@@ -1663,7 +1663,7 @@ function B747_fltmgmt_setILS(fms)
 					print("Tuned ILS " .. course)
 					targetDots = 1 -- make PFD loc and GS dots visible
 				end
-			else
+			elseif B747DR_ap_FMA_active_roll_mode ~= 3 then
 				--print("cleared targetILS")
 				targetILS = " "
 				targetILSS = " "
@@ -1686,7 +1686,9 @@ function B747_fltmgmt_setILS(fms)
 		simDR_radio_nav_obs_deg[1] = course
 		targetDots = 1 -- make PFD loc and GS dots visible
 	else
-		if string.len(targetILS) < 2 then
+		if B747DR_ap_FMA_active_roll_mode == 3 then
+			targetDots = 1 -- make PFD loc and GS dots visible
+		elseif string.len(targetILS) < 2 and B747DR_ap_FMA_active_roll_mode ~= 3 then
 			targetDots = 0
 		end
 	end
