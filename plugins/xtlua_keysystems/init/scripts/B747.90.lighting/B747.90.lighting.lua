@@ -144,7 +144,8 @@ B747DR_flood_light_rheo_mcp             = deferred_dataref("laminar/B747/light/f
 B747DR_flood_light_rheo_aisle_stand     = deferred_dataref("laminar/B747/light/flood/rheostat/aisle_stand", "number", B747DR_flood_light_rheo_aisle_stand_DRhandler)
 B747DR_flood_light_rheo_overhead        = deferred_dataref("laminar/B747/light/flood/rheostat/overhead", "number", B747DR_flood_light_rheo_overhead_DRhandler)
 
-
+----- SPILL LIGHTS ----------------------------------------------------------------------
+B747DR_fmc_spill_lights			= deferred_dataref("laminar/B747/fmc/spill_lights", "number") --silvereagle
 
 B747CMD_cockpitLightsOn		= deferred_command("laminar/B747/light/cockpit_lightsOn", "cockpit lights On", B747CMD_cockpitLightsOn_CMDhandler)
 B747CMD_cockpitLightsOff		= deferred_command("laminar/B747/light/cockpit_lightsOff", "cockpit lights Off", B747CMD_cockpitLightsOff_CMDhandler)

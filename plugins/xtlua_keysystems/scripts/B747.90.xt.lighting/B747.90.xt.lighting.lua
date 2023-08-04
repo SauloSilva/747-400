@@ -503,6 +503,9 @@ B747DR_flood_light_rheo_mcp             = deferred_dataref("laminar/B747/light/f
 B747DR_flood_light_rheo_aisle_stand     = deferred_dataref("laminar/B747/light/flood/rheostat/aisle_stand", "number", B747DR_flood_light_rheo_aisle_stand_DRhandler)
 B747DR_flood_light_rheo_overhead        = deferred_dataref("laminar/B747/light/flood/rheostat/overhead", "number", B747DR_flood_light_rheo_overhead_DRhandler)
 
+----- SPILL LIGHTS ----------------------------------------------------------------------
+B747DR_fmc_spill_lights			= deferred_dataref("laminar/B747/fmc/spill_lights", "number") --silvereagle
+
 function B747CMD_cockpitLightsOn_CMDhandler()
   --TODO Animate
   B747DR_flood_light_rheo_capt_panel=1
@@ -936,41 +939,69 @@ function B747_cabin_lights()
 
 end
 
-
-
-
-
+--silvereagle added/modified to end
 ----- SPILL LIGHTS ----------------------------------------------------------------------
 function B747_spill_lights()
+	if B747DR_fmc_spill_lights == 1 then
+		-- HERE FOR FMC "SIM CONFIG" PAGE "<SPILL LIGHTS HI" (BRIGHT DAY), STORM SWITCH HAS NO EFFECT
 
-    -- USE THE GENERIC LIGHT INDEX [63] AS A "POWER" VALUE FOR THE SPILL LIGHTS
+		-- USE THE GENERIC LIGHT INDEX [63] AS A "POWER" VALUE FOR THE SPILL LIGHTS
+		
+		-- TODO:  ADD BUS POWER LOGIC ?
 
-    -- TODO:  ADD BUS POWER LOGIC ?
+		local storm_light_brt_level = 8.0
+		local storm_light_level = storm_light_brt_level * simDR_generic_brightness_ratio[63]
 
-    -- BRIGHTNESS LEVEL FOR STORM LIGHTS
-    local storm_light_brt_level = 8.0
-	local storm_light_level = storm_light_brt_level * simDR_generic_brightness_ratio[63]
+		-- SET THE SPILL LIGHT LEVELS
+		B747DR_spill_light_capt_panel_flood[3]      = storm_light_level * 3
+		B747DR_spill_light_center_panel_flood[3]    = storm_light_level * 3
+		B747DR_spill_light_capt_map[3]              = B747DR_map_light_rheo_capt * simDR_generic_brightness_ratio[63]
+		B747DR_spill_light_capt_chart[3]            = B747DR_chart_light_rheo_capt * simDR_generic_brightness_ratio[63]
+		B747DR_spill_light_fo_panel_flood[3]        = storm_light_level * 3
+		B747DR_spill_light_fo_map[3]                = B747DR_map_light_rheo_fo * simDR_generic_brightness_ratio[63]
+		B747DR_spill_light_fo_chart[3]              = B747DR_chart_light_rheo_fo * simDR_generic_brightness_ratio[63]
+		B747DR_spill_light_observer_map[3]          = B747DR_map_light_rheo_observer * simDR_generic_brightness_ratio[63]
+		B747DR_spill_light_mcp_flood[3]             = storm_light_level
+		B747DR_spill_light_aisle_stand_flood[3]     = storm_light_level * 3
 
-    -- SET THE SPILL LIGHT LEVELS
-    B747DR_spill_light_capt_panel_flood[3]      = B747_ternary((B747DR_toggle_switch_position[0] <= 0.05), storm_light_level * 3, (B747DR_flood_light_rheo_capt_panel * simDR_generic_brightness_ratio[63]))
-    B747DR_spill_light_center_panel_flood[3]    = B747_ternary((B747DR_toggle_switch_position[0] <= 0.05), storm_light_level * 3, (B747DR_flood_light_rheo_capt_panel * simDR_generic_brightness_ratio[63]))
-    B747DR_spill_light_capt_map[3]              = B747DR_map_light_rheo_capt * simDR_generic_brightness_ratio[63]
-    B747DR_spill_light_capt_chart[3]            = B747DR_chart_light_rheo_capt * simDR_generic_brightness_ratio[63]
-    B747DR_spill_light_fo_panel_flood[3]        = B747_ternary((B747DR_toggle_switch_position[0] <= 0.05), storm_light_level * 3, (B747DR_flood_light_rheo_fo_panel * simDR_generic_brightness_ratio[63]))
-    B747DR_spill_light_fo_map[3]                = B747DR_map_light_rheo_fo * simDR_generic_brightness_ratio[63]
-    B747DR_spill_light_fo_chart[3]              = B747DR_chart_light_rheo_fo * simDR_generic_brightness_ratio[63]
-    B747DR_spill_light_observer_map[3]          = B747DR_map_light_rheo_observer * simDR_generic_brightness_ratio[63]
-    B747DR_spill_light_mcp_flood[3]             = B747_ternary((B747DR_toggle_switch_position[0] <= 0.05), storm_light_level, (B747DR_flood_light_rheo_mcp * simDR_generic_brightness_ratio[63]))
-    B747DR_spill_light_aisle_stand_flood[3]     = B747_ternary((B747DR_toggle_switch_position[0] <= 0.05), storm_light_level * 3, (B747DR_flood_light_rheo_aisle_stand * simDR_generic_brightness_ratio[63]))
+		--SET THE OVERHEAD FLOOD BRIGHTNESS LEVEL
+		simDR_panel_brightness_switch[0]            = storm_light_level
 
-    --SET THE OVERHEAD FLOOD BRIGHTNESS LEVEL
-    simDR_panel_brightness_switch[0]            = B747_ternary((B747DR_toggle_switch_position[0] <= 0.05), storm_light_level, B747DR_flood_light_rheo_overhead)
+		-- SET THE MAG COMPASS SPILL LIGHT LEVEL
+		B747DR_spill_light_mag_compass_flood[3]     = simDR_panel_brightness_ratio[3]
+	
+	elseif B747DR_fmc_spill_lights == 0 then
+		-- HERE FOR "SIM CONFIG" PAGE "<SPILL LIGHTS NORM" (NOT BRIGHT DAY), STORM SWITCH HAS EFFECT
 
-    -- SET THE MAG COMPASS SPILL LIGHT LEVEL
-    B747DR_spill_light_mag_compass_flood[3]     = simDR_panel_brightness_ratio[3]
+		-- USE THE GENERIC LIGHT INDEX [63] AS A "POWER" VALUE FOR THE SPILL LIGHTS
+
+		-- TODO:  ADD BUS POWER LOGIC ?
+
+		-- BRIGHTNESS LEVEL FOR STORM LIGHTS
+		local storm_light_brt_level = 0.95
+		local storm_light_level = storm_light_brt_level * simDR_generic_brightness_ratio[63]
+
+		-- SET THE SPILL LIGHT LEVELS
+		B747DR_spill_light_capt_panel_flood[3]      = B747_ternary((B747DR_toggle_switch_position[0] <= 0.05), storm_light_level, (B747DR_flood_light_rheo_capt_panel * simDR_generic_brightness_ratio[63]))
+		B747DR_spill_light_center_panel_flood[3]    = B747_ternary((B747DR_toggle_switch_position[0] <= 0.05), storm_light_level, (B747DR_flood_light_rheo_capt_panel * simDR_generic_brightness_ratio[63]))
+		B747DR_spill_light_capt_map[3]              = B747DR_map_light_rheo_capt * simDR_generic_brightness_ratio[63]
+		B747DR_spill_light_capt_chart[3]            = B747DR_chart_light_rheo_capt * simDR_generic_brightness_ratio[63]
+		B747DR_spill_light_fo_panel_flood[3]        = B747_ternary((B747DR_toggle_switch_position[0] <= 0.05), storm_light_level, (B747DR_flood_light_rheo_fo_panel * simDR_generic_brightness_ratio[63]))
+		B747DR_spill_light_fo_map[3]                = B747DR_map_light_rheo_fo * simDR_generic_brightness_ratio[63]
+		B747DR_spill_light_fo_chart[3]              = B747DR_chart_light_rheo_fo * simDR_generic_brightness_ratio[63]
+		B747DR_spill_light_observer_map[3]          = B747DR_map_light_rheo_observer * simDR_generic_brightness_ratio[63]
+		B747DR_spill_light_mcp_flood[3]             = B747_ternary((B747DR_toggle_switch_position[0] <= 0.05), storm_light_level, (B747DR_flood_light_rheo_mcp * simDR_generic_brightness_ratio[63]))
+		B747DR_spill_light_aisle_stand_flood[3]     = B747_ternary((B747DR_toggle_switch_position[0] <= 0.05), storm_light_level, (B747DR_flood_light_rheo_aisle_stand * simDR_generic_brightness_ratio[63]))
+
+		--SET THE OVERHEAD FLOOD BRIGHTNESS LEVEL
+		simDR_panel_brightness_switch[0]            = B747_ternary((B747DR_toggle_switch_position[0] <= 0.05), storm_light_level, B747DR_flood_light_rheo_overhead)
+
+		-- SET THE MAG COMPASS SPILL LIGHT LEVEL
+		B747DR_spill_light_mag_compass_flood[3]     = simDR_panel_brightness_ratio[3]
+
+	end
 end
-
-
+--silvereagle end
 
 ----- ANNUNCIATORS ----------------------------------------------------------------------
 function B747_annunciators()

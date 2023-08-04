@@ -65,7 +65,11 @@ B747DR_efis_baro_ref_fo_switch_pos			= deferred_dataref("laminar/B747/efis/baro_
 -- Engine Type (crazytimitmtim)
 B747DR_engineType                               = deferred_dataref("laminar/B747/engines/type", "number")
 B747DR_hideGE						= deferred_dataref("laminar/B747/engines/hideGE", "number") 
-B747DR_hideRR						= deferred_dataref("laminar/B747/engines/hideRR", "number") 
+B747DR_hideRR						= deferred_dataref("laminar/B747/engines/hideRR", "number")
+
+-- Spill Lights
+B747DR_fmc_spill_lights					= deferred_dataref("laminar/B747/fmc/spill_lights", "number") --silvereagle
+
 B747DR_SNDoptions			        	= deferred_dataref("laminar/B747/fmod/options", "array[7]")
 --B747DR_SNDoptions_volume				= deferred_dataref("laminar/B747/fmod/options/volume", "array[8]")
 B747DR_SNDoptions_gpws					= deferred_dataref("laminar/B747/fmod/options/gpws", "array[16]")
@@ -90,6 +94,7 @@ function simconfig_values()
 					 capt_lwr = "NORM",  --EICAS PRI = 0, NORM = 1, ND = 2
 					 fo_inbd = "NORM",  --PFD = 0, NORM = 1, EICAS = 2
 					 fo_lwr = "NORM",  --ND = 0, NORM = 1, EICAS PRI = 2
+					 spill_lights = "NORM", --HI = 1, NORM = 0 --silvereagle
 			},
 			PLANE = {
 						model = "747-400",  --747-400, 747-400ER, 747-400F
@@ -276,6 +281,15 @@ function set_loaded_configs()
 	elseif simConfigData["data"].SIM.fo_lwr == "EICAS PRI" then
 		B747DR_flt_inst_lwr_disp_fo_sel_dial_pos = 2
 	end
+	
+	--silvereagle to end
+	if simConfigData["data"].SIM.spill_lights == "NORM" then
+		B747DR_fmc_spill_lights = 0
+	else
+		B747DR_fmc_spill_lights = 1
+	end
+	--silvereagle end
+
 	for key, value in pairs(simConfigData["data"].SOUND) do
 		setSoundOption(key,value)
 	end
