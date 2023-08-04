@@ -1039,8 +1039,6 @@ function B747_fltCtrols_EICAS_msg()
     else
       if B747DR_parking_brake_ratio~=last_B747DR_Brake then --manually changed
 	    simDR_parking_brake_ratio = B747DR_parking_brake_ratio
-      --elseif simDR_parking_brake_ratio~=last_simDR_Brake then --sim changed
-	--  B747DR_parking_brake_ratio = simDR_parking_brake_ratio
       end
       last_simDR_Brake=simDR_parking_brake_ratio
       last_B747DR_Brake=B747DR_parking_brake_ratio

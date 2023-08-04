@@ -71,8 +71,8 @@ for i = 0, NUM_BTN_SW-1 do
 end
 
 local B747_toggle_switch_position_target = {}
-local B747DR_sun_visor_left_right_capt_target = 0.68
-local B747DR_sun_visor_left_right_fo_target = 0.68
+local B747DR_sun_visor_left_right_capt_target = 0.0
+local B747DR_sun_visor_left_right_fo_target = 0.0
 for i = 0, NUM_TOGGLE_SW-1 do
     B747_toggle_switch_position_target[i] = 0
 end

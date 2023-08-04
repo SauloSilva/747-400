@@ -248,7 +248,6 @@ B747CMD_gear_off      = deferred_command("laminar/B747/gear/overrideOff", "Gear 
 
 function sim_landing_gear_up_CMDhandler(phase, duration)
     if phase == 0 then
-        --B747DR_parking_brake_ratio = 0.0
         -- GEAR HANDLE LOCK IS DISENGAGED
         if B747_gear_handle_lock == 0 then
             B747DR_gear_handle = 2.0
@@ -262,7 +261,6 @@ end
 
 function sim_landing_gear_down_CMDhandler(phase, duration)
      if phase == 0 then
-            --B747DR_parking_brake_ratio = 0.0
 		B747DR_gear_handle = 0.0
  	    simDR_gear_handle_down = 1
      end
@@ -388,10 +386,7 @@ function B747_autobrakes_sel_dial_dn_CMDhandler(phase, duration)
 	if B747DR_autobrakes_sel_dial_pos>0 or seenTakeoffThrust==true then
 	  simDR_autobrakes_switch = simSwPos
 	end
-	
-	--[[if B747DR_autobrakes_sel_dial_pos == 2 or B747DR_autobrakes_sel_dial_pos == 1 then
-	  simDR_parking_brake_ratio   = B747DR_parking_brake_ratio
-	end]]
+
     end
 end
 local lastThrottle=0.0
@@ -907,7 +902,6 @@ end
 
 ----- MONITOR AI FOR AUTO-BOARD CALL ----------------------------------------------------
 function B747_gear_monitor_AI()
-     --if simDR_gear_handle_down==0 then B747DR_parking_brake_ratio =0 end
     if B747DR_init_gear_CD == 1 then
         B747_set_gear_all_modes()
         B747_set_gear_CD()

@@ -1,11 +1,13 @@
 ---
 header-includes:
+  - \usepackage{hyperref}
   - \hypersetup{colorlinks=true,
             urlcolor=blue,
             linkcolor=blue,
             allbordercolors={0 0 0},
-            pdfborderstyle={/S/U/W 1}}
-geometry: "left=1.5cm,right=1.5cm,top=2cm,bottom=2cm"          
+            pdfborderstyle={/S/U/W 1}}        
+geometry: "left=1.5cm,right=1.5cm,top=2cm,bottom=2cm"  
+       
 ---
 
 # Sparky744: The Boeing 747-400 fleet
