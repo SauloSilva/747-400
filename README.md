@@ -6,7 +6,8 @@ header-includes:
             linkcolor=blue,
             allbordercolors={0 0 0},
             pdfborderstyle={/S/U/W 1}}        
-geometry: "left=1.5cm,right=1.5cm,top=2cm,bottom=2cm"  
+geometry: "left=1.5cm,right=1.5cm,top=2cm,bottom=2cm"
+colorlinks: true  
        
 ---
 
