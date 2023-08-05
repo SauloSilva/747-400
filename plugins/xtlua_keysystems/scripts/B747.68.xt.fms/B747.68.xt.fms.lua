@@ -1140,6 +1140,7 @@ function after_physics()
       B747DR_CAS_memo_status[40]=0 --for CAS
       acars=1 --for radio
       acarsSystem.provider.receive()
+	  acarsSystem.provider.send()
       local hasNew=0
       for i = table.getn(acarsSystem.messages.values), 1, -1 do
 		if not acarsSystem.messages[i]["read"] then 

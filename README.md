@@ -125,6 +125,51 @@ See the [commit history](https://github.com/mSparks43/747-400/commits/master) fo
 
 _Thank you all for your support and contributions!_
 
+## Release XP1206-2023/08/05:
+XP12 and XP11 release improving XP12 lighting support and updating systems
+
+### Enhancements
+
+ - Smoother TOGA
+ - Storm light and FMC options by @Silver-Eagle-Cherokee
+ - XP12 Wing flex parameters from calibranr 
+ - Increase tint in sun visor
+ - Modify lighting exposure when looking at open sun visor (XP12 only)
+ - Add ACARS postflight page
+ - Go to ATCINDEX from ACARS Inflight
+ - ACARS Hoppie initial compatibility changes
+ - Autopilot tuning
+ - Custom ATT mode
+ - Work harder to catch GS if more than 2 dots off
+ - Disable range arc on glideslope capture
+ - Integrate fltdep and fltdst into RTE
+ - Flight plan clearing on new dep or DELETE dep/dst
+ - Enhanced LOC capture
+ - Hydraulic leak support (XP12+) 
+ - Autothrottle tuning
+ - ECC thermal tuning
+ - Engine spooling and thermal profile tweaking
+ - Improve VS mode stability
+ 
+
+### Bug fixes
+
+ - Fix Go around
+ - Clear TOGA when reaching MCP altitude
+ - Heading select value not always syncing with FMS
+ - Hold ILS once captured, even if flight plan deleted  
+ - Keep elevator trim synchronised
+ - Fix ACARS cycle reporting 
+ - Fix EPR throttle targets 
+ - Fix pitch sign error in ALT and FLCH modes 
+ - Fix simconfig not synchronising with real time changes
+ - Fix reverse throttle animation
+ - Dont introduce more fuel during engine run up 
+ - Fix synoptic display switching when fuel switch used
+ - Revert to v2.4 CG and tank locations
+ - Fixes for reverse thrust misbehaving
+ - Ignore repoeated gear commands for controllers that spam the gear lever 
+
 ## Release XP1205-2023/04/09:
 XP12 Milestone release based on extensive flight testing and user feedback. 
 

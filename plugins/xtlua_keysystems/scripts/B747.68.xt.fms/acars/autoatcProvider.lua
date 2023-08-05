@@ -9,6 +9,7 @@ sendDataref=find_dataref("autoatc/acars/out")
 cduDataref=find_dataref("autoatc/cdu")
 execLightDataref=find_dataref("sim/cockpit2/radios/indicators/fms_exec_light_copilot")
 wasOnline=false
+local lastSend=0
 function getDefaultCycle()
   local file = io.open("Resources/default data/earth_nav.dat")
   if file==nil then
@@ -47,15 +48,31 @@ sendATC=function(value)
   local newMessage=json.decode(value)--check json value or fail
   newMessage["to"]=fmsModules["data"]["atc"]
   newMessage["from"]=getFMSData("fltno")
-  sendDataref=json.encode(newMessage)
-  sleep(3)
+  --sendDataref=json.encode(newMessage)
+  acarsSystem.messageSendQueue[table.getn(acarsSystem.messageSendQueue.values)+1]=json.encode(newMessage)
+  --sleep(3)
 end,
 sendCompany=function(value)
   print("LUA send ACARS message:"..value)
   local newMessage=json.decode(value)--check json value or fail
   newMessage["to"]="company"
-  sendDataref=json.encode(newMessage)
+  --sendDataref=json.encode(newMessage)
+  acarsSystem.messageSendQueue[table.getn(acarsSystem.messageSendQueue.values)+1]=json.encode(newMessage)
 end,
+send=function()
+  local now=simDRTime
+  local diff=simDRTime-lastSend
+  if diff<15 then return end
+  local queueSize=table.getn(acarsSystem.messageSendQueue.values)
+  
+  if queueSize>acarsSystem.sentMessage then
+    local sending=acarsSystem.messageSendQueue[acarsSystem.sentMessage+1]
+    print("LUA send ACARS send :"..sending)
+    sendDataref=sending
+    lastSend=simDRTime
+    acarsSystem.sentMessage=acarsSystem.sentMessage+1
+  end
+end, 
 receive=function() 
   updateAutoATCCDU()
   if string.len(acarsReceiveDataref)>1 then

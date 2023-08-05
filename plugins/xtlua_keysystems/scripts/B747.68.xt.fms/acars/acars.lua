@@ -94,6 +94,8 @@ fmsPages["VIEWMISCACARS"]=createPage("VIEWMISCACARS")
 
 acarsSystem={}
 acarsSystem.messages={}
+acarsSystem.messageSendQueue={}
+acarsSystem.sentMessage=0
 --print("have this many "..table.getn(acarsSystem.messages.values).." acars messages")
 dofile("acars/autoatcProvider.lua")
 

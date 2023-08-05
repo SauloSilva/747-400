@@ -485,6 +485,8 @@ function compute_and_show_alt_range_arc()
   if B747DR_ap_FMA_active_pitch_mode==2 then --Glideslope
     B747DR_nd_alt_distance_capt=-99
     B747DR_nd_alt_distance_fo=-99
+    B747DR_nd_alt_fo_active=0
+    B747DR_nd_alt_capt_active=0 
     return
   end
   if simDR_autopilot_alt_hold_status<2 and ((simDR_autopilot_altitude_ft>simDR_pressureAlt1 and simDR_vvi_fpm_pilot>500) or (simDR_autopilot_altitude_ft<simDR_pressureAlt1 and simDR_vvi_fpm_pilot<-500) or B747DR_ap_FMA_active_pitch_mode==7) then
