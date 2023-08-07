@@ -2154,7 +2154,7 @@ function fmsFunctions.setdata(fmsO,value)
 	
 --silvereagle added to end
     elseif value=="spillLights" then
-		if simConfigData["data"].SIM.spill_lights == "NORM" then
+		if B747DR_fmc_spill_lights == 0 then
 			fmsO["scratchpad"] = "HI"
 			B747DR_fmc_spill_lights = 1
 		else	

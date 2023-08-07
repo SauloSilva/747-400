@@ -97,6 +97,8 @@ simDR_electrical_bus_volts          = find_dataref("sim/cockpit2/electrical/bus_
 simDR_aircraft_on_ground            = find_dataref("sim/flightmodel/failures/onground_any")
 simDR_all_wheels_on_ground          = find_dataref("sim/flightmodel/failures/onground_any")
 
+
+simDR_sim_brightness_ratio      = find_dataref("sim/cockpit2/electrical/HUD_brightness_ratio")
 simDR_generic_brightness_switch     = find_dataref("sim/cockpit2/switches/generic_lights_switch")
 simDR_generic_brightness_ratio      = find_dataref("sim/flightmodel2/lights/generic_lights_brightness_ratio")
 simDR_panel_brightness_switch       = find_dataref("sim/cockpit2/switches/panel_brightness_ratio")
@@ -949,7 +951,7 @@ function B747_spill_lights()
 		
 		-- TODO:  ADD BUS POWER LOGIC ?
 
-		local storm_light_brt_level = 8.0
+		local storm_light_brt_level = 16.0 * simDR_sim_brightness_ratio 
 		local storm_light_level = storm_light_brt_level * simDR_generic_brightness_ratio[63]
 
 		-- SET THE SPILL LIGHT LEVELS

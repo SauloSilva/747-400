@@ -51,7 +51,7 @@ fmsPages["MAINTSIMCONFIG"].getPage=function(self,pgNo,fmsID)
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["L1"]={"setdata","spillLights"}
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["R6"]={"setdata","simConfigSave"}
 		local lineA = ""
-		if simConfigData["data"].SIM.spill_lights == "NORM" then
+		if B747DR_fmc_spill_lights==0 then
 			lineA = "NORM/  "
 		else
 			lineA = "    /HI"
@@ -239,7 +239,8 @@ fmsPages["MAINTSIMCONFIG"].getSmallPage=function(self,pgNo,fmsID)
 
 --silvereagle added to end	
 	elseif pgNo == 2 then
-		if simConfigData["data"].SIM.spill_lights == "NORM" then
+		--if simConfigData["data"].SIM.spill_lights == "NORM" then
+		if B747DR_fmc_spill_lights==0 then	
 			lineA = "                      HI"
 		else
 			lineA = "                 NORM   "
@@ -249,6 +250,7 @@ fmsPages["MAINTSIMCONFIG"].getSmallPage=function(self,pgNo,fmsID)
 		"                     2/5",
 		"                        ",
 		lineA,
+		"                        ",
 		"                        ",
 		"                        ",
 		"                        ",

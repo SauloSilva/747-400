@@ -411,7 +411,7 @@ function ap_director_roll()
     elseif simDR_autopilot_nav_status ~=2 then
         hasLoc=false
     end
-    if math.abs(B747DR_ap_ATT)>1 then
+    if math.abs(B747DR_ap_ATT)>=5 then
         return B747DR_ap_ATT
     elseif (simDR_autopilot_nav_status ~=2 and B747DR_autopilot_nav_status==2) or 5>(simDRTime-capturedLocTime) then
         print("autoland estimating roll capturedLocTime "..capturedLocTime.. " simDRTime "..simDRTime .. " simDR_autopilot_nav_status "..simDR_autopilot_nav_status)

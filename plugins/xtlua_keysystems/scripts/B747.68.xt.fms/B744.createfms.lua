@@ -528,7 +528,7 @@ function fms:B747_fms_display()
 	      B747DR_fms[thisID][i]=fmsPage[i]
       end
       for i=1,13,1 do
-	B747DR_fms_s[thisID][i]=fmsPagesmall[i]
+	      B747DR_fms_s[thisID][i]=fmsPagesmall[i]
       end
       if string.len(string.gsub(B747DR_srcfms[thisID][14],"[ %[%]]",""))>0 then 
 	B747DR_fms[thisID][14]=B747DR_srcfms[thisID][14]

@@ -283,7 +283,7 @@ function set_loaded_configs()
 	end
 	
 	--silvereagle to end
-	if simConfigData["data"].SIM.spill_lights == "NORM" then
+	if simConfigData["data"].SIM.spill_lights == "NORM" or simConfigData["data"].SIM.spill_lights == null then
 		B747DR_fmc_spill_lights = 0
 	else
 		B747DR_fmc_spill_lights = 1

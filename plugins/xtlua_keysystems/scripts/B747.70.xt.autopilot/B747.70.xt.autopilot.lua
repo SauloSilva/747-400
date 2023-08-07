@@ -2318,7 +2318,7 @@ function fma_rollModes()
 		B747DR_ap_FMA_active_roll_mode = 0
 	elseif
 	--simDR_autopilot_roll_status == 2 and simDR_autopilot_flight_dir_mode > 0 and
-		math.abs(B747DR_ap_ATT) > 5.0
+		math.abs(B747DR_ap_ATT) >= 5.0
  	then
 		B747DR_ap_FMA_active_roll_mode = 5	
 	elseif B747DR_autopilot_TOGA_status~=0 then --simDR_autopilot_TOGA_lat_status == 2 then
@@ -3088,7 +3088,7 @@ function B747_ap_EICAS_msg()
 		 then
 			simCMD_ThrottleDown:once()
 		else
-			B747DR_fmc_notifications[9] = 1
+			B747DR_fmc_notifications[9] = 1 --DRAG REQUIRED
 		end
 	elseif simDR_ind_airspeed_kts_pilot ~= last_airspeed then --dont turn it off if airspeed didn't update
 		B747DR_fmc_notifications[9] = 0
