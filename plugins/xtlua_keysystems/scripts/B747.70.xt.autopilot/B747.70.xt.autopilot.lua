@@ -2037,7 +2037,7 @@ function B747_ap_altitude()
 	local servoStatus = simDR_autopilot_servos_on
 	local numAPengaged = B747DR_ap_cmd_L_mode + B747DR_ap_cmd_C_mode + B747DR_ap_cmd_R_mode
 
-	B747DR_alt_capture_window = B747_rescale(0,200,5000,1000,math.abs(simDR_vvi_fpm_pilot))
+	B747DR_alt_capture_window = B747_rescale(0,200,3000,1000,math.abs(simDR_vvi_fpm_pilot))
 	if simDR_pressureAlt1 < B747DR_autopilot_altitude_ft then
 		if B747DR_autopilot_altitude_ft - simDR_pressureAlt1 > 400 then
 			B747DR_autopilot_altitude_ft_pfd = simDR_pressureAlt1 + 400
