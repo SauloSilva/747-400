@@ -15143,7 +15143,7 @@ ANIM_begin
 	LIGHT_PARAM	airplane_generic_glow	  -0.0001    0.0000    0.0000 0 0 0 2 0.5
 	LIGHT_PARAM	airplane_generic_flare	  -0.0001    0.0000    0.0000 0 0 0 2 1.0
 	LIGHT_PARAM	airplane_generic_core	  -0.0001    0.0000    0.0000 0 0 0 2 0.4
-	LIGHT_PARAM	airplane_generic_sp	  -0.0001    0.0000    0.0000 1.0 0.99 0.76 2 100 0.98
+	LIGHT_PARAM	airplane_generic_sp	  -0.0001    0.0000    0.0000 1.0 0.99 0.76 2 400 0.98
 ANIM_end
 ANIM_begin
 	ANIM_trans	   3.1260   -0.0341   21.2307	   3.1260   -0.0341   21.2307	0 0	no_ref
@@ -15151,7 +15151,7 @@ ANIM_begin
 	LIGHT_PARAM	airplane_generic_flare	   0.0001    0.0000   -0.0000 0 0 0 2 1.0
 	LIGHT_PARAM	airplane_generic_glow	   0.0001    0.0000   -0.0000 0 0 0 2 0.5
 	LIGHT_PARAM	airplane_generic_core	   0.0001    0.0000   -0.0000 0 0 0 2 0.4
-	LIGHT_PARAM	airplane_generic_sp	   0.0001    0.0000   -0.0000 1.0 0.99 0.76 2 100 0.98
+	LIGHT_PARAM	airplane_generic_sp	   0.0001    0.0000   -0.0000 1.0 0.99 0.76 2 400 0.98
 ANIM_end
 ANIM_begin
 	ANIM_hide	0.9 1.0	laminar/B747/toggle_switch/position[8]

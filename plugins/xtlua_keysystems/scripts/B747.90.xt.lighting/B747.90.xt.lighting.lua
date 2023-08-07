@@ -710,9 +710,9 @@ function B747_init_light_rheostats()
     simDR_panel_brightness_switch[1]        = light_level * 0.85                            -- FIRST OBSERVER PANEL
     simDR_panel_brightness_switch[2]        = light_level * 0.85                            -- AISLE STAND PANEL
     simDR_panel_brightness_switch[3]        = light_level * 0.90                            -- GLARESHIELD PANEL/MCP PANEL/COMPASS
-    B747DR_instrument_brightness_ratio[6]   = light_level * 0.90                            -- CAPTAIN PANEL
+    B747DR_instrument_brightness_ratio[6]   = light_level * 0.10                            -- CAPTAIN PANEL
     B747DR_instrument_brightness_ratio[7]   = light_level * 0.10                            -- OVERHEAD PANEL
-    B747DR_instrument_brightness_ratio[8]   = light_level * 0.90                            -- F/O PANEL
+    B747DR_instrument_brightness_ratio[8]   = light_level * 0.10                            -- F/O PANEL
     
     --simDR_panel_brightness_switch[1]        = light_level * 0.85                            -- FIRST OBSERVER PANEL
     --simDR_panel_brightness_switch[2]        = light_level * 0.85                            -- AISLE STAND PANEL
@@ -932,6 +932,10 @@ function B747_cabin_lights()
             and power == 1 and ((simDR_aircraft_altitude > 10000.0) or simDR_aircraft_groundspeed<15)
         then
             switch_value = 0.5
+        elseif simDR_percent_lights_on > 0.25
+        and power == 1 and ((simDR_aircraft_altitude < 10000.0) and simDR_aircraft_groundspeed>15)
+            then 
+            switch_value = 0.001      
         else
             switch_value = 0.0
         end
@@ -944,6 +948,11 @@ end
 --silvereagle added/modified to end
 ----- SPILL LIGHTS ----------------------------------------------------------------------
 function B747_spill_lights()
+    local lightMod=0.5
+    if simDR_version>=120012 then
+        lightMod=simDR_sim_brightness_ratio
+    end
+
 	if B747DR_fmc_spill_lights == 1 then
 		-- HERE FOR FMC "SIM CONFIG" PAGE "<SPILL LIGHTS HI" (BRIGHT DAY), STORM SWITCH HAS NO EFFECT
 
@@ -951,7 +960,7 @@ function B747_spill_lights()
 		
 		-- TODO:  ADD BUS POWER LOGIC ?
 
-		local storm_light_brt_level = 16.0 * simDR_sim_brightness_ratio 
+		local storm_light_brt_level = 16.0 * lightMod 
 		local storm_light_level = storm_light_brt_level * simDR_generic_brightness_ratio[63]
 
 		-- SET THE SPILL LIGHT LEVELS
@@ -970,7 +979,7 @@ function B747_spill_lights()
 		simDR_panel_brightness_switch[0]            = storm_light_level
 
 		-- SET THE MAG COMPASS SPILL LIGHT LEVEL
-		B747DR_spill_light_mag_compass_flood[3]     = simDR_panel_brightness_ratio[3]
+		B747DR_spill_light_mag_compass_flood[3]     = simDR_panel_brightness_ratio[3] * lightMod *2
 	
 	elseif B747DR_fmc_spill_lights == 0 then
 		-- HERE FOR "SIM CONFIG" PAGE "<SPILL LIGHTS NORM" (NOT BRIGHT DAY), STORM SWITCH HAS EFFECT
@@ -980,26 +989,27 @@ function B747_spill_lights()
 		-- TODO:  ADD BUS POWER LOGIC ?
 
 		-- BRIGHTNESS LEVEL FOR STORM LIGHTS
-		local storm_light_brt_level = 0.95
+		local storm_light_brt_level = 1.9 * lightMod 
+        local lightLevel = simDR_generic_brightness_ratio[63] * lightMod *2
 		local storm_light_level = storm_light_brt_level * simDR_generic_brightness_ratio[63]
 
 		-- SET THE SPILL LIGHT LEVELS
-		B747DR_spill_light_capt_panel_flood[3]      = B747_ternary((B747DR_toggle_switch_position[0] <= 0.05), storm_light_level, (B747DR_flood_light_rheo_capt_panel * simDR_generic_brightness_ratio[63]))
-		B747DR_spill_light_center_panel_flood[3]    = B747_ternary((B747DR_toggle_switch_position[0] <= 0.05), storm_light_level, (B747DR_flood_light_rheo_capt_panel * simDR_generic_brightness_ratio[63]))
+		B747DR_spill_light_capt_panel_flood[3]      = B747_ternary((B747DR_toggle_switch_position[0] <= 0.05), storm_light_level, (B747DR_flood_light_rheo_capt_panel * lightLevel))
+		B747DR_spill_light_center_panel_flood[3]    = B747_ternary((B747DR_toggle_switch_position[0] <= 0.05), storm_light_level, (B747DR_flood_light_rheo_capt_panel * lightLevel))
 		B747DR_spill_light_capt_map[3]              = B747DR_map_light_rheo_capt * simDR_generic_brightness_ratio[63]
 		B747DR_spill_light_capt_chart[3]            = B747DR_chart_light_rheo_capt * simDR_generic_brightness_ratio[63]
-		B747DR_spill_light_fo_panel_flood[3]        = B747_ternary((B747DR_toggle_switch_position[0] <= 0.05), storm_light_level, (B747DR_flood_light_rheo_fo_panel * simDR_generic_brightness_ratio[63]))
+		B747DR_spill_light_fo_panel_flood[3]        = B747_ternary((B747DR_toggle_switch_position[0] <= 0.05), storm_light_level, (B747DR_flood_light_rheo_fo_panel * lightLevel))
 		B747DR_spill_light_fo_map[3]                = B747DR_map_light_rheo_fo * simDR_generic_brightness_ratio[63]
 		B747DR_spill_light_fo_chart[3]              = B747DR_chart_light_rheo_fo * simDR_generic_brightness_ratio[63]
 		B747DR_spill_light_observer_map[3]          = B747DR_map_light_rheo_observer * simDR_generic_brightness_ratio[63]
-		B747DR_spill_light_mcp_flood[3]             = B747_ternary((B747DR_toggle_switch_position[0] <= 0.05), storm_light_level, (B747DR_flood_light_rheo_mcp * simDR_generic_brightness_ratio[63]))
-		B747DR_spill_light_aisle_stand_flood[3]     = B747_ternary((B747DR_toggle_switch_position[0] <= 0.05), storm_light_level, (B747DR_flood_light_rheo_aisle_stand * simDR_generic_brightness_ratio[63]))
+		B747DR_spill_light_mcp_flood[3]             = B747_ternary((B747DR_toggle_switch_position[0] <= 0.05), storm_light_level, (B747DR_flood_light_rheo_mcp * lightLevel))
+		B747DR_spill_light_aisle_stand_flood[3]     = B747_ternary((B747DR_toggle_switch_position[0] <= 0.05), storm_light_level, (B747DR_flood_light_rheo_aisle_stand * lightLevel))
 
 		--SET THE OVERHEAD FLOOD BRIGHTNESS LEVEL
 		simDR_panel_brightness_switch[0]            = B747_ternary((B747DR_toggle_switch_position[0] <= 0.05), storm_light_level, B747DR_flood_light_rheo_overhead)
 
 		-- SET THE MAG COMPASS SPILL LIGHT LEVEL
-		B747DR_spill_light_mag_compass_flood[3]     = simDR_panel_brightness_ratio[3]
+		B747DR_spill_light_mag_compass_flood[3]     = simDR_panel_brightness_ratio[3] * lightLevel
 
 	end
 end
@@ -2281,7 +2291,7 @@ end
 local defaultBias=-0.3
 function tone_mapping()
 
-    simDR_photoBias=defaultBias-2.6*math.max(getPilotVisorValue(),getCoPilotVisorValue())
+    simDR_photoBias=defaultBias-1.6*math.max(getPilotVisorValue(),getCoPilotVisorValue())
    
  --[[   if simDR_sun_pitch>0 then
         simDR_contrast	= B747_rescale(0,1.25,30,0.8,math.abs(simDR_view_pitch))
