@@ -902,8 +902,11 @@ function ecc_throttle()
 	elseif 	spd_target_throttle>1 then
 		spd_target_throttle=1
 	end
-	for i = 0, 3 do
-		simDR_engn_thro[i]=B747_interpolate_value(simDR_engn_thro[i],spd_target_throttle,0,1.00,2)
+	if B747DR_ap_FMA_autothrottle_mode>2 --IDLE need thrust
+		then
+		for i = 0, 3 do
+			simDR_engn_thro[i]=B747_interpolate_value(simDR_engn_thro[i],spd_target_throttle,0,1.00,2)
+		end
 	end
 
 end
