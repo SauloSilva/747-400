@@ -2302,10 +2302,14 @@ function fmsFunctions.setdata(fmsO,value)
 		--setFMSData("atc",fmsModules.data["fltdst"])
 		
 		fmsFunctions["acarsLogonATC"](fmsO,fmsModules.data["fltdst"])	
-	elseif value=="metarreq" then	
-		fmsFunctions["acarsATCRequest"](fmsO,"REQUEST METAR")	
+	elseif value=="metarreq" then
+		if acarsSystem.provider.loggedOn()~="ACCEPTED" then fmsO["notify"]="RE-LOGON TO ATC COMM" return end
+		fmsFunctions["acarsATCRequest"](fmsO,"REQUEST METAR") --request metar	
+		fmsFunctions["setpage_no"](fmsO,"VIEWUPACARS_1") --then go to the message page
 	elseif value=="tafreq" then	
-		fmsFunctions["acarsATCRequest"](fmsO,"REQUEST TAF")	
+		if acarsSystem.provider.loggedOn()~="ACCEPTED" then fmsO["notify"]="RE-LOGON TO ATC COMM" return end
+		fmsFunctions["acarsATCRequest"](fmsO,"REQUEST TAF")	--request metar
+		fmsFunctions["setpage_no"](fmsO,"VIEWUPACARS_1") --then go to the message page
    elseif fmsO["scratchpad"]=="" and del==false then
       cVal=getFMSData(value)
     
@@ -2407,7 +2411,7 @@ function fmsFunctions.setDref(fmsO,value)
   fmsO["scratchpad"]=""
 end
 function fmsFunctions.showmessage(fmsO,value)
-  acarsSystem.currentMessage=value
+  acarsSystem.setCurrentMessage(fmsO.id,value)
   fmsO["inCustomFMC"]=true
   fmsO["targetPage"]="VIEWACARSMSG"
   run_after_time(switchCustomMode, 0.5)

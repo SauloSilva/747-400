@@ -518,7 +518,7 @@ function fms:B747_fms_display()
 	      B747DR_fms_s[thisID][14]="                        "
       end
     else
-      if self.pgNo>fmsPages[page]:getNumPages() then self.pgNo=fmsPages[page]:getNumPages() self.targetpgNo=fmsPages[page]:getNumPages() end
+      if self.pgNo>fmsPages[page]:getNumPages(thisID) then self.pgNo=fmsPages[page]:getNumPages(thisID) self.targetpgNo=fmsPages[page]:getNumPages(thisID) end
       if self.pgNo<1 then self.pgNo=1 self.targetpgNo=1 end
       local fmsPage = fmsPages[page]:getPage(self.pgNo,thisID);
       local fmsPagesmall = fmsPages[page]:getSmallPage(self.pgNo,thisID);

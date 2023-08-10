@@ -154,8 +154,8 @@ fmsPages["VIEWMISCACARS"].getSmallPage=function(self,pgNo,fmsID)
 
   fmsPages["VIEWACARSMSG"]=createPage("VIEWACARSMSG")
   fmsPages["VIEWACARSMSG"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be this way
-    acarsSystem.messages[acarsSystem.currentMessage]["read"]=true
-    local msg=acarsSystem.messages[acarsSystem.currentMessage]
+    acarsSystem.messages[acarsSystem.getCurrentMessage(fmsID)]["read"]=true
+    local msg=acarsSystem.messages[acarsSystem.getCurrentMessage(fmsID)]
     local start=(pgNo-1)*168
     fmsPages["VIEWACARSMSG"]["template"]={
   
@@ -176,7 +176,7 @@ fmsPages["VIEWMISCACARS"].getSmallPage=function(self,pgNo,fmsID)
     return fmsPages["VIEWACARSMSG"]["template"]
   end
   fmsPages["VIEWACARSMSG"].getSmallPage=function(self,pgNo,fmsID)--dynamic pages need to be this way
-    local msg=acarsSystem.messages[acarsSystem.currentMessage]
+    local msg=acarsSystem.messages[acarsSystem.getCurrentMessage(fmsID)]
     numPages=math.ceil(string.len(msg["msg"])/168)
     if numPages<1 then numPages=1 end
     fmsPages["VIEWACARSMSG"]["templateSmall"]={
@@ -197,8 +197,8 @@ fmsPages["VIEWMISCACARS"].getSmallPage=function(self,pgNo,fmsID)
     }
     return fmsPages["VIEWACARSMSG"]["templateSmall"]
   end
-  fmsPages["VIEWACARSMSG"].getNumPages=function(self)
-    local msg=acarsSystem.messages[acarsSystem.currentMessage]
+  fmsPages["VIEWACARSMSG"].getNumPages=function(self,fmsID)
+    local msg=acarsSystem.messages[acarsSystem.getCurrentMessage(fmsID)]
     noPages=math.ceil(string.len(msg["msg"])/168)
     if noPages<1 then noPages=1 end
     return noPages 

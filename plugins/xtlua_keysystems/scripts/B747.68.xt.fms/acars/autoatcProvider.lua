@@ -33,6 +33,13 @@ end
 autoATCState={}
 autoATCState["initialised"]=false
 autoATCState["online"]=false
+acarsSystem.currentMessage={}
+acarsSystem.getCurrentMessage=function(fmsID)
+  return acarsSystem.currentMessage[fmsID]
+end
+acarsSystem.setCurrentMessage=function(fmsID,messageID)
+  acarsSystem.currentMessage[fmsID]=messageID
+end
 acarsSystem.provider={
   logoff=function()
     if acarsSystem.provider.online()==true and fmsModules["data"]["atc"]~="****" then
