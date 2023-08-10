@@ -225,43 +225,43 @@ function flap_consumption(controlDiff)
 end
 function spoiler_consumption(controlDiff)
     --system 2, spoilers 2,3,10,11
-    if hydraulics_consumer({0,1,0,0},controlDiff[12]/2)==0 then
+    if hydraulics_consumer({0,1,0,0},controlDiff[12]/3)==0 then
         controlRatios[12]=B747_animate_value(lastControlValue[12],0,-100,100,1)
     end
-    if hydraulics_consumer({0,1,0,0},controlDiff[13]/2)==0 then
+    if hydraulics_consumer({0,1,0,0},controlDiff[13]/3)==0 then
         controlRatios[13]=B747_animate_value(lastControlValue[13],0,-100,100,1)
     end
-    if hydraulics_consumer({0,1,0,0},controlDiff[20]/2)==0 then
+    if hydraulics_consumer({0,1,0,0},controlDiff[20]/3)==0 then
         controlRatios[20]=B747_animate_value(lastControlValue[20],0,-100,100,1)
     end
-    if hydraulics_consumer({0,1,0,0},controlDiff[21]/2)==0 then
+    if hydraulics_consumer({0,1,0,0},controlDiff[21]/3)==0 then
         controlRatios[21]=B747_animate_value(lastControlValue[21],0,-100,100,1)
     end
     --system 3, spoilers 1,4,9,12
-    if hydraulics_consumer({0,0,1,0},controlDiff[11]/2)==0 then
+    if hydraulics_consumer({0,0,1,0},controlDiff[11]/3)==0 then
         controlRatios[11]=B747_animate_value(lastControlValue[11],0,-100,100,1)
     end
-    if hydraulics_consumer({0,0,1,0},controlDiff[14]/2)==0 then
+    if hydraulics_consumer({0,0,1,0},controlDiff[14]/3)==0 then
         controlRatios[14]=B747_animate_value(lastControlValue[14],0,-100,100,1)
     end
-    if hydraulics_consumer({0,0,1,0},controlDiff[19]/2)==0 then
+    if hydraulics_consumer({0,0,1,0},controlDiff[19]/3)==0 then
         controlRatios[19]=B747_animate_value(lastControlValue[19],0,-100,100,1)
     end
-    if hydraulics_consumer({0,0,1,0},controlDiff[22]/2)==0 then
+    if hydraulics_consumer({0,0,1,0},controlDiff[22]/3)==0 then
         controlRatios[22]=B747_animate_value(lastControlValue[22],0,-100,100,1)
     end
 
     --system 4, spoilers 5,6,7,8
-    if hydraulics_consumer({0,0,0,1},controlDiff[15]/2)==0 then
+    if hydraulics_consumer({0,0,0,1},controlDiff[15]/3)==0 then
         controlRatios[15]=B747_animate_value(lastControlValue[15],0,-100,100,1)
     end
-    if hydraulics_consumer({0,0,0,1},controlDiff[16]/2)==0 then
+    if hydraulics_consumer({0,0,0,1},controlDiff[16]/3)==0 then
         controlRatios[16]=B747_animate_value(lastControlValue[16],0,-100,100,1)
     end
-    if hydraulics_consumer({0,0,0,1},controlDiff[17]/2)==0 then
+    if hydraulics_consumer({0,0,0,1},controlDiff[17]/3)==0 then
         controlRatios[17]=B747_animate_value(lastControlValue[17],0,-100,100,1)
     end
-    if hydraulics_consumer({0,0,0,1},controlDiff[1]/2)==0 then
+    if hydraulics_consumer({0,0,0,1},controlDiff[1]/3)==0 then
         controlRatios[18]=B747_animate_value(lastControlValue[18],0,-100,100,1)
     end
 end
