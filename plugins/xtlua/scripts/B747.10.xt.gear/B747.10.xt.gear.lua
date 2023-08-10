@@ -85,7 +85,6 @@ simDR_gear_claw_angle       = find_dataref("sim/flightmodel2/gear/eagle_claw_ang
 simDR_gear_handle_down      = find_dataref("sim/cockpit2/controls/gear_handle_down")
 simDR_autobrakes_switch     = find_dataref("sim/cockpit2/switches/auto_brake_level")
 simDR_joy_axis		    = find_dataref("sim/joystick/joy_mapped_axis_value")
-simDR_joy_axis_mapped		    = find_dataref("sim/joystick/joy_mapped_axis_avail")
 local seenTakeoffThrust=false
 simDR_OAT_degC              = find_dataref("sim/cockpit2/temperature/outside_air_temp_degc")
 simDR_tire_rot_speed        = find_dataref("sim/flightmodel2/gear/tire_rotation_speed_rad_sec")
@@ -221,7 +220,7 @@ function B747_animate_value(current_value, target, min, max, speed)
 
 end
 function runGear()
-  if (simDR_joy_axis[4]>0.9 or simDR_joy_axissimDR_joy_axis_mapped[4]==0) and simDR_aircraft_on_ground == 1 and B747DR_autobrakes_sel_dial_pos==0 and  simDR_autobrakes_switch>0 then
+  if (simDR_joy_axis[4]>0.8 or simDR_joy_axis[4]==0.0) and simDR_aircraft_on_ground == 1 and B747DR_autobrakes_sel_dial_pos==0 and  simDR_autobrakes_switch>0 then
 	  simDR_autobrakes_switch = 0
 	  print("ARM RTO")
   end
