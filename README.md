@@ -129,6 +129,20 @@ See the [commit history](https://github.com/mSparks43/747-400/commits/master) fo
 
 _Thank you all for your support and contributions!_
 
+## Release XP1206-2023/08/12:
+Bug fix release of issues reported since previous release
+
+### Bug fixes
+
+ - Default HI bright spill lights to off, adjust for nightime
+ - Reduce VS rate for maximum capture window 
+ - Some lighting tuning (strobe, cabin lights)
+ - Some throttle behaviour fixes (only set simDR_engn_thro in ECC if AT active)
+ - Reduce spoiler hydraulic consumption
+ - Fix arm RTO when no joystick axis mapped (mouse flyers)
+ - ACARS view message number of pages FMC isolation 
+ - Fix lack of ACARs view message isolation
+
 ## Release XP1206-2023/08/05:
 XP12 and XP11 release improving XP12 lighting support and updating systems
 
