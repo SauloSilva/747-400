@@ -221,9 +221,6 @@ fmsPages["VIEWUPACARS"]=createPage("VIEWUPACARS")
 
 
 acarsSystem.getUpMessages=function(pgNo)
-    
-
-     
     retVal={}
     retVal.template={
       "  ACARS-UPLINK MSG      ",
@@ -240,7 +237,7 @@ acarsSystem.getUpMessages=function(pgNo)
       "                        ",
       "<RETURN                 "
       } 
-      numPages=math.ceil(table.getn(acarsSystem.messages.values)/5)
+      numPages=math.ceil(table.getn(acarsSystem.messages.values)/4)
       if numPages<1 then numPages=1 end
     retVal.templateSmall={
       "                    "..pgNo.."/"..numPages.."  ",
@@ -260,8 +257,9 @@ acarsSystem.getUpMessages=function(pgNo)
     line = 3
     startNo=table.getn(acarsSystem.messages.values)
     
-    if pgNo>1 then startNo=table.getn(acarsSystem.messages.values)-((pgNo-1)*5) end
+    if pgNo>1 then startNo=table.getn(acarsSystem.messages.values)-((pgNo-1)*4) end
     endNo=startNo-3
+    --print("startNo "..startNo.." endNo "..endNo)
     if endNo <1 then endNo=1 end
     for i = startNo,endNo , -1 do
       local ln="<"..acarsSystem.messages[i]["title"]
@@ -279,6 +277,118 @@ acarsSystem.getUpMessages=function(pgNo)
       line = line+2
       
     end  
+    return retVal
+end
+
+fmsPages["VIEWACARSLOG"]=createPage("VIEWACARSLOG")
+acarsSystem.getLogMessages=function(pgNo)
+  local onRecieved=table.getn(acarsSystem.messages.values)
+  local onSent=table.getn(acarsSystem.messageSendQueue.values)
+  local rmID=1
+  local retVal={}
+  local sMessage={}
+  print("getLogMessages")
+  while (onRecieved>0 or onSent>0) and rmID<6 do
+    local rID=0
+    local sID=0
+    print("onRecieved "..onRecieved.." onSent "..onSent)
+    if onRecieved>0 then
+      rID=acarsSystem.messages[onRecieved]["messageID"]
+    end
+    if onSent>0 then
+      sMessage=json.decode(acarsSystem.messageSendQueue[onSent])
+      sID=sMessage["messageID"]
+    end
+    print("rID "..rID.." sID "..sID)
+    if rID>sID then
+      retVal[rmID]=acarsSystem.messages[onRecieved]
+      retVal[rmID]["ud"]="U"
+      rmID=rmID+1
+      onRecieved=onRecieved-1
+      print("use received message")
+    else
+      if sMessage["msg"]~=nil then
+        retVal[rmID]=sMessage
+        retVal[rmID]["ud"]="D"
+        rmID=rmID+1
+        onSent=onSent-1
+        print("use sent message")
+      else
+        onSent=onSent-1
+        print("skip sent message")
+      end
+    end
+  end
+  return retVal
+end
+
+acarsSystem.getMessageLog=function(pgNo)
+  
+  retVal={}
+  retVal.template={
+    "        ATC LOG         ",
+    "                        ",
+    "                        ", -- --"<Test Message           ",
+    "                        ",
+    "                        ", -- --"<2nd Test Message       ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "------------------------",
+    "<INDEX        ERASE LOG>"
+    
+    } 
+    numPages=math.ceil(table.getn(acarsSystem.messages.values)/5)+math.ceil(table.getn(acarsSystem.messageSendQueue.values)/5)
+    if numPages<1 then numPages=1 end
+  retVal.templateSmall={
+    "                    "..pgNo.."/"..numPages.."  ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        "
+    }
+
+    local messageLog=acarsSystem.getLogMessages(pgNo)
+    line = 2
+    for i=1,table.getn(messageLog) do
+      print("M "..i.." "..messageLog[i]["ud"])
+      local ln=""
+      if messageLog[i]["ud"]=="U" then
+        if not messageLog[i]["read"] then
+          retVal.templateSmall[line]=" "..messageLog[i]["time"].."z               NEW"
+        else
+          retVal.templateSmall[line]=" "..messageLog[i]["time"].."z               OLD"
+        end
+        ln="  "..messageLog[i]["title"]
+        
+      else
+        retVal.templateSmall[line]=" "..messageLog[i]["time"].."z     RESPONSE RCVD"
+        print("T "..messageLog[i]["msg"])
+        ln="  "..messageLog[i]["msg"]
+      end
+      retVal.templateSmall[line+1]=messageLog[i]["ud"].."                       "
+      ln=string.sub(ln,1,21)
+      local padding=21-string.len(ln)
+      if padding<=0 then 
+        padding=0 
+        ln=ln..".."
+      else
+        ln=ln.."  "
+      end
+      retVal.template[line+1]=ln .. string.format("%"..padding.."s","").." >"
+      line = line+2
+    end
     return retVal
 end
 

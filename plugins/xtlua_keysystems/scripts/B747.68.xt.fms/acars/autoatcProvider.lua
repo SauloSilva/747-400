@@ -37,17 +37,21 @@ acarsSystem.currentMessage={}
 acarsSystem.getCurrentMessage=function(fmsID)
   return acarsSystem.currentMessage[fmsID]
 end
+--set the current message being viewed
 acarsSystem.setCurrentMessage=function(fmsID,messageID)
   acarsSystem.currentMessage[fmsID]=messageID
 end
 acarsSystem.provider={
+  messageID=1,
   logoff=function()
     if acarsSystem.provider.online()==true and fmsModules["data"]["atc"]~="****" then
+      
       local tMSG={}
       tMSG["to"]=fmsModules["data"]["atc"]--getFMSData("acarsAddress")
       tMSG["type"]="cpdlc"
       tMSG["msg"]="LOGOFF"
       acarsSystem.provider.sendATC(json.encode(tMSG))
+      autoATCState["online"]=false
     end
   end,
 sendATC=function(value)
@@ -55,6 +59,9 @@ sendATC=function(value)
   local newMessage=json.decode(value)--check json value or fail
   newMessage["to"]=fmsModules["data"]["atc"]
   newMessage["from"]=getFMSData("fltno")
+  newMessage["time"]=string.format("%02d:%02d",hh,mm)
+  newMessage["messageID"]=acarsSystem.provider.messageID
+  acarsSystem.provider.messageID=acarsSystem.provider.messageID+1
   --sendDataref=json.encode(newMessage)
   acarsSystem.messageSendQueue[table.getn(acarsSystem.messageSendQueue.values)+1]=json.encode(newMessage)
   --sleep(3)
@@ -63,6 +70,9 @@ sendCompany=function(value)
   print("LUA send ACARS message:"..value)
   local newMessage=json.decode(value)--check json value or fail
   newMessage["to"]="company"
+  newMessage["time"]=string.format("%02d:%02d",hh,mm)
+  newMessage["messageID"]=acarsSystem.provider.messageID
+  acarsSystem.provider.messageID=acarsSystem.provider.messageID+1
   --sendDataref=json.encode(newMessage)
   acarsSystem.messageSendQueue[table.getn(acarsSystem.messageSendQueue.values)+1]=json.encode(newMessage)
 end,
@@ -108,6 +118,8 @@ receive=function()
     if newMessage["type"]=="telex" then
       newMessage["read"]=false
       newMessage["time"]=string.format("%02d:%02d",hh,mm)
+      newMessage["messageID"]=acarsSystem.provider.messageID
+      acarsSystem.provider.messageID=acarsSystem.provider.messageID+1
       print("msg time "..newMessage["time"])
       acarsSystem.messages[table.getn(acarsSystem.messages.values)+1]=newMessage
     end
@@ -120,6 +132,8 @@ receive=function()
       if newMessage["title"]==nil then
         newMessage["title"]=newMessage["from"].." "..string.sub(newMessage["msg"],1,15)
       end
+      newMessage["messageID"]=acarsSystem.provider.messageID
+      acarsSystem.provider.messageID=acarsSystem.provider.messageID+1
       acarsSystem.messages[table.getn(acarsSystem.messages.values)+1]=newMessage
     end
     acarsReceiveDataref=" "

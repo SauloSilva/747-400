@@ -44,6 +44,9 @@ function refreshPages()
   lastPageNum={}
 end
 fmsPages["PROGRESS"].getPage=function(self,pgNo,fmsID)
+  if simDR_onGround == 1 then
+    B747DR_last_waypoint_fuel=simDR_fueL_tank_weight_total_kg
+  end
   if lastPageNum[fmsID]~=nil and lastPageNum[fmsID]==pgNo then
     if is_timer_scheduled(refreshPages)==false then
       run_after_time(refreshPages,1.0)
@@ -58,6 +61,10 @@ fmsPages["PROGRESS"].getPage=function(self,pgNo,fmsID)
     fmsFunctionsDefs["PROGRESS"]["L6"]={"setpage","POSREPORT"}
     fmsFunctionsDefs["PROGRESS"]["R6"]={"setpage","POSINIT_2"}
     local ffkgs = (simDR_eng_fuel_flow_kg_sec[0] + simDR_eng_fuel_flow_kg_sec[1] + simDR_eng_fuel_flow_kg_sec[2] + simDR_eng_fuel_flow_kg_sec[3])
+    if simDR_onGround == 1 then
+      B747DR_last_waypoint_fuel=simDR_fueL_tank_weight_total_kg
+      ffkgs=3.1
+    end
     local toFuel="---.-"
     local nextFuel="---.-"
     local dtgTO=" ---"

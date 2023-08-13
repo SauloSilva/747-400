@@ -135,6 +135,22 @@ fmsPages["VIEWMISCACARS"].getSmallPage=function(self,pgNo,fmsID)
   fmsFunctionsDefs["VIEWMISCACARS"]["L6"]={"setpage","ACARSMSGS"}
   fmsFunctionsDefs["VIEWMISCACARS"]["R5"]={"acarsSystemSend","msg"}
 
+
+  fmsPages["VIEWACARSLOG"].getPage=function(self,pgNo,fmsID)
+    local page=acarsSystem.getMessageLog(pgNo)
+    return page.template
+  end
+  fmsPages["VIEWACARSLOG"].getSmallPage=function(self,pgNo,fmsID) 
+    local page=acarsSystem.getMessageLog(pgNo)
+    return page.templateSmall
+  end
+  fmsPages["VIEWACARSLOG"].getNumPages=function(self)
+    numPages=math.ceil(table.getn(acarsSystem.messages.values)/5)+math.ceil(table.getn(acarsSystem.messageSendQueue.values)/5)
+    if numPages<1 then numPages=1 end
+    return numPages 
+  end
+  fmsFunctionsDefs["VIEWACARSLOG"]["L6"]={"setpage","ATCINDEX"}
+  
   fmsPages["VIEWUPACARS"].getPage=function(self,pgNo,fmsID)
     local page=acarsSystem.getUpMessages(pgNo)
     return page.template 

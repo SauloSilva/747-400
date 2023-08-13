@@ -1521,7 +1521,7 @@ end
 function int(x)
 	return x >= 0 and math.floor(x) or math.ceil(x)
 end
-function B747_fltmgmt_setILS(fms)
+function B747_fltmgmt_setILS(fmsO)
 	local modes = B747DR_radioModes
 	local targetDots=0
 	--print("B747_fltmgmt_setILS")
@@ -1531,7 +1531,7 @@ function B747_fltmgmt_setILS(fms)
 	elseif modes:sub(1, 1) == "M" then
 		--local fms=json.decode(fmsSTR)
 		
-		setDistances(fms)
+		setDistances(fmsO)
 		--print("Dist B747DR_ils_dots = "..B747DR_ils_dots)
 		--print("Dist targetILSS = "..targetILS)
 		--print("Dist B747BR_distance_to_dest = "..B747BR_distance_to_dest)
@@ -1560,19 +1560,19 @@ function B747_fltmgmt_setILS(fms)
 	--print("fmsJSON=".. fmsSTR)
 
 	
-	setDistances(fms)
+	setDistances(fmsO)
 	
 	local newTargetFix = 0
 	local hitI = -1
 	--print(navAidsJSON)
-	if table.getn(fms) > 4 and (fms[targetFMSnum] == nil or targetFMS ~= fms[targetFMSnum][8]) then
+	if table.getn(fmsO) > 4 and (fmsO[targetFMSnum] == nil or targetFMS ~= fmsO[targetFMSnum][8]) then
 		if string.len(navAidsJSON) ~= nSize then
 			navAids = json.decode(navAidsJSON)
 			nSize = string.len(navAidsJSON)
 		end
-		if fms[table.getn(fms)][2] == 1 then
+		if fmsO[table.getn(fmsO)][2] == 1 then
 			--we have an airport as our dst
-			local apdistance = getDistance(simDR_latitude, simDR_longitude, fms[table.getn(fms)][5], fms[table.getn(fms)][6])
+			local apdistance = getDistance(simDR_latitude, simDR_longitude, fmsO[table.getn(fmsO)][5], fmsO[table.getn(fmsO)][6])
 			if apdistance > 45 then
 				return
 			end
@@ -1595,22 +1595,22 @@ function B747_fltmgmt_setILS(fms)
 
 			found = false
 			local runwayHeading = -999
-			for i = table.getn(fms) - 1, 2, -1 do --last is the airport, before that go-around [may] be dup
+			for i = table.getn(fmsO) - 1, 2, -1 do --last is the airport, before that go-around [may] be dup
 				--we have a fix coming in to the airport
 				--if fms[i][2] == 512 then
-				local ap1Heading = getHeading(fms[i][5], fms[i][6], fms[table.getn(fms)][5], fms[table.getn(fms)][6])
-				local ap2Heading = getHeading(fms[i - 1][5], fms[i - 1][6], fms[table.getn(fms)][5], fms[table.getn(fms)][6])
+				local ap1Heading = getHeading(fmsO[i][5], fmsO[i][6], fmsO[table.getn(fmsO)][5], fmsO[table.getn(fmsO)][6])
+				local ap2Heading = getHeading(fmsO[i - 1][5], fmsO[i - 1][6], fmsO[table.getn(fmsO)][5], fmsO[table.getn(fmsO)][6])
 				local diffap = getHeadingDifference(ap1Heading, ap2Heading)
-				local distance = getDistance(fms[i][5], fms[i][6], fms[table.getn(fms)][5], fms[table.getn(fms)][6])
-				print("finding ils FMS i=" .. i .. ":" .. ap1Heading .. ":" .. ap2Heading .. ":" .. diffap .. ":" .. distance.. ":" .. fms[i][8].. ":" .. fms[i - 1][8] )
+				local distance = getDistance(fmsO[i][5], fmsO[i][6], fmsO[table.getn(fmsO)][5], fmsO[table.getn(fmsO)][6])
+				print("finding ils FMS i=" .. i .. ":" .. ap1Heading .. ":" .. ap2Heading .. ":" .. diffap .. ":" .. distance.. ":" .. fmsO[i][8].. ":" .. fmsO[i - 1][8] )
 				if diffap < 10 and diffap > -10 and distance < 11 then
 					print("potential matched from" .. i)
 					for n = table.getn(navAids), 1, -1 do
 						--now find an ils
 
 						if navAids[n][2] == 8 then
-							local headingToILS = getHeading(fms[i][5], fms[i][6], navAids[n][5], navAids[n][6])
-							local headingToNext = getHeading(fms[i][5], fms[i][6], fms[i + 1][5], fms[i + 1][6])
+							local headingToILS = getHeading(fmsO[i][5], fmsO[i][6], navAids[n][5], navAids[n][6])
+							local headingToNext = getHeading(fmsO[i][5], fmsO[i][6], fmsO[i + 1][5], fmsO[i + 1][6])
 							local diff = getHeadingDifference(navAids[n][4], headingToILS)
 							local diff2 = getHeadingDifference(headingToILS, headingToNext)
 							if diff < 0 then
@@ -1618,7 +1618,7 @@ function B747_fltmgmt_setILS(fms)
 							end
 
 							if diff2 < 5 and diff2 > -5 then
-								local distance2 = getDistance(fms[table.getn(fms)][5], fms[table.getn(fms)][6], navAids[n][5], navAids[n][6])
+								local distance2 = getDistance(fmsO[table.getn(fmsO)][5], fmsO[table.getn(fmsO)][6], navAids[n][5], navAids[n][6])
 								if diff < 1 and diff <= bestDiff and distance2 < 10 then
 									--print("navaid "..n.."->"..fms[i][8].."="..diff.." ".. navAids[n][1].." ".. navAids[n][2].." ".. navAids[n][3].." ".. navAids[n][4].." ".. navAids[n][5].." ".. navAids[n][6].." ".. navAids[n][7].." ".. navAids[n][8])
 									bestDiff = diff
@@ -1644,7 +1644,7 @@ function B747_fltmgmt_setILS(fms)
 				--print("set targetILS")
 				--navAids[targetFix][4]=runwayHeading
 				targetILSS = json.encode(navAids[targetFix])
-				targetFMS = fms[hitI][8]
+				targetFMS = fmsO[hitI][8]
 				targetFMSnum = hitI
 				targetILS = targetILSS
 				print("Tune ILS" .. targetILSS)
@@ -3198,6 +3198,9 @@ function after_physics()
 	local isMachSpd = simDR_autopilot_airspeed_is_mach
 	local machSpd = simDR_autopilot_airspeed_kts_mach
 	local onGround = simDR_onGround
+	local cruiseAlt = B747BR_cruiseAlt
+	local tDist = B747BR_totalDistance 
+	local tod = B747BR_tod
 	--print(B747DR_FMSdata)
 	if string.len(B747DR_FMSdata) > 0 then
 		fmsData = json.decode(B747DR_FMSdata)
