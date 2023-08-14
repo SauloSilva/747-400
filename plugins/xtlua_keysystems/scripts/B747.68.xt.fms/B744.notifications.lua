@@ -52,7 +52,8 @@ B747_FMCAlertMsg   = {
     {DRindex = 49, name = "UNABLE TO SEND MESSAGE",data="", status = 0},
     {DRindex = 50, name = "VERIFY POSITION",data="", status = 0},
     {DRindex = 51, name = "VERIFY RNP",data="", status = 0},
-    {DRindex = 52, name = "WIND DATA UPLINK READY",data="", status = 0}
+    {DRindex = 52, name = "WIND DATA UPLINK READY",data="", status = 0},
+    {DRindex = 53, name = "DESTINATION NOT SET",data="", status = 0}
 }
 function getAdvisoryMessages()
   B747_FMCAdvisoryMsg={}
