@@ -384,25 +384,25 @@ function B747_engine_dem_modes()
 end
 function B747_edp_pressures()
     if B747DR_hyd_valve_1==1 then
-      B747DR_hyd_edp_pressure_1=30*B747DR_display_N1[0]
+      B747DR_hyd_edp_pressure_1=40*B747DR_display_N1[0]
     else
       B747DR_hyd_edp_pressure_1=0;
     end
     
     if B747DR_hyd_valve_2==1 then
-      B747DR_hyd_edp_pressure_2=30*B747DR_display_N1[1]
+      B747DR_hyd_edp_pressure_2=40*B747DR_display_N1[1]
     else
       B747DR_hyd_edp_pressure_2=0;
     end
     
     if B747DR_hyd_valve_3==1 then
-      B747DR_hyd_edp_pressure_3=30*B747DR_display_N1[2]
+      B747DR_hyd_edp_pressure_3=40*B747DR_display_N1[2]
     else
       B747DR_hyd_edp_pressure_3=0;
     end
     
     if B747DR_hyd_valve_4==1 then
-      B747DR_hyd_edp_pressure_4=30*B747DR_display_N1[3]
+      B747DR_hyd_edp_pressure_4=40*B747DR_display_N1[3]
     else
       B747DR_hyd_edp_pressure_4=0;
     end
@@ -411,9 +411,9 @@ end
 function B747_dem_pressures()
   if B747DR_hyd_dem_mode_1>0 then 
     if B747DR_hyd_dem_mode_1==2 then
-      B747DR_hyd_dem_pressure_1=B747_duct_pressure_L*175
-    elseif B747DR_hyd_edp_pressure_1<2000 then
-      B747DR_hyd_dem_pressure_1=B747_duct_pressure_L*175
+      B747DR_hyd_dem_pressure_1=B747_duct_pressure_L*110
+    elseif B747DR_hyd_edp_pressure_1<2500 then
+      B747DR_hyd_dem_pressure_1=B747_duct_pressure_L*110
     else
       B747DR_hyd_dem_pressure_1=0
     end
@@ -425,7 +425,7 @@ function B747_dem_pressures()
   if B747DR_hyd_dem_mode_2>0 then
     if B747DR_hyd_dem_mode_2==2 then
       B747DR_hyd_dem_pressure_2=3000
-    elseif B747DR_hyd_edp_pressure_2<2000 then
+    elseif B747DR_hyd_edp_pressure_2<2500 then
       B747DR_hyd_dem_pressure_2=3000
     else
       B747DR_hyd_dem_pressure_2=0
@@ -437,7 +437,7 @@ function B747_dem_pressures()
   if B747DR_hyd_dem_mode_3>0 then
     if B747DR_hyd_dem_mode_3==2 then
       B747DR_hyd_dem_pressure_3=3000
-    elseif B747DR_hyd_edp_pressure_3<2000 then
+    elseif B747DR_hyd_edp_pressure_3<2500 then
       B747DR_hyd_dem_pressure_3=3000
     else
       B747DR_hyd_dem_pressure_3=0
@@ -448,9 +448,9 @@ function B747_dem_pressures()
   
   if B747DR_hyd_dem_mode_4>0 then
     if B747DR_hyd_dem_mode_4==2 then
-      B747DR_hyd_dem_pressure_4=B747_duct_pressure_R*175
-    elseif B747DR_hyd_edp_pressure_4<2000 then
-      B747DR_hyd_dem_pressure_4=B747_duct_pressure_R*175
+      B747DR_hyd_dem_pressure_4=B747_duct_pressure_R*110
+    elseif B747DR_hyd_edp_pressure_4<2500 then
+      B747DR_hyd_dem_pressure_4=B747_duct_pressure_R*110
     else
       B747DR_hyd_dem_pressure_4=0
     end
@@ -478,16 +478,20 @@ function B747_show_system_pressures()
 end
 function B747_system_pressures()
   --B747_animate_value(B747DR_hyd_sys_pressure_1,math.max(B747DR_hyd_dem_pressure_1,B747DR_hyd_edp_pressure_1),0,3000,1)
-  B747DR_hyd_sys_pressure_use_1=B747_animate_value(B747DR_hyd_sys_pressure_use_1,((B747DR_hyd_dem_pressure_1/2+B747DR_hyd_edp_pressure_1)/10),0,40,1)--math.max(B747DR_hyd_dem_pressure_1,B747DR_hyd_edp_pressure_1)
-  B747DR_hyd_sys_pressure_use_2=B747_animate_value(B747DR_hyd_sys_pressure_use_2,((B747DR_hyd_dem_pressure_2+B747DR_hyd_edp_pressure_2)/10),0,40,1)--math.max(B747DR_hyd_dem_pressure_2,B747DR_hyd_edp_pressure_2)
-  B747DR_hyd_sys_pressure_use_3=B747_animate_value(B747DR_hyd_sys_pressure_use_3,((B747DR_hyd_dem_pressure_3+B747DR_hyd_edp_pressure_3)/10),0,40,1)--math.max(B747DR_hyd_dem_pressure_3,B747DR_hyd_edp_pressure_3)
-  B747DR_hyd_sys_pressure_use_4=B747_animate_value(B747DR_hyd_sys_pressure_use_4,((B747DR_hyd_dem_pressure_4/2+B747DR_hyd_edp_pressure_4+B747DR_hyd_aux_pressure)/10),0,40,1)--math.max(B747DR_hyd_dem_pressure_4,B747DR_hyd_edp_pressure_4,B747DR_hyd_aux_pressure)
+  B747DR_hyd_sys_pressure_use_1=B747_animate_value(B747DR_hyd_sys_pressure_use_1,((B747DR_hyd_dem_pressure_1+B747DR_hyd_edp_pressure_1)/10),0,45,1)--math.max(B747DR_hyd_dem_pressure_1,B747DR_hyd_edp_pressure_1)
+  B747DR_hyd_sys_pressure_use_2=B747_animate_value(B747DR_hyd_sys_pressure_use_2,((B747DR_hyd_dem_pressure_2+B747DR_hyd_edp_pressure_2)/10),0,45,1)--math.max(B747DR_hyd_dem_pressure_2,B747DR_hyd_edp_pressure_2)
+  B747DR_hyd_sys_pressure_use_3=B747_animate_value(B747DR_hyd_sys_pressure_use_3,((B747DR_hyd_dem_pressure_3+B747DR_hyd_edp_pressure_3)/10),0,45,1)--math.max(B747DR_hyd_dem_pressure_3,B747DR_hyd_edp_pressure_3)
+  B747DR_hyd_sys_pressure_use_4=B747_animate_value(B747DR_hyd_sys_pressure_use_4,((B747DR_hyd_dem_pressure_4+B747DR_hyd_edp_pressure_4+B747DR_hyd_aux_pressure)/10),0,45,1)--math.max(B747DR_hyd_dem_pressure_4,B747DR_hyd_edp_pressure_4,B747DR_hyd_aux_pressure)
   
   --sys_pressure_use now contains how much pressure we can put into the system
-  B747DR_hyd_sys_pressure_1=B747_animate_value(B747DR_hyd_sys_pressure_1,B747DR_hyd_sys_pressure_1+B747DR_hyd_sys_pressure_use_1,0,3300-math.random()*50,10)
-  B747DR_hyd_sys_pressure_2=B747_animate_value(B747DR_hyd_sys_pressure_2,B747DR_hyd_sys_pressure_2+B747DR_hyd_sys_pressure_use_2,0,3300-math.random()*50,10)
-  B747DR_hyd_sys_pressure_3=B747_animate_value(B747DR_hyd_sys_pressure_3,B747DR_hyd_sys_pressure_3+B747DR_hyd_sys_pressure_use_3,0,3300-math.random()*50,10)
-  B747DR_hyd_sys_pressure_4=B747_animate_value(B747DR_hyd_sys_pressure_4,B747DR_hyd_sys_pressure_4+B747DR_hyd_sys_pressure_use_4,0,3300-math.random()*50,10)
+  local s1Max=math.min(math.max(B747DR_hyd_dem_pressure_1,B747DR_hyd_edp_pressure_1,B747DR_hyd_sys_pressure_1),3300)
+  local s2Max=math.min(math.max(B747DR_hyd_dem_pressure_2,B747DR_hyd_edp_pressure_2,B747DR_hyd_sys_pressure_2),3300)
+  local s3Max=math.min(math.max(B747DR_hyd_dem_pressure_3,B747DR_hyd_edp_pressure_3,B747DR_hyd_sys_pressure_3),3300)
+  local s4Max=math.min(math.max(B747DR_hyd_dem_pressure_4,B747DR_hyd_edp_pressure_4,B747DR_hyd_aux_pressure,B747DR_hyd_sys_pressure_4),3300)
+  B747DR_hyd_sys_pressure_1=B747_animate_value(B747DR_hyd_sys_pressure_1,B747DR_hyd_sys_pressure_1+B747DR_hyd_sys_pressure_use_1,0,s1Max-math.random()*50,10)
+  B747DR_hyd_sys_pressure_2=B747_animate_value(B747DR_hyd_sys_pressure_2,B747DR_hyd_sys_pressure_2+B747DR_hyd_sys_pressure_use_2,0,s2Max-math.random()*50,10)
+  B747DR_hyd_sys_pressure_3=B747_animate_value(B747DR_hyd_sys_pressure_3,B747DR_hyd_sys_pressure_3+B747DR_hyd_sys_pressure_use_3,0,s3Max-math.random()*50,10)
+  B747DR_hyd_sys_pressure_4=B747_animate_value(B747DR_hyd_sys_pressure_4,B747DR_hyd_sys_pressure_4+B747DR_hyd_sys_pressure_use_4,0,s4Max-math.random()*50,10)
   B747DR_hyd_sys_pressure_13=math.max(B747DR_hyd_sys_pressure_1,B747DR_hyd_sys_pressure_3) --12 remapped to 13
   B747DR_hyd_sys_pressure_23=math.max(B747DR_hyd_sys_pressure_2,B747DR_hyd_sys_pressure_3)
   B747DR_hyd_sys_pressure_24=math.max(B747DR_hyd_sys_pressure_2,B747DR_hyd_sys_pressure_4) 
