@@ -76,6 +76,7 @@ end
 fmsFunctionsDefs["POSTFLIGHT"]["L6"]={"setpage","ACARS"}
 fmsPages["INITIALIZE"]=createPage("INITIALIZE")
 fmsPages["INITIALIZE"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be this way
+  if getFMSData("crzalt")=="*****" then fmsModules[fmsID]["notify"]="CRUISE ALT NOT SET" end
   fmsPages["INITIALIZE"]["template"]={
 
   "  ACARS-INITIALIZATION  ",
