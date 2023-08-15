@@ -19,7 +19,7 @@ fms={
 simCMD_FMS_key={}
 function fmsClearNotify(notification)
   
-  for i =1,53,1 do
+  for i =1,54,1 do
     print("do FMS notify".." ".. i .." " ..B747DR_fmc_notifications[i])
     if B747_FMCAlertMsg[i].name==notification then
       fmsModules["fmsL"]["notify"]=""

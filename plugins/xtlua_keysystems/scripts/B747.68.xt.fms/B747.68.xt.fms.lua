@@ -1046,7 +1046,7 @@ function setNotifications()
   --print("FMS notify")
   local hasNotify=false
   lastNotify=simDRTime
-  for i =1,53,1 do
+  for i =1,54,1 do
     --print("do FMS notify".." ".. i .." " ..B747DR_fmc_notifications[i])
     if B747DR_fmc_notifications[i]>0 then
       fmsModules["fmsL"]["notify"]=B747_FMCAlertMsg[i].name

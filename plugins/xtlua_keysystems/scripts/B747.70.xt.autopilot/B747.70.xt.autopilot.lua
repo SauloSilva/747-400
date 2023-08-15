@@ -2068,11 +2068,8 @@ function B747_ap_altitude()
 	if B747DR_ap_vnav_state > 0 then
 		if table.getn(fms) < 2 or fms[table.getn(fms)][2] ~= 1 then
 			print("Cancel VNAV " .. table.getn(fms))
-			if fms[table.getn(fms)][2] ~= 1 then
-				B747DR_fmc_notifications[54] = 1
-			else	
-				B747DR_fmc_notifications[30] = 1
-			end
+
+			B747DR_fmc_notifications[54] = 1
 			B747DR_ap_vnav_state = 0
 			B747DR_ap_lnav_state = 0
 			B747DR_ap_thrust_mode = 0
