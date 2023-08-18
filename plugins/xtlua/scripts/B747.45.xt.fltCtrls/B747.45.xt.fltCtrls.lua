@@ -136,7 +136,7 @@ B747DR_display_N1				= find_dataref("laminar/B747/engines/display_N1")
 B747DR_display_N2				= find_dataref("laminar/B747/engines/display_N2")
 simDR_radio_alt_height_capt     = find_dataref("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot")
 
-
+simDR_tire_steer_deg        = find_dataref("sim/flightmodel2/gear/tire_steer_actual_deg")
 simDR_parking_brake_ratio       = find_dataref("sim/cockpit2/controls/parking_brake_ratio")
 simDR_elevator_trim             = find_dataref("sim/flightmodel2/controls/elevator_trim")
 simDR_acf_weight_total_kg       = find_dataref("sim/flightmodel/weight/m_total")
@@ -997,6 +997,7 @@ function B747_fltCtrols_EICAS_msg()
         end
         thRef=86
     end
+    
 
     if (simDR_wing_flap1_deg[0] < 9.95 or simDR_wing_flap1_deg[0] > 20.05 or unmatchedConfig==true)
         and simDR_all_wheels_on_ground == 1
@@ -1010,8 +1011,20 @@ function B747_fltCtrols_EICAS_msg()
 	B747DR_CAS_warning_status[2] = 0
     end
 
+    -- >CONFIG GEAR CTR
+    if (math.abs(simDR_tire_steer_deg[1])>0 or math.abs(simDR_tire_steer_deg[2])>0)
+        and simDR_all_wheels_on_ground == 1
+        and simDR_ind_airspeed_kts_pilot < B747DR_airspeed_V1
+        and num_fuel_ctrl_sw_on >= 3
+        and simDR_engine_throttle_jet_all >= 0
+        and B747DR_display_N1[1] > thRef and B747DR_display_N1[2] > thRef
+    then
+        B747DR_CAS_warning_status[4] = 1
+    else
+	    B747DR_CAS_warning_status[4] = 0
+    end
+
     -- >CONFIG GEAR
-    
     if ((simDR_gear_deploy_ratio[0] < 0.99
         or simDR_gear_deploy_ratio[1] < 0.99
         or simDR_gear_deploy_ratio[2] < 0.99
