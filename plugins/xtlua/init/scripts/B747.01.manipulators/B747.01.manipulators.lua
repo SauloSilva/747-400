@@ -334,7 +334,7 @@ B747CMD_flight_dir_switch_R 			= deferred_command("laminar/B747/toggle_switch/fl
 
 
 -- AUTO-THROTTLE SWITCH
-B747CMD_autothrottle_arm_switch 		= deferred_command("laminar/B747/toggle_switch/autothrottle", "Logo Light Switch", B747_autothrottle_arm_switch_CMDhandler)
+B747CMD_autothrottle_arm_switch 		= deferred_command("laminar/B747/toggle_switch/autothrottle", "Authothrottle Toggle Switch", B747_autothrottle_arm_switch_CMDhandler)
 B747CMD_autothrottle_arm            	= deferred_command("laminar/B747/authrottle_arm", "Autothrottle Arm", B747_autothrottle_arm_CMDhandler)
 B747CMD_autothrottle_disarm         	= deferred_command("laminar/B747/authrottle_disarm", "Autothrottle Disarm", B747_autothrottle_disarm_CMDhandler)
 
