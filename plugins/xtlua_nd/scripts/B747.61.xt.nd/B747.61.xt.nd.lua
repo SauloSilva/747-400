@@ -1,7 +1,7 @@
 --Read out and set displays for ND icons
 -- (C) Mark 'mSparks' Parker 2020 CCBYNC4 release
 -- Small changes by Matt726
-
+simDR_version=find_dataref("sim/version/xplane_internal_version")
 simDR_tcas_lat                = find_dataref("sim/cockpit2/tcas/targets/position/lat")
 simDR_tcas_lon                = find_dataref("sim/cockpit2/tcas/targets/position/lon")
 simDR_radarAlt1 = find_dataref("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot")
@@ -65,6 +65,8 @@ simDR_map_range				= find_dataref("sim/cockpit2/EFIS/map_range")
 simDR_map_mode				= find_dataref("sim/cockpit2/EFIS/map_mode")
 simDR_map_range_copilot				= find_dataref("sim/cockpit2/EFIS/map_range_copilot")
 simDR_map_mode_copilot				= find_dataref("sim/cockpit2/EFIS/map_mode_copilot")
+backport_map_mode_copilot = 0
+backport_map_range_copilot = 0
 simDR_range_dial_capt			= find_dataref("laminar/B747/nd/range/capt/sel_dial_pos")
 simDR_range_dial_fo			= find_dataref("laminar/B747/nd/range/fo/sel_dial_pos")
 B747_nd_map_center_capt                 = find_dataref("laminar/B747/nd/map_center/capt")
@@ -167,7 +169,7 @@ function makeIcon(iconTextData,navtype,text,latitude,longitude,distance)
       heading_diff=getHeadingDifference(simDR_true_heading,abs_heading)
     end
   else
-    if simDR_map_mode_copilot==2 then
+    if backport_map_mode_copilot==2 then
       mag_diff=getHeadingDifference(simDR_true_heading,simDR_mag_heading)
       heading_diff=getHeadingDifference(simDR_ground_track-mag_diff,abs_heading)
     else
@@ -292,7 +294,7 @@ function updateIcon(iconData,n,isCaptain)
    local distance = getDistance(simDR_latitude,simDR_longitude,iconData[n].latitude,iconData[n].longitude)
   local abs_heading=getHeading(simDR_latitude,simDR_longitude,iconData[n].latitude,iconData[n].longitude)
   local heading_diff=0
-  if (simDR_map_mode==2 and isCaptain==1) or (simDR_map_mode_copilot==2 and isCaptain==0) then
+  if (simDR_map_mode==2 and isCaptain==1) or (backport_map_mode_copilot==2 and isCaptain==0) then
     mag_diff=getHeadingDifference(simDR_true_heading,simDR_mag_heading)
     heading_diff=getHeadingDifference(simDR_ground_track-mag_diff,abs_heading)
   else
@@ -350,7 +352,7 @@ function newIcons()
       end
     end
     --FO flightplan
-    if distance < ranges[simDR_range_dial_fo + 1] and simDR_map_mode_copilot==2 then 
+    if distance < ranges[simDR_range_dial_fo + 1] and backport_map_mode_copilot==2 then 
 
       if fmsTable[n][10]==true then
 	      makeIcon(iconTextDataFO,3003,fmsTable[n][8],fmsTable[n][5],fmsTable[n][6],distance)
@@ -536,21 +538,27 @@ function aircraft_unload()
 end
 function after_physics()
   collectgarbage("collect")
+
   if debug_nd>0 then return end
   local diff=simDRTime-lastUpdate
+  if simDR_version>=120012 then
+    backport_map_mode_copilot=simDR_map_mode_copilot
   --print("simDR_ground_track="..simDR_ground_track)
-  if simDR_map_mode_copilot ==2 then
-    B747DR_nd_fo_up = simDR_ground_track
-  else
-    B747DR_nd_fo_up = simDR_heading_track
-  end
+    if simDR_map_mode_copilot ==2 then
+      B747DR_nd_fo_up = simDR_ground_track
+    else
+      B747DR_nd_fo_up = simDR_heading_track
+    end
 
-  if simDR_map_mode ==2 then
-    B747DR_nd_capt_up = simDR_ground_track
+    if simDR_map_mode ==2 then
+      B747DR_nd_capt_up = simDR_ground_track
+    else
+      B747DR_nd_capt_up = simDR_heading_track
+    end
   else
-    B747DR_nd_capt_up = simDR_heading_track
-  end
-
+    backport_map_range_copilot=simDR_map_range
+    backport_map_mode_copilot=simDR_map_mode
+  end  
   
   --force new icons if range dial changes (stop bleed into other displays)
   if simDR_range_dial_capt~=last_range_dial then
