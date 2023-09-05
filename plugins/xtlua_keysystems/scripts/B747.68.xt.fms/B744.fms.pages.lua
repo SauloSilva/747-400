@@ -2398,6 +2398,23 @@ function fmsFunctions.setDref(fmsO,value)
 
   fmsO["scratchpad"]=""
 end
+function fmsFunctions.setscratchpad(fmsO,value)
+	fmsO["scratchpad"]=value
+end
+function fmsFunctions.respondmessage(fmsO,value)
+	acarsSystem.setCurrentMessage(fmsO.id,value)
+	fmsO["inCustomFMC"]=true
+	fmsO["targetPage"]="RESPONDACARSMSG"
+	run_after_time(switchCustomMode, 0.5)
+  end
+
+function fmsFunctions.sendACARSmessage(fmsO,value)
+	acarsSystem.setCurrentMessage(fmsO.id,value)
+	fmsFunctions["acarsSendATC"](fmsO,value)
+	fmsO["inCustomFMC"]=true
+  	fmsO["targetPage"]="VIEWACARSLOG"
+  	run_after_time(switchCustomMode, 0.5)
+end
 function fmsFunctions.showmessage(fmsO,value)
   acarsSystem.setCurrentMessage(fmsO.id,value)
   fmsO["inCustomFMC"]=true

@@ -171,9 +171,16 @@ fmsPages["VIEWMISCACARS"].getSmallPage=function(self,pgNo,fmsID)
 
   fmsPages["VIEWACARSMSG"]=createPage("VIEWACARSMSG")
   fmsPages["VIEWACARSMSG"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be this way
-    acarsSystem.messages[acarsSystem.getCurrentMessage(fmsID)]["read"]=true
-    local msg=acarsSystem.messages[acarsSystem.getCurrentMessage(fmsID)]
+    local currentMessage=acarsSystem.getCurrentMessage(fmsID)
+    acarsSystem.messages[currentMessage]["read"]=true
+    local msg=acarsSystem.messages[currentMessage]
     local start=(pgNo-1)*168
+    local lLine="<RETURN                 "
+    if string.find(msg["msg"], "@") then
+      print (msg["msg"].." requiresRespond")
+      lLine="<RETURN           REPLY>"
+      fmsFunctionsDefs["VIEWACARSMSG"]["R6"]={"respondmessage",currentMessage}
+    end
     fmsPages["VIEWACARSMSG"]["template"]={
   
     "     ACARS-MESSAGE      ",
@@ -188,7 +195,7 @@ fmsPages["VIEWMISCACARS"].getSmallPage=function(self,pgNo,fmsID)
     string.sub(msg["msg"],start+121,start+144),
     string.sub(msg["msg"],start+145,start+168),
     "                        ",
-    "<RETURN                 "
+    lLine
     }
     return fmsPages["VIEWACARSMSG"]["template"]
   end
@@ -222,4 +229,52 @@ fmsPages["VIEWMISCACARS"].getSmallPage=function(self,pgNo,fmsID)
   end
   fmsFunctionsDefs["VIEWACARSMSG"]["L6"]={"setpage","VIEWUPACARS"}
 
+  
+fmsPages["RESPONDACARSMSG"]=createPage("RESPONDACARSMSG")
+fmsPages["RESPONDACARSMSG"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be this way
+  local currentMessage=acarsSystem.getCurrentMessage(fmsID)
+  local msg=acarsSystem.messages[currentMessage]
+
+  fmsPages["RESPONDACARSMSG"]["template"]={
+
+  "       ACARS-REPLY      ",
+  "                        ",
+  msg["title"],
+  "                        ",
+  "<WILCO                  ",
+  "                        ",
+  "<UNABLE DUE *****       ",
+  "                        ",
+  "                        ",
+  "                        ",
+  "<------          ------>",
+  "                    "..fmsModules["data"]["atc"],
+  "<RETURN            SEND>"
+  }
+  fmsFunctionsDefs["RESPONDACARSMSG"]["R6"]={"sendACARSmessage",currentMessage}
+  fmsFunctionsDefs["RESPONDACARSMSG"]["L2"]={"setscratchpad","WILCO"}
+  fmsFunctionsDefs["RESPONDACARSMSG"]["L3"]={"setscratchpad","UNABLE DUE "}
+  return fmsPages["RESPONDACARSMSG"]["template"]
+end
+fmsPages["RESPONDACARSMSG"].getSmallPage=function(self,pgNo,fmsID)--dynamic pages need to be this way
+  local pgNo=1
+  local numPages=1
+  fmsPages["RESPONDACARSMSG"]["templateSmall"]={
+  
+    "                    "..pgNo.."/"..numPages.."  ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        "
+    }
+    return fmsPages["RESPONDACARSMSG"]["templateSmall"]
+end
   dofile("acars/acars.pages.weatherrequest.lua")

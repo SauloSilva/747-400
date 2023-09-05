@@ -47,6 +47,22 @@ function fmsFunctions.acarsLogonATC(fmsO,value)
   local newInitSend=json.encode(atcLogon)
   fmsFunctions.acarsSystemSendATC(fmsO,newInitSend)
 end
+function fmsFunctions.acarsSendATC(fmsO,value) --value=message being replied to, if, message starts WILCO = accepted, UNABLE = rejected, other=RESPONDED
+  if getFMSData("fltno")=="*******" then fmsO["notify"]="FLT NO NOT SET" return end
+  if getFMSData("fltdep")=="****" then fmsO["notify"]="DEPARTURE NOT SET" return end
+  if getFMSData("fltdst")=="****" then fmsO["notify"]="DESTINATION NOT SET" return end
+  local atcLogon={}
+  if fmsModules["data"]["atc"]=="****" then fmsO["notify"]="NO LOGON" return end
+  if string.len(fmsO["scratchpad"])>0 then
+    atcLogon["type"]="cpdlc"
+    atcLogon["msg"]=fmsO["scratchpad"]
+    local newInitSend=json.encode(atcLogon)
+    fmsFunctions.acarsSystemSendATC(fmsO,newInitSend)
+  else
+    fmsO["notify"]="NO MESSAGE"
+  end
+end
+
 function fmsFunctions.acarsATCRequest(fmsO,value)
   local atcReq={}
 	atcReq["type"]="inforeq"
@@ -305,9 +321,10 @@ acarsSystem.getLogMessages=function(pgNo)
     if rID>sID then
       retVal[rmID]=acarsSystem.messages[onRecieved]
       retVal[rmID]["ud"]="U"
+      fmsFunctionsDefs["VIEWACARSLOG"]["R"..(rmID)]={"showmessage",onRecieved}
+      print("use received message".." rmID "..rmID.. " rID "..onRecieved)
       rmID=rmID+1
       onRecieved=onRecieved-1
-      print("use received message")
     else
       if sMessage["msg"]~=nil then
         retVal[rmID]=sMessage
