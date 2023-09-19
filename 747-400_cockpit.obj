@@ -24026,3 +24026,7 @@ ANIM_begin
 		TRIS	33630 1092
 	ANIM_end
 ANIM_end
+ANIM_begin
+	ANIM_show	0.0 0.0	laminar/B747/fmc/cockpit_seats_hide
+	ANIM_hide	1.0 1.0	laminar/B747/fmc/cockpit_seats_hide
+ANIM_end

@@ -14,8 +14,11 @@ B747DR_airspeed_flapsRef	= deferred_dataref("laminar/B747/airspeed/flapsRef", "n
 B747DR_refuel							= deferred_dataref("laminar/B747/fuel/refuel", "number")
 --Marauder28
 
---Spill Lights
-B747DR_fmc_spill_lights		= deferred_dataref("laminar/B747/fmc/spill_lights", "number") --silvereagle
+--silvereagle added to end
+-- Misc.
+B747DR_fmc_spill_lights		= deferred_dataref("laminar/B747/fmc/spill_lights", "number")
+B747DR_fmc_cockpit_seats_hide	= deferred_dataref("laminar/B747/fmc/cockpit_seats_hide", "number")
+--silvereagle end
 
 fmsFunctions={}
 dofile("acars/acars.lua")
@@ -2151,7 +2154,18 @@ function fmsFunctions.setdata(fmsO,value)
 		end
 		simConfigData["data"].SIM.spill_lights = fmsO.scratchpad
 		pushSimConfig(simConfigData["data"]["values"])
---silvereagle end	
+
+    elseif value=="cockpitSeatsHide" then
+		if B747DR_fmc_cockpit_seats_hide == 0 then
+			fmsO["scratchpad"] = "HIDE"
+			B747DR_fmc_cockpit_seats_hide = 1
+		else	
+			fmsO["scratchpad"] = "SHOW"
+			B747DR_fmc_cockpit_seats_hide = 0
+		end
+		simConfigData["data"].SIM.cockpit_seats_hide = fmsO.scratchpad
+		pushSimConfig(simConfigData["data"]["values"])
+--silvereagle end
 		
 	elseif value=="simConfigSave" then
 			local file_location = simDR_livery_path.."B747-400_simconfig.dat"
