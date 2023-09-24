@@ -950,8 +950,8 @@ end
 local previous_simDR_AHARS_pitch_heading_deg_pilot=0
 
 local pitchPid = newPid()
-pitchPid.minout=-25
-pitchPid.maxout=25
+pitchPid.minout=-1
+pitchPid.maxout=1
 pitchPid.target=0
 pitchPid.input = 0
 pitchPid:compute()
@@ -990,8 +990,8 @@ end
 local previous_simDR_AHARS_roll_heading_deg_pilot=0
 
 local rollPid = newPid()
-rollPid.minout=-25
-rollPid.maxout=25
+rollPid.minout=-1
+rollPid.maxout=1
 rollPid.target=0
 rollPid.input = 0
 rollPid:compute()

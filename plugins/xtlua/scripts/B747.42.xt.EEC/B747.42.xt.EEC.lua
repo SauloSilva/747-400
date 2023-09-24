@@ -803,13 +803,44 @@ end
 last_simDR_ind_airspeed_kts_pilot=0
 local lastspd_throttleTime=0
 local last_speed_delta=0
-function spd_throttle()
-	
+local lastModeChange=0
+local lastMode=""
+local lastThrustTargets={0,0,0,0}
+function getThrustTargets()
+	local thrustTargets={0,0,0,0}
+	for i = 1, 4 do
+		if B747DR_engineType==1 then
+			thrustTargets[i] = throttle_resolver_angle_GE(i-1)
+		elseif B747DR_engineType==0 then
+			thrustTargets[i] = throttle_resolver_angle_PW(i-1)*50
+		elseif B747DR_engineType==2 then
+			thrustTargets[i] = throttle_resolver_angle_RR(i-1)*50
+		else  --Assume PW engine if all else fails
+			thrustTargets[i] = throttle_resolver_angle_PW(i-1)*50
+		end
+	end
+	return thrustTargets
+end
+function normalise_throttle()
+	thrustTargets = getThrustTargets()
+	local input=0
+	local target=0
+	for i = 1, 4 do
+		input=math.max(input,thrustTargets[i])
+		target=math.max(target,lastThrustTargets[i])
+	end
+	--print("thrustTargets was "..lastThrustTargets[1].." now "..thrustTargets[1])
+	last_speed_delta=input-target
+	return input,target,0.001
+end
+function get_spd_input_target_rog()
+	local modeChangeDiff=simDRTime-lastModeChange
+	if modeChangeDiff< 5.0 then
+		return normalise_throttle()
+	end
+	lastThrustTargets = getThrustTargets()
 	local input=simDR_ind_airspeed_kts_pilot
 	local target=simDR_autopilot_airspeed_kts
-	local speedError=math.abs(input-target)
-	
-	
 	local diff=simDRTime-lastspd_throttleTime
 	if diff>0.1 then
 		last_speed_delta=simDR_ind_airspeed_kts_pilot-last_simDR_ind_airspeed_kts_pilot
@@ -821,8 +852,20 @@ function spd_throttle()
 	if(rog>0.005) then
 		rog=0.005
 	end
+	return input,target,rog
+end
+function spd_throttle()
+	if B747DR_ref_thr_limit_mode~=lastMode then
+		lastMode=B747DR_ref_thr_limit_mode
+		lastModeChange=simDRTime
+	end
+
+	
+	input,target,rog = get_spd_input_target_rog()
 	local min_speedDelta=0
     local max_speedDelta=0
+	local speedError=math.abs(input-target)
+	local speed_delta=last_speed_delta
 	if  speedError > 1 then
 		--if (simDR_autopilot_airspeed_kts< simDR_ind_airspeed_kts_pilot-1) then
 		max_speedDelta=0.001+speedError/100

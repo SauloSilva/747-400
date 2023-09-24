@@ -56,6 +56,7 @@ function fmsFunctions.acarsSendATC(fmsO,value) --value=message being replied to,
   if string.len(fmsO["scratchpad"])>0 then
     atcLogon["type"]="cpdlc"
     atcLogon["msg"]=fmsO["scratchpad"]
+    atcLogon["status"]="SENT"
     local newInitSend=json.encode(atcLogon)
     fmsFunctions.acarsSystemSendATC(fmsO,newInitSend)
   else
@@ -392,6 +393,7 @@ acarsSystem.getMessageLog=function(pgNo)
         ln="  "..messageLog[i]["title"]
         
       else
+        --messageLog[i]["status"]
         retVal.templateSmall[line]=" "..messageLog[i]["time"].."z     RESPONSE RCVD"
         print("T "..messageLog[i]["msg"])
         ln="  "..messageLog[i]["msg"]

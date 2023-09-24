@@ -1037,7 +1037,7 @@ function do_flight_start()
 	run_at_interval(inflight_update_CG, 60)	
 end
 
-debug_fms     = deferred_dataref("laminar/B747/debug/fms", "number")
+debug_fms     = find_dataref("laminar/B747/debug/fms")
 fms_style = find_dataref("sim/cockpit2/radios/indicators/fms_cdu1_style_line2")
 lastNotify=0
 function setNotifications()
