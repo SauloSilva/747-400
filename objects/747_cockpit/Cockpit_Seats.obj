@@ -11483,5 +11483,9 @@ IDX10	8244 8258 8259 8244 8259 8245 8279 8277 8278 8279
 IDX	8278
 IDX	8280
 
+ANIM_begin
+	ANIM_show	0.0 0.0	laminar/B747/fmc/cockpit_seats_hide
+	ANIM_hide	1.0 1.0	laminar/B747/fmc/cockpit_seats_hide
 # Image: //objects/747_cockpit/Cockpit_Seats.png
-TRIS	0 31812
+	TRIS	0 31812
+ANIM_end

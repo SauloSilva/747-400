@@ -67,8 +67,11 @@ B747DR_engineType                               = deferred_dataref("laminar/B747
 B747DR_hideGE						= deferred_dataref("laminar/B747/engines/hideGE", "number") 
 B747DR_hideRR						= deferred_dataref("laminar/B747/engines/hideRR", "number")
 
--- Spill Lights
-B747DR_fmc_spill_lights					= deferred_dataref("laminar/B747/fmc/spill_lights", "number") --silvereagle
+--silvereagle to end
+-- Misc.
+B747DR_fmc_spill_lights						= deferred_dataref("laminar/B747/fmc/spill_lights", "number")
+B747DR_fmc_cockpit_seats_hide				= deferred_dataref("laminar/B747/fmc/cockpit_seats_hide", "number")
+--silvereagle end
 
 B747DR_SNDoptions			        	= deferred_dataref("laminar/B747/fmod/options", "array[7]")
 --B747DR_SNDoptions_volume				= deferred_dataref("laminar/B747/fmod/options/volume", "array[8]")
@@ -95,6 +98,7 @@ function simconfig_values()
 					 fo_inbd = "NORM",  --PFD = 0, NORM = 1, EICAS = 2
 					 fo_lwr = "NORM",  --ND = 0, NORM = 1, EICAS PRI = 2
 					 spill_lights = "NORM", --HI = 1, NORM = 0 --silvereagle
+					 cockpit_seats_hide = "SHOW", --SHOW = 0 (default), HIDE = 1, (Useful to hide cockpit seats when using 3 monitors and the seats are in the way of viewing the instrument panel.) --silvereagle
 			},
 			PLANE = {
 						model = "747-400",  --747-400, 747-400ER, 747-400F
@@ -287,6 +291,12 @@ function set_loaded_configs()
 		B747DR_fmc_spill_lights = 0
 	else
 		B747DR_fmc_spill_lights = 1
+	end
+
+	if simConfigData["data"].SIM.cockpit_seats_hide == "SHOW" or simConfigData["data"].SIM.cockpit_seats_hide == null then
+		B747DR_fmc_cockpit_seats_hide = 0
+	else
+		B747DR_fmc_cockpit_seats_hide = 1
 	end
 	--silvereagle end
 
