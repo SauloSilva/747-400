@@ -129,6 +129,27 @@ See the [commit history](https://github.com/mSparks43/747-400/commits/master) fo
 
 _Thank you all for your support and contributions!_
 
+## Release XP1206-2023/10/01:
+Bug fix and enhacements release of issues reported since previous release
+
+### Bug fixes
+
+ - Engine RPM increases at the moment "LAND3" appears on PFD #857 
+ - First officer´s ND in XP11 has bugs #851 
+ - Fix autothrottle toggle switch bind label
+ - Require cruise altitude set for ACARS/CPDLC initialisation
+ - Fix DESTINATION NOT SET message
+ - Report destination not set if destination is not an airport
+ - Hydraulic pressure tuning
+ - Better PROG fuel estimate on the ground
+
+### Enhancements
+ - 
+ - Added Cockpit Seats Show/Hide (Silver-Eagle-Cherokee)
+ - Reply to ACARS/CPDLC messages initial
+ - Add CONFIG GEAR CTR warning
+ - ATC LOG page initial
+
 ## Release XP1206-2023/08/12:
 Bug fix release of issues reported since previous release
 
