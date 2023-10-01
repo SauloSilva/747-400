@@ -144,7 +144,7 @@ Bug fix and enhacements release of issues reported since previous release
  - Better PROG fuel estimate on the ground
 
 ### Enhancements
- - 
+
  - Added Cockpit Seats Show/Hide (Silver-Eagle-Cherokee)
  - Reply to ACARS/CPDLC messages initial
  - Add CONFIG GEAR CTR warning
