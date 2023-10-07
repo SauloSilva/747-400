@@ -1132,7 +1132,7 @@ function after_physics()
     fmsL:B747_fms_display()
     fmsC:B747_fms_display()
     fmsR:B747_fms_display()
-    if simDR_bus_volts[0]>24 then
+    if simDR_bus_volts[0]>22 then
       irsSystem.update()
       B747_setNAVRAD()
     end
