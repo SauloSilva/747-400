@@ -44,7 +44,7 @@ function refreshPages()
   lastPageNum={}
 end
 fmsPages["PROGRESS"].getPage=function(self,pgNo,fmsID)
-  print(avocatd:test())
+  --print(avocatd:test())
   if simDR_onGround == 1 then
     B747DR_last_waypoint_fuel=simDR_fueL_tank_weight_total_kg
   end
