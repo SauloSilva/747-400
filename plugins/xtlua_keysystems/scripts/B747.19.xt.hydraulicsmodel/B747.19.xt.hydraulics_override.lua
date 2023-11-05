@@ -762,7 +762,9 @@ function ap_director_pitch(pitchMode)
     --elseif pitchMode==2 then
      --   directorSampleRate=0.5
     else
-        print("ap_director_pitch for unknown")
+        --print("ap_director_pitch for off")
+        last_simDR_AHARS_pitch_heading_deg_pilot=0
+        return 0
     end
     local retval=simDR_flight_director_pitch
     if debug_flight_directors==1 then

@@ -117,7 +117,7 @@ acarsSystem.messageSendQueue={}
 acarsSystem.sentMessage=0
 --print("have this many "..table.getn(acarsSystem.messages.values).." acars messages")
 dofile("acars/autoatcProvider.lua")
-
+dofile("acars/autoatcHoppieProvider.lua")
 function fmsFunctions.acarsSystemSend(fmsO,value)
   if acarsSystem.provider.online() then
     local msgToSend=value
@@ -144,7 +144,7 @@ function fmsFunctions.acarsSystemSend(fmsO,value)
     --local rMSG=json.decode(tMSG)
     --print(rMSG["msg"])
   else
-    fmsO["notify"]="ACARS NO COMM" 
+    fmsO["notify"]="ACARS NO COMM"
   end
   --print("setpage" .. value)
 end

@@ -1141,6 +1141,8 @@ function after_physics()
       acars=1 --for radio
       acarsSystem.provider.receive()
 	  acarsSystem.provider.send()
+	  acarsSystem.remote.receive()
+	  acarsSystem.remote.send()
       local hasNew=0
       for i = table.getn(acarsSystem.messages.values), 1, -1 do
 		if not acarsSystem.messages[i]["read"] then 

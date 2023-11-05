@@ -196,3 +196,5 @@ createFMSCommands("FMS C","cdu1","fms1","sim/FMS/","fms3")
 createFMSCommands("FMS L","cdu1","fms3","sim/FMS/","fms1")
  
 createFMSCommands("FMS R","cdu1","fms2","sim/FMS/","fms2")
+
+B747CMD_netTest              = XLuaCreateCommand("laminar/B747/networking/nettest", "Networking Test")

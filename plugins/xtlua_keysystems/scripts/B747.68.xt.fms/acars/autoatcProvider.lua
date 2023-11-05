@@ -7,6 +7,7 @@ acarsOnlineDataref=find_dataref("autoatc/acars/online")
 acarsReceiveDataref=find_dataref("autoatc/acars/in")
 sendDataref=find_dataref("autoatc/acars/out")
 cduDataref=find_dataref("autoatc/cdu")
+
 execLightDataref=find_dataref("sim/cockpit2/radios/indicators/fms_exec_light_copilot")
 wasOnline=false
 local lastSend=0
@@ -178,6 +179,7 @@ end
 function updateAutoATCCDU()
   
   if acarsSystem.provider.online()==false then return end
+  
   if wasOnline==false then
     if is_timer_scheduled(readyCDU)==false then run_after_time(readyCDU,5) end
     cduDataref="{}"
@@ -199,3 +201,7 @@ function updateAutoATCCDU()
   end
   cduDataref=json.encode(cdu)
 end
+
+
+
+
