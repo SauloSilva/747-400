@@ -15111,13 +15111,13 @@ ANIM_begin
 	LIGHT_PARAM	airplane_generic_core	   0.0001    0.0000   -0.0000 0 0 0 2 0.4
 	LIGHT_PARAM	airplane_generic_sp	   0.0001    0.0000   -0.0000 1.0 0.99 0.76 2 100 0.98
 ANIM_end
-ANIM_begin
-	ANIM_hide	0.9 1.0	laminar/B747/toggle_switch/position[8]
-	LIGHT_PARAM	airplane_beacon_strobe	  -0.0100    4.4546   14.9112 0.5 1
-	LIGHT_PARAM	airplane_beacon_strobe_sp	  -0.0100    4.4546   14.9112 15 1
-    LIGHT_PARAM	airplane_generic_glow	  -0.0100    4.4546 0 0 0 2000 1
-    LIGHT_PARAM	airplane_strobe_dir	   0.0000    1.4843   0.0000 0 0 0 0 0.9 0 0 1.0 0.255
-ANIM_end
+#ANIM_begin
+#	ANIM_hide	0.9 1.0	laminar/B747/toggle_switch/position[8]
+#	LIGHT_PARAM	airplane_beacon_strobe	  -0.0100    4.4546   14.9112 0.5 1
+#	LIGHT_PARAM	airplane_beacon_strobe_sp	  -0.0100    4.4546   14.9112 15 1
+#    LIGHT_PARAM	airplane_generic_glow	  -0.0100    4.4546 0 0 0 2000 1
+#    LIGHT_PARAM	airplane_strobe_dir	   0.0000    1.4843   0.0000 0 0 0 0 0.9 0 0 1.0 0.255
+#ANIM_end
 # Image: //objects/747_exterior/Exterior_Fuselage.png
 ATTR_light_level 0.0 1.0 sim/flightmodel2/lights/beacon_brightness_ratio[0] 3000
 TRIS	12147 168
