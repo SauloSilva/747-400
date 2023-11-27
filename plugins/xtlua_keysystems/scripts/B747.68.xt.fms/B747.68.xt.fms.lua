@@ -811,20 +811,21 @@ function get_ETA_for_Distance(distance,additionalTime)
 	--Add to current Zulu time
 	hours = hours + hh
 	mins = mins + mm
+
 	secs = secs + (ss / 60)
-	
-	if hours >= 24 then
-		hours = hours - 24
+
+	if secs >= 1 then
+		secs = secs - 1
+		mins = mins + 1
 	end
-		
+
 	if mins >= 60 then
 		mins = mins - 60
 		hours = hours + 1
 	end
 	
-	if secs >= 1 then
-		secs = secs - 1
-		mins = mins + 1
+	if hours >= 24 then
+		hours = hours - 24
 	end
 
 	return time_to_waypoint,hours,mins,secs

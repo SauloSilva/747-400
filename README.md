@@ -38,7 +38,7 @@ The 744 project was licenced as CC-BY-NC 4 on the 1st of May 2019, anyone with a
 ## Installation
 To install, extract the zip into your aircraft folder (delete any existing copy, **do not overwite an existing aircraft installation**)
 
-Integration with [Terrain Radar](https://forums.x-plane.org/index.php?/files/file/37864-terrain-radar-vertical-situation-display/) and [AutoATC](https://forums.x-plane.org/index.php?/files/file/45663-main-installation-files-for-autoatc-for-xplane-11/) is included which require installing separately. Make sure you are using the latest versions of both for the fullest experience.
+Integration with [Terrain Radar](https://forums.x-plane.org/index.php?/files/file/37864-terrain-radar-vertical-situation-display/) and [AutoATC](https://autoatc.zem-solutions.com) is included which require installing separately. Make sure you are using the latest versions of both for the fullest experience.
 
 ### X-Plane 11
 In addition to the main zip file, X-Plane 11 users should extract the "Sparky744.XP11.backport.zip", overwriting the files contained in the installation zip. This file contains older versions of certain objects where the new ones are not XP11 compatible. Please note, less and less testing and use is being conducted on XP11, specific issues will still be addressed if highlighted (contact us on the Go Ahead discord server), but as time progresses more and more features will either break or stop working on XP11. Please upgrade to XP12 as soon as possible. 

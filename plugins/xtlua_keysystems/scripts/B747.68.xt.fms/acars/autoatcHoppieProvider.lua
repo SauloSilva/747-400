@@ -9,7 +9,6 @@ local started=false
 if file ~= nil then
 	io.input(file)
 	hoppielogon = io.read()
-    print("got hoppie data "..hoppielogon)
 	io.close(file)
 end
 
