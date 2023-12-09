@@ -462,6 +462,7 @@ function B747_thrust_rev_hold_max_all_CMDhandler(phase, duration)
     callEngineReverse[1]=-1
     callEngineReverse[2]=-1
     callEngineReverse[3]=-1
+    B747DR_engine_TOGA_mode = 0
     if phase < 2 then
 	    
 		-- AIRCRAFT MUST BE ON THE GROUND
