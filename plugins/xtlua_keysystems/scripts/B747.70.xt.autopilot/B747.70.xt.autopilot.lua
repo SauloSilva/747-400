@@ -197,7 +197,7 @@ simDR_nav2_gs_flag = find_dataref("sim/cockpit2/radios/indicators/nav2_flag_glid
 simDR_autopilot_approach_status = find_dataref("sim/cockpit2/autopilot/approach_status")
 simDR_autopilot_roll_sync_degrees = find_dataref("sim/cockpit2/autopilot/sync_hold_roll_deg")
 simDR_autopilot_roll_status = find_dataref("sim/cockpit2/autopilot/roll_status")
-simDR_autopilot_servos_on = find_dataref("sim/cockpit2/autopilot/servos_on")
+simDR_autopilot_servos_on = find_dataref("laminar/B747/autopilot/servos_on")
 
 simDR_autopilot_fms_vnav = find_dataref("sim/cockpit2/autopilot/fms_vnav")
 simDR_autopilot_gpss = find_dataref("sim/cockpit2/autopilot/gpss_status")
@@ -748,9 +748,10 @@ function B747_ap_switch_cmd_L_CMDhandler(phase, duration)
 		if B747DR_ap_button_switch_position[14] == 0 then -- DISENGAGE BAR IS "UP/OFF"
 			if B747DR_ap_cmd_L_mode == 0 and simDR_radarAlt1>400 and (B747DR_ap_cmd_R_mode+B747DR_ap_cmd_C_mode)==0 then -- LEFT CMD AP MODE IS "OFF"
 				if simDR_autopilot_servos_on == 0 then -- AUTOPILOT IS NOT ENGAGED
-					simCMD_autopilot_servos_on:once()
+					--simCMD_autopilot_servos_on:once()
+
 					B747DR_switching_servos_on = simDRTime -- TURN THE AP SERVOS "ON"
-				--simDR_autopilot_servos_on=1
+					simDR_autopilot_servos_on=1
 				end
 				B747DR_ap_cmd_L_mode = 1 -- SET AP CMD L MODE TO "ON"
 			end
@@ -774,7 +775,8 @@ function B747_ap_switch_cmd_C_CMDhandler(phase, duration)
 			if B747DR_ap_cmd_C_mode == 0 and simDR_radarAlt1>400 and (B747DR_ap_cmd_L_mode+B747DR_ap_cmd_R_mode)==0 then -- CENTER CMD AP MODE IS "OFF"
 				if simDR_autopilot_servos_on == 0 then -- AUTOPILOT IS NOT ENGAGED
 					--simCMD_autopilot_servos2_on:once()
-					simCMD_autopilot_servos_on:once()
+					--simCMD_autopilot_servos_on:once()
+					simDR_autopilot_servos_on=1
 					B747DR_switching_servos_on = simDRTime
 				end
 				B747DR_ap_cmd_C_mode = 1 -- SET AP CMD C MODE TO "ON"
@@ -794,7 +796,8 @@ function B747_ap_switch_cmd_R_CMDhandler(phase, duration)
 			if B747DR_ap_cmd_R_mode == 0 and simDR_radarAlt1>400 and (B747DR_ap_cmd_L_mode+B747DR_ap_cmd_C_mode)==0 then -- RIGHT CMD AP MODE IS "OFF"
 				if simDR_autopilot_servos_on == 0 then -- AUTOPILOT IS NOT ENGAGED
 					--simCMD_autopilot_servos3_on:once()
-					simCMD_autopilot_servos_on:once()
+					--simCMD_autopilot_servos_on:once()
+					simDR_autopilot_servos_on=1
 					B747DR_switching_servos_on = simDRTime
 				end
 				B747DR_ap_cmd_R_mode = 1 -- SET AP CMD R MODE TO "ON"
@@ -823,6 +826,7 @@ function B747_ap_switch_disengage_bar_CMDhandler(phase, duration) --disengage ba
 			simCMD_autopilot_servos_fdir_off:once()
 			simCMD_autopilot_servos2_fdir_off:once()
 			simCMD_autopilot_servos3_fdir_off:once()
+			simDR_autopilot_servos_on=0
 			
 		else
 			B747DR_CAS_warning_status[0] = 0
@@ -845,6 +849,7 @@ function B747_ap_switch_yoke_disengage_capt_CMDhandler(phase, duration)
 		end
 		B747CMD_ap_reset:once()
 		simCMD_autopilot_servos_off:once()
+		simDR_autopilot_servos_on=0
 		--simCMD_autopilot_fdir_servos_down_one:once()							-- TURN ONLY THE SERVOS OFF, LEAVE FLIGHT DIRECTOR ON
 		B747_ap_all_cmd_modes_off()
 		B747DR_ap_lastCommand=simDRTime	
@@ -866,6 +871,7 @@ function B747_ap_switch_yoke_disengage_fo_CMDhandler(phase, duration)
 		end
 		B747CMD_ap_reset:once()
 		simCMD_autopilot_servos_off:once()
+		simDR_autopilot_servos_on=0
 		--simCMD_autopilot_fdir_servos_down_one:once()							-- TURN ONLY THE SERVOS OFF, LEAVE FLIGHT DIRECTOR ON
 		B747_ap_all_cmd_modes_off()
 		B747DR_ap_lastCommand=simDRTime	
@@ -2654,6 +2660,7 @@ function B747_ap_afds()
 			end
 			B747CMD_ap_reset:once()
 			simCMD_autopilot_servos_off:once()
+			simDR_autopilot_servos_on=0
 			B747_ap_all_cmd_modes_off()
 			B747DR_CAS_warning_status[0] = 1
 			B747DR_ap_lastCommand=simDRTime	

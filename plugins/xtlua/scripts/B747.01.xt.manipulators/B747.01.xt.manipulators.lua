@@ -94,7 +94,7 @@ B747DR_throttle						= deferred_dataref("laminar/B747/engine/throttle", "array[4
 B747DR_throttle_reversor			= deferred_dataref("laminar/B747/engine/throttle_reversor", "array[4]")
 simDR_startup_running               	= find_dataref("sim/operation/prefs/startup_running")
 simDR_all_wheels_on_ground          	= find_dataref("sim/flightmodel/failures/onground_any")
-simDR_autopilot_servos_on           	= find_dataref("sim/cockpit2/autopilot/servos_on")
+simDR_autopilot_servos_on           	= find_dataref("laminar/B747/autopilot/servos_on")
 simDR_AHARS_roll_deg_pilot          	= find_dataref("sim/cockpit2/gauges/indicators/roll_AHARS_deg_pilot")
 simDR_autopilot_TOGA_vert_status    	= find_dataref("sim/cockpit2/autopilot/TOGA_status")
 simDR_autopilot_TOGA_lat_status     	= find_dataref("sim/cockpit2/autopilot/TOGA_lateral_status")
@@ -1306,6 +1306,7 @@ function B747_flight_dir_switch_R_CMDhandler(phase, duration)
                         B747DR_ap_ATT = simDR_AHARS_roll_deg_pilot
 					end		
 				end
+            
 			end							
 		end
 		

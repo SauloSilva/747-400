@@ -166,7 +166,7 @@ simDR_gear_deploy_ratio             = find_dataref("sim/flightmodel2/gear/deploy
 simDR_aircraft_altitude             = find_dataref("sim/cockpit2/gauges/indicators/altitude_ft_pilot")
 simDR_cabin_altitude                = find_dataref("sim/cockpit2/pressurization/indicators/cabin_altitude_ft")
 
-simDR_autopilot_servos_on           	= find_dataref("sim/cockpit2/autopilot/servos_on")
+simDR_autopilot_servos_on           	= find_dataref("laminar/B747/autopilot/servos_on")
 B747DR_autothrottle_active	= find_dataref("laminar/B747/engines/autothrottle_active")
 
 simDR_autopilot_gpss_status				= find_dataref("sim/cockpit2/autopilot/gpss_status")

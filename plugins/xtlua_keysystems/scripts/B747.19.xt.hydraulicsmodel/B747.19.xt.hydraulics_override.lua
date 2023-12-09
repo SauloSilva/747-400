@@ -533,9 +533,7 @@ function ap_director_pitch(pitchMode)
     and (simDR_pressureAlt1> holdAlt+B747DR_alt_capture_window or simDR_pressureAlt1< holdAlt-B747DR_alt_capture_window) then
         --local pitchError=math.abs(simDR_AHARS_pitch_heading_deg_pilot-last_simDR_AHARS_pitch_heading_deg_pilot)
         local pitchError=simDR_AHARS_pitch_heading_deg_pilot-last_simDR_AHARS_pitch_heading_deg_pilot
-        --if simDR_autopilot_servos_on==0 then
-        --    pitchError=0
-        --end
+
         local speed_delta=simDR_ind_airspeed_kts_pilot-last_simDR_ind_airspeed_kts_pilot
         --FLCH
         if debug_flight_directors==1 then
@@ -618,9 +616,7 @@ function ap_director_pitch(pitchMode)
         local targetFPM=(holdAlt-simDR_pressureAlt1)*2 --target alt in 30 secs
         --local pitchError=math.abs(simDR_AHARS_pitch_heading_deg_pilot-last_simDR_AHARS_pitch_heading_deg_pilot)
         local pitchError=simDR_AHARS_pitch_heading_deg_pilot-last_simDR_AHARS_pitch_heading_deg_pilot
-        --if simDR_autopilot_servos_on==0 then
-         --   pitchError=0
-        --end
+
         directorSampleRate=0.1
         local currentFPM=simDR_vvi_fpm_pilot+fpmBias
         local rog=0.001+0.00003*math.abs(currentFPM-targetFPM)
@@ -658,9 +654,7 @@ function ap_director_pitch(pitchMode)
         if debug_flight_directors==1 then
             print("ap_director_pitch for VS pitchError="..pitchError)
         end
-        --if simDR_autopilot_servos_on==0 then
-        --    pitchError=0
-        --end
+
         local targetFPM=simDR_autopilot_vs_fpm
         local currentFPM=simDR_vvi_fpm_pilot+get_FPM_bias()
         local minUpdateRate=2.0
