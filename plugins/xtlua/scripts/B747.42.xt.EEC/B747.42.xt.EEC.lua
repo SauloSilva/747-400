@@ -903,6 +903,7 @@ function ecc_throttle()
 	    local input=1
 		local target=1
 		local minSafeSpeed = math.max(B747DR_airspeed_Vmc + 10,simDR_autopilot_airspeed_kts-5)
+		if simDR_radarAlt1<15 then minSafeSpeed=0 end
 		local previous_pitchTime=0
 
 		time=simDRTime-previous_throttleTime
