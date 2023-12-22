@@ -51,3 +51,5 @@ B747DR_hideHStab						= deferred_dataref("laminar/B747/objects/hideHStab", "numb
 B747DR_hideFuse						= deferred_dataref("laminar/B747/objects/hideFuse", "number")   
 B747DR_modernAlarms						= deferred_dataref("laminar/B747/fmod/options/modernAlarms", "number")
 B747DR_fmc_cockpit_seats_hide				= deferred_dataref("laminar/B747/fmc/cockpit_seats_hide", "number") --silvereagle
+
+B747DR_acarsProvider						= deferred_dataref("laminar/B747/acars/systemProvider", "number")

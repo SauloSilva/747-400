@@ -50,6 +50,7 @@ fmsPages["MAINTSIMCONFIG"].getPage=function(self,pgNo,fmsID)
     elseif pgNo == 2 then
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["L1"]={"setdata","spillLights"}
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["L2"]={"setdata","cockpitSeatsHide"}
+		fmsFunctionsDefs["MAINTSIMCONFIG"]["L3"]={"setdata","setacarsprovider"}
 		fmsFunctionsDefs["MAINTSIMCONFIG"]["R6"]={"setdata","simConfigSave"}
 		local lineA = ""
 		if B747DR_fmc_spill_lights==0 then
@@ -63,7 +64,14 @@ fmsPages["MAINTSIMCONFIG"].getPage=function(self,pgNo,fmsID)
 		else
 			lineB = "    /HIDE"
 		end
-
+		local lineC = "OFFLINE"
+		if acars==1 then
+			if B747DR_acarsProvider==0 then
+				lineC = "AUTOATC"
+			elseif B747DR_acarsProvider==1 then
+				lineC = "HOPPIE"
+			end
+		end
 		return{
 		"       SIM CONFIG       ",
 		"                        ",
@@ -71,7 +79,7 @@ fmsPages["MAINTSIMCONFIG"].getPage=function(self,pgNo,fmsID)
 		"                        ",
 		"<COCKPIT SEATS " ..lineB,
 		"                        ",
-		"                        ",
+		"<ACARS           "..lineC,
 		"                        ",
 		"                        ",
 		"                        ",

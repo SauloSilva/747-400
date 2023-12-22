@@ -77,6 +77,8 @@ B747DR_SNDoptions			        	= deferred_dataref("laminar/B747/fmod/options", "ar
 --B747DR_SNDoptions_volume				= deferred_dataref("laminar/B747/fmod/options/volume", "array[8]")
 B747DR_SNDoptions_gpws					= deferred_dataref("laminar/B747/fmod/options/gpws", "array[16]")
 B747DR_modernAlarms						= deferred_dataref("laminar/B747/fmod/options/modernAlarms", "number")
+
+B747DR_acarsProvider						= deferred_dataref("laminar/B747/acars/systemProvider", "number")
 --*************************************************************************************--
 --** 				        MAIN PROGRAM LOGIC                                       **--
 --*************************************************************************************--
@@ -299,6 +301,12 @@ function set_loaded_configs()
 		B747DR_fmc_cockpit_seats_hide = 1
 	end
 	--silvereagle end
+
+	if simConfigData["data"].SIM.acarsProvider == "AUTOATC" or simConfigData["data"].SIM.acarsProvider == null then
+		B747DR_acarsProvider=0
+	else
+		B747DR_acarsProvider=1
+	end
 
 	for key, value in pairs(simConfigData["data"].SOUND) do
 		setSoundOption(key,value)

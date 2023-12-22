@@ -20,6 +20,9 @@ B747DR_fmc_spill_lights		= deferred_dataref("laminar/B747/fmc/spill_lights", "nu
 B747DR_fmc_cockpit_seats_hide	= deferred_dataref("laminar/B747/fmc/cockpit_seats_hide", "number")
 --silvereagle end
 
+acarsOnlineDataref=find_dataref("autoatc/acars/online")
+B747DR_acarsProvider						= deferred_dataref("laminar/B747/acars/systemProvider", "number")
+B747DR_acars=find_dataref("laminar/B747/comm/acars")
 fmsFunctions={}
 dofile("acars/acars.lua")
 
@@ -127,7 +130,6 @@ fmsPages["RTE1"].getPage=function(self,pgNo,fmsID)
   fmsFunctionsDefs["RTE1"]["R2"]={"custom2fmc","R3"}
   fmsFunctionsDefs["RTE1"]["L4"]={"custom2fmc","L4"}
   fmsFunctionsDefs["RTE1"]["R3"]={"setpage","FMC"}
-  
   local line5="                "..string.sub(cleanFMSLine(B747DR_srcfms[fmsID][5]),1,8)
   if acarsSystem.provider.online() then line5=" <SEND          "..string.sub(cleanFMSLine(B747DR_srcfms[fmsID][5]),1,8) end
   local page={
@@ -2166,7 +2168,16 @@ function fmsFunctions.setdata(fmsO,value)
 		simConfigData["data"].SIM.cockpit_seats_hide = fmsO.scratchpad
 		pushSimConfig(simConfigData["data"]["values"])
 --silvereagle end
-		
+	elseif value=="setacarsprovider" then
+		if B747DR_acarsProvider == 0 then
+			fmsO["scratchpad"] = "HOPPIE"
+			B747DR_acarsProvider = 1
+		else	
+			fmsO["scratchpad"] = "AUTOATC"
+			B747DR_acarsProvider = 0
+		end
+		simConfigData["data"].SIM.acarsProvider = fmsO.scratchpad
+		pushSimConfig(simConfigData["data"]["values"])	
 	elseif value=="simConfigSave" then
 			local file_location = simDR_livery_path.."B747-400_simconfig.dat"
 			--print("File = "..file_location)

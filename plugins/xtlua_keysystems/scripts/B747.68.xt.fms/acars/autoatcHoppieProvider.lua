@@ -4,7 +4,7 @@ netdataDataref=find_dataref("autoatc/networking/data")
 netstatusDataref=find_dataref("autoatc/networking/urlstatus")
 local hoppielogon=""
 
-local file = io.open("hoppieconfig.txt", "r")
+local file = io.open("Resources/plugins/AutoATC/hoppieconfig.txt", "r")
 local started=false
 if file ~= nil then
 	io.input(file)
@@ -81,5 +81,8 @@ function checkNet()
     end,
     send=function()
         if netstatusDataref==nil then return end
+    end,
+    hasLogonDetails=function()
+      return string.len(hoppielogon)==0
     end
   }
