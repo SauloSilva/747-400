@@ -44,6 +44,7 @@ function fmsFunctions.acarsLogonATC(fmsO,value)
   if fmsModules["data"]["atc"]=="****" then return end
 	atcLogon["type"]="cpdlc"
   atcLogon["msg"]="REQUEST LOGON"
+  atcLogon["RR"]="Y"
   local newInitSend=json.encode(atcLogon)
   fmsFunctions.acarsSystemSendATC(fmsO,newInitSend)
 end

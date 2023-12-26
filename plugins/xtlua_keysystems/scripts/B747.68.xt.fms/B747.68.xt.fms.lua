@@ -1143,7 +1143,7 @@ function after_physics()
       acarsSystem.provider.receive()
 	  acarsSystem.provider.send()
 	  acarsSystem.remote.receive()
-	  acarsSystem.remote.send()
+	  --acarsSystem.remote.send()
       local hasNew=0
       for i = table.getn(acarsSystem.messages.values), 1, -1 do
 		if not acarsSystem.messages[i]["read"] then 

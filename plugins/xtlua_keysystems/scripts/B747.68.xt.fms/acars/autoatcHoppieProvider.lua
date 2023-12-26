@@ -2,9 +2,10 @@
 netRequestDataref=find_dataref("autoatc/networking/url")
 netdataDataref=find_dataref("autoatc/networking/data")
 netstatusDataref=find_dataref("autoatc/networking/urlstatus")
+
 local hoppielogon=""
 
-local file = io.open("Resources/plugins/AutoATC/hoppieconfig.txt", "r")
+local file = io.open("Resources/plugins/AutoATC/hoppieid.txt", "r")
 local started=false
 if file ~= nil then
 	io.input(file)
@@ -14,6 +15,12 @@ end
 
 local lastNetCheck=0
 local lastNetPoll=0
+
+function processHoppiePacket(packetMessage)
+  --ok {LYBE cpdlc {/data2/6431/2/NE/LOGON ACCEPTED}}
+
+end
+
 function checkNet()
     local currentData=netRequestDataref
     local diff=(simDRTime-lastNetCheck)
@@ -23,6 +30,7 @@ function checkNet()
     if netstatusDataref==200 then
       print("Got URL Data")
       print(currentData)
+      processHoppiePacket(currentData)
       netdataDataref=" "
       netstatusDataref=0
     end
@@ -32,40 +40,24 @@ function checkNet()
     -- ok {9979964 LYBE cpdlc {/data2/2//NE/LOGON ACCEPTED}}
     -- /data2/35/1/NE/LOGON ACCEPTED
     -- error {illegal logon code}
-  end
-  function checkPoll()
-    local from="BAW1234"
-    local to="LYBE"
+end
+function str_trim(s)
+  return string.match(s,'^()%s*$') and '' or string.match(s,'^%s*(.*%S)')
+end
+function checkPoll()
+    local from=str_trim(getFMSData("fltno"))
+    local to=str_trim(fmsModules["data"]["atc"])
     netstatusDataref=2
     netRequestDataref="{'url':'https://www.hoppie.nl/acars/system/connect.html?from="..from..
         "&type=POLL"..
         "&to="..to..
         "','logon':'"..hoppielogon.."'" ..
         "}"
-  end
-  function netTest(phase, duration)
-    if phase == 0 then
-        if netstatusDataref==nil then return end
-        if string.len(hoppielogon)==0 then return end
-        print("Do netTest")
-        netstatusDataref=2
-        lastNetPoll=simDRTime
-        local from="BAW1234"
-        local to="LYBE"
-        local packet="/data2/1//Y/REQUEST LOGON"
-        netRequestDataref="{'url':'https://www.hoppie.nl/acars/system/connect.html?from="..from..
-        "&type=cpdlc"..
-        "&to="..to..
-        "','packet':'"..packet..
-        "','logon':'"..hoppielogon.."'" ..
-        "}"
-        started=true
-    end
-  end
-  B747CMD_netTest  = deferred_command("laminar/B747/networking/nettest", "Networking Test", netTest)
+end
 
 
-  acarsSystem.remote={
+
+acarsSystem.remote={
     receive=function()
         if netstatusDataref==nil then return end
         if netstatusDataref~=0 then
@@ -79,10 +71,33 @@ function checkNet()
             end
         end
     end,
-    send=function()
+    send=function(msgJSON)
         if netstatusDataref==nil then return end
+        local newMessage=json.decode(msgJSON)
+        local type=newMessage["type"]
+        if type~="cpdlc" then return false end
+        local from=str_trim(newMessage["from"])
+        local to=str_trim(newMessage["to"])
+        local mID=newMessage["messageID"]
+        local replyTo=""
+        if newMessage["replyTo"]~=nil then
+          replyTo=newMessage["replyTo"]
+        end
+        local msg=newMessage["msg"]
+        local requiresResponse=newMessage["RR"]
+        local packet="/data2/"..mID.."/"..replyTo .."/"..requiresResponse .."/"..msg
+        print("Sending hoppie packet "..packet .. " logon "..hoppielogon)
+        netRequestDataref="{'url':'https://www.hoppie.nl/acars/system/connect.html?from="..from..
+        "&type=cpdlc"..
+        "&to="..to..
+        "','packet':'"..packet..
+        "','logon':'"..hoppielogon.."'" ..
+        "}"
+        lastNetPoll=simDRTime
+        started=true
+        return true
     end,
-    hasLogonDetails=function()
-      return string.len(hoppielogon)==0
+    isHoppie=function()
+      return (string.len(hoppielogon)>0 and B747DR_acarsProvider==1)
     end
   }

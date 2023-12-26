@@ -85,8 +85,12 @@ send=function()
   
   if queueSize>acarsSystem.sentMessage then
     local sending=acarsSystem.messageSendQueue[acarsSystem.sentMessage+1]
-    print("LUA send ACARS send :"..sending)
-    sendDataref=sending
+    print("LUA send ACARS sending :"..sending)
+    if acarsSystem.remote.isHoppie() then
+      acarsSystem.remote.send(sending)
+    else
+      sendDataref=sending
+    end
     lastSend=simDRTime
     acarsSystem.sentMessage=acarsSystem.sentMessage+1
   end
@@ -126,12 +130,16 @@ receive=function()
     end
     if newMessage["type"]=="cpdlc" then
       newMessage["read"]=false
-      if newMessage["msg"]=="LOGON ACCEPTED" or newMessage["msg"]=="SERVICE TERMINATED" then
+      if newMessage["msg"]=="LOGON ACCEPTED" then
         newMessage["read"]=true
+        autoATCState["online"]=true
+      elseif newMessage["msg"]=="SERVICE TERMINATED" then
+        newMessage["read"]=true
+        autoATCState["online"]=false
       end
       newMessage["time"]=string.format("%02d:%02d",hh,mm)
       if newMessage["title"]==nil then
-        newMessage["title"]=newMessage["from"].." "..string.sub(newMessage["msg"],1,15)
+        newMessage["title"]=string.sub(newMessage["msg"],1,15) --newMessage["from"].." "..string.sub(newMessage["msg"],1,15)
       end
       newMessage["messageID"]=acarsSystem.provider.messageID
       acarsSystem.provider.messageID=acarsSystem.provider.messageID+1
