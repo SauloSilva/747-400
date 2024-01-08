@@ -51,6 +51,7 @@ acarsSystem.provider={
       tMSG["to"]=fmsModules["data"]["atc"]--getFMSData("acarsAddress")
       tMSG["type"]="cpdlc"
       tMSG["msg"]="LOGOFF"
+      tMSG["RR"]="N"
       acarsSystem.provider.sendATC(json.encode(tMSG))
       autoATCState["online"]=false
     end
@@ -87,7 +88,9 @@ send=function()
     local sending=acarsSystem.messageSendQueue[acarsSystem.sentMessage+1]
     print("LUA send ACARS sending :"..sending)
     if acarsSystem.remote.isHoppie() then
-      acarsSystem.remote.send(sending)
+      if not(acarsSystem.remote.send(sending)) then
+        sendDataref=sending
+      end
     else
       sendDataref=sending
     end

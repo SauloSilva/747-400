@@ -1146,11 +1146,14 @@ function after_physics()
 	  --acarsSystem.remote.send()
       local hasNew=0
       for i = table.getn(acarsSystem.messages.values), 1, -1 do
+		--local msgRead="true"
 		if not acarsSystem.messages[i]["read"] then 
 			hasNew=1
+			--msgRead="false"
 		end 
+		--print("acars msg "..i.." "..msgRead)
       end 
-      B747DR_CAS_memo_status[0]=hasNew
+      B747DR_CAS_memo_status[0]=hasNew --ACARS MESSAGE
     else
       
       if B747DR_rtp_C_off==0 then

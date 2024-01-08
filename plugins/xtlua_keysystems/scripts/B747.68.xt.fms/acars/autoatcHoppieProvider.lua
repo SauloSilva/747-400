@@ -72,7 +72,7 @@ acarsSystem.remote={
         end
     end,
     send=function(msgJSON)
-        if netstatusDataref==nil then return end
+        if netstatusDataref==nil then return false end
         local newMessage=json.decode(msgJSON)
         local type=newMessage["type"]
         if type~="cpdlc" then return false end
