@@ -3176,7 +3176,8 @@ function B747_fltInst_EICAS_msg()
     end
 
     -- >BAT DISCH MAIN
-    
+    local cBatStatus=B747DR_CAS_advisory_status[20]
+    local cAPUBatStatus=B747DR_CAS_advisory_status[19]
     if simDR_battery_chg_watt_hr[0] < last_batt_chg_watt_hr  then
         if simDR_battery_chg_watt_hr[0]+2 < last_chg_watt_hr  then
             B747DR_CAS_advisory_status[20] = 1
