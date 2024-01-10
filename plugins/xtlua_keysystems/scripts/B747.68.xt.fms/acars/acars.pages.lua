@@ -177,7 +177,7 @@ fmsPages["VIEWMISCACARS"].getSmallPage=function(self,pgNo,fmsID)
     local start=(pgNo-1)*168
     local lLine="<RETURN                 "
     if string.find(msg["msg"], "@") then
-      print (msg["msg"].." requiresRespond")
+      --print (msg["msg"].." requiresRespond")
       lLine="<RETURN           REPLY>"
       fmsFunctionsDefs["VIEWACARSMSG"]["R6"]={"respondmessage",currentMessage}
     end

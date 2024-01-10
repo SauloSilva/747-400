@@ -307,11 +307,11 @@ acarsSystem.getLogMessages=function(pgNo)
   local rmID=1
   local retVal={}
   local sMessage={}
-  print("getLogMessages")
+  --print("getLogMessages")
   while (onRecieved>0 or onSent>0) and rmID<6 do
     local rID=0
     local sID=0
-    print("onRecieved "..onRecieved.." onSent "..onSent)
+    --print("onRecieved "..onRecieved.." onSent "..onSent)
     if onRecieved>0 then
       rID=acarsSystem.messages[onRecieved]["messageID"]
     end
@@ -319,12 +319,12 @@ acarsSystem.getLogMessages=function(pgNo)
       sMessage=json.decode(acarsSystem.messageSendQueue[onSent])
       sID=sMessage["messageID"]
     end
-    print("rID "..rID.." sID "..sID)
+    --print("rID "..rID.." sID "..sID)
     if rID>sID then
       retVal[rmID]=acarsSystem.messages[onRecieved]
       retVal[rmID]["ud"]="U"
       fmsFunctionsDefs["VIEWACARSLOG"]["R"..(rmID)]={"showmessage",onRecieved}
-      print("use received message".." rmID "..rmID.. " rID "..onRecieved)
+      --print("use received message".." rmID "..rmID.. " rID "..onRecieved)
       rmID=rmID+1
       onRecieved=onRecieved-1
     else
@@ -333,10 +333,10 @@ acarsSystem.getLogMessages=function(pgNo)
         retVal[rmID]["ud"]="D"
         rmID=rmID+1
         onSent=onSent-1
-        print("use sent message")
+        --print("use sent message")
       else
         onSent=onSent-1
-        print("skip sent message")
+        --print("skip sent message")
       end
     end
   end
@@ -383,7 +383,7 @@ acarsSystem.getMessageLog=function(pgNo)
     local messageLog=acarsSystem.getLogMessages(pgNo)
     line = 2
     for i=1,table.getn(messageLog) do
-      print("M "..i.." "..messageLog[i]["ud"])
+      --print("M "..i.." "..messageLog[i]["ud"])
       local ln=""
       if messageLog[i]["ud"]=="U" then
         if not messageLog[i]["read"] then
@@ -396,7 +396,7 @@ acarsSystem.getMessageLog=function(pgNo)
       else
         --messageLog[i]["status"]
         retVal.templateSmall[line]=" "..messageLog[i]["time"].."z     RESPONSE RCVD"
-        print("T "..messageLog[i]["msg"])
+        --print("T "..messageLog[i]["msg"])
         ln="  "..messageLog[i]["msg"]
       end
       retVal.templateSmall[line+1]=messageLog[i]["ud"].."                       "

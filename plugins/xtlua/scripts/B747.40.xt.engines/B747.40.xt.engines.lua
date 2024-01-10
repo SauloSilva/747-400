@@ -268,51 +268,51 @@ callEngineReverse[2]=-1
 callEngineReverse[3]=-1
 
 function B747_thrust_rev_toggle_1_CMDhandler(phase, duration)
-	if phase == 0 then
+	--[[if phase == 0 then
 			
 		if callEngineReverse[0]<=0 then 
             callEngineReverse[0]=1
         else
             callEngineReverse[0]=0
         end					
-	end		
+	end	]]--
 end	
 
 function B747_thrust_rev_toggle_2_CMDhandler(phase, duration)
-	if phase == 0 then
+	--[[if phase == 0 then
 			
 		if callEngineReverse[1]<=0 then 
             callEngineReverse[1]=1
         else
             callEngineReverse[1]=0
         end						
-	end		
+	end		]]--
 end	
 
 function B747_thrust_rev_toggle_3_CMDhandler(phase, duration)
-	if phase == 0 then
+	--[[if phase == 0 then
 			
 		if callEngineReverse[2]<=0 then 
             callEngineReverse[2]=1
         else
             callEngineReverse[2]=0
         end						
-	end		
+	end		]]--
 end
 
 function B747_thrust_rev_toggle_4_CMDhandler(phase, duration)
-	if phase == 0 then
+	--[[if phase == 0 then
 			
 		if callEngineReverse[3]<=0 then 
             callEngineReverse[3]=1
         else
             callEngineReverse[3]=0
         end					
-	end		
+	end	]]--	
 end
 
 function B747_thrust_rev_toggle_all_CMDhandler(phase, duration)
-	if phase == 0 then
+	--[[if phase == 0 then
 		
 		-- AIRCRAFT MUST BE ON THE GROUND
 		-- PREVENTS USER TOGGLING "REVERSE" MODE WHEN ENGINE 4 THROTTLE LEVER IS NOT AT IDLE
@@ -324,7 +324,7 @@ function B747_thrust_rev_toggle_all_CMDhandler(phase, duration)
                 callEngineReverse[i]=0
             end
         end
-	end	
+	end	]]--
 end	
 
 
