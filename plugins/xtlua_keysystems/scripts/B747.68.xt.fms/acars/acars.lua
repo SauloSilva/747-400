@@ -34,10 +34,14 @@ function fmsFunctions.initAcars(fmsO,value)
   fmsO["targetPage"]="PREFLIGHT"
   run_after_time(switchCustomMode, 0.5)
 end
+function fmsFunctions.acarsDataReady(fmsO)
+  if getFMSData("fltno")=="*******" then fmsO["notify"]="FLT NO NOT SET" return false end
+  if getFMSData("fltdep")=="****" then fmsO["notify"]="DEPARTURE NOT SET" return false end
+  if getFMSData("fltdst")=="****" then fmsO["notify"]="DESTINATION NOT SET" return false end
+  return true
+end
 function fmsFunctions.acarsLogonATC(fmsO,value)
-  if getFMSData("fltno")=="*******" then fmsO["notify"]="FLT NO NOT SET" return end
-  if getFMSData("fltdep")=="****" then fmsO["notify"]="DEPARTURE NOT SET" return end
-  if getFMSData("fltdst")=="****" then fmsO["notify"]="DESTINATION NOT SET" return end
+  if not(fmsFunctions.acarsDataReady(fmsO)) then return end
   acarsSystem.provider.logoff()
   local atcLogon={}
   setFMSData("atc",value)
@@ -48,18 +52,43 @@ function fmsFunctions.acarsLogonATC(fmsO,value)
   local newInitSend=json.encode(atcLogon)
   fmsFunctions.acarsSystemSendATC(fmsO,newInitSend)
 end
-function fmsFunctions.acarsSendATC(fmsO,value) --value=message being replied to, if, message starts WILCO = accepted, UNABLE = rejected, other=RESPONDED
-  if getFMSData("fltno")=="*******" then fmsO["notify"]="FLT NO NOT SET" return end
-  if getFMSData("fltdep")=="****" then fmsO["notify"]="DEPARTURE NOT SET" return end
-  if getFMSData("fltdst")=="****" then fmsO["notify"]="DESTINATION NOT SET" return end
+
+
+function fmsFunctions.acarsSendATCMessage(fmsO,message,requresResponse)
+  if not(fmsFunctions.acarsDataReady(fmsO)) then return end
+  local atcLogon={}
+  if fmsModules["data"]["atc"]=="****" then return end
+	atcLogon["type"]="cpdlc"
+  atcLogon["msg"]=message
+  atcLogon["RR"]=requresResponse
+  local newInitSend=json.encode(atcLogon)
+  fmsFunctions.acarsSystemSendATC(fmsO,newInitSend)
+end
+--[[
+attempt to concatenate local 'requiresResponse' (a nil value)
+
+	[C]: in function '__concat'
+	[string "acars/autoatcHoppieProvider.lua"]:88: in function 'send'
+	[string "acars/autoatcProvider.lua"]:91: in function 'send'
+	[string "scripts/B747.68.xt.fms/B747.68.xt.fms.lua"]:1144: in function 'func'
+	[string "init.lua"]:489: in function <[string "init.lua"]:483>
+
+]]
+
+function fmsFunctions.acarsRespondATC(fmsO,value) --value=message being replied to, if, message starts WILCO = accepted, UNABLE = rejected, other=RESPONDED
+  if not(fmsFunctions.acarsDataReady(fmsO)) then return end
   local atcLogon={}
   if fmsModules["data"]["atc"]=="****" then fmsO["notify"]="NO LOGON" return end
   if string.len(fmsO["scratchpad"])>0 then
+    local msg=acarsSystem.messages[value]
     atcLogon["type"]="cpdlc"
     atcLogon["msg"]=fmsO["scratchpad"]
-    atcLogon["status"]="SENT"
+    atcLogon["RR"]="N"
+    atcLogon["status"]="SENDING"
+    atcLogon["RT"]=msg["srcID"]
     local newInitSend=json.encode(atcLogon)
     fmsFunctions.acarsSystemSendATC(fmsO,newInitSend)
+    fmsO["scratchpad"] = ""
   else
     fmsO["notify"]="NO MESSAGE"
   end
@@ -225,9 +254,6 @@ acarsSystem.getMiscMessages=function(pgNo)
     if endNo <1 then endNo=1 end
     for i = startNo,endNo , -1 do
       retVal.template[line]="<"..acarsSystem.messages[i]["title"]
-      --if not acarsSystem.messages[i]["read"] then
-	--retVal.template[line]=retVal.template[line].." (new)"
-      --end
       retVal.templateSmall[line+1]="            "..acarsSystem.messages[i]["time"]
       fmsFunctionsDefs["VIEWMISCACARS"]["L"..(startNo-i+1)]={"showmessage",i}
       line = line+2
@@ -304,41 +330,47 @@ fmsPages["VIEWACARSLOG"]=createPage("VIEWACARSLOG")
 acarsSystem.getLogMessages=function(pgNo)
   local onRecieved=table.getn(acarsSystem.messages.values)
   local onSent=table.getn(acarsSystem.messageSendQueue.values)
-  local rmID=1
+  
   local retVal={}
   local sMessage={}
   --print("getLogMessages")
-  while (onRecieved>0 or onSent>0) and rmID<6 do
-    local rID=0
-    local sID=0
-    --print("onRecieved "..onRecieved.." onSent "..onSent)
-    if onRecieved>0 then
-      rID=acarsSystem.messages[onRecieved]["messageID"]
-    end
-    if onSent>0 then
-      sMessage=json.decode(acarsSystem.messageSendQueue[onSent])
-      sID=sMessage["messageID"]
-    end
-    --print("rID "..rID.." sID "..sID)
-    if rID>sID then
-      retVal[rmID]=acarsSystem.messages[onRecieved]
-      retVal[rmID]["ud"]="U"
-      fmsFunctionsDefs["VIEWACARSLOG"]["R"..(rmID)]={"showmessage",onRecieved}
-      --print("use received message".." rmID "..rmID.. " rID "..onRecieved)
-      rmID=rmID+1
-      onRecieved=onRecieved-1
-    else
-      if sMessage["msg"]~=nil then
-        retVal[rmID]=sMessage
-        retVal[rmID]["ud"]="D"
+  local currentPage=1
+  while currentPage <= pgNo do
+    retVal={}
+    local rmID=1
+    while (onRecieved>0 or onSent>0) and rmID<6 do
+      local rID=0
+      local sID=0
+      --print("onRecieved "..onRecieved.." onSent "..onSent)
+      if onRecieved>0 then
+        rID=acarsSystem.messages[onRecieved]["messageID"]
+      end
+      if onSent>0 then
+        sMessage=json.decode(acarsSystem.messageSendQueue[onSent])
+        sID=sMessage["messageID"]
+      end
+      --print("rID "..rID.." sID "..sID)
+      if rID>sID then
+        retVal[rmID]=acarsSystem.messages[onRecieved]
+        retVal[rmID]["ud"]="U"
+        fmsFunctionsDefs["VIEWACARSLOG"]["R"..(rmID)]={"showmessage",onRecieved}
+        --print("use received message".." rmID "..rmID.. " rID "..onRecieved)
         rmID=rmID+1
-        onSent=onSent-1
-        --print("use sent message")
+        onRecieved=onRecieved-1
       else
-        onSent=onSent-1
-        --print("skip sent message")
+        if sMessage["msg"]~=nil then
+          retVal[rmID]=sMessage
+          retVal[rmID]["ud"]="D"
+          rmID=rmID+1
+          onSent=onSent-1
+          --print("use sent message")
+        else
+          onSent=onSent-1
+          --print("skip sent message")
+        end
       end
     end
+    currentPage=currentPage+1
   end
   return retVal
 end
@@ -395,7 +427,7 @@ acarsSystem.getMessageLog=function(pgNo)
         
       else
         --messageLog[i]["status"]
-        retVal.templateSmall[line]=" "..messageLog[i]["time"].."z     RESPONSE RCVD"
+        retVal.templateSmall[line]=" "..messageLog[i]["time"].."z     "..messageLog[i]["status"] --RESPONSE RCVD"
         --print("T "..messageLog[i]["msg"])
         ln="  "..messageLog[i]["msg"]
       end

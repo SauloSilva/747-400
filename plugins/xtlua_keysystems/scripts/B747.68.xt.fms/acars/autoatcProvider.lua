@@ -86,6 +86,9 @@ send=function()
   
   if queueSize>acarsSystem.sentMessage then
     local sending=acarsSystem.messageSendQueue[acarsSystem.sentMessage+1]
+    local newMessage=json.decode(sending)
+    newMessage["status"]="         SENT"
+    acarsSystem.messageSendQueue[acarsSystem.sentMessage+1]=json.encode(newMessage)
     print("LUA send ACARS sending :"..sending)
     if acarsSystem.remote.isHoppie() then
       if not(acarsSystem.remote.send(sending)) then
@@ -98,6 +101,21 @@ send=function()
     acarsSystem.sentMessage=acarsSystem.sentMessage+1
   end
 end, 
+gotResponse=function(mid)
+  local onSent=table.getn(acarsSystem.messageSendQueue.values)
+  print("parseResponse looking for msg "..mid)
+  while (onSent>0) do
+    print("parseResponse for msg "..acarsSystem.messageSendQueue[onSent])
+    local thisMessage=json.decode(acarsSystem.messageSendQueue[onSent])
+    if (""..thisMessage["messageID"])==(""..mid) then
+      thisMessage["status"]="RESPONSE RCVD"
+      print("parseResponse using")
+      acarsSystem.messageSendQueue[onSent]=json.encode(thisMessage)
+      onSent=0
+    end
+    onSent=onSent-1
+  end
+end,
 receive=function() 
   updateAutoATCCDU()
   if string.len(acarsReceiveDataref)>1 then
@@ -143,6 +161,9 @@ receive=function()
       newMessage["time"]=string.format("%02d:%02d",hh,mm)
       if newMessage["title"]==nil then
         newMessage["title"]=string.sub(newMessage["msg"],1,15) --newMessage["from"].." "..string.sub(newMessage["msg"],1,15)
+      end
+      if newMessage["RT"]~=nil then
+        acarsSystem.provider.gotResponse(newMessage["RT"])
       end
       newMessage["messageID"]=acarsSystem.provider.messageID
       acarsSystem.provider.messageID=acarsSystem.provider.messageID+1

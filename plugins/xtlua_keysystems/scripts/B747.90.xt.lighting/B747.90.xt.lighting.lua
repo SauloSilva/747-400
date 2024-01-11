@@ -2130,6 +2130,8 @@ end
 
 
 ----- SET STATE TO COLD & DARK ----------------------------------------------------------
+simDR_window_ice                    = find_dataref("sim/flightmodel/failures/window_ice")
+simDR_OAT=find_dataref("sim/weather/temperature_ambient_c")
 function B747_set_lighting_CD()
     if simDR_OAT<-1 then
         simDR_window_ice                    = 1

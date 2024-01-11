@@ -80,8 +80,8 @@ acarsSystem.remote={
         local to=str_trim(newMessage["to"])
         local mID=newMessage["messageID"]
         local replyTo=""
-        if newMessage["replyTo"]~=nil then
-          replyTo=newMessage["replyTo"]
+        if newMessage["RT"]~=nil then
+          replyTo=newMessage["RT"]
         end
         local msg=newMessage["msg"]
         local requiresResponse=newMessage["RR"]

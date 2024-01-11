@@ -2435,7 +2435,7 @@ function fmsFunctions.respondmessage(fmsO,value)
 
 function fmsFunctions.sendACARSmessage(fmsO,value)
 	acarsSystem.setCurrentMessage(fmsO.id,value)
-	fmsFunctions["acarsSendATC"](fmsO,value)
+	fmsFunctions["acarsRespondATC"](fmsO,value)
 	fmsO["inCustomFMC"]=true
   	fmsO["targetPage"]="VIEWACARSLOG"
   	run_after_time(switchCustomMode, 0.5)
