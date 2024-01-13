@@ -927,7 +927,7 @@ function B747_cabin_lights()
         if B747DR_toggle_switch_position[37] > 0.95
             and power == 1
         then
-            switch_value = 0.5
+            switch_value = 0.25
         else
             switch_value = 0.0
         end
@@ -935,7 +935,7 @@ function B747_cabin_lights()
         if simDR_percent_lights_on > 0.25
             and power == 1 and ((simDR_aircraft_altitude > 10000.0) or simDR_aircraft_groundspeed<15)
         then
-            switch_value = 0.5
+            switch_value = 0.25
         elseif simDR_percent_lights_on > 0.25
         and power == 1 and ((simDR_aircraft_altitude < 10000.0) and simDR_aircraft_groundspeed>15)
             then 
