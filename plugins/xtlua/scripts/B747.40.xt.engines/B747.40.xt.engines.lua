@@ -452,9 +452,20 @@ function B747_thrust_rev_hold_max_4_CMDhandler(phase, duration)
     end
     
 end
+function canx_rev()
+     simDR_engine_throttle_jet_all = 0.0
+
+     B747_hold_rev_on_all = 0
+     
+ end
 function canx_revHold()
-    simDR_engine_throttle_jet_all = 0.0
+   -- simDR_engine_throttle_jet_all = 0.0
+    simDR_engine_throttle_jet_all = -0.01
     B747_hold_rev_on_all = 0
+    if is_timer_scheduled(canx_rev) then
+        stop_timer(canx_rev)
+    end
+    run_after_time(canx_rev, 3.0)
 end
 
 function B747_thrust_rev_hold_max_all_CMDhandler(phase, duration)
@@ -479,16 +490,19 @@ function B747_thrust_rev_hold_max_all_CMDhandler(phase, duration)
 				simDR_prop_mode[1] = 3													
 				simDR_prop_mode[2] = 3													
 				simDR_prop_mode[3] = 3		
-				simDR_engine_throttle_jet_all = B747_animate_value(simDR_engine_throttle_jet_all,-1,-1,1,1)
+				simDR_engine_throttle_jet_all = -1 --B747_animate_value(simDR_engine_throttle_jet_all,-1,-1,1,1)
 				B747_hold_rev_on_all = 1
-		else
-		  simDR_engine_throttle_jet_all=B747_animate_value(simDR_engine_throttle_jet_all,0,0,1,1)
+		--else
+		--  simDR_engine_throttle_jet_all=B747_animate_value(simDR_engine_throttle_jet_all,0,0,1,1)
 		end
+        if is_timer_scheduled(canx_revHold) then
+            stop_timer(canx_revHold)
+        end
         
 		
 	end		
 	
-	if phase == 2 then
+	--[[if phase == 2 then
 		
 		if B747_hold_rev_on_all == 1 then
 			--simDR_prop_mode[0] = 1													
@@ -500,7 +514,7 @@ function B747_thrust_rev_hold_max_all_CMDhandler(phase, duration)
             run_after_time(canx_revHold,5)
 		end
 					
-    end
+    end]]--
     
 end
 
@@ -2041,7 +2055,13 @@ end
 
 
 
-
+function B747_engines_monitor_reverse()
+    --print("B747_engines_monitor_reverse"..simDR_ind_airspeed_kts_pilot.." "..B747_hold_rev_on_all)
+    if simDR_ind_airspeed_kts_pilot<65 and B747_hold_rev_on_all==1 then
+        run_after_time(canx_revHold, 5.0) --this timer gets cancelled while B747_hold_rev_on_all is being set to 1 
+        B747_hold_rev_on_all=0
+    end
+end
 
 
 --*************************************************************************************--
@@ -2125,6 +2145,7 @@ function after_physics()
 
     B747_engines_monitor_AI()
     
+    B747_engines_monitor_reverse()
 end
 
 --function after_replay() end
