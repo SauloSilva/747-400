@@ -54,6 +54,8 @@ B747BR_todLat				= find_dataref("laminar/B747/autopilot/dist/top_of_descent_lat"
 B747BR_todLong				= find_dataref("laminar/B747/autopilot/dist/top_of_descent_long", "number")
 
 fmsJson = find_dataref("xtlua/fms")
+
+B747DR_fdr_log_json     = find_dataref("laminar/B747/fdr/json")
 local fmsTable={}
 
 
@@ -71,7 +73,7 @@ function aircraft_fdrConfig()
     print("FDR begin recording in "..simDR_livery_path)
     fdr_data_file = io.open( simDR_livery_path.."flight_data.jdat", "a" )
     io.output(fdr_data_file)
-    io.write(B747DR_simconfig_data.."\n")  
+    io.write(B747DR_simconfig_data.."\n")
   else
     print("FDR not recording default livery")
   end
@@ -396,6 +398,16 @@ function do_log_commmand(data)
   fdr_data_file:write(flightDataS.."\n") 
   fdr_data_file:flush()
 end
+function do_log_jdata(data)
+  print(" log "..data)
+  if fdr_data_file==nil then return end
+  local flightData={}
+  flightData["time"]=os.date("%Y/%m/%d %X")
+  flightData["jsonlog"]=data
+  local flightDataS=json.encode(flightData)
+  fdr_data_file:write(flightDataS.."\n") 
+  fdr_data_file:flush()
+end
 function B747CMD_fdr_log_lnav_CMDhandler(phase, duration)
   do_log_commmand("LNAV")
 end
@@ -456,14 +468,21 @@ B747CMD_fdr_log_spdmod           = deferred_command("laminar/B747/fdr/spdmod", "
 B747CMD_fdr_log_spd           = deferred_command("laminar/B747/fdr/spd", "", B747CMD_fdr_log_spd_CMDhandler)
 B747CMD_fdr_log_headsel           = deferred_command("laminar/B747/fdr/headsel", "", B747CMD_fdr_log_headsel_CMDhandler)
 B747CMD_fdr_log_headhold          = deferred_command("laminar/B747/fdr/headhold", "", B747CMD_fdr_log_headhold_CMDhandler)
-
+function updateJSONData()
+  if(string.len(B747DR_fdr_log_json) > 2) then
+    local fdrData=B747DR_fdr_log_json
+    do_log_jdata(fdrData)
+    --print("log" .. fdrData)
+    B747DR_fdr_log_json=" "
+  end
+end
 
 function after_physics()
   collectgarbage("collect")
   if debug_fdr>0 then return end
   --if simDR_aircraft_on_ground>0 then return end
 
-  
+  updateJSONData()
   updateAPdata()
   updateFlightdata()
   updateFMSdata()

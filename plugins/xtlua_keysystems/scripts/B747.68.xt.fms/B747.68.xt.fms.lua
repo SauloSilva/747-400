@@ -3,6 +3,8 @@
 *        COPYRIGHT � 2020 Mark Parker/mSparks CC-BY-NC4
 *****************************************************************************************
 ]]
+
+B747DR_fdr_log_json     = find_dataref("laminar/B747/fdr/json")
 simDRTime=find_dataref("sim/time/total_running_time_sec")
 simDR_onGround=find_dataref("sim/flightmodel/failures/onground_any")
 simDR_vvi_fpm_pilot = find_dataref("sim/cockpit2/gauges/indicators/vvi_fpm_pilot")

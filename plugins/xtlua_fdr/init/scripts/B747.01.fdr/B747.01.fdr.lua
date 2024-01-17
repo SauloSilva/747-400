@@ -15,6 +15,8 @@ function deferred_dataref(name,type,notifier)
 end
 debug_fdr     = deferred_dataref("laminar/B747/debug/fdr", "number")
 
+
+
 B747CMD_fdr_log_lnav           = deferred_command("laminar/B747/fdr/vnav", "", B747CMD_fdr_log_lnav_CMDhandler)
 B747CMD_fdr_log_vnav           = deferred_command("laminar/B747/fdr/lnav", "", B747CMD_fdr_log_vnav_CMDhandler)
 B747CMD_fdr_log_apon           = deferred_command("laminar/B747/fdr/apon", "", B747CMD_fdr_log_apon_CMDhandler)

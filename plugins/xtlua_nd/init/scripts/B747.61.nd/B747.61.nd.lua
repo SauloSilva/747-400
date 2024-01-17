@@ -14,6 +14,8 @@ function deferred_dataref(name,type,notifier)
 	return wrap_dref_any(dref,type) 
 end
 debug_nd     = deferred_dataref("laminar/B747/debug/nd", "number")
+
+B747DR_fdr_log_json     = deferred_dataref("laminar/B747/fdr/json", "string")
 -- Holds all SimConfig options workaround wierd bug with not reading from source module
 B747DR_simconfig_data					= deferred_dataref("laminar/B747/simconfig", "string")
 B747DR_nd_capt_up                  		= deferred_dataref("laminar/B747/nd/up/capt", "number")

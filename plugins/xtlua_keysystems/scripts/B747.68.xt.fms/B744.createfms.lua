@@ -34,6 +34,7 @@ end
 function keyDown(fmsModule,key)
   run_after_time(switchCustomMode, 0.5)
   print(fmsModule.. " do " .. key)
+  B747DR_fdr_log_json=fmsModule.. " do " .. key
   if key=="index" then
       fmsModules[fmsModule].targetCustomFMC=true
       fmsModules[fmsModule].targetPage="INITREF"
