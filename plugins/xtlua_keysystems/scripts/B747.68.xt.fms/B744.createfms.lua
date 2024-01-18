@@ -31,10 +31,16 @@ function fmsClearNotify(notification)
     end
   end
 end
+local lastKeyDown=""
 function keyDown(fmsModule,key)
   run_after_time(switchCustomMode, 0.5)
   print(fmsModule.. " do " .. key)
-  B747DR_fdr_log_json=fmsModule.. " do " .. key
+  if(string.len(lastKeyDown) > 2) then
+    B747DR_fdr_log_json=lastKeyDown.." then "..fmsModule.. " do " .. key
+  else
+    B747DR_fdr_log_json=fmsModule.. " do " .. key
+  end
+  lastKeyDown =  fmsModule.. " did " .. key
   if key=="index" then
       fmsModules[fmsModule].targetCustomFMC=true
       fmsModules[fmsModule].targetPage="INITREF"
