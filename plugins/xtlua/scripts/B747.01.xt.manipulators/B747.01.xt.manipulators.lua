@@ -1447,13 +1447,10 @@ function B747_autothrottle_disarm_CMDhandler(phase, duration)
     if phase == 0 then
         B747_toggle_switch_position_target[29] = 0.0
         B747DR_ap_autothrottle_armed = B747_toggle_switch_position_target[29]
-        if B747DR_ap_FMA_autothrottle_mode>0 then
-            print("B747_autothrottle_arm_switch_CMDhandler fail AT")
-            B747DR_autothrottle_fail=1
-        end
          if B747DR_autothrottle_active == 1 then
              --simCMD_autopilot_autothrottle_off:once() 
              B747DR_autothrottle_active=0
+             B747DR_autothrottle_fail=1
          end
     end
 end
@@ -1820,9 +1817,7 @@ B747CMD_flight_dir_switch_R 			= deferred_command("laminar/B747/toggle_switch/fl
 B747CMD_autothrottle_arm_switch 		= deferred_command("laminar/B747/toggle_switch/autothrottle", "Autothrottle toggle Switch", B747_autothrottle_arm_switch_CMDhandler)
 B747CMD_autothrottle_arm            	= deferred_command("laminar/B747/authrottle_arm", "Autothrottle Arm", B747_autothrottle_arm_CMDhandler)
 B747CMD_autothrottle_disarm         	= deferred_command("laminar/B747/authrottle_disarm", "Autothrottle Disarm", B747_autothrottle_disarm_CMDhandler)
-
-simCMD_autothrottle_arm                  = replace_command("sim/autopilot/autothrottle_arm", B747_autothrottle_arm_CMDhandler)
-simCMD_autothrottle_disarm                 = replace_command("sim/autopilot/autothrottle_off", B747_autothrottle_disarm_CMDhandler)
+    
 simCMD_autothrottle_on                  = replace_command("sim/autopilot/autothrottle_arm", B747_autothrottle_arm_CMDhandler)
 simCMD_autothrottle_off                 = replace_command("sim/autopilot/autothrottle_off", B747_autothrottle_disarm_CMDhandler)
 simCMD_autothrottle_arm_switch 		= replace_command("sim/autopilot/autothrottle_toggle", B747_autothrottle_arm_switch_CMDhandler)
