@@ -8,6 +8,9 @@ function sleep(n)
   local t0 = clock()
   while clock() - t0 <= n do end
 end
+netRequestDataref=find_dataref("autoatc/networking/url")
+netdataDataref=find_dataref("autoatc/networking/data")
+netstatusDataref=find_dataref("autoatc/networking/urlstatus")
 
 function fmsFunctions.initAcars(fmsO,value)
   local currentInit=getFMSData("acarsInitString")
@@ -64,16 +67,7 @@ function fmsFunctions.acarsSendATCMessage(fmsO,message,requresResponse)
   local newInitSend=json.encode(atcLogon)
   fmsFunctions.acarsSystemSendATC(fmsO,newInitSend)
 end
---[[
-attempt to concatenate local 'requiresResponse' (a nil value)
 
-	[C]: in function '__concat'
-	[string "acars/autoatcHoppieProvider.lua"]:88: in function 'send'
-	[string "acars/autoatcProvider.lua"]:91: in function 'send'
-	[string "scripts/B747.68.xt.fms/B747.68.xt.fms.lua"]:1144: in function 'func'
-	[string "init.lua"]:489: in function <[string "init.lua"]:483>
-
-]]
 
 function fmsFunctions.acarsRespondATC(fmsO,value) --value=message being replied to, if, message starts WILCO = accepted, UNABLE = rejected, other=RESPONDED
   if not(fmsFunctions.acarsDataReady(fmsO)) then return end
@@ -136,6 +130,7 @@ fmsPages["ACARSMSGS"]["templateSmall"]={
 fmsFunctionsDefs["ACARSMSGS"]["L2"]={"setpage","VIEWUPACARS"}
 fmsFunctionsDefs["ACARSMSGS"]["L6"]={"setpage","ACARS"} --go to last page or acars
 fmsFunctionsDefs["ACARSMSGS"]["R1"]={"setpage","VIEWMISCACARS"}
+fmsFunctionsDefs["ACARSMSGS"]["R2"]={"setpage","VIEWDOWNACARS"}
 
 fmsFunctionsDefs["ACARSMSGS"]["L6"]={"setpage","ACARS"}
 
@@ -324,6 +319,71 @@ acarsSystem.getUpMessages=function(pgNo)
       
     end  
     return retVal
+end
+
+fmsPages["VIEWDOWNACARS"]=createPage("VIEWDOWNACARS")
+
+acarsSystem.getDownMessages=function(pgNo)
+  retVal={}
+  retVal.template={
+    "  ACARS-DOWNLINK MSG    ",
+    "                        ",
+    "                        ", -- --"<Test Message           ",
+    "                        ",
+    "                        ", -- --"<2nd Test Message       ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "<RETURN                 "
+    } 
+    numPages=math.ceil(table.getn(acarsSystem.messageSendQueue.values)/4)
+    if numPages<1 then numPages=1 end
+  retVal.templateSmall={
+    "                    "..pgNo.."/"..numPages.."  ",
+    " MSG TITLE          STAT",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        ",
+    "                        "
+    }
+  line = 3
+  startNo=table.getn(acarsSystem.messageSendQueue.values)
+  
+  if pgNo>1 then startNo=table.getn(acarsSystem.messageSendQueue.values)-((pgNo-1)*4) end
+  endNo=startNo-3
+  --print("startNo "..startNo.." endNo "..endNo)
+  if endNo <1 then endNo=1 end
+  local sMessage={}
+  for i = startNo,endNo , -1 do
+    --print(i.."="..acarsSystem.messageSendQueue[i])
+    sMessage=json.decode(acarsSystem.messageSendQueue[i])
+    local ln=""
+    local status="        "
+    if sMessage["status"]~=nil then status=sMessage["status"] end
+    retVal.templateSmall[line]=" "..sMessage["time"].."z     "..status --RESPONSE RCVD"
+    if sMessage["type"]=="cpdlc" then
+      ln=sMessage["msg"]
+    elseif sMessage["type"]=="initData" then
+      ln="REQUEST "..sMessage["dep"].."-"..sMessage["dst"]
+    end
+    local padding=24-string.len(ln)
+    if padding<0 then padding=0 end
+    retVal.template[line+1]=string.sub(ln,1,24) .. string.format("%"..padding.."s","")
+    line = line+2
+    
+  end  
+  return retVal
 end
 
 fmsPages["VIEWACARSLOG"]=createPage("VIEWACARSLOG")

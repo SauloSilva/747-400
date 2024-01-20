@@ -167,8 +167,21 @@ fmsPages["VIEWMISCACARS"].getSmallPage=function(self,pgNo,fmsID)
   end
   
   fmsFunctionsDefs["VIEWUPACARS"]["L6"]={"setpage","ACARSMSGS"}
-
-
+  fmsPages["VIEWDOWNACARS"].getPage=function(self,pgNo,fmsID)
+    local page=acarsSystem.getDownMessages(pgNo)
+    return page.template 
+  end
+  fmsPages["VIEWDOWNACARS"].getSmallPage=function(self,pgNo,fmsID) 
+    local page=acarsSystem.getDownMessages(pgNo)
+    return page.templateSmall 
+  end
+  fmsPages["VIEWDOWNACARS"].getNumPages=function(self)
+    noPages=math.ceil(table.getn(acarsSystem.messageSendQueue.values)/4)
+    if noPages<1 then noPages=1 end
+    return noPages 
+  end
+  fmsFunctionsDefs["VIEWDOWNACARS"]["L6"]={"setpage","ACARSMSGS"}
+  
   fmsPages["VIEWACARSMSG"]=createPage("VIEWACARSMSG")
   fmsPages["VIEWACARSMSG"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be this way
     local currentMessage=acarsSystem.getCurrentMessage(fmsID)

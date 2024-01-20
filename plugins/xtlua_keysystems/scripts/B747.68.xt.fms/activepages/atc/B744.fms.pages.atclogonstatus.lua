@@ -1,10 +1,12 @@
 fmsPages["ATCLOGONSTATUS"]=createPage("ATCLOGONSTATUS")
 fmsPages["ATCLOGONSTATUS"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be this way
-    local logon="   N/A  "	
+    local logon="   N/A  "
     local data= "OFFLINE"
-    if acarsSystem.provider.online() then 
+    if netstatusDataref>0 or string.len(acarsReceiveDataref)>1 then
+        data=" ACTIVE"
+    elseif acarsSystem.provider.online() then 
 	    logon=acarsSystem.provider.loggedOn()
-      data="  READY" 
+      data="  READY"
     else
       fmsModules["data"]["atc"]="****"
     end

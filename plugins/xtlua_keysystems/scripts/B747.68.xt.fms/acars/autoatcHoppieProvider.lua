@@ -1,7 +1,5 @@
---networking test
-netRequestDataref=find_dataref("autoatc/networking/url")
-netdataDataref=find_dataref("autoatc/networking/data")
-netstatusDataref=find_dataref("autoatc/networking/urlstatus")
+
+
 
 local hoppielogon=""
 
