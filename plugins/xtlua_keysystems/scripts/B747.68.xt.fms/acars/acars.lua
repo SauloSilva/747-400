@@ -373,9 +373,11 @@ acarsSystem.getDownMessages=function(pgNo)
     if sMessage["status"]~=nil then status=sMessage["status"] end
     retVal.templateSmall[line]=" "..sMessage["time"].."z     "..status --RESPONSE RCVD"
     if sMessage["type"]=="cpdlc" then
-      ln=sMessage["msg"]
+      ln=sMessage["msg"].." ("..sMessage["to"] ..")"
     elseif sMessage["type"]=="initData" then
       ln="REQUEST "..sMessage["dep"].."-"..sMessage["dst"]
+    elseif sMessage["type"]=="inforeq" then
+      ln=sMessage["msg"].." ("..sMessage["to"] ..")"
     end
     local padding=24-string.len(ln)
     if padding<0 then padding=0 end
