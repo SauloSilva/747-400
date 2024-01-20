@@ -394,7 +394,8 @@ acarsSystem.getMessageLog=function(pgNo)
     "<INDEX        ERASE LOG>"
     
     } 
-    numPages=math.ceil(table.getn(acarsSystem.messages.values)/5)+math.ceil(table.getn(acarsSystem.messageSendQueue.values)/5)
+    --numPages=math.ceil(table.getn(acarsSystem.messages.values)/5)+math.ceil(table.getn(acarsSystem.messageSendQueue.values)/5)
+    numPages=math.ceil((table.getn(acarsSystem.messages.values)+table.getn(acarsSystem.messageSendQueue.values))/5)
     if numPages<1 then numPages=1 end
   retVal.templateSmall={
     "                    "..pgNo.."/"..numPages.."  ",
@@ -427,7 +428,9 @@ acarsSystem.getMessageLog=function(pgNo)
         
       else
         --messageLog[i]["status"]
-        retVal.templateSmall[line]=" "..messageLog[i]["time"].."z     "..messageLog[i]["status"] --RESPONSE RCVD"
+        local status="             "
+        if messageLog[i]["status"]~=nil then status=messageLog[i]["status"] end
+        retVal.templateSmall[line]=" "..messageLog[i]["time"].."z     "..status --RESPONSE RCVD"
         --print("T "..messageLog[i]["msg"])
         ln="  "..messageLog[i]["msg"]
       end

@@ -634,18 +634,20 @@ end
 
 
 fmsModules["data"]=defaultFMSData()
+
 B747DR_FMSdata=json.encode(fmsModules["data"]["values"])--make the fms data available to other modules
+
 fmsModules["setData"]=function(self,id,value)
     --always retain the same length
     if value=="" then 
       local initData=defaultFMSData()
       if initData[id]~=nil then
-	print("default for " .. id .. " is " .. initData[id])
-	value=initData[id]
+		print("default for " .. id .. " is " .. initData[id])
+		value=initData[id]
       else
-	print("default for " .. id .. " is nil")
-	self["data"][id]=nil
-	return
+		print("default for " .. id .. " is nil")
+		self["data"][id]=nil
+		return
       end
     end
     len=string.len(self["data"][id])

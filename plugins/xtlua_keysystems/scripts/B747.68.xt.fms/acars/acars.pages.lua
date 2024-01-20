@@ -151,7 +151,7 @@ fmsPages["VIEWMISCACARS"].getSmallPage=function(self,pgNo,fmsID)
     return numPages 
   end
   fmsFunctionsDefs["VIEWACARSLOG"]["L6"]={"setpage","ATCINDEX"}
-  
+  fmsFunctionsDefs["VIEWACARSLOG"]["R6"]={"clearacars",""}
   fmsPages["VIEWUPACARS"].getPage=function(self,pgNo,fmsID)
     local page=acarsSystem.getUpMessages(pgNo)
     return page.template 

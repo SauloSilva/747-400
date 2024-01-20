@@ -38,6 +38,16 @@ acarsSystem.currentMessage={}
 acarsSystem.getCurrentMessage=function(fmsID)
   return acarsSystem.currentMessage[fmsID]
 end
+
+acarsSystem.clear=function()
+  print("LUA acarsSystem clearing ACARS messages:")
+  --acarsSystem.provider.messageID=1
+  acarsSystem.sentMessage=0
+  acarsSystem.messages={}
+  acarsSystem.messageSendQueue={}
+  
+end
+
 --set the current message being viewed
 acarsSystem.setCurrentMessage=function(fmsID,messageID)
   acarsSystem.currentMessage[fmsID]=messageID
@@ -100,7 +110,7 @@ send=function()
     lastSend=simDRTime
     acarsSystem.sentMessage=acarsSystem.sentMessage+1
   end
-end, 
+end,
 gotResponse=function(mid)
   local onSent=table.getn(acarsSystem.messageSendQueue.values)
   print("parseResponse looking for msg "..mid)
@@ -164,6 +174,9 @@ receive=function()
       end
       if newMessage["RT"]~=nil then
         acarsSystem.provider.gotResponse(newMessage["RT"])
+      end
+      if newMessage["rt"]~=nil then
+        acarsSystem.provider.gotResponse(newMessage["rt"])
       end
       newMessage["messageID"]=acarsSystem.provider.messageID
       acarsSystem.provider.messageID=acarsSystem.provider.messageID+1

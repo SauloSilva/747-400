@@ -2455,6 +2455,11 @@ function fmsFunctions.doCMD(fmsO,value)
   end
 end
 
+function fmsFunctions.clearacars(fmsO,value)
+	print("do fmc clearacars")
+	acarsSystem.clear()
+end
+
 function fmsFunctions.setSoundOption(fmsO,value) -- sound options (crazytimtimtim + Matt726)
 	-- TODO, this would make more sense to use an array lookup of options, but copied pasted for now
 	if value == "alarmsOption" then
