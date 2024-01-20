@@ -67,6 +67,10 @@ function split(s, delimiter)
     end
     return result;
 end
+
+function str_trim(s)
+	return string.match(s,'^()%s*$') and '' or string.match(s,'^%s*(.*%S)')
+  end
 function round(x)
 	return x>=0 and math.floor(x+0.5) or math.ceil(x-0.5)
   end
@@ -557,6 +561,7 @@ function defaultFMSData()
   atc="****",
   grwt="***.*   ",
   crzalt=string.rep("*", 5),
+  acarsMessage="",
   clbspd="250",
   transpd="272",
   spdtransalt="10000",
@@ -639,7 +644,7 @@ B747DR_FMSdata=json.encode(fmsModules["data"]["values"])--make the fms data avai
 
 fmsModules["setData"]=function(self,id,value)
     --always retain the same length
-    if value=="" then 
+    if value=="" and id~="acarsMessage" then 
       local initData=defaultFMSData()
       if initData[id]~=nil then
 		print("default for " .. id .. " is " .. initData[id])
@@ -651,11 +656,15 @@ fmsModules["setData"]=function(self,id,value)
       end
     end
     len=string.len(self["data"][id])
-    if len < string.len(value) then 
-      value=string.sub(value,1,len)
+    if len < string.len(value) and id~="acarsMessage" then 
+      value=string.sub(value,1,3)
     end
     --newVal=string.sub(value,1,len)
-    self["data"][id]=string.format("%s%"..(len-string.len(value)).."s",value,"")
+	if id~="acarsMessage" then
+    	self["data"][id]=string.format("%s%"..(len-string.len(value)).."s",value,"")
+	else
+		self["data"][id]=value
+	end
 	B747DR_FMSdata=json.encode(fmsModules["data"]["values"])--make the fms data available to other modules
 end
 function setFMSData(id,value)

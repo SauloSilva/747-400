@@ -1,5 +1,21 @@
 fmsPages["ATCREPORT"]=createPage("ATCREPORT")
 fmsPages["ATCREPORT"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be this way
+    local ln=getFMSData("acarsMessage")
+    local padding=23-string.len(ln)
+    if padding<0 then padding=0 end
+    --print(ln)
+    local armedMessage=" "
+    if string.len(ln)> 0 then
+        armedMessage="<"..string.sub(ln,1,23) .. string.format("%"..padding.."s","")
+        fmsFunctionsDefs["ATCREPORT"]["L5"]={"setdata","sendarmedacarsnr"}
+    else
+        fmsFunctionsDefs["ATCREPORT"]["L5"]=nil
+    end
+    local passing=" "
+    if B747DR_last_waypoint~="-----" then
+        passing="<REPORT PASSING "..str_trim(string.format("%5s", B747DR_last_waypoint))
+
+    end
     return{
 
 "       ATC INDEX        ",
@@ -8,11 +24,11 @@ fmsPages["ATCREPORT"].getPage=function(self,pgNo,fmsID)--dynamic pages need to b
 "                        ",
 "<CONFIRM ALTITUDE       ",
 "                        ",
-"<REPORT PASSING GGW     ",
+passing,
 "                        ",
 "<WHEN CAN YOU ACCEPT F..",
 "                        ",
-"<REPORT REACHING FL350  ",
+armedMessage,
 "------------------------",
 "<INDEX                  "
     }
@@ -40,7 +56,9 @@ end
 
   
 fmsFunctionsDefs["ATCREPORT"]={}
+fmsFunctionsDefs["ATCREPORT"]["L1"]={"setpage","POSREPORT"}
 fmsFunctionsDefs["ATCREPORT"]["L6"]={"setpage","ATCINDEX"}
+
 --[[
 fmsFunctionsDefs["ATCREPORT"]["L1"]={"setpage",""}
 fmsFunctionsDefs["ATCREPORT"]["L2"]={"setpage",""}

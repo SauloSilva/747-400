@@ -39,9 +39,7 @@ function checkNet()
     -- /data2/35/1/NE/LOGON ACCEPTED
     -- error {illegal logon code}
 end
-function str_trim(s)
-  return string.match(s,'^()%s*$') and '' or string.match(s,'^%s*(.*%S)')
-end
+
 function checkPoll()
     local from=str_trim(getFMSData("fltno"))
     local to=str_trim(fmsModules["data"]["atc"])
