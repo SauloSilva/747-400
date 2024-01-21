@@ -1,6 +1,7 @@
 fmsPages["ATCREQUEST"]=createPage("ATCREQUEST")
 fmsPages["ATCREQUEST"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be this way
     local reqAlt=getFMSData("acarsREQALT")
+    setFMSData("acarsWCWorREQ","REQUEST")
     if string.len(fmsModules[fmsID]["scratchpad"])>0 then
         fmsFunctionsDefs["ATCREQUEST"]["L1"]={"setdata","acarsREQALT"}
     else
@@ -59,6 +60,7 @@ end
 fmsFunctionsDefs["ATCREQUEST"]={}
 fmsFunctionsDefs["ATCREQUEST"]["L4"]={"setpage","ATCSUBREQUEST_4"}
 fmsFunctionsDefs["ATCREQUEST"]["L6"]={"setpage","ATCINDEX"}
+fmsFunctionsDefs["ATCREQUEST"]["L5"]={"clearreq",""}
 fmsFunctionsDefs["ATCREQUEST"]["R6"]={"setpage","ATCVERIFYREQUEST"}
 
 fmsPages["ATCSUBREQUEST"]=createPage("ATCSUBREQUEST")
@@ -238,7 +240,13 @@ end
 
 fmsPages["ATCVERIFYREQUEST"]=createPage("ATCVERIFYREQUEST")
 fmsPages["ATCVERIFYREQUEST"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be this way
-    if pgNo==1 then 
+    local req=getFMSData("acarsWCWorREQ")
+    if req=="REQUEST" then
+        fmsFunctionsDefs["ATCVERIFYREQUEST"]["L6"]={"setpage","ATCREQUEST"}
+    else
+        fmsFunctionsDefs["ATCVERIFYREQUEST"]["L6"]={"setpage","WHENCANWE"}
+    end
+    if pgNo==1 then
     return{
 
 "     VERIFY REQUEST     ",
@@ -253,7 +261,7 @@ fmsPages["ATCVERIFYREQUEST"].getPage=function(self,pgNo,fmsID)--dynamic pages ne
 "                        ",
 "                        ",
 "                        ",
-"<REQUEST                "
+"<"..req .."                "
     }
     elseif pgNo==2 then
       return{
@@ -270,7 +278,7 @@ fmsPages["ATCVERIFYREQUEST"].getPage=function(self,pgNo,fmsID)--dynamic pages ne
 "                        ",
 "                   SEND>",
 "                        ",
-"<REQUEST                "
+"<"..req .."                "
     }
     end
 end
@@ -316,4 +324,3 @@ end
 
   
 fmsFunctionsDefs["ATCVERIFYREQUEST"]={}
-fmsFunctionsDefs["ATCVERIFYREQUEST"]["L6"]={"setpage","ATCREQUEST"}

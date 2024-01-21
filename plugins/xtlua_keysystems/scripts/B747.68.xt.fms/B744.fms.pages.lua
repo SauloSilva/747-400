@@ -2459,7 +2459,30 @@ function fmsFunctions.doCMD(fmsO,value)
 	fmsModules["lastcmd"]=fmsModules["cmdstrings"][value]
   end
 end
-
+function fmsFunctions.setacars(fmsO,value)
+	setFMSData("acarsMessage",value)
+	fmsO["inCustomFMC"]=true
+  	fmsO["targetPage"]="ATCVERIFYREQUEST"
+  	run_after_time(switchCustomMode, 0.5)
+end
+function fmsFunctions.clearreq(fmsO,value)
+	setFMSData("acarsREQALT","")
+	setFMSData("acarsREQSPEED","")
+	setFMSData("acarsREQOFFSET","")
+	setFMSData("acarsREQHDG","")
+	setFMSData("acarsREQTRK","")
+	setFMSData("acarsREQAT","")
+	setFMSData("acarsREQTO","")
+	setFMSData("acarsREQDUE","")
+	setFMSData("acarsMessage","")
+end
+function fmsFunctions.clearwce(fmsO,value)
+	setFMSData("acarsWCWCRZCLB","")
+	setFMSData("acarsWCWCLB","")
+	setFMSData("acarsWCWDES","")
+	setFMSData("acarsWCWSPEED","")
+	setFMSData("acarsMessage","")
+end	
 function fmsFunctions.clearacars(fmsO,value)
 	print("do fmc clearacars")
 	acarsSystem.clear()

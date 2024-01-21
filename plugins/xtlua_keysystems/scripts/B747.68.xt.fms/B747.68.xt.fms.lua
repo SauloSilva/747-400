@@ -70,7 +70,10 @@ end
 
 function str_trim(s)
 	return string.match(s,'^()%s*$') and '' or string.match(s,'^%s*(.*%S)')
-  end
+end
+function string.starts(String,Start)
+	return string.sub(String,1,string.len(Start))==Start
+ end 
 function round(x)
 	return x>=0 and math.floor(x+0.5) or math.ceil(x-0.5)
   end
@@ -549,8 +552,10 @@ fmsModules={} --set later
 function defaultFMSData()
   return {
   acarsInitString="{}",
+  acarsWCWorREQ="WHEN CAN WE",
   acarsWCWCRZCLB=string.rep("-", 5),
   acarsWCWCLB=string.rep("-", 5),
+  acarsWCWDES=string.rep("-", 5),
   acarsWCWSPEED=string.rep("-", 2),
   acarsREQALT=string.rep("-", 5),
   acarsREQSPEED=string.rep("-", 2),
@@ -679,7 +684,7 @@ fmsModules["setData"]=function(self,id,value)
 	B747DR_FMSdata=json.encode(fmsModules["data"]["values"])--make the fms data available to other modules
 end
 function setFMSData(id,value)
-	if id~="acarsMessage" then 
+	if not string.starts(id,"acars") then 
 		print("setting " .. id )
 		print(" to "..value)
 		print(" curently "..fmsModules["data"][id])
@@ -690,7 +695,7 @@ function getFMSData(id)
   if hasChild(fmsModules["data"],id) then
     return fmsModules["data"][id]
   end
-  if id~="acarsMessage" then 
+  if not string.starts(id,"acars") then 
 	print("getting getFMSData" )
 	print("getting " .. id )
 	print(" curently "..fmsModules["data"][id])
