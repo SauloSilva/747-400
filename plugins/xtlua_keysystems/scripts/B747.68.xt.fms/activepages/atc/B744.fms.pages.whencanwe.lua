@@ -5,7 +5,6 @@ fmsPages["WHENCANWE"].getPage=function(self,pgNo,fmsID)--dynamic pages need to b
     local wcwCLB=getFMSData("acarsWCWCLB")
     local wcwDES=getFMSData("acarsWCWDES")
     local wcwSPD=getFMSData("acarsWCWSPEED")
-    setFMSData("acarsWCWorREQ","WHEN CAN WE")
     return{
 
 "   WHEN CAN WE EXPECT   ",

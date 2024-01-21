@@ -1,7 +1,6 @@
 fmsPages["ATCREQUEST"]=createPage("ATCREQUEST")
 fmsPages["ATCREQUEST"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be this way
     local reqAlt=getFMSData("acarsREQALT")
-    setFMSData("acarsWCWorREQ","REQUEST")
     if string.len(fmsModules[fmsID]["scratchpad"])>0 then
         fmsFunctionsDefs["ATCREQUEST"]["L1"]={"setdata","acarsREQALT"}
     else
@@ -21,20 +20,20 @@ fmsPages["ATCREQUEST"].getPage=function(self,pgNo,fmsID)--dynamic pages need to 
     end
     return{
 
-"       ATC REQUEST      ",
-"                        ",
-"<"..reqAlt .."                  ",
-"                        ",
-"<."..reqSpd.."                    ",
-"                        ",
-"<"..reqoffset.."                    ",
-"                        ",
-"<ROUTE REQUEST          ",
-"                        ",
-"<ERASE REQUEST          ",
-"------------------------",
-"<INDEX           VERIFY>"
-    }
+    "       ATC REQUEST      ",
+    "                        ",
+    "<"..reqAlt .."                  ",
+    "                        ",
+    "<."..reqSpd.."                    ",
+    "                        ",
+    "<"..reqoffset.."                    ",
+    "                        ",
+    "<ROUTE REQUEST          ",
+    "                        ",
+    "<ERASE REQUEST          ",
+    "------------------------",
+    "<INDEX           VERIFY>"
+        }
 end
 
 fmsPages["ATCREQUEST"].getSmallPage=function(self,pgNo,fmsID)--dynamic pages need to be this way
@@ -232,95 +231,172 @@ end
 fmsFunctionsDefs["ATCSUBREQUEST"]={}
 fmsFunctionsDefs["ATCSUBREQUEST"]["L6"]={"setpage","ATCREQUEST"}
 fmsFunctionsDefs["ATCSUBREQUEST"]["R6"]={"setpage","ATCVERIFYREQUEST"}
+
 fmsPages["ATCSUBREQUEST"].getNumPages=function(self)
     return 4
 end
 
-
-
 fmsPages["ATCVERIFYREQUEST"]=createPage("ATCVERIFYREQUEST")
+local reqData={}
 fmsPages["ATCVERIFYREQUEST"].getPage=function(self,pgNo,fmsID)--dynamic pages need to be this way
-    local req=getFMSData("acarsWCWorREQ")
-    if req=="REQUEST" then
-        fmsFunctionsDefs["ATCVERIFYREQUEST"]["L6"]={"setpage","ATCREQUEST"}
-    else
-        fmsFunctionsDefs["ATCVERIFYREQUEST"]["L6"]={"setpage","WHENCANWE"}
+    reqData={}
+    local i=1
+    local reqAt=getFMSData("acarsREQAT") 
+    local msg="REQUEST"
+    local msgTail=""
+    if reqAt~="-----" then
+        reqData[i]={" AT                     ",reqAt.."                   "}
+        i=i+1
+        msgTail=" AT "..reqAt
     end
-    if pgNo==1 then
-    return{
-
-"     VERIFY REQUEST     ",
-"                        ",	               
-" ----                   ",
-"                        ",
-" ---                    ",
-"                        ",
-" FL---                  ",
-"                        ",
-"                        ",
-"                        ",
-"                        ",
-"                        ",
-"<"..req .."                "
-    }
-    elseif pgNo==2 then
-      return{
-
-"     VERIFY REQUEST     ",
-"                        ",	               
-"<                       ",
-"                        ",
-"<                       ",
-"                        ",
-"<                       ",
-"                        ",
-"<                       ",
-"                        ",
-"                   SEND>",
-"                        ",
-"<"..req .."                "
-    }
+    local reqOffset=getFMSData("acarsREQOFFSET")
+    if reqOffset~="---" then
+        reqData[i]={" REQUEST OFFSET         ",reqOffset.."NM                   "}
+        i=i+1
+        msg="REQUEST OFFSET "..reqOffset.."NM"
+    end
+    local reqAlt=getFMSData("acarsREQALT")
+    if reqAlt~="-----" then
+        reqData[i]={" REQUEST ALTITUDE       ",reqAlt.."                   "}
+        i=i+1
+        local tAlt=validAlt(reqAlt)
+        if tAlt~=nil then
+            tAlt=tonumber(tAlt)
+            print(tAlt .." <> "..B747DR_altimter_ft_adjusted)
+            if tAlt>B747DR_altimter_ft_adjusted*100 then
+                msg=str_trim(msg.." CLB TO "..reqAlt)
+            else
+                msg=str_trim(msg.." DES TO "..reqAlt)
+            end
+        end
+    end
+    local reqSPD=getFMSData("acarsREQSPEED")
+    if reqSPD~="--" then
+        reqData[i]={" REQUEST SPEED       ","."..reqSPD.."                     "}
+        i=i+1
+        msg=str_trim(msg.." SPEED M."..reqSPD)
+    end
+    
+    local reqHdg=getFMSData("acarsREQHDG")
+    if reqHdg~="---" then
+        reqData[i]={" REQUEST HEADING     ","."..reqHdg.."                     "}
+        i=i+1
+        msg=str_trim(msg.." HDG "..reqHdg)
+    end
+    local reqTrk=getFMSData("acarsREQTRK")
+    if reqTrk~="---" then
+        reqData[i]={" REQUEST TRACK       ","."..reqTrk.."                     "}
+        i=i+1
+        msg=str_trim(msg.." TRK "..reqTrk)
+    end
+    
+    local reqTo=getFMSData("acarsREQTO")
+    if reqTo~="-----" then
+        reqData[i]={" DIRECT TO           ",reqTo.."                   "}
+        i=i+1
+        msg=str_trim(msg.." DIRECT TO "..reqTo)
+    end
+    local reqDue=getFMSData("acarsREQDUE")
+    if reqDue~="----------------" then
+        reqData[i]={" DUE TO              ",reqDue.."                   "}
+        i=i+1
+        msg=str_trim(msg.." DUE TO "..reqDue)
+    end
+    reqData[i]={"/FREE TEXT              ","<                       "}
+    numPages=math.ceil(table.getn(reqData)/4)
+    local start=(pgNo-1)*4
+    lines={}
+    for i=1,4 do
+        local lID=start+i
+        if lID<=table.getn(reqData) then
+            lines[i] =reqData[lID][2]
+        else
+            lines[i] ="                        "
+        end
+        --print(lines[i])
+    end
+    --print("     VERIFY REQUEST     "..numPages)
+    --print(msg)
+    setFMSData("acarsMessage",msg)
+    if numPages<1 then numPages=1 end
+    if pgNo<numPages then
+        fmsFunctionsDefs["ATCREPORT"]["L5"]=nil
+        return{
+            "     VERIFY REQUEST     ",
+            "                        ",
+            lines[1],
+            "                        ",
+            lines[2],
+            "                        ",
+            lines[3],
+            "                        ",
+            lines[4],
+            "                        ",
+            "                        ",
+            "                        ",
+            "<REQUEST                "
+            }
+      else
+        fmsFunctionsDefs["ATCVERIFYREQUEST"]["R5"]={"setdata","sendarmedacarsrr"}
+            return{
+      
+      "     VERIFY REQUEST     ",
+      "                        ",	               
+      lines[1],
+      "                        ",
+      lines[2],
+      "                        ",
+      lines[3],
+      "                        ",
+      lines[4],
+      "                        ",
+      "                   SEND>",
+      "                        ",
+      "<REQUEST                "
+          }
     end
 end
 
 fmsPages["ATCVERIFYREQUEST"].getSmallPage=function(self,pgNo,fmsID)--dynamic pages need to be this way
-    if pgNo==1 then 
-    return{
-"                     1/2",      
-" AT                     ",
-"                        ",	               
-" REQUEST OFFSET         ",
-"    NM                  ",
-"/REQUEST CLIMB TO       ",
-"                        ",
-"/DUE TO                 ",
-"                        ",
-"/REQUEST                ",
-"                        ",
-"--------CONTINUED-------",
-"                        "
-    }
-    elseif pgNo==2 then
+    numPages=math.ceil(table.getn(reqData)/4)
+    local sendLine="                        "
+    if pgNo==numPages then
+        sendLine="                 REQUEST"
+    end
+    local start=(pgNo-1)*4
+    lines={}
+    for i=1,4 do
+        local lID=start+i
+        if lID<=table.getn(reqData) then
+            lines[i] =reqData[lID][1]
+        else
+            lines[i] ="                        "
+        end
+        print(lines[i])
+    end
       return{
-"                     2/2",      
-"/FREE TEXT              ",
-"                        ",	               
+"                    ".. pgNo.."/"..numPages,
+lines[1],
 "                        ",
+lines[2],
 "                        ",
+lines[3],
 "                        ",
+lines[4],
 "                        ",
-"                        ",
-"                        ",
-"                 REQUEST",
+sendLine,
 "                        ",
 "------------------------",
 "                        "
     }
-    end
+
 end
 fmsPages["ATCVERIFYREQUEST"].getNumPages=function(self)
-  return 2 
+    numPages=math.ceil(table.getn(reqData)/4)
+    if numPages<1 then numPages=1 end
+  return numPages 
 end
 
   
 fmsFunctionsDefs["ATCVERIFYREQUEST"]={}
+fmsFunctionsDefs["ATCVERIFYREQUEST"]["L6"]={"setpage","ATCREQUEST"}

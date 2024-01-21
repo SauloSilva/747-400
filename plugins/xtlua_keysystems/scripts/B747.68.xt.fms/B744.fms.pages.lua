@@ -2324,6 +2324,11 @@ function fmsFunctions.setdata(fmsO,value)
 		fmsFunctions["acarsSendATCMessage"](fmsO,ln,"N") --send message
 		setFMSData("acarsMessage","")
 		fmsFunctions["setpage_no"](fmsO,"VIEWDOWNACARS_1") --then go to the sent message page	
+	elseif value=="sendarmedacarsrr" then	
+		local ln=getFMSData("acarsMessage")
+		fmsFunctions["acarsSendATCMessage"](fmsO,ln,"Y") --send message
+		setFMSData("acarsMessage","")
+		fmsFunctions["setpage_no"](fmsO,"VIEWDOWNACARS_1") --then go to the sent message page
 	elseif value=="tafreq" then	
 		if acarsSystem.provider.loggedOn()~="ACCEPTED" then fmsO["notify"]="RE-LOGON TO ATC COMM" return end
 		fmsFunctions["acarsATCRequest"](fmsO,"REQUEST TAF")	--request metar
