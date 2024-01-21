@@ -40,4 +40,4 @@ end
   
 fmsFunctionsDefs["WHENCANWE"]={}
 fmsFunctionsDefs["WHENCANWE"]["L6"]={"setpage","ATCINDEX"}
-
+fmsFunctionsDefs["WHENCANWE"]["R6"]={"setpage","ATCVERIFYREQUEST"}
