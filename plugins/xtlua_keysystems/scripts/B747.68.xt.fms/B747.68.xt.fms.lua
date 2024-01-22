@@ -552,7 +552,6 @@ fmsModules={} --set later
 function defaultFMSData()
   return {
   acarsInitString="{}",
-  acarsWCWorREQ="WHEN CAN WE",
   acarsWCWCRZCLB=string.rep("-", 5),
   acarsWCWCLB=string.rep("-", 5),
   acarsWCWDES=string.rep("-", 5),

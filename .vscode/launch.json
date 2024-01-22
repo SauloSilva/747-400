@@ -8,7 +8,7 @@
             "type": "lua",
             "request": "launch",
             "name": "Debug",
-            "program": "${workspaceFolder}/plugins/xtlua/scripts/B747.05.xt.simconfig/test.lua"
+            "program": "${workspaceFolder}/plugins/xtlua_keysystems/scripts/B747.68.xt.fms/refonly/test.lua"
         }
     ]
 }

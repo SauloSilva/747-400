@@ -320,7 +320,7 @@ fmsPages["ATCVERIFYREQUEST"].getPage=function(self,pgNo,fmsID)--dynamic pages ne
     setFMSData("acarsMessage",msg)
     if numPages<1 then numPages=1 end
     if pgNo<numPages then
-        fmsFunctionsDefs["ATCREPORT"]["L5"]=nil
+        fmsFunctionsDefs["ATCVERIFYREQUEST"]["L5"]=nil
         return{
             "     VERIFY REQUEST     ",
             "                        ",

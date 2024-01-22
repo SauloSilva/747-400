@@ -2324,7 +2324,9 @@ function fmsFunctions.setdata(fmsO,value)
 		fmsFunctions["acarsSendATCMessage"](fmsO,ln,"N") --send message
 		setFMSData("acarsMessage","")
 		fmsFunctions["setpage_no"](fmsO,"VIEWDOWNACARS_1") --then go to the sent message page	
-	elseif value=="sendarmedacarsrr" then	
+	elseif value=="sendarmedacarsrr" then
+		if not(fmsFunctions.acarsDataReady(fmsO)) then return end	
+		if fmsModules["data"]["atc"]=="****" then fmsO["notify"]="NO LOGON" return end
 		local ln=getFMSData("acarsMessage")
 		fmsFunctions["acarsSendATCMessage"](fmsO,ln,"Y") --send message
 		setFMSData("acarsMessage","")
@@ -2467,7 +2469,7 @@ end
 function fmsFunctions.setacars(fmsO,value)
 	setFMSData("acarsMessage",value)
 	fmsO["inCustomFMC"]=true
-  	fmsO["targetPage"]="ATCVERIFYREQUEST"
+  	fmsO["targetPage"]="ATCVERIFYWCEREQUEST"
   	run_after_time(switchCustomMode, 0.5)
 end
 function fmsFunctions.clearreq(fmsO,value)

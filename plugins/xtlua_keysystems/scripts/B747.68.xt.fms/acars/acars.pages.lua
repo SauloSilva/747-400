@@ -1,3 +1,26 @@
+function convertToFMSLines(msg)
+  local retVal={}
+  local line=1
+  local start=1
+  local endI=string.len(msg)
+  while start<endI do
+    local cLine=string.sub(msg,start,start+24)
+    local index = string.find(cLine, " [^ ]*$")
+    if index~=nil and index > 10 then
+      cLine=string.sub(msg,start,start+index-1)
+      retVal[line]=cLine
+      line=line+1
+      start=start+index
+    else
+      retVal[line]=cLine
+      line=line+1
+      start=start+24
+    end
+  end
+  return retVal
+end
+
+
 fmsPages["ACARS"]=createPage("ACARS")
 fmsPages["ACARS"]["template"]={
 "    ACARS-MAIN MENU     ",
@@ -187,12 +210,22 @@ fmsPages["VIEWMISCACARS"].getSmallPage=function(self,pgNo,fmsID)
     local currentMessage=acarsSystem.getCurrentMessage(fmsID)
     acarsSystem.messages[currentMessage]["read"]=true
     local msg=acarsSystem.messages[currentMessage]
-    local start=(pgNo-1)*168
+   -- local start=(pgNo-1)*168
     local lLine="<RETURN                 "
     if string.find(msg["msg"], "@") then
       --print (msg["msg"].." requiresRespond")
       lLine="<RETURN           REPLY>"
       fmsFunctionsDefs["VIEWACARSMSG"]["R6"]={"respondmessage",currentMessage}
+    end
+    local msgLines=convertToFMSLines(msg["msg"])
+    local start=(pgNo-1)*7
+    local pageLines={}
+    for i=1,7 do
+      if start+i<=table.getn(msgLines) then
+        pageLines[i]=msgLines[start+i]
+      else
+        pageLines[i]="                        "
+      end
     end
     fmsPages["VIEWACARSMSG"]["template"]={
   
@@ -200,13 +233,13 @@ fmsPages["VIEWMISCACARS"].getSmallPage=function(self,pgNo,fmsID)
     "                        ",
     msg["title"],
     "                        ",
-    string.sub(msg["msg"],start+1,start+24),
-    string.sub(msg["msg"],start+25,start+48),
-    string.sub(msg["msg"],start+49,start+72),
-    string.sub(msg["msg"],start+73,start+96),
-    string.sub(msg["msg"],start+97,start+120),
-    string.sub(msg["msg"],start+121,start+144),
-    string.sub(msg["msg"],start+145,start+168),
+    pageLines[1],--string.sub(msg["msg"],start+1,start+24),
+    pageLines[2],--string.sub(msg["msg"],start+25,start+48),
+    pageLines[3],--string.sub(msg["msg"],start+49,start+72),
+    pageLines[4],--string.sub(msg["msg"],start+73,start+96),
+    pageLines[5],--string.sub(msg["msg"],start+97,start+120),
+    pageLines[6],--string.sub(msg["msg"],start+121,start+144),
+    pageLines[7],--string.sub(msg["msg"],start+145,start+168),
     "                        ",
     lLine
     }
