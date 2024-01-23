@@ -10,6 +10,8 @@ fmsPages["ATCLOGONSTATUS"].getPage=function(self,pgNo,fmsID)--dynamic pages need
     else
       fmsModules["data"]["atc"]="****"
     end
+    
+
     return{
 
 "    ATC LOGON/STATUS    ",
@@ -51,6 +53,7 @@ end
 fmsFunctionsDefs["ATCLOGONSTATUS"]={}
 fmsFunctionsDefs["ATCLOGONSTATUS"]["L6"]={"setpage","ATCINDEX"}
 fmsFunctionsDefs["ATCLOGONSTATUS"]["L1"]={"setdata","atc"}
+fmsFunctionsDefs["ATCLOGONSTATUS"]["L2"]={"setdata","fltno"}
 --[[
 fmsFunctionsDefs["ATCLOGONSTATUS"]["L1"]={"setpage",""}
 fmsFunctionsDefs["ATCLOGONSTATUS"]["L2"]={"setpage",""}

@@ -38,7 +38,7 @@ function fmsFunctions.initAcars(fmsO,value)
   run_after_time(switchCustomMode, 0.5)
 end
 function fmsFunctions.acarsDataReady(fmsO)
-  if getFMSData("fltno")=="*******" then fmsO["notify"]="FLT NO NOT SET" return false end
+  if getFMSData("fltno")=="--------" then fmsO["notify"]="FLT NO NOT SET" return false end
   if getFMSData("fltdep")=="****" then fmsO["notify"]="DEPARTURE NOT SET" return false end
   if getFMSData("fltdst")=="****" then fmsO["notify"]="DESTINATION NOT SET" return false end
   return true
