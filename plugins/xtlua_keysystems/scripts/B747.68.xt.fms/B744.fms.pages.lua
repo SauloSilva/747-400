@@ -230,6 +230,7 @@ dofile("activepages/B744.fms.pages.maintsimconfig.lua")
 dofile("activepages/B744.fms.pages.identpage.lua")
 dofile("activepages/atc/B744.fms.pages.atcindex.lua")
 dofile("activepages/atc/B744.fms.pages.atclogonstatus.lua")
+dofile("activepages/atc/B744.fms.pages.emergency.lua")
 dofile("activepages/atc/B744.fms.pages.atcreport.lua")
 dofile("activepages/atc/B744.fms.pages.posreport.lua")
 dofile("activepages/atc/B744.fms.pages.request.lua")
@@ -2315,11 +2316,20 @@ function fmsFunctions.setdata(fmsO,value)
 		--setFMSData("atc",fmsModules.data["fltdst"])
 		
 		fmsFunctions["acarsLogonATC"](fmsO,fmsModules.data["fltdst"])	
+	elseif value=="acarsEMERSOB" and string.len(fmsO["scratchpad"]) > 0 then
+		tVal=tonumber(fmsO["scratchpad"])
+		if tVal==nil or tVal<1 or tVal>450 then
+			fmsO["notify"]="INVALID ENTRY"
+		else
+			setFMSData("acarsEMERSOB",fmsO["scratchpad"])
+		end
 	elseif value=="metarreq" then
 		if acarsSystem.provider.loggedOn()~="ACCEPTED" then fmsO["notify"]="RE-LOGON TO ATC COMM" return end
 		fmsFunctions["acarsATCRequest"](fmsO,"REQUEST METAR") --request metar	
 		fmsFunctions["setpage_no"](fmsO,"VIEWUPACARS_1") --then go to the message page
-	elseif value=="sendarmedacarsnr" then	
+	elseif value=="sendarmedacarsnr" then
+		if not(fmsFunctions.acarsDataReady(fmsO)) then return end	
+		if fmsModules["data"]["atc"]=="****" then fmsO["notify"]="NO LOGON" return end	
 		local ln=getFMSData("acarsMessage")
 		fmsFunctions["acarsSendATCMessage"](fmsO,ln,"N") --send message
 		setFMSData("acarsMessage","")
@@ -2481,6 +2491,18 @@ function fmsFunctions.clearreq(fmsO,value)
 	setFMSData("acarsREQAT","")
 	setFMSData("acarsREQTO","")
 	setFMSData("acarsREQDUE","")
+	setFMSData("acarsMessage","")
+end
+function fmsFunctions.setmayday(fmsO,value)
+	setFMSData("acarsEMERMSG",value)
+	fmsO["inCustomFMC"]=true
+  	fmsO["targetPage"]="ATCVERIFYEMERGENCY"
+  	run_after_time(switchCustomMode, 0.5)
+end
+function fmsFunctions.clearemergency(fmsO,value)
+	setFMSData("acarsEMEROFFSET","")
+	setFMSData("acarsEMERMSG","")
+	setFMSData("acarsEMERDESC","")
 	setFMSData("acarsMessage","")
 end
 function fmsFunctions.clearwce(fmsO,value)

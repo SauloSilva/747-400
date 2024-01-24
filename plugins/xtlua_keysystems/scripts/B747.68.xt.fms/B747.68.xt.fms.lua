@@ -552,6 +552,10 @@ fmsModules={} --set later
 function defaultFMSData()
   return {
   acarsInitString="{}",
+  acarsEMERMSG="MAYDAY MAYDAY MAYDAY",
+  acarsEMERSOB=string.rep("-", 3),
+  acarsEMEROFFSET=string.rep("-", 3),
+  acarsEMERDESC="-----",
   acarsWCWCRZCLB=string.rep("-", 5),
   acarsWCWCLB=string.rep("-", 5),
   acarsWCWDES=string.rep("-", 5),
