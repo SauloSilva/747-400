@@ -752,6 +752,7 @@ function ap_director_pitch(pitchMode)
         directorSampleRate=0.1
         retval=B747_interpolate_value(last_simDR_AHARS_pitch_heading_deg_pilot,simDR_autopilot_TOGA_pitch_deg,2,12,5)
         last_simDR_AHARS_pitch_heading_deg_pilot=retval
+        ap_director_pitch_retVal(pitchMode,retval) --make sure pitch retval is fresh
         return retval--ap_director_pitch_retVal(pitchMode,retval)
     --elseif pitchMode==2 then
      --   directorSampleRate=0.5
