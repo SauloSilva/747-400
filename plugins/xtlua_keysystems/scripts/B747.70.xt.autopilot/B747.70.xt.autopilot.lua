@@ -1816,8 +1816,8 @@ function B747_ap_ias_mach_mode()
 			end
 		end
 	end
-
-	if simDR_airspeed_mach > 0.70 and B747DR_switchingIASMode == 0 and B747DR_ap_vnav_state == 0 then
+    --D6-30151-481 4.10.4/5
+	if simDR_airspeed_mach > 0.84 and B747DR_switchingIASMode == 0 and B747DR_ap_vnav_state == 0 then
 		if simDR_vvi_fpm_pilot > 250.0 then
 			if ap_simDR_autopilot_airspeed_is_mach == 0 then
 				B747DR_lastap_dial_airspeed = simDR_autopilot_airspeed_kts
