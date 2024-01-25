@@ -540,7 +540,7 @@ function ap_director_pitch(pitchMode)
             print("ap_director_pitch for FLCH "..B747DR_ap_flightPhase)
         end
         last_simDR_ind_airspeed_kts_pilot=simDR_ind_airspeed_kts_pilot
-        if (math.abs(simDR_autopilot_airspeed_kts-simDR_ind_airspeed_kts_pilot)>5) and math.abs(simDR_vvi_fpm_pilot)>400 then
+        if (math.abs(simDR_autopilot_airspeed_kts-simDR_ind_airspeed_kts_pilot)>5) and math.abs(simDR_vvi_fpm_pilot)>100 then
             directorSampleRate=0.3
         else
             directorSampleRate=0.5
@@ -548,7 +548,7 @@ function ap_director_pitch(pitchMode)
 
         local rog=0.01+math.abs(0.5*speed_delta)
         if rog>0.3 then rog=0.3 end
-        if simDR_pressureAlt1>29000 then
+        if simDR_pressureAlt1>29000 or simDR_ind_airspeed_kts_pilot<simDR_autopilot_airspeed_kts then
             rog=rog/3
         end
         local min_speedDelta=0
