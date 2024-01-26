@@ -119,6 +119,7 @@ simDR_startup_running           = find_dataref("sim/operation/prefs/startup_runn
 simDR_all_wheels_on_ground      = find_dataref("sim/flightmodel/failures/onground_any")
 simDR_reallyall_wheels_on_ground      = find_dataref("sim/flightmodel/failures/onground_all")
 simDR_thrust_rev_deploy_ratio   = find_dataref("sim/flightmodel2/engines/thrust_reverser_deploy_ratio")
+simDR_autoReverse=find_dataref("sim/cockpit2/switches/auto_reverse_on")
 B747DR_speedbrake_lever     	= find_dataref("laminar/B747/flt_ctrls/speedbrake_lever")
 B747DR_reverser_lockout            = deferred_dataref("laminar/B747/engines/reverser_lockout", "number")
 --simDR_autothrottle_on           = find_dataref("sim/cockpit2/autopilot/autothrottle_on")
@@ -202,7 +203,7 @@ B747DR_ap_autoland            	= find_dataref("laminar/B747/autopilot/autoland")
 
 B747DR_engineType					= deferred_dataref("laminar/B747/engines/type", "number")
 
-
+B747DR_ap_FMA_autothrottle_mode     = deferred_dataref("laminar/B747/autopilot/FMA/autothrottle_mode", "number")
 
 --*************************************************************************************--
 --** 				               FIND X-PLANE COMMANDS                   	    	 **--
@@ -475,6 +476,8 @@ function B747_thrust_rev_hold_max_all_CMDhandler(phase, duration)
     callEngineReverse[3]=-1
     B747DR_engine_TOGA_mode = 0
     B747DR_autothrottle_active=0
+    B747DR_ap_FMA_autothrottle_mode=0
+    B747DR_autothrottle_fail = 1
     B747DR_ap_thrust_mode = 0
 	B747DR_ap_vnav_state = 0
 	B747DR_ap_inVNAVdescent = 0
@@ -2073,7 +2076,7 @@ function aircraft_load() end
 function aircraft_unload() end
 
 function flight_start() 
-
+    simDR_autoReverse=0
     B747_flight_start_engines()
 
 end

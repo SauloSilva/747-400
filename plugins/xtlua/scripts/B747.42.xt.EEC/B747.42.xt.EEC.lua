@@ -885,12 +885,15 @@ function spd_throttle()
 
             spd_target_throttle= (spd_target_throttle-rog)
     end
-	if spd_target_throttle<0 then
+	if simDR_radarAlt1<25.1 then
+		B747DR_ap_FMA_autothrottle_mode=2
+		spd_target_throttle=0
+	elseif spd_target_throttle<0  then
 		spd_target_throttle=0
 	elseif 	spd_target_throttle>1 then
 		spd_target_throttle=1
 	end
-	--print("THRO SPD rog="..rog.." min_speedDelta="..min_speedDelta.. " max_speedDelta="..max_speedDelta.. " speed_delta="..speed_delta .." spd_target_throttle="..spd_target_throttle)
+	--print("THRO SPD simDR_radarAlt1="..simDR_radarAlt1.." rog="..rog.." min_speedDelta="..min_speedDelta.. " max_speedDelta="..max_speedDelta.. " speed_delta="..speed_delta .." spd_target_throttle="..spd_target_throttle)
 	--[[ ]]--
 	for i = 0, 3 do
 		simDR_engn_thro[i]=B747_interpolate_value(simDR_engn_thro[i],spd_target_throttle,0,1.00,2)
@@ -903,7 +906,7 @@ function ecc_throttle()
 	    local input=1
 		local target=1
 		local minSafeSpeed = math.max(B747DR_airspeed_Vmc + 10,simDR_autopilot_airspeed_kts-5)
-		if simDR_radarAlt1<25.1 then minSafeSpeed=0 end
+		--if simDR_radarAlt1<25.1 then minSafeSpeed=0 end
 		local previous_pitchTime=0
 
 		time=simDRTime-previous_throttleTime
@@ -941,11 +944,12 @@ function ecc_throttle()
 	elseif target< input-1 then
 		spd_target_throttle= (spd_target_throttle-rog)
 	end
-	if spd_target_throttle<0 then
+	if spd_target_throttle<0 or B747DR_ap_FMA_autothrottle_mode==2 then
 		spd_target_throttle=0
 	elseif 	spd_target_throttle>1 then
 		spd_target_throttle=1
 	end
+
 	local refreshThro=0
 	if B747DR_ap_FMA_autothrottle_mode>1 --AT active
 		then
@@ -963,12 +967,12 @@ local previous_altitude = 0
 function throttle_management()
 
 	--Get FMC data for CRZ ALT
-	if string.len(B747DR_FMSdata) > 2 then
+	--[[if string.len(B747DR_FMSdata) > 2 then
 		fms_data["data"] = json.decode(B747DR_FMSdata)
 	else
 		return
 		--fms_data["data"].crzalt = B747DR_altitude_dial
-	end
+	end]]--
 
 	--Disconnect A/T if any of the EEC buttons move from NORMAL to ALTERNATE
 	if (B747DR_button_switch_position[7] == 0 or B747DR_button_switch_position[8] == 0 or B747DR_button_switch_position[9] == 0 or B747DR_button_switch_position[10] == 0) and EEC_status == 0 then
@@ -980,7 +984,7 @@ function throttle_management()
 	end
 	
 	
-	if string.match(fms_data["data"].crzalt, "FL") then
+	--[[if string.match(fms_data["data"].crzalt, "FL") then
 		fmc_alt = tonumber(string.sub(fms_data["data"].crzalt, 3,-1)) * 100
 	elseif string.match(fms_data["data"].crzalt, "*") then
 		fmc_alt = 0
@@ -1038,7 +1042,7 @@ function throttle_management()
 		end
 
 		
-	end
+	end]]--
 
 	ecc_mode_set()
 
@@ -1105,7 +1109,8 @@ function throttle_management()
 			print("SPEED MODE")
 			print("Override Throttles = ", simDR_override_throttles)
 		end
-	elseif B747DR_autothrottle_fail == 1 then
+	end
+	if B747DR_autothrottle_fail == 1 then
 		--Autothrottle has been disabled for some reason
 		B747DR_autothrottle_active = 0
 	end	
