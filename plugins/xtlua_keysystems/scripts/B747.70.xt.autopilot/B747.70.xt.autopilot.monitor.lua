@@ -41,15 +41,7 @@ function VNAV_NEXT_ALT(numAPengaged,fms)
           targetIndex=i
           break 
         end
-        if fms[i][9]>0 and fms[i][2] ~= 1 and numAPengaged>0 then 
-            --if (fms[i][9]>simDR_pressureAlt1+1000 or fms[i][9]<=simDR_pressureAlt1) then
-            targetAlt=fms[i][9]
-            --else
-            --    targetAlt=simDR_autopilot_altitude_ft
-            --end
-          targetIndex=i
-          break 
-        end
+        --if fms[i][9]>0 and fms[i][2] ~= 1 and numAPengaged>0 then targetAlt=fms[i][9] targetIndex=i break end
     elseif began==true then
         local nextDistance=getDistance(simDR_latitude,simDR_longitude,fms[i][5],fms[i][6])
         if nextDistance>dist_to_TOD and dist_to_TOD>0 and B747DR_ap_inVNAVdescent==0 and B747BR_cruiseAlt>0 then
@@ -60,8 +52,7 @@ function VNAV_NEXT_ALT(numAPengaged,fms)
         if B747BR_totalDistance>0 and dist_to_TOD>0 and B747DR_ap_inVNAVdescent==0 and (nextDistance)>dist_to_TOD then 
           break 
         end
-        
-        if fms[i][9]>0 and fms[i][2] ~= 1 then targetAlt=fms[i][9] targetIndex=i break end
+        --if fms[i][9]>0 and fms[i][2] ~= 1 then targetAlt=fms[i][9] targetIndex=i break end
       end
     end
     B747DR_fmstargetIndex=targetIndex
