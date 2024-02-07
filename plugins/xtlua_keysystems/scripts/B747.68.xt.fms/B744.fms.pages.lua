@@ -1061,15 +1061,15 @@ function fmsFunctions.setdata(fmsO,value)
     setFMSData("fltdate",os.date("%Y%m%d"))
   elseif value=="crzalt" then
 
-    --[[simCMD_FMS_key[fmsO.id]["fpln"]:once()--make sure we arent on the vnav page
+    simCMD_FMS_key[fmsO.id]["fpln"]:once()--make sure we arent on the vnav page
     simCMD_FMS_key[fmsO.id]["clb"]:once()--go to the vnav page
     simCMD_FMS_key[fmsO.id]["next"]:once() --go to the vnav page 2
 
     fmsFunctions["custom2fmc"](fmsO,"R1")
     updateFrom=fmsO.id
     local toGet=B747DR_srcfms[updateFrom][3] --make sure we update it
-    run_after_time(updateCRZ,0.5)]]--
-	if string.len(fmsO["scratchpad"])>0 then
+    run_after_time(updateCRZ,0.5)
+	--[[if string.len(fmsO["scratchpad"])>0 then
 		local alt=validAlt(fmsO["scratchpad"])
 		if alt~=nil then 
 			B747BR_cruiseAlt=alt 
@@ -1081,7 +1081,7 @@ function fmsFunctions.setdata(fmsO,value)
 	else
 		fmsModules:setData("crzalt","")
 		B747BR_cruiseAlt=0
-	end
+	end]]--
   elseif value=="irspos" then
 	if string.len(fmsO["scratchpad"])>10 then
 		print("set irs pos")
