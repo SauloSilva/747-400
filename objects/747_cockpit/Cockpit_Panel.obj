@@ -31818,17 +31818,17 @@ ANIM_begin
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.0965    2.8048    4.7481	  -0.0965    2.8048    4.7481	0 0	no_ref
-	ANIM_rotate	  -0.0000   -0.3746   -0.9272	  0.00  90.00	0 0.3333	sim/cockpit2/switches/instrument_brightness_ratio[9]
+	ANIM_rotate	  -0.0000   -0.3746   -0.9272	  0.00  90.00	0 0.3333	laminar/B747/switches/instrument_brightness_ratio[9]
 	TRIS	45060 1890
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.0659    2.8048    4.7481	  -0.0659    2.8048    4.7481	0 0	no_ref
-	ANIM_rotate	   0.0000   -0.3746   -0.9272	  0.00  90.00	0 0.3333	sim/cockpit2/switches/instrument_brightness_ratio[10]
+	ANIM_rotate	   0.0000   -0.3746   -0.9272	  0.00  90.00	0 0.3333	laminar/B747/switches/instrument_brightness_ratio[10]
 	TRIS	46950 1890
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.0659    2.8093    4.7593	  -0.0659    2.8093    4.7593	0 0	no_ref
-	ANIM_rotate	   0.0000   -0.3746   -0.9272	  0.00  90.00	0 0.3333	sim/cockpit2/switches/instrument_brightness_ratio[11]
+	ANIM_rotate	   0.0000   -0.3746   -0.9272	  0.00  90.00	0 0.3333	laminar/B747/switches/instrument_brightness_ratio[11]
 	TRIS	48840 1890
 ANIM_end
 ANIM_begin
@@ -32065,20 +32065,21 @@ ANIM_begin
 	ANIM_end
 ANIM_end
 TRIS	70254 6
-ATTR_light_level 0 1 B747DR_annun_brightness_ratio[79]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[79] 2000
 TRIS	70260 6
+
 ANIM_begin
 	ANIM_trans	   0.3059    2.5542    4.8542	   0.3059    2.5523    4.8495	0 1	laminar/B747/button_switch/position[3]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[2]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[2] 2000
 	TRIS	70266 6
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[3]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[3] 2000
 	TRIS	70272 6
 ANIM_end
-ATTR_light_level 0 1 sim/cockpit2/electrical/instrument_brightness_ratio_manual[6]
+ATTR_light_level 0 1 sim/cockpit2/electrical/instrument_brightness_ratio_manual[6] 2000
 TRIS	70278 8028
 ANIM_begin
 	ANIM_trans	  -0.1715    2.6786    4.7957	  -0.1715    2.6786    4.7957	0 0	no_ref
-	ANIM_rotate_begin	   0.0000   -0.3746   -0.9272	sim/cockpit2/gauges/indicators/airspeed_kts_pilot
+	ANIM_rotate_begin	   0.0000   -0.3746   -0.9272	laminar/B747/gauges/indicators/airspeed_kts_pilot
 		ANIM_rotate_key	0	  0.00
 		ANIM_rotate_key	60.0	  9.78
 		ANIM_rotate_key	80.0	 29.89
@@ -32418,7 +32419,7 @@ ANIM_begin
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.3782    2.5467    4.8508	  -0.3782    2.5467    4.8508	0 0	no_ref
-	ANIM_rotate_begin	  -0.0000   -0.3746   -0.9272	sim/cockpit2/hydraulics/indicators/hydraulic_pressure_1_2_4
+	ANIM_rotate_begin	  -0.0000   -0.3746   -0.9272	laminar/B747/hydraulics/indicators/hydraulic_pressure_1_2_4
 		ANIM_rotate_key	0	  0.00
 		ANIM_rotate_key	1000.0	 60.29
 		ANIM_rotate_key	2000.0	120.65
@@ -32453,12 +32454,12 @@ ANIM_begin
 	ANIM_rotate	  -0.0000   -0.3746   -0.9272	  0.00   1.00	0 1	laminar/B747/rmi_left/captain/bearing
 	TRIS	88560 18
 ANIM_end
-ATTR_light_level 0 1 sim/cockpit2/electrical/instrument_brightness_ratio_manual[8]
+ATTR_light_level 0 1 sim/cockpit2/electrical/instrument_brightness_ratio_manual[8] 2000
 TRIS	88578 3471
 ANIM_begin
 	ANIM_trans	   0.6668    2.7208    4.7790	   0.6668    2.7208    4.7790	0 0	no_ref
 	ANIM_rotate	  -0.0000   -0.3746   -0.9272	  0.00   6.00	0 1	laminar/B747/fltInst/fo/clock_chr_seconds
 	TRIS	92049 39
 ANIM_end
-ATTR_light_level 0 1 sim/cockpit2/electrical/panel_brightness_ratio_manual[2]
+ATTR_light_level 0 1 sim/cockpit2/electrical/panel_brightness_ratio_manual[2] 300
 TRIS	92088 36

@@ -44366,9 +44366,9 @@ IDX10	32939 32951 32939 32937 32953 32951 32937 32953 32937 32935
 
 # Image: //objects/747_cockpit/Cockpit_OH.png
 TRIS	0 101724
-ATTR_light_level 0 1 laminar/B747/light/spill/ratio/aisle_stand[3]
+ATTR_light_level 0 1 laminar/B747/light/spill/ratio/aisle_stand[3] 2000
 TRIS	101724 6
-ATTR_light_level 0 1 sim/cockpit2/electrical/instrument_brightness_ratio_manual[7]
+ATTR_light_level 0 1 sim/cockpit2/electrical/instrument_brightness_ratio_manual[7] 2000
 TRIS	101730 10566
 ANIM_begin
 	ANIM_trans	  -0.0101    3.5957    5.9928	  -0.0101    3.5831    5.9813	0 1	laminar/B747/fire/snoke_evac/handle
