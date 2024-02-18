@@ -748,31 +748,24 @@ function B747_prop_mode()
         if callEngineReverse[i]==0 then 
             simDR_prop_mode[i] = 1
          --   print("do clear prop mode "..i.." with "..B747DR_display_N1[i])
-        elseif B747DR_speedbrake_lever<LastSpeedBrake and callEngineReverse[i]==1 and B747DR_reverser_lockout == 0 then
-            simDR_prop_mode[i] = 1
-            callEngineReverse[i]=-1
+        --elseif B747DR_speedbrake_lever<LastSpeedBrake and callEngineReverse[i]==1 and B747DR_reverser_lockout == 0 then
+        --    simDR_prop_mode[i] = 1
+        --    callEngineReverse[i]=-1
           --  print("alt do clear prop mode "..i.." with "..B747DR_display_N1[i])
-        elseif callEngineReverse[i]==1 and B747DR_reverser_lockout == 0 and simDR_engine_throttle_jet_all<=0 then
+        elseif (callEngineReverse[i]==1 and B747DR_reverser_lockout == 0 and simDR_engine_throttle_jet_all<=0) or simDR_thrust_rev_deploy_ratio[i]>0.01 then
             simDR_prop_mode[i] = 3
+            B747DR_engine_TOGA_mode = 0
+            B747DR_autothrottle_active=0
+            B747DR_ap_FMA_autothrottle_mode=0
+            B747DR_autothrottle_fail = 1
+            B747DR_ap_thrust_mode = 0
+            B747DR_ap_vnav_state = 0
+            B747DR_ap_inVNAVdescent = 0
+            B747DR_ap_flightPhase = 2
+            B747DR_autopilot_TOGA_status=0 
         end
     end 
     -- AIRCRAFT IS "ON THE GROUND" 
-	if B747DR_reverser_lockout == 1 and B747_hold_rev_on_all<1 then		
-	    
-	    -- FORCE PROP MODE TO NORMAL MODE TO PREVENT USER 
-	    -- ENGAGING "REVERSE MODE WHILE IN FLIGHT
-
-	  	for i = 0, 3 do
-		    --[[simDR_prop_mode[0] = 1
-		    simDR_prop_mode[1] = 1
-		    simDR_prop_mode[2] = 1
-		    simDR_prop_mode[3] = 1	]]
-            if (simDR_engine_throttle_jet[i]<0 and callEngineReverse[i]~=0) or  callEngineReverse[i]==1 then
-                simDR_engine_throttle_jet[i]=B747_animate_value(simDR_engine_throttle_jet[i],0.0,-1,1,1)
-            end
-		end 		
-		
-	end
 	LastSpeedBrake=B747DR_speedbrake_lever
 end	
 
