@@ -90,6 +90,7 @@ local B747_button_switch_cover_CMDhandler = {}
 --*************************************************************************************--
 simDR_engine_throttle_rev       = find_dataref("sim/cockpit2/engine/actuators/throttle_jet_rev_ratio")
 simDR_engn_thro			= find_dataref("sim/flightmodel/engine/ENGN_thro")
+simDR_prop_mode                 = find_dataref("sim/cockpit2/engine/actuators/prop_mode")
 B747DR_throttle						= deferred_dataref("laminar/B747/engine/throttle", "array[4]")
 B747DR_throttle_reversor			= deferred_dataref("laminar/B747/engine/throttle_reversor", "array[4]")
 simDR_startup_running               	= find_dataref("sim/operation/prefs/startup_running")
@@ -2350,7 +2351,7 @@ function B747_throttle_animation()
     local pinlever=false
     local refreshThro=0
     for i=0,3,1 do
-        if simDR_engine_throttle_rev[i]<0 or B747DR_throttle_reversor[i]<0 then
+        if simDR_engine_throttle_rev[i]<-0 or B747DR_throttle_reversor[i]<-0 and simDR_prop_mode[i]==3 then
             pinlever=true
         end
         refreshThro=simDR_engn_thro[i]
