@@ -590,6 +590,37 @@ function B747_ap_switch_vnavspeed_mode_CMDhandler(phase, duration)
 		B747_ap_button_switch_position_target[15] = 0 -- SET THE SPEED KNOB ANIMATION TO "OUT"
 	end
 end
+
+function update_new_crzalt()
+	print("doing set new cruise to "..B747BR_cruiseAlt)
+	if simDR_autopilot_alt_hold_status==2 and B747DR_ap_vnav_state>1 then
+		B747DR_mcp_hold = 0
+		simDR_autopilot_alt_hold_status=0
+		if B747DR_autopilot_altitude_ft > simDR_pressureAlt1 then
+			B747DR_ap_flightPhase = 1
+		else
+			B747DR_ap_flightPhase = 3
+		end
+		B747DR_mcp_hold_pressed = simDRTime
+		setVNAVState("vnavcalcwithTargetAlt", 0)
+		if getVNAVState("manualVNAVspd") == 0 then
+			setVNAVState("gotVNAVSpeed", false)
+			B747_vnav_speed()
+		end
+		
+		if B747DR_ap_vnav_state == 2 then
+			B747DR_ap_vnav_state = 3 --resume
+		end
+		if B747BR_totalDistance - B747BR_tod <= 50 then
+			B747DR_ap_inVNAVdescent = 1
+			B747DR_ap_flightPhase = 3
+			setDescent(true)
+			print("Begin descent")
+			getDescentTarget()
+		end
+	end
+end
+
 function B747_ap_switch_vnavalt_mode_CMDhandler(phase, duration)
 	if phase == 0 then
 		B747CMD_fdr_log_altmod:once()
@@ -601,6 +632,18 @@ function B747_ap_switch_vnavalt_mode_CMDhandler(phase, duration)
 		end
 		
 		B747_ap_button_switch_position_target[16] = 1 -- SET THE ALT KNOB ANIMATION TO "IN"
+
+		if B747DR_autopilot_altitude_ft > B747BR_cruiseAlt then
+			B747BR_cruiseAlt = B747DR_autopilot_altitude_ft
+			print("set new cruise to "..B747BR_cruiseAlt)
+			if is_timer_scheduled(update_new_crzalt) then
+				stop_timer(update_new_crzalt)
+			end
+			run_after_time(update_new_crzalt, 2.0)
+			B747DR_mcp_hold_pressed = simDRTime
+			return
+		end
+
 		if simDR_autopilot_alt_hold_status==2 and B747DR_ap_vnav_state>1 then
 			B747DR_mcp_hold = 0
 			simDR_autopilot_alt_hold_status=0

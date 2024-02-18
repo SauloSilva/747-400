@@ -589,10 +589,37 @@ function updateCRZ()
   local alt=validAlt(setVal)
   if alt~=nil then 
 	B747BR_cruiseAlt=alt 
-	lastCrz=alt
+	lastCrz=B747BR_cruiseAlt
   end
   fmsModules:setData("crzalt",setVal)
 end
+
+function monitorCRZALT()
+	local thisCRZ=B747BR_cruiseAlt
+	if not(thisCRZ==lastCrz) then
+		print("update because "..thisCRZ.."!="..lastCrz)
+		local fmsO=fmsL
+		simCMD_FMS_key[fmsO.id]["fpln"]:once()--make sure we arent on the vnav page
+		simCMD_FMS_key[fmsO.id]["clb"]:once()--go to the vnav page
+		simCMD_FMS_key[fmsO.id]["next"]:once() --go to the vnav page 2
+		local newcrzalt=""..B747BR_cruiseAlt
+		for c in string.gmatch(newcrzalt,".") do
+			local v=c
+		  	if v=="/" then v="slash" end
+			simCMD_FMS_key[fmsO["id"]][v]:once()
+		end
+		simCMD_FMS_key[fmsO["id"]]["R1"]:once()
+		updateFrom=fmsO.id
+		local toGet=B747DR_srcfms[updateFrom][3] --make sure we update it
+		if is_timer_scheduled(updateCRZ) == true then
+			stop_timer(updateCRZ)                                -- KILL THE TIMER
+		end
+		run_after_time(updateCRZ,2.0)
+		lastCrz=B747BR_cruiseAlt
+	end
+	
+end
+
 function fmsFunctions.getdata(fmsO,value) 
   local data=""
   if value=="gpspos" then

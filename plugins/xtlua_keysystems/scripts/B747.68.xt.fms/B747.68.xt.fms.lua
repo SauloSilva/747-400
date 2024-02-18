@@ -1209,8 +1209,8 @@ function after_physics()
 	nd_speed_wind_display()
 
 	--Ensure simConfig data is fresh
-	
-
+	--update FMS with any cruise altitude changes
+	monitorCRZALT()
 		
 	--Ensure DR's are updated in time for use in calc_CGMAC()
 	local payload_weight = B747DR_payload_weight
