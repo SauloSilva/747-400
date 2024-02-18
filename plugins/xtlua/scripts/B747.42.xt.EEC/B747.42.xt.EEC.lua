@@ -223,6 +223,7 @@ simDR_rpm					= find_dataref("sim/cockpit2/engine/indicators/engine_speed_rpm")
 simDR_reverser_on			= find_dataref("sim/cockpit2/annunciators/reverser_on")
 simDR_reverser_deploy_ratio = find_dataref("sim/flightmodel2/engines/thrust_reverser_deploy_ratio")
 simDR_reverser_max			= find_dataref("sim/aircraft/engine/acf_throtmax_REV")
+simDR_prop_mode                 = find_dataref("sim/cockpit2/engine/actuators/prop_mode")
 simDR_engine_running		= find_dataref("sim/flightmodel/engine/ENGN_running")
 simDR_compressor_area		= find_dataref("sim/aircraft/engine/acf_face_jet")
 B747DR_autothrottle_active	= find_dataref("laminar/B747/engines/autothrottle_active")
@@ -319,6 +320,8 @@ B747DR_toderate						= deferred_dataref("laminar/B747/engine/derate/TO","number"
 B747DR_clbderate					= deferred_dataref("laminar/B747/engine/derate/CLB","number")
 B747DR_ref_line_magenta				= deferred_dataref("laminar/B747/engines/display_ref_line_magenta", "number")
 B747DR_throttle_resolver_angle 		= deferred_dataref("laminar/B747/engines/TRA", "array[4]")
+B747DR_throttle						= deferred_dataref("laminar/B747/engine/throttle", "array[4]")
+B747DR_throttle_reversor			= deferred_dataref("laminar/B747/engine/throttle_reversor", "array[4]")
 B747DR_engineType					= deferred_dataref("laminar/B747/engines/type", "number")
 
 -- Holds all SimConfig options
@@ -789,8 +792,15 @@ function ecc_spd()
 			if eccPid[i].output~=nil then
 				local tValue=round(eccPid[i].output*100)/100
 				if simDR_engine_running[i] ==1 then
-				--if B747DR_ap_FMA_autothrottle_mode==3 then diffSpeed=15 end
-					simDR_engn_thro_use[i]=B747_interpolate_value(simDR_engn_thro_use[i],eccPid[i].output,0,1.1,diffSpeed)
+					if simDR_prop_mode[i]==1 then
+						simDR_engn_thro_use[i]=B747_interpolate_value(simDR_engn_thro_use[i],eccPid[i].output,0,1.1,diffSpeed)
+					else
+						if simDR_reverser_deploy_ratio[i] >0.98 then
+							simDR_engn_thro_use[i]=B747DR_throttle_reversor[i]*-1
+						else
+							simDR_engn_thro_use[i]=0
+						end
+					end
 				else
 					simDR_engn_thro_use[i]=0
 				end
@@ -895,8 +905,10 @@ function spd_throttle()
 	end
 	--print("THRO SPD simDR_radarAlt1="..simDR_radarAlt1.." rog="..rog.." min_speedDelta="..min_speedDelta.. " max_speedDelta="..max_speedDelta.. " speed_delta="..speed_delta .." spd_target_throttle="..spd_target_throttle)
 	--[[ ]]--
+
 	for i = 0, 3 do
-		simDR_engn_thro[i]=B747_interpolate_value(simDR_engn_thro[i],spd_target_throttle,0,1.00,2)
+		--simDR_engn_thro[i]=B747_interpolate_value(simDR_engn_thro[i],spd_target_throttle,0,1.00,2)
+		B747DR_throttle[i]=B747_interpolate_value(B747DR_throttle[i],spd_target_throttle,0,1.00,2)
 	end
 	
 end
@@ -954,11 +966,14 @@ function ecc_throttle()
 	if B747DR_ap_FMA_autothrottle_mode>1 --AT active
 		then
 		for i = 0, 3 do
-			simDR_engn_thro[i]=B747_interpolate_value(simDR_engn_thro[i],spd_target_throttle,0,1.00,2)
+			--simDR_engn_thro[i]=B747_interpolate_value(simDR_engn_thro[i],spd_target_throttle,0,1.00,2)
+			B747DR_throttle[i]=B747_interpolate_value(B747DR_throttle[i],spd_target_throttle,0,1.00,2)
 		end
 	else
+		--shouldn't get here!, done in throttle_management()
 		for i = 0, 3 do
-			refreshThro=simDR_engn_thro[i]
+			--refreshThro=simDR_engn_thro[i]
+			B747DR_throttle[i]=B747_interpolate_value(B747DR_throttle[i],simDR_engn_thro[i],0,1.00,2)
 		end
 	end
 
@@ -984,65 +999,6 @@ function throttle_management()
 	end
 	
 	
-	--[[if string.match(fms_data["data"].crzalt, "FL") then
-		fmc_alt = tonumber(string.sub(fms_data["data"].crzalt, 3,-1)) * 100
-	elseif string.match(fms_data["data"].crzalt, "*") then
-		fmc_alt = 0
-	else
-		fmc_alt = tonumber(fms_data["data"].crzalt)
-	end
-	if fmc_alt==nil then
-		fmc_alt=0
-	end
-	if B747DR_log_level >= 1 then
-		print("EEC Status = ", EEC_status)
-		print("FMC CRZ ALT = ", fms_data["data"].crzalt)
-		print("temp FMC ALT = ", fmc_alt)
-	end
-
-	--Set EICAS Thrust Limit Mode
-	if B747DR_ap_autothrottle_armed == 1 then
-		--Take-off
-		if B747DR_engine_TOGA_mode > 0 and B747DR_engine_TOGA_mode <= 1 and B747DR_ap_FMA_autothrottle_mode==5 then
-			--B747DR_ref_thr_limit_mode = "TO"
-			B747DR_ap_flightPhase=0
-			--Initially set previous_altitude to the FMC cruise altitude
-			previous_altitude = fmc_alt
-
-			--Spool-up the engines for TO
-			if simConfigData["data"].PLANE.thrust_ref == "N1" then
-				if B747DR_display_N1[0] < B747DR_display_N1_ref[0] or B747DR_display_N1[1] < B747DR_display_N1_ref[1]
-					or B747DR_display_N1[2] < B747DR_display_N1_ref[2] or B747DR_display_N1[3] < B747DR_display_N1_ref[3] then
-					--print("TOGA Engaged - Waiting for spool-up.....")
-					--simCMD_ThrottleUp:once()
-					if B747DR_autothrottle_active ~= 1 then
-						--simCMD_autopilot_autothrottle_off:once()
-						B747DR_autothrottle_active=1
-					end
-					--return
-				end
-			elseif simConfigData["data"].PLANE.thrust_ref == "EPR" then
-				if B747DR_display_EPR[0] < B747DR_display_EPR_ref[0] or B747DR_display_EPR[1] < B747DR_display_EPR_ref[1]
-					or B747DR_display_EPR[2] < B747DR_display_EPR_ref[2] or B747DR_display_EPR[3] < B747DR_display_EPR_ref[3] then
-					--print("TOGA Engaged - Waiting for spool-up.....")
-					--simCMD_ThrottleUp:once()
-					if B747DR_autothrottle_active ~= 1 then
-						--simCMD_autopilot_autothrottle_off:once()
-						B747DR_autothrottle_active=1
-					end
-					--return
-				end
-			end
-		end
-		--Set Initial Climb based on Flap position (5 degrees) if occurs prior to FMC thrust reduction point
-		
-		--Remove De-rate above 15000 feet
-		if B747DR_clbderate > 0 and simDR_altitude >= 15000 then
-			B747DR_clbderate = 0
-		end
-
-		
-	end]]--
 
 	ecc_mode_set()
 
@@ -1114,13 +1070,20 @@ function throttle_management()
 		--Autothrottle has been disabled for some reason
 		B747DR_autothrottle_active = 0
 	end	
-	ecc_spd()
+	ecc_spd() --also handles reverse throttle
 	if B747DR_ap_autothrottle_armed == 1 and B747DR_ap_FMA_autothrottle_mode > 1 then --not none or HOLD
 		--new SPD
 		ecc_throttle()
 	else
-		--simDR_override_throttles = 0
+		for i = 0, 3 do
+			if simDR_prop_mode[i]==1 then
+				B747DR_throttle[i]=B747_interpolate_value(B747DR_throttle[i],simDR_engn_thro[i],0,1.00,2)
+			else
+				B747DR_throttle[i]=B747_interpolate_value(B747DR_throttle[i],0,0,1.00,2)
+			end
+		end
 		spd_target_throttle=math.max(simDR_throttle_ratio[0],simDR_throttle_ratio[1],simDR_throttle_ratio[2],simDR_throttle_ratio[3])
+		simDR_engine_throttle_jet_all=spd_target_throttle
 		B747DR_ref_line_magenta = 0
 		if B747DR_log_level >= 1 then
 			print("---Setting Back to Normal---")

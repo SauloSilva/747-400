@@ -783,12 +783,12 @@ function B747_set_tq_levers_mnp_show()
 	
 	
 	-- THRUST LEVER MANIPULATOR HIDE/SHOW
-	B747DR_thrust_mnp_show[0]	= 1-- B747_ternary(simDR_engine_throttle_jet[0] < 0.0, 0, 1)
-	B747DR_thrust_mnp_show[1]	= 1-- B747_ternary(simDR_engine_throttle_jet[1] < 0.0, 0, 1)
-	B747DR_thrust_mnp_show[2]	= 1-- B747_ternary(simDR_engine_throttle_jet[2] < 0.0, 0, 1)
-	B747DR_thrust_mnp_show[3]	= 1-- B747_ternary(simDR_engine_throttle_jet[3] < 0.0, 0, 1)
+	B747DR_thrust_mnp_show[0]	= 1-- B747_ternary(simDR_engine_throttle_jet[0] < 0.0 or (B747DR_ap_autothrottle_armed == 1 and B747DR_ap_FMA_autothrottle_mode > 1), 0, 1)
+	B747DR_thrust_mnp_show[1]	= 1-- B747_ternary(simDR_engine_throttle_jet[1] < 0.0 or (B747DR_ap_autothrottle_armed == 1 and B747DR_ap_FMA_autothrottle_mode > 1), 0, 1)
+	B747DR_thrust_mnp_show[2]	= 1-- B747_ternary(simDR_engine_throttle_jet[2] < 0.0 or (B747DR_ap_autothrottle_armed == 1 and B747DR_ap_FMA_autothrottle_mode > 1), 0, 1)
+	B747DR_thrust_mnp_show[3]	= 1-- B747_ternary(simDR_engine_throttle_jet[3] < 0.0 or (B747DR_ap_autothrottle_armed == 1 and B747DR_ap_FMA_autothrottle_mode > 1), 0, 1)
 	
-	B747DR_thrust_mnp_show_all	= 1-- B747_ternary(simDR_engine_throttle_jet_all < 0.0, 0, 1)
+	B747DR_thrust_mnp_show_all	= 1 -- B747_ternary(simDR_engine_throttle_jet_all < 0.0 or (B747DR_ap_autothrottle_armed == 1 and B747DR_ap_FMA_autothrottle_mode > 1), 0, 1) -- B747_ternary(B747DR_ap_autothrottle_armed == 1 and B747DR_ap_FMA_autothrottle_mode > 1, 0, 1)
 	
 	
 	

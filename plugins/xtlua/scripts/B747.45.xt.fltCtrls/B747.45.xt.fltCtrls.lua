@@ -1012,7 +1012,7 @@ function B747_fltCtrols_EICAS_msg()
     end
 
     -- >CONFIG GEAR CTR
-    if (math.abs(simDR_tire_steer_deg[1])>0 or math.abs(simDR_tire_steer_deg[2])>0)
+    if (math.abs(simDR_tire_steer_deg[1])>0.5 or math.abs(simDR_tire_steer_deg[2])>0.5)
         and simDR_all_wheels_on_ground == 1
         and simDR_ind_airspeed_kts_pilot < B747DR_airspeed_V1
         and num_fuel_ctrl_sw_on >= 3

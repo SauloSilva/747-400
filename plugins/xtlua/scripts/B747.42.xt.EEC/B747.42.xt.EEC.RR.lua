@@ -15,7 +15,7 @@
 
 --This function calculates the target position of the throttle target on the Upper EICAS
 function throttle_resolver_angle_RR(engine_in)
-  local EPR_target=B747_rescale(0.0, 0.95, 1.0, B747DR_display_EPR_max[engine_in]*0.99, simDR_throttle_ratio[engine_in])
+  local EPR_target=B747_rescale(0.0, 0.95, 1.0, B747DR_display_EPR_max[engine_in]*0.99, B747DR_throttle[engine_in])
   return EPR_target
 end
 
