@@ -967,13 +967,13 @@ function ecc_throttle()
 		then
 		for i = 0, 3 do
 			--simDR_engn_thro[i]=B747_interpolate_value(simDR_engn_thro[i],spd_target_throttle,0,1.00,2)
-			B747DR_throttle[i]=B747_interpolate_value(B747DR_throttle[i],spd_target_throttle,0,1.00,2)
+			B747DR_throttle[i]=B747_interpolate_value(B747DR_throttle[i],spd_target_throttle,0,1.00,1)
 		end
 	else
 		--shouldn't get here!, done in throttle_management()
 		for i = 0, 3 do
 			--refreshThro=simDR_engn_thro[i]
-			B747DR_throttle[i]=B747_interpolate_value(B747DR_throttle[i],simDR_engn_thro[i],0,1.00,2)
+			B747DR_throttle[i]=B747_interpolate_value(B747DR_throttle[i],simDR_engn_thro[i],0,1.00,1)
 		end
 	end
 
@@ -1077,9 +1077,9 @@ function throttle_management()
 	else
 		for i = 0, 3 do
 			if simDR_prop_mode[i]==1 then
-				B747DR_throttle[i]=B747_interpolate_value(B747DR_throttle[i],simDR_engn_thro[i],0,1.00,2)
+				B747DR_throttle[i]=B747_interpolate_value(B747DR_throttle[i],simDR_engn_thro[i],0,1.00,1)
 			else
-				B747DR_throttle[i]=B747_interpolate_value(B747DR_throttle[i],0,0,1.00,2)
+				B747DR_throttle[i]=B747_interpolate_value(B747DR_throttle[i],0,0,1.00,1)
 			end
 		end
 		spd_target_throttle=math.max(simDR_throttle_ratio[0],simDR_throttle_ratio[1],simDR_throttle_ratio[2],simDR_throttle_ratio[3])
