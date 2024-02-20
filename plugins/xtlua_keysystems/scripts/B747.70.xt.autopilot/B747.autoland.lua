@@ -4,7 +4,7 @@
 *****************************************************************************************
 ]]
 local seenApproach=false
-local zerodThrottle=false
+
 local pinThrottle=0;
 local pinrudder=0;
 local throttleAdjust=0.18
@@ -39,7 +39,7 @@ function start_flare()
     --simCMD_autopilot_fdir_servos_down_one:once()
     
     B747DR_ap_active_land=0.0
-    zerodThrottle=false
+
     touchedGround=false
     inrollout=false
     lastRod=0
@@ -155,7 +155,7 @@ function doYaw()
     end
     if pinrudder>1 then pinrudder=1 end
     if pinrudder<-1 then pinrudder=-1 end
-  --if zerodThrottle then pinrudder=0 end
+
   
     simDR_rudder=B747_set_ap_animation_position(simDR_rudder,pinrudder,-1,1,3)
   end
@@ -237,7 +237,7 @@ function end_Flare()
        -- simDR_elevator=initElevator-0.05--B747_set_ap_animation_position(simDR_elevator,initElevator-0.05,0,1,5)
         simDR_pitch  =0.0
         B747DR_ap_active_land=1.0
-        zerodThrottle=false
+
         B747DR_ap_FMA_autothrottle_mode = 0
 end
 --[[function touchdown_elevator()

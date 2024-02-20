@@ -402,7 +402,7 @@ function B747_wing_antiice()
     if B747DR_button_switch_position[72] >= 0.95
         and simDR_all_wheels_on_ground == 0
         and B747DR_duct_pressure_L > 12.0
-        and simDR_flap_deploy_ratio < 0.01
+        --and simDR_flap_deploy_ratio < 0.01
     then
         B747DR_wing_ai_valve_target_pos[0] = 1.0
     else
@@ -415,7 +415,7 @@ function B747_wing_antiice()
     if B747DR_button_switch_position[72] >= 0.95
         and simDR_all_wheels_on_ground == 0
         and B747DR_duct_pressure_R > 12.0
-        and simDR_flap_deploy_ratio < 0.01
+        --and simDR_flap_deploy_ratio < 0.01
     then
         B747DR_wing_ai_valve_target_pos[1] = 1.0
     else
