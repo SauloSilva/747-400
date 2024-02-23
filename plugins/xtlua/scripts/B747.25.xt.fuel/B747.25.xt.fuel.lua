@@ -2686,9 +2686,61 @@ function B747_fuel_std_synoptic()
 
 end
 
+-- :: ****************************************************************************************
+-- :: B744 Tank Manager for Sparky 744 and Default 747-400
+-- :: by Garen Evans (@giwiganz) garen.evans@gmail.com
+-- :: https://discord.com/channels/713625220568842260/713625220568842263/844535310745731112
+-- :: 
+-- :: Automaticallly toggles override and crossfeed tanks.
+-- :: Exclusively for B744 ICAO
+-- ::
+-- :: Version 1.0 - February 12, 2021 (initial release)
+-- :: Version 1.0.1 - February 23, 2024 (mSparks converted and incorporated to XTLua)
+-- ::
+-- :: 
+-- :: ****************************************************************************************
+B747CMD_fuel_overd_pump_fwd_2       = find_command("laminar/B747/button_switch/fuel_overd_pump_fwd_2")
+B747CMD_fuel_overd_pump_fwd_3       = find_command("laminar/B747/button_switch/fuel_overd_pump_fwd_3")
+B747CMD_fuel_overd_pump_aft_2       = find_command("laminar/B747/button_switch/fuel_overd_pump_aft_2")
+B747CMD_fuel_overd_pump_aft_3       = find_command("laminar/B747/button_switch/fuel_overd_pump_aft_3")
+B747CMD_fuel_xfeed_vlv_1            = find_command("laminar/B747/button_switch/fuel_xfeed_vlv_1")
+B747CMD_fuel_xfeed_vlv_4            = find_command("laminar/B747/button_switch/fuel_xfeed_vlv_4")
 
+function ToggleCrossFeedsOverrides()
+    B747CMD_fuel_overd_pump_fwd_2:once()
+    B747CMD_fuel_overd_pump_fwd_3:once()
+    B747CMD_fuel_overd_pump_aft_2:once()
+    B747CMD_fuel_overd_pump_aft_3:once()
+    B747CMD_fuel_xfeed_vlv_1:once()
+    B747CMD_fuel_xfeed_vlv_4:once()
+end
 
+function tank_helper()
+    fob = simDR_fuel_tank_weight_kg[0] + simDR_fuel_tank_weight_kg[1] + simDR_fuel_tank_weight_kg[2] + simDR_fuel_tank_weight_kg[3] + simDR_fuel_tank_weight_kg[4] + simDR_fuel_tank_weight_kg[5] + simDR_fuel_tank_weight_kg[6] + simDR_fuel_tank_weight_kg[7]
+    fob = math.floor(fob * 2.2046)
 
+    -- if have fuel and all crossfeeds are off, then turn em om
+    if(fob > 120000) then
+        if(B747DR_gen_xfeed_vlv1_status==3 and B747DR_gen_xfeed_vlv2_status==3 and B747DR_gen_xfeed_vlv3_status==3 and B747DR_gen_xfeed_vlv4_status==3) then
+            if(B747.fuel.main2_tank.ovrd_jett_pump_fwd.on==0 
+            and B747.fuel.main2_tank.ovrd_jett_pump_aft.on==0 
+            and B747.fuel.main3_tank.ovrd_jett_pump_fwd.on==0 
+            and B747.fuel.main3_tank.ovrd_jett_pump_aft.on==0) then
+                ToggleCrossFeedsOverrides()
+            end
+        end
+    else
+        if(B747DR_gen_xfeed_vlv1_status~=3 and B747DR_gen_xfeed_vlv2_status~=3 and B747DR_gen_xfeed_vlv3_status~=3 and B747DR_gen_xfeed_vlv4_status~=3) then
+            if(B747.fuel.main2_tank.ovrd_jett_pump_fwd.on~=0 
+            and B747.fuel.main2_tank.ovrd_jett_pump_aft.on~=0 
+            and B747.fuel.main3_tank.ovrd_jett_pump_fwd.on~=0 
+            and B747.fuel.main3_tank.ovrd_jett_pump_aft.on~=0) then
+                ToggleCrossFeedsOverrides()
+            end
+        end
+    end
+
+end
 
 
 ----- FUEL JETTISON TIME -----------------------------------------------------------------
@@ -3069,7 +3121,7 @@ function B747_fuel_EICAS_msg()
     else
       B747DR_CAS_advisory_status[168] = 0
     end
-
+    
     -- >FUEL TANK/ENG
     if fuel_tankToEngine==1 or B747DR_fuel_jettison_sel_dial_pos > 0 then
         B747DR_CAS_advisory_status[171] = 0
@@ -3613,6 +3665,9 @@ function after_physics()
     B747_fuel_toggle_switch_animation()
     if debug_fuel>1 then return end
     B747_fuel_EICAS_msg()
+    --auto tank to engine
+    if simConfigData["data"].SIM.auto_fuel_mgmt =="YES" then tank_helper() end
+
     if debug_fuel>0 then return end
     B747_fuel_monitor_AI()
     if engineHasFuelProcessing==1 then
