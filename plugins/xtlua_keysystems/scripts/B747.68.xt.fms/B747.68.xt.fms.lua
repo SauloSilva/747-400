@@ -191,6 +191,8 @@ B747DR__gear_chocked           = find_dataref("laminar/B747/gear/chocked")
 B747DR_fuel_preselect		= find_dataref("laminar/B747/fuel/preselect")
 B747DR_refuel				= find_dataref("laminar/B747/fuel/refuel")
 B747DR_fuel_add				= find_dataref("laminar/B747/fuel/add_fuel")
+B747DR_airspeed_Vmc = find_dataref("laminar/B747/airspeed/Vmc")
+B747DR_ap_ATT     	                = find_dataref("laminar/B747/autopilot/att_rate")
 
 B747DR_efis_min_ref_alt_capt_sel_dial_pos       = find_dataref("laminar/B747/efis/min_ref_alt/capt/sel_dial_pos")
 B747DR_efis_ref_alt_capt_set_dial_pos           = find_dataref("laminar/B747/efis/ref_alt/capt/set_dial_pos")
@@ -1123,7 +1125,7 @@ function activate_inflightAP()
 	B747CMD_flight_dir_switch_L:once()
 	B747CMD_autothrottle_arm_switch:once()
 	B747CMD_ap_switch_alt_hold_mode:once()
-	B747DR_ap_target_speed=math.floor(simDR_ias_pilot)
+	B747DR_ap_target_speed=math.floor(math.min(simDR_ias_pilot,B747DR_airspeed_Vmc+10))
 	B747DR_ap_target_heading_deg=math.floor(simDR_aircraft_hdg)
 	local ref1=B747DR_CAS_advisory_status[233]
 	local ref2=B747DR_pfd_mode_capt
@@ -1134,6 +1136,7 @@ function activate_inflightAP()
 	irsSystem.align("irsL",true)
 	irsSystem.align("irsC",true)
 	irsSystem.align("irsR",true)
+	B747DR_ap_ATT=0
 	run_after_time(fin_activate_inflightAP,1)
 end
 function after_physics()
@@ -1149,10 +1152,11 @@ function after_physics()
 	return
   end
   if systemsWarmedUp==false then return end
+  local refreshmins=B747DR_airspeed_Vmc
   if didFlightInit==false and simDR_startup_running == 1 and simDR_onGround==0 then
 	print("activate AP stuff")
 	
-	run_after_time(activate_inflightAP,2)
+	run_after_time(activate_inflightAP,1)
   end
   didFlightInit=true;
 --     for i =1,24,1 do
