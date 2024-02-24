@@ -224,12 +224,7 @@ function during_Flare()
   end
   doPitch()
   controlYaw()
-  --[[if simDR_radarAlt1<40 then
-    simDR_allThrottle=B747_set_ap_animation_position(simDR_allThrottle,0,0,1,1)
-    if simDR_allThrottle==0 then
-      B747DR_autothrottle_active=0
-    end
-  end]]
+
 
 end
 function end_Flare()

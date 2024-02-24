@@ -1083,6 +1083,7 @@ function throttle_management()
 			end
 		end
 		spd_target_throttle=math.max(simDR_throttle_ratio[0],simDR_throttle_ratio[1],simDR_throttle_ratio[2],simDR_throttle_ratio[3])
+		
 		simDR_engine_throttle_jet_all=spd_target_throttle
 		B747DR_ref_line_magenta = 0
 		if B747DR_log_level >= 1 then

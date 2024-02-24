@@ -158,7 +158,7 @@ simDR_engine_oil_qty_ratio      = find_dataref("sim/cockpit2/engine/indicators/o
 
 simDR_engine_fire		= find_dataref("sim/flightmodel2/engines/is_on_fire")
 simDR_flap_deploy_ratio         = find_dataref("laminar/B747/cablecontrols/flap_ratio")
-simDR_allThrottle           	= find_dataref("sim/cockpit2/engine/actuators/throttle_ratio_all")
+--simDR_allThrottle           	= find_dataref("sim/cockpit2/engine/actuators/throttle_ratio_all")
 simDR_engine_running            = find_dataref("sim/flightmodel/engine/ENGN_running")
 simDR_apu_running            	= find_dataref("sim/cockpit/engine/APU_running")
 
@@ -562,11 +562,7 @@ function B747_engine_TOGA_power_CMDhandler(phase, duration)
         
         end	
         if B747DR_toggle_switch_position[29] == 1 then
-            --if simDR_allThrottle>0.25 then
-		    
-		    --simCMD_autopilot_autothrottle_off:once()
             B747DR_autothrottle_active=0
-           -- end
         end		
 	end	
 end

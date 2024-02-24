@@ -130,6 +130,7 @@ simCMD_ThrottleUp = find_command("sim/engines/throttle_up")
 B747DR_ap_vnav_pause = find_dataref("laminar/B747/autopilot/vnav_pause")
 simCMD_pause = find_command("sim/operation/pause_toggle")
 simDRTime = find_dataref("sim/time/total_running_time_sec")
+simDR_autopilot_autothrottle_enabled = find_dataref("sim/cockpit2/autopilot/autothrottle_enabled")
 simDR_autopilot_bank_limit = find_dataref("sim/cockpit2/autopilot/bank_angle_mode")
 simDR_autopilot_airspeed_is_mach = find_dataref("sim/cockpit2/autopilot/airspeed_is_mach")
 simDR_autopilot_altitude_ft = find_dataref("laminar/B747/autopilot/altitude_dial_ft")
@@ -225,7 +226,7 @@ simDR_nav1_radio_course_deg = find_dataref("sim/cockpit2/radios/actuators/nav1_c
 simDR_pressureAlt1 = find_dataref("sim/cockpit2/gauges/indicators/altitude_ft_pilot")
 simDR_radarAlt1 = find_dataref("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot")
 simDR_radarAlt2 = find_dataref("sim/cockpit2/guages/indicators/radio_altimeter_height_ft_copilot")
-simDR_allThrottle = find_dataref("sim/cockpit2/engine/actuators/throttle_ratio_all")
+local simDR_allThrottle = 0 --find_dataref("sim/cockpit2/engine/actuators/throttle_ratio_all")
 simDR_override_throttles = find_dataref("sim/operation/override/override_throttles")
 simDR_descent = find_dataref("sim/cockpit2/autopilot/des_adjust")
 simDR_pitch = find_dataref("sim/cockpit2/autopilot/sync_hold_pitch_deg")
@@ -3244,6 +3245,7 @@ function after_physics()
 	if debug_autopilot > 0 then
 		return
 	end
+	simDR_allThrottle=math.max(B747DR_throttle[0],B747DR_throttle[1],B747DR_throttle[2],B747DR_throttle[3])
 	local cHeading = simDR_AHARS_heading_deg_pilot --constant refresh of data
 	local tHeading = simDR_autopilot_heading_deg --constant refresh of data
 	local headingStatus = simDR_autopilot_heading_hold_status --constant refresh of data
