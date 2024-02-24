@@ -3145,11 +3145,8 @@ function B747_ap_EICAS_msg()
 			B747DR_ap_vnav_state > 0
 	 then
 		if
-			simDR_allThrottle > 0 and B747DR_toggle_switch_position[29] == 1 and B747DR_autothrottle_active == 1 and
-				simDR_radarAlt1 > 1000
+			simDR_allThrottle < 0.01 and simDR_radarAlt1 > 1000
 		 then
-			simCMD_ThrottleDown:once()
-		else
 			B747DR_fmc_notifications[9] = 1 --DRAG REQUIRED
 		end
 	elseif simDR_ind_airspeed_kts_pilot ~= last_airspeed then --dont turn it off if airspeed didn't update
