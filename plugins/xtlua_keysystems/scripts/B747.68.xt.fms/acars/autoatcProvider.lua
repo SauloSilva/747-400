@@ -223,9 +223,9 @@ function readyCDU()
 end
 
 function updateAutoATCCDU()
-  if hasMobile==0 then wasOnline=false cduDataref="{}" return end
-  if acarsSystem.provider.online()==false then return end
   
+  if acarsSystem.provider.online()==false then return end
+  if hasMobile~=1 then wasOnline=false cduDataref="{}" return end
   if wasOnline==false then
     if is_timer_scheduled(readyCDU)==false then run_after_time(readyCDU,5) end
     cduDataref="{}"
