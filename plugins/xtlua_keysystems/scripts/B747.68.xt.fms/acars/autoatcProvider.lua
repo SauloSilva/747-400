@@ -6,6 +6,7 @@
 acarsOnlineDataref=find_dataref("autoatc/acars/online")
 acarsReceiveDataref=find_dataref("autoatc/acars/in")
 sendDataref=find_dataref("autoatc/acars/out")
+hasMobile=find_dataref("autoatc/hasMobile")
 cduDataref=find_dataref("autoatc/cdu")
 
 execLightDataref=find_dataref("sim/cockpit2/radios/indicators/fms_exec_light_copilot")
@@ -222,7 +223,7 @@ function readyCDU()
 end
 
 function updateAutoATCCDU()
-  
+  if hasMobile==0 then wasOnline=false cduDataref="{}" return end
   if acarsSystem.provider.online()==false then return end
   
   if wasOnline==false then
