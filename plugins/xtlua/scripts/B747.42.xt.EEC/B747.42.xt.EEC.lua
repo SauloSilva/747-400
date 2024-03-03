@@ -837,7 +837,7 @@ function normalise_throttle()
 	local target=0
 	for i = 1, 4 do
 		input=math.max(input,thrustTargets[i])
-		target=math.max(target,lastThrustTargets[i])
+		target=math.max(target,lastThrustTargets[i],input)
 	end
 	--print("thrustTargets was "..lastThrustTargets[1].." now "..thrustTargets[1])
 	last_speed_delta=input-target
@@ -845,10 +845,12 @@ function normalise_throttle()
 end
 function get_spd_input_target_rog()
 	local modeChangeDiff=simDRTime-lastModeChange
-	if modeChangeDiff< 5.0 then
+	if modeChangeDiff< 1.0 then
 		return normalise_throttle()
 	end
-	lastThrustTargets = getThrustTargets()
+	if B747DR_ref_thr_limit_mode==lastMode then
+		lastThrustTargets = getThrustTargets()
+	end
 	local input=simDR_ind_airspeed_kts_pilot
 	local target=simDR_autopilot_airspeed_kts
 	local diff=simDRTime-lastspd_throttleTime

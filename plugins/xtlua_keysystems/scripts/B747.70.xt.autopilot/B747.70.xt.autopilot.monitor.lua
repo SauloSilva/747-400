@@ -41,7 +41,7 @@ function VNAV_NEXT_ALT(numAPengaged,fms)
           targetIndex=i
           break
         end
-        if fms[i][9]>0 and fms[i][9]<lowerAlt and fms[i][2] ~= 1 and numAPengaged>0 then targetAlt=fms[i][9] targetIndex=i break end
+        if dist_to_TOD<0 and fms[i][9]>0 and fms[i][9]<lowerAlt and fms[i][2] ~= 1 and numAPengaged>0 then targetAlt=fms[i][9] targetIndex=i break end
     elseif began==true then
         local nextDistance=getDistance(simDR_latitude,simDR_longitude,fms[i][5],fms[i][6])
         if nextDistance>dist_to_TOD and dist_to_TOD>0 and B747DR_ap_inVNAVdescent==0 and B747BR_cruiseAlt>0 then
@@ -52,9 +52,10 @@ function VNAV_NEXT_ALT(numAPengaged,fms)
         if B747BR_totalDistance>0 and dist_to_TOD>0 and B747DR_ap_inVNAVdescent==0 and (nextDistance)>dist_to_TOD then 
           break 
         end
-        if fms[i][9]>0 and fms[i][9]<lowerAlt and fms[i][2] ~= 1 then targetAlt=fms[i][9] targetIndex=i break end
+        if dist_to_TOD<0 and fms[i][9]>0 and fms[i][9]<lowerAlt and fms[i][2] ~= 1 then targetAlt=fms[i][9] targetIndex=i break end
       end
     end
+
     B747DR_fmstargetIndex=targetIndex
     B747DR_ap_vnav_target_alt=targetAlt
     return targetAlt
@@ -229,7 +230,7 @@ function VNAV_DES(numAPengaged,fms)
             --entering descent from alt hold with window open, close it for a few seconds to establish descent
             if B747DR_ap_ias_mach_window_open == 1 and simDR_autopilot_alt_hold_status==2 then
                 B747DR_ap_ias_mach_window_open = 0
-                simDR_allThrottle=0
+                --simDR_allThrottle=0
                 B747DR_switchingIASMode=1
                 isManualSpeed=true
                 run_after_time(B747_updateIASWindow, 10.0)
