@@ -143,13 +143,42 @@ if(!myFlights)
   }
   
 }
-retText<-c("#Flight Test report","OP Programs after",CONCAT("*",testsFrom,"*\n"), "*As at*",format(Sys.time(), "%Y/%m/%d %H:%M:%S\n"))
+
+hText<-"---
+header-includes:
+- \\usepackage{hyperref}
+- \\usepackage{fancyhdr}
+- \\pagestyle{fancy}
+- \\usepackage{xcolor}
+- \\hypersetup{colorlinks=true,
+                urlcolor=blue,
+                linkcolor=blue,
+                allbordercolors={0 0 0},
+                pdfborderstyle={/S/U/W 1}} 
+
+geometry: \"left=1.5cm,right=1.5cm,top=2cm,bottom=2cm\"
+colorlinks: true  
+toc: true  
+title: Sparky744
+include-before:
+  - '`\\newpage{}`{=latex}'
+subtitle: Flight Test Report
+---
+  
+\\newpage{}"
+retText<-unlist(strsplit(hText, split='\n'))
+retText<-append(retText,c("# Flight Test report","OP Programs after",CONCAT("*",testsFrom,"*\n"), "*As at*",format(Sys.time(), "%Y/%m/%d %H:%M:%S\n")))
 lastHeading<-"NA"
+addReportText<-function(dText){
+  retVal<<-retText
+  retVal<-append(retVal,dText)
+  retText<<-retVal
+}
 getReportText<-function(data,dText,eText){
   retVal<<-retText
   if(is.null(names(data))){
     for(i in rownames(data)){
-      thisHeading<-CONCAT("##",i)
+      thisHeading<-CONCAT("## ",i)
       if(thisHeading!=lastHeading)
         retVal<-append(retVal,thisHeading)
       lastHeading<<-thisHeading
@@ -168,13 +197,21 @@ getReportText<-function(data,dText,eText){
   retText<<-retVal
 }
 
-
+addReportText("# Summary")
 getReportText(tapply(flight_tests$duration, flight_tests$test_pilot, FUN=sum),"duration: "," minutes")
 getReportText(tapply(flight_tests$distance, flight_tests$test_pilot, FUN=sum),"distance: "," nm")
+addReportText("::: {.columns columngap=10em column-rule=\"1px solid black\"}")
+addReportText("\\newpage{}\n# Engines")
+addReportText("# Engines duration")
 getReportText(tapply(flight_tests$duration, list(flight_tests$currentEngines,flight_tests$test_pilot), FUN=sum),"duration: "," minutes")
+addReportText("# Engines distance")
 getReportText(tapply(flight_tests$distance, list(flight_tests$currentEngines,flight_tests$test_pilot), FUN=sum),"distance: "," nm")
+addReportText("\\newpage{}\n# OP Program")
+addReportText("# OP Program duration")
 getReportText(tapply(flight_tests$duration, list(flight_tests$currentOPProgram,flight_tests$test_pilot), FUN=sum),"duration: "," minutes")
+addReportText("# OP Program distance")
 getReportText(tapply(flight_tests$distance, list(flight_tests$currentOPProgram,flight_tests$test_pilot), FUN=sum),"distance: "," nm")
+addReportText(":::")
 fName<-"flight testing.md"
 if(myFlights)
   fName<-"mSparks flight testing.md"
