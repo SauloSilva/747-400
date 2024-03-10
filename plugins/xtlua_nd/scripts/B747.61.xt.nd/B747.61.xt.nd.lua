@@ -20,12 +20,15 @@ B747DR_text_fo_distance			= find_dataref("laminar/B747/nd/fo/text/distance")
 --B747DR_text_fo_icon				= find_dataref("laminar/B747/nd/fo/text/icon","array[60]")
 B747DR_fmscurrentIndex      = find_dataref("laminar/B747/autopilot/ap_monitor/fmscurrentIndex")
 B747BR_totalDistance 			= find_dataref("laminar/B747/autopilot/dist/remaining_distance")
-B747BR_eod_index 			= find_dataref("laminar/B747/autopilot/dist/eod_index", "number")
+B747BR_eod_index 			= find_dataref("laminar/B747/autopilot/dist/eod_index")
 B747BR_nextDistanceInFeet 		= find_dataref("laminar/B747/autopilot/dist/next_distance_feet")
 B747BR_cruiseAlt 			= find_dataref("laminar/B747/autopilot/dist/cruise_alt")
 B747BR_tod				= find_dataref("laminar/B747/autopilot/dist/top_of_descent")
-B747BR_todLat				= find_dataref("laminar/B747/autopilot/dist/top_of_descent_lat", "number")
-B747BR_todLong				= find_dataref("laminar/B747/autopilot/dist/top_of_descent_long", "number")
+B747BR_todLat				= find_dataref("laminar/B747/autopilot/dist/top_of_descent_lat")
+B747BR_todLong				= find_dataref("laminar/B747/autopilot/dist/top_of_descent_long")
+B747BR_tocLat				= find_dataref("laminar/B747/autopilot/dist/top_of_climb_lat")
+B747BR_tocLong				= find_dataref("laminar/B747/autopilot/dist/top_of_climb_long")
+B747BR_toc				= find_dataref("laminar/B747/autopilot/dist/distance_to_toc")
 B747DR_ap_FMA_active_pitch_mode     	= find_dataref("laminar/B747/autopilot/FMA/active_pitch_mode")
 simDR_autopilot_vs_fpm = find_dataref("sim/cockpit2/autopilot/vvi_dial_fpm")
 simDR_autopilot_alt_hold_status = find_dataref("laminar/B747/autopilot/altitude_hold_status")
@@ -372,6 +375,20 @@ function newIcons()
     if B747DR_nd_mode_fo_sel_dial_pos==2 then
       if toddist < ranges[simDR_range_dial_fo + 1] and simDR_radarAlt1>5000 then 
         makeIcon(iconTextDataFO,3008,"T/D",B747BR_todLat,B747BR_todLong,toddist)
+      end
+    end
+  end
+  --TOCs
+  if B747BR_cruiseAlt>0 and B747BR_toc>0 then
+    local tocdist=getDistance(simDR_latitude,simDR_longitude,B747BR_tocLat,B747BR_tocLong)
+    if B747DR_nd_mode_capt_sel_dial_pos==2 then
+      if tocdist < ranges[simDR_range_dial_capt + 1] and simDR_radarAlt1>-5000 then 
+        makeIcon(iconTextDataCapt,3008,"T/C",B747BR_tocLat,B747BR_tocLong,tocdist)
+      end
+    end
+    if B747DR_nd_mode_fo_sel_dial_pos==2 then
+      if tocdist < ranges[simDR_range_dial_fo + 1] and simDR_radarAlt1>-5000 then 
+        makeIcon(iconTextDataFO,3008,"T/C",B747BR_tocLat,B747BR_tocLong,tocdist)
       end
     end
   end

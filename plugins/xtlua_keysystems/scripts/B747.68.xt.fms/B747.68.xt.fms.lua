@@ -187,6 +187,7 @@ B747BR_totalDistance 			= find_dataref("laminar/B747/autopilot/dist/remaining_di
 B747BR_nextDistanceInFeet 		= find_dataref("laminar/B747/autopilot/dist/next_distance_feet")
 B747BR_cruiseAlt 			= find_dataref("laminar/B747/autopilot/dist/cruise_alt")
 B747BR_tod				= find_dataref("laminar/B747/autopilot/dist/top_of_descent")
+B747BR_toc				= find_dataref("laminar/B747/autopilot/dist/distance_to_toc")
 B747DR__gear_chocked           = find_dataref("laminar/B747/gear/chocked")
 B747DR_fuel_preselect		= find_dataref("laminar/B747/fuel/preselect")
 B747DR_refuel				= find_dataref("laminar/B747/fuel/refuel")

@@ -96,6 +96,9 @@ fmsPages["PROGRESS"].getPage=function(self,pgNo,fmsID)
     local todText="----z/----NM"
     if B747BR_tod>0 and B747BR_totalDistance>B747BR_tod then
       local dist=B747BR_totalDistance-B747BR_tod
+      if B747BR_toc>=0 and dist > B747BR_toc and B747DR_ap_flightPhase<2 then
+        dist=B747BR_toc
+      end
       local hours = 0
       local mins = 0
       local secs = 0
@@ -216,6 +219,11 @@ fmsPages["PROGRESS"].getSmallPage=function(self,pgNo,fmsID)
     end 
   if pgNo==1 then 
     local fuel_ata=string.format("%5.1f",(B747DR_last_waypoint_fuel*mult/1000))
+    local toText="T/D"
+    local dist=B747BR_totalDistance-B747BR_tod
+      if B747BR_toc>=0 and dist > B747BR_toc and B747DR_ap_flightPhase<2 then
+        toText="T/C"
+      end
     return {
 "                    1/3 ",
 " LAST   ALT   ATA   FUEL",
@@ -226,7 +234,7 @@ string.format("%-5s", B747DR_last_waypoint).."        "..string.sub(B747DR_waypo
 "                 Z      ",
 " DEST                   ",
 "                 Z      ",
-" SEL SPD          TO T/D",
+" SEL SPD          TO "..toText,
 "                        ", 
 "                        ",
 "                        "
