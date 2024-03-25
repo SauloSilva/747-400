@@ -1050,7 +1050,7 @@ function B747_fltCtrols_EICAS_msg()
     elseif simDR_hyd_press_1_2 < 1000 and simDR_parking_brake_ratio > 0 then
       simDR_parking_brake_ratio = B747_animate_value(simDR_parking_brake_ratio,0,0,1,1)
     else
-      if B747DR_parking_brake_ratio~=last_B747DR_Brake then --manually changed
+      if B747DR_parking_brake_ratio~=last_B747DR_Brake and B747DR_parking_brake_ratio>0.01 then --manually changed
 	    simDR_parking_brake_ratio = B747DR_parking_brake_ratio
       end
       last_simDR_Brake=simDR_parking_brake_ratio

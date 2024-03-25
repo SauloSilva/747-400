@@ -457,7 +457,10 @@ end
 
 
 
-
+B747DR_engine01_fire_ext_switch_pos_arm     = deferred_dataref("laminar/B747/fire/engine01/ext_switch/pos_arm", "number")
+B747DR_engine02_fire_ext_switch_pos_arm     = deferred_dataref("laminar/B747/fire/engine02/ext_switch/pos_arm", "number")
+B747DR_engine03_fire_ext_switch_pos_arm     = deferred_dataref("laminar/B747/fire/engine03/ext_switch/pos_arm", "number")
+B747DR_engine04_fire_ext_switch_pos_arm     = deferred_dataref("laminar/B747/fire/engine04/ext_switch/pos_arm", "number") 
 
 
 ----- BLEED AIR VALVES ------------------------------------------------------------------
@@ -497,7 +500,7 @@ function B747_bleed_air_valves()
 
     ----- ENGINE #1 BLEED AIR VALVE -----------------------------------------------------
     
-    if B747DR_button_switch_position[77] > 0.95 then                                    -- ENGINE #1 BLEED AIR BUTTON SWITCH
+    if B747DR_button_switch_position[77] > 0.95 and B747DR_engine01_fire_ext_switch_pos_arm==0 then                                    -- ENGINE #1 BLEED AIR BUTTON SWITCH
         if B747bleedAir.engine1.psi >= bleed_valve_min_act_press                        -- BLEED AIR REQUIRED TO OPEN THE VALVE
             or
             -- ENGINE START
@@ -515,7 +518,7 @@ function B747_bleed_air_valves()
 
     ----- ENGINE #1 BLEED AIR START VALVE -----------------------------------------------
     
-    if B747bleedAir.engine1.bleed_air_valve.pos > 0.95 then                             -- ENGINE BLEED VALVE OPEN FOR REVERSE FLOW
+    if B747bleedAir.engine1.bleed_air_valve.pos > 0.95 and B747DR_engine01_fire_ext_switch_pos_arm==0  then                             -- ENGINE BLEED VALVE OPEN FOR REVERSE FLOW
         -- MANUAL START
         if B747DR_button_switch_position[45] < 0.05                                     -- AUTOSTART BUTTON NOT DEPRESSED
             and B747DR_toggle_switch_position[16] > 0.95                                -- ENGINE START SWITCH "PULLED"
@@ -538,7 +541,7 @@ function B747_bleed_air_valves()
 
     ----- ENGINE #2 BLEED AIR VALVE -----------------------------------------------------
     
-    if B747DR_button_switch_position[78] > 0.95 then                                    -- ENGINE #2 BLEED AIR BUTTON SWITCH
+    if B747DR_button_switch_position[78] > 0.95  and B747DR_engine02_fire_ext_switch_pos_arm==0 then                                    -- ENGINE #2 BLEED AIR BUTTON SWITCH
         if B747bleedAir.engine2.psi >= bleed_valve_min_act_press                        -- BLEED AIR REQUIRED TO OPEN THE VALVE
             or
             -- ENGINE START
@@ -556,7 +559,7 @@ function B747_bleed_air_valves()
 
     ----- ENGINE #2 BLEED AIR START VALVE -----------------------------------------------
     
-    if B747bleedAir.engine2.bleed_air_valve.pos > 0.95 then                             -- ENGINE BLEED VALVE OPEN FOR REVERSE FLOW
+    if B747bleedAir.engine2.bleed_air_valve.pos > 0.95  and B747DR_engine02_fire_ext_switch_pos_arm==0 then                             -- ENGINE BLEED VALVE OPEN FOR REVERSE FLOW
         -- MANUAL START
         if B747DR_button_switch_position[45] < 0.05                                     -- AUTOSTART BUTTON NOT DEPRESSED
             and B747DR_toggle_switch_position[17] > 0.95                                -- ENGINE START SWITCH "PULLED"
@@ -579,7 +582,7 @@ function B747_bleed_air_valves()
 
     ----- ENGINE #3 BLEED AIR VALVE -----------------------------------------------------
     
-    if B747DR_button_switch_position[79] > 0.95 then                                    -- ENGINE #3 BLEED AIR BUTTON SWITCH
+    if B747DR_button_switch_position[79] > 0.95  and B747DR_engine03_fire_ext_switch_pos_arm==0 then                                    -- ENGINE #3 BLEED AIR BUTTON SWITCH
         if B747bleedAir.engine3.psi >= bleed_valve_min_act_press                        -- BLEED AIR REQUIRED TO OPEN THE VALVE
             or
             -- ENGINE START
@@ -597,7 +600,7 @@ function B747_bleed_air_valves()
 
     ----- ENGINE #3 BLEED AIR START VALVE -----------------------------------------------
     
-    if B747bleedAir.engine3.bleed_air_valve.pos > 0.95 then                             -- ENGINE BLEED VALVE OPEN FOR REVERSE FLOW
+    if B747bleedAir.engine3.bleed_air_valve.pos > 0.95  and B747DR_engine03_fire_ext_switch_pos_arm==0 then                             -- ENGINE BLEED VALVE OPEN FOR REVERSE FLOW
         -- MANUAL START
         if B747DR_button_switch_position[45] < 0.05                                     -- AUTOSTART BUTTON NOT DEPRESSED
             and B747DR_toggle_switch_position[18] > 0.95                                -- ENGINE START SWITCH "PULLED"
@@ -620,7 +623,7 @@ function B747_bleed_air_valves()
 
     ----- ENGINE #4 BLEED AIR VALVE -----------------------------------------------------
     
-    if B747DR_button_switch_position[80] > 0.95 then                                    -- ENGINE #4 BLEED AIR BUTTON SWITCH
+    if B747DR_button_switch_position[80] > 0.95  and B747DR_engine04_fire_ext_switch_pos_arm==0 then                                    -- ENGINE #4 BLEED AIR BUTTON SWITCH
         if B747bleedAir.engine4.psi >= bleed_valve_min_act_press                        -- BLEED AIR REQUIRED TO OPEN THE VALVE
             or
             -- ENGINE START
@@ -638,7 +641,7 @@ function B747_bleed_air_valves()
 
     ----- ENGINE #4 BLEED AIR START VALVE -----------------------------------------------
     
-    if B747bleedAir.engine4.bleed_air_valve.pos > 0.95 then                             -- ENGINE BLEED VALVE OPEN FOR REVERSE FLOW
+    if B747bleedAir.engine4.bleed_air_valve.pos > 0.95  and B747DR_engine04_fire_ext_switch_pos_arm==0 then                             -- ENGINE BLEED VALVE OPEN FOR REVERSE FLOW
         -- MANUAL START
         if B747DR_button_switch_position[45] < 0.05                                     -- AUTOSTART BUTTON NOT DEPRESSED
             and B747DR_toggle_switch_position[19] > 0.95                                -- ENGINE START SWITCH "PULLED"

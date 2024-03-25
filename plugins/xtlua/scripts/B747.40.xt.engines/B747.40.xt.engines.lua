@@ -1719,6 +1719,11 @@ function B747_engine_start_sw_off(engine)
             if simDR_engine_starter_status[3] > 3 and B747_starter_status[4]==1 then simCMD_starter_on_4:stop() simCMD_starter_off_4:once() simDR_engine_igniter_on[0]=0 B747_starter_status[4]=0 end
         end
     end
+
+    B747DR_engine01_fire_ext_switch_pos_arm     = deferred_dataref("laminar/B747/fire/engine01/ext_switch/pos_arm", "number")
+    B747DR_engine02_fire_ext_switch_pos_arm     = deferred_dataref("laminar/B747/fire/engine02/ext_switch/pos_arm", "number")
+    B747DR_engine03_fire_ext_switch_pos_arm     = deferred_dataref("laminar/B747/fire/engine03/ext_switch/pos_arm", "number")
+    B747DR_engine04_fire_ext_switch_pos_arm     = deferred_dataref("laminar/B747/fire/engine04/ext_switch/pos_arm", "number")    
 function B747_electronic_engine_control()
 
 
@@ -1965,7 +1970,9 @@ function B747_electronic_engine_control()
     
 
     -- MANUAL START
-    if B747DR_button_switch_position[45] < 0.5                                              -- AUTOSTART BUTTON NOT DEPRESSED
+    if B747DR_engine01_fire_ext_switch_pos_arm==1 then
+        B747DR_engine_fuel_valve_pos[0] = 0 
+    elseif B747DR_button_switch_position[45] < 0.5                                              -- AUTOSTART BUTTON NOT DEPRESSED
         and B747DR_fuel_control_toggle_switch_pos[0] == 1.0                                 -- FUEL CONTROL SWITCH SET TO "RUN"
     then
         B747DR_engine_fuel_valve_pos[0] = 1                                                 -- OPEN THE VALVE
@@ -1976,7 +1983,7 @@ function B747_electronic_engine_control()
     then
         B747DR_engine_fuel_valve_pos[0] = 1                                                 -- OPEN THE VALVE
     else
-	B747DR_engine_fuel_valve_pos[0] = 0                                                     -- VALVE IS NORMALLY CLOSED
+	    B747DR_engine_fuel_valve_pos[0] = 0                                                     -- VALVE IS NORMALLY CLOSED
     end
     simDR_engine_fuel_mix_ratio[0] =  B747DR_engine_fuel_valve_pos[0]                       -- SET SIM MIXTURE RATIO
 
@@ -1986,7 +1993,9 @@ function B747_electronic_engine_control()
     
 
     -- MANUAL START
-    if B747DR_button_switch_position[45] < 0.5                                              -- AUTOSTART BUTTON NOT DEPRESSED
+    if B747DR_engine02_fire_ext_switch_pos_arm==1 then
+        B747DR_engine_fuel_valve_pos[1] = 0 
+    elseif B747DR_button_switch_position[45] < 0.5                                              -- AUTOSTART BUTTON NOT DEPRESSED
         and B747DR_fuel_control_toggle_switch_pos[1] == 1.0                                 -- FUEL CONTROL SWITCH SET TO "RUN"
     then
         B747DR_engine_fuel_valve_pos[1] = 1                                                 -- OPEN THE VALVE
@@ -2007,7 +2016,9 @@ function B747_electronic_engine_control()
     
 
     -- MANUAL START
-    if B747DR_button_switch_position[45] < 0.5                                              -- AUTOSTART BUTTON NOT DEPRESSED
+    if B747DR_engine03_fire_ext_switch_pos_arm==1 then
+        B747DR_engine_fuel_valve_pos[2] = 0 
+    elseif B747DR_button_switch_position[45] < 0.5                                              -- AUTOSTART BUTTON NOT DEPRESSED
         and B747DR_fuel_control_toggle_switch_pos[2] == 1.0                                 -- FUEL CONTROL SWITCH SET TO "RUN"
     then
         B747DR_engine_fuel_valve_pos[2] = 1                                                 -- OPEN THE VALVE
@@ -2028,7 +2039,9 @@ function B747_electronic_engine_control()
     
 
     -- MANUAL START
-    if B747DR_button_switch_position[45] < 0.5                                              -- AUTOSTART BUTTON NOT DEPRESSED
+    if B747DR_engine04_fire_ext_switch_pos_arm==1 then
+        B747DR_engine_fuel_valve_pos[3] = 0 
+    elseif B747DR_button_switch_position[45] < 0.5                                              -- AUTOSTART BUTTON NOT DEPRESSED
         and B747DR_fuel_control_toggle_switch_pos[3] == 1.0                                 -- FUEL CONTROL SWITCH SET TO "RUN"
     then
         B747DR_engine_fuel_valve_pos[3] = 1                                                 -- OPEN THE VALVE
