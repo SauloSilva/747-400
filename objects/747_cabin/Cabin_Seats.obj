@@ -142831,11 +142831,17 @@ IDX10	108977 108979 108980 108975 108976 108973 108969 108970 108971 108969
 IDX	108971
 IDX	108972
 
-ATTR_shiny_rat	 0.800
+#ATTR_shiny_rat	 0.800
 # Image: /Users/JGregory/Applications/X-Plane/XP11/Aircraft/__Laminar Development/Desktop/Heavy Metal/B747-400 United/objects/747_cabin/Cabin_Seats.dds
-ATTR_light_level 0 1 sim/flightmodel2/lights/generic_lights_brightness_ratio[25]
-TRIS	0 302886
+ATTR_light_level 0 1 sim/flightmodel2/lights/generic_lights_brightness_ratio[25] 300
 ANIM_begin
+    ANIM_hide	1.0 1.0	laminar/B747/freighter
+	ANIM_show	0.0 0.0	laminar/B747/freighter
+    TRIS	0 302886
+ANIM_end
+ANIM_begin
+    ANIM_hide	1.0 1.0	laminar/B747/freighter
+	ANIM_show	0.0 0.0	laminar/B747/freighter
 	ANIM_trans	  -0.5264    2.0477   11.4247	  -0.5264    2.0477   11.4247	0 0	no_ref
 	ANIM_rotate	   0.0000    1.0000   -0.0000	  0.00  79.19	0 1	sim/flightmodel2/misc/custom_slider_ratio[5]
 	TRIS	302886 36
@@ -142851,6 +142857,8 @@ ANIM_begin
 	ANIM_end
 ANIM_end
 ANIM_begin
+    ANIM_hide	1.0 1.0	laminar/B747/freighter
+	ANIM_show	0.0 0.0	laminar/B747/freighter
 	ANIM_trans	  -0.0292   -0.8253   23.2293	  -0.0292   -0.8253   23.2293	0 0	no_ref
 	ANIM_rotate	   0.0000    1.0000   -0.0000	  0.00  79.19	0 1	sim/flightmodel2/misc/custom_slider_ratio[2]
 	TRIS	303024 36
@@ -142866,11 +142874,15 @@ ANIM_begin
 	ANIM_end
 ANIM_end
 ANIM_begin
+    ANIM_hide	1.0 1.0	laminar/B747/freighter
+	ANIM_show	0.0 0.0	laminar/B747/freighter
 	ANIM_trans	  -1.1124   -0.8083   38.2156	  -1.1124   -0.8083   38.2156	0 0	no_ref
 	ANIM_rotate	   0.0000    1.0000   -0.0000	  0.00  89.73	0 1	sim/flightmodel2/misc/custom_slider_ratio[4]
 	TRIS	303192 96
 ANIM_end
 ANIM_begin
+    ANIM_hide	1.0 1.0	laminar/B747/freighter
+	ANIM_show	0.0 0.0	laminar/B747/freighter
 	ANIM_trans	   1.1048   -0.8253   30.3181	   1.1048   -0.8253   30.3181	0 0	no_ref
 	ANIM_rotate	   0.0000    1.0000   -0.0000	  0.00  87.12	0 1	sim/flightmodel2/misc/custom_slider_ratio[3]
 	TRIS	303288 96
@@ -142911,23 +142923,25 @@ ANIM_begin
 		ANIM_rotate_key	0.8	144.00
 		ANIM_rotate_key	1	180.00
 	ANIM_rotate_end
-	ATTR_reset
+	#ATTR_reset
 	TRIS	303522 2769
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -1.3206    3.7511   16.9656	  -1.3206    3.7511   16.9656	0 0	no_ref
 	ANIM_rotate	  -0.0173   -0.0069   -0.9998	  0.00  55.00	0 1	sim/flightmodel2/misc/door_open_ratio[0]
 	TRIS	306291 2721
-	ATTR_shiny_rat	 0.800
+	#ATTR_shiny_rat	 0.800
 	TRIS	309012 150
 ANIM_end
 ANIM_begin
+    ANIM_hide	1.0 1.0	laminar/B747/freighter
+	ANIM_show	0.0 0.0	laminar/B747/freighter
 	ANIM_trans	  -0.5264    2.0477   11.4247	  -0.5264    2.0477   11.4247	0 0	no_ref
 	ANIM_rotate	   0.0000    1.0000   -0.0000	  0.00  79.19	0 1	sim/flightmodel2/misc/custom_slider_ratio[5]
 	ANIM_begin
 		ANIM_trans	   0.0139    0.0000   -0.2588	   0.0139    0.0000   -0.2588	0 0	no_ref
 		ANIM_rotate	   0.0000   -1.0000   -0.0000	  0.00 169.65	0 1	sim/flightmodel2/misc/custom_slider_ratio[5]
-		ATTR_light_level b0 1 sim/flightmodel2/lights/generic_lights_brightness_ratio[25]
+		ATTR_light_level 0 1 sim/flightmodel2/lights/generic_lights_brightness_ratio[25] 300
 		TRIS	309162 30
 	ANIM_end
 ANIM_end

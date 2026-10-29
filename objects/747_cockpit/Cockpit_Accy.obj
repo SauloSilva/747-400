@@ -64738,7 +64738,7 @@ ANIM_begin
 	ANIM_rotate	  -1.0000    0.0000    0.0000	  0.00   1.00	0 1	laminar/B747/misc/ovhd_map_light/y_axis/capt
 	ANIM_begin
 		ANIM_rotate	  -0.0000    0.0000   -1.0000	  0.00   1.00	0 1	laminar/B747/misc/ovhd_map_light/x_axis/capt
-		ATTR_light_level 0 1 laminar/B747/light/spill/ratio/captain_map[3]
+		ATTR_light_level 0 1 laminar/B747/light/spill/ratio/captain_map[3] 2000
 		TRIS	151347 1074
 	ANIM_end
 ANIM_end
@@ -64747,13 +64747,13 @@ ANIM_begin
 	ANIM_rotate	  -1.0000    0.0000    0.0000	  0.00   1.00	0 1	laminar/B747/misc/ovhd_map_light/y_axis/fo
 	ANIM_begin
 		ANIM_rotate	  -0.0000   -0.0000   -1.0000	  0.00   1.00	0 1	laminar/B747/misc/ovhd_map_light/x_axis/fo
-		ATTR_light_level 0 1 laminar/B747/light/spill/ratio/first_officer_map[3]
+		ATTR_light_level 0 1 laminar/B747/light/spill/ratio/first_officer_map[3] 2000
 		TRIS	152421 1074
 	ANIM_end
 ANIM_end
-ATTR_light_level 0 1 sim/cockpit2/electrical/panel_brightness_ratio_manual[0]
+ATTR_light_level 0 1 sim/cockpit2/electrical/panel_brightness_ratio_manual[0] 2000
 TRIS	153495 2016
-ATTR_light_level 0.0 1.0 laminar/B747/light/spill/ratio/observer_map[3]
+ATTR_light_level 0.0 1.0 laminar/B747/light/spill/ratio/observer_map[3] 2000
 TRIS	155511 1074
-ATTR_light_level 0.0 1.0 sim/cockpit2/electrical/panel_brightness_ratio_manual[1]
+ATTR_light_level 0.0 1.0 sim/cockpit2/electrical/panel_brightness_ratio_manual[1] 2000
 TRIS	156585 60

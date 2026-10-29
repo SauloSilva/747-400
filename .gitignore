@@ -1,2 +1,15 @@
-747-400_prefs.txt
-plugins/sound3d/volume.txt
+*prefs.txt
+*/747-400_prefs.txt
+B747-400_lastpos.dat
+*.jdat
+.DS_Store
+*/.DS_Store
+liveries/Qantas Wunala Dreaming VH-OJB (RR)/
+liveries/WAMOS*
+liveries/British Airways G-CIVX/
+*.acf~
+747-400F.acf
+747-400F.acf.terrain_radar_descr
+747-400F_vrconfig.txt
+fmod/747-400F.snd
+objects/74F_exterior/

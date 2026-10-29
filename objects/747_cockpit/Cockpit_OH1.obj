@@ -127033,7 +127033,7 @@ IDX10	50015 50016 50017 50015 50017 50018 50032 49976 49978 50032
 IDX10	49978 50033 50036 50035 50058 50036 50058 50057 50055 50056
 IDX10	50054 50055 50054 50053 50059 50060 50061 50059 50061 50062
 IDX10	50011 50012 50013 50011 50013 50014 50007 50008 50009 50007
-IDX10	50009 50010 50028 49968 49970 50028 49970 50029 49999 50000
+IDX10	50009 50010 50028 49968 49970 50028 49970 50029 49999 5000
 IDX10	50001 49999 50001 50002 49987 49991 49990 49987 49990 49988
 IDX10	49981 49984 49986 49981 49986 49982 50030 49972 49974 50030
 IDX10	49974 50031 50031 49974 49976 50031 49976 50032 50029 49970
@@ -135173,6 +135173,7 @@ IDX10	99337 99336 99479 99478 99489 99479 99489 99488 99339 99403
 IDX	99338
 
 # Image: /Users/JGregory/Applications/X-Plane/XP11.00pb08/Aircraft/__Laminar Development/Desktop/Heavy Metal/B747-400 United/objects/747_cockpit/Cockpit_OH1.png
+#fuse caps are in here
 TRIS	0 98724
 ANIM_begin
 	ANIM_trans	  -0.2692    3.4534    5.6087	  -0.2692    3.4581    5.6072	0 1	laminar/B747/button_switch/position[13]
@@ -136278,7 +136279,7 @@ ANIM_begin
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.2924    3.3659    5.3153	  -0.2924    3.3659    5.3153	0 0	no_ref
-	ANIM_rotate	  -0.0000    0.9543   -0.2989	  0.00  90.00	0 0.3333	sim/cockpit2/switches/instrument_brightness_ratio[7]
+	ANIM_rotate	  -0.0000    0.9543   -0.2989	  0.00  90.00	0 0.3333	laminar/B747/switches/instrument_brightness_ratio[7]
 	TRIS	154146 624
 ANIM_end
 ANIM_begin
@@ -136601,274 +136602,274 @@ ANIM_begin
 	ANIM_trans	   0.1755    3.4780    5.6548	   0.1755    3.4809    5.6539	0 1	laminar/B747/air/landing_alt/button_pos
 	TRIS	177030 432
 ANIM_end
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[100]
+zight_level 0 1 laminar/B747/annunciator/brightness_ratio[100] 2000
 TRIS	177462 144
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[101]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[101] 2000
 TRIS	177606 144
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[102]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[102] 2000
 TRIS	177750 144
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[103]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[103] 2000
 TRIS	177894 144
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[104]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[104] 2000
 TRIS	178038 6
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[105]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[105] 2000
 TRIS	178044 6
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[106]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[106] 2000
 TRIS	178050 6
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[107]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[107] 2000
 TRIS	178056 6
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[108]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[108] 2000
 TRIS	178062 6
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[109]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[109] 2000
 TRIS	178068 6
 ANIM_begin
 	ANIM_trans	  -0.2692    3.4534    5.6087	  -0.2692    3.4581    5.6072	0 1	laminar/B747/button_switch/position[13]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[10]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[10] 2000
 	TRIS	178074 6
 ANIM_end
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[110]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[110] 2000
 TRIS	178080 6
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[111]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[111] 2000
 TRIS	178086 6
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[112]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[112] 2000
 TRIS	178092 6
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[113]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[113] 2000
 TRIS	178098 6
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[114]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[114] 2000
 TRIS	178104 6
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[115]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[115] 2000
 TRIS	178110 6
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[116]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[116] 2000
 TRIS	178116 6
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[117]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[117] 2000
 TRIS	178122 6
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[118]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[118] 2000
 TRIS	178128 6
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[119]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[119] 2000
 TRIS	178134 6
 ANIM_begin
 	ANIM_trans	  -0.3449    3.4508    5.6006	  -0.3449    3.4556    5.5991	0 1	laminar/B747/button_switch/position[14]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[11]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[11] 2000
 	TRIS	178140 6
 ANIM_end
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[120]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[120] 2000
 TRIS	178146 6
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[121]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[121] 2000
 TRIS	178152 6
 ANIM_begin
 	ANIM_trans	  -0.1264    3.4631    5.5904	  -0.1263    3.4571    5.5923	0 1	laminar/B747/toggle_switch/position[16]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[122]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[122] 2000
 	TRIS	178158 36
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.0842    3.4631    5.5904	  -0.0842    3.4568    5.5924	0 1	laminar/B747/toggle_switch/position[17]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[123]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[123] 2000
 	TRIS	178194 36
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.0420    3.4631    5.5904	  -0.0420    3.4571    5.5923	0 1	laminar/B747/toggle_switch/position[18]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[124]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[124] 2000
 	TRIS	178230 36
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.0001    3.4631    5.5904	   0.0001    3.4571    5.5923	0 1	laminar/B747/toggle_switch/position[19]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[125]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[125] 2000
 	TRIS	178266 36
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.3449    3.4508    5.6006	  -0.3449    3.4556    5.5991	0 1	laminar/B747/button_switch/position[14]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[12]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[12] 2000
 	TRIS	178302 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.1949    3.4508    5.6006	  -0.1949    3.4556    5.5991	0 1	laminar/B747/button_switch/position[15]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[13]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[13] 2000
 	TRIS	178308 6
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[14]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[14] 2000
 	TRIS	178314 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.3122    3.4508    5.6006	  -0.3122    3.4556    5.5991	0 1	laminar/B747/button_switch/position[16]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[15]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[15] 2000
 	TRIS	178320 6
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[16]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[16] 2000
 	TRIS	178326 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.2276    3.4508    5.6006	  -0.2276    3.4556    5.5991	0 1	laminar/B747/button_switch/position[17]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[17]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[17] 2000
 	TRIS	178332 6
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[18]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[18] 2000
 	TRIS	178338 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.3415    3.4391    5.5631	  -0.3415    3.4439    5.5616	0 1	laminar/B747/button_switch/position[18]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[19]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[19] 2000
 	TRIS	178344 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.2993    3.4391    5.5631	  -0.2993    3.4439    5.5616	0 1	laminar/B747/button_switch/position[19]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[20]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[20] 2000
 	TRIS	178350 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.2392    3.4391    5.5631	  -0.2392    3.4439    5.5616	0 1	laminar/B747/button_switch/position[20]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[21]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[21] 2000
 	TRIS	178356 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.1969    3.4391    5.5631	  -0.1969    3.4439    5.5616	0 1	laminar/B747/button_switch/position[21]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[22]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[22] 2000
 	TRIS	178362 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.3415    3.4279    5.5275	  -0.3415    3.4327    5.5260	0 1	laminar/B747/button_switch/position[22]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[23]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[23] 2000
 	TRIS	178368 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.2993    3.4279    5.5275	  -0.2993    3.4327    5.5260	0 1	laminar/B747/button_switch/position[23]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[24]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[24] 2000
 	TRIS	178374 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.2392    3.4279    5.5275	  -0.2392    3.4327    5.5260	0 1	laminar/B747/button_switch/position[24]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[25]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[25] 2000
 	TRIS	178380 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.1969    3.4279    5.5275	  -0.1969    3.4327    5.5260	0 1	laminar/B747/button_switch/position[25]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[26]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[26] 2000
 	TRIS	178386 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.3415    3.4144    5.4843	  -0.3415    3.4192    5.4828	0 1	laminar/B747/button_switch/position[26]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[27]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[27] 2000
 	TRIS	178392 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.2993    3.4144    5.4843	  -0.2993    3.4192    5.4828	0 1	laminar/B747/button_switch/position[27]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[28]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[28] 2000
 	TRIS	178398 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.2392    3.4144    5.4843	  -0.2392    3.4192    5.4828	0 1	laminar/B747/button_switch/position[28]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[29]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[29] 2000
 	TRIS	178404 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.1969    3.4144    5.4843	  -0.1969    3.4192    5.4828	0 1	laminar/B747/button_switch/position[29]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[30]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[30] 2000
 	TRIS	178410 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.3473    3.3758    5.3610	  -0.3473    3.3805    5.3595	0 1	laminar/B747/button_switch/position[30]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[31]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[31] 2000
 	TRIS	178416 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.2950    3.3758    5.3610	  -0.2950    3.3805    5.3595	0 1	laminar/B747/button_switch/position[31]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[32]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[32] 2000
 	TRIS	178422 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.2427    3.3758    5.3610	  -0.2427    3.3805    5.3595	0 1	laminar/B747/button_switch/position[32]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[33]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[33] 2000
 	TRIS	178428 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.1904    3.3758    5.3610	  -0.1904    3.3805    5.3595	0 1	laminar/B747/button_switch/position[33]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[34]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[34] 2000
 	TRIS	178434 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.0341    3.4610    5.6329	   0.0341    3.4657    5.6314	0 1	laminar/B747/button_switch/position[84]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[35]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[35] 2000
 	TRIS	178440 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.0698    3.4609    5.6329	   0.0698    3.4657    5.6314	0 1	laminar/B747/button_switch/position[85]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[36]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[36] 2000
 	TRIS	178446 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.1038    3.4681    5.6559	   0.1038    3.4729    5.6544	0 1	laminar/B747/button_switch/position[86]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[37]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[37] 2000
 	TRIS	178452 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.0482    3.4358    5.5527	   0.0482    3.4406    5.5512	0 1	laminar/B747/button_switch/position[46]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[38]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[38] 2000
 	TRIS	178458 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.0763    3.4358    5.5527	   0.0763    3.4406    5.5512	0 1	laminar/B747/button_switch/position[47]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[39]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[39] 2000
 	TRIS	178464 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.1096    3.4221    5.5089	  -0.1096    3.4269    5.5074	0 1	laminar/B747/button_switch/position[48]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[40]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[40] 2000
 	TRIS	178470 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.0682    3.4221    5.5089	  -0.0682    3.4269    5.5074	0 1	laminar/B747/button_switch/position[49]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[41]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[41] 2000
 	TRIS	178476 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.0483    3.4221    5.5089	   0.0483    3.4269    5.5074	0 1	laminar/B747/button_switch/position[50]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[42]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[42] 2000
 	TRIS	178482 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.0915    3.4221    5.5089	   0.0915    3.4269    5.5074	0 1	laminar/B747/button_switch/position[51]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[43]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[43] 2000
 	TRIS	178488 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.0223    3.4192    5.4998	  -0.0223    3.4240    5.4983	0 1	laminar/B747/button_switch/position[52]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[44]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[44] 2000
 	TRIS	178494 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.0020    3.4192    5.4998	   0.0020    3.4240    5.4983	0 1	laminar/B747/button_switch/position[53]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[45]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[45] 2000
 	TRIS	178500 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.0223    3.4039    5.4507	  -0.0223    3.4086    5.4492	0 1	laminar/B747/button_switch/position[54]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[46]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[46] 2000
 	TRIS	178506 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.0020    3.4039    5.4507	   0.0020    3.4086    5.4492	0 1	laminar/B747/button_switch/position[55]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[47]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[47] 2000
 	TRIS	178512 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.1251    3.4056    5.4561	  -0.1251    3.4103    5.4546	0 1	laminar/B747/button_switch/position[56]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[48]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[48] 2000
 	TRIS	178518 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.0609    3.4056    5.4561	  -0.0609    3.4103    5.4546	0 1	laminar/B747/button_switch/position[57]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[49]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[49] 2000
 	TRIS	178524 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.2994    3.4928    5.7358	  -0.2994    3.4976    5.7343	0 1	laminar/B747/button_switch/position[7]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[4]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[4] 2000
 	TRIS	178530 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.0418    3.4056    5.4561	   0.0418    3.4103    5.4546	0 1	laminar/B747/button_switch/position[58]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[50]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[50] 2000
 	TRIS	178536 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.1059    3.4056    5.4561	   0.1059    3.4103    5.4546	0 1	laminar/B747/button_switch/position[59]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[51]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[51] 2000
 	TRIS	178542 6
 ANIM_end
 ANIM_begin
@@ -136878,112 +136879,112 @@ ANIM_begin
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.0609    3.3984    5.4332	  -0.0609    3.4032    5.4317	0 1	laminar/B747/button_switch/position[61]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[53]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[53] 2000
 	TRIS	178554 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.0418    3.3984    5.4332	   0.0418    3.4032    5.4317	0 1	laminar/B747/button_switch/position[62]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[54]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[54] 2000
 	TRIS	178560 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.1059    3.3984    5.4332	   0.1059    3.4032    5.4317	0 1	laminar/B747/button_switch/position[63]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[55]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[55] 2000
 	TRIS	178566 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.0891    3.4056    5.4561	  -0.0891    3.4103    5.4546	0 1	laminar/B747/button_switch/position[64]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[56]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[56] 2000
 	TRIS	178572 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.0700    3.4056    5.4561	   0.0700    3.4103    5.4546	0 1	laminar/B747/button_switch/position[65]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[57]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[57] 2000
 	TRIS	178578 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.0891    3.3984    5.4332	  -0.0891    3.4032    5.4317	0 1	laminar/B747/button_switch/position[66]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[58]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[58] 2000
 	TRIS	178584 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.0700    3.3984    5.4332	   0.0700    3.4032    5.4317	0 1	laminar/B747/button_switch/position[67]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[59]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[59] 2000
 	TRIS	178590 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.2692    3.4928    5.7358	  -0.2692    3.4976    5.7343	0 1	laminar/B747/button_switch/position[8]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[5]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[5] 2000
 	TRIS	178596 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.1286    3.3798    5.3739	  -0.1286    3.3846    5.3724	0 1	laminar/B747/button_switch/position[68]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[60]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[60] 2000
 	TRIS	178602 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.1015    3.3832    5.3847	  -0.1015    3.3880    5.3833	0 1	laminar/B747/button_switch/position[69]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[61]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[61] 2000
 	TRIS	178608 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.0772    3.3832    5.3847	  -0.0772    3.3880    5.3833	0 1	laminar/B747/button_switch/position[70]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[62]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[62] 2000
 	TRIS	178614 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.0500    3.3798    5.3739	  -0.0500    3.3846    5.3724	0 1	laminar/B747/button_switch/position[71]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[63]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[63] 2000
 	TRIS	178620 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.0899    3.3754    5.3597	  -0.0899    3.3801    5.3582	0 1	laminar/B747/button_switch/position[72]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[64]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[64] 2000
 	TRIS	178626 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.0385    3.3863    5.3946	   0.0385    3.3911    5.3931	0 1	laminar/B747/button_switch/position[73]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[65]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[65] 2000
 	TRIS	178632 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.0628    3.3863    5.3946	   0.0628    3.3911    5.3931	0 1	laminar/B747/button_switch/position[74]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[66]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[66] 2000
 	TRIS	178638 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.2365    3.4843    5.7074	   0.2365    3.4890    5.7059	0 1	laminar/B747/button_switch/position[82]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[67]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[67] 2000
 	TRIS	178644 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.2608    3.4843    5.7073	   0.2608    3.4890    5.7058	0 1	laminar/B747/button_switch/position[83]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[68]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[68] 2000
 	TRIS	178650 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.1721    3.4316    5.5392	   0.1721    3.4364    5.5377	0 1	laminar/B747/button_switch/position[36]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[69]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[69] 2000
 	TRIS	178656 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.2289    3.4928    5.7358	  -0.2289    3.4976    5.7343	0 1	laminar/B747/button_switch/position[9]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[6]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[6] 2000
 	TRIS	178662 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.3154    3.4316    5.5392	   0.3154    3.4364    5.5377	0 1	laminar/B747/button_switch/position[40]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[70]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[70] 2000
 	TRIS	178668 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.2508    3.4170    5.4925	   0.2508    3.4217    5.4910	0 1	laminar/B747/button_switch/position[42]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[71]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[71] 2000
 	TRIS	178674 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.2069    3.3945    5.4209	   0.2069    3.3993    5.4194	0 1	laminar/B747/button_switch/position[75]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[72]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[72] 2000
 	TRIS	178680 6
 ANIM_end
 ANIM_begin
@@ -136992,90 +136993,90 @@ ANIM_begin
 		ANIM_trans_key	1	   0.2910    3.3993    5.4194
 		ANIM_trans_key	1	   0.2910    3.3993    5.4194
 	ANIM_trans_end
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[73]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[73] 2000
 	TRIS	178686 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.2488    3.3838    5.3866	   0.2488    3.3886    5.3851	0 1	laminar/B747/button_switch/position[81]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[74]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[74] 2000
 	TRIS	178692 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.1721    3.3759    5.3615	   0.1721    3.3807    5.3600	0 1	laminar/B747/button_switch/position[77]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[75]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[75] 2000
 	TRIS	178698 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.2069    3.3759    5.3615	   0.2069    3.3807    5.3600	0 1	laminar/B747/button_switch/position[78]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[76]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[76] 2000
 	TRIS	178704 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.2910    3.3759    5.3615	   0.2910    3.3807    5.3600	0 1	laminar/B747/button_switch/position[79]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[77]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[77] 2000
 	TRIS	178710 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	   0.3258    3.3759    5.3615	   0.3258    3.3807    5.3600	0 1	laminar/B747/button_switch/position[80]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[78]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[78] 2000
 	TRIS	178716 6
 ANIM_end
 ANIM_begin
 	ANIM_trans	  -0.1986    3.4928    5.7358	  -0.1986    3.4976    5.7343	0 1	laminar/B747/button_switch/position[10]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[7]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[7] 2000
 	TRIS	178722 6
 ANIM_end
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[80]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[80] 2000
 TRIS	178728 6
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[81]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[81] 2000
 TRIS	178734 6
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[82]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[82] 2000
 TRIS	178740 6
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[83]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[83] 2000
 TRIS	178746 6
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[84]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[84] 2000
 TRIS	178752 6
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[85]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[85] 2000
 TRIS	178758 6
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[86]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[86] 2000
 TRIS	178764 6
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[87]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[87] 2000
 TRIS	178770 6
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[88]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[88] 2000
 TRIS	178776 6
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[89]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[89] 2000
 TRIS	178782 6
 ANIM_begin
 	ANIM_trans	  -0.2820    3.4659    5.6486	  -0.2820    3.4706    5.6471	0 1	laminar/B747/button_switch/position[11]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[8]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[8] 2000
 	TRIS	178788 6
 ANIM_end
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[90]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[90] 2000
 TRIS	178794 6
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[91]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[91] 2000
 TRIS	178800 6
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[92]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[92] 2000
 TRIS	178806 6
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[93]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[93] 2000
 TRIS	178812 6
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[94]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[94] 2000
 TRIS	178818 6
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[95]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[95] 2000
 TRIS	178824 144
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[96]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[96] 2000
 TRIS	178968 144
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[97]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[97] 2000
 TRIS	179112 144
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[98]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[98] 2000
 TRIS	179256 144
-ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[99]
+ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[99] 2000
 TRIS	179400 144
 ANIM_begin
 	ANIM_trans	  -0.2564    3.4658    5.6485	  -0.2564    3.4706    5.6470	0 1	laminar/B747/button_switch/position[12]
-	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[9]
+	ATTR_light_level 0 1 laminar/B747/annunciator/brightness_ratio[9] 2000
 	TRIS	179544 6
 ANIM_end
-ATTR_light_level 0 1 sim/LIT/dummy
+ATTR_light_level 0 1 laminar/B747/annunciators/engine_fires[4] 2000
 TRIS	179550 6
 ANIM_begin
 	ANIM_trans	  -0.1072    3.5287    5.7026	  -0.1072    3.5287    5.7026	0 0	no_ref
@@ -137086,7 +137087,7 @@ ANIM_begin
 	ANIM_rotate_end
 	ANIM_begin
 		ANIM_trans	   0.0000   -0.0387    0.0121	   0.0000   -0.0492    0.0154	0 1	laminar/B747/fire/engine01/ext_switch/pos_arm
-		ATTR_light_level 0 1 sim/cockpit2/annunciators/engine_fires[0]
+		ATTR_light_level 0 1 laminar/B747/annunciators/engine_fires[0] 2000
 		TRIS	179556 6
 	ANIM_end
 ANIM_end
@@ -137099,7 +137100,7 @@ ANIM_begin
 	ANIM_rotate_end
 	ANIM_begin
 		ANIM_trans	   0.0000   -0.0386    0.0121	   0.0000   -0.0492    0.0154	0 1	laminar/B747/fire/engine02/ext_switch/pos_arm
-		ATTR_light_level 0 1 sim/cockpit2/annunciators/engine_fires[1]
+		ATTR_light_level 0 1 laminar/B747/annunciators/engine_fires[1] 2000
 		TRIS	179562 6
 	ANIM_end
 ANIM_end
@@ -137112,7 +137113,7 @@ ANIM_begin
 	ANIM_rotate_end
 	ANIM_begin
 		ANIM_trans	   0.0000   -0.0387    0.0121	   0.0000   -0.0492    0.0154	0 1	laminar/B747/fire/engine03/ext_switch/pos_arm
-		ATTR_light_level 0 1 sim/cockpit2/annunciators/engine_fires[2]
+		ATTR_light_level 0 1 laminar/B747/annunciators/engine_fires[2] 2000
 		TRIS	179568 6
 	ANIM_end
 ANIM_end
@@ -137125,12 +137126,15 @@ ANIM_begin
 	ANIM_rotate_end
 	ANIM_begin
 		ANIM_trans	   0.0000   -0.0387    0.0121	   0.0000   -0.0492    0.0154	0 1	laminar/B747/fire/engine04/ext_switch/pos_arm
-		ATTR_light_level 0 1 sim/cockpit2/annunciators/engine_fires[3]
+		ATTR_light_level 0 1 laminar/B747/annunciators/engine_fires[3]  2000
 		TRIS	179574 6
 	ANIM_end
 ANIM_end
-ATTR_light_level 0 1 sim/cockpit2/electrical/instrument_brightness_ratio_manual[7]
+ATTR_light_level 0 1 sim/cockpit2/electrical/instrument_brightness_ratio_manual[7] 2000
 TRIS	179580 173349
+#TRIS	179580 41349
+#TRIS	220929 132000
+#TRIS	351929 9999
 ANIM_begin
 	ANIM_trans	   0.2120    3.4750    5.6567	   0.2120    3.4750    5.6567	0 0	no_ref
 	ANIM_rotate	   0.0001   -0.9543    0.2989	 90.00 -90.00	-1.0 1	laminar/B747/air/outflow_valve_left/pos
